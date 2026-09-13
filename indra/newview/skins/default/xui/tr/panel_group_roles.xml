@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="roles_tab" label="Üyeler">
+	<string name="default_needs_apply_text">Geçerli alt sekmede uygulanmamış değişiklikler var.</string>
+	<string name="want_apply_text">Bu değişiklikleri uygulamak istiyor musunuz?</string>
+	<string name="help_text" />
+	<button name="help_button" label="?" />
+	<panel name="members_header">
+		<text name="static">Üyeler ve Roller</text>
+		<text name="static2">
+			Grup Üyelerine Yetenekli Roller atanır. Bu ayarlar şunları yapabilir: 
+kolayca özelleştirilebilir, böylece daha fazla organizasyon ve esneklik sağlanır.
+		</text>
+	</panel>
+	<panel name="roles_header">
+		<text name="static">Roles</text>
+		<text name="role_properties_modifiable">Aşağıdan bir Rol seçin.  Adını, Açıklamasını ve Üye Unvanını değiştirebilirsiniz.</text>
+		<text name="role_properties_not_modifiable">Özelliklerini, Üyelerini ve izin verilen Yeteneklerini görmek için aşağıdan bir Rol seçin.</text>
+		<text name="role_actions_modifiable">Ayrıca Role Yetenekler de atayabilirsiniz.</text>
+		<text name="role_actions_not_modifiable">Atanan Yetenekleri görüntüleyebilir ancak değiştiremezsiniz.</text>
+	</panel>
+	<panel name="actions_header">
+		<text name="static">Yetenekler</text>
+		<text name="static2">
+			Bir Yeteneğin Açıklamasını ve hangi Rollerin ve Üyelerin yapabileceğini görüntüleyebilirsiniz. 
+Yeteneği çalıştırın.
+		</text>
+	</panel>
+	<panel name="banlist_header">
+		<text name="static">Yasaklı Sakinler</text>
+		<text name="static2">
+			Bu grupta hangi Sakinlerin bulunmasına izin verilmediğini inceleyin. Üyeler
+'Yasaklama listesini yönet' yeteneği belirli sakinlerin gruba katılmasını engelleyebilir.
+		</text>
+	</panel>
+	<tab_container name="roles_tab_container">
+		<panel name="members_sub_tab" label="Üyeler" tool_tip="Üyeler">
+			<string name="donation_area">[AREA] m²</string>
+			<filter_editor name="filter_input" />
+			<name_list name="member_list">
+				<column name="name" label="Üye Adı" />
+				<column name="donated" label="Bağışlanan Seviye" />
+				<column name="online" label="Son Giriş" />
+			</name_list>
+			<button name="member_invite" label="Yeni Üye Davet Et..." />
+			<button name="member_eject" label="Gruptan Çıkar" />
+			<button name="member_ban" label="Üye(ler)i yasakla" />
+			<string name="help_text">
+				Üyelere atanan Rolleri ekleyebilir veya kaldırabilirsiniz.
+Ctrl tuşunu basılı tutarak birden fazla Üye seçin ve
+isimlerine tıklayın.
+			</string>
+			<string name="power_folder_icon">inv_folder_plain_closed.tga</string>
+		</panel>
+		<panel name="roles_sub_tab" label="Roles">
+			<filter_editor name="filter_input" />
+			<scroll_list name="role_list">
+				<column name="name" label="Rol Adı" />
+				<column name="title" label="Başlık" />
+				<column name="members" label="Üyeler" />
+			</scroll_list>
+			<button name="role_create" label="Yeni Rol Oluştur..." />
+			<button name="role_delete" label="Rolü Sil" />
+			<string name="help_text">
+				Rollerin bir başlığı ve izin verilen Yetenekler listesi vardır
+Üyelerin gerçekleştirebileceği. Üyeler şunlara ait olabilir: 
+bir veya daha fazla Roller. Bir grupta en fazla 10 Rol olabilir,
+Herkes ve Sahip Rolleri dahil.
+			</string>
+			<string name="cant_delete_role">'Herkes' ve 'Sahipler' Rolleri özeldir ve silinemez.</string>
+			<string name="power_folder_icon">inv_folder_plain_closed.tga</string>
+			<string name="power_all_have_icon">checkbox_enabled_true.tga</string>
+			<string name="power_partial_icon">checkbox_enabled_false.tga</string>
+		</panel>
+		<panel name="actions_sub_tab" label="Yetenekler">
+			<filter_editor name="filter_input" />
+			<scroll_list name="action_list" tool_tip="Daha fazla ayrıntı görüntülemek için bir Yetenek seçin.">
+				<column name="icon" />
+				<column name="action" />
+			</scroll_list>
+			<string name="help_text">
+				Yetenekler, Rollerdeki Üyelerin belirli işlemleri yapmasına olanak tanır
+bu gruptaki şeyler. Çok çeşitli Yetenekler vardır.
+			</string>
+			<string name="power_folder_icon">inv_folder_plain_closed.tga</string>
+		</panel>
+		<panel name="banlist_sub_tab" label="Yasaklı Sakinler">
+			<panel.string name="help_text">Yasak listesindeki herhangi bir sakin gruba katılamayacaktır.</panel.string>
+		</panel>
+	</tab_container>
+	<panel name="members_footer">
+		<text name="static">Atanan Roller</text>
+		<text name="static2">İzin Verilen Yetenekler</text>
+		<scroll_list name="member_assigned_roles">
+			<column name="checkbox" />
+			<column name="role" />
+		</scroll_list>
+		<scroll_list name="member_allowed_actions" tool_tip="İzin Verilen Her Yeteneğin Ayrıntıları için Yetenekler sekmesine bakın.">
+			<column name="icon" />
+			<column name="action" />
+		</scroll_list>
+	</panel>
+	<panel name="roles_footer">
+		<text name="static">İsim</text>
+		<text name="static2">Açıklama</text>
+		<line_editor name="role_name">Çalışanlar</line_editor>
+		<text name="static3">Başlık</text>
+		<line_editor name="role_title">(bekliyor)</line_editor>
+		<text_editor name="role_description">(bekliyor)</text_editor>
+		<text name="static4">Atanan Üyeler</text>
+		<text name="static5" tool_tip="Şu anda seçili rolün gerçekleştirebileceği Yeteneklerin listesi.">İzin Verilen Yetenekler</text>
+		<name_list name="role_assigned_members" />
+		<check_box name="role_visible_in_list" label="Üyeler görünür" tool_tip="Bu rolün üyelerinin Genel sekmesinde grup dışındaki kişilere görünür olup olmayacağını ayarlar." />
+		<scroll_list name="role_allowed_actions" tool_tip="İzin Verilen Her Yeteneğin Ayrıntıları için Yetenekler sekmesine bakın.">
+			<column name="icon" />
+			<column name="checkbox" />
+			<column name="action" />
+		</scroll_list>
+	</panel>
+	<panel name="actions_footer">
+		<text name="static">Açıklama</text>
+		<text_editor name="action_description">Bu Yetenek 'Üyeleri Bu Gruptan Çıkar'dır. Yalnızca bir Sahip başka bir Sahip'i çıkarabilir.</text_editor>
+		<text name="static2">Yetenekli Roller</text>
+		<text name="static3">Yetenekli Üyeler</text>
+		<scroll_list name="action_roles" />
+		<name_list name="action_members" />
+	</panel>
+	<panel name="banlist_footer">
+		<name_list name="ban_list">
+			<column name="name" label="Sakin" />
+			<column name="ban_date" label="Yasaklanma Tarihi" />
+		</name_list>
+		<button name="ban_create" label="Sakinleri Yasakla" tool_tip="Grubunuzda yaşayanları yasaklayın" />
+		<button name="ban_delete" label="Yasakları Kaldır" tool_tip="Grubunuzda seçilen sakinlerin yasağını kaldırın" />
+		<button name="ban_refresh" label="Yenile" tool_tip="Yasak listesini yenile" />
+	</panel>
+</panel>

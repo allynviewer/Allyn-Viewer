@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="ao_controls">
+	<button name="ao_btn" label="AO выкл." label_selected="AO вкл." tool_tip="Включить или выключить переопределение анимации" />
+	<button name="popup_btn" tool_tip="Дополнительные параметры" />
+</panel>

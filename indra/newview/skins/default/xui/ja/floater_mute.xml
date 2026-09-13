@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="mute floater" title="ミュートしたレジデントとオブジェクト">
+	<name_list name="mutes" tool_tip="ミュートしたオブジェクト／アバターの名前">
+		<column name="icon" />
+		<column name="name" label="名前" tool_tip="名前" />
+	</name_list>
+	<button name="Mute resident..." label="レジデントをミュート..." tool_tip="ミュートするレジデントを選びます" />
+	<button name="Mute object by name..." label="名前でオブジェクトをミュート..." />
+	<button name="Unmute" label="ミュート解除" tool_tip="ミュートリストからレジデントまたはオブジェクトを削除します" />
+</floater>

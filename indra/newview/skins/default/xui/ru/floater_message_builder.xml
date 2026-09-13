@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Message Builder" title="Конструктор сообщений">
+	<scroll_list name="net_list">
+		<column name="text" label="текст" />
+		<column name="state" label="состояние" />
+	</scroll_list>
+	<combo_box name="untrusted_message_combo" tool_tip="Нет доверия" />
+	<combo_box name="trusted_message_combo" tool_tip="Доверять" />
+	<text_editor name="message_edit" />
+	<button name="send_btn" label="Отправлять" tool_tip="Отправить (Ctrl+Ввод)" />
+</floater>

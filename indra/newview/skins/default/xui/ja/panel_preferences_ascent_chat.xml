@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="ascsys" label="詳細チャット">
+	<tab_container name="Ascent Chat" label="詳細チャット">
+		<panel name="Chat/IM" label="チャット/IM">
+			<scroll_container name="advchat_im_scroll">
+				<panel name="advchat_im_inner">
+					<text name="objects_link_text_box">IM</text>
+					<icon name="section_im_rule" />
+					<check_box name="quickstart_im_check" label="着信IMを通知" tool_tip="相手がIMの入力を始めた時点でIMウィンドウを開きます。送信前にIMが来ていることがわかります。" />
+					<check_box name="hide_typing_check" label="「[name]が入力中...」をIMで送信しない" tool_tip="返信中に相手へ「______が入力中...」が表示されなくなります。" />
+					<check_box name="InstantMessagesFriendsOnly" label="フレンドからのIMのみ受け付ける" />
+					<check_box name="allow_mu_pose_check" label="MUポーズ方式を許可" tool_tip="/me と : の両方でエモートを実行できます。" />
+					<check_box name="close_ooc_check" label="OOCコメントを自動で閉じる" tool_tip="「((」で始まるメッセージに「))」を自動で付けます。逆も同様です。" />
+					<text name="objects_link_text_box2">チャット</text>
+					<icon name="section_chat_rule" />
+					<check_box name="play_typing_sound_check" label="ローカルチャットの入力音を再生" tool_tip="入力音を消すと、公演などの場が静かになります。" />
+					<check_box name="hide_notifications_in_chat_check" label="通知をチャットに表示／記録しない" />
+					<check_box name="append_group_name_check" label="チャットにグループ名を表示" tool_tip="グループチャットからのIMの場合、グループ名も表示されます。" />
+					<check_box name="display_name_change" label="表示名の変更を表示" tool_tip="オンにすると、誰かの表示名が変わったときにチャットへ通知されます。" />
+					<check_box name="use_typing_bubbles" label="頭上に入力中バブルを表示" />
+					<text name="objects_link_text_box3">チャット履歴の発言オブジェクト名にリンクを表示:</text>
+					<radio_group name="objects_link" tool_tip="発言オブジェクトの所有者を表示するリンクを有効にします。">
+						<radio_item name="no_object">オブジェクトなし</radio_item>
+						<radio_item name="others_objects">他人のオブジェクト</radio_item>
+						<radio_item name="anyones_objects">すべてのオブジェクト</radio_item>
+					</radio_group>
+					<text name="time_format_text_box">時刻形式:</text>
+					<combo_box name="time_format_combobox" tool_tip="時刻を24時間制または午前/午後形式で表示します。">
+						<combo_item name="24hours">24時間制</combo_item>
+						<combo_item name="12hours">12時間制</combo_item>
+					</combo_box>
+					<check_box name="seconds_in_chat_and_ims_check" label="チャット/IMのタイムスタンプに秒を含める" />
+					<text name="date_format_text_box">日付形式:</text>
+					<combo_box name="date_format_combobox">
+						<combo_item name="year_first">YYYY-MM-DD</combo_item>
+						<combo_item name="year_first_slashes">YYYY/MM/DD</combo_item>
+						<combo_item name="day_first">DD/MM/YYYY</combo_item>
+						<combo_item name="month_first">MM/DD/YYYY</combo_item>
+					</combo_box>
+					<check_box name="seconds_in_log" label="ログのタイムスタンプに秒を含める" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="ChatUI" label="チャットUI">
+			<scroll_container name="advchat_ui_scroll">
+				<panel name="advchat_ui_inner">
+					<check_box name="use_vertical_ims_check" label="縦型IMを使用（再起動が必要）" />
+					<check_box name="chats_torn_off" label="新しいIMを別ウィンドウで開く" />
+					<check_box name="chat_steal_focus" label="新しいIMにフォーカスする" />
+					<check_box name="show_local_chat_floater_bar" label="切り離したローカルチャットにチャットバーを表示" />
+					<check_box name="horiz_butt" label="連絡先ウィンドウで横並びボタンを使用（再起動が必要）" tool_tip="オンにすると、フレンドとグループのボタンが右側の縦並びではなく、下部に横並びになります。" />
+					<text name="namesystems_text_box">名前形式</text>
+					<icon name="section_names_rule" />
+					<text name="chat_tabs_namesystem_text_box">チャットタブ:</text>
+					<combo_box name="chat_tabs_namesystem_combobox">
+						<combo_item name="Old Names">旧ユーザー名</combo_item>
+						<combo_item name="Display Names (with Username)">表示名（ユーザー名付き）</combo_item>
+						<combo_item name="Display Names only">表示名のみ</combo_item>
+						<combo_item name="Old Names (with Display Names)">旧ユーザー名（表示名付き）</combo_item>
+					</combo_box>
+					<text name="friends_namesystem_text_box">フレンド:</text>
+					<combo_box name="friends_namesystem_combobox">
+						<combo_item name="Old Names">旧ユーザー名</combo_item>
+						<combo_item name="Display Names (with Username)">表示名（ユーザー名付き）</combo_item>
+						<combo_item name="Display Names only">表示名のみ</combo_item>
+						<combo_item name="Old Names (with Display Names)">旧ユーザー名（表示名付き）</combo_item>
+					</combo_box>
+					<text name="group_members_namesystem_text_box">グループメンバー:</text>
+					<combo_box name="group_members_namesystem_combobox">
+						<combo_item name="Old Names">旧ユーザー名</combo_item>
+						<combo_item name="Display Names (with Username)">表示名（ユーザー名付き）</combo_item>
+						<combo_item name="Display Names only">表示名のみ</combo_item>
+						<combo_item name="Old Names (with Display Names)">旧ユーザー名（表示名付き）</combo_item>
+					</combo_box>
+					<text name="land_management_namesystem_text_box">土地管理:</text>
+					<combo_box name="land_management_namesystem_combobox">
+						<combo_item name="Old Names">旧ユーザー名</combo_item>
+						<combo_item name="Display Names (with Username)">表示名（ユーザー名付き）</combo_item>
+						<combo_item name="Display Names only">表示名のみ</combo_item>
+						<combo_item name="Old Names (with Display Names)">旧ユーザー名（表示名付き）</combo_item>
+					</combo_box>
+					<text name="profile_namesystem_text_box">プロフィール:</text>
+					<combo_box name="profile_namesystem_combobox">
+						<combo_item name="Old Names">旧ユーザー名</combo_item>
+						<combo_item name="Display Names (with Username)">表示名（ユーザー名付き）</combo_item>
+						<combo_item name="Display Names only">表示名のみ</combo_item>
+						<combo_item name="Old Names (with Display Names)">旧ユーザー名（表示名付き）</combo_item>
+					</combo_box>
+					<text name="radar_namesystem_text_box">レーダー:</text>
+					<combo_box name="radar_namesystem_combobox">
+						<combo_item name="Old Names">旧ユーザー名</combo_item>
+						<combo_item name="Display Names (with Username)">表示名（ユーザー名付き）</combo_item>
+						<combo_item name="Display Names only">表示名のみ</combo_item>
+						<combo_item name="Old Names (with Display Names)">旧ユーザー名（表示名付き）</combo_item>
+					</combo_box>
+					<text name="speaker_namesystem_text_box">スピーカー:</text>
+					<combo_box name="speaker_namesystem_combobox">
+						<combo_item name="Old Names">旧ユーザー名</combo_item>
+						<combo_item name="Display Names (with Username)">表示名（ユーザー名付き）</combo_item>
+						<combo_item name="Display Names only">表示名のみ</combo_item>
+						<combo_item name="Old Names (with Display Names)">旧ユーザー名（表示名付き）</combo_item>
+					</combo_box>
+					<check_box name="im_concise_butt" label="IMの名前と同じ行にボタンを配置（新しいIMに適用）" />
+					<check_box name="group_concise_butt" label="グループチャットの名前行にボタンを配置（新しいグループチャットに適用）" />
+					<check_box name="conf_concise_butt" label="会議のタイトル行にボタンを配置（新しい会議に適用）" />
+					<check_box name="legacy_log_launch" label="ログボタンで外部テキストエディタを開く" />
+					<check_box name="only_comm" label="切り離したフレンドリストではコミュニケーションショートカットを無効にする" />
+					<check_box name="scroll_to_end_on_focus" label="チャットが再フォーカスされたら末尾へ自動スクロール" />
+					<check_box name="italicize_actions" label="アクションメッセージ（/me）を斜体にする" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="Autoresponse" label="自動応答">
+			<text name="Autoresponse Info">自動応答は、メッセージを受け取った相手へカスタムメッセージで返信します。次のワイルドカードが使えます: #n は相手のレガシー名、#d は表示名、#r は現在地のSLURL、#i はアイドル時間（分）。</text>
+			<check_box name="AscentInstantMessageResponseRepeat" label="自動応答を有効にした相手からのメッセージすべてに返信する" />
+			<check_box name="AutoresponseOnlyIfAway" label="離席中のみ自動応答する" />
+			<tab_container name="Autoresponses">
+				<panel name="Basic" label="基本">
+					<check_box name="AutoresponseAnyone" label="有効にする" tool_tip="ミュートしていない相手へ下のメッセージを送信します。" />
+					<check_box name="AutoresponseAnyoneFriendsOnly" label="フレンドのみ" tool_tip="知らない相手にはこの応答を送りません" />
+					<check_box name="AutoresponseAnyoneItem" label="アイテムを送信" />
+					<check_box name="AutoresponseAnyoneShow" label="送信したことを表示" />
+					<text_editor name="AutoresponseAnyoneMessage" />
+					<drop_target name="AutoresponseAnyoneItemID" tool_tip="ここにアイテムをドロップすると、上記の応答と一緒に送信されます。" />
+				</panel>
+				<panel name="Nonfriends" label="非フレンド">
+					<check_box name="AutoresponseNonFriends" label="有効にする" tool_tip="フレンドではない相手へ下のメッセージを送信します。" />
+					<check_box name="AutoresponseNonFriendsItem" label="アイテムを送信" />
+					<check_box name="AutoresponseNonFriendsShow" label="送信したことを表示" />
+					<text_editor name="AutoresponseNonFriendsMessage" />
+					<drop_target name="AutoresponseNonFriendsItemID" tool_tip="ここにアイテムをドロップすると、上記の応答と一緒に送信されます。" />
+				</panel>
+				<panel name="Muted" label="ミュート済み">
+					<check_box name="AutoresponseMuted" label="有効にする" tool_tip="ミュートした相手へ下のメッセージを送信します。" />
+					<check_box name="AutoresponseMutedItem" label="アイテムを送信" />
+					<check_box name="AutoresponseMutedShow" label="送信したことを表示" />
+					<text_editor name="AutoresponseMutedMessage" />
+					<drop_target name="AutoresponseMutedItemID" tool_tip="ここにアイテムをドロップすると、上記の応答と一緒に送信されます。" />
+				</panel>
+				<panel name="Busy Mode" label="取り込み中モード" tool_tip="取り込み中にメッセージしてきた相手へ下のメッセージを送信します。">
+					<check_box name="BusyModeResponseItem" label="アイテムを送信" />
+					<check_box name="BusyModeResponseShow" label="送信したことを表示" />
+					<text_editor name="BusyModeResponse" />
+					<drop_target name="BusyModeResponseItemID" tool_tip="ここにアイテムをドロップすると、上記の応答と一緒に送信されます。" />
+				</panel>
+			</tab_container>
+		</panel>
+		<panel name="Spam" label="スパム">
+			<scroll_container name="advchat_spam_scroll">
+				<panel name="advchat_spam_inner">
+					<check_box name="enable_as" label="アンチスパムを有効にする" />
+					<button name="reset_antispam" label="アンチスパムキューをリセット" />
+					<check_box name="spammsg_checkbox" label="メッセージ種別ごとのスパムキューを使わない" />
+					<spinner name="antispamtime" label="アンチスパム時間（秒）:" tool_tip="低いほど感度が下がります" />
+					<spinner name="antispamamount" label="アンチスパム量:" tool_tip="高いほど感度が下がります" />
+					<spinner name="antispamsoundmulti" label="サウンド再生の量倍率:" tool_tip="高いほど感度が下がります" />
+					<spinner name="antispamsoundpreloadmulti" label="サウンドプリロードの量倍率:" tool_tip="高いほど感度が下がります" />
+					<spinner name="antispamnewlines" label="即ブロックする改行数:" tool_tip="高いほど感度が下がります" />
+					<check_box name="Notify On Spam" label="スパムをブロックしたときに通知" tool_tip="オンにすると、実際のスパムをブロックするたびに右下に擬似スパムが表示されることがあります。" />
+					<check_box name="antispam_checkbox" label="すべてのダイアログを無効にする（ログイン時にリセット）" />
+					<text name="Block All Dialogs From">次からのダイアログをすべてブロック</text>
+					<check_box name="Alerts" label="アラート" />
+					<check_box name="Friendship Offers" label="フレンド申請" />
+					<check_box name="Group Invites" label="すべてのグループ招待" />
+					<check_box name="Group Fee Invites" label="グループ料金付き招待" />
+					<check_box name="Item Offers" label="アイテムの提供" />
+					<check_box name="Scripts" label="スクリプト" />
+					<check_box name="Teleport Offers" label="テレポートの提供" />
+					<check_box name="Group Notices" label="グループ告知" />
+					<check_box name="Teleport Requests" label="テレポートリクエスト" />
+					<check_box name="LM Offers" label="ランドマークの提供" />
+					<text name="Except those from:">次からのものは除く:</text>
+					<check_box name="My objects" label="自分のオブジェクト" />
+					<check_box name="My friends" label="自分のフレンド" />
+					<check_box name="Enable Gesture Sounds" label="ジェスチャーサウンドを有効にする" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="TextOptions" label="テキストオプション">
+			<scroll_container name="advchat_text_scroll">
+				<panel name="advchat_text_inner">
+					<check_box name="SpellDisplay" label="スペルミスを赤で表示" />
+					<text name="EmSpell_txt1">現在の言語（辞書）:</text>
+					<combo_box name="SpellBase" />
+					<text name="EmSpell_txt3">ダウンロード済みの言語（辞書）:</text>
+					<combo_box name="EmSpell_Avail" />
+					<button name="EmSpell_Add" label="インストール" />
+					<button name="EmSpell_GetMore" label="さらにダウンロード..." tool_tip="オンラインで辞書を追加します" />
+					<text name="EmSpell_txt2">追加のカスタム言語（辞書）:</text>
+					<combo_box name="EmSpell_Installed" />
+					<button name="EmSpell_Remove" label="削除" />
+					<button name="EmSpell_EditCustom" label="カスタム辞書を編集" />
+					<text name="EmSpell_txt4">スペルチェックを使うには、誤りのある単語（赤など）を右クリックして置換を選んでください</text>
+					<button name="autoreplace" label="自動置換の環境設定" />
+					<view_border name="CmdDivisor" />
+					<check_box name="KeywordsOn" label="指定した語句を含むメッセージをハイライト" />
+					<text name="keyword_txt1">（カンマ区切り）</text>
+					<line_editor name="KeywordsList" />
+					<text name="EmKeyw">次の中で見つかった場合:</text>
+					<check_box name="KeywordsInChat" label="ローカルチャットウィンドウ" />
+					<check_box name="KeywordsInIM" label="IMウィンドウ" />
+					<check_box name="KeywordsChangeColor" label="この色でメッセージをハイライト:" />
+					<color_swatch name="KeywordsColor" tool_tip="クリックしてカラーピッカーを開く" />
+					<check_box name="KeywordsPlaySound" label="このサウンドアラートを再生:（UUID）" />
+					<line_editor name="KeywordsSound" />
+				</panel>
+			</scroll_container>
+		</panel>
+	</tab_container>
+</panel>

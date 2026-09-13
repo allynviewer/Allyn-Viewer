@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="area search" title="Yakındaki nesneleri ara">
+	<text name="name_label">Ad:</text>
+	<text name="desc_label">Açıklama:</text>
+	<filter_editor name="Name query chunk" />
+	<filter_editor name="Description query chunk" />
+	<text name="owner_label">Sahip:</text>
+	<text name="group_label">Grup:</text>
+	<filter_editor name="Owner query chunk" />
+	<filter_editor name="Group query chunk" />
+	<scroll_list name="result_list">
+		<column name="Name" label="Ad" tool_tip="Konumu işaretlemek için çift tıkla" />
+		<column name="Description" label="Açıklama" tool_tip="Konumu işaretlemek için çift tıkla" />
+		<column name="Owner" label="Sahip" tool_tip="Konumu işaretlemek için çift tıkla" />
+		<column name="Group" label="Grup" tool_tip="Konumu işaretlemek için çift tıkla" />
+	</scroll_list>
+	<button name="TP" label="TP" />
+	<button name="Look" label="Bak" />
+	<button name="Refresh" />
+	<button name="Stop" />
+	<text name="counter">Listelenen/Bekleyen/Toplam</text>
+</floater>

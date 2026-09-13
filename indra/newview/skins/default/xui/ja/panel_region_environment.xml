@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="panel_env_info" label="環境">
+	<text name="water_settings_title">訪問者に見せたい水と空／日サイクルの設定を選んでください。詳細情報</text>
+	<view_border name="border" />
+	<radio_group name="region_settings_radio_group">
+		<radio_item name="use_sl_default_settings">Second Life のデフォルトを使用</radio_item>
+		<radio_item name="use_my_settings">次の設定を使用</radio_item>
+	</radio_group>
+	<panel name="user_environment_settings">
+		<text name="water_settings_title">水の設定</text>
+		<combo_box name="water_settings_preset_combo">
+			<combo_item name="item0">- プリセットを選択 -</combo_item>
+		</combo_box>
+		<text name="sky_dayc_settings_title">空／日サイクル</text>
+		<radio_group name="sky_dayc_settings_radio_group">
+			<radio_item name="my_sky_settings">固定の空</radio_item>
+			<radio_item name="my_dayc_settings">日サイクル</radio_item>
+		</radio_group>
+		<combo_box name="sky_settings_preset_combo">
+			<combo_item name="item0">- プリセットを選択 -</combo_item>
+		</combo_box>
+		<combo_box name="dayc_settings_preset_combo">
+			<combo_item name="item0">- プリセットを選択 -</combo_item>
+		</combo_box>
+	</panel>
+	<button name="apply_btn" label="適用" />
+	<button name="cancel_btn" label="キャンセル" />
+	<text name="progress_indicator">適用中</text>
+</panel>

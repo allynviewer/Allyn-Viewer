@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="panel_env_info" label="Среда">
+	<text name="water_settings_title">
+		Выберите настройки цикла воды и неба/дня, которые вы хотите, чтобы все посетители вашего сайта
+регион, который стоит посмотреть.  Дополнительная информация
+	</text>
+	<view_border name="border" />
+	<radio_group name="region_settings_radio_group">
+		<radio_item name="use_sl_default_settings">Использовать Second Life по умолчанию</radio_item>
+		<radio_item name="use_my_settings">Используйте следующие настройки</radio_item>
+	</radio_group>
+	<panel name="user_environment_settings">
+		<text name="water_settings_title">Настройка воды</text>
+		<combo_box name="water_settings_preset_combo">
+			<combo_item name="item0">-Выберите пресет-</combo_item>
+		</combo_box>
+		<text name="sky_dayc_settings_title">Небо/дневной цикл</text>
+		<radio_group name="sky_dayc_settings_radio_group">
+			<radio_item name="my_sky_settings">Исправлено небо</radio_item>
+			<radio_item name="my_dayc_settings">Дневной цикл</radio_item>
+		</radio_group>
+		<combo_box name="sky_settings_preset_combo">
+			<combo_item name="item0">-Выберите пресет-</combo_item>
+		</combo_box>
+		<combo_box name="dayc_settings_preset_combo">
+			<combo_item name="item0">-Выберите пресет-</combo_item>
+		</combo_box>
+	</panel>
+	<button name="apply_btn" label="Применить" />
+	<button name="cancel_btn" label="Отмена" />
+	<text name="progress_indicator">Applying</text>
+</panel>

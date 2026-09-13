@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Self Pie">
+	<menu_item_call name="Profile..." label="Профиль..." />
+	<menu_item_call name="Groups..." label="Группы..." />
+	<pie_menu name="Take Off" label="Снять">
+		<pie_menu name="Clothes" label="Одежда">
+			<menu_item_call name="Shirt" label="Рубашка" />
+			<menu_item_call name="Pants" label="Брюки" />
+			<menu_item_call name="Shoes" label="Обувь" />
+			<menu_item_call name="Socks" label="Носки" />
+			<menu_item_call name="Jacket" label="Куртка" />
+			<menu_item_call name="Gloves" label="Перчатки" />
+			<pie_menu name="More" label="Ещё">
+				<menu_item_call name="Self Undershirt" label="Майка" />
+				<menu_item_call name="All Clothes" label="Вся одежда" />
+				<menu_item_call name="Self Tattoo" label="Тату" />
+				<menu_item_call name="Self Alpha" label="Альфа" />
+				<menu_item_call name="Self Underpants" label="Трусы" />
+				<menu_item_call name="Self Physics" label="Физика" />
+			</pie_menu>
+			<menu_item_call name="Skirt" label="Юбка" />
+		</pie_menu>
+		<pie_menu name="Object Detach HUD" label="HUD" />
+		<pie_menu name="Object Detach" label="Отсоединить" />
+		<pie_menu name="Object Detach More" label="Ещё точки" />
+		<menu_item_call name="Detach All" label="Отсоединить всё" />
+	</pie_menu>
+	<menu_item_call name="Stand Up Self" label="Встать" />
+	<menu_item_call name="Gestures..." label="Жесты..." />
+	<pie_menu name="Tools" label="Инструменты">
+		<menu_item_call name="Reload Textures" label="Перезагрузить" />
+		<menu_item_call name="Reset Skeleton" label="Сбросить скелет" />
+		<menu_item_call name="Reset Skeleton And Animations" label="Сбросить скелет и анимации" />
+		<menu_item_call name="Anims..." label="Анимации..." />
+		<menu_item_call name="ScriptCount" label="Скрипты" />
+		<menu_item_call name="Script Info" label="Сведения о скриптах" />
+		<menu_item_call name="CopyUUID" label="Копировать UUID" />
+		<menu_item_call name="Save OBJ..." label="Сохранить OBJ..." />
+	</pie_menu>
+	<menu_item_call name="Appearance..." label="Внешность..." />
+</pie_menu>

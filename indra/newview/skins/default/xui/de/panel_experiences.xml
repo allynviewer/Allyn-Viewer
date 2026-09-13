@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Erlebnisse">
+	<string name="loading_experiences">Erlebnisse werden geladen...</string>
+	<string name="no_experiences">Keine Erlebnisse.</string>
+	<string name="acquire">Ein Erlebnis erwerben</string>
+</panel>

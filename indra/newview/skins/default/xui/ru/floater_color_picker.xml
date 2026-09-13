@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="ColorPicker" title="Выбор цвета">
+	<text name="r_val_text">Красный:</text>
+	<spinner name="rspin" />
+	<text name="g_val_text">Зеленый:</text>
+	<spinner name="gspin" />
+	<text name="b_val_text">Синий:</text>
+	<spinner name="bspin" />
+	<text name="h_val_text">Хюэ:</text>
+	<spinner name="hspin" />
+	<text name="s_val_text">Sat:</text>
+	<spinner name="sspin" />
+	<text name="l_val_text">Lum:</text>
+	<spinner name="lspin" />
+	<check_box name="apply_immediate" label="Подать заявку немедленно" />
+	<button name="color_pipette" />
+	<button name="cancel_btn" label="Отмена" />
+	<button name="select_btn" label="Выбрать" />
+	<text name="Hex Value:">Hex:</text>
+	<line_editor name="hexval" />
+	<text name="Current color:">Текущий цвет:</text>
+	<text name="(Drag below to save.)">Перетащите ниже, чтобы сохранить.</text>
+</floater>

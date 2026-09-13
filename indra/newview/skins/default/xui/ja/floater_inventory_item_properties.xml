@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="item properties" title="インベントリ項目のプロパティ">
+	<icon name="IconLocked" />
+	<text name="LabelItemNameTitle">名前:</text>
+	<line_editor name="LabelItemName" />
+	<text name="LabelItemDescTitle">説明:</text>
+	<line_editor name="LabelItemDesc" />
+	<text name="LabelCreatorTitle">作成者:</text>
+	<name_box name="LabelCreatorName">Nicole Linden</name_box>
+	<text name="LabelOwnerTitle">所有者:</text>
+	<name_box name="LabelOwnerName">Thrax Linden</name_box>
+	<text name="LabelLastOwnerTitle">前の所有者:</text>
+	<name_box name="LabelLastOwnerName">OnceUponA Linden</name_box>
+	<text name="LabelAcquiredTitle">取得:</text>
+	<text name="LabelAcquiredDate">Wed May 24 12:50:46 2006</text>
+	<text name="LabelItemExperienceTitle">エクスペリエンス:</text>
+	<name_box name="LabelItemExperience" />
+	<text name="OwnerLabel">あなたは:</text>
+	<check_box name="CheckOwnerModify" label="変更" />
+	<check_box name="CheckOwnerCopy" label="コピー" />
+	<check_box name="CheckOwnerTransfer" label="譲渡" />
+	<check_box name="CheckOwnerExport" label="エクスポート" />
+	<text name="BaseMaskDebug">B:</text>
+	<text name="OwnerMaskDebug">O:</text>
+	<text name="GroupMaskDebug">G:</text>
+	<text name="EveryoneMaskDebug">E:</text>
+	<text name="NextMaskDebug">N:</text>
+	<text name="GroupLabel">グループメンバーは:</text>
+	<check_box name="CheckGroupMod" label="変更" />
+	<check_box name="CheckGroupCopy" label="コピー" />
+	<check_box name="CheckGroupMove" label="移動" />
+	<text name="EveryoneLabel">誰でも:</text>
+	<check_box name="CheckEveryoneCopy" label="コピー" />
+	<check_box name="CheckEveryoneMove" label="移動" />
+	<check_box name="CheckExport" label="エクスポート" />
+	<text name="NextOwnerLabel">次の所有者は:</text>
+	<check_box name="CheckNextOwnerModify" label="変更" />
+	<check_box name="CheckNextOwnerCopy" label="コピー" />
+	<check_box name="CheckNextOwnerTransfer" label="譲渡" />
+	<text name="SaleLabel">項目を:</text>
+	<check_box name="CheckPurchase" label="売却中にする" />
+	<radio_group name="RadioSaleType">
+		<radio_item name="radio">オリジナル</radio_item>
+		<radio_item name="radio2">コピー</radio_item>
+	</radio_group>
+	<text name="TextPrice">価格: [CURRENCY]</text>
+	<line_editor name="Edit Cost" />
+	<floater.string name="loading_experience">（読み込み中）</floater.string>
+	<string name="unknown">（不明）</string>
+	<string name="public">（公開）</string>
+	<string name="you_can">あなたは:</string>
+	<string name="owner_can">所有者は:</string>
+</floater>

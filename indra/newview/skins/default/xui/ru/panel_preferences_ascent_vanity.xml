@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="ascvan" label="Тщеславие">
+	<tab_container name="Ascent Vanity" label="Тщеславие">
+		<panel name="General" label="Основной">
+			<scroll_container name="vanity_main_scroll">
+				<panel name="vanity_main_inner">
+					<check_box name="use_account_settings_check" label="Если применимо, сохраните настройки Vanity для каждой учетной записи." tool_tip="Сохраняет настройки для каждой учетной записи, что упрощает настройку альтернативных вариантов." />
+					<check_box name="disable_tp_screen_check" label="Скрыть экраны прогресса телепортации" tool_tip="Если этот флажок установлен, средство просмотра скроет экран прогресса телепортации, позволяя вам продолжать читать мгновенные сообщения." />
+					<check_box name="tp_sound_check" label="Воспроизводить звук телепортации при телепортации между регионами." tool_tip="Зритель будет воспроизводить шум ТП при телепортации." />
+					<check_box name="disable_logout_screen_check" label="Скрыть экраны прогресса входа/выхода" tool_tip="Если этот флажок установлен, средство просмотра скроет экран прогресса входа/выхода." />
+					<check_box name="disable_chat_animation" label="Отключить анимацию чата, шепота и крика" tool_tip="Удалите анимацию чата со своего аватара. Эффект виден всем" />
+					<check_box name="add_not_replace" label="Добавляйте насадки и носимые устройства вместо их замены" tool_tip="При двойном щелчке или нажатии кнопки входа в инвентарь с выбранными носимыми предметами или предметами они будут добавлены в ваш наряд вместо замены носимого предмета или предмета, который в настоящее время находится в целевом пункте назначения." />
+					<check_box name="customize_anim" label="Анимация при переходе в режим внешнего вида" />
+					<check_box name="turn_around" label="Поворачивайтесь при ходьбе назад" tool_tip="Некоторые АО могут вас развернуть, даже если это отключено." />
+					<check_box name="announce_snapshots" label="Сообщить, когда кто-то делает снимок" tool_tip="Не будет объявлять для людей, которые скрывают тот факт, что они делают снимок." />
+					<check_box name="announce_stream_metadata" label="Объявляйте метаданные музыкального потока в локальном чате при подключении." tool_tip="При включении новой песни в локальном чате отобразится сообщение с доступной информацией о треке." />
+					<check_box name="script_errors_steal_focus" label="Позвольте сценариям перехватывать фокус, если они не могут скомпилироваться из-за ошибок." />
+					<check_box name="connect_to_neighbors" label="Подключайтесь к соседним регионам" />
+					<check_box name="region_restart_minimized" label="Уведомление о перезапуске автоматического свертывания региона" tool_tip="Полезно для владельцев симов и людей, которым необходимо собрать вещи перед отъездом." />
+					<text name="UISndRestartText">Звук, воспроизводимый при перезапуске регионов:</text>
+					<line_editor name="UISndRestart" tool_tip="Пусто, потому что нет звука" />
+					<spinner name="Inactive Transparency" label="Неактивная прозрачность" tool_tip="Когда плавающий объект теряет фокус, это контролирует, насколько изменится его непрозрачность." />
+					<spinner name="Active Transparency" label="Активная прозрачность" tool_tip="Когда плавающий элемент находится в фокусе, он контролирует, насколько изменится его непрозрачность." />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="TagsColors" label="Теги/Цвета">
+			<scroll_container name="vanity_tags_scroll">
+				<panel name="vanity_tags_inner">
+					<check_box name="show_my_tag_check" label="Тег широковещательного клиента:" tool_tip="Выберите, увидят ли другие, что вам нравится [SHORT_APP_NAME]." />
+					<combo_box name="tag_spoofing_combobox" tool_tip="Тег клиента (и последующий цвет) для трансляции. Переопределяется локально пользовательским тегом/цветом.">
+						<combo_item name="Allyn">Allyn</combo_item>
+					</combo_box>
+					<check_box name="show_self_tag_check" label="Отображение тега клиента самому себе" tool_tip="Включение этого параметра приведет к локальному отображению тега клиента на имени вашего аватара." />
+					<check_box name="show_self_tag_color_check" label="Отображение цвета тега клиента самому себе" tool_tip="Включение этого параметра позволяет установить цвет имени вашего аватара в цвет тега клиента или цвет пользовательского набора." />
+					<check_box name="show_friend_tag_check" label="Отображать теги друзей-клиентов как (Друг)" tool_tip="Включение этого параметра изменяет клиентские теги ваших друзей на (Друг)." />
+					<check_box name="display_client_new_line_check" label="Отображать тег клиента на новой строке" tool_tip="Включение этого параметра приведет к отображению тега клиента на новой строке." />
+					<check_box name="customize_own_tag_check" label="Использовать собственный цвет и метку (только локально)" tool_tip="Включение этого параметра позволит вам настроить собственный тег имени, который будет отображаться с вашим пользовательским клиентом и цветом тега. Это видно только вам самому." />
+					<text name="custom_tag_label_text">Этикетка:</text>
+					<line_editor name="custom_tag_label_box" tool_tip="Пользовательская строка, на которую вы хотите заменить тег клиента (только локально)." />
+					<text name="custom_tag_color_text">Color:</text>
+					<color_swatch name="custom_tag_color_swatch" tool_tip="Пользовательский цвет, на который вы хотите заменить цвет клиента (только локально)." />
+					<check_box name="show_other_tag_check" label="Отображать тег клиента для других" tool_tip="Включение этого параметра будет отображать имена тегов клиентов на именах аватаров других пользователей." />
+					<check_box name="show_client_tag_color_check" label="Отображать цвет тега клиента для других" tool_tip="Включение этого параметра устанавливает цвет имени аватара других пользователей в цвет их клиента." />
+					<check_box name="show_idle_time_check" label="Показать время простоя" tool_tip="Включение этого параметра покажет время, в течение которого аватар бездействовал." />
+					<check_box name="update_tags_check" label="Автоматически проверять веб-сайт на наличие обновлений определений клиентов." tool_tip="Включение этого параметра позволит [SHORT_APP_NAME] загружать свежие определения при необходимости." />
+					<button name="update_clientdefs" label="Обновление вручную" />
+					<text name="effects_color_textbox">Цвет для моих эффектов:</text>
+					<color_swatch name="effect_color_swatch" label="Эффекты" />
+					<check_box name="use_status_check" label="Используйте цвета статуса пользователя (Друг, Линден и т. д. ниже)" tool_tip="Включение этого параметра будет показывать людей, соответствующих определенным критериям (Линды, владельцы эстейта, друзья, люди с отключенным звуком), цветом, который вы установили ниже." />
+					<text name="friends_color_textbox">Цвет для (радар, метка, мини-карта):</text>
+					<color_swatch name="friend_color_swatch" label="Друзья" tool_tip="Цвет друзей" />
+					<color_swatch name="estate_owner_color_swatch" label="Имущество" tool_tip="Цвет управляющих недвижимостью" />
+					<color_swatch name="linden_color_swatch" label="Lindens" tool_tip="Цвет Linden" />
+					<color_swatch name="muted_color_swatch" label="Mute" tool_tip="Цвет приглушенного" />
+					<color_swatch name="others_color_swatch" label="Другие" tool_tip="Цвет всех остальных на мини-карте и карте мира." />
+					<color_swatch name="custom_color_swatch" label="Мини" tool_tip="Цвет пользователей выбран только на мини-карте." />
+					<text name="chat_color_text">Используйте цвета для чата:</text>
+					<check_box name="color_friend_check" tool_tip="Цветной чат с друзьями" />
+					<check_box name="color_estate_owner_check" tool_tip="Чат менеджеров Color Estate" />
+					<check_box name="color_linden_check" tool_tip="Цветной липовый чат" />
+					<check_box name="color_muted_check" tool_tip="Чат с приглушенным цветом" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="Body Dynamics" label="Динамика тела">
+			<text name="av_mod_textbox">Модификаторы смещения аватара</text>
+			<spinner name="X Modifier" label="X-модификатор" tool_tip="Смещает ограничивающий параллелепипед аватара. Можно исказить орбиту камеры или поднять/опустить аватар без изменения формы." />
+			<spinner name="Y Modifier" label="Y-модификатор" tool_tip="Смещает ограничивающий параллелепипед аватара. Можно исказить орбиту камеры или поднять/опустить аватар без изменения формы." />
+			<spinner name="Z Modifier" label="Z-модификатор" tool_tip="Смещает ограничивающий параллелепипед аватара. Можно исказить орбиту камеры или поднять/опустить аватар без изменения формы." />
+		</panel>
+	</tab_container>
+</panel>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Collada Export" title="Collada İhracatı">
+	<string name="texture_progress">Collada Export: Dokular kaydediliyor ([COUNT] kaldı)</string>
+	<text name="file name">Dosya Adı:</text>
+	<line_editor name="file name editor" />
+	<button name="browse button" label="Göz at" />
+	<button name="export button" label="İhracat" />
+	<panel name="object info panel">
+		<text name="Object info">Nesne Bilgisi</text>
+		<text name="Object Name">İsim: [NAME]</text>
+		<text name="Exportable Prims">Dışa Aktarılabilir Primler: [COUNT]/[TOTAL]</text>
+		<text name="Exportable Textures">Dışa Aktarılabilir Dokular: [COUNT]/[TOTAL]</text>
+	</panel>
+	<panel name="options panel">
+		<text name="Options">Seçenekler</text>
+		<check_box name="texture export check" label="Dokuları Dışa Aktar" />
+		<combo_box name="texture type combo">
+			<combo_item name="tga">TGA</combo_item>
+			<combo_item name="png">PNG</combo_item>
+			<combo_item name="j2c">J2C</combo_item>
+			<combo_item name="bmp">BMP</combo_item>
+			<combo_item name="jpg">JPG</combo_item>
+		</combo_box>
+		<check_box name="consolidate check" label="Yüzleri birleştirin" tool_tip="Biriyle aynı dokuya sahip yüzleri dışa aktar" />
+		<check_box name="skip transparent check" label="Şeffaf dokuları atla" />
+		<check_box name="texture params check" label="Doku parametrelerini uygulama" />
+	</panel>
+	<scroll_container name="textures container" />
+</floater>

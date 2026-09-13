@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Self Pie">
+	<menu_item_call name="Profile..." label="プロフィール..." />
+	<menu_item_call name="Groups..." label="グループ..." />
+	<pie_menu name="Take Off" label="脱ぐ">
+		<pie_menu name="Clothes" label="衣類">
+			<menu_item_call name="Shirt" label="シャツ" />
+			<menu_item_call name="Pants" label="パンツ" />
+			<menu_item_call name="Shoes" label="靴" />
+			<menu_item_call name="Socks" label="靴下" />
+			<menu_item_call name="Jacket" label="ジャケット" />
+			<menu_item_call name="Gloves" label="手袋" />
+			<pie_menu name="More" label="もっと">
+				<menu_item_call name="Self Undershirt" label="下着（上）" />
+				<menu_item_call name="All Clothes" label="すべての衣類" />
+				<menu_item_call name="Self Tattoo" label="タトゥー" />
+				<menu_item_call name="Self Alpha" label="アルファ" />
+				<menu_item_call name="Self Underpants" label="下着（下）" />
+				<menu_item_call name="Self Physics" label="物理" />
+			</pie_menu>
+			<menu_item_call name="Skirt" label="スカート" />
+		</pie_menu>
+		<pie_menu name="Object Detach HUD" label="HUD" />
+		<pie_menu name="Object Detach" label="外す" />
+		<pie_menu name="Object Detach More" label="さらに外す" />
+		<menu_item_call name="Detach All" label="すべて外す" />
+	</pie_menu>
+	<menu_item_call name="Stand Up Self" label="起立" />
+	<menu_item_call name="Gestures..." label="ジェスチャー..." />
+	<pie_menu name="Tools" label="ツール">
+		<menu_item_call name="Reload Textures" label="再読み込み" />
+		<menu_item_call name="Reset Skeleton" label="スケルトンをリセット" />
+		<menu_item_call name="Reset Skeleton And Animations" label="アニメをリセット" />
+		<menu_item_call name="Anims..." label="アニメ..." />
+		<menu_item_call name="ScriptCount" label="スクリプト数" />
+		<menu_item_call name="Script Info" label="スクリプト情報" />
+		<menu_item_call name="CopyUUID" label="UUIDをコピー" />
+		<menu_item_call name="Save OBJ..." label="OBJを保存..." />
+	</pie_menu>
+	<menu_item_call name="Appearance..." label="外見..." />
+</pie_menu>

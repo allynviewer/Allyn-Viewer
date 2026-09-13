@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Text-Chat" name="chat">
+	<scroll_container name="chat_scroll">
+		<panel name="chat_scroll_inner">
+			<text name="text_box">Chat-Schriftgröße:</text>
+			<radio_group name="chat_font_size">
+				<radio_item name="radio">Klein</radio_item>
+				<radio_item name="radio2">Mittel</radio_item>
+				<radio_item name="radio3">Groß</radio_item>
+			</radio_group>
+			<text name="text_box2">Chat-Farbe:</text>
+			<color_swatch label="Sie" name="user" />
+			<color_swatch label="Andere:" name="agent" />
+			<color_swatch label="IM" name="im" />
+			<color_swatch label="System" name="system" />
+			<color_swatch label="Skript-Fehler" name="script_error" />
+			<color_swatch label="Objekte" name="objects" />
+			<color_swatch label="Eigentümer" name="owner" />
+			<color_swatch label="Blase" name="background" />
+			<color_swatch label="URLs" name="links" />
+			<text name="text_box3">Chat-Konsole:</text>
+			<spinner label="Chat ausblenden nach" name="fade_chat_time" />
+			<text name="text_box4">(Sekunden)</text>
+			<spinner bottom_delta="-6" decimal_digits="0" follows="top" height="16" increment="1" initial_val="10" left="340" max_val="50" min_val="1" name="max_chat_count" width="60" />
+			<text bottom_delta="6" follows="left|top" height="10" left="405" name="text_box5">(# Zeilen)</text>
+			<spinner bottom_delta="-25" decimal_digits="0" follows="top" height="16" increment="1" left="148" max_val="3000" min_val="0" width="130" control_name="ConsoleBottomOffset" name="chat_bottom_offset" label="Unterer Abstand" label_width="80" tool_tip="Versatz in Pixeln zwischen der Chat-Konsole und dem unteren Rand des Viewers." />
+			<slider label="Deckkraft" name="console_opacity" />
+			<check_box label="Chat verwendet volle Bildbreite (Neustart erforderlich)" name="chat_full_width_check" />
+			<text name="text_box6">Chat-Optionen:</text>
+			<check_box label="Chatleiste nach Drücken der Eingabetaste schließen" name="close_chat_on_return_check" />
+			<check_box label="Pfeiltasten bewegen immer den Avatar beim Chatten" name="arrow_keys_move_avatar_check" />
+			<check_box bottom_delta="-20" follows="top" height="16" control_name="LetterKeysFocusChatBar" label="Buchstabentasten starten Eingabe im lokalen Chat" name="letter_keys_start_local_chat" />
+			<check_box label="Zeitstempel im lokalen Chat anzeigen" name="show_timestamps_check" />
+			<check_box label="Skriptfehler und Warnungen als normalen Chat anzeigen" name="script_errors_as_chat" />
+			<check_box label="Beim Chatten Tippanimation abspielen" name="play_typing_animation" />
+			<text name="text_box7">Blasen-Chat:</text>
+			<check_box label="Chat-Blasen anzeigen" name="bubble_text_chat" />
+			<slider label="Deckkraft" name="bubble_chat_opacity" />
+		</panel>
+	</scroll_container>
+</panel>

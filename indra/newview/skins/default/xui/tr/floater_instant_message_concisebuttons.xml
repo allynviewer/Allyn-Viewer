@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="im_floater" label="(bilinmiyor)" title="(bilinmiyor)">
+	<string name="answering">Bağlanıyor...</string>
+	<string name="ringing">Aranıyor...</string>
+	<string name="connected">Bağlandı. Aramayı sonlandırmak için Bitir'e tıkla</string>
+	<string name="hang_up">Arama sona erdi</string>
+	<string name="voice_icon">icn_voice-pvtfocus.tga</string>
+	<string name="title_string">[NAME] ile IM</string>
+	<string name="typing_start_string">[NAME] yazıyor...</string>
+	<string name="session_start_string">[NAME] ile oturum açılıyor, bir saniye...</string>
+	<string name="default_text_label">IM göndermek için tıkla</string>
+	<string name="unavailable_text_label">Bu aramada yazılı sohbet yok.</string>
+	<string name="inventory_item_offered">Envanter öğesi teklif edildi</string>
+	<flyout_button name="instant_message_flyout" label="Profil">
+		<flyout_button_item name="profile_item" label="Profil" />
+		<flyout_button_item name="history_btn" label="Geçmiş" />
+		<flyout_button_item name="profile_tele_btn" label="Teleport teklif et" />
+		<flyout_button_item name="request_teleport_item" label="Teleport iste" />
+		<flyout_button_item name="pay_item" label="Öde" />
+		<flyout_button_item name="group_invite_item" label="Gruba davet et" />
+		<flyout_button_item name="copy_slurl_item" label="SLURL kopyala" />
+		<flyout_button_item name="conference" label="Konferansa ekle" />
+		<flyout_button_item name="report" label="Şikayet et" />
+	</flyout_button>
+	<string name="find on map" value="Haritada bul" />
+	<string name="ding on" value="Yeni mesajda ses (açık)" />
+	<string name="ding off" value="Yeni mesajda ses (kapalı)" />
+	<string name="rp mode on" value="RP kipi (açık)" />
+	<string name="rp mode off" value="RP kipi (kapalı)" />
+	<string name="add friend" value="Arkadaş ekle" />
+	<string name="remove friend" value="Arkadaşı çıkar" />
+	<string name="mute" value="Sustur" />
+	<string name="unmute" value="Susturmayı kaldır" />
+	<string name="focus" value="Odakla" />
+	<button name="start_call_btn" label="Ara" />
+	<button name="end_call_btn" label="Bitir" />
+	<check_box name="im_translate_check" tool_tip="Çeviriyi etkinleştirmek için işaretleyin" />
+	<button name="im_translate_btn" label="Çeviri" tool_tip="Bu sohbetin dillerini ayarla" />
+	<panel name="speaker_controls">
+		<volume_slider name="speaker_volume" />
+		<button name="mute_btn" tool_tip="Sesi kapat" />
+	</panel>
+	<text_editor name="im_history" />
+	<line_editor name="chat_editor" label="IM göndermek için tıkla" />
+	<button name="send_btn" label="Gönder" />
+	<string name="live_help_dialog">
+		*** Yardım isteğine hoş geldin ***
+Önce F1 ile SL yardım sayfalarına bak veya bilgi bankasını aç: http://secondlife.com/knowledgebase/
+Cevabı orada yoksa sorununu yaz; müsait yardımcılar yanıtlayana kadar biraz bekle.
+-=-=- Yanıt süresi değişir, yoğun saatlerde daha uzun sürebilir -=-=-
+	</string>
+</floater>

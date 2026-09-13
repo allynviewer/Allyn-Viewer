@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="buy land" title="Купить землю">
+	<text name="region_name_label">Область:</text>
+	<text name="region_name_text">(неизвестный)</text>
+	<text name="region_type_label">Тип:</text>
+	<text name="region_type_text">(неизвестный)</text>
+	<text name="estate_name_label">Имущество:</text>
+	<text name="estate_name_text">(неизвестный)</text>
+	<text name="estate_owner_label">Владелец эстейта:</text>
+	<name_box name="estate_owner_text">(неизвестный)</name_box>
+	<text name="resellable_changeable_label">Куплена земля в этом регионе:</text>
+	<text name="resellable_clause">Может быть перепродан, а может и нет.</text>
+	<text name="changeable_clause">Могут или не могут быть объединены или разделены.</text>
+	<text name="covenant_text">Вы должны согласиться с Соглашением о наследстве:</text>
+	<text name="covenant_timestamp_text" />
+	<text_editor name="covenant_editor">Загрузка...</text_editor>
+	<check_box name="agree_covenant" label="Я согласен с условиями Соглашения, определенными выше." />
+	<texture_picker name="info_image" />
+	<text name="info_parcel_label">Парцел:</text>
+	<text name="info_parcel">Scotopteryx 138,204</text>
+	<text name="info_size_label">Размер:</text>
+	<text name="info_size">1024 кв.м.</text>
+	<text name="info_price_label">Цена:</text>
+	<text name="info_price">
+		1500 л$
+(L$ 1,1/кв.м.)
+продается с предметами
+	</text>
+	<text name="info_action">Покупка этой земли позволит:</text>
+	<icon name="step_error" />
+	<text name="error_message">Что-то не так.</text>
+	<button name="error_web" label="Перейти на сайт" />
+	<icon name="step_1" />
+	<text name="account_action">Повысьте свой статус до премиум-членства.</text>
+	<text name="account_reason">Только члены премиум-класса могут владеть землей.</text>
+	<combo_box name="account_level">
+		<combo_item name="US$9.95/month,billedmonthly">9,95 долларов США в месяц, оплата производится ежемесячно.</combo_item>
+		<combo_item name="US$7.50/month,billedquarterly">7,50 долларов США в месяц, оплата ежеквартальная.</combo_item>
+		<combo_item name="US$6.00/month,billedannually">6 долларов США в месяц, оплата производится ежегодно.</combo_item>
+	</combo_box>
+	<icon name="step_2" />
+	<text name="land_use_action">Увеличьте ежемесячную плату за землепользование до 40 долларов США в месяц.</text>
+	<text name="land_use_reason">
+		Вам принадлежит 1309 кв.м. земли. 
+Этот участок площадью 512 кв.м. земли.
+	</text>
+	<icon name="step_3" />
+	<text name="purchase_action">Заплатите Джо резиденту L$ 4000 за землю</text>
+	<text name="currency_reason">У вас есть 2100 L$.</text>
+	<text name="currency_action">Купить дополнительно [CURRENCY]</text>
+	<line_editor name="currency_amt" />
+	<text name="currency_est">в течение ок. [REALCURRENCY] [AMOUNT2]</text>
+	<text name="currency_balance">У вас есть 2100 L$.</text>
+	<check_box name="remove_contribution" label="Удалить [AMOUNT] квадратных метров вклада из группы." />
+	<button name="buy_btn" label="Покупка" />
+	<button name="cancel_btn" label="Отмена" />
+	<string name="can_resell">Может быть перепродан.</string>
+	<string name="can_not_resell">Не может быть перепродан.</string>
+	<string name="can_change">Возможно объединение или разделение.</string>
+	<string name="can_not_change">Не могут быть объединены или разделены.</string>
+	<string name="cant_buy_for_group">У вас нет разрешения на покупку земли для вашей активной группы.</string>
+	<string name="no_land_selected">Земля не выбрана.</string>
+	<string name="multiple_parcels_selected">
+		Выбрано несколько разных парцелов. 
+Попробуйте выбрать меньшую область.
+	</string>
+	<string name="no_permission">У вас нет разрешения на покупку земли для вашей активной группы.</string>
+	<string name="parcel_not_for_sale">Выбранный участок не продается.</string>
+	<string name="group_already_owns">Группа уже владеет участком.</string>
+	<string name="you_already_own">Парцел уже принадлежит вам.</string>
+	<string name="set_to_sell_to_other">Выбранный участок будет продан другому лицу.</string>
+	<string name="no_public_land">Выбранная территория не имеет государственной земли.</string>
+	<string name="not_owned_by_you">
+		Выбрана земля, принадлежащая другому пользователю. 
+Попробуйте выбрать меньшую область.
+	</string>
+	<string name="processing">
+		Обработка вашей покупки...
+ 
+(Это может занять минуту или две.)
+	</string>
+	<string name="fetching_error">При получении информации о покупке земли произошла ошибка.</string>
+	<string name="buying_will">Покупка этой земли позволит:</string>
+	<string name="buying_for_group">Покупка земли для группы позволит:</string>
+	<string name="cannot_buy_now">Сейчас невозможно купить:</string>
+	<string name="not_for_sale">Не продается:</string>
+	<string name="none_needed">ничего не нужно</string>
+	<string name="must_upgrade">Ваша учетная запись должна быть повышена до уровня владения землей.</string>
+	<string name="cant_own_land">Ваш аккаунт может владеть землей.</string>
+	<string name="land_holdings">Вам принадлежит [BUYER] кв.м. земли.</string>
+	<string name="pay_to_for_land">Заплатите [CURRENCY] [AMOUNT] [SELLER] за эту землю</string>
+	<string name="buy_for_US">Купите [CURRENCY] [AMOUNT] примерно за 1 год. [REALCURRENCY] [AMOUNT2],</string>
+	<string name="parcel_meters">Площадь этого участка [AMOUNT] кв.м.</string>
+	<string name="premium_land">Эта земля относится к премиум-классу и будет стоить [AMOUNT] кв.м.</string>
+	<string name="discounted_land">Эта земля продается со скидкой и будет стоить [AMOUNT] кв.м.</string>
+	<string name="meters_supports_object">
+		[AMOUNT] кв.м.
+поддерживает [AMOUNT2] объектов
+	</string>
+	<string name="sold_with_objects">продается с предметами</string>
+	<string name="sold_without_objects">объекты не включены</string>
+	<string name="info_price_string">
+		[CURRENCY] [PRICE]
+([CURRENCY] [PRICE_PER_SQM]/кв.м.)
+[SOLD_WITH_OBJECTS]
+	</string>
+	<string name="insufficient_land_credits">Группе [GROUP] потребуется достаточное количество внесенных кредитов на землепользование для покрытия этого участка до завершения покупки.</string>
+	<string name="have_enough_lindens">У вас есть [CURRENCY] [AMOUNT], чего достаточно, чтобы купить эту землю.</string>
+	<string name="not_enough_lindens">У вас есть только [CURRENCY] [AMOUNT], и вам нужно еще [CURRENCY] [AMOUNT2].</string>
+	<string name="balance_left">После покупки у вас останется [CURRENCY] [AMOUNT].</string>
+	<string name="balance_needed">Вам нужно купить как минимум [CURRENCY] [AMOUNT], чтобы позволить себе эту землю.</string>
+	<string name="no_parcel_selected">(парцел не выбрана)</string>
+	<string name="buy_currency">Купите [CURRENCY] [LINDENS] примерно за 1 год. [REALCURRENCY] [USD]</string>
+</floater>

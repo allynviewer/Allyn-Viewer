@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="telehub" title="Телехаб">
+	<text name="status_text_connected">Телехаб подключен к объекту [OBJECT]</text>
+	<text name="status_text_not_connected">Телехаб не подключен.</text>
+	<text name="help_text_connected">Чтобы удалить, нажмите «Отключить».</text>
+	<text name="help_text_not_connected">Выберите объект и нажмите «Подключить Телехаб».</text>
+	<button name="connect_btn" label="Подключить Телехаб" />
+	<button name="disconnect_btn" label="Отключить" />
+	<text name="spawn_points_text">Точки спавна (позиции, а не объекты):</text>
+	<scroll_list name="spawn_points_list" />
+	<button name="add_spawn_point_btn" label="Добавить спавн" />
+	<button name="remove_spawn_point_btn" label="Удалить спавн" />
+	<text name="spawn_point_help">
+		Выберите объект и нажмите «Добавить», чтобы указать положение.
+Затем вы можете переместить или удалить объект.
+Позиции указаны относительно центра телехаба.
+Выберите элемент в списке, чтобы показать его положение в мире.
+	</text>
+</floater>

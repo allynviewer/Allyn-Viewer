@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="voice_controls">
+	<button name="speakers_btn" tool_tip="Показать список жителей, использующих голосовой чат вокруг вас" />
+	<button name="push_to_talk" label="Разговаривать" tool_tip="Удерживайте кнопку, чтобы поговорить" />
+	<button name="ptt_lock" tool_tip="Нажмите «Заблокировать», чтобы переключиться в режим разговора." />
+	<icon name="voice_volume" />
+	<button name="show_channel" tool_tip="Нажмите, чтобы показать текущий голосовой канал" />
+</panel>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Classified" title="Классифицировано">
+	<texture_picker name="snapshot_ctrl" />
+	<line_editor name="given_name_editor" tool_tip="Имя должно начинаться с буквы или цифры, а не знаков препинания." />
+	<text_editor name="desc_editor" />
+	<line_editor name="location_editor" tool_tip="Установите местоположение для этого объявления в соответствии с вашей текущей позицией." />
+	<button name="set_location_btn" label="Установить местоположение" />
+	<button name="classified_teleport_btn" label="Телепортироваться" />
+	<button name="classified_map_btn" label="Карта" />
+	<combo_box name="classified_category_combo" />
+	<combo_box name="classified_mature_check">
+		<combo_item name="select_mature">- Выберите зрелый -</combo_item>
+		<combo_item name="mature">Зрелый контент</combo_item>
+		<combo_item name="pg">PG-контент</combo_item>
+	</combo_box>
+	<text name="classified_info_text" tool_tip="Чем больше вы решите заплатить за свое объявление, тем выше оно появится в списке.">Размещено объявление: Еще не опубликовано</text>
+	<text name="click_through_text" tool_tip="Общее количество кликов по каждой кнопке с момента размещения объявления.">Clicks:</text>
+	<button name="classified_update_btn" label="Публиковать..." />
+	<check_box name="auto_renew_check" label="Автоматическое продление каждую неделю" />
+	<string name="ad_placed_paid">Объявление размещено: [DATE], оплачено [CURRENCY][AMT] за размещение.</string>
+	<string name="update_txt">Обновлять</string>
+	<string name="publish_txt">Публиковать...</string>
+</panel>

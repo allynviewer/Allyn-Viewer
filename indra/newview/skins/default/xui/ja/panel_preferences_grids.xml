@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Grids panel" label="グリッド">
+	<text name="grid_selector_label">グリッドを選択:</text>
+	<combo_box name="grid_selector" />
+	<button name="btn_default" label="デフォルト" />
+	<text name="default_grid">（[DEFAULT]）</text>
+	<button name="btn_delete" label="削除" tool_tip="選択したグリッドをリストから削除します" />
+	<button name="btn_add" label="作成" tool_tip="リストに新しいグリッドを追加します" />
+	<button name="btn_copy" label="コピー" tool_tip="選択した項目をテンプレートとして新しい項目を作成します" />
+	<button name="btn_advanced" label="詳細" />
+	<text name="loginuri_label">ログインURI:</text>
+	<line_editor name="loginuri" />
+	<button name="btn_gridinfo" label="グリッドURLを更新" tool_tip="指定したログインURIからグリッド情報をすべて取得します（現在のURLを上書きします。詳細を参照）" />
+	<text name="platform_label">プラットフォーム:</text>
+	<combo_box name="platform" />
+	<text name="gridname_label">グリッド名:</text>
+	<line_editor name="gridname" />
+	<text name="gridmessage_label">グリッド情報:</text>
+	<text_editor name="gridmessage" />
+	<text name="loginpage_label">スプラッシュページ:</text>
+	<line_editor name="loginpage" />
+	<text name="helperuri_label">ヘルパーURL:</text>
+	<line_editor name="helperuri" />
+	<text name="website_label">ウェブサイト:</text>
+	<line_editor name="website" />
+	<text name="support_label">サポートURL:</text>
+	<line_editor name="support" />
+	<text name="register_label">アカウントURL:</text>
+	<line_editor name="register" />
+	<text name="password_label">パスワードURL:</text>
+	<line_editor name="password" />
+	<text name="partner_label">パートナーURL:</text>
+	<line_editor name="partner" />
+	<text name="search_label">検索URL:</text>
+	<line_editor name="search" />
+	<check_box name="render_compat" label="レンダリング互換性" />
+	<button name="btn_help_render_compat" label="?" />
+</panel>

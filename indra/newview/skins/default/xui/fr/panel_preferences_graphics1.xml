@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Graphiques" name="Display panel">
+	<check_box label="Lancer le visualiseur dans une fenêtre" name="windowed mode" tool_tip="Si décoché, le visualiseur s'affichera en plein écran lors de la connexion." />
+	<button label="Restaurer les valeurs par défaut" tool_tip="Restaurer les paramètres graphiques recommandés" name="Defaults" />
+	<text name="WindowSizeLabel">Taille de la fenêtre :</text>
+	<combo_box name="windowsize combo">
+		<combo_item name="800x600" value="800 x 600">800x600</combo_item>
+		<combo_item name="720x480" value="720 x 480">720x480 (NTSC)</combo_item>
+		<combo_item name="768x576" value="768 x 576">768x576 (PAL)</combo_item>
+		<combo_item name="1024x768" value="1024 x 768">1024x768</combo_item>
+		<combo_item name="1280x720" value="1280 x 720">1280x720 (HD)</combo_item>
+		<combo_item name="1366x768" value="1366 x 768">1366x768</combo_item>
+		<combo_item name="1280x800" value="1280 x 800">1280x800</combo_item>
+		<combo_item name="1440x900" value="1440 x 900">1440x900</combo_item>
+		<combo_item name="1600x900" value="1600 x 900">1600x900 (HD+)</combo_item>
+		<combo_item name="1680x1050" value="1680 x 1050">1680x1050</combo_item>
+		<combo_item name="1440x1080" value="1440 x 1080">1440x1080 (HDV1080)</combo_item>
+		<combo_item name="1920x1080" value="1920 x 1080">1920x1080 (Full-HD)</combo_item>
+		<combo_item name="2560x1440" value="2560 x 1440">2560x1440</combo_item>
+	</combo_box>
+	<text name="DisplayResLabel">Résolution d'affichage :</text>
+	<combo_box name="fullscreen combo" />
+	<text name="AspectRatioLabel1">Rapport hauteur/largeur :</text>
+	<combo_box name="aspect_ratio" tool_tip="largeur / hauteur">
+		<combo_item name="4:3(StandardCRT)" value="1.333333">4:3 (CRT Standard)</combo_item>
+		<combo_item name="5:4(1280x1024LCD)" value="1.25">5:4 (1280x1024 LCD)</combo_item>
+		<combo_item name="8:5(Widescreen)" value="1.6">16:10 (Écran large PC)</combo_item>
+		<combo_item name="16:9(Widescreen)" value="1.7777777">16:9 (Écran large TV)</combo_item>
+	</combo_box>
+	<check_box label="Détection automatique du ratio" name="aspect_auto_detect" />
+	<tab_container name="graphics_tab">
+		<panel label="Principal" name="Main">
+			<scroll_container name="main_gfx_scroll">
+				<panel name="main_gfx_inner">
+					<text name="QualityText">Qualité et Performance :</text>
+					<text name="FasterText">Plus Rapide</text>
+					<text name="ShadersPrefText">Faible</text>
+					<text name="ShadersPrefText2">Moyen</text>
+					<text name="ShadersPrefText3">Haut</text>
+					<text name="ShadersPrefText4">Ultra</text>
+					<text name="QualityText2">Qualité Supérieure</text>
+					<slider name="QualityPerformanceSelection" />
+					<check_box label="Personnalisé" name="CustomSettings" />
+					<text name="ShadersText">Shaders :</text>
+					<check_box label="Eau transparente" name="TransparentWater" />
+					<check_box label="Relief et brillance" name="BumpShiny" />
+					<check_box label="Lumières locales" name="LightingDetailRadio" />
+					<check_box label="Shaders de base" name="BasicShaders" tool_tip="Désactiver cette option peut empêcher certains pilotes de carte graphique de planter." />
+					<check_box label="Shaders atmosphériques" name="WindLightUseAtmosShaders" />
+					<check_box label="Éclairage avancé" name="RenderDeferred" tool_tip="Rendu différé" />
+					<check_box label="Occlusion ambiante" name="UseSSAO" />
+					<text name="TerrainScaleText">Échelle du terrain :</text>
+					<combo_box label="Échelle du terrain" name="TerrainScaleCombo">
+						<combo_item name="Low" value="12">Faible</combo_item>
+						<combo_item name="Medium" value="9">Moyen</combo_item>
+						<combo_item name="High" value="7">Haut</combo_item>
+						<combo_item name="Ultra" value="5">Ultra</combo_item>
+					</combo_box>
+					<text name="ShadowDetailText">Ombres :</text>
+					<combo_box label="Détail des ombres" name="ShadowDetailCombo">
+						<combo_item name="0" value="0">Désactivé</combo_item>
+						<combo_item name="1" value="1">Soleil/Lune</combo_item>
+						<combo_item name="2" value="2">Soleil/Lune + Projecteurs</combo_item>
+					</combo_box>
+					<text name="ReflectionDetailText">Reflets sur l'eau :</text>
+					<combo_box label="Détail des reflets" name="ReflectionDetailCombo">
+						<combo_item name="0" value="0">Minimal</combo_item>
+						<combo_item name="1" value="1">Terrain et arbres</combo_item>
+						<combo_item name="2" value="2">Objets statiques</combo_item>
+						<combo_item name="3" value="3">Avatars et objets</combo_item>
+						<combo_item name="4" value="4">Tout</combo_item>
+					</combo_box>
+					<slider label="Physique Avatar:" name="AvatarPhysicsDetail" />
+					<text name="AvatarPhysicsDetailText">Désactivé</text>
+					<text name="DrawDistanceMeterText">m</text>
+					<slider label="Distance d'affichage :" name="DrawDistance" />
+					<slider label="Max. Particules :" name="MaxParticleCount" />
+					<slider label="Max. non-imposteurs :" name="AvatarMaxVisible" />
+					<slider label="Qualité post-traitement :" name="RenderPostProcess" />
+					<text name="PostProcessText">Faible</text>
+					<text name="MeshDetailText">Niveau de détail :</text>
+					<slider label="Objets :" name="ObjectMeshDetail" />
+					<slider label="Flexiprims :" name="FlexibleMeshDetail" />
+					<slider label="Arbres :" name="TreeMeshDetail" />
+					<slider label="Avatars :" name="AvatarMeshDetail" />
+					<slider label="Terrain :" name="TerrainMeshDetail" />
+					<slider label="Ciel :" name="SkyMeshDetail" />
+					<text name="ObjectMeshDetailText">Faible</text>
+					<text name="FlexibleMeshDetailText">Faible</text>
+					<text name="TreeMeshDetailText">Faible</text>
+					<text name="AvatarMeshDetailText">Faible</text>
+					<text name="TerrainMeshDetailText">Faible</text>
+					<text name="SkyMeshDetailText">Faible</text>
+					<text name="AvatarRenderingText">Rendu des avatars :</text>
+					<text name="AvatarDisplayLabel">Affichage des avatars :</text>
+					<combo_box name="AvatarDisplayCombo" tool_tip="Comment afficher les autres avatars s'ils dépassent la complexité max.">
+						<combo_item name="0" value="0">Limiter par complexité</combo_item>
+						<combo_item name="1" value="1">Toujours afficher les amis</combo_item>
+						<combo_item name="2" value="2">Afficher seulement les amis</combo_item>
+						<combo_item name="3" value="3">Afficher seulement soi</combo_item>
+					</combo_box>
+					<slider label="Complexité max. d'avatar :" label_width="200" name="IndirectMaxComplexity" tool_tip="Les avatars plus complexes deviennent des poupées de gelée. Tout à droite = sans limite." />
+					<text name="IndirectMaxComplexityText">Sans limite</text>
+					<check_box label="Afficher les valeurs de complexité" name="ShowAvatarComplexity" tool_tip="Affiche la complexité visuelle au-dessus du nom (Ctrl+Alt+Maj+C)." />
+					<check_box label="Imposteurs d'avatar" name="AvatarImpostors" />
+					<check_box label="Skinning matériel" name="AvatarVertexProgram" />
+					<check_box label="Vêtements d'avatar" name="AvatarCloth" />
+					<text name="TerrainDetailText">Détail du terrain :</text>
+					<radio_group name="TerrainDetailRadio" tool_tip="Faible utilise une texture de terrain plus simple. Haut utilise le détail complet.">
+						<radio_item name="0">Faible</radio_item>
+						<radio_item name="2">Haut</radio_item>
+					</radio_group>
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="Hardware" label="Matériel">
+			<check_box label="Filtrage anisotropique (plus lent si activé)" name="ani" />
+			<text name="Antialiasing:">Anticrénelage :</text>
+			<combo_box label="Anticrénelage" name="fsaa">
+				<combo_item name="FSAADisabled" value="0">Désactivé</combo_item>
+				<combo_item name="2x" value="2">2x</combo_item>
+				<combo_item name="4x" value="4">4x</combo_item>
+				<combo_item name="8x" value="8">8x</combo_item>
+				<combo_item name="16x" value="16">16x</combo_item>
+			</combo_box>
+			<text name="VSync:">VSync :</text>
+			<combo_box label="VSync" name="vsync">
+				<combo_item name="VSyncDisabled" value="0">Désactivé</combo_item>
+				<combo_item name="VSyncStandard" value="1">Standard</combo_item>
+				<combo_item name="VSyncAdaptive" value="-1">Adaptatif</combo_item>
+			</combo_box>
+			<spinner label="Mémoire texture (Mo) :" name="GrapicsCardTextureMemory" tool_tip="Quantité de mémoire à allouer aux textures. Par défaut, celle de la carte graphique. La réduire peut améliorer les performances mais peut rendre les textures floues." />
+			<spinner label="Gamma :" name="gamma" tool_tip="(luminosité, plus bas = plus clair)" />
+			<spinner label="Ratio de brouillard :" name="fog" />
+			<text name="note">
+Remarque : Les paramètres Gamma et Ratio de brouillard
+ne sont pas disponibles (car inutiles)
+lorsque les Shaders Atmosphériques sont activés.
+ </text>
+			<check_box label="Activer la compression de texture (Redémarrage requis)" name="compressed_textures" tool_tip="Activer réduit la consommation mémoire GPU au détriment de la qualité des textures dans le monde." />
+			<check_box label="Activer les VBO OpenGL" name="vbo" tool_tip="Activer sur du matériel moderne améliore les performances. Cependant, le matériel ancien a souvent des implémentations VBO médiocres et peut planter lorsque cette option est activée." />
+			<check_box label="Activer les VBO streamés" name="vbo_stream" tool_tip="Désactiver peut améliorer les performances quand les VBO sont activés. Une amélioration a été observée sur plusieurs GPU AMD." />
+			<check_box label="Activer les FBO OpenGL" name="fbo" tool_tip="Activer sur du matériel moderne peut améliorer les performances. Cependant, combiné avec l'anticrénelage sur les GPU AMD, cela peut causer des artefacts de bord. Ce réglage est requis pour le rendu différé." />
+		</panel>
+		<panel name="DoF" label="Profondeur de Champ">
+			<check_box label="Activer la Profondeur de Champ" name="RenderDepthOfField" tool_tip="Active ou désactive un effet de profondeur de champ comme un appareil photo, souvent utilisé pour flouter les distances ou les éléments qui ne devraient pas être nets" />
+			<slider name="CameraFNum" label="Ouverture (f) :" tool_tip="Valeur d'ouverture (f-number) pour l'effet de profondeur de champ" />
+			<button name="reset_f_num" label="Réinitialiser" />
+			<slider name="CameraFocal" label="Distance focale (mm) :" tool_tip="Distance focale de la caméra pour l'effet de profondeur de champ (en millimètres)" />
+			<button name="reset_focal_length" label="Réinitialiser" />
+			<slider name="CameraCoF" label="Cercle de confusion :" tool_tip="Définit le cercle de confusion de la caméra" />
+			<button name="reset_max_cof" label="Réinitialiser" />
+			<slider name="CameraFocusTrans" label="Temps de transition (s) :" tool_tip="Temps pour changer la mise au point d'un endroit à un autre" />
+			<button name="reset_trans_time" label="Réinitialiser" />
+			<slider name="CameraDoFRes" label="Résolution :" tool_tip="Définit la résolution (qualité) de chaque pixel DoF" />
+			<button name="reset_res_scale" label="Réinitialiser" />
+			<button name="reset_dof" label="Réinitialiser tous les paramètres de Profondeur de Champ" />
+		</panel>
+	</tab_container>
+	<string name="resolution_format">[RES_X] x [RES_Y]</string>
+	<string name="aspect_ratio_text">[NUM]:[DEN]</string>
+	<string name="complexity_no_limit">Sans limite</string>
+</panel>

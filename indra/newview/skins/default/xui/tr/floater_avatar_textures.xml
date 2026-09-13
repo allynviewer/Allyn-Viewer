@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="avatar_texture_debug" title="Avatar Dokuları">
+	<button name="Dump" label="Kimlikleri Konsola Aktar" />
+	<texture_picker name="hair-baked" label="Pişmiş Saç" />
+	<texture_picker name="hair_grain" label="Saç" />
+	<texture_picker name="eyes-baked" label="Pişmiş Gözler" />
+	<texture_picker name="eyes_iris" label="Gözler" />
+	<texture_picker name="head-baked" label="Kafa Fırında" />
+	<texture_picker name="head_bodypaint" label="Makyaj" />
+	<texture_picker name="head_tattoo" label="Kafa Dövmesi" />
+	<texture_picker name="upper_tattoo" label="Üst Dövme" />
+	<texture_picker name="lower_tattoo" label="Alt Dövme" />
+	<texture_picker name="upper-baked" label="Üst Fırında" />
+	<texture_picker name="upper_bodypaint" label="Üst Deri" />
+	<texture_picker name="upper_undershirt" label="Fanila" />
+	<texture_picker name="upper_shirt" label="Gömlek" />
+	<texture_picker name="upper_jacket" label="Üst Ceket" />
+	<texture_picker name="upper_gloves" label="Eldiven" />
+	<texture_picker name="lower-baked" label="Alt Fırında" />
+	<texture_picker name="lower_bodypaint" label="Alt Cilt" />
+	<texture_picker name="lower_underpants" label="külot" />
+	<texture_picker name="lower_pants" label="Pantolon" />
+	<texture_picker name="lower_jacket" label="Alt Ceket" />
+	<texture_picker name="lower_socks" label="Çorap" />
+	<texture_picker name="skirt-baked" label="Fırında Etek" />
+	<texture_picker name="skirt" label="Etek" />
+	<texture_picker name="lower_shoes" label="Ayakkabı" />
+</floater>

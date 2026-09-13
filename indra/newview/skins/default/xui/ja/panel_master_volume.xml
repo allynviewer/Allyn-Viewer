@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="master_volume">
+	<button name="volume" tool_tip="マスター音量。クリックで音量設定を開きます" />
+	<volume_slider name="volume_slider" tool_tip="このスライダーで音量を変更します" />
+	<button name="mute_master" />
+</panel>

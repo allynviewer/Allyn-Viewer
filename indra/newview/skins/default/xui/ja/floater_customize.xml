@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater customize" title="外見">
+	<tab_container name="customize tab container">
+		<panel name="body_parts_placeholder" label="ボディパーツ" />
+		<panel name="Shape" label="シェイプ">
+			<icon name="square" />
+			<icon name="icon" />
+			<button name="Revert" label="元に戻す" />
+			<button name="Body" label="ボディ" />
+			<button name="Head" label="頭" />
+			<button name="Eyes" label="目" />
+			<button name="Ears" label="耳" />
+			<button name="Nose" label="鼻" />
+			<button name="Mouth" label="口" />
+			<button name="Chin" label="あご" />
+			<button name="Torso" label="胴" />
+			<button name="Legs" label="脚" />
+			<radio_group name="sex radio">
+				<radio_item name="radio">女性</radio_item>
+				<radio_item name="radio2">男性</radio_item>
+			</radio_group>
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: 改造不可</text>
+			<text name="title_loading">[DESC]: 読み込み中...</text>
+			<text name="title_not_worn">[DESC]: 未着用</text>
+			<text name="path">場所: [PATH]</text>
+			<text name="not worn instructions">インベントリからシェイプをアバターへドラッグして着用してください。または新規作成して着用することもできます。</text>
+			<text name="no modify instructions">このウェアラブルを改造する権限がありません。</text>
+			<button name="Create New" label="新規シェイプを作成" />
+			<text name="avatar_height_label" visible="false">身長:</text>
+			<text name="avheight" visible="false">[AVHEIGHT]</text>
+			<text name="includes_shoes" visible="false">（靴を含む）</text>
+			<button name="Save" label="保存" />
+			<button name="Save As" label="名前を付けて保存..." />
+		</panel>
+		<panel name="Skin" label="スキン">
+			<icon name="square" />
+			<icon name="icon" />
+			<button name="Skin Color" label="肌の色" />
+			<button name="Face Detail" label="顔の詳細" />
+			<button name="Makeup" label="メイク" />
+			<button name="Body Detail" label="体の詳細" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: 改造不可</text>
+			<text name="title_loading">[DESC]: 読み込み中...</text>
+			<text name="title_not_worn">[DESC]: 未着用</text>
+			<text name="path">場所: [PATH]</text>
+			<text name="not worn instructions">インベントリからスキンをアバターへドラッグして着用してください。または新規作成して着用することもできます。</text>
+			<text name="no modify instructions">このウェアラブルを改造する権限がありません。</text>
+			<texture_picker name="Head Tattoos" label="頭のタトゥー" tool_tip="クリックして画像を選びます" />
+			<texture_picker name="Upper Tattoos" label="上半身のタトゥー" tool_tip="クリックして画像を選びます" />
+			<texture_picker name="Lower Tattoos" label="下半身のタトゥー" tool_tip="クリックして画像を選びます" />
+			<button name="Create New" label="新規スキンを作成" />
+			<button name="Save" label="保存" />
+			<button name="Save As" label="名前を付けて保存..." />
+			<button name="Revert" label="元に戻す" />
+		</panel>
+		<panel name="Hair" label="髪">
+			<icon name="square" />
+			<icon name="icon" />
+			<button name="Color" label="色" />
+			<button name="Style" label="スタイル" />
+			<button name="Eyebrows" label="眉毛" />
+			<button name="Facial" label="ひげ" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: 改造不可</text>
+			<text name="title_loading">[DESC]: 読み込み中...</text>
+			<text name="title_not_worn">[DESC]: 未着用</text>
+			<text name="path">場所: [PATH]</text>
+			<text name="not worn instructions">インベントリから髪をアバターへドラッグして着用してください。または新規作成して着用することもできます。</text>
+			<text name="no modify instructions">このウェアラブルを改造する権限がありません。</text>
+			<texture_picker name="Texture" label="テクスチャ" tool_tip="クリックして画像を選びます" />
+			<button name="Create New" label="新規の髪を作成" />
+			<button name="Save" label="保存" />
+			<button name="Save As" label="名前を付けて保存..." />
+			<button name="Revert" label="元に戻す" />
+		</panel>
+		<panel name="Eyes" label="目">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: 改造不可</text>
+			<text name="title_loading">[DESC]: 読み込み中...</text>
+			<text name="title_not_worn">[DESC]: 未着用</text>
+			<text name="path">場所: [PATH]</text>
+			<text name="not worn instructions">インベントリから目をアバターへドラッグして着用してください。または新規作成して着用することもできます。</text>
+			<text name="no modify instructions">このウェアラブルを改造する権限がありません。</text>
+			<texture_picker name="Iris" label="虹彩" tool_tip="クリックして画像を選びます" />
+			<button name="Create New" label="新規の目を作成" />
+			<button name="Save" label="保存" />
+			<button name="Save As" label="名前を付けて保存..." />
+			<button name="Revert" label="元に戻す" />
+		</panel>
+		<panel name="clothes_placeholder" label="衣類" />
+		<panel name="Shirt" label="シャツ">
+			<icon name="square" />
+			<icon name="icon" />
+			<texture_picker name="Fabric" label="生地" tool_tip="クリックして画像を選びます" />
+			<color_swatch name="Color/Tint" label="色 / ティント" tool_tip="クリックして色を選びます" />
+			<button name="Create New" label="新規シャツを作成" />
+			<button name="Take Off" label="脱ぐ" />
+			<button name="New Layer" label="新規レイヤー" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="内側のレイヤーへ移動します。" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="外側のレイヤーへ移動します。" />
+			<button name="Save" label="保存" />
+			<button name="Save As" label="名前を付けて保存..." />
+			<button name="Revert" label="元に戻す" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: 改造不可</text>
+			<text name="title_loading">[DESC]: 読み込み中...</text>
+			<text name="title_not_worn">[DESC]: 未着用</text>
+			<text name="path">場所: [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">インベントリからシャツをアバターへドラッグして着用してください。または新規作成して着用することもできます。</text>
+			<text name="no modify instructions">このウェアラブルを改造する権限がありません。</text>
+		</panel>
+		<panel name="Pants" label="パンツ">
+			<icon name="square" />
+			<icon name="icon" />
+			<texture_picker name="Fabric" label="生地" tool_tip="クリックして画像を選びます" />
+			<color_swatch name="Color/Tint" label="色 / ティント" tool_tip="クリックして色を選びます" />
+			<button name="Create New" label="新規パンツを作成" />
+			<button name="Take Off" label="脱ぐ" />
+			<button name="New Layer" label="新規レイヤー" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="内側のレイヤーへ移動します。" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="外側のレイヤーへ移動します。" />
+			<button name="Save" label="保存" />
+			<button name="Save As" label="名前を付けて保存..." />
+			<button name="Revert" label="元に戻す" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: 改造不可</text>
+			<text name="title_loading">[DESC]: 読み込み中...</text>
+			<text name="title_not_worn">[DESC]: 未着用</text>
+			<text name="path">場所: [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">インベントリからパンツをアバターへドラッグして着用してください。または新規作成して着用することもできます。</text>
+			<text name="no modify instructions">このウェアラブルを改造する権限がありません。</text>
+		</panel>
+		<panel name="Shoes" label="靴">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: 改造不可</text>
+			<text name="title_loading">[DESC]: 読み込み中...</text>
+			<text name="title_not_worn">[DESC]: 未着用</text>
+			<text name="path">場所: [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">インベントリから靴をアバターへドラッグして着用してください。または新規作成して着用することもできます。</text>
+			<text name="no modify instructions">このウェアラブルを改造する権限がありません。</text>
+			<texture_picker name="Fabric" label="生地" tool_tip="クリックして画像を選びます" />
+			<color_swatch name="Color/Tint" label="色 / ティント" tool_tip="クリックして色を選びます" />
+			<button name="Create New" label="新規の靴を作成" />
+			<button name="Take Off" label="脱ぐ" />
+			<button name="New Layer" label="新規レイヤー" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="内側のレイヤーへ移動します。" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="外側のレイヤーへ移動します。" />
+			<button name="Save" label="保存" />
+			<button name="Save As" label="名前を付けて保存..." />
+			<button name="Revert" label="元に戻す" />
+		</panel>
+		<panel name="Socks" label="靴下">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: 改造不可</text>
+			<text name="title_loading">[DESC]: 読み込み中...</text>
+			<text name="title_not_worn">[DESC]: 未着用</text>
+			<text name="path">場所: [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">インベントリから靴下をアバターへドラッグして着用してください。または新規作成して着用することもできます。</text>
+			<text name="no modify instructions">このウェアラブルを改造する権限がありません。</text>
+			<texture_picker name="Fabric" label="生地" tool_tip="クリックして画像を選びます" />
+			<color_swatch name="Color/Tint" label="色 / ティント" tool_tip="クリックして色を選びます" />
+			<button name="Create New" label="新規の靴下を作成" />
+			<button name="Take Off" label="脱ぐ" />
+			<button name="New Layer" label="新規レイヤー" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="内側のレイヤーへ移動します。" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="外側のレイヤーへ移動します。" />
+			<button name="Save" label="保存" />
+			<button name="Save As" label="名前を付けて保存..." />
+			<button name="Revert" label="元に戻す" />
+		</panel>
+		<panel name="Jacket" label="ジャケット">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: 改造不可</text>
+			<text name="title_loading">[DESC]: 読み込み中...</text>
+			<text name="title_not_worn">[DESC]: 未着用</text>
+			<text name="path">場所: [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">インベントリからジャケットをアバターへドラッグして着用してください。または新規作成して着用することもできます。</text>
+			<text name="no modify instructions">このウェアラブルを改造する権限がありません。</text>
+			<texture_picker name="Upper Fabric" label="上半身の生地" tool_tip="クリックして画像を選びます" />
+			<texture_picker name="Lower Fabric" label="下半身の生地" tool_tip="クリックして画像を選びます" />
+			<color_swatch name="Color/Tint" label="色 / ティント" tool_tip="クリックして色を選びます" />
+			<button name="Create New" label="新規ジャケットを作成" />
+			<button name="Take Off" label="脱ぐ" />
+			<button name="New Layer" label="新規レイヤー" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="内側のレイヤーへ移動します。" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="外側のレイヤーへ移動します。" />
+			<button name="Save" label="保存" />
+			<button name="Save As" label="名前を付けて保存..." />
+			<button name="Revert" label="元に戻す" />
+		</panel>
+		<panel name="Gloves" label="手袋">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: 改造不可</text>
+			<text name="title_loading">[DESC]: 読み込み中...</text>
+			<text name="title_not_worn">[DESC]: 未着用</text>
+			<text name="path">場所: [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">インベントリから手袋をアバターへドラッグして着用してください。または新規作成して着用することもできます。</text>
+			<text name="no modify instructions">このウェアラブルを改造する権限がありません。</text>
+			<texture_picker name="Fabric" label="生地" tool_tip="クリックして画像を選びます" />
+			<color_swatch name="Color/Tint" label="色 / ティント" tool_tip="クリックして色を選びます" />
+			<button name="Create New" label="新規の手袋を作成" />
+			<button name="Take Off" label="脱ぐ" />
+			<button name="New Layer" label="新規レイヤー" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="内側のレイヤーへ移動します。" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="外側のレイヤーへ移動します。" />
+			<button name="Save" label="保存" />
+			<button name="Save As" label="名前を付けて保存..." />
+			<button name="Revert" label="元に戻す" />
+		</panel>
+		<panel name="Undershirt" label="下着（上）">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: 改造不可</text>
+			<text name="title_loading">[DESC]: 読み込み中...</text>
+			<text name="title_not_worn">[DESC]: 未着用</text>
+			<text name="path">場所: [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">インベントリから下着（上）をアバターへドラッグして着用してください。または新規作成して着用することもできます。</text>
+			<text name="no modify instructions">このウェアラブルを改造する権限がありません。</text>
+			<texture_picker name="Fabric" label="生地" tool_tip="クリックして画像を選びます" />
+			<color_swatch name="Color/Tint" label="色 / ティント" tool_tip="クリックして色を選びます" />
+			<button name="Create New" label="新規の下着（上）を作成" />
+			<button name="Take Off" label="脱ぐ" />
+			<button name="New Layer" label="新規レイヤー" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="内側のレイヤーへ移動します。" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="外側のレイヤーへ移動します。" />
+			<button name="Save" label="保存" />
+			<button name="Save As" label="名前を付けて保存..." />
+			<button name="Revert" label="元に戻す" />
+		</panel>
+		<panel name="Underpants" label="下着（下）">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: 改造不可</text>
+			<text name="title_loading">[DESC]: 読み込み中...</text>
+			<text name="title_not_worn">[DESC]: 未着用</text>
+			<text name="path">場所: [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">インベントリから下着（下）をアバターへドラッグして着用してください。または新規作成して着用することもできます。</text>
+			<text name="no modify instructions">このウェアラブルを改造する権限がありません。</text>
+			<texture_picker name="Fabric" label="生地" tool_tip="クリックして画像を選びます" />
+			<color_swatch name="Color/Tint" label="色 / ティント" tool_tip="クリックして色を選びます" />
+			<button name="Create New" label="新規の下着（下）を作成" />
+			<button name="Take Off" label="脱ぐ" />
+			<button name="New Layer" label="新規レイヤー" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="内側のレイヤーへ移動します。" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="外側のレイヤーへ移動します。" />
+			<button name="Save" label="保存" />
+			<button name="Save As" label="名前を付けて保存..." />
+			<button name="Revert" label="元に戻す" />
+		</panel>
+		<panel name="Skirt" label="スカート">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: 改造不可</text>
+			<text name="title_loading">[DESC]: 読み込み中...</text>
+			<text name="title_not_worn">[DESC]: 未着用</text>
+			<text name="path">場所: [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">インベントリからスカートをアバターへドラッグして着用してください。または新規作成して着用することもできます。</text>
+			<text name="no modify instructions">このウェアラブルを改造する権限がありません。</text>
+			<texture_picker name="Fabric" label="生地" tool_tip="クリックして画像を選びます" />
+			<color_swatch name="Color/Tint" label="色 / ティント" tool_tip="クリックして色を選びます" />
+			<button name="Create New" label="新規スカートを作成" />
+			<button name="Take Off" label="脱ぐ" />
+			<button name="New Layer" label="新規レイヤー" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="内側のレイヤーへ移動します。" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="外側のレイヤーへ移動します。" />
+			<button name="Save" label="保存" />
+			<button name="Save As" label="名前を付けて保存..." />
+			<button name="Revert" label="元に戻す" />
+		</panel>
+		<panel name="Tattoo" label="タトゥー">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: 改造不可</text>
+			<text name="title_loading">[DESC]: 読み込み中...</text>
+			<text name="title_not_worn">[DESC]: 未着用</text>
+			<text name="path">場所: [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">インベントリからタトゥーをアバターへドラッグして着用してください。または新規作成して着用することもできます。</text>
+			<text name="no modify instructions">このウェアラブルを改造する権限がありません。</text>
+			<texture_picker name="Head Tattoo" label="頭のタトゥー" tool_tip="クリックして画像を選びます" />
+			<texture_picker name="Upper Tattoo" label="上半身のタトゥー" tool_tip="クリックして画像を選びます" />
+			<texture_picker name="Lower Tattoo" label="下半身のタトゥー" tool_tip="クリックして画像を選びます" />
+			<color_swatch name="Color/Tint" label="色 / ティント" tool_tip="クリックして色を選びます" />
+			<button name="Create New" label="新規タトゥーを作成" />
+			<button name="Take Off" label="脱ぐ" />
+			<button name="New Layer" label="新規レイヤー" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="内側のレイヤーへ移動します。" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="外側のレイヤーへ移動します。" />
+			<button name="Save" label="保存" />
+			<button name="Save As" label="名前を付けて保存..." />
+			<button name="Revert" label="元に戻す" />
+		</panel>
+		<panel name="Alpha" label="アルファ">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: 改造不可</text>
+			<text name="title_loading">[DESC]: 読み込み中...</text>
+			<text name="title_not_worn">[DESC]: 未着用</text>
+			<text name="path">場所: [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">インベントリからアルファマスクをアバターへドラッグして着用してください。または新規作成して着用することもできます。</text>
+			<text name="no modify instructions">このウェアラブルを改造する権限がありません。</text>
+			<texture_picker name="Head Alpha" label="頭のアルファ" tool_tip="クリックして画像を選びます" />
+			<texture_picker name="Upper Alpha" label="上半身のアルファ" tool_tip="クリックして画像を選びます" />
+			<texture_picker name="Lower Alpha" label="下半身のアルファ" tool_tip="クリックして画像を選びます" />
+			<check_box name="head alpha texture invisible" />
+			<check_box name="upper alpha texture invisible" />
+			<check_box name="lower alpha texture invisible" />
+			<texture_picker name="Hair Alpha" label="髪のアルファ" tool_tip="クリックして画像を選びます" />
+			<texture_picker name="Eye Alpha" label="目のアルファ" tool_tip="クリックして画像を選びます" />
+			<check_box name="hair alpha texture invisible" />
+			<check_box name="eye alpha texture invisible" />
+			<button name="Create New" label="新規アルファを作成" />
+			<button name="Take Off" label="脱ぐ" />
+			<button name="New Layer" label="新規レイヤー" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="内側のレイヤーへ移動します。" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="外側のレイヤーへ移動します。" />
+			<button name="Save" label="保存" />
+			<button name="Save As" label="名前を付けて保存..." />
+			<button name="Revert" label="元に戻す" />
+		</panel>
+		<panel name="Universal" label="ユニバーサル">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: 改造不可</text>
+			<text name="title_loading">[DESC]: 読み込み中...</text>
+			<text name="title_not_worn">[DESC]: 未着用</text>
+			<text name="path">場所: [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<scroll_container name="tab_container">
+				<panel name="tab_panel">
+					<text name="not worn instructions">インベントリからユニバーサルをアバターへドラッグして着用してください。または新規作成して着用することもできます。</text>
+					<text name="no modify instructions">このウェアラブルを改造する権限がありません。</text>
+					<texture_picker name="Head Universal Tattoo" label="頭のタトゥー" tool_tip="クリックして画像を選びます" />
+					<texture_picker name="Upper Universal Tattoo" label="上半身のタトゥー" tool_tip="クリックして画像を選びます" />
+					<texture_picker name="Lower Universal Tattoo" label="下半身のタトゥー" tool_tip="クリックして画像を選びます" />
+					<texture_picker name="Skirt Tattoo" label="スカートのタトゥー" tool_tip="クリックして画像を選びます" />
+					<texture_picker name="Hair Tattoo" label="髪のタトゥー" tool_tip="クリックして画像を選びます" />
+					<texture_picker name="Eyes Tattoo" label="目のタトゥー" tool_tip="クリックして画像を選びます" />
+					<texture_picker name="Left Arm Tattoo" label="左腕のタトゥー" tool_tip="クリックして画像を選びます" />
+					<texture_picker name="Left Leg Tattoo" label="左脚のタトゥー" tool_tip="クリックして画像を選びます" />
+					<texture_picker name="Aux1 Tattoo" label="Aux1 タトゥー" tool_tip="クリックして画像を選びます" />
+					<texture_picker name="Aux2 Tattoo" label="Aux2 タトゥー" tool_tip="クリックして画像を選びます" />
+					<texture_picker name="Aux3 Tattoo" label="Aux3 タトゥー" tool_tip="クリックして画像を選びます" />
+					<color_swatch name="Color/Tint" label="色 / ティント" tool_tip="クリックして色を選びます" />
+				</panel>
+			</scroll_container>
+			<button name="Create New" label="新規ユニバーサルを作成" />
+			<button name="Take Off" label="脱ぐ" />
+			<button name="New Layer" label="新規レイヤー" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="内側のレイヤーへ移動します。" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="外側のレイヤーへ移動します。" />
+			<button name="Save" label="保存" />
+			<button name="Save As" label="名前を付けて保存..." />
+			<button name="Revert" label="元に戻す" />
+		</panel>
+		<panel name="Physics" label="物理">
+			<icon name="square" />
+			<icon name="icon" />
+			<button name="Belly Bounce" label="お腹のバウンス" />
+			<button name="Breast Bounce" label="胸のバウンス" />
+			<button name="Breast Cleavage" label="胸の谷間" />
+			<button name="Breast Sway" label="胸の揺れ" />
+			<button name="Butt Bounce" label="お尻のバウンス" />
+			<button name="Butt Sway" label="お尻の揺れ" />
+			<button name="Advanced Parameters" label="詳細パラメータ" />
+			<button name="Take Off" label="脱ぐ" />
+			<button name="New Layer" label="新規レイヤー" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="内側のレイヤーへ移動します。" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="外側のレイヤーへ移動します。" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: 改造不可</text>
+			<text name="title_loading">[DESC]: 読み込み中...</text>
+			<text name="title_not_worn">[DESC]: 未着用</text>
+			<text name="path">場所: [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">インベントリから物理ウェアラブルをアバターへドラッグして着用してください。または新規作成して着用することもできます。</text>
+			<text name="no modify instructions">このウェアラブルを改造する権限がありません。</text>
+			<button name="Create New" label="新規物理を作成" />
+			<button name="Save" label="保存" />
+			<button name="Save As" label="名前を付けて保存..." />
+			<button name="Revert" label="元に戻す" />
+		</panel>
+	</tab_container>
+	<scroll_container name="panel_container" />
+	<text name="AvatarHeightText" visible="false">アバターの身長:</text>
+	<text name="HeightTextM" visible="false">（メートル法）</text>
+	<text name="HeightTextI" visible="false">（ヤード・ポンド法）</text>
+	<button name="Import" label="インポート" tool_tip="選択中のウェアラブルへ読み込みます。改造可能なウェアラブルである必要があります。" />
+	<button name="Export" label="エクスポート" tool_tip="選択中のウェアラブルを書き出します。コピー・改造・譲渡が可能で、自分が作成者である必要があります。" />
+	<button name="Cancel" label="キャンセル" />
+	<button name="Ok" label="OK" />
+	<flyout_button name="Make Outfit" label="衣装を作成..." />
+	<string name="Save changes to">変更を [OUTFIT] に保存</string>
+	<string name="No Outfit">衣装なし</string>
+	<string name="Changing outfits">衣装を着替えています</string>
+</floater>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="script search" title="Pesquisar no script">
+	<check_box name="case_text" label="Ignorar maiúsculas/minúsculas"/>
+	<button name="search_btn" label="Pesquisar" label_selected="Pesquisar"/>
+	<button name="replace_btn" label="Substituir" label_selected="Substituir"/>
+	<button name="replace_all_btn" label="Substituir tudo" label_selected="Substituir tudo"/>
+	<text name="txt">Pesquisar</text>
+	<text name="txt2">Substituir</text>
+</floater>

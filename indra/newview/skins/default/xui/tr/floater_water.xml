@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Water Floater" title="Gelişmiş Su Düzenleyici">
+	<text name="KeyFramePresetsText">Ön ayarlar:</text>
+	<button name="WaterNewPreset" label="Yeni" label_selected="Yeni"/>
+	<button name="WaterSavePreset" label="Kaydet" label_selected="Kaydet"/>
+	<button name="WaterDeletePreset" label="Sil" label_selected="Sil"/>
+	<tab_container name="Water Tabs">
+		<panel name="Settings" label="Ayarlar">
+			<text name="BHText">Su sisi rengi</text>
+			<button name="WaterFogColorHelp" label="?"/>
+			<color_swatch name="WaterFogColor" tool_tip="Renk seçiciyi açmak için tıklayın"/>
+			<text name="WaterFogDensText">Sis yoğunluğu üssü</text>
+			<button name="WaterFogDensityHelp" label="?"/>
+			<text name="WaterUnderWaterFogModText">Sualtı sis düzenleyici</text>
+			<button name="WaterUnderWaterFogModHelp" label="?"/>
+			<text name="BDensText">Yansıma dalgacık ölçeği</text>
+			<button name="WaterNormalScaleHelp" label="?"/>
+			<text name="BHText2">1</text>
+			<text name="BHText3">2</text>
+			<text name="BHText4">3</text>
+			<text name="HDText">Fresnel ölçeği</text>
+			<button name="WaterFresnelScaleHelp" label="?"/>
+			<text name="FresnelOffsetText">Fresnel ofseti</text>
+			<button name="WaterFresnelOffsetHelp" label="?"/>
+			<text name="DensMultText">Üst kırılma ölçeği</text>
+			<button name="WaterScaleAboveHelp" label="?"/>
+			<text name="WaterScaleBelowText">Alt kırılma ölçeği</text>
+			<button name="WaterScaleBelowHelp" label="?"/>
+			<text name="MaxAltText">Bulanıklaştırma çarpanı</text>
+			<button name="WaterBlurMultiplierHelp" label="?"/>
+		</panel>
+		<panel name="Waves" label="Görüntü">
+			<text name="BHText">Büyük dalga yönü</text>
+			<button name="WaterWave1Help" label="?"/>
+			<text name="WaterWave1DirXText">X</text>
+			<text name="WaterWave1DirYText">Y</text>
+			<text name="BHText2">Küçük dalga yönü</text>
+			<button name="WaterWave2Help" label="?"/>
+			<text name="WaterWave2DirXText">X</text>
+			<text name="WaterWave2DirYText">Y</text>
+			<text name="BHText3">Normal haritası</text>
+			<button name="WaterNormalMapHelp" label="?"/>
+		</panel>
+	</tab_container>
+	<string name="WLDefaultWaterNames">Default:Glassy:Pond:Murky:Second Plague:SNAKE!!!:Valdez</string>
+</floater>

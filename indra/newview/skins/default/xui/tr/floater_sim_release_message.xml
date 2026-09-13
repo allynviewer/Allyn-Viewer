@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floaterreleasemessage" title="Bölgeye Giriliyor">
+	<button name="close_btn" label="Kapat" />
+	<web_browser name="release_message_floater_browser" />
+	<string name="in-world_help_title">Dünya İçi Yardım</string>
+	<string name="in-world_help_url" />
+	<string name="additional_help_title">Ek Yardım</string>
+	<string name="additional_help_url" />
+</floater>

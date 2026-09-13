@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_snapshot_profile" title="Profil Akışımda Yayınla">
+	<text_editor name="caption">Mesajınızı buraya yazın.</text_editor>
+	<check_box name="add_location_cb" label="Konumu ekle" />
+	<button name="cancel_btn" label="İptal" />
+	<button name="post_btn" label="Gönderi" />
+	<string name="default_message">Orijinalin daha büyük halini görmek için yukarıdaki 'anlık görüntü' bağlantısını tıklayın.</string>
+	<string name="upload_message">"Yükleniyor..."</string>
+</floater>

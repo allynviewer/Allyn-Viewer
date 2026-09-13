@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="rlvLocks" title="Aktif RLV Kilitler">
+	<scroll_list name="lock_list">
+		<column name="lock_type" label="Kilit Tipi" />
+		<column name="lock_addrem" label="Ekle / Kal" />
+		<column name="lock_target" label="Hedefi Kilitle" />
+		<column name="lock_origin" label="Tarafından Düzenlendi" />
+	</scroll_list>
+</floater>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="overlay">
+	<layout_stack name="overlay_layout_panel">
+		<layout_panel name="main_panel">
+			<layout_stack name="chatbar_and_buttons">
+				<layout_panel name="padding" />
+				<layout_panel name="state_management_buttons_container">
+					<button name="New IM" label="Yeni anlık mesajlaşma" tool_tip="Bekleyen bir anlık mesajınız var. Anlık iletileri göstermek için tıklayın." />
+					<button name="Set Not Busy" label="Meşgul Değil'i Ayarla" tool_tip="Sohbet ve IM sizin için gizlendi. Kendinizi meşgul olmamak için burayı tıklayın." />
+					<button name="Flycam" label="Flycam" tool_tip="Kameranız joystick kontrolü altındadır, serbest bırakmak için burayı tıklayın." />
+					<button name="Mouselook" label="Fare bakışı" tool_tip="Görünümünüzü yönlendirmek için fareyi kullanın. Silahınız varsa tıklamanız ateş edecektir." />
+					<button name="Stand Up" label="Ayağa kalk" tool_tip="Ayağa kalkmak için buraya tıklayın." />
+					<button name="Cancel TP" label="TP'yi iptal et" tool_tip="Mevcut teleport işlemini iptal etmek için buraya tıklayın." />
+				</layout_panel>
+				<layout_panel name="chat_bar_layout_panel">
+					<panel name="chat_bar" />
+				</layout_panel>
+			</layout_stack>
+		</layout_panel>
+		<layout_panel name="ao_remote_container">
+			<panel name="ao_remote" />
+		</layout_panel>
+		<layout_panel name="media_remote_container">
+			<panel name="media_remote" />
+		</layout_panel>
+		<layout_panel name="voice_remote_container">
+			<panel name="voice_remote" />
+		</layout_panel>
+		<layout_panel name="AdvSettings_container">
+			<panel name="Adv_Settings" />
+		</layout_panel>
+	</layout_stack>
+	<string name="unread_count_string_plural">Yeni anlık iletiler</string>
+</panel>

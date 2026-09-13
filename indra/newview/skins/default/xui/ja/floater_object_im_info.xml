@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="object im info" title="オブジェクト 情報">
+	<text name="LabelItemNameTitle">オブジェクト:</text>
+	<text name="ObjectName" />
+	<text name="LabelSlurlTitle">場所:</text>
+	<text name="Slurl" />
+	<text name="Unknown_Slurl">（位置情報は利用できません）</text>
+	<text name="LabelOwnerNameTitle">所有者:</text>
+	<name_box name="OwnerName" />
+	<text name="LabelObjectID">キー:</text>
+	<line_editor name="ObjectID" />
+	<button name="Mute" label="ミュート 所有者" />
+	<string name="owner" />
+</floater>

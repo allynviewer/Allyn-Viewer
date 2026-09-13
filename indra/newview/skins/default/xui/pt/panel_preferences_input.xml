@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Entrada e câmera" name="Input panel">
+	<scroll_container name="input_scroll">
+		<panel name="input_scroll_inner">
+			<text name=" Mouselook Options:">OPÇÕES DE MOUSELOOK</text>
+			<text name=" Mouse Sensitivity:">Sensibilidade do mouse:</text>
+			<check_box label="Inverter o mouse" name="invert_mouse"/>
+			<check_box label="Zoom instantâneo no clique direito" name="instant_zoom"/>
+			<check_box label="Exibir posição e saúde do avatar" name="AlchemyMouselookInstructions"/>
+			<check_box label="Exibir nome do avatar sob a mira" name="AlchemyMouselookIFF"/>
+			<check_box label="Mostrar o avatar no Mouselook" name="first_person_avatar_visible"/>
+			<check_box label="Câmera realista no Mouselook" name="UseRealisticMouselook"/>
+			<text name="UI Hidden in mouselook:">Interface oculta no Mouselook:</text>
+			<check_box label="Janelas flutuantes" name="mouselook_hides_floaters"/>
+			<check_box label="Notificações" name="mouselook_hides_notices"/>
+			<check_box label="Barra de menu" name="mouselook_hides_menubar"/>
+			<check_box label="Barra de ferramentas" name="mouselook_hides_toolbar"/>
+			<text name=" Movement Options:">OPÇÕES DE MOVIMENTO</text>
+			<check_box label="Voar/aterrar com as teclas cima/baixo" name="automatic_fly"/>
+			<check_box label="Agachar alternado ao segurar Shift" name="crouch_toggle"/>
+			<check_box label="Usar layout AZERTY (não QWERTY)" name="azerty_keys"/>
+			<text name=" Camera Options:">OPÇÕES DE CÂMERA</text>
+			<text name="camera_fov_label">Campo de visão da câmera:</text>
+			<text name="Camera Follow Distance:">Distância de acompanhamento:</text>
+			<check_box label="Ctrl/Shift + rolagem move a câmera" name="scroll_keys"/>
+			<check_box label="Mover a câmera automaticamente ao editar" name="edit_camera_movement" tool_tip="Posiciona a câmera automaticamente ao entrar e sair do modo de edição"/>
+			<check_box label="Mover a câmera ao editar a aparência" name="appearance_camera_movement" tool_tip="Posiciona a câmera automaticamente no modo de edição de aparência"/>
+			<check_box label="Levantar o avatar ao redefinir a câmera" name="unsit_on_camera_reset" tool_tip="Levanta automaticamente quando você pressiona Esc e a câmera volta à terceira pessoa"/>
+			<check_box label="Desativar restrições da câmera" name="DisableCameraConstraints" tool_tip="Impede que a câmera dê zoom sozinha ao se aproximar de paredes, objetos etc."/>
+			<check_box label="Limitar distância de seleção" name="Limit Select Distance" tool_tip="Limita a distância em que um objeto pode ser selecionado."/>
+			<button label="Configuração do joystick" name="joystick_setup_button"/>
+		</panel>
+	</scroll_container>
+</panel>

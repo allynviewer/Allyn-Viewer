@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="avatar_texture_debug" title="Текстуры Аватара">
+	<button name="Dump" label="Сброс идентификаторов в консоль" />
+	<texture_picker name="hair-baked" label="Запеченные Волосы" />
+	<texture_picker name="hair_grain" label="Волосы" />
+	<texture_picker name="eyes-baked" label="Глаза запеченные" />
+	<texture_picker name="eyes_iris" label="Глаза" />
+	<texture_picker name="head-baked" label="Голова запеченная" />
+	<texture_picker name="head_bodypaint" label="Составить" />
+	<texture_picker name="head_tattoo" label="Тату На Голове" />
+	<texture_picker name="upper_tattoo" label="Верхняя Татуировка" />
+	<texture_picker name="lower_tattoo" label="Нижняя Тату" />
+	<texture_picker name="upper-baked" label="Верхняя запеченная" />
+	<texture_picker name="upper_bodypaint" label="Верхняя кожа" />
+	<texture_picker name="upper_undershirt" label="Майка" />
+	<texture_picker name="upper_shirt" label="Рубашка" />
+	<texture_picker name="upper_jacket" label="Верхняя куртка" />
+	<texture_picker name="upper_gloves" label="Перчатки" />
+	<texture_picker name="lower-baked" label="Нижняя запечённая" />
+	<texture_picker name="lower_bodypaint" label="Нижняя кожа" />
+	<texture_picker name="lower_underpants" label="Трусы" />
+	<texture_picker name="lower_pants" label="Брюки" />
+	<texture_picker name="lower_jacket" label="Нижняя куртка" />
+	<texture_picker name="lower_socks" label="Носки" />
+	<texture_picker name="skirt-baked" label="Юбка запеченная" />
+	<texture_picker name="skirt" label="Юбка" />
+	<texture_picker name="lower_shoes" label="Обувь" />
+</floater>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="experiences_tab">
+	<string name="help_text">Mit der Gruppe verknüpfte Erlebnisse werden hier aufgeführt, sofern vorhanden.</string>
+	<button name="help_button" label="?"/>
+	<text name="panel_header">Gruppenerlebnisse</text>
+</panel>

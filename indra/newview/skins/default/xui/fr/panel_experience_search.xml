@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="panel_experiences_search" label="Recherche">
+	<string name="not_found">« [TEXT] » introuvable</string>
+	<string name="no_results">Aucun résultat</string>
+	<string name="searching">Recherche...</string>
+	<string name="loading">Chargement...</string>
+	<panel name="search_panel">
+		<text name="search_text">Saisissez une partie du nom :</text>
+		<button name="find" label="OK"/>
+		<text name="content_text">Classification max. :</text>
+		<combo_box name="maturity" label="Mature">
+			<combo_box.item name="Adult" label="Adulte"/>
+			<combo_box.item name="Mature" label="Mature"/>
+			<combo_box.item name="PG" label="Tout public"/>
+		</combo_box>
+		<scroll_list name="search_results">
+			<columns name="experience_name" label="Nom"/>
+			<columns name="owner" label="Propriétaire"/>
+		</scroll_list>
+		<button name="ok_btn" label="OK" label_selected="OK"/>
+		<button name="cancel_btn" label="Annuler"/>
+		<button name="profile_btn" label="Voir le profil"/>
+	</panel>
+</panel>

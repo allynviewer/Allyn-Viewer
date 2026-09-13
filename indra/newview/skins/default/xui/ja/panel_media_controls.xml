@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="media_controls">
+	<icon name="music_icon" tool_tip="ストリーミング音楽を再生／一時停止" />
+	<button name="music_play" tool_tip="ストリーミング音楽を再生／一時停止" />
+	<button name="music_pause" tool_tip="ストリーミング音楽を一時停止" />
+	<button name="music_stop" tool_tip="ストリーミング音楽を停止" />
+	<icon name="media_icon" tool_tip="ストリーミング音楽を再生／一時停止" />
+	<button name="media_play" tool_tip="ストリーミングメディアを再生／一時停止" />
+	<button name="media_pause" tool_tip="ストリーミングメディアを一時停止" />
+	<button name="media_stop" tool_tip="ストリーミングメディアを停止" />
+	<volume_slider name="volume_slider" tool_tip="マスター音量" />
+	<button name="mute_master" tool_tip="マスターをミュート" />
+	<button name="expand" tool_tip="個別の音量を調整" />
+	<string name="play_label">再生</string>
+	<string name="stop_label">停止</string>
+	<string name="pause_label">一時停止</string>
+	<string name="default_tooltip_label">メディアが指定されていません</string>
+	<string name="media_hidden_label">（URLはパーセル所有者により非表示）</string>
+	<string name="media_icon_tooltip_web">この場所にはウェブコンテンツが表示されます。再生ボタンをクリックするとウェブコンテンツを表示します。</string>
+	<string name="media_icon_tooltip_movie">この場所には動画コンテンツが表示されます。再生ボタンをクリックすると動画を再生します。</string>
+	<string name="media_play_tooltip">この場所にウェブコンテンツを表示します。</string>
+</panel>

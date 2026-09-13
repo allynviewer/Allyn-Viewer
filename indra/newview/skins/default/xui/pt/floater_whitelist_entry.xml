@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="whitelist_entry" title="ENTRADA DA LISTA DE PERMITIDOS">
+	<text name="media_label">Digite uma URL ou padrão de URL para adicionar à lista de domínios permitidos</text>
+	<line_editor name="whitelist_entry" tool_tip="URL ou padrão p/ whitelistrmitidos"/>
+	<button name="ok_btn" label="OK"/>
+	<button name="cancel_btn" label="Cancelar"/>
+</floater>

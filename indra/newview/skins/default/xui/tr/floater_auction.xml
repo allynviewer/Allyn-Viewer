@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_auction" title="Ihlamur Arsa Satışına Başla">
+	<icon name="snapshot_icon" />
+	<text name="parcel_text" />
+	<check_box name="fence_check" label="Sarı seçim çitini dahil et" />
+	<button name="snapshot_btn" label="Anlık Görüntü" />
+	<button name="ok_btn" label="OK" />
+	<string name="already for sale">Halihazırda satışta olan parselleri açık artırmaya çıkaramazsınız.</string>
+</floater>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="radar" title="Radar">
+	<string name="Title">Radar</string>
+	<string name="TitleOneAvatar">Radar (1 Avatar)</string>
+	<string name="TitleWithCount">Radar ([COUNT] Avatarları)</string>
+	<filter_editor name="filter_input" label="İsme göre filtrele..." tool_tip="Avatarları kullanıcı adı veya görünen ada göre filtrele"/>
+	<scroll_list name="avatar_list" tool_tip="Birden fazla avatar seçmek için tıklarken Shift veya Control tuşunu basılı tutun">
+		<column name="marked" label="işaret" tool_tip="İşaretli avatarlar" />
+		<column name="avatar_name" label="İsim" tool_tip="Birden fazla avatar seçmek için tıklarken Shift veya Control tuşunu basılı tutun" />
+		<column name="distance" label="Dist." tool_tip="Avatarınıza olan mesafe (kırmızı=sohbet menzili dahilinde, sarı=bağırılma menzili dahilinde, yeşil=beraberlik mesafesi dahilinde)" />
+		<column name="position" label="Pos." tool_tip="Bu simülasyondaki konum (X, Y) veya dış simülasyonlar için genel yön (ana yön)" />
+		<column name="altitude" label="Alt." tool_tip="Rakım" />
+		<column name="activity" label="Act." tool_tip="Etkinlik" />
+		<column name="voice" tool_tip="Ses Durumu" />
+		<column name="notes" tool_tip="Bu avatarın profiline not ekleyip eklemediğiniz" />
+		<column name="age" label="Yaş" tool_tip="Yaş" />
+		<column name="time" label="Zaman" tool_tip="Sim'e girişten bu yana geçen süre." />
+		<column name="client" label="İstemci" tool_tip="Avatarın kullandığı viewer" />
+	</scroll_list>
+	<tab_container name="actions_tab_container">
+		<panel name="actions_tab" label="Avatar">
+			<button name="profile_btn" label="Profil" tool_tip="Resmi, grupları ve diğer bilgileri göster" />
+			<button name="track_btn" label="Takip Et/Takibi Bırak" tool_tip="Bu avatarın konumunu izlemeyi aç/kapat" />
+			<button name="get_key_btn" label="Anahtarı Al" tool_tip="Avatarın anahtarını panoya kopyalar" />
+			<button name="im_btn" label="IM" tool_tip="Anlık Mesaj oturumunu aç (Shift-Enter)" />
+			<button name="offer_btn" label="TP teklif et" tool_tip="Teleport teklifi" />
+			<button name="teleport_btn" label="TP" tool_tip="Avatarın konumuna teleport et (Ctrl-Enter)" />
+			<button name="mark_btn" label="(İşaretle)/(İşareti Kaldır)" tool_tip="Bu avatarı listede işaretle/işareti kaldır" />
+			<button name="prev_marked_btn" label="Önceki İşaretli" tool_tip="Kamerayı önceki işaretli avatara odakla" />
+			<button name="next_marked_btn" label="Sonraki İşaretli" tool_tip="Kamerayı bir sonraki işaretli avatara odakla" />
+			<button name="focus_btn" label="Odak" tool_tip="Kamerayı listedeki bu avatara odaklayın (Enter)" />
+			<button name="prev_in_list_btn" label="Önceki" tool_tip="Kamerayı listedeki önceki avatara odakla" />
+			<button name="next_in_list_btn" label="Sonraki" tool_tip="Kamerayı listedeki sonraki avatara odakla" />
+		</panel>
+		<panel name="alerts_tab" label="Uyarılar">
+			<check_box name="radar_alerts" label="Sohbette uyarıları görüntüle" tool_tip="Sohbette gelen ve giden avatarlarla ilgili uyarıları duyurun" />
+			<check_box name="alerts_sim" label="Sim'e giren/çıkan avatarlar" tool_tip="Sim'e giren veya çıkan avatarları bildirin" />
+			<check_box name="alerts_draw" label="Çizim mesafesinin içindeki/ötesindeki avatarlar" tool_tip="Çizim mesafesinin içine giren veya bu mesafenin ötesine geçen avatarları bildirin" />
+			<check_box name="alerts_chat" label="Ses aralığının içindeki/dışındaki avatarlar" tool_tip="Ses aralığına giren veya çıkan avatarları bildirin" />
+			<check_box name="alerts_chat" label="Sohbet aralığının içindeki/dışındaki avatarlar" tool_tip="Sohbet aralığına giren veya çıkan avatarları bildirin" />
+		</panel>
+		<panel name="land_tab" label="Moderasyon">
+			<button name="mute_btn" label="Sessiz/Sesi Aç" tool_tip="Bu avatarın sesini kapatın veya açın (sessizleştirilen avatarların adları listede kırmızı renkle vurgulanır)." />
+			<button name="freeze_btn" label="Dondur" tool_tip="Avatarı dondurarak hareket etmesini önleyin" />
+			<button name="ar_btn" label="AR" tool_tip="Bu avatardaki kötüye kullanımı bildir" />
+			<button name="eject_btn" label="Çıkar" tool_tip="Avatarı paketten çıkar" />
+			<button name="estate_eject_btn" label="Estate'ten çıkar" tool_tip="Bu avatarı mülkten çıkar" />
+			<button name="estate_ban_btn" label="Estate'ten çıkar ve yasakla" tool_tip="Bu avatarı mülkten çıkarın ve yasaklayın" />
+		</panel>
+		<panel name="options_tab" label="Seçenekler">
+			<check_box name="update_enabled_cb" label="Güncelleme" tool_tip="Avatar listesinin güncellenip güncellenmeyeceğini ayarlayın" />
+			<check_box name="keep_open" label="Kapalıyken bile duyurun" tool_tip="Sohbette duyuru yapmaya devam etmek için kapatmak yerine floater'ı gizler" />
+			<check_box name="radar_chat_keys" label="HUD anahtarlarını duyurun" tool_tip="Avatar anahtarlarının LSL komut dosyalarına gönderilip gönderilmeyeceğini ayarlayın" />
+			<button name="send_keys_btn" label="Şimdi duyurun" tool_tip="Tüm anahtarları şimdi HUD'a gönder" />
+		</panel>
+		<panel name="extras_tab" label="Ekstra">
+			<check_box name="agealert" label="Avatar Yaş Uyarısı" tool_tip="Avatar Yaş Uyarısını Etkinleştir" />
+			<spinner name="AgeAlertDays" label="Yaş Eşiği" tool_tip="Bir avatarın bir uyarıyı tetiklemeden Grid'de geçirebileceği minimum gün sayısı" />
+			<text name="hide_columns">Sütunları gizle:</text>
+			<check_box name="hide_mark" label="işaret" />
+			<check_box name="hide_pos" label="Pos." tool_tip="Pozisyon" />
+			<check_box name="hide_alt" label="Alt." tool_tip="Rakım" />
+			<check_box name="hide_act" label="Act." tool_tip="Etkinlik" />
+			<check_box name="hide_voice" label="Ses" tool_tip="Ses Durumu" />
+			<check_box name="hide_notes" label="Notlar" tool_tip="Notlar Onay Kutusu" />
+			<check_box name="hide_age" label="Yaş" />
+			<check_box name="hide_time" label="Zaman" />
+			<check_box name="hide_client" label="İstemci" />
+		</panel>
+	</tab_container>
+	<string name="Out Of Range">Aralık Dışı</string>
+	<string name="Moving">Hareketli</string>
+	<string name="Playing a gesture">Bir jest oynatma</string>
+	<string name="Playing a sound">Bir ses çalma</string>
+	<string name="Rezzing objects">Nesneleri yeniden adlandırma</string>
+	<string name="Creating particles">Parçacıklar oluşturma</string>
+	<string name="Just arrived">Yeni geldim</string>
+	<string name="Typing">Yazma</string>
+</floater>

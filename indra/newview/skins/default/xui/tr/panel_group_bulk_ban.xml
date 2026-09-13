@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="bulk_ban_panel" label="Sakinleri Yasakla">
+	<panel.string name="loading">(yükleniyor...)</panel.string>
+	<panel.string name="ban_selection_too_large">Grup yasakları gönderilemedi: çok fazla Sakin seçildi. Grup yasakları istek başına 100 ile sınırlıdır.</panel.string>
+	<panel.string name="ban_not_permitted">Grup yasağı gönderilmedi: 'Yasaklama listesini yönet' seçeneğiniz yok.</panel.string>
+	<panel.string name="ban_limit_fail">Grup yasağı gönderilmedi: Grubunuz izin verilen yasaklama kaydı sınırına ulaştı.</panel.string>
+	<panel.string name="partial_ban">
+		Bazı grup yasakları gönderilmedi:
+[REASONS]
+	</panel.string>
+	<panel.string name="ban_failed">
+		Grup yasakları gönderilmedi:
+[REASONS]
+	</panel.string>
+	<panel.string name="residents_already_banned">- Aşağıdaki sakinler zaten yasaklanmış durumda: [RESIDENTS].</panel.string>
+	<panel.string name="ban_limit_reached">- Yasaklama sınırına ulaşıldı, şu aracılar yasaklanmadı: [RESIDENTS].</panel.string>
+	<panel.string name="cant_ban_yourself">- Kendinizi bir gruptan yasaklayamazsınız.</panel.string>
+	<text name="help_text">
+		Birden fazla Sakin seçebilirsiniz
+grubunuzdan yasaklayın. 'Aç'ı tıklayın
+Sakin Seçici'yi başlatın.
+	</text>
+	<button name="add_button" label="Sakin Seçiciyi Aç" />
+	<name_list name="banned_agent_list" tool_tip="Çoklu seçim için Ctrl tuşunu basılı tutun ve Sakin adlar'a tıklayın" />
+	<button name="remove_button" label="Seçileni Listeden Kaldır" tool_tip="Yukarıda seçilen Sakinleri yasak listesinden kaldırır" />
+	<button name="ban_button" label="Sakinleri Yasakla" />
+	<button name="cancel_button" label="İptal" />
+	<string name="GroupBulkBan">Grup Yasağı</string>
+</panel>

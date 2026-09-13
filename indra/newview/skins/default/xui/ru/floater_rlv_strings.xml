@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="rlva_strings" title="Струны RLVa">
+	<combo_box name="string_list" />
+	<text_editor name="string_descr" />
+	<text_editor name="string_value" />
+	<button name="default_btn" label="Сбросить настройки по умолчанию" />
+</floater>

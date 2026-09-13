@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_pathfinding_linksets" title="Linksets de pathfinding">
+	<string name="messaging_get_inprogress">Recherche des linksets de pathfinding...</string>
+	<string name="messaging_get_error">Erreur détectée lors de la recherche des linksets de pathfinding.</string>
+	<string name="messaging_set_inprogress">Modification des linksets de pathfinding sélectionnés...</string>
+	<string name="messaging_set_error">Erreur détectée lors de la modification des linksets de pathfinding sélectionnés.</string>
+	<string name="messaging_complete_none_found">Aucun linkset de pathfinding.</string>
+	<string name="messaging_complete_available">[NUM_SELECTED] linksets sélectionnés sur [NUM_TOTAL].</string>
+	<string name="messaging_not_enabled">Cette région n'est pas activée pour le pathfinding.</string>
+	<string name="linkset_is_scripted">Oui</string>
+	<string name="linkset_is_not_scripted">Non</string>
+	<string name="linkset_is_unknown_scripted">Inconnu</string>
+	<string name="linkset_use_walkable">Praticable</string>
+	<string name="linkset_use_static_obstacle">Obstacle statique</string>
+	<string name="linkset_use_dynamic_obstacle">Obstacle mobile</string>
+	<string name="linkset_use_material_volume">Volume de matériau</string>
+	<string name="linkset_use_exclusion_volume">Volume d'exclusion</string>
+	<string name="linkset_use_dynamic_phantom">Fantôme mobile</string>
+	<string name="linkset_choose_use">Choisir l'usage du linkset...</string>
+	<panel name="pathfinding_linksets_main">
+		<text name="linksets_filter_label">Filtrer par :</text>
+		<text name="linksets_name_label">Nom</text>
+		<text name="linksets_desc_label">Description</text>
+		<combo_box name="filter_by_linkset_use">
+			<combo_item name="filter_by_linkset_use_none">Filtrer par usage du linkset...</combo_item>
+			<combo_item name="filter_by_linkset_use_walkable">Praticable</combo_item>
+			<combo_item name="filter_by_linkset_use_static_obstacle">Obstacle statique</combo_item>
+			<combo_item name="filter_by_linkset_use_dynamic_obstacle">Obstacle mobile</combo_item>
+			<combo_item name="filter_by_linkset_use_material_volume">Volume de matériau</combo_item>
+			<combo_item name="filter_by_linkset_use_exclusion_volume">Volume d'exclusion</combo_item>
+			<combo_item name="filter_by_linkset_use_dynamic_phantom">Fantôme mobile</combo_item>
+		</combo_box>
+		<button name="apply_filters" label="Appliquer"/>
+		<button name="clear_filters" label="Effacer"/>
+		<scroll_list name="objects_scroll_list">
+			<column name="name" label="Nom (prim racine)"/>
+			<column name="description" label="Description (prim racine)"/>
+			<column name="owner" label="Propriétaire"/>
+			<column name="scripted" label="Scripté"/>
+			<column name="land_impact" label="Impact"/>
+			<column name="dist_from_you" label="Distance"/>
+			<column name="linkset_use" label="Usage du linkset"/>
+			<column name="a_percent" label="A%"/>
+			<column name="b_percent" label="B%"/>
+			<column name="c_percent" label="C%"/>
+			<column name="d_percent" label="D%"/>
+		</scroll_list>
+		<text name="messaging_status">Linksets :</text>
+		<button name="refresh_objects_list" label="Actualiser la liste"/>
+		<button name="select_all_objects" label="Tout sélectionner"/>
+		<button name="select_none_objects" label="Tout désélectionner"/>
+	</panel>
+	<panel name="pathfinding_linksets_actions">
+		<text name="linksets_actions_label">Actions sur les linksets sélectionnés (si un linkset est retiré du monde, ses attributs peuvent être perdus) :</text>
+		<check_box name="show_beacon" label="Afficher la balise"/>
+		<button name="take_objects" label="Prendre"/>
+		<button name="take_copy_objects" label="Prendre une copie"/>
+		<button name="teleport_me_to_object" label="Me téléporter vers lui"/>
+		<button name="return_objects" label="Renvoyer"/>
+		<button name="delete_objects" label="Supprimer"/>
+	</panel>
+	<panel name="pathfinding_linksets_attributes">
+		<text name="linksets_attributes_label">Modifiez les attributs des linksets sélectionnés et appuyez sur le bouton pour appliquer les changements</text>
+		<text name="walkability_coefficients_label">Praticabilité :</text>
+		<line_editor name="edit_a_value" tool_tip="Praticabilité pour les personnages de type A. Exemple : humanoïde."/>
+		<line_editor name="edit_b_value" tool_tip="Praticabilité pour les personnages de type B. Exemple : créature."/>
+		<line_editor name="edit_c_value" tool_tip="Praticabilité pour les personnages de type C. Exemple : mécanique."/>
+		<line_editor name="edit_d_value" tool_tip="Praticabilité pour les personnages de type D. Exemple : autre."/>
+		<button name="apply_edit_values" label="Appliquer les changements"/>
+		<text name="suggested_use_a_label">(Humanoïde)</text>
+		<text name="suggested_use_b_label">(Créature)</text>
+		<text name="suggested_use_c_label">(Mécanique)</text>
+		<text name="suggested_use_d_label">(Autre)</text>
+	</panel>
+</floater>

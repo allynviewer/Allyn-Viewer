@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Name/Description">
+	<text name="name_label">İsim:</text>
+	<line_editor name="name_form" />
+	<text name="description_label">Açıklama:</text>
+	<line_editor name="description_form" />
+	<button name="cancel_btn" label="İptal" />
+	<button name="ok_btn" label="Yükle ([UPLOADFEE])" />
+</floater>

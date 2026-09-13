@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="groups">
+	<scroll_list name="group list">
+		<column label="Nome" name="name" tool_tip="Nome"/>
+		<column name="is_listed_group" tool_tip="Grupo visível no perfil."/>
+		<column name="is_chattable_group" tool_tip="Receber chat do grupo"/>
+		<column name="is_notice_group" tool_tip="Receber avisos do grupo"/>
+	</scroll_list>
+	<text name="groupdesc" width="280">
+		Seu grupo ativo atual está mostrado em itálico.
+	</text>
+	<text name="groupcount" width="300">
+		Você pertence a [COUNT] grupos (de no máximo [MAX], restam [LEFT]).
+	</text>
+	<button width="86" label="MI/Chamada" name="IM" tool_tip="Abrir sessão de Mensagem Instantânea"/>
+	<button width="86" label="Informações" name="Info"/>
+	<button width="86" label="Ativar" name="Activate"/>
+	<button width="86" label="Deixar" name="Leave"/>
+	<button width="86" label="Criar..." name="Create"/>
+	<button width="86" label="Buscar..." name="Search..."/>
+	<button width="86" label="Convidar..." name="Invite..."/>
+	<button width="86" label="Títulos..." name="Titles..."/>
+	<filter_editor name="group_search_lineedit" label="Pesquisar grupo" tool_tip="O nome do grupo que você deseja pesquisar"/>
+</panel>

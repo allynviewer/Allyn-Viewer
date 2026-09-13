@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="false" bottom="0" enabled="true" height="250" left="0"
+     mouse_opaque="true" name="device_settings_panel" width="400">
+    <string name="default_text">Default</string>
+    <string name="name_no_device">No Device</string>
+    <string name="name_default_system_device">Default System Device</string>
+
+	<text type="string" length="1" bottom_delta="-18" drop_shadow_visible="true"
+	     follows="left|top" font="SansSerifSmall" height="16" left="10"
+	     name="Input" width="280">
+		Input (microphone):
+	</text>
+	<combo_box control_name="VoiceInputAudioDevice" allow_text_entry="false"
+	     bottom_delta="-20" follows="left|top" height="18" left="10"
+	     max_chars="128" name="voice_input_device" width="270" />
+	<locate bottom_delta="0" height="18" left="290" name="bar0" width="18" />
+	<locate bottom_delta="0" height="18" left="310" name="bar1" width="18" />
+	<locate bottom_delta="0" height="18" left="330" name="bar2" width="18" />
+	<locate bottom_delta="0" height="18" left="350" name="bar3" width="18" />
+	<locate bottom_delta="0" height="18" left="370" name="bar4" width="18" />
+
+	<text type="string" length="1" bottom_delta="-28" drop_shadow_visible="true"
+	     follows="left|top" font="SansSerifSmall" height="16" left="10"
+	     name="My volume label" width="280">
+		Input Level:
+	</text>
+	<volume_slider control_name="AudioLevelMic" bottom_delta="-18" left="4"
+	     follows="left|top" height="17" increment="0.05" initial_val="1.0"
+	     max_val="2" min_val="0" name="mic_volume_slider"
+	     tool_tip="Change the microphone input level" width="200" />
+	<text bottom_delta="0" follows="left|top" height="18" left="210"
+	     name="wait_text" width="160">
+		Please wait
+	</text>
+
+	<text type="string" length="1" bottom_delta="-28" drop_shadow_visible="true"
+	     follows="left|top" font="SansSerifSmall" height="16" left="10"
+	     name="Output" width="280">
+		Output (speakers):
+	</text>
+	<combo_box control_name="VoiceOutputAudioDevice" allow_text_entry="false"
+	     bottom_delta="-20" follows="left|top" height="18" left="10"
+	     max_chars="128" name="voice_output_device" width="370" />
+
+	<text_editor type="string" length="1" allow_html="false"
+	     bg_readonly_color="0 0 0 0" bottom_delta="-58" enabled="false"
+	     follows="left|top" font="SansSerifSmall" height="48" hide_border="true"
+	     hide_scrollbar="true" left="10" max_length="65535"
+	     name="mic_test_label" tab_stop="false" width="380" word_wrap="true">
+		Speak into the microphone. Green bars show the level; you should also hear yourself in the speakers.
+	</text_editor>
+</panel>

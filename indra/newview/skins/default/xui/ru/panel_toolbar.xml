@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="toolbar">
+	<string name="Redock Windows">Перезакрепить окна</string>
+	<string name="ToolbarButtons">Кнопки панели инструментов</string>
+	<string name="IMs">[COUNT] IM</string>
+	<string name="IM">1 IM</string>
+	<layout_stack name="toolbar_stack">
+		<layout_panel name="panel1" />
+		<layout_panel name="panel2">
+			<button name="chat_btn" tool_tip="Показать панель чата. (Enter)" />
+		</layout_panel>
+		<layout_panel name="panel3" />
+		<layout_panel name="panel4">
+			<flyout_button name="communicate_btn" label="Общаться" tool_tip="Общайтесь со своими друзьями и группами. (Ctrl-T)" />
+		</layout_panel>
+		<layout_panel name="panel5" />
+		<layout_panel name="panelim">
+			<button name="communicate_im_btn" label="Общаться" tool_tip="Общайтесь со своими друзьями и группами. (Ctrl-T)" />
+		</layout_panel>
+		<layout_panel name="panelfriends">
+			<button name="friends_btn" label="Друзья" tool_tip="Откройте список друзей. (Ctrl-Shift-F)" />
+		</layout_panel>
+		<layout_panel name="panelgroups">
+			<button name="groups_btn" label="Группы" tool_tip="Откройте список групп. (Ctrl-Shift-G)" />
+		</layout_panel>
+		<layout_panel name="panelgrouptitles">
+			<button name="group_titles_btn" label="Титулы групп" />
+		</layout_panel>
+		<layout_panel name="panelchathistory">
+			<button name="chat_history_btn" label="Локальный чат" tool_tip="Откройте локальный чат. (Ctrl-H)" />
+		</layout_panel>
+		<layout_panel name="panelactivespeakers">
+			<button name="active_speakers_btn" label="Говорящие" />
+		</layout_panel>
+		<layout_panel name="panelmutelist">
+			<button name="mute_list_btn" label="Список заглушения" />
+		</layout_panel>
+		<layout_panel name="panelassetblacklist">
+			<button name="assetblack_list_btn" label="Чёрный список ассетов" />
+		</layout_panel>
+		<layout_panel name="panelvoiceeffect">
+			<button name="voice_effects_btn" label="Голосовые эффекты" />
+		</layout_panel>
+		<layout_panel name="panelgestures">
+			<button name="gestures_btn" label="Жесты" tool_tip="Ctrl-G" />
+		</layout_panel>
+		<layout_panel name="panelbeacons">
+			<button name="beacons_btn" label="Маяки" />
+		</layout_panel>
+		<layout_panel name="panel6">
+			<button name="radar_list_btn" label="Радар" tool_tip="Список ближайших аватаров (Ctrl-Shift-A)" />
+		</layout_panel>
+		<layout_panel name="panelregiontracker">
+			<button name="region_tracker_btn" label="Трекер региона" tool_tip="Отслеживайте статус различных регионов" />
+		</layout_panel>
+		<layout_panel name="panelcameracontrols">
+			<button name="camera_controls_btn" label="Управление камерой" />
+		</layout_panel>
+		<layout_panel name="panelmessagelog">
+			<button name="movement_controls_btn" label="Управление движением" />
+		</layout_panel>
+		<layout_panel name="panelmouselook">
+			<button name="mouselook_btn" label="Мауслук" />
+		</layout_panel>
+		<layout_panel name="panel7">
+			<button name="fly_btn" label="Полёт" tool_tip="Полёт (F или Home). E/C или PgUp/PgDn — вверх и вниз." />
+		</layout_panel>
+		<layout_panel name="panelsit">
+			<button name="sit_btn" label="Сесть" />
+		</layout_panel>
+		<layout_panel name="panelrun">
+			<button name="run_btn" label="Бег" tool_tip="Включить режим бега (Ctrl-R)." />
+		</layout_panel>
+		<layout_panel name="panelvelocity">
+			<button name="run_btn" label="Скорость" />
+		</layout_panel>
+		<layout_panel name="panelmeanevents">
+			<button name="bumps_btn" label="Толчки" />
+		</layout_panel>
+		<layout_panel name="panelmediaticker">
+			<button name="media_ticker_btn" label="Поток" />
+		</layout_panel>
+		<layout_panel name="panelmediafilter">
+			<button name="media_filter_btn" label="Медиа-фильтр" />
+		</layout_panel>
+		<layout_panel name="panel8">
+			<button name="snapshot_btn" label="Снимок" tool_tip="Сохраните снимок экрана на диск или в инвентарь. (Ctrl-Shift-S для всплывающего окна, Ctrl-`(~) делает снимок без всплывающего окна)" />
+		</layout_panel>
+		<layout_panel name="panelappearance">
+			<button name="appearance_btn" label="Внешность" />
+		</layout_panel>
+		<layout_panel name="panelexperiences">
+			<button name="experiences_btn" label="Опыты" />
+		</layout_panel>
+		<layout_panel name="panel9">
+			<button name="directory_btn" label="Поиск" tool_tip="Поиск мест, событий, людей и т. д. (Ctrl-F)." />
+		</layout_panel>
+		<layout_panel name="panelweb">
+			<button name="web_browser_btn" label="Веб-браузер" />
+		</layout_panel>
+		<layout_panel name="panelao">
+			<button name="ao_btn" label="Настройки АО" tool_tip="Открыть настройки Animation Overrider"/>
+		</layout_panel>
+		<layout_panel name="paneldebugsettings">
+			<button name="debug_settings_btn" label="Настройки отладки" />
+		</layout_panel>
+		<layout_panel name="paneldebugavatar">
+			<button name="debug_avatar_btn" label="Отладка аватара" />
+		</layout_panel>
+		<layout_panel name="panelanimsexplorer">
+			<button name="anims_explorer_btn" label="Анимации" />
+		</layout_panel>
+		<layout_panel name="panelsoundexplorer">
+			<button name="sound_explorer_btn" label="Звуки" />
+		</layout_panel>
+		<layout_panel name="panelareasearch">
+			<button name="areasearch_btn" label="Поиск по области" />
+		</layout_panel>
+		<layout_panel name="panelinspect">
+			<button name="inspect_btn" label="Осмотреть" />
+		</layout_panel>
+		<layout_panel name="panelpathingchars">
+			<button name="pathing_characters_btn" label="Персонажи" />
+		</layout_panel>
+		<layout_panel name="panelpathinglinksets">
+			<button name="pathing_linksets_btn" label="Линксеты" />
+		</layout_panel>
+		<layout_panel name="panel10">
+			<button name="build_btn" label="Строить" tool_tip="Создать объект (B)" />
+		</layout_panel>
+		<layout_panel name="panelgridoptions">
+			<button name="grid_options_btn" label="Сетка" />
+		</layout_panel>
+		<layout_panel name="panellocalassets">
+			<button name="local_textures_btn" label="Локальные текстуры" />
+		</layout_panel>
+		<layout_panel name="panelpermprefs">
+			<button name="perm_prefs_btn" label="Права загрузки" />
+		</layout_panel>
+		<layout_panel name="panelscripterrors">
+			<button name="script_errors_btn" label="Ошибки скриптов" />
+		</layout_panel>
+		<layout_panel name="panelenvsettings">
+			<button name="env_editor_btn" label="Редактор среды" />
+		</layout_panel>
+		<layout_panel name="paneldaycycle">
+			<button name="day_cycle_editor_btn" label="Редактор дневного цикла" />
+		</layout_panel>
+		<layout_panel name="panelwindlight">
+			<button name="windlight_btn" label="Windlight" />
+		</layout_panel>
+		<layout_panel name="panelwatersettings">
+			<button name="water_editor_btn" label="Редактор воды" />
+		</layout_panel>
+		<layout_panel name="panelpostprocess">
+			<button name="post_process_btn" label="Постобработка" />
+		</layout_panel>
+		<layout_panel name="panelbuycurrency">
+			<button name="buy_currency_btn" label="Купить [CURRENCY]" />
+		</layout_panel>
+		<layout_panel name="panelbuyland">
+			<button name="buy_land_btn" label="Купить землю" />
+		</layout_panel>
+		<layout_panel name="panelmyland">
+			<button name="my_land_btn" label="Моя земля" />
+		</layout_panel>
+		<layout_panel name="panelaboutland">
+			<button name="about_land_btn" label="О земле" />
+		</layout_panel>
+		<layout_panel name="panelscriptinfo">
+			<button name="script_info_btn" label="Скрипты региона" />
+		</layout_panel>
+		<layout_panel name="panelaboutregion">
+			<button name="about_region_btn" label="Регион/эстейт" />
+		</layout_panel>
+		<layout_panel name="panelgodtools">
+			<button name="god_tools_btn" label="Инструменты бога" />
+		</layout_panel>
+		<layout_panel name="panelteleporthistory">
+			<button name="teleport_history_btn" label="История ТП" />
+		</layout_panel>
+		<layout_panel name="paneldestinations">
+			<button name="destinations_btn" label="Направления" />
+		</layout_panel>
+		<layout_panel name="panel11">
+			<button name="map_btn" label="Карта" tool_tip="Карта мира. (Ctrl-M)" />
+		</layout_panel>
+		<layout_panel name="panel12">
+			<button name="radar_btn" label="Мини-карта" tool_tip="Карта местности вокруг вас. (Ctrl-Shift-M)" />
+		</layout_panel>
+		<layout_panel name="panelrlvrestrictions">
+			<button name="rlv_restrictions_btn" label="Ограничения" />
+		</layout_panel>
+		<layout_panel name="panelrlvlocks">
+			<button name="rlv_locks_btn" label="Блокировки RLVa" />
+		</layout_panel>
+		<layout_panel name="panelrlvstrings">
+			<button name="rlv_strings_btn" label="Строки RLVa" />
+		</layout_panel>
+		<layout_panel name="panelmemleak">
+			<button name="memleak_btn" label="Утечка памяти" tool_tip="Надеюсь, вы знаете, что делаете." />
+		</layout_panel>
+		<layout_panel name="panelmessagelog">
+			<button name="message_log_btn" label="Журнал сообщений" />
+		</layout_panel>
+		<layout_panel name="panelstats">
+			<button name="stats_btn" label="Статистика" />
+		</layout_panel>
+		<layout_panel name="panelnotificationsconsole">
+			<button name="notifications_console_btn" label="Консоль уведомлений" />
+		</layout_panel>
+		<layout_panel name="paneldebugconsole">
+			<button name="debug_console_btn" label="Консоль отладки" />
+		</layout_panel>
+		<layout_panel name="panelregiondebug">
+			<button name="region_console_btn" label="Консоль региона" />
+		</layout_panel>
+		<layout_panel name="panelfasttimers">
+			<button name="fast_timers_btn" label="Быстрые таймеры" />
+		</layout_panel>
+		<layout_panel name="panelframeconsole">
+			<button name="frame_console_btn" label="Консоль кадров" />
+		</layout_panel>
+		<layout_panel name="panelhttpconsole">
+			<button name="http_console_btn" label="HTTP-консоль" />
+		</layout_panel>
+		<layout_panel name="paneltextureconsole">
+			<button name="texture_console_btn" label="Консоль текстур" />
+		</layout_panel>
+		<layout_panel name="paneltexturecategoryconsole">
+			<button name="texture_category_console_btn" label="Консоль категорий текстур" />
+		</layout_panel>
+		<layout_panel name="paneltexturesizeconsole">
+			<button name="texture_size_console_btn" label="Консоль размера текстуры" />
+		</layout_panel>
+		<layout_panel name="panelavatar">
+			<button name="avatar_btn" label="Аватары по умолчанию" />
+		</layout_panel>
+		<layout_panel name="paneloutfit">
+			<button name="make_outfit_btn" label="Создать наряд" />
+		</layout_panel>
+		<layout_panel name="paneloutfits">
+			<button name="outfits_btn" label="Наряды" />
+		</layout_panel>
+		<layout_panel name="panelfavs">
+			<button name="favs_btn" label="Избранное" />
+		</layout_panel>
+		<layout_panel name="panel13">
+			<button name="inventory_btn" label="Инвентарь" tool_tip="Ваши предметы. (Ctrl-I)" />
+		</layout_panel>
+		<layout_panel name="panelreceiveditems">
+			<button name="received_items_btn" label="Полученные предметы" />
+		</layout_panel>
+		<layout_panel name="panelmarketplacelistings">
+			<button name="marketplace_listings_btn" label="Объявления Marketplace" />
+		</layout_panel>
+		<layout_panel name="panelmarketplace">
+			<button name="marketplace_btn" label="Marketplace" />
+		</layout_panel>
+		<layout_panel name="panelpreferences">
+			<button name="preferences_btn" label="Настройки" tool_tip="Ctrl-P" />
+		</layout_panel>
+		<layout_panel name="paneljoystick">
+			<button name="joystick_btn" label="Джойстик" />
+			<button name="enable_joystick" tool_tip="Включение и выключение управления джойстиком" />
+		</layout_panel>
+		<layout_panel name="panelautoreplace">
+			<button name="auto_replace_btn" label="Автозамена" />
+			<button name="enable_autoreplace" tool_tip="Включить и выключить автозамену" />
+		</layout_panel>
+		<layout_panel name="paneldisplayname">
+			<button name="display_name_btn" label="Отображаемое имя" />
+		</layout_panel>
+		<layout_panel name="paneltest">
+			<button name="floater_test_btn" label="Тест окна" />
+		</layout_panel>
+		<layout_panel name="paneleditui">
+			<button name="edit_ui_btn" label="Редактировать интерфейс" />
+		</layout_panel>
+		<layout_panel name="panelfonttest">
+			<button name="font_test_btn" label="Тест шрифта" />
+		</layout_panel>
+		<layout_panel name="panelreportabuse">
+			<button name="abuse_btn" label="Сообщить о нарушении" />
+		</layout_panel>
+		<layout_panel name="panelhelptutorial">
+			<button name="tutorial_btn" label="Обучение" />
+		</layout_panel>
+		<layout_panel name="panelabout">
+			<button name="about_btn" label="О [SHORT_APP_NAME]" />
+		</layout_panel>
+		<layout_panel name="panelquit">
+			<button name="quit_btn" label="Выход" />
+		</layout_panel>
+		<layout_panel name="paneltoolbarprefs">
+			<button name="change_buttons_btn" label="Изменить кнопки" />
+		</layout_panel>
+	</layout_stack>
+</panel>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="associate listing" title="Ассоциированный листинг">
+	<text name="message">Идентификатор листинга:</text>
+	<line_editor name="listing_id">Введите идентификационный номер здесь</line_editor>
+	<button name="OK" label="ОК" />
+	<button name="Cancel" label="Отмена" />
+</floater>

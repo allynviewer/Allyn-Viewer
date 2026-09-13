@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<context_menu name="Url Popup" label="Парцел">
+	<menu_item_call name="show_parcel" label="О парцеле" />
+	<menu_item_call name="show_on_map" label="Показать на карте" />
+	<menu_item_call name="url_copy" label="Копировать SLURL" />
+	<menu_item_call name="Select All" label="Выделить всё" />
+</context_menu>

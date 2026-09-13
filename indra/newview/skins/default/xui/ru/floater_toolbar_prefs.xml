@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_toolbar_prefs.xml" title="Выберите кнопки панели инструментов">
+	<filter_editor name="filter_input" label="Фильтр по имени..." tool_tip="Введите имя кнопки, чтобы отфильтровать список" />
+	<check_box name="chat_btn" label="Панель чата" />
+	<check_box name="communicate_flyout" label="Общение (меню)" />
+	<check_box name="communicate_btn" label="Общение" />
+	<check_box name="friends_btn" label="Друзья" />
+	<check_box name="groups_btn" label="Группы" />
+	<check_box name="group_titles_btn" label="Титулы групп" />
+	<check_box name="chat_history_btn" label="Локальный чат" />
+	<check_box name="active_speakers_btn" label="Говорящие" />
+	<check_box name="mute_list_btn" label="Список заглушения" />
+	<check_box name="black_list_btn" label="Чёрный список ассетов" />
+	<check_box name="voice_effects_btn" label="Голосовые эффекты" />
+	<check_box name="gestures_btn" label="Жесты" />
+	<check_box name="beacons_btn" label="Маяки" />
+	<check_box name="radar_list_btn" label="Радар" />
+	<check_box name="region_tracker_btn" label="Трекер регионов" />
+	<check_box name="camera_controls_btn" label="Камера" />
+	<check_box name="movement_controls_btn" label="Движение" />
+	<check_box name="look_btn" label="Мауслук" />
+	<check_box name="fly_btn" label="Полёт" />
+	<check_box name="sit_btn" label="Сесть" />
+	<check_box name="run_btn" label="Бег" />
+	<check_box name="velocity_btn" label="Скорость" />
+	<check_box name="bumps_btn" label="Толчки" />
+	<check_box name="media_ticker_btn" label="Поток" />
+	<check_box name="media_filter_btn" label="Медиа-фильтр" />
+	<check_box name="snapshot_btn" label="Снимок" />
+	<check_box name="appearance_btn" label="Внешность" />
+	<check_box name="directory_btn" label="Поиск" />
+	<check_box name="web_browser_btn" label="Браузер" />
+	<check_box name="ao_btn" label="Настройки AO" />
+	<check_box name="debug_settings_btn" label="Настройки отладки" />
+	<check_box name="debug_avatar_btn" label="Отладка аватара" />
+	<check_box name="anims_explorer_btn" label="Анимации" />
+	<check_box name="sound_explorer_btn" label="Звуки" />
+	<check_box name="areasearch_btn" label="Поиск по области" />
+	<check_box name="inspect_btn" label="Осмотр" />
+	<check_box name="pathing_characters_btn" label="Персонажи" />
+	<check_box name="pathing_linksets_btn" label="Линксеты" />
+	<check_box name="build_btn" label="Строить" />
+	<check_box name="grid_options_btn" label="Сетка" />
+	<check_box name="local_textures_btn" label="Локальные текстуры" />
+	<check_box name="perm_prefs_btn" label="Права загрузки" />
+	<check_box name="script_errors_btn" label="Ошибки скриптов" />
+	<check_box name="env_editor_btn" label="Редактор среды" />
+	<check_box name="day_cycle_editor_btn" label="Дневной цикл" />
+	<check_box name="windlight_btn" label="Windlight" />
+	<check_box name="water_editor_btn" label="Редактор воды" />
+	<check_box name="post_process_btn" label="Постобработка" />
+	<check_box name="buy_currency_btn" label="Купить [CURRENCY]" />
+	<check_box name="buy_land_btn" label="Купить землю" />
+	<check_box name="my_land_btn" label="Моя земля" />
+	<check_box name="about_land_btn" label="О земле" />
+	<check_box name="script_info_btn" label="Скрипты региона" />
+	<check_box name="about_region_btn" label="Регион/эстейт" />
+	<check_box name="god_tools_btn" label="Инструменты бога" />
+	<check_box name="teleport_history_btn" label="История ТП" />
+	<check_box name="map_btn" label="Карта" />
+	<check_box name="minimap_btn" label="Мини-карта" />
+	<check_box name="experiences_btn" label="Опыты" />
+	<check_box name="rlv_restrictions_btn" label="Ограничения RLVa" />
+	<check_box name="rlv_locks_btn" label="Блокировки RLVa" />
+	<check_box name="rlv_strings_btn" label="Строки RLVa" />
+	<check_box name="memleak_btn" label="Утечка памяти" />
+	<check_box name="message_log_btn" label="Журнал сообщений" />
+	<check_box name="stats_btn" label="Статистика" />
+	<check_box name="notifications_console_btn" label="Консоль уведомлений" />
+	<check_box name="debug_console_btn" label="Консоль отладки" />
+	<check_box name="region_console_btn" label="Консоль региона" />
+	<check_box name="fast_timers_btn" label="Таймеры" />
+	<check_box name="frame_console_btn" label="Консоль кадров" />
+	<check_box name="http_console_btn" label="HTTP-консоль" />
+	<check_box name="texture_console_btn" label="Консоль текстур" />
+	<check_box name="texture_category_console_btn" label="Категории текстур" />
+	<check_box name="texture_size_console_btn" label="Размер текстур" />
+	<check_box name="default_avatars_btn" label="Аватары по умолчанию" />
+	<check_box name="make_outfit_btn" label="Создать наряд" />
+	<check_box name="outfits_btn" label="Наряды" />
+	<check_box name="favs_btn" label="Избранное" />
+	<check_box name="inventory_btn" label="Инвентарь" />
+	<check_box name="received_items_btn" label="Полученные предметы" />
+	<check_box name="marketplace_listings_btn" label="Объявления Marketplace" />
+	<check_box name="marketplace_btn" label="Marketplace" />
+	<check_box name="preferences_btn" label="Настройки" />
+	<check_box name="joystick_btn" label="Джойстик" />
+	<check_box name="auto_replace_btn" label="Автозамена" />
+	<check_box name="display_name_btn" label="Отображаемое имя" />
+	<check_box name="floater_test_btn" label="Тест окна" />
+	<check_box name="edit_ui_btn" label="Редактировать UI" />
+	<check_box name="font_test_btn" label="Тест шрифта" />
+	<check_box name="abuse_btn" label="Сообщить о нарушении" />
+	<check_box name="tutorial_btn" label="Обучение" />
+	<check_box name="about_btn" label="О [SHORT_APP_NAME]" />
+	<check_box name="quit_btn" label="Выход" />
+	<check_box name="change_buttons_btn" label="Изменить кнопки" />
+</floater>

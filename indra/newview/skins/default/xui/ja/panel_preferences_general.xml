@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="一般" name="general_panel">
+	<scroll_container name="general_scroll">
+		<panel name="general_scroll_inner">
+			<text name="start_location_textbox">開始位置</text>
+			<radio_group name="default_start_location">
+				<radio_item name="home" tool_tip="ログイン時の既定位置をマイホームにします。">マイホーム</radio_item>
+				<radio_item name="last" tool_tip="ログイン時の既定位置を前回の場所にします。">前回の位置</radio_item>
+			</radio_group>
+			<check_box label="ログイン画面に開始位置を表示する" name="show_location_checkbox"/>
+			<text name="show_names_textbox">名前</text>
+			<combo_box name="fade_out_combobox">
+				<combo_item name="Never">表示しない</combo_item>
+				<combo_item name="Show Temporarily">一時的に表示</combo_item>
+				<combo_item name="Always">常に表示</combo_item>
+			</combo_box>
+			<combo_box name="namesystem_combobox">
+				<combo_item name="Old Names">旧ユーザー名</combo_item>
+				<combo_item name="Display Names (with Username)">表示名（ユーザー名付き）</combo_item>
+				<combo_item name="Display Names only">表示名のみ</combo_item>
+				<combo_item name="Old Names (with Display Names)">旧ユーザー名（表示名付き）</combo_item>
+			</combo_box>
+			<check_box label="レジデントを表示する" name="show_resident_checkbox"/>
+			<check_box label="アバター名を小さく表示する" name="small_avatar_names_checkbox"/>
+			<check_box label="自分の画面では自分の名前を隠す" name="show_my_name_checkbox"/>
+			<text name="group_titles_textbox">グループタイトル</text>
+			<check_box label="すべてのグループタイトルを隠す" name="show_all_title_checkbox"/>
+			<check_box label="自分のグループタイトルを隠す" name="show_my_title_checkbox"/>
+			<text name="UI Size:">UI サイズ</text>
+			<check_box label="解像度に依存しない拡大率を使う" name="ui_auto_scale"/>
+			<check_box label="操作がないと離席にする" name="away_when_idle_checkbox"/>
+			<spinner label="待機:" name="afk_timeout_spinner"/>
+			<text name="seconds_textbox">秒</text>
+			<check_box label="ワールド内通貨のやり取りを通知する" name="notify_money_change_checkbox"/>
+			<check_box label="画面隅を埋め尽くさない" name="no_transaction_clutter_checkbox" tool_tip="通知は出しますが、右下に短く表示して消えるので、取引に気づきつつ邪魔になりません。"/>
+			<text name="maturity_desired_label">レーティング</text>
+			<text name="maturity_desired_prompt">次のレーティングのコンテンツにアクセス:</text>
+			<combo_box name="maturity_desired_combobox">
+				<combo_item name="Desired_Adult">PG・マチュア・アダルト</combo_item>
+				<combo_item name="Desired_Mature">PG とマチュア</combo_item>
+				<combo_item name="Desired_PG">PG のみ</combo_item>
+			</combo_box>
+			<text name="maturity_desired_textbox">PG のみ</text>
+			<text name="crash_report_textbox">クラッシュレポート:</text>
+			<combo_box name="crash_behavior_combobox">
+				<combo_item name="Neversend">送信しない</combo_item>
+				<combo_item name="Alwayssend">常に送信</combo_item>
+			</combo_box>
+			<text name="language_textbox">言語:</text>
+			<text name="language_textbox2">（再起動が必要）</text>
+			<string name="region_name_prompt">&lt;リージョン名を入力&gt;</string>
+			<combo_box name="language_combobox">
+				<combo_item name="System Default Language" value="default">システムのデフォルト</combo_item>
+				<combo_item name="English" value="en-us">English（英語）</combo_item>
+				<combo_item name="Spanish" value="es">Español（スペイン語）</combo_item>
+				<combo_item name="Portugese" value="pt">Português（ポルトガル語）</combo_item>
+				<combo_item name="French" value="fr">Français（フランス語）</combo_item>
+				<combo_item name="Deutsch(German)" value="de">Deutsch（ドイツ語）</combo_item>
+				<combo_item name="Italian" value="it">Italiano（イタリア語）</combo_item>
+				<combo_item name="Turkish" value="tr">Türkçe（トルコ語）</combo_item>
+				<combo_item name="Russian" value="ru">Русский（ロシア語）</combo_item>
+				<combo_item name="Japanese" value="ja">日本語</combo_item>
+			</combo_box>
+			<check_box label="オブジェクトに言語を知らせる" name="language_is_public" tool_tip="ワールド内のオブジェクトに、希望する言語を伝えます。"/>
+			<button label="すべての設定をリセット" name="clear_settings"/>
+		</panel>
+	</scroll_container>
+</panel>

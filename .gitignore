@@ -1,0 +1,152 @@
+# Allyn Viewer — files that must not go to GitHub
+# Based on Second Life viewer (develop) and Firestorm phoenix-firestorm
+# .gitignore, plus local Windows 64-bit / Cursor / Python leftovers.
+#
+# Do commit: source (indra/), autobuild.xml, build.bat, LICENSE, skins, doc/
+# Do not commit: builds, packages, IDE settings, venv, logs, personal caches.
+
+# --- Local Python / tools (this machine) ---
+.venv/
+venv/
+.env
+.env.*
+.cache/
+.cache/clangd/
+Lib/
+lib64/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+Pipfile.lock
+
+# --- IDE / editor (personal) ---
+.vscode/
+.vs/
+.idea/
+.cursor/
+*.code-workspace
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.aps
+*.vshost.exe
+*~
+*.swp
+*.swo
+
+# --- OS junk ---
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# --- CMake / Visual Studio generated (never the source of truth) ---
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CMakeUserPresets.json
+CTestTestfile.cmake
+compile_commands.json
+*.vcxproj
+*.vcxproj.filters
+*.sln
+*.dir/
+ipch/
+*.VC.db
+*.VC.opendb
+*.pdb
+*.ilk
+*.exp
+*.idb
+
+# --- Viewer build output ---
+/build-vc-64
+/build-vc-64-*/
+/indra/build-*
+/indra/out/
+/indra/CMakeFiles
+/indra/viewer-*
+/viewer-*
+/bin/
+/bin-release/
+/bin
+/bin-release
+qtcreator-build/
+installed.xml
+/.autobuild-installables/
+/.build-variables/
+/.logs/
+
+# --- Third-party packages (downloaded by autobuild, not source) ---
+/packages_local/
+/libraries/
+/lib/
+indra/packages/*
+/LICENSES/
+
+# --- Runtime / session files if the viewer is launched from the tree ---
+indra/newview/browser_profile/
+indra/newview/avatar_icons_cache.txt
+indra/newview/avatar_lad.log
+indra/newview/search_history.txt
+indra/newview/teleport_history.txt
+indra/newview/typed_locations.txt
+indra/newview/filters.xml
+indra/newview/pilot.txt
+indra/newview/pilot.xml
+indra/newview/fmod.dll
+indra/newview/fmod.log
+indra/newview/dbghelp.dll
+indra/newview/vivox-runtime/
+indra/newview/app_settings/dictionaries
+indra/newview/app_settings/mozilla*
+indra/newview/app_settings/static_*.db2
+logs/
+*.dmp
+*.log
+
+# --- Generated / copied assets (come from packages at build time) ---
+indra/newview/res/viewer_icon.*
+indra/newview/res-sdl/viewer_icon.*
+indra/tools/vstool/obj/
+
+# --- Patches / backups / temp ---
+*.orig
+*.rej
+*.bak
+*.diff
+*.patch
+*.tmp
+_tmp_*
+/edited-files.txt
+/autobuild.xml.bak*
+my_autobuild.xml
+/.pc
+
+# --- Secrets / private keys (never commit even if added later) ---
+*.pem
+*.pfx
+*.p12
+*.key
+*secret*
+*credentials*
+fsdiscordkey.h
+exoflickrkeys.h
+
+# --- Maintainer-only helpers (never commit) ---
+/build-release.local.bat
+*.local.bat
+
+# --- Local-only scratch (this workspace) ---
+/traducao
+/build-tools-stub/
+/tools/
+/Lib/
+_tmp_compare_colors.py
+/doc/correcao
+scripts/pip3.exe
+scripts/pip3.14.exe
+scripts/pip*.exe

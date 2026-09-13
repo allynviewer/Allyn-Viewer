@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="toolbox floater" title="Строить">
+	<floater.string name="status_selectcount">Примитивы: [OBJ_COUNT], LI: [LAND_IMPACT]</floater.string>
+	<string name="Selected Face:" />
+	<string name="Link number:" />
+	<string name="Selected prims:" />
+	<string name="Selected objects:" />
+	<floater.string name="status_remaining_capacity">Оставшаяся емкость [LAND_CAPACITY].</floater.string>
+	<button name="button focus" tool_tip="Фокус — зум, орбита и панорама камеры" />
+	<button name="button move" tool_tip="Переместить — перетаскивание, Ctrl поднимает, Ctrl-Shift вращает" />
+	<button name="button edit" tool_tip="Редактировать — позиция, поворот, растяжение и выравнивание" />
+	<button name="button create" tool_tip="Создать — щёлкните в мире, чтобы поставить примитив" />
+	<button name="button land" tool_tip="Земля — выбрать и изменить ландшафт" />
+	<button name="mini_button" tool_tip="Свернуть панель строительства" />
+	<check_box name="radio zoom" label="Масштаб" />
+	<volume_slider name="slider zoom" />
+	<check_box name="radio orbit" label="Орбита (Ctrl)" />
+	<check_box name="radio pan" label="Панорамирование (Ctrl-Shift)" />
+	<check_box name="radio move" label="Двигать" />
+	<check_box name="radio lift" label="Поднять (Ctrl)" />
+	<check_box name="radio spin" label="Вращение (Ctrl-Shift)" />
+	<check_box name="radio position" label="Позиция" />
+	<check_box name="radio rotate" label="Повернуть (Ctrl)" />
+	<check_box name="radio stretch" label="Растянуть (Ctrl-Shift)" />
+	<check_box name="radio select face" label="Выберите лицо" />
+	<check_box name="radio align" label="Выровнять" />
+	<check_box name="checkbox edit linked parts" label="Редактировать связанные детали" />
+	<text name="text ruler mode">Правитель:</text>
+	<combo_box name="combobox grid mode">
+		<combo_item name="World">Мир</combo_item>
+		<combo_item name="Local">Местный</combo_item>
+		<combo_item name="Reference">Ссылка</combo_item>
+	</combo_box>
+	<check_box name="checkbox uniform" label="Растянуть обе стороны" />
+	<check_box name="checkbox stretch textures" label="Растягивание текстур" />
+	<check_box name="checkbox limit drag distance" label="Ограничить расстояние перетаскивания" />
+	<check_box name="checkbox actual root" label="Редактировать ось в корне" />
+	<check_box name="checkbox show highlight" label="Показать выделение" />
+	<check_box name="checkbox snap to grid" label="Использовать сетку" />
+	<button name="Options..." label="Параметры" />
+	<text name="text status">Перетащите, чтобы переместить, перетащите, удерживая клавишу Shift, чтобы скопировать</text>
+	<button name="ToolCube" tool_tip="Куб" />
+	<button name="ToolPrism" tool_tip="Призма" />
+	<button name="ToolPyramid" tool_tip="Пирамида" />
+	<button name="ToolTetrahedron" tool_tip="Тетраэдр" />
+	<button name="ToolCylinder" tool_tip="Цилиндр" />
+	<button name="ToolHemiCylinder" tool_tip="полуцилиндр" />
+	<button name="ToolCone" tool_tip="Конус" />
+	<button name="ToolHemiCone" tool_tip="гемикон" />
+	<button name="ToolSphere" tool_tip="Сфера" />
+	<button name="ToolHemiSphere" tool_tip="полушарие" />
+	<button name="ToolTorus" tool_tip="Тор" />
+	<button name="ToolTube" tool_tip="Трубка" />
+	<button name="ToolRing" tool_tip="Кольцо" />
+	<button name="ToolTree" tool_tip="Дерево" />
+	<button name="ToolGrass" tool_tip="Трава" />
+	<text name="tree_grass_label" />
+	<combo_box name="trees_grass" />
+	<string name="Random">Случайный</string>
+	<check_box name="checkbox sticky" label="Сохранить выбранное" tool_tip="Оставить инструмент Создать выбранным после размещения" />
+	<check_box name="checkbox copy selection" label="Копировать выбранное" tool_tip="Создавать копии текущего выделения" />
+	<check_box name="checkbox copy centers" label="Центр" />
+	<check_box name="checkbox copy rotates" label="Поворот" />
+	<check_box name="radio select land" label="Выберите землю" />
+	<check_box name="radio flatten" label="Сгладить" />
+	<check_box name="radio raise" label="Поднимать" />
+	<check_box name="radio lower" label="Ниже" />
+	<check_box name="radio smooth" label="Гладкий" />
+	<check_box name="radio noise" label="грубый" />
+	<check_box name="radio revert" label="Сбросить" />
+	<button name="button apply to selection" label="Применить" tool_tip="Изменить выбранную землю" />
+	<text name="Bulldozer:">Бульдозер:</text>
+	<text name="Dozer Size:">Размер</text>
+	<volume_slider name="slider brush size" />
+	<text name="Strength:">Сила</text>
+	<volume_slider name="slider force" />
+	<text name="link_num_obj_count">[DESC] [NUM]</text>
+	<text name="selection_empty">Ничего не выбрано.</text>
+	<text name="selection_count" />
+	<tab_container name="Object Info Tabs">
+		<panel name="General" label="Общие">
+			<text name="Name:">Имя:</text>
+			<line_editor name="Object Name" />
+			<text name="Description:">Описание:</text>
+			<line_editor name="Object Description" />
+			<string name="multiple_objects_selected" />
+			<text name="Creator:">Создатель:</text>
+			<name_box name="Creator Name">Thrax Linden</name_box>
+			<text name="Owner:">Владелец:</text>
+			<name_box name="Owner Name">Thrax Linden</name_box>
+			<text name="Last Owner:">Последний владелец:</text>
+			<name_box name="Last Owner Name">Thrax Linden</name_box>
+			<text name="Group:">Группа:</text>
+			<name_box name="Group Name Proxy" />
+			<button name="button set group" label="Задать" />
+			<text name="Permissions:">Разрешения:</text>
+			<text name="perm_modify">Вы можете изменить этот объект.</text>
+			<check_box name="checkbox share with group" label="Поделиться с группой" tool_tip="Разрешить всем членам заданной группы делиться и использовать ваши разрешения для этого объекта. Вам необходимо совершить действие, чтобы включить ограничения ролей." />
+			<string name="text deed continued">Передать...</string>
+			<string name="text deed">Передать</string>
+			<button name="button deed" label="Передать..." tool_tip="Общий объект группы может передать офицер группы." />
+			<text name="text anyone can">Любой может:</text>
+			<check_box name="checkbox allow everyone move" label="Двигать" />
+			<check_box name="checkbox allow everyone copy" label="Копировать" />
+			<check_box name="checkbox allow export" label="Экспорт" />
+			<check_box name="search_check" label="Показать в поиске" tool_tip="Разрешить людям видеть этот объект в результатах поиска" />
+			<check_box name="checkbox for sale" label="Для продажи" />
+			<text name="Cost">Цена: [CURRENCY]</text>
+			<line_editor name="Edit Cost" />
+			<radio_group name="sale type">
+				<radio_item name="Original">Original</radio_item>
+				<radio_item name="Copy">Копировать</radio_item>
+				<radio_item name="Contents">Содержание</radio_item>
+			</radio_group>
+			<text name="Next owner can:">Следующий владелец может:</text>
+			<check_box name="checkbox next owner can modify" label="Изменить" />
+			<check_box name="checkbox next owner can copy" label="Копировать" />
+			<check_box name="checkbox next owner can transfer" label="Перепродать/Отдать" />
+			<text name="label click action">При ЛКМ:</text>
+			<combo_box name="clickaction">
+				<combo_item name="Touch/grab(default)">Коснуться/захватить (по умолчанию)</combo_item>
+				<combo_item name="Sitonobject">Сидеть на объекте</combo_item>
+				<combo_item name="Buyobject">Купить объект</combo_item>
+				<combo_item name="Payobject">Объект оплаты</combo_item>
+				<combo_item name="Open">Открыть</combo_item>
+				<combo_item name="Play">Воспроизвести медиа-парцел</combo_item>
+				<combo_item name="Opemmedia">Открытый медиа парцела</combo_item>
+			</combo_box>
+			<button name="button cpy_key" label="Копировать ключ" tool_tip="Копирует ключ объекта в буфер обмена." />
+			<text name="B:">B:</text>
+			<text name="G:">G:</text>
+			<text name="E:">E:</text>
+			<text name="N:">N:</text>
+			<text name="F:">F:</text>
+			<panel name="pathfinding_attrs_panel">
+				<text name="pathfinding_attributes_label">Атрибуты поиска пути:</text>
+				<text name="pathfinding_attributes_value">Тест</text>
+			</panel>
+			<string name="text modify info 1">Вы можете изменить этот объект.</string>
+			<string name="text modify info 2">Вы можете изменить эти объекты.</string>
+			<string name="text modify info 3">Вы не можете изменить этот объект.</string>
+			<string name="text modify info 4">Вы не можете изменять эти объекты.</string>
+			<string name="text modify info 5">Вы не можете изменить этот объект за границей региона.</string>
+			<string name="text modify info 6">Вы не можете изменять эти объекты за границей региона.</string>
+			<string name="text modify warning">Необходимо выбрать весь объект, чтобы установить разрешения.</string>
+			<string name="Cost Default">Цена: [CURRENCY]</string>
+			<string name="Cost Total">Общая стоимость: [CURRENCY]</string>
+			<string name="Cost Per Unit">Цена за: [CURRENCY]</string>
+			<string name="Cost Mixed">Смешанная цена</string>
+			<string name="Sale Mixed">Смешанная распродажа</string>
+		</panel>
+		<panel name="Object" label="Объект">
+			<text name="select_single" />
+			<button name="link_obj" label="Связь" tool_tip="Он приехал в город..." />
+			<button name="unlink_obj" label="Отсоединить" tool_tip="Отключает набор ссылок." />
+			<check_box name="checkbox locked" label="Заблокировано" tool_tip="Предотвращает перемещение или удаление объекта. Часто полезно во время сборки, чтобы избежать непреднамеренных изменений." />
+			<check_box name="Physical Checkbox Ctrl" label="Физический" tool_tip="Позволяет объекту толкаться и подвергаться воздействию силы тяжести" />
+			<check_box name="Temporary Checkbox Ctrl" label="Временный" tool_tip="Вызывает удаление объекта через 1 минуту после создания." />
+			<check_box name="Phantom Checkbox Ctrl" label="Фантом" tool_tip="Заставляет объект не сталкиваться с другими объектами или аватарами" />
+			<text name="label position">Позиция (метры)</text>
+			<spinner name="Pos X" label="X" />
+			<spinner name="Pos Y" label="Y" />
+			<spinner name="Pos Z" label="Z" />
+			<button name="copypos" label="C" tool_tip="Копировать позицию" />
+			<button name="pastepos" label="P" tool_tip="Вставить позицию" />
+			<button name="pasteposclip" label="p" tool_tip="Вставить позицию из буфера обмена" />
+			<text name="label size">Размер</text>
+			<spinner name="Scale X" label="X" />
+			<spinner name="Scale Y" label="Y" />
+			<spinner name="Scale Z" label="Z" />
+			<button name="copysize" label="C" tool_tip="Копировать размер" />
+			<button name="pastesize" label="P" tool_tip="Вставить размер" />
+			<button name="pastesizeclip" label="p" tool_tip="Вставить размер из буфера обмена" />
+			<text name="label rotation">Вращение (градусы)</text>
+			<spinner name="Rot X" label="X" />
+			<spinner name="Rot Y" label="Y" />
+			<spinner name="Rot Z" label="Z" />
+			<button name="copyrot" label="C" tool_tip="Копировать поворот" />
+			<button name="pasterot" label="P" tool_tip="Вставить поворот" />
+			<button name="pasterotclip" label="p" tool_tip="Вставить поворот из буфера обмена" />
+			<text name="label material">Material</text>
+			<combo_box name="material">
+				<combo_item name="Stone">Камень</combo_item>
+				<combo_item name="Metal">Metal</combo_item>
+				<combo_item name="Glass">Стекло</combo_item>
+				<combo_item name="Wood">Древесина</combo_item>
+				<combo_item name="Flesh">Плоть</combo_item>
+				<combo_item name="Plastic">Пластик</combo_item>
+				<combo_item name="Rubber">Резина</combo_item>
+			</combo_box>
+			<text name="edit_object">Параметры:</text>
+			<button name="copyparams" label="Копировать" tool_tip="Копировать параметры в буфер обмена" />
+			<button name="pasteparams" label="Вставить" tool_tip="Вставить параметры из буфера обмена" />
+			<text name="label basetype">Тип строительного блока</text>
+			<combo_box name="comboBaseType">
+				<combo_item name="Box">Коробка</combo_item>
+				<combo_item name="Cylinder">Цилиндр</combo_item>
+				<combo_item name="Prism">Призма</combo_item>
+				<combo_item name="Sphere">Сфера</combo_item>
+				<combo_item name="Torus">Тор</combo_item>
+				<combo_item name="Tube">Трубка</combo_item>
+				<combo_item name="Ring">Кольцо</combo_item>
+				<combo_item name="Sculpted">Sculpted</combo_item>
+				<combo_item name="Hemicylinder">полуцилиндр</combo_item>
+				<combo_item name="Spiral Circle">Спиральный круг</combo_item>
+				<combo_item name="Spiral Square">Спиральный квадрат</combo_item>
+				<combo_item name="Spiral Triangle">Спиральный треугольник</combo_item>
+				<combo_item name="Spiral Semicircle">Спиральный полукруг</combo_item>
+				<combo_item name="Test Cylinder">Испытательный цилиндр</combo_item>
+				<combo_item name="Test Box">Тестовая коробка</combo_item>
+				<combo_item name="Test Prism">Тестовая призма</combo_item>
+				<combo_item name="Test Hemicylinder">Тестовый полуцилиндр</combo_item>
+			</combo_box>
+			<text name="text cut">Начало и конец обрезки пути</text>
+			<spinner name="cut begin" label="Б" />
+			<spinner name="cut end" label="Э" />
+			<text name="text hollow">Пустой</text>
+			<text name="text skew">Перекос</text>
+			<spinner name="Scale 1" />
+			<spinner name="Skew" />
+			<text name="Hollow Shape">Полая форма</text>
+			<combo_box name="hole">
+				<combo_item name="Default">По умолчанию</combo_item>
+				<combo_item name="Circle">Круг</combo_item>
+				<combo_item name="Square">Квадрат</combo_item>
+				<combo_item name="Triangle">Треугольник</combo_item>
+			</combo_box>
+			<text name="text twist">Поворот начала и конца</text>
+			<spinner name="Twist Begin" label="Б" />
+			<spinner name="Twist End" label="Э" />
+			<text name="scale_taper">Конус</text>
+			<text name="scale_hole">Размер отверстия</text>
+			<spinner name="Taper Scale X" label="X" />
+			<spinner name="Taper Scale Y" label="Y" />
+			<text name="text topshear">Топ сдвиг</text>
+			<spinner name="Shear X" label="X" />
+			<spinner name="Shear Y" label="Y" />
+			<text name="advanced_cut">Начало и конец выреза профиля</text>
+			<text name="advanced_dimple">Ямочка Начало и Конец</text>
+			<text name="advanced_slice">Начало и конец фрагмента</text>
+			<spinner name="Path Limit Begin" label="Б" />
+			<spinner name="Path Limit End" label="Э" />
+			<text name="text taper2">Конус</text>
+			<spinner name="Taper X" label="X" />
+			<spinner name="Taper Y" label="Y" />
+			<text name="text radius delta">Радиус</text>
+			<text name="text revolutions">Революции</text>
+			<spinner name="Radius Offset" />
+			<spinner name="Revolutions" />
+			<texture_picker name="sculpt texture control" label="Лепка Текстуры" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<check_box name="sculpt mirror control" label="Зеркало" tool_tip="Переворачивает скульптурный прим по оси X." />
+			<check_box name="sculpt invert control" label="Наизнанку" tool_tip="Инвертирует скульптурные примитивы, делая их вывернутыми наизнанку." />
+			<text name="label sculpt type">Тип строчки</text>
+			<combo_box name="sculpt type control">
+				<combo_item name="None">(никто)</combo_item>
+				<combo_item name="Sphere">Сфера</combo_item>
+				<combo_item name="Torus">Тор</combo_item>
+				<combo_item name="Plane">Самолет</combo_item>
+				<combo_item name="Cylinder">Цилиндр</combo_item>
+			</combo_box>
+		</panel>
+		<panel name="Features" label="Функции">
+			<string name="None">Никто</string>
+			<string name="Prim">Прим</string>
+			<string name="Convex Hull">Выпуклая оболочка</string>
+			<text name="select_single">Выберите только один примитив для редактирования объектов.</text>
+			<text name="edit_object">Редактировать характеристики объекта:</text>
+			<check_box name="Animated Mesh Checkbox Ctrl" label="Анимированная сетка" tool_tip="Позволяет независимо анимировать оснащенные сетчатые объекты." />
+			<check_box name="Flexible1D Checkbox Ctrl" label="Гибкий путь" tool_tip="Позволяет объекту изгибаться вокруг оси Z. (Только на стороне клиента)" />
+			<spinner name="FlexNumSections" label="Мягкость" />
+			<spinner name="FlexGravity" label="Гравитация" />
+			<spinner name="FlexFriction" label="Тащить" />
+			<spinner name="FlexWind" label="Ветер" />
+			<spinner name="FlexTension" label="Напряжение" />
+			<spinner name="FlexForceX" label="Сила Икс" />
+			<spinner name="FlexForceY" label="Сила Y" />
+			<spinner name="FlexForceZ" label="Сила Z" />
+			<check_box name="Light Checkbox Ctrl" label="Свет" tool_tip="Заставляет объект излучать свет" />
+			<text name="label color">Color</text>
+			<text name="label texture">Текстура</text>
+			<color_swatch name="colorswatch" tool_tip="Нажмите, чтобы открыть палитру цветов" />
+			<texture_picker name="light texture control" tool_tip="Нажмите, чтобы выбрать проекционное изображение (эффект действует только при включенном отложенном рендеринге)" />
+			<spinner name="Light Intensity" label="Интенсивность" />
+			<spinner name="Light FOV" label="FOV" />
+			<spinner name="Light Radius" label="Радиус" />
+			<spinner name="Light Focus" label="Фокус" />
+			<spinner name="Light Falloff" label="Спад" />
+			<spinner name="Light Ambiance" label="атмосфера" />
+			<text name="label physicsshapetype">Тип физической формы:</text>
+			<combo_box name="Physics Shape Type Combo Ctrl" tool_tip="Выберите тип физической формы" />
+			<spinner name="Physics Gravity" label="Гравитация" />
+			<spinner name="Physics Friction" label="Трение" />
+			<spinner name="Physics Density" label="Плотность" />
+			<spinner name="Physics Restitution" label="Реституция" />
+		</panel>
+		<panel name="Texture" label="Текстура" />
+		<panel name="Contents" label="Содержание">
+			<button name="button new script" label="Новый сценарий" />
+			<button name="button permissions" label="Разрешения..." />
+			<panel name="ContentsInventory" />
+		</panel>
+	</tab_container>
+	<panel name="land info panel">
+		<text name="label_parcel_info">Информация о парцеле</text>
+		<text name="label_area_price">Цена: [CURRENCY][PRICE] за [AREA] кв.м.</text>
+		<text name="label_area">Площадь: [AREA] кв.м.</text>
+		<button name="button about land" label="О Земле..." />
+		<check_box name="checkbox show owners" label="Показать владельцев" tool_tip="Цвет парцелов в соответствии с их принадлежностью" />
+		<button name="button show owners help" label="?" />
+		<text name="label_parcel_modify">Изменить парцел</text>
+		<button name="button subdivide land" label="Разделить..." />
+		<button name="button join land" label="Присоединиться..." />
+		<text name="label_parcel_trans">Земельные сделки</text>
+		<button name="button buy land" label="Купить землю..." />
+		<button name="button abandon land" label="Покинуть Землю..." />
+	</panel>
+	<string name="status_rotate">Перетащите цветные полосы, чтобы повернуть объект</string>
+	<string name="status_scale">Нажмите и перетащите, чтобы растянуть выбранную сторону</string>
+	<string name="status_move">Перетащите, чтобы переместить, перетащите, удерживая клавишу Shift, чтобы скопировать</string>
+	<string name="status_align">Нажмите стрелку, чтобы выровнять объекты в этом направлении.</string>
+	<string name="status_modifyland">Нажмите и удерживайте, чтобы изменить землю</string>
+	<string name="status_camera">Нажмите и перетащите, чтобы изменить вид</string>
+	<string name="status_grab">Перетащите, чтобы переместить, Ctrl, чтобы поднять, Ctrl-Shift, чтобы повернуть</string>
+	<string name="status_place">Нажмите в мире, чтобы построить</string>
+	<string name="status_selectland">Нажмите и перетащите, чтобы выбрать землю</string>
+	<string name="grid_screen_text">Экран</string>
+	<string name="grid_local_text">Местный</string>
+	<string name="grid_world_text">Мир</string>
+	<string name="grid_reference_text">Ссылка</string>
+	<string name="grid_attachment_text">Вложение</string>
+</floater>

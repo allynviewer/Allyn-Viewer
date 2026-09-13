@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_explore_sounds" title="サウンド">
+	<text name="result_label">ソース:</text>
+	<check_box name="avatars_chk" label="アバター" />
+	<check_box name="objects_chk" label="オブジェクト" />
+	<check_box name="collision_chk" label="デフォルト 衝突 サウンド" />
+	<text name="result_label">コントロール:</text>
+	<check_box name="repeated_asset_chk" label="Repeatsを表示" />
+	<check_box name="pause_chk" label="一時停止 ログ" />
+	<scroll_list name="sound_list">
+		<column name="type" tool_tip="タイプ" />
+		<column name="playing" label="時間" />
+		<column name="owner" label="所有者" />
+		<column name="sound" label="サウンド" />
+	</scroll_list>
+	<button name="look_at_btn" label="Look で" />
+	<button name="play_locally_btn" label="再生 Locally" />
+	<button name="play_ambient_btn" label="ワールドで再生" />
+	<button name="stop_btn" label="停止" />
+	<button name="bl_btn" label="ブラックリストに追加" />
+</floater>

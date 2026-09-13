@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="groups">
+	<scroll_list name="group list">
+		<column name="name" label="名前" tool_tip="名前" />
+		<column name="is_listed_group" tool_tip="プロフィールにグループを表示します。" />
+		<column name="is_chattable_group" tool_tip="グループチャットを受信" />
+		<column name="is_notice_group" tool_tip="グループ通知を受信" />
+	</scroll_list>
+	<text name="groupdesc">現在アクティブなグループは斜体で表示されます。</text>
+	<text name="groupcount">所属グループ: [COUNT]（上限 [MAX]、残り [LEFT]）</text>
+	<button name="IM" label="IM/通話" tool_tip="IMセッションを開く" />
+	<button name="Info" label="情報" />
+	<button name="Activate" label="有効化" />
+	<button name="Leave" label="退出" />
+	<button name="Create" label="作成..." />
+	<button name="Search..." label="検索..." />
+	<button name="Invite..." label="招待..." />
+	<button name="Titles..." label="タイトル..." />
+	<filter_editor name="group_search_lineedit" label="グループ検索" tool_tip="検索したいグループ名"/>
+</panel>

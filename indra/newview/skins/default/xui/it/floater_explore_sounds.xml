@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_explore_sounds" title="Suoni">
+	<text name="result_label">Sorgenti:</text>
+	<check_box name="avatars_chk" label="Avatar"/>
+	<check_box name="objects_chk" label="Oggetti"/>
+	<check_box name="collision_chk" label="Suoni di collisione predefiniti"/>
+	<text name="result_label">Controlli:</text>
+	<check_box name="repeated_asset_chk" label="Mostra ripetizioni"/>
+	<check_box name="pause_chk" label="Metti in pausa il registro"/>
+	<scroll_list name="sound_list">
+		<column name="type" tool_tip="Tipo"/>
+		<column name="playing" label="Tempo"/>
+		<column name="owner" label="Proprietario"/>
+		<column name="sound" label="Suono"/>
+	</scroll_list>
+	<button name="look_at_btn" label="Guarda"/>
+	<button name="play_locally_btn" label="Esegui localmente"/>
+	<button name="play_ambient_btn" label="Esegui inworld"/>
+	<button name="stop_btn" label="Ferma"/>
+	<button name="bl_btn" label="Aggiungi alla blacklist"/>
+</floater>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="script_experience" title="Experience">
+	<button name="Expand Experience" label="Experience"/>
+	<check_box name="enable_xp" label="Usa Experience"/>
+	<layout_stack name="xp_details">
+		<layout_panel>
+			<text>Script:</text>
+			<text>Associato a:</text>
+			<text>Puoi contribuire:</text>
+			<text>Associa a:</text>
+		</layout_panel>
+		<layout_panel>
+			<text>EasySit Animator 1.2.4</text>
+			<text>Kyle's Superhero RPG</text>
+			<text>Sì</text>
+			<combo_box name="Experiences..." label="Scegli Experience..."/>
+		</layout_panel>
+	</layout_stack>
+	<text name="No Experiences">Non sei contributore di nessuna Experience.</text>
+</panel>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="whitelist_entry" title="VOCE WHITELIST">
+	<text name="media_label">Inserisci un URL o un modello URL da aggiungere all'elenco dei domini consentiti</text>
+	<line_editor name="whitelist_entry" tool_tip="Inserisci un URL o un modello URL per la whitelist"/>
+	<button name="ok_btn" label="OK"/>
+	<button name="cancel_btn" label="Annulla"/>
+</floater>

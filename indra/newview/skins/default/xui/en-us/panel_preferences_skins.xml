@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="false" height="612" label="Skins" left="0" name="Skins panel" width="648">
+  <text bottom="-20" follows="top" font="SansSerifSmall" height="12" left="20" name="Skin_txt1" text_color="LabelSelectedColor">SELECTED SKIN</text>
+  <icon bottom="-26" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_skin_rule" width="588"/>
+  <combo_box bottom="-56" follows="top" height="22" left="20" max_chars="200" name="custom_skin_combo" width="400" control_name="custom_skin_combo"/>
+  <text bottom="-88" follows="top" height="16" left="20" name="Skin_txt2">Primary Author</text>
+  <view_border blevel_style="in" bottom="-112" follows="top" height="20" left="20" name="custom_box1" width="400"/>
+  <text bottom="-110" follows="top" height="16" left="28" name="custom_skin_author">skin author</text>
+  <text bottom="-140" follows="top" height="16" left="20" name="Skin_txt3">Additional Authors</text>
+  <view_border blevel_style="in" bottom="-164" follows="top" height="20" left="20" name="custom_box2" width="400"/>
+  <text bottom="-162" follows="top" height="16" left="28" name="custom_skin_ad_authors">additional skin authors</text>
+  <text bottom="-192" follows="top" height="16" left="20" name="Skin_txt4">Skin folder</text>
+  <view_border blevel_style="in" bottom="-216" follows="top" height="20" left="20" name="custom_box3" width="400"/>
+  <text bottom="-214" follows="top" height="16" left="28" name="custom_skin_folder">skin folder</text>
+  <button scale_image="true" image_selected="skin_thumbnail_default.png" image_unselected="skin_thumbnail_default.png" image_hover_selected="skin_thumbnail_default.png" image_hover_unselected="skin_thumbnail_default.png" bottom="-360" default_image_name="None" follows="top" width="300" height="130" left="20" label="" name="custom_skin_preview" tool_tip="Skin Preview"/>
+  <text bottom="-384" follows="top" height="16" left="20" name="Skin_txt5">Additional info</text>
+  <text_editor bottom="-520" enabled="false" follows="top" height="128" left="20" max_length="511" name="custom_skin_info" width="588" word_wrap="true"/>
+</panel>

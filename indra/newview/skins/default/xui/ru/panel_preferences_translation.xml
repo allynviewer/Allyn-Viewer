@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="translation" label="Перевод">
+	<tab_container name="translation_tabs" label="Перевод">
+		<panel name="General" label="Общие">
+			<check_box name="enable_check" label="Включить перевод ИИ" />
+			<text name="scope_label">Применять к:</text>
+			<combo_box name="scope_combo">
+				<combo_item name="im">Только IM</combo_item>
+				<combo_item name="nearby">Только локальный чат</combo_item>
+				<combo_item name="both">Оба</combo_item>
+			</combo_box>
+			<check_box name="incoming_check" label="Переводить входящие" />
+			<check_box name="outgoing_check" label="Переводить исходящие" />
+			<text name="src_label">Я говорю:</text>
+			<combo_box name="source_lang" tool_tip="Любой код ISO (pt, en, ja, ru, zh...). Можно ввести свой код.">
+				<combo_item name="pt">Português (pt)</combo_item>
+				<combo_item name="en">английский (англ.)</combo_item>
+				<combo_item name="es">Español (es)</combo_item>
+				<combo_item name="fr">Français (fr)</combo_item>
+				<combo_item name="de">Deutsch (de)</combo_item>
+				<combo_item name="it">Italiano (it)</combo_item>
+				<combo_item name="ru">Русский (ru)</combo_item>
+				<combo_item name="ja">日本語 (ja)</combo_item>
+				<combo_item name="ko">한국어 (ko)</combo_item>
+				<combo_item name="zh">中文 (zh)</combo_item>
+				<combo_item name="ar">العربية (ar)</combo_item>
+				<combo_item name="nl">Nederlands (nl)</combo_item>
+				<combo_item name="pl">Polski (pl)</combo_item>
+				<combo_item name="tr">Türkçe (tr)</combo_item>
+				<combo_item name="hi">Hindi (hi)</combo_item>
+				<combo_item name="th">ไทย (th)</combo_item>
+				<combo_item name="vi">Tiếng Việt (vi)</combo_item>
+				<combo_item name="uk">Українська (uk)</combo_item>
+			</combo_box>
+			<text name="dst_label">Другие говорят:</text>
+			<combo_box name="target_lang" tool_tip="Любой код ISO. Введите вручную, если языка нет в списке.">
+				<combo_item name="en">английский (англ.)</combo_item>
+				<combo_item name="pt">Português (pt)</combo_item>
+				<combo_item name="es">Español (es)</combo_item>
+				<combo_item name="fr">Français (fr)</combo_item>
+				<combo_item name="de">Deutsch (de)</combo_item>
+				<combo_item name="it">Italiano (it)</combo_item>
+				<combo_item name="ru">Русский (ru)</combo_item>
+				<combo_item name="ja">日本語 (ja)</combo_item>
+				<combo_item name="ko">한국어 (ko)</combo_item>
+				<combo_item name="zh">中文 (zh)</combo_item>
+				<combo_item name="ar">العربية (ar)</combo_item>
+				<combo_item name="nl">Nederlands (nl)</combo_item>
+				<combo_item name="pl">Polski (pl)</combo_item>
+				<combo_item name="tr">Türkçe (tr)</combo_item>
+				<combo_item name="hi">Hindi (hi)</combo_item>
+				<combo_item name="th">ไทย (th)</combo_item>
+				<combo_item name="vi">Tiếng Việt (vi)</combo_item>
+				<combo_item name="uk">Українська (uk)</combo_item>
+			</combo_box>
+			<text name="in_disp_label">Входящие:</text>
+			<combo_box name="incoming_display">
+				<combo_item name="translation_only">Только перевод (скрыть оригинал)</combo_item>
+				<combo_item name="both">Оригинал и перевод</combo_item>
+			</combo_box>
+			<text name="out_disp_label">Исходящие:</text>
+			<combo_box name="outgoing_display">
+				<combo_item name="translation_only">Только перевод (скрыть оригинал)</combo_item>
+				<combo_item name="both">Оригинал и перевод</combo_item>
+			</combo_box>
+			<text name="in_color_label">Цвет входящих:</text>
+			<color_swatch name="incoming_color" />
+			<text name="out_color_label">Цвет исходящих:</text>
+			<color_swatch name="outgoing_color" />
+			<text name="privacy_tip">
+				Я говорю / Другие говорят = любой язык (ISO: ja, ru, zh...).
+Исходящие: вы→другие. Входящие: другие→вы.
+[ИИ] только для входящих; без дубля, если уже на целевом языке.
+			</text>
+		</panel>
+		<panel name="Groups" label="Группы">
+			<check_box name="groups_enable" label="Переводить групповые чаты" />
+			<text name="group_mode_label">Группы:</text>
+			<combo_box name="group_mode">
+				<combo_item name="all">Все мои группы</combo_item>
+				<combo_item name="selected">Только выбранные ниже</combo_item>
+			</combo_box>
+			<scroll_list name="group_list" tool_tip="Ctrl+клик для нескольких групп (режим Выбранные)">
+				<column name="name" label="Группа" />
+			</scroll_list>
+			<button name="group_refresh_btn" label="Обновить список групп" />
+		</panel>
+		<panel name="Provider" label="Провайдер">
+			<text name="provider_label">Провайдер:</text>
+			<combo_box name="provider_combo">
+				<combo_item name="openai">OpenAI (ChatGPT)</combo_item>
+				<combo_item name="anthropic">Anthropic (Claude)</combo_item>
+				<combo_item name="opencode_zen">OpenCode Zen</combo_item>
+				<combo_item name="openrouter">OpenRouter</combo_item>
+				<combo_item name="custom">Пользовательский (совместимый с OpenAI)</combo_item>
+			</combo_box>
+			<text name="key_label">Ключ API:</text>
+			<line_editor name="api_key" />
+			<text name="url_label">Базовый URL:</text>
+			<line_editor name="base_url" />
+			<text name="model_label">Модель:</text>
+			<line_editor name="model" />
+			<button name="test_btn" label="Проверить соединение" />
+			<text name="status_text">Не проверено</text>
+			<text name="provider_tip">Ключ API сохраняется в локальных настройках (только на этом ПК).&#10;OpenCode Zen: chat/completions (напр. mimo-v2.5-free).&#10;OpenRouter: https://openrouter.ai/api/v1 (напр. minimax/minimax-m3:free).</text>
+		</panel>
+	</tab_container>
+</panel>

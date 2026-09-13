@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="EmeraldIRC_dictionaries" title="Scarica nuovi dizionari">
+	<text name="EmDics_txt">Di seguito un elenco di dizionari aggiuntivi scaricabili dal sito del viewer. Seleziona il dizionario che vuoi avere disponibile per l'installazione, poi premi il pulsante di download.</text>
+	<button name="Emerald_dic_download" label="Scarica"/>
+</floater>

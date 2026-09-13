@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Object Backup" title="İlerleme">
+	<text name="name_label">İlerleme</text>
+	<string name="export">Nesne dışa aktarma</string>
+	<string name="import">Nesne içe aktarma</string>
+</floater>

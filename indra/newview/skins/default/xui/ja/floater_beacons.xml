@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="beacons" title="ビーコン">
+	<panel name="beacons_panel">
+		<check_box name="always_on" label="ウィンドウを閉じてもビーコンを残す" />
+		<check_box name="beacons" label="ビーコンを表示" />
+		<check_box name="highlights" label="ハイライトをレンダリング" />
+		<text name="beacon_width_label">ビーコンの幅:</text>
+		<slider name="beacon_width" />
+		<check_box name="physical" label="物理オブジェクト" />
+		<check_box name="scripted" label="スクリプト付きオブジェクト" />
+		<check_box name="touch_only" label="タッチ専用のスクリプト付きオブジェクト" />
+		<check_box name="sounds" label="サウンド発生源" />
+		<check_box name="particles" label="パーティクル発生源" />
+		<check_box name="moapbeacon" label="メディア発生源" />
+	</panel>
+</floater>

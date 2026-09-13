@@ -1,0 +1,14 @@
+<llsd>
+    <map>
+    <key>skin_name</key>
+        <string>Cyber</string>
+    <key>author_name</key>
+        <string>Vedned Grau</string>
+    <key>additional_author_names</key>
+        <string> - </string>
+    <key>skin_info</key>
+        <string>Allyn Viewer Cyber, dark navy desktop theme with purple and blue accents.</string>
+    <key>folder_name</key>
+        <string>cyber</string>
+    </map>
+</llsd>

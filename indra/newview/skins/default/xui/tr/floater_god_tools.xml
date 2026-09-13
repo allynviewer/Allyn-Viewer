@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="godtools floater" title="Tanrı Araçları" width="600" height="450" min_width="600" min_height="450">
+	<tab_container name="GodTools Tabs">
+		<panel name="grid" label="Grid">
+			<button name="Kick all users" label="Tüm kullanıcıları tekmele" />
+			<button name="Flush This Region's Map Visibility Caches" label="Bu Bölgenin Harita Görünürlük Önbelleklerini Temizleyin" />
+		</panel>
+		<panel name="region" label="Bölge">
+			<text name="Sim Name:">Sim Adı:</text>
+			<line_editor name="region name" />
+			<check_box name="check prelude" label="Prelüd" tool_tip="Bölgeyi bir başlangıç haline getirmek için bunu ayarlayın." />
+			<check_box name="check fixed sun" label="Sabit Güneş" tool_tip="Güneş konumunu sabitleyin (Bölge/Emlak &gt; Arazi'de olduğu gibi)." />
+			<check_box name="check reset home" label="Teleportda Ana Sayfayı Sıfırla" tool_tip="Sakin kişi ışınlandığında evini hedef konumuna sıfırlayın." />
+			<check_box name="check visible" label="Görünür" tool_tip="Bölgeyi tanrı olmayanlara görünür kılmak için bunu ayarlayın." />
+			<check_box name="check damage" label="Hasar" tool_tip="Bu bölgede hasarı etkinleştirmek için bunu ayarlayın." />
+			<check_box name="block dwell" label="Trafik Takibini Engelle" tool_tip="Bölgenin trafiği hesaplamaması için bunu ayarlayın." />
+			<check_box name="block terraform" label="Terraform'u Engelle" tool_tip="İnsanların topraklarını yaşanabilir hale getirmesine izin vermemek için bunu ayarlayın" />
+			<check_box name="is sandbox" label="Sandbox" tool_tip="Bunun bir korumalı alan bölgesi olup olmadığını değiştirin." />
+			<check_box name="is gaming" label="Oyun" tool_tip="Bunun bir oyun bölgesi olup olmadığını değiştirin." />
+			<check_box name="hide from search" label="Bölgeyi aramadan gizle" tool_tip="Bu bölgenin hiç aranabilir olup olmayacağını değiştirin." />
+			<button name="Bake Terrain" label="Araziyi Fırınla" tool_tip="Geçerli araziyi varsayılan olarak kaydedin." />
+			<button name="Revert Terrain" label="Araziyi Geri Döndür" tool_tip="Mevcut araziyi varsayılanla değiştirin." />
+			<button name="Swap Terrain" label="Araziyi Değiştir" tool_tip="Mevcut araziyi varsayılanla değiştir." />
+			<text name="estate id">Emlak Kimliği:</text>
+			<line_editor name="estate" />
+			<text name="parent id">Ebeveyn kimliği:</text>
+			<line_editor name="parentestate" tool_tip="Bu, bu bölgenin ana mülküdür" />
+			<text name="Grid Pos: ">Grid Konumu:</text>
+			<line_editor name="gridposx" tool_tip="Bu, bu bölge için ızgara x konumudur" />
+			<line_editor name="gridposy" tool_tip="Bu, bu bölge için ızgara y konumudur" />
+			<text name="Redirect to Grid: ">Grid'e Yönlendir:</text>
+			<line_editor name="redirectx" />
+			<line_editor name="redirecty" />
+			<spinner name="billable factor" />
+			<text name="billable factor text">Faturalandırılabilir Faktör:</text>
+			<spinner name="land cost" />
+			<text name="land cost text">[CURRENCY] metrekare başına:</text>
+			<button name="Refresh" label="Yenile" tool_tip="Yukarıdaki bilgileri yenilemek için burayı tıklayın." />
+			<button name="Apply" label="Uygula" tool_tip="Yukarıdaki değişiklikleri uygulamak için burayı tıklayın." />
+			<button name="Select Region" label="Bölge Seçin" tool_tip="Arazi aracıyla tüm bölgeyi seçin." />
+			<button name="Autosave now" label="Şimdi otomatik kaydet" tool_tip="Gzip'li durumu otomatik kaydetme dizinine kaydedin." />
+		</panel>
+		<panel name="objects" label="Nesneler">
+			<string name="no_target">(hedef yok)</string>
+			<text name="Sim Name:">Sim Adı:</text>
+			<text name="region name">Galce</text>
+			<check_box name="disable scripts" label="Komut Dosyalarını Devre Dışı Bırak" tool_tip="Bu bölgedeki tüm komut dosyalarını devre dışı bırakmak için bunu ayarlayın" />
+			<check_box name="disable collisions" label="Çarpışmaları Devre Dışı Bırak" tool_tip="Bu bölgede aracı olmayan çarpışmaları devre dışı bırakmak için bunu ayarlayın" />
+			<check_box name="disable physics" label="Fiziği Devre Dışı Bırak" tool_tip="Bu bölgedeki tüm fiziği devre dışı bırakmak için bunu ayarlayın" />
+			<button name="Apply" label="Uygula" tool_tip="Yukarıdaki değişiklikleri uygulamak için burayı tıklayın." />
+			<button name="Set Target" label="Hedefi Belirle" tool_tip="Nesnenin silinmesi için hedef avatarı ayarlayın." />
+			<text name="target_avatar_name">(hedef yok)</text>
+			<button name="Delete Target's Scripted Objects On Others Land" label="Hedefin Başkaları Alanındaki Komut Dosyalı Nesnelerini Sil" tool_tip="Hedefin sahip olmadığı arazide hedefin sahip olduğu tüm scriptyla yazılmış nesneleri silin. (kopya yok) nesneler döndürülecektir." />
+			<button name="Delete Target's Scripted Objects On *Any* Land" label="*Herhangi* Bir Yerdeki Hedefin Komut Dosyalı Nesnelerini Sil" tool_tip="Bu bölgedeki hedefin sahip olduğu tüm script içeren nesneleri silin. (kopya yok) nesneler döndürülecektir." />
+			<button name="Delete *ALL* Of Target's Objects" label="Hedefin Nesnelerinin *TÜMÜNÜ* Sil" tool_tip="Bu bölgedeki hedefin sahip olduğu tüm nesneleri silin. (kopya yok) nesneler döndürülecektir." />
+			<button name="Get Top Colliders" label="En İyi Çarpıştırıcıları Alın" tool_tip="En dar aşamalı geri aramaların yaşandığı nesnelerin listesini alır." />
+			<button name="Get Top Scripts" label="En İyi Komut Dosyalarını Alın" tool_tip="Betikleri çalıştırırken en çok zaman harcayan nesnelerin listesini alır." />
+			<button name="Scripts digest" label="Komut dosyalarının özeti" tool_tip="Tüm komut dosyalarının bir listesini ve her birinin oluşum sayısını alır." />
+		</panel>
+		<panel name="request" label="Talep">
+			<text name="Destination:">Hedef:</text>
+			<combo_box name="destination">
+				<combo_item name="Selection">Seçim</combo_item>
+				<combo_item name="AgentRegion">Temsilci Bölgesi</combo_item>
+			</combo_box>
+			<text name="Request:">Talep:</text>
+			<combo_box name="request">
+				<combo_item name="colliders&lt;steps&gt;">çarpıştırıcılar &lt;adımlar&gt;</combo_item>
+				<combo_item name="scripts&lt;count&gt;,&lt;optionalpattern&gt;">komut dosyaları &lt;sayı&gt;,&lt;isteğe bağlı desen&gt;</combo_item>
+				<combo_item name="objects&lt;pattern&gt;">nesneler &lt;desen&gt;</combo_item>
+				<combo_item name="rez&lt;asset_id&gt;">rez &lt;asset_id&gt;</combo_item>
+			</combo_box>
+			<text name="Parameter:">Parametre:</text>
+			<line_editor name="parameter" />
+			<button name="Make Request" label="Talepte Bulun" />
+		</panel>
+	</tab_container>
+</floater>

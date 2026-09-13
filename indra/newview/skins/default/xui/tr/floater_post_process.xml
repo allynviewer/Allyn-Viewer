@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Post-Process Floater" title="İşlem Sonrası Ayarlar">
+	<tab_container name="Post-Process Tabs">
+		<panel name="ColorFilterPanel" label="Renk Filtresi">
+			<check_box name="enable_color_filter" label="Etkinleştir"/>
+			<text name="ColorFilterGammaText">Gama</text>
+			<text name="ColorFilterBrightnessText">Parlaklık</text>
+			<text name="ColorFilterSaturationText">Doygunluk</text>
+			<text name="ColorFilterContrastText">Kontrast</text>
+			<text name="ColorFilterBaseText">Kontrast taban renkleri</text>
+			<slider name="contrast_base[0]" label="R"/>
+			<slider name="contrast_base[1]" label="G"/>
+			<slider name="contrast_base[2]" label="B"/>
+			<slider name="contrast_base[3]" label="I"/>
+		</panel>
+		<panel name="GaussBlurPanel" label="Gauss bulanıklığı">
+			<check_box name="enable_gauss_blur" label="Etkinleştir"/>
+			<text name="GaussBlurPassesText">Uygulanacak geçişler</text>
+		</panel>
+		<panel name="NightVisionPanel" label="Gece görüşü">
+			<check_box name="enable_night_vision" label="Etkinleştir"/>
+			<text name="NightVisionBrightMultText">Işık yükseltme çarpanı</text>
+			<text name="NightVisionNoiseSizeText">Gürültü boyutu</text>
+			<text name="NightVisionNoiseStrengthText">Gürültü gücü</text>
+		</panel>
+		<panel name="PosterizePanel" label="Posterleştir">
+			<check_box name="enable_posterize" label="Etkinleştir"/>
+			<text name="PosterLayersText">Katman sayısı</text>
+		</panel>
+		<panel name="MotionBlurPanel" label="Hareket bulanıklığı">
+			<check_box name="enable_motionblur" label="Etkinleştir"/>
+			<text name="MotionBlurText">Hareket bulanıklığı gücü</text>
+		</panel>
+		<panel name="VignettePanel" label="Vinyet">
+			<check_box name="enable_vignette" label="Etkinleştir"/>
+			<text name="VignetteStrengthText">Güç</text>
+			<text name="VignetteRadiusText">Yarıçap</text>
+			<text name="VignetteDarknessText">Karanlık</text>
+			<text name="VignetteDesaturateText">Doysuzluk gücü</text>
+			<text name="VignetteChormaticAberrationText">Kromatik sapma</text>
+		</panel>
+		<panel name="Extras" label="Ekstralar">
+			<text name="PPSavedEffectsText">Kayıtlı efektler</text>
+			<combo_box name="PPEffectsCombo"/>
+			<line_editor name="PPEffectNameEditor" label="Efekt adı"/>
+			<button name="PPLoadEffect" label="Efekti yükle" label_selected="Efekti yükle"/>
+			<button name="PPSaveEffect" label="Efekti kaydet" label_selected="Efekti kaydet"/>
+			<text name="PPSaveAsText">Farklı kaydet</text>
+			<text name="PPExtrasHelpText">Kayıtlı bir hazır ayarı yükleyin veya geçerli ayarları kaydetmek için yeni bir ad yazın.</text>
+		</panel>
+	</tab_container>
+</floater>

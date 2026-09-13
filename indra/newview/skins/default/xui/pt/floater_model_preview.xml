@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Model Preview" title="Enviar modelo">
+	<string name="status_parse_error">Erro: problema ao analisar o DAE — veja o log para detalhes.</string>
+	<string name="status_bind_shape_orientation">Aviso: a matriz de bind shape não está na orientação padrão X-forward.</string>
+	<string name="status_material_mismatch">Erro: o material do modelo não é um subconjunto do modelo de referência.</string>
+	<string name="status_reading_file">Carregando...</string>
+	<string name="status_generating_meshes">Gerando malhas...</string>
+	<string name="status_vertex_number_overflow">Erro: o número de vértices é maior que 65534, abortado!</string>
+	<string name="bad_element">Erro: o elemento é inválido</string>
+	<string name="high">Alto</string>
+	<string name="medium">Médio</string>
+	<string name="low">Baixo</string>
+	<string name="lowest">Mais baixo</string>
+	<string name="mesh_status_good">Pronto para enviar!</string>
+	<string name="mesh_status_na">N/D</string>
+	<string name="mesh_status_none">Nenhum</string>
+	<string name="mesh_status_submesh_mismatch">Os níveis de detalhe têm um número diferente de faces texturizáveis.</string>
+	<string name="mesh_status_mesh_mismatch">Os níveis de detalhe têm um número diferente de instâncias de malha.</string>
+	<string name="mesh_status_too_many_vertices">O nível de detalhe tem vértices demais.</string>
+	<string name="mesh_status_missing_lod">Falta um nível de detalhe obrigatório.</string>
+	<string name="mesh_status_invalid_material_list">Os materiais do LOD não são um subconjunto do modelo de referência.</string>
+	<string name="phys_status_vertex_limit_exceeded">Alguns cascos físicos excedem as limitações de vértices.</string>
+	<string name="layer_all">Todos</string>
+	<string name="decomposing">Analisando...</string>
+	<string name="simplifying">Simplificando...</string>
+	<string name="tbd">A definir</string>
+	<panel name="left_panel">
+		<panel name="model_name_representation_panel">
+			<text name="name_label">Nome do modelo:</text>
+			<text name="model_category_label">Este modelo representa...</text>
+			<combo_box name="model_category_combo">
+				<combo_item name="Choose one">Escolha um...</combo_item>
+				<combo_item name="Avatar shape">Forma de avatar</combo_item>
+				<combo_item name="Avatar attachment">Anexo de avatar</combo_item>
+				<combo_item name="Moving object (vehicle, animal)">Objeto em movimento (veículo, animal)</combo_item>
+				<combo_item name="Building Component">Componente de construção</combo_item>
+				<combo_item name="Large, non moving etc">Grande, sem movimento etc.</combo_item>
+				<combo_item name="Smaller, non-moving etc">Menor, sem movimento etc.</combo_item>
+				<combo_item name="Not really any of these">Nenhuma destas opções</combo_item>
+			</combo_box>
+		</panel>
+		<tab_container name="import_tab">
+			<panel name="lod_panel" label="Nível de detalhe" title="Nível de detalhe">
+				<text name="source">Origem</text>
+				<text name="triangles">Triângulos</text>
+				<text name="vertices">Vértices</text>
+				<text name="high_label">Alto</text>
+				<combo_box name="lod_source_high">
+					<combo_item name="Load from file">Carregar de arquivo</combo_item>
+					<combo_item name="Generate">Gerar</combo_item>
+				</combo_box>
+				<button name="lod_browse_high" label="Procurar..."/>
+				<combo_box name="lod_mode_high">
+					<combo_item name="Triangle Limit">Limite de triângulos</combo_item>
+					<combo_item name="Error Threshold">Limiar de erro</combo_item>
+				</combo_box>
+				<text name="medium_label">Médio</text>
+				<combo_box name="lod_source_medium">
+					<combo_item name="Load from file">Carregar de arquivo</combo_item>
+					<combo_item name="Generate">Gerar</combo_item>
+					<combo_item name="Use LoD above">Usar LoD acima</combo_item>
+				</combo_box>
+				<button name="lod_browse_medium" label="Procurar..."/>
+				<combo_box name="lod_mode_medium">
+					<combo_item name="Triangle Limit">Limite de triângulos</combo_item>
+					<combo_item name="Error Threshold">Limiar de erro</combo_item>
+				</combo_box>
+				<text name="low_label">Baixo</text>
+				<combo_box name="lod_source_low">
+					<combo_item name="Load from file">Carregar de arquivo</combo_item>
+					<combo_item name="Generate">Gerar</combo_item>
+					<combo_item name="Use LoD above">Usar LoD acima</combo_item>
+				</combo_box>
+				<button name="lod_browse_low" label="Procurar..."/>
+				<combo_box name="lod_mode_low">
+					<combo_item name="Triangle Limit">Limite de triângulos</combo_item>
+					<combo_item name="Error Threshold">Limiar de erro</combo_item>
+				</combo_box>
+				<text name="lowest_label">Mais baixo</text>
+				<combo_box name="lod_source_lowest">
+					<combo_item name="Load from file">Carregar de arquivo</combo_item>
+					<combo_item name="Generate">Gerar</combo_item>
+					<combo_item name="Use LoD above">Usar LoD acima</combo_item>
+				</combo_box>
+				<button name="lod_browse_lowest" label="Procurar..."/>
+				<combo_box name="lod_mode_lowest">
+					<combo_item name="Triangle Limit">Limite de triângulos</combo_item>
+					<combo_item name="Error Threshold">Limiar de erro</combo_item>
+				</combo_box>
+				<check_box name="gen_normals" label="Gerar normais"/>
+				<text name="crease_label">Ângulo de vinco:</text>
+			</panel>
+			<panel name="physics_panel" label="Física" title="Física">
+				<panel name="physics geometry">
+					<text name="first_step_name">Passo 1: Nível de detalhe</text>
+					<combo_box name="physics_lod_combo" tool_tip="LOD a usar para a forma física">
+						<combo_item name="choose_one">Escolha um...</combo_item>
+						<combo_item name="physics_high">Alto</combo_item>
+						<combo_item name="physics_medium">Médio</combo_item>
+						<combo_item name="physics_low">Baixo</combo_item>
+						<combo_item name="physics_lowest">Mais baixo</combo_item>
+						<combo_item name="load_from_file">De arquivo</combo_item>
+					</combo_box>
+					<button name="physics_browse" label="Procurar..."/>
+				</panel>
+				<panel name="physics analysis">
+					<text name="method_label">Passo 2: Analisar</text>
+					<text name="analysis_method_label">Método:</text>
+					<text name="quality_label">Qualidade:</text>
+					<text name="smooth_method_label">Suavizar:</text>
+					<check_box name="Close Holes (Slow)" label="Fechar buracos"/>
+					<button name="Decompose" label="Analisar"/>
+					<button name="decompose_cancel" label="Cancelar"/>
+				</panel>
+				<panel name="physics simplification">
+					<text name="second_step_label">Passo 3: Simplificar</text>
+					<text name="simp_method_header">Método:</text>
+					<text name="pass_method_header">Passagens:</text>
+					<text name="Detail Scale label">Escala de detalhe:</text>
+					<text name="Retain%_label">Reter:</text>
+					<button name="Simplify" label="Simplificar"/>
+					<button name="simplify_cancel" label="Cancelar"/>
+				</panel>
+				<panel name="physics info">
+					<text name="results_text">Resultados:</text>
+					<text name="physics_triangles">Triângulos: [TRIANGLES],</text>
+					<text name="physics_points">Vértices: [POINTS],</text>
+					<text name="physics_hulls">Cascos: [HULLS]</text>
+				</panel>
+			</panel>
+			<panel name="modifiers_panel" label="Opções de envio" title="Opções de envio">
+				<text name="scale_label">Escala (1 = sem escala):</text>
+				<text name="dimensions_label">Dimensões:</text>
+				<text name="import_dimensions">[X] X [Y] X [Z]</text>
+				<check_box name="upload_textures" label="Incluir texturas"/>
+				<text name="include_label">Somente para modelos de avatar:</text>
+				<check_box name="upload_skin" label="Incluir peso da pele"/>
+				<text name="pelvis_offset_label">Deslocamento Z (elevar ou abaixar o avatar):</text>
+				<check_box name="upload_joints" label="Incluir posições das juntas"/>
+			</panel>
+		</tab_container>
+		<panel name="weights_and_warning_panel">
+			<button name="calculate_btn" label="Calcular pesos e taxa" tool_tip="Calcular pesos e taxa"/>
+			<button name="cancel_btn" label="Cancelar"/>
+			<button name="ok_btn" label="Enviar" tool_tip="Enviar para o simulador"/>
+			<button name="reset_btn" label="Limpar configurações e redefinir formulário"/>
+			<text name="upload_fee">Taxa de envio: [CURRENCY] [FEE]</text>
+			<text name="prim_weight">Impacto no terreno: [EQ]</text>
+			<text name="download_weight">Download: [ST]</text>
+			<text name="physics_weight">Física: [PH]</text>
+			<text name="server_weight">Servidor: [SIM]</text>
+			<text name="price_breakdown">Detalhamento do preço: Streaming: [CURRENCY] [STREAMING] Física: [CURRENCY] [PHYSICS] Instâncias: [CURRENCY] [INSTANCES] Texturas: [CURRENCY] [TEXTURES] Modelo: [CURRENCY] [MODEL]</text>
+			<text name="warning_title">NOTA:</text>
+			<text name="warning_message">Você não tem permissão para enviar modelos mesh.</text>
+			<text name="validate_url">Clique aqui para saber como obter a certificação.</text>
+			<text name="status">[STATUS]</text>
+		</panel>
+	</panel>
+	<text name="lod_label">Preview:</text>
+	<panel name="right_panel">
+		<combo_box name="preview_lod_combo" tool_tip="LOD a ver na renderização de preview">
+			<combo_item name="high">Alto</combo_item>
+			<combo_item name="medium">Médio</combo_item>
+			<combo_item name="low">Baixo</combo_item>
+			<combo_item name="lowest">Mais baixo</combo_item>
+		</combo_box>
+		<text name="label_display">Exibir...</text>
+		<check_box name="show_edges" label="Arestas"/>
+		<check_box name="show_physics" label="Física"/>
+		<check_box name="show_textures" label="Texturas"/>
+		<check_box name="show_skin_weight" label="Pesos da pele"/>
+		<check_box name="show_joint_positions" label="Juntas"/>
+		<text name="physics_explode_label">Spread:</text>
+	</panel>
+</floater>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="notify_icon_bar">
+	<button name="notify_well_btn" tool_tip="Notificaciones"/>
+</panel>

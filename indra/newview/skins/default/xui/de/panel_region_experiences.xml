@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Experiences">
+	<panel.string name="trusted_estate_text">Jedes Erlebnis kann als vertrauenswürdig markiert werden. Vertrauenswürdige Erlebnisse dürfen auf diesem Grundbesitz ausgeführt werden. Wenn der Grundbesitz keinen öffentlichen Zugang erlaubt, dürfen Einwohner, die an einem vertrauenswürdigen Erlebnis teilnehmen, den Grundbesitz betreten und bleiben, solange sie sich im Erlebnis befinden.</panel.string>
+	<panel.string name="allowed_estate_text">Nur Erlebnisse, die nicht rasterweit sind, dürfen erlaubt werden. Erlaubte Erlebnisse dürfen auf diesem Grundbesitz ausgeführt werden.</panel.string>
+	<panel.string name="blocked_estate_text">Nur rasterweite Erlebnisse dürfen blockiert werden. Blockierte Erlebnisse dürfen auf diesem Grundbesitz nicht ausgeführt werden.</panel.string>
+	<panel.string name="estate_caption">Änderungen an den Einstellungen auf diesem Reiter wirken sich auf alle Regionen des Grundbesitzes aus.</panel.string>
+	<panel.string name="allowed_parcel_text">Nur Erlebnisse, die nicht rasterweit sind, dürfen erlaubt werden. Erlaubte Erlebnisse dürfen auf dieser Parzelle ausgeführt werden, sofern sie nicht vom Grundbesitz blockiert sind.</panel.string>
+	<panel.string name="blocked_parcel_text">Nur rasterweite Erlebnisse dürfen blockiert werden. Blockierte Erlebnisse dürfen auf dieser Parzelle nicht ausgeführt werden.</panel.string>
+</panel>

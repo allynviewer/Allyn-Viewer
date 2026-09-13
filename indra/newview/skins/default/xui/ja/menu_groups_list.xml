@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="groups_menu" label="グループ">
+	<menu_item_call name="show_group" label="プロフィールを表示" />
+	<menu_item_call name="im_group" label="グループ チャットを開く" />
+	<menu_item_call name="call_group" label="Call グループ" />
+	<menu_item_call name="activate_group" label="グループを有効化" />
+	<menu_item_call name="Chat History" label="チャット履歴" />
+	<menu_item_call name="join_group" label="参加 グループ" />
+	<menu_item_call name="leave_group" label="退出 グループ" />
+	<menu_item_call name="copy_name" label="名前をコピー" />
+	<menu_item_call name="copy_url" label="SLURLをコピー" />
+	<menu_item_call name="copy_key" label="キーをコピー" />
+</menu>

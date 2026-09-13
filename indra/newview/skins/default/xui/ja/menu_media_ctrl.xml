@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="media ctrl context menu">
+	<menu_item_call name="undo" label="元に戻す" />
+	<menu_item_call name="redo" label="やり直し" />
+	<menu_item_separator name="undo_separator" />
+	<menu_item_call name="copy_page_url" label="ページURLをコピー" />
+	<menu_item_call name="Cut" label="切り取り" />
+	<menu_item_call name="Copy" label="コピー" />
+	<menu_item_call name="Paste" label="貼り付け" />
+	<menu_item_call name="delete" label="削除" />
+	<menu_item_separator name="select_separator" />
+	<menu_item_call name="select_all" label="すべて選択" />
+	<menu_item_separator name="debug_separator" />
+	<menu_item_call name="open_webinspector" label="Webインスペクタを開く" />
+	<menu_item_call name="show_page_source" label="ソースを表示" />
+</menu>

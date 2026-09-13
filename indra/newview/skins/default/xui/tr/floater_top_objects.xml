@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="top_objects" title="Top Objects">
+	<string name="top_scripts_title">En İyi Komut Dosyaları</string>
+	<string name="top_scripts_text">[COUNT] scripts taking a total of [TIME] ms</string>
+	<string name="scripts_score_label">Zaman</string>
+	<string name="top_colliders_title">En İyi Çarpıştırıcılar</string>
+	<string name="top_colliders_text">Top [COUNT] objects experiencing many potential collisions</string>
+	<string name="colliders_score_label">Score</string>
+	<string name="none_descriptor">Hiçbiri bulunamadı.</string>
+	<text name="title_text">Yükleniyor...</text>
+	<scroll_list name="objects_list">
+		<column name="score" label="Score" />
+		<column name="name" label="İsim" />
+		<column name="owner" label="Sahip" />
+		<column name="location" label="Konum" />
+		<column name="parcel" label="Parsel" />
+		<column name="time" label="Zaman" />
+		<column name="URLs" label="URLs" />
+		<column name="memory" label="Memory (KB)" />
+	</scroll_list>
+	<text name="id_text">Object ID:</text>
+	<line_editor name="id_editor" />
+	<button name="show_beacon_btn" label="Show Beacon" />
+	<text name="obj_name_text">Object name:</text>
+	<line_editor name="object_name_editor" />
+	<button name="filter_object_btn" label="Filter" />
+	<text name="owner_name_text">Sahibi:</text>
+	<line_editor name="owner_name_editor" />
+	<button name="filter_owner_btn" label="Filter" />
+	<text name="parcel_name_text">Parsel:</text>
+	<line_editor name="parcel_name_editor" />
+	<button name="filter_parcel_btn" label="Filter" />
+	<button name="refresh_btn" label="Yenile" />
+	<button name="return_selected_btn" label="Return Selected" />
+	<button name="return_all_btn" label="Return All" />
+	<button name="teleport_to_btn" label="Teleport et:" />
+	<button name="profile_btn" label="Profil" />
+	<button name="disable_selected_btn" label="Disable Selected" />
+	<button name="disable_all_btn" label="Disable All" />
+	<button name="estate_kick_btn" label="Estate Kick" />
+	<button name="focus_on_btn" label="Focus on" />
+</floater>

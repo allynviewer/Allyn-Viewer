@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="General" label="Регион">
+	<text name="region_text_lbl">Регион:</text>
+	<text name="region_text">неизвестно</text>
+	<text name="version_channel_text_lbl">Версия:</text>
+	<text name="version_channel_text">неизвестно</text>
+	<text name="region_type_lbl">Тип:</text>
+	<text name="region_type">неизвестно</text>
+	<check_box name="block_terraform_check" label="Запретить терраформинг" />
+	<button name="terraform_help" label=""  tool_tip="Справка"/>
+	<check_box name="block_fly_check" label="Запретить полёт" />
+	<button name="fly_help" label=""  tool_tip="Справка"/>
+	<check_box name="block_fly_over_check" label="Запретить пролёт над парцелом" tool_tip="Проверка доступа действует и над парцелом — сверху пролететь нельзя." />
+	<check_box name="allow_damage_check" label="Разрешить урон" />
+	<button name="damage_help" label=""  tool_tip="Справка"/>
+	<check_box name="restrict_pushobject" label="Ограничить толкание" />
+	<button name="restrict_pushobject_help" label=""  tool_tip="Справка"/>
+	<check_box name="allow_land_resell_check" label="Разрешить перепродажу земли" />
+	<button name="land_resell_help" label=""  tool_tip="Справка"/>
+	<check_box name="allow_parcel_changes_check" label="Разрешить объединение/разделение земли" />
+	<button name="parcel_changes_help" label=""  tool_tip="Справка"/>
+	<check_box name="block_parcel_search_check" label="Не показывать землю в поиске" tool_tip="Показывать этот регион и его парцелы в результатах поиска" />
+	<button name="parcel_search_help" label=""  tool_tip="Справка"/>
+	<spinner name="agent_limit_spin" label="Лимит аватаров" />
+	<button name="agent_limit_help" label=""  tool_tip="Справка"/>
+	<spinner name="object_bonus_spin" label="Бонус объектов" />
+	<button name="object_bonus_help" label=""  tool_tip="Справка"/>
+	<text name="access_text" label="Зрелость">Рейтинг:</text>
+	<combo_box name="access_combo" label="Для взрослых">
+		<combo_item name="Adult">Взрослый</combo_item>
+		<combo_item name="Mature">Для взрослых</combo_item>
+		<combo_item name="PG">PG</combo_item>
+	</combo_box>
+	<button name="access_help" label=""  tool_tip="Справка"/>
+	<check_box name="use_estate_sun_check" label="Солнце эстейта" />
+	<button name="use_estate_sun_help" label=""  tool_tip="Справка"/>
+	<check_box name="fixed_sun_check" label="Фиксированное солнце" />
+	<button name="fixed_sun_help" label=""  tool_tip="Справка"/>
+	<icon name="daycycle" />
+	<slider name="sun_hour_slider" label="Фаза" />
+	<button name="apply_btn" label="Применить" />
+	<button name="kick_btn" label="Телепорт домой одного..." />
+	<button name="kick_all_btn" label="Телепорт домой всех..." />
+	<button name="im_btn" label="Сообщение региону..." />
+	<button name="manage_telehub_btn" label="Управление телехабом..." />
+</panel>

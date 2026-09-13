@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="im_floater" label="(sconosciuto)" title="(sconosciuto)">
+	<string name="ringing">Accesso alla chat vocale...</string>
+	<string name="connected">Connesso, clicca 'Fine Chiamata' per riagganciare</string>
+	<string name="hang_up">Ha lasciato la chat vocale</string>
+	<string name="title_string">IM con [NAME]</string>
+	<string name="typing_start_string">[NAME] sta scrivendo...</string>
+	<string name="session_start_string">Sessione in avvio con [NAME], attendi.</string>
+	<string name="default_text_label">Clicca qui per scrivere un messaggio.</string>
+	<string name="moderated_chat_label">(Moderato: voice disattivo di default)</string>
+	<string name="muted_text_label">La tua chat di testo è stata disattivata da un moderatore del gruppo.</string>
+	<flyout_button name="instant_message_flyout" label="Info gruppo">
+		<flyout_button_item name="history_btn" label="Cronologia"/>
+	</flyout_button>
+	<button name="ding_btn" label="Ding"/>
+	<check_box name="Support Check" tool_tip="Deseleziona per smettere di inviare il numero di build"/>
+	<check_box name="im_translate_check" tool_tip="Spunta per attivare la traduzione"/>
+	<button name="im_translate_btn" label="Traduzione" tool_tip="Configura le lingue di questo gruppo"/>
+	<button name="start_call_btn" label="Unisciti alla chiamata"/>
+	<button name="end_call_btn" label="Fine Chiamata"/>
+	<button name="toggle_active_speakers_btn" tool_tip="Clicca qui per mostrare/nascondere l'elenco dei partecipanti attivi in questa sessione IM."/>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<button name="send_btn" label="Invia"/>
+		</layout_panel>
+	</layout_stack>
+	<string name="live_help_dialog">*** Benvenuto nella 'Richiesta di Aiuto' *** Controlla, prima le nostre 'Pagine di Aiuto' premendo F1, o accedendo alle Nozioni di Base a http://secondlife.com/knowledgebase/ Se la risposta che cerchi non è presente, scrivi la tua domanda per cominciare, quindi attendi qualche istante per consentire agli assistenti disponibili di rispondere. -=-=- I tempi di risposta varieranno, specialmente durante gli orari di picco -=-=-</string>
+</floater>

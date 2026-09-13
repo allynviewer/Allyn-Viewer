@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Media panel" label="Аудио и видео">
+	<slider name="System Volume" label="Общий" />
+	<button name="mute_audio" />
+	<slider name="Music Volume" label="Музыка" />
+	<button name="mute_music" />
+	<slider name="Media Volume" label="Медиа" />
+	<button name="mute_media" />
+	<slider name="Voice Volume" label="Голос" />
+	<button name="mute_voice" />
+	<slider name="SFX Volume" label="Звуки" />
+	<button name="mute_sfx" />
+	<slider name="Wind Volume" label="Окружающий" />
+	<button name="mute_wind" />
+	<slider name="UI Volume" label="Интерфейс" />
+	<button name="mute_ui" />
+	<button name="nearby_media" label="Соседние СМИ" />
+</panel>

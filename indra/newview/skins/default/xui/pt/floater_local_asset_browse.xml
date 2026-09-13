@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="local_bitmap_browser_floater" title="Navegador de bitmaps locais">
+	<button name="add_btn" label="Adicionar"/>
+	<button name="del_btn" label="Remover"/>
+	<button name="upload_btn" label="Enviar"/>
+	<button name="more_btn" label="Mais"/>
+	<button name="less_btn" label="Menos"/>
+	<scroll_list name="bitmap_list">
+		<column name="bitmap_name" label="Nome"/>
+		<column name="bitmap_uuid" label="UUID"/>
+	</scroll_list>
+	<text name="path_caption_text">Caminho local:</text>
+	<text name="uuid_caption_text">UUID local:</text>
+	<texture_picker name="texture_view" label="Textura"/>
+	<check_box name="keep_updating_checkbox" label="Continuar atualizando" tool_tip="Ativar ou desativar verificações periódicas se o bitmap de origem no disco rígido foi atualizado"/>
+	<combo_box name="type_combobox">
+		<combo_item name="type_texture">Textura</combo_item>
+		<combo_item name="type_sculptie">Sculptmap</combo_item>
+		<combo_item name="type_layer">Roupas</combo_item>
+	</combo_box>
+	<text name="time_caption_text">Hora:</text>
+	<text name="time_text">(data aqui)</text>
+	<text name="link_caption_text">Vínculo:</text>
+	<text name="link_text">(status do vínculo)</text>
+	<text name="name_caption_text">Nome:</text>
+</floater>

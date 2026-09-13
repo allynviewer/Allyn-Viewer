@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="false" height="612" label="Voice Chat" left="0" name="chat" width="648">
+	<string value="Allow multiple instances to use voice simultaneously (requires restart)" name="multivoice_label"/>
+	<scroll_container bottom="-612" follows="all" height="612" left="0" name="voice_scroll" opaque="false" width="648">
+		<panel border="false" bottom="-680" follows="top|left" height="680" left="0" name="voice_scroll_inner" width="628">
+  <text visibility_control="CmdLineDisableVoice" bottom="-24" follows="left|top" left="20" name="voice_unavailable">Voice Chat Is Not Available</text>
+  <check_box control_name="local_enable" invisibility_control="CmdLineDisableVoice" bottom="-24" follows="top" height="16" initial_value="false" label="Enable voice chat" left="20" name="enable_voice_check"/>
+  <check_box bottom="-52" follows="top" height="16" left="20" name="enable_multivoice_check"/>
+  <radio_group enabled_control="local_enable" bottom="-140" draw_border="false" follows="top" height="80" left="20" name="ear_location" width="580">
+		<radio_item bottom="-20" height="20" left="0" name="0">Hear Voice Chat from camera position.</radio_item>
+		<radio_item bottom="-44" height="20" left="0" name="1">Hear Voice Chat from avatar position.</radio_item>
+    <radio_item bottom="-68" height="20" left="0" name="3">Hear Voice Chat equally from everyone.</radio_item>
+  </radio_group>
+  <text enabled_control="local_enable" bottom="-172" follows="top" font="SansSerifSmall" height="12" left="20" name="push_to_talk_heading" text_color="LabelSelectedColor">PUSH TO TALK</text>
+  <icon bottom="-178" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_ptt_rule" width="588"/>
+  <check_box enabled_control="local_enable" bottom="-204" follows="top" height="16" initial_value="false" label="Use Push-to-Talk in toggle mode" left="20" name="push_to_talk_toggle_check" tool_tip="When enabled, press the push-to-talk trigger to switch your microphone on and off. When disabled, the microphone is off unless the trigger is being held down."/>
+  <text enabled_control="local_enable" bottom="-232" follows="top" height="16" left="20" name="push_to_talk_label">Push-to-Talk trigger:</text>
+  <line_editor enabled_control="local_enable" bottom="-260" follows="top" height="22" left="20" name="modifier_combo" width="400"/>
+  <button enabled_control="local_enable" bottom="-292" follows="top" height="24" label="Set Key" left="20" name="set_voice_hotkey_button" width="140"/>
+  <button enabled_control="local_enable" bottom="-292" follows="top" height="24" label="Middle Mouse Button" left="172" name="set_voice_middlemouse_button" width="200"/>
+  <check_box enabled_control="local_enable" bottom="-332" follows="top" height="16" initial_value="false" label="Enable lip sync animation" left="20" name="enable_lip_sync_check"/>
+  <check_box enabled_control="local_enable" bottom="-356" follows="top" height="16" initial_value="false" label="Only accept voice calls from people on My Friends list" left="20" name="voice_call_friends_only_check"/>
+  <check_box enabled_control="local_enable" bottom="-380" follows="top" height="16" initial_value="false" label="Switch off microphone when ending IM calls" left="20" name="auto_disengage_mic_check"/>
+  <check_box enabled_control="local_enable" control_name="VoiceEchoCancellation" bottom="-404" follows="top" height="16" initial_value="true" label="Echo cancellation" left="20" name="echo_cancellation_check"/>
+  <check_box enabled_control="local_enable" control_name="VoiceAutomaticGainControl" bottom="-428" follows="top" height="16" initial_value="true" label="Automatic gain control" left="20" name="agc_check"/>
+  <text enabled_control="local_enable" bottom="-460" follows="top" height="16" left="20" name="noise_suppression_label">Noise suppression:</text>
+  <combo_box enabled_control="local_enable" control_name="VoiceNoiseSuppressionLevel" bottom="-464" follows="top" height="22" left="200" name="noise_suppression_combo" width="200">
+    <combo_item name="0" value="0">Disabled</combo_item>
+    <combo_item name="1" value="1">Low</combo_item>
+    <combo_item name="2" value="2">Moderate</combo_item>
+    <combo_item name="3" value="3">High</combo_item>
+    <combo_item name="4" value="4">Very High</combo_item>
+  </combo_box>
+  <button enabled_control="local_enable" bottom="-508" follows="top" height="24" label="Device Settings" left="20" mouse_opaque="true" name="device_settings_btn" width="200" tool_tip="Opens device settings. Voice chat is temporarily suspended while this window is open."/>
+		</panel>
+	</scroll_container>
+</panel>

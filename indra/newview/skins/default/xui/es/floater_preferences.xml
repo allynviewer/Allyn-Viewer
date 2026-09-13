@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Preferences" title="Preferencias">
+	<button label="OK" label_selected="OK" name="OK"/>
+	<button label="Cancelar" label_selected="Cancelar" name="Cancel"/>
+	<button label="Aplicar" label_selected="Aplicar" name="Apply"/>
+	<button label="Info" label_selected="Info" name="About..."/>
+	<button label="Ayuda" label_selected="Ayuda" name="Help"/>
+	<filter_editor name="search_prefs_edit" label="Filtrar ajustes"
+	     tool_tip="Escribe un término de búsqueda. Las opciones coincidentes se resaltarán y las pestañas sin resultados se ocultarán."/>
+</floater>

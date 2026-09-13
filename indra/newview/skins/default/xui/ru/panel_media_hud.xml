@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="MediaHUD">
+	<panel name="media_region" />
+	<layout_stack>
+		<layout_panel>
+			<panel name="media_focused_controls">
+				<icon name="media_panel_transportcontrols_bg" />
+				<button name="back" />
+				<icon name="media_panel_divider-1" />
+				<button name="fwd" />
+				<icon name="media_panel_divider-2" />
+				<button name="home" />
+				<button name="media_stop" />
+				<icon name="media_panel_divider-3" />
+				<button name="reload" />
+				<button name="stop" />
+				<button name="play" />
+				<button name="pause" />
+				<icon name="media_panel_scrollbg" />
+				<button name="scrollup" />
+				<button name="scrollleft" />
+				<button name="scrollright" />
+				<button name="scrolldown" />
+				<icon name="media_panel_metacontrols_bg" />
+				<button name="zoom_frame" />
+				<icon name="media_panel_divider-4" />
+				<button name="new_window" />
+				<icon name="media_panel_divider-5" />
+				<button name="close" />
+			</panel>
+			<panel name="media_hover_controls">
+				<icon name="media_panel_metacontrols_bg-hover" />
+				<button name="zoom_frame_hover" />
+				<icon name="media_panel_divider" />
+				<button name="new_window_hover" />
+			</panel>
+		</layout_panel>
+	</layout_stack>
+</panel>

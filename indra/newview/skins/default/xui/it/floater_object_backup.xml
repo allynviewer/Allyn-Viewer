@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Object Backup" title="Avanzamento">
+	<text name="name_label">Avanzamento</text>
+	<string name="export">Esportazione oggetto</string>
+	<string name="import">Importazione oggetto</string>
+</floater>

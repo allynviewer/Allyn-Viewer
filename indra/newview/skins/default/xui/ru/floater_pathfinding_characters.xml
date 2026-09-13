@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_pathfinding_characters" title="Поиск персонажей">
+	<string name="messaging_initial" />
+	<string name="messaging_get_inprogress">Запрос символов поиска пути...</string>
+	<string name="messaging_get_error">Обнаружена ошибка при запросе символов поиска пути.</string>
+	<string name="messaging_set_inprogress" />
+	<string name="messaging_set_error" />
+	<string name="messaging_complete_none_found">Никаких персонажей-путешественников.</string>
+	<string name="messaging_complete_available">Выбрано [NUM_SELECTED] символов из [NUM_TOTAL].</string>
+	<string name="messaging_not_enabled">В этом регионе не разрешен поиск пути.</string>
+	<string name="character_cpu_time">[CPU_TIME] µs</string>
+	<string name="character_owner_loading">[Loading]</string>
+	<string name="character_owner_unknown">[Unknown]</string>
+	<string name="character_owner_group">[group]</string>
+	<panel name="pathfinding_chars_main">
+		<scroll_list name="objects_scroll_list">
+			<column name="name" label="Имя" />
+			<column name="description" label="Описание" />
+			<column name="owner" label="Владелец" />
+			<column name="cpu_time" label="CPU" />
+			<column name="altitude" label="Высота" />
+		</scroll_list>
+		<text name="messaging_status">Персонажи:</text>
+		<button name="refresh_objects_list" label="Обновить список" />
+		<button name="select_all_objects" label="Выделить всё" />
+		<button name="select_none_objects" label="Выбрать нет" />
+	</panel>
+	<view_border name="horiz_separator" />
+	<panel name="pathfinding_chars_actions">
+		<text name="actions_label">Действия над выбранными персонажами:</text>
+		<check_box name="show_beacon" label="Показать маяк" />
+		<button name="take_objects" label="Брать" />
+		<button name="take_copy_objects" label="Сделать копию" />
+		<button name="teleport_me_to_object" label="Телепортируй меня туда" tool_tip="Включено только при выборе одного символа." />
+		<button name="return_objects" label="Сбросить" />
+		<button name="delete_objects" label="Удалить" />
+	</panel>
+</floater>

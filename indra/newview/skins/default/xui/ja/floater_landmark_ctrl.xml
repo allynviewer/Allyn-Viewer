@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="landmarkpicker" title="Organize: ランドマーク">
+	<check_box name="show_folders_check" label="フォルダを表示" />
+	<filter_editor name="inventory search editor" />
+	<inventory_panel name="inventory panel" />
+	<button name="New" label="新規" />
+	<button name="Rename" label="名前の変更" />
+	<button name="NewFolder" label="新規 フォルダ" />
+	<button name="Edit" label="編集" />
+	<button name="Delete" label="削除" />
+	<button name="Close" label="閉じる" />
+</floater>

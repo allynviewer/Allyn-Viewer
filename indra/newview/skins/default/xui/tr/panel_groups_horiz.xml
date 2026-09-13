@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="groups">
+	<scroll_list name="group list">
+		<column name="name" label="İsim" tool_tip="İsim" />
+		<column name="is_listed_group" tool_tip="Grup profilde görünüyor." />
+		<column name="is_chattable_group" tool_tip="Grup sohbeti alın" />
+		<column name="is_notice_group" tool_tip="Grup bildirimlerini alın" />
+	</scroll_list>
+	<text name="groupdesc">Şu anda aktif olan grubunuz italik olarak görüntülenir.</text>
+	<text name="groupcount">[COUNT] grubuna aitsiniz (en fazla [MAX], [LEFT] kaldı).</text>
+	<button name="IM" label="Anlık Mesajlaşma/Çağrı" tool_tip="Anlık Mesaj oturumunu aç" />
+	<button name="Info" label="Bilgi" />
+	<button name="Activate" label="Etkinleştir" />
+	<button name="Leave" label="Ayrıl" />
+	<button name="Create" label="Oluştur..." />
+	<button name="Search..." label="Ara..." />
+	<button name="Invite..." label="Davet et..." />
+	<button name="Titles..." label="Başlıklar..." />
+	<filter_editor name="group_search_lineedit" label="Grup ara" tool_tip="Aramak istediğiniz grubun adı"/>
+</panel>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_blacklist" title="Blacklist risorse">
+	<button name="add_btn" label="Aggiungi..."/>
+	<button name="remove_btn" label="Rimuovi"/>
+	<combo_box name="asset_combo" label="Tipo di risorsa"/>
+	<line_editor name="id_edit" label="UUID della risorsa."/>
+	<line_editor name="name_edit" label="Nome della voce."/>
+	<scroll_list name="file_list">
+		<column name="asset_id" label="ID risorsa"/>
+		<column name="entry_name" label="Nome"/>
+		<column name="entry_type" label="Tipo"/>
+		<column name="entry_agent" label="In blacklist da"/>
+		<column name="entry_date" label="Data"/>
+	</scroll_list>
+	<button name="save_btn" label="Salva XML"/>
+	<button name="load_btn" label="Carica XML"/>
+	<button name="clear_btn" label="Svuota"/>
+	<button name="copy_uuid_btn" label="Copia UUID"/>
+</floater>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floatermedialists" title="Медиа-фильтр">
+	<floater.string name="EnterUrlAllow">Введите домен или URL-адрес, чтобы всегда разрешать:</floater.string>
+	<floater.string name="EnterUrlDeny">Введите домен или URL-адрес, чтобы никогда не разрешать:</floater.string>
+	<layout_stack name="lists_layout_stack">
+		<layout_panel name="whitelist_layout_panel">
+			<scroll_list name="whitelist">
+				<column name="list" label="Разрешенные домены" />
+			</scroll_list>
+			<layout_stack name="whitelist_buttons_layout_stack">
+				<layout_panel name="whitelist_buttons_panel_add">
+					<button name="add_whitelist" label="Добавить..." />
+				</layout_panel>
+				<layout_panel name="whitelist_buttons_panel_remove">
+					<button name="remove_whitelist" label="Удалить" />
+				</layout_panel>
+			</layout_stack>
+		</layout_panel>
+		<layout_panel name="blacklist_layout_panel">
+			<scroll_list name="blacklist">
+				<column name="list" label="Заблокированные домены" />
+			</scroll_list>
+			<layout_stack name="blacklist_buttons_layout_stack">
+				<layout_panel name="blacklist_buttons_panel_add">
+					<button name="add_blacklist" label="Добавить..." />
+				</layout_panel>
+				<layout_panel name="blacklist_buttons_panel_remove">
+					<button name="remove_blacklist" label="Удалить" />
+				</layout_panel>
+			</layout_stack>
+		</layout_panel>
+	</layout_stack>
+</floater>

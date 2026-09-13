@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="modal container">
+	<button name="Continue" label="Devam et" />
+	<button name="Cancel" label="İptal" />
+	<check_box name="agree_chk" label="Vivox Kabul Edilebilir Kullanım Politikasının Şartlarını Kabul Ediyorum" />
+	<text name="license_heading">
+		Lütfen aşağıdaki lisansı dikkatlice okuyunuz. 
+Sesi kullanmak için lisans sözleşmesini kabul etmeniz gerekir.
+	</text>
+	<text_editor name="license_text">LICENSE_TEXT</text_editor>
+	<web_browser name="license_html" />
+	<string name="real_url" />
+	<string name="fallback_html" />
+</floater>

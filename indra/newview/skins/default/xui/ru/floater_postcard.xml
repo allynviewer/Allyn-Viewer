@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Postcard" title="Снимок электронной почты">
+	<text name="to_label">Электронная почта получателя:</text>
+	<line_editor name="to_form" />
+	<text name="from_label">Ваш адрес электронной почты:</text>
+	<line_editor name="from_form" />
+	<text name="name_label">Ваше имя:</text>
+	<line_editor name="name_form" />
+	<text name="subject_label">Предмет:</text>
+	<line_editor name="subject_form" label="Введите здесь тему." />
+	<text name="msg_label">Сообщение:</text>
+	<text_editor name="msg_form">Введите здесь свое сообщение.</text_editor>
+	<button name="cancel_btn" label="Отмена" />
+	<button name="send_btn" label="Отправлять" />
+	<string name="default_subject">Открытка от [SECOND_LIFE].</string>
+	<string name="default_message">Проверьте это!</string>
+	<string name="upload_message">«Отправка...»</string>
+</floater>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="media_remote">
+	<string name="Title">Başlık</string>
+	<string name="Artist">Sanatçı</string>
+	<string name="Now_playing">Şimdi oynatılıyor</string>
+</panel>

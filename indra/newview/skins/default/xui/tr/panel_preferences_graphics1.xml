@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Display panel" label="Grafik">
+	<check_box name="windowed mode" label="Görüntüleyiciyi bir pencerede çalıştır" tool_tip="İşaretlenmezse, oturum açıldığında izleyici tam ekran görüntüleyecektir." />
+	<button name="Defaults" label="Varsayılanlara Sıfırla" tool_tip="Önerilen grafik ayarlarına sıfırla" />
+	<text name="WindowSizeLabel">Pencere Boyutu:</text>
+	<combo_box name="windowsize combo">
+		<combo_item name="800x600">800x600</combo_item>
+		<combo_item name="720x480">720x480 (NTSC)</combo_item>
+		<combo_item name="768x576">768x576 (PAL)</combo_item>
+		<combo_item name="1024x768">1024x768</combo_item>
+		<combo_item name="1280x720">1280x720 (HD)</combo_item>
+		<combo_item name="1366x768">1366x768</combo_item>
+		<combo_item name="1280x800">1280x800</combo_item>
+		<combo_item name="1440x900">1440x900</combo_item>
+		<combo_item name="1600x900">1600x900 (HD+)</combo_item>
+		<combo_item name="1680x1050">1680x1050</combo_item>
+		<combo_item name="1440x1080">1440x1080 (HDV1080)</combo_item>
+		<combo_item name="1920x1080">1920x1080 (Full-HD)</combo_item>
+		<combo_item name="2560x1440">2560x1440</combo_item>
+	</combo_box>
+	<text name="DisplayResLabel">Ekran Çözünürlüğü:</text>
+	<combo_box name="fullscreen combo" />
+	<text name="AspectRatioLabel1">En Boy Oranı:</text>
+	<combo_box name="aspect_ratio" tool_tip="genişlik / yükseklik">
+		<combo_item name="4:3(StandardCRT)">4:3 (Standart CRT)</combo_item>
+		<combo_item name="5:4(1280x1024LCD)">5:4 (1280x1024 LCD)</combo_item>
+		<combo_item name="8:5(Widescreen)">16:10 (Geniş Ekran PC)</combo_item>
+		<combo_item name="16:9(Widescreen)">16:9 (Geniş Ekran TV)</combo_item>
+	</combo_box>
+	<check_box name="aspect_auto_detect" label="Otomatik algılama oranı" />
+	<tab_container name="graphics_tab">
+		<panel name="Main" label="Ana Sayfa">
+			<scroll_container name="main_gfx_scroll">
+				<panel name="main_gfx_inner">
+					<text name="QualityText">KALİTE &amp; PERFORMANS</text>
+					<icon name="section_quality_rule" />
+					<text name="FasterText">Daha hızlı</text>
+					<text name="ShadersPrefText">Düşük</text>
+					<text name="ShadersPrefText2">Orta</text>
+					<text name="ShadersPrefText3">Yüksek</text>
+					<text name="ShadersPrefText4">Ultra</text>
+					<text name="QualityText2">Daha Yüksek Kalite</text>
+					<slider name="QualityPerformanceSelection" />
+					<check_box name="CustomSettings" label="Özel" />
+					<text name="ShadersText">GÖLGELENDİRİCİLER</text>
+					<icon name="section_shaders_rule" />
+					<check_box name="TransparentWater" label="Şeffaf su" />
+					<check_box name="BumpShiny" label="Bump mapping ve parlaklık" />
+					<check_box name="LightingDetailRadio" label="Yerel Işıklar" />
+					<check_box name="BasicShaders" label="Temel gölgelendiriciler" tool_tip="Bu seçeneğin devre dışı bırakılması bazı grafik kartı sürücülerinin çökmesini engelleyebilir." />
+					<check_box name="WindLightUseAtmosShaders" label="atmosferik gölgelendiriciler" />
+					<check_box name="RenderDeferred" label="Gelişmiş Aydınlatma Modeli" tool_tip="Ertelenmiş Gölgeleme" />
+					<check_box name="UseSSAO" label="Ortam Tıkanıklığı" />
+					<text name="TerrainScaleText">Arazi Ölçeği:</text>
+					<combo_box name="TerrainScaleCombo" label="Arazi Ölçeği">
+						<combo_item name="Low">Düşük</combo_item>
+						<combo_item name="Medium">Orta</combo_item>
+						<combo_item name="High">Yüksek</combo_item>
+						<combo_item name="Ultra">Ultra</combo_item>
+					</combo_box>
+					<text name="ShadowDetailText">Gölgeler:</text>
+					<combo_box name="ShadowDetailCombo" label="Gölge Detayı">
+						<combo_item name="0">Devre dışı</combo_item>
+						<combo_item name="1">Güneş/Ay</combo_item>
+						<combo_item name="2">Güneş/Ay + Projektörler</combo_item>
+					</combo_box>
+					<text name="ReflectionDetailText">Su Yansımaları:</text>
+					<combo_box name="ReflectionDetailCombo" label="Yansıma Detayı">
+						<combo_item name="0">Asgari</combo_item>
+						<combo_item name="1">Arazi ve ağaçlar</combo_item>
+						<combo_item name="2">Tüm statik nesneler</combo_item>
+						<combo_item name="3">Tüm avatarlar ve nesneler</combo_item>
+						<combo_item name="4">Herşey</combo_item>
+					</combo_box>
+					<slider name="AvatarPhysicsDetail" label="Avatar Fiziği:" />
+					<text name="AvatarPhysicsDetailText">Kapalı</text>
+					<slider name="DrawDistance" label="Çizim Mesafesi:" />
+					<text name="DrawDistanceMeterText">m</text>
+					<slider name="MaxParticleCount" label="Maks. Parçacık Sayısı:" />
+					<slider name="AvatarMaxVisible" label="Maks. impostor dışı:" />
+					<slider name="RenderPostProcess" label="Süreç Sonrası Kalite:" />
+					<text name="PostProcessText">Düşük</text>
+					<text name="MeshDetailText">DETAY DÜZEYİ</text>
+					<icon name="section_lod_rule" />
+					<slider name="ObjectMeshDetail" label="Nesneler:" />
+					<text name="ObjectMeshDetailText">Düşük</text>
+					<slider name="FlexibleMeshDetail" label="Esnek Primler:" />
+					<text name="FlexibleMeshDetailText">Düşük</text>
+					<slider name="TreeMeshDetail" label="Ağaçlar:" />
+					<text name="TreeMeshDetailText">Düşük</text>
+					<slider name="AvatarMeshDetail" label="Avatarlar:" />
+					<text name="AvatarMeshDetailText">Düşük</text>
+					<slider name="TerrainMeshDetail" label="Arazi:" />
+					<text name="TerrainMeshDetailText">Düşük</text>
+					<slider name="SkyMeshDetail" label="Gökyüzü:" />
+					<text name="SkyMeshDetailText">Düşük</text>
+					<text name="AvatarRenderingText">AVTAR OLUŞTURMA</text>
+					<icon name="section_av_rule" />
+					<text name="AvatarDisplayLabel">Avatar gösterimi:</text>
+					<combo_box name="AvatarDisplayCombo" tool_tip="Maks. karmaşıklığı aşan diğer avatarların nasıl gösterileceği.">
+						<combo_item name="0" value="0">Karmaşıklığa göre sınırla</combo_item>
+						<combo_item name="1" value="1">Arkadaşları her zaman göster</combo_item>
+						<combo_item name="2" value="2">Yalnızca arkadaşları göster</combo_item>
+						<combo_item name="3" value="3">Yalnızca kendini göster</combo_item>
+					</combo_box>
+					<slider label="Maks. avatar karmaşıklığı:" label_width="200" name="IndirectMaxComplexity" tool_tip="Bundan daha karmaşık avatarlar jöle bebek olur. En sağ sınırsızdır." />
+					<text name="IndirectMaxComplexityText">Sınırsız</text>
+					<check_box label="Karmaşıklık değerlerini göster" name="ShowAvatarComplexity" tool_tip="Her avatarın görsel karmaşıklığını adının üstünde gösterir (Ctrl+Alt+Shift+C)." />
+					<check_box name="AvatarImpostors" label="Avatar impostor'ları" />
+					<check_box name="AvatarVertexProgram" label="Donanım kaplaması" />
+					<check_box name="AvatarCloth" label="Avatar bezi" />
+					<text name="TerrainDetailText">Arazi detayı:</text>
+					<radio_group name="TerrainDetailRadio" tool_tip="Düşük daha basit arazi dokusu kullanır. Yüksek tam ayrıntı kullanır.">
+						<radio_item name="0">Düşük</radio_item>
+						<radio_item name="2">Yüksek</radio_item>
+					</radio_group>
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="Hardware" label="Donanım">
+			<check_box name="ani" label="Anizotropik Filtreleme (etkinleştirildiğinde daha yavaş)" />
+			<text name="Antialiasing:">Antialiasing:</text>
+			<combo_box name="fsaa" label="Antialiasing">
+				<combo_item name="FSAADisabled">Devre dışı</combo_item>
+				<combo_item name="2x">2x</combo_item>
+				<combo_item name="4x">4x</combo_item>
+				<combo_item name="8x">8x</combo_item>
+				<combo_item name="16x">16x</combo_item>
+			</combo_box>
+			<text name="VSync:">VSync:</text>
+			<combo_box name="vsync" label="VSync">
+				<combo_item name="VSyncDisabled">Devre dışı</combo_item>
+				<combo_item name="VSyncStandard">Standart</combo_item>
+				<combo_item name="VSyncAdaptive">Uyarlanabilir</combo_item>
+			</combo_box>
+			<spinner name="GrapicsCardTextureMemory" label="Doku Belleği (MB):" tool_tip="Dokular için ayrılacak bellek miktarı. Varsayılan olarak Video Kartı Belleği'dir. Bunu azaltmak performansı artırabilir ancak aynı zamanda dokuları bulanıklaştırabilir." />
+			<spinner name="gamma" label="Gama:" tool_tip="(parlaklık, düşük olan daha parlaktır)" />
+			<spinner name="fog" label="Sis Mesafe Oranı:" />
+			<text name="note">
+				Not: Gama ve Sis Mesafe Oranı
+ayarlar kullanılamıyor (işe yaramaz olduğundan)
+Atmosfer Gölgelendiriciler etkinleştirildiğinde.
+			</text>
+			<check_box name="compressed_textures" label="Doku Sıkıştırmayı Etkinleştir (Yeniden başlatma gerekiyor)" tool_tip="Bunun etkinleştirilmesi, dünyadaki doku kalitesinden ödün vererek GPU bellek tüketimini azaltır." />
+			<check_box name="vbo" label="OpenGL Vertex Arabellek Nesnelerini Etkinleştir" tool_tip="Modern donanımda bunun etkinleştirilmesi performans artışı sağlar.  Bununla birlikte, eski donanımlarda genellikle VBO'ların zayıf uygulamaları vardır ve bu etkinleştirildiğinde çökmelerle karşılaşabilirsiniz." />
+			<check_box name="vbo_stream" label="Akışlı VBO'ları Etkinleştir" tool_tip="Bunu devre dışı bırakmak, VBO'lar etkinleştirildiğinde performansı artırabilir. Devre dışı bırakılması, çeşitli AMD GPU'larda gözlemlenebilir iyileştirmeler sağladı." />
+			<check_box name="fbo" label="OpenGL Çerçeve Arabelleği Nesnelerini Etkinleştir" tool_tip="Modern donanımda bunun etkinleştirilmesi performans artışı sağlayabilir. Ancak bunu etkinleştirmek, AMD GPU'larda kenar yumuşatmayla birleştirildiğinde kenarda bozulmalara neden olabilir. Bu ayar, ertelenmiş işleme için gereklidir." />
+		</panel>
+		<panel name="DoF" label="Alan Derinliği">
+			<check_box name="RenderDepthOfField" label="Alan Derinliğini Etkinleştir" tool_tip="Genellikle mesafeyi veya odakta olmaması gereken şeyleri bulanıklaştırmak için kullanılan Alan Derinliği efekti gibi bir kamerayı açar veya kapatır" />
+			<slider name="CameraFNum" label="F Numarası:" tool_tip="Alan Derinliği efekti için kamera f sayısı değeri" />
+			<button name="reset_f_num" label="Sıfırla" />
+			<slider name="CameraFocal" label="Odak Uzaklığı(mm):" tool_tip="Alan Derinliği efekti için kamera odak uzaklığı (milimetre cinsinden)" />
+			<button name="reset_focal_length" label="Sıfırla" />
+			<slider name="CameraCoF" label="Karışıklık Çemberi:" tool_tip="Kameranın karışıklık çemberini ayarlayın" />
+			<button name="reset_max_cof" label="Sıfırla" />
+			<slider name="CameraFocusTrans" label="Geçiş Süresi(sn):" tool_tip="Odağı bir yerden diğerine değiştirmek için harcanan zaman" />
+			<button name="reset_trans_time" label="Sıfırla" />
+			<slider name="CameraDoFRes" label="Çözünürlük:" tool_tip="Her DoF pikselinin Çözünürlüğünü (Kalitesini) ayarlayın" />
+			<button name="reset_res_scale" label="Sıfırla" />
+			<button name="reset_dof" label="Tüm Alan Derinliği Ayarlarını Sıfırla" />
+		</panel>
+	</tab_container>
+	<string name="resolution_format">[RES_X] x [RES_Y]</string>
+	<string name="aspect_ratio_text">[NUM]:[DEN]</string>
+	<string name="complexity_no_limit">Sınırsız</string>
+</panel>

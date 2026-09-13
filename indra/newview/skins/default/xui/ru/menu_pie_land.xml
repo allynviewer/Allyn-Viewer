@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Land Pie">
+	<menu_item_call name="About Land..." label="О земле..." />
+	<menu_item_call name="Create" label="Создать" />
+	<menu_item_call name="Go Here" label="Идти сюда" />
+	<menu_item_call name="Sit Here" label="Сесть здесь" />
+	<menu_item_call name="Land Buy Pass" label="Купить пропуск..." />
+	<menu_item_call name="Edit Terrain" label="Править ландшафт" />
+	<menu_item_call name="Land Buy" label="Купить землю..." />
+</pie_menu>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Image Preview">
+	<text name="preview_label">Anteprima immagine come:</text>
+	<combo_box name="clothing_type_combo" label="Tipo di vestito">
+		<combo_item name="Image">Immagine</combo_item>
+		<combo_item name="Hair">Capelli</combo_item>
+		<combo_item name="FemaleHead">Testa femminile</combo_item>
+		<combo_item name="FemaleUpperBody">Corpo superiore femminile</combo_item>
+		<combo_item name="FemaleLowerBody">Corpo inferiore femminile</combo_item>
+		<combo_item name="MaleHead">Testa maschile</combo_item>
+		<combo_item name="MaleUpperBody">Corpo superiore maschile</combo_item>
+		<combo_item name="MaleLowerBody">Corpo inferiore maschile</combo_item>
+		<combo_item name="Skirt">Gonna</combo_item>
+		<combo_item name="SculptedPrim">Prim scolpito</combo_item>
+	</combo_box>
+</floater>

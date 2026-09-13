@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="notices_tab" label="Bildirimler">
+	<string name="help_text">
+		Bildirimler, bir ülke genelinde iletişim kurmanın hızlı bir yoludur. 
+bir mesaj yayınlayarak ve ileterek gruplandırma 
+isteğe bağlı olarak eklenen bir öğe. Bildirimler yalnızca şu adrese gider:
+Rollerdeki grup üyelerine şu yetenekler verildi: 
+Bildirimleri alın. Bildirimleri kapatabilirsiniz 
+Genel sekmesi.
+	</string>
+	<string name="no_notices_text">Geçmiş bildirim yok.</string>
+	<button name="help_button" label="?" />
+	<text name="lbl">Grup Bildirimleri Arşivi</text>
+	<text name="lbl2">
+		Bildirimler 14 gün süreyle saklanır. Görüntülemek istediğiniz aşağıdaki bildirime tıklayın.
+Yeni bildirimlerin alınıp alınmadığını kontrol etmek için 'Yenile' düğmesini tıklayın.
+Bildirim listeleri grup başına günlük 200 bildirimle sınırlıdır.
+	</text>
+	<scroll_list name="notice_list">
+		<column name="icon" />
+		<column name="subject" label="Konu" />
+		<column name="from" label="Gönderen" />
+		<column name="date" label="Tarih" />
+		<column name="sort" />
+	</scroll_list>
+	<text name="notice_list_none_found">Hiçbiri bulunamadı.</text>
+	<button name="create_new_notice" label="Yeni Bildirim Oluştur" />
+	<button name="refresh_notices" label="Yenile" />
+	<panel name="panel_create_new_notice" label="Yeni Bildirim Oluştur">
+		<text name="lbl">Bildirim Oluştur</text>
+		<text name="lbl2">
+			Bildirim göndermek için bir konu girmelisiniz. Tek ekleyebilirsiniz
+öğeyi envanterinizden buna sürükleyerek bir bildirime taşıyın 
+paneli. Ekli öğeler kopyalanabilir ve devredilebilir olmalı,
+ve bir klasör gönderemezsiniz.
+		</text>
+		<text name="lbl3">Konu:</text>
+		<line_editor name="create_subject" />
+		<text name="lbl4">Mesaj:</text>
+		<text_editor name="create_message" />
+		<text name="lbl5">Ekle:</text>
+		<line_editor name="create_inventory_name" />
+		<icon name="create_inv_icon" />
+		<button name="remove_attachment" label="Eki Kaldır" />
+		<button name="send_notice" label="Bildirim Gönder" />
+		<panel name="drop_target2" />
+		<icon name="drop_icon" />
+		<group_drop_target name="drop_target" tool_tip="Bir envanter öğesini bildirimle birlikte göndermek için mesaj kutusuna sürükleyin. Nesneyi bildirimle birlikte gönderebilmek için kopyalama ve aktarma izninizin olması gerekir." />
+	</panel>
+	<panel name="panel_view_past_notice" label="Geçmiş Bildirimi Görüntüle">
+		<text name="lbl">Arşivlenmiş Bildirim</text>
+		<text name="lbl2">Yeni bir bildirim göndermek için yukarıdaki 'Yeni Bildirim Oluştur' düğmesini tıklayın.</text>
+		<text name="lbl3">Konu:</text>
+		<line_editor name="view_subject" />
+		<text name="lbl4">Mesaj:</text>
+		<text_editor name="view_message" />
+		<button name="open_attachment" label="Eki Aç" />
+		<line_editor name="view_inventory_name" />
+		<icon name="view_inv_icon" />
+	</panel>
+</panel>

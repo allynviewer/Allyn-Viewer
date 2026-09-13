@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_pathfinding_linksets" title="パスファインディングリンクセット">
+	<string name="messaging_initial" />
+	<string name="messaging_get_inprogress">パスファインディングリンクセットを照会中...</string>
+	<string name="messaging_get_error">パスファインディングリンクセットの照会中にエラーが発生しました。</string>
+	<string name="messaging_set_inprogress">選択したパスファインディングリンクセットを変更中...</string>
+	<string name="messaging_set_error">選択したパスファインディングリンクセットの変更中にエラーが発生しました。</string>
+	<string name="messaging_complete_none_found">パスファインディングリンクセットはありません。</string>
+	<string name="messaging_complete_available">[NUM_TOTAL]件中 [NUM_SELECTED]件のリンクセットを選択中。</string>
+	<string name="messaging_not_enabled">このリージョンではパスファインディングが有効になっていません。</string>
+	<string name="linkset_terrain_name">[地形]</string>
+	<string name="linkset_terrain_description">--</string>
+	<string name="linkset_terrain_owner">--</string>
+	<string name="linkset_terrain_scripted">--</string>
+	<string name="linkset_terrain_land_impact">--</string>
+	<string name="linkset_terrain_dist_from_you">--</string>
+	<string name="linkset_owner_loading">[読み込み中]</string>
+	<string name="linkset_owner_unknown">[不明]</string>
+	<string name="linkset_owner_group">[グループ]</string>
+	<string name="linkset_is_scripted">はい</string>
+	<string name="linkset_is_not_scripted">いいえ</string>
+	<string name="linkset_is_unknown_scripted">不明</string>
+	<string name="linkset_use_walkable">歩行可能</string>
+	<string name="linkset_use_static_obstacle">静止障害物</string>
+	<string name="linkset_use_dynamic_obstacle">移動可能な障害物</string>
+	<string name="linkset_use_material_volume">マテリアルボリューム</string>
+	<string name="linkset_use_exclusion_volume">除外ボリューム</string>
+	<string name="linkset_use_dynamic_phantom">移動可能なファントム</string>
+	<string name="linkset_is_terrain">[変更不可]</string>
+	<string name="linkset_is_restricted_state">[制限付き]</string>
+	<string name="linkset_is_non_volume_state">[凹面]</string>
+	<string name="linkset_is_restricted_non_volume_state">[制限付き,凹面]</string>
+	<string name="linkset_choose_use">リンクセットの用途を選択...</string>
+	<panel name="pathfinding_linksets_main">
+		<text name="linksets_filter_label">フィルター:</text>
+		<text name="linksets_name_label">名前</text>
+		<line_editor name="filter_by_name" />
+		<text name="linksets_desc_label">説明</text>
+		<line_editor name="filter_by_description" />
+		<combo_box name="filter_by_linkset_use">
+			<combo_item name="filter_by_linkset_use_none">リンクセットの用途でフィルター...</combo_item>
+			<combo_item name="filter_by_linkset_use_walkable">歩行可能</combo_item>
+			<combo_item name="filter_by_linkset_use_static_obstacle">静止障害物</combo_item>
+			<combo_item name="filter_by_linkset_use_dynamic_obstacle">移動可能な障害物</combo_item>
+			<combo_item name="filter_by_linkset_use_material_volume">マテリアルボリューム</combo_item>
+			<combo_item name="filter_by_linkset_use_exclusion_volume">除外ボリューム</combo_item>
+			<combo_item name="filter_by_linkset_use_dynamic_phantom">移動可能なファントム</combo_item>
+		</combo_box>
+		<button name="apply_filters" label="適用" />
+		<button name="clear_filters" label="クリア" />
+		<scroll_list name="objects_scroll_list">
+			<column name="name" label="名前（ルートプリム）" />
+			<column name="description" label="説明（ルートプリム）" />
+			<column name="owner" label="所有者" />
+			<column name="scripted" label="スクリプト付き" />
+			<column name="land_impact" label="インパクト" />
+			<column name="dist_from_you" label="距離" />
+			<column name="linkset_use" label="リンクセットの用途" />
+			<column name="a_percent" label="A%" />
+			<column name="b_percent" label="B%" />
+			<column name="c_percent" label="C%" />
+			<column name="d_percent" label="D%" />
+		</scroll_list>
+		<text name="messaging_status">リンクセット:</text>
+		<button name="refresh_objects_list" label="リストを更新" />
+		<button name="select_all_objects" label="すべて選択" />
+		<button name="select_none_objects" label="選択解除" />
+	</panel>
+	<view_border name="horiz_separator" />
+	<panel name="pathfinding_linksets_actions">
+		<text name="linksets_actions_label">選択したリンクセットに対するアクション（リンクセットがワールドから削除されると、属性が失われる場合があります）:</text>
+		<check_box name="show_beacon" label="ビーコンを表示" />
+		<button name="take_objects" label="取得" />
+		<button name="take_copy_objects" label="コピーを取得" />
+		<button name="teleport_me_to_object" label="そこへテレポート" />
+		<button name="return_objects" label="返却" />
+		<button name="delete_objects" label="削除" />
+	</panel>
+	<view_border name="horiz_separator" />
+	<panel name="pathfinding_linksets_attributes">
+		<text name="linksets_attributes_label">選択したリンクセットの属性を編集し、ボタンを押して変更を適用します</text>
+		<combo_box name="edit_linkset_use" />
+		<text name="walkability_coefficients_label">歩行可能性:</text>
+		<text name="edit_a_label">A</text>
+		<line_editor name="edit_a_value" tool_tip="タイプAのキャラクターの歩行可能性。例: ヒューマノイド。" />
+		<text name="edit_b_label">B</text>
+		<line_editor name="edit_b_value" tool_tip="タイプBのキャラクターの歩行可能性。例: クリーチャー。" />
+		<text name="edit_c_label">C</text>
+		<line_editor name="edit_c_value" tool_tip="タイプCのキャラクターの歩行可能性。例: 機械。" />
+		<text name="edit_d_label">D</text>
+		<line_editor name="edit_d_value" tool_tip="タイプDのキャラクターの歩行可能性。例: その他。" />
+		<button name="apply_edit_values" label="変更を適用" />
+		<text name="suggested_use_a_label">（ヒューマノイド）</text>
+		<text name="suggested_use_b_label">（クリーチャー）</text>
+		<text name="suggested_use_c_label">（機械）</text>
+		<text name="suggested_use_d_label">（その他）</text>
+	</panel>
+</floater>

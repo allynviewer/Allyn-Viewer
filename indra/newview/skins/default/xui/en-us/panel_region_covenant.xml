@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="0" follows="left|right|top|bottom" height="548" label="Covenant"
+     layout="topleft" left="0" name="Covenant" width="690">
+	<text type="string" length="1" follows="left|top" font="SansSerif" height="20" left="12"
+	     name="estate_section_lbl" bottom="-28" width="120">
+		Estate:
+	</text>
+	<text type="string" length="1" follows="left|top" font="SansSerifSmall" height="20" left="12"
+	     name="estate_name_lbl" bottom="-52" width="80">
+		Name:
+	</text>
+	<text type="string" length="1" follows="left|top" font="SansSerifSmall" height="20" left="96"
+	     name="estate_name_text" bottom="-52" width="240">
+		mainland
+	</text>
+	<text type="string" length="1" follows="left|top" font="SansSerifSmall" height="20" left="350"
+	     name="estate_owner_lbl" bottom="-52" width="80">
+		Owner:
+	</text>
+	<name_box type="string" length="1" follows="left|top|right" font="SansSerifSmall" height="20" left="434"
+	     name="estate_owner_text" bottom="-52" width="240">
+		(none)
+	</name_box>
+	<text type="string" length="1" follows="left|top" font="SansSerifSmall" height="20" left="12"
+	     name="estate_cov_lbl" bottom="-80" width="80">
+		Covenant:
+	</text>
+	<text type="string" length="1" follows="left|top|right" font="SansSerifSmall" height="20" left="96"
+	     name="covenant_timestamp_text" bottom="-80" width="540">
+		Last Modified Wed Dec 31 16:00:00 1969
+	</text>
+	<button bottom="-80" follows="right|top" font="SansSerifSmall" height="22" label=""
+	     tool_tip="Help" image_overlay="icn_region_help.png" image_overlay_alignment="center"
+	     name="covenant_help" right="-12" width="22" />
+	<text_editor type="string" length="1" top="-108" bottom="188" embedded_items="false" enabled="false"
+	     follows="left|right|top|bottom" font="SansSerifSmall" height="260"
+	     left="12" max_length="65535" mouse_opaque="true" name="covenant_editor"
+	     width="666" word_wrap="true" spell_check="true">
+		There is no Covenant provided for this Estate.
+	</text_editor>
+	<button bottom="152" follows="right|bottom" font="SansSerifSmall" height="28"
+	     label="Reset" name="reset_covenant" image_overlay="icn_region_reset.png"
+	     image_overlay_alignment="left" pad_left="6" right="-12" width="120" />
+	<text bottom="156" follows="left|bottom" font="SansSerifSmall" height="20" left="12"
+	     name="covenant_help_text" width="520">
+		Changes to the covenant will show on all parcels in the estate.
+	</text>
+	<text bottom="132" follows="left|bottom" font="SansSerifSmall" height="20"
+	     left="12" name="covenant_instructions" width="666">
+		Drag and drop a notecard to change the Covenant for this Estate.
+	</text>
+	<text type="string" length="1" follows="left|bottom" font="SansSerif" height="20" left="12"
+	     name="region_section_lbl" bottom="104" width="120">
+		Region:
+	</text>
+	<text type="string" length="1" follows="left|bottom" font="SansSerifSmall" height="20" left="12"
+	     name="region_name_lbl" bottom="80" width="80">
+		Name:
+	</text>
+	<text type="string" length="1" follows="left|bottom" font="SansSerifSmall" height="20" left="96"
+	     name="region_name_text" bottom="80" width="230">
+		leyla
+	</text>
+	<text type="string" length="1" follows="left|bottom" font="SansSerifSmall" height="20" left="350"
+	     name="region_landtype_lbl" bottom="80" width="80">
+		Type:
+	</text>
+	<text type="string" length="1" follows="left|bottom" font="SansSerifSmall" height="20" left="434"
+	     name="region_landtype_text" bottom="80" width="240">
+		Mainland / Homestead
+	</text>
+	<text type="string" length="1" follows="left|bottom" font="SansSerifSmall" height="20" left="12"
+	     name="region_maturity_lbl" bottom="56" width="80">
+		Rating:
+	</text>
+	<text type="string" length="1" follows="left|bottom" font="SansSerifSmall" height="20" left="96"
+	     name="region_maturity_text" bottom="56" width="230">
+		Adult
+	</text>
+	<text type="string" length="1" follows="left|bottom" font="SansSerifSmall" height="20" left="350"
+	     name="resellable_lbl" bottom="56" width="80">
+		Resale:
+	</text>
+	<text type="string" length="1" follows="left|bottom" font="SansSerifSmall" height="20" left="434"
+	     name="resellable_clause" bottom="56" width="240">
+		Land in this region may not be resold.
+	</text>
+	<text type="string" length="1" follows="left|bottom" font="SansSerifSmall" height="20" left="12"
+	     name="changeable_lbl" bottom="28" width="80">
+		Subdivide:
+	</text>
+	<text type="string" length="1" follows="left|bottom" font="SansSerifSmall" height="20" left="96"
+	     name="changeable_clause" bottom="12" width="580">
+		Land in this region may not be joined/subdivided.
+	</text>
+	<string name="can_resell">
+		Purchased land in this region may be resold.
+	</string>
+	<string name="can_not_resell">
+		Purchased land in this region may not be resold.
+	</string>
+	<string name="can_change">
+		Purchased land in this region may be joined or subdivided.
+	</string>
+	<string name="can_not_change">
+		Purchased land in this region may not be joined or subdivided.
+	</string>
+</panel>

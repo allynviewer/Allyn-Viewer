@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel enabled="true" label="Griglie" name="Grids panel"
+		height="408" width="517" left="102"
+		follows="left|top|right|bottom" border="true" mouse_opaque="true">
+ <text type="string" length="1" enabled="true" name="grid_selector_label"
+		height="10" width="100" left="12" bottom="-20"
+		h_pad="0" v_pad="0" halign="left"
+		font="SansSerifSmall"
+		follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+	 drop_shadow_visible="true" border_drop_shadow_visible="false">
+ Seleziona una griglia:
+ </text>
+ <combo_box max_chars="20" allow_text_entry="false" name="grid_selector"
+		height="18" width="200" left="120" bottom_delta="-4"
+		follows="left|top" mouse_opaque="true" />
+ <button label="Predefinito" label_selected="Predefinito" enabled="true" name="btn_default"
+ height="18" width="75" left_delta="210" bottom_delta="0"
+ halign="center"
+ follows="left|top" scale_image="true"
+ font="SansSerifSmall" mouse_opaque="true" />
+ <text type="string" length="1" enabled="true" name="default_grid"
+ height="10" width="200" left_delta="80" bottom_delta="5"
+ h_pad="0" v_pad="0" halign="left"
+ font="SansSerifSmall"
+ follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+ drop_shadow_visible="true" border_drop_shadow_visible="false">
+ ([PREDEFINITO])
+ </text>
+ <button label="Elimina" label_selected="Elimina" enabled="true" name="btn_delete"
+		height="18" width="75" left="120" bottom_delta="-27"
+		halign="center" tool_tip="Elimina la griglia selezionata dalla lista"
+		follows="left|top" scale_image="true"
+	 font="SansSerifSmall" mouse_opaque="true" />
+ <button label="Crea" label_selected="Aggiungi" enabled="true" name="btn_add"
+		height="18" width="75" left_delta="78" bottom_delta="0"
+		halign="center" tool_tip="Aggiungi una nuova griglia alla lista"
+		follows="left|top" scale_image="true"
+	 font="SansSerifSmall" mouse_opaque="true" />
+ <button label="Copia" label_selected="Copia" enabled="true" name="btn_copy"
+		height="18" width="75" left_delta="78" bottom_delta="0"
+		halign="center" tool_tip="Crea una nuova voce usando quella selezionata come modello"
+		follows="left|top" scale_image="true"
+	 font="SansSerifSmall" mouse_opaque="true" />
+ <button label="Avanzato" label_selected="Avanzato" enabled="true" name="btn_advanced"
+		height="18" width="75" left_delta="78" bottom_delta="0"
+		halign="center"
+		follows="left|top" scale_image="true"
+	 font="SansSerifSmall" mouse_opaque="true" />
+ <text type="string" length="1" enabled="true" name="loginuri_label"
+		height="10" width="100" left="12" bottom_delta="-32"
+		h_pad="0" v_pad="0" halign="left"
+		font="SansSerifSmall"
+		follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+	 drop_shadow_visible="true" border_drop_shadow_visible="false">
+ URI di Accesso:
+ </text>
+ <line_editor max_length="254" enabled="true" name="loginuri"
+		handle_edit_keys_directly="true"
+		height="18" left="120" right="-12" bottom_delta="-4"
+		halign="right"
+		font="SansSerifSmall"
+		follows="left|top|right" border_visible="false" mouse_opaque="false"
+		drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <button label="Aggiorna URL Griglie" enabled="true" name="btn_gridinfo"
+		height="18" width="120" left="120" bottom_delta="-22"
+		halign="center" tool_tip="Recupera tutte le informazioni della griglia dall'URI di Accesso fornito (sovrascrive gli URL correnti, vedi Avanzato)"
+		follows="left|top" scale_image="true"
+	 font="SansSerifSmall" mouse_opaque="true" />
+ <text type="string" length="1" enabled="true" name="platform_label"
+		height="10" width="100" left="12" bottom_delta="-32"
+		h_pad="0" v_pad="0" halign="left"
+		font="SansSerifSmall"
+		follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+	 drop_shadow_visible="true" border_drop_shadow_visible="false">
+ Piattaforma:
+ </text>
+ <combo_box max_chars="20" allow_text_entry="false" name="platform"
+		height="18" width="200" left="120" bottom_delta="-4"
+		follows="left|top" mouse_opaque="true" />
+ <text type="string" length="1" enabled="true" name="gridname_label"
+		height="10" width="100" left="12" bottom_delta="-20"
+		h_pad="0" v_pad="0" halign="left"
+		font="SansSerifSmall"
+		follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+		drop_shadow_visible="true" border_drop_shadow_visible="false">
+ Nome Griglia:
+ </text>
+ <line_editor max_length="254" enabled="true" name="gridname"
+		handle_edit_keys_directly="true"
+		height="18" left="120" right="-12" bottom_delta="-4"
+		halign="right"
+		font="SansSerifSmall"
+		follows="left|top|right" border_visible="false" mouse_opaque="false"
+		drop_shadow_visible="true" border_drop_shadow_visible="false" />
+
+ <text type="string" length="1" enabled="true" name="gridmessage_label"
+		height="10" width="100" left="12" bottom_delta="-50"
+		h_pad="0" v_pad="0" halign="left"
+		font="SansSerifSmall"
+		follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+		drop_shadow_visible="true" border_drop_shadow_visible="false">
+ Info Griglia:
+ </text>
+ <text_editor type="string" length="1" bottom="-185" embedded_items="false" enabled="true" follows="left|top|right"
+	 handle_edit_keys_directly="true" 
+ font="SansSerifSmall" height="50" left="120" right="-12" bottom_delta="-4" max_length="512"
+	 mouse_opaque="true" name="gridmessage" word_wrap="true" spell_check="true" />
+ 
+ 
+ <text type="string" length="1" enabled="true" name="loginpage_label"
+		height="10" width="100" left="12" bottom_delta="-22" visible="false"
+		h_pad="0" v_pad="0" halign="left"
+		font="SansSerifSmall"
+		follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+		drop_shadow_visible="true" border_drop_shadow_visible="false">
+ Pagina Iniziale:
+ </text>
+ <line_editor max_length="254" enabled="true" name="loginpage"
+		handle_edit_keys_directly="true" visible="false"
+		height="18" left="120" right="-12" bottom_delta="-4"
+		halign="right"
+		font="SansSerifSmall"
+		follows="left|top|right" border_visible="false" mouse_opaque="false"
+		drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <text type="string" length="1" enabled="true" name="helperuri_label"
+		height="10" width="100" left="12" bottom_delta="-20" visible="false"
+		h_pad="0" v_pad="0" halign="left"
+		font="SansSerifSmall"
+		follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+	 drop_shadow_visible="true" border_drop_shadow_visible="false">
+ URL Helper:
+ </text>
+ <line_editor max_length="254" enabled="true" name="helperuri"
+		handle_edit_keys_directly="true" visible="false"
+		height="18" left="120" right="-12" bottom_delta="-4"
+		halign="right"
+		font="SansSerifSmall"
+		follows="left|top|right" border_visible="false" mouse_opaque="false"
+		drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <text type="string" length="1" enabled="true" name="website_label"
+ height="10" width="100" left="12" bottom_delta="-20" visible="false"
+ h_pad="0" v_pad="0" halign="left"
+ font="SansSerifSmall"
+ follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+ drop_shadow_visible="true" border_drop_shadow_visible="false">
+ Sito Web:
+ </text>
+ <line_editor max_length="254" enabled="true" name="website"
+ handle_edit_keys_directly="true" visible="false"
+ height="18" left="120" right="-12" bottom_delta="-4"
+ halign="right"
+ font="SansSerifSmall"
+ follows="left|top|right" border_visible="false" mouse_opaque="false"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <text type="string" length="1" enabled="true" name="support_label"
+ height="10" width="100" left="12" bottom_delta="-20" visible="false"
+ h_pad="0" v_pad="0" halign="left"
+ font="SansSerifSmall"
+ follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+ drop_shadow_visible="true" border_drop_shadow_visible="false">
+ URL Supporto:
+ </text>
+ <line_editor max_length="254" enabled="true" name="support"
+ handle_edit_keys_directly="true" visible="false"
+ height="18" left="120" right="-12" bottom_delta="-4"
+ halign="right"
+ font="SansSerifSmall"
+ follows="left|top|right" border_visible="false" mouse_opaque="false"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <text type="string" length="1" enabled="true" name="register_label"
+ height="10" width="100" left="12" bottom_delta="-20" visible="false"
+ h_pad="0" v_pad="0" halign="left"
+ font="SansSerifSmall"
+ follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+ drop_shadow_visible="true" border_drop_shadow_visible="false">
+ URL Account:
+ </text>
+ <line_editor max_length="254" enabled="true" name="register"
+ handle_edit_keys_directly="true" visible="false"
+ height="18" left="120" right="-12" bottom_delta="-4"
+ halign="right"
+ font="SansSerifSmall"
+ follows="left|top|right" border_visible="false" mouse_opaque="false"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <text type="string" length="1" enabled="true" name="password_label"
+ height="10" width="100" left="12" bottom_delta="-20" visible="false"
+ h_pad="0" v_pad="0" halign="left"
+ font="SansSerifSmall"
+ follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+ drop_shadow_visible="true" border_drop_shadow_visible="false">
+ URL Password:
+ </text>
+ <line_editor max_length="254" enabled="true" name="password"
+ handle_edit_keys_directly="true" visible="false"
+ height="18" left="120" right="-12" bottom_delta="-4"
+ halign="right"
+ font="SansSerifSmall"
+ follows="left|top|right" border_visible="false" mouse_opaque="false"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <text name="partner_label" height="10" width="100" left="12" bottom_delta="-20" follows="left|top" visible="false">URL Partner:</text>
+ <line_editor max_length="254" name="partner" handle_edit_keys_directly="true" height="18" left="120" right="-12" bottom_delta="-4" font="SansSerifSmall" follows="left|top|right" visible="false"/>
+ <text type="string" length="1" enabled="true" name="search_label"
+ height="10" width="100" left="12" bottom_delta="-20" visible="false"
+ h_pad="0" v_pad="0" halign="left"
+ font="SansSerifSmall"
+ follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+ drop_shadow_visible="true" border_drop_shadow_visible="false">
+ URL Ricerca:
+ </text>
+ <line_editor max_length="254" enabled="true" name="search"
+ handle_edit_keys_directly="true" visible="false"
+ height="18" left="120" right="-12" bottom_delta="-4"
+ halign="right"
+ font="SansSerifSmall"
+ follows="left|top|right" border_visible="false" mouse_opaque="false"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <check_box enabled="true" radio_style="false"
+		label="Compatibilità Rendering" name="render_compat" visible="false"
+		height="18" left="115" bottom_delta="-25"
+		h_pad="0" v_pad="0" halign="left"
+		font="SansSerifSmall"
+		follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+		drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <button label="?" label_selected="?" enabled="true" name="btn_help_render_compat"
+		height="18" width="18" left_delta="160" bottom_delta="1" visible="false"
+		halign="center" follows="left|top"
+	 font="SansSerifSmall" mouse_opaque="true" />
+</panel>

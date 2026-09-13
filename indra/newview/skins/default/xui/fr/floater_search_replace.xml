@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="script search" title="Rechercher / Remplacer">
+	<check_box name="case_text" label="Ignorer la casse"/>
+	<button name="search_btn" label="Rechercher" label_selected="Rechercher"/>
+	<button name="replace_btn" label="Remplacer" label_selected="Remplacer"/>
+	<button name="replace_all_btn" label="Tout remplacer" label_selected="Tout remplacer"/>
+	<text name="search_label">Rechercher</text>
+	<text name="replace_label">Remplacer</text>
+</floater>

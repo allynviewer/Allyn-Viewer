@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="perm prefs" title="Разрешения на создание по умолчанию">
+	<panel name="permissions" label="Разрешения">
+		<text name="NextOwnerLabel">Следующий владелец:</text>
+		<text name="NextOwnerCopyLabel">Копировать</text>
+		<text name="NextOwnerModifyLabel">Изменить</text>
+		<text name="NextOwnerTransferLabel">Передача</text>
+		<text name="ShareWithGroupLabel">Поделиться с группой</text>
+		<text name="AnyoneCopyLabel">Разрешить всем копировать</text>
+		<text name="ExportationLabel">Разрешить экспорт</text>
+		<text name="ObjectsLabel" tool_tip="Установите разрешения по умолчанию для создания объектов.">Объекты</text>
+		<text name="UploadsLabel" tool_tip="Установите разрешения по умолчанию для загруженных элементов">Загрузки</text>
+		<text name="ScriptsLabel" tool_tip="Установите разрешения по умолчанию для создания сценариев.">Скрипты</text>
+		<text name="NotecardsLabel" tool_tip="Установите разрешения по умолчанию для создания заметок.">Заметки</text>
+		<text name="GesturesLabel" tool_tip="Установите разрешения по умолчанию для создания жестов">Жесты</text>
+		<text name="WearablesLabel" tool_tip="Установите разрешения по умолчанию для создания одежды или частей тела.">Одежда</text>
+	</panel>
+	<button name="ok" label="ОК"/>
+	<button name="cancel" label="Отмена"/>
+</floater>

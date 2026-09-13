@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="notices_tab" label="告知">
+	<string name="help_text">告知は、メッセージを放送し、任意でアイテムを添付してグループ全体に伝える簡単な方法です。告知を受け取るアビリティを持つロールのメンバーにのみ届きます。一般タブで告知をオフにできます。</string>
+	<string name="no_notices_text">過去の告知はありません。</string>
+	<button name="help_button" label="?" />
+	<text name="lbl">グループ告知アーカイブ</text>
+	<text name="lbl2">告知は14日間保存されます。表示したい告知をクリックしてください。「更新」で新しい告知を確認できます。告知リストはグループあたり1日200件までです。</text>
+	<scroll_list name="notice_list">
+		<column name="icon" />
+		<column name="subject" label="件名" />
+		<column name="from" label="差出人" />
+		<column name="date" label="日付" />
+		<column name="sort" />
+	</scroll_list>
+	<text name="notice_list_none_found">見つかりません。</text>
+	<button name="create_new_notice" label="新しい告知を作成" />
+	<button name="refresh_notices" label="更新" />
+	<panel name="panel_create_new_notice" label="新しい告知を作成">
+		<text name="lbl">告知を作成</text>
+		<text name="lbl2">告知を送るには件名が必要です。インベントリからこのパネルへドラッグすると、1つのアイテムを添付できます。添付アイテムはコピー可かつ譲渡可である必要があり、フォルダは送れません。</text>
+		<text name="lbl3">件名:</text>
+		<line_editor name="create_subject" />
+		<text name="lbl4">メッセージ:</text>
+		<text_editor name="create_message" />
+		<text name="lbl5">添付:</text>
+		<line_editor name="create_inventory_name" />
+		<icon name="create_inv_icon" />
+		<button name="remove_attachment" label="添付を削除" />
+		<button name="send_notice" label="告知を送信" />
+		<panel name="drop_target2" />
+		<icon name="drop_icon" />
+		<group_drop_target name="drop_target" tool_tip="インベントリアイテムをメッセージボックスにドラッグすると、告知と一緒に送れます。コピーと譲渡の権限が必要です。" />
+	</panel>
+	<panel name="panel_view_past_notice" label="過去の告知を表示">
+		<text name="lbl">アーカイブ済み告知</text>
+		<text name="lbl2">新しい告知を送るには、上の「新しい告知を作成」をクリックしてください。</text>
+		<text name="lbl3">件名:</text>
+		<line_editor name="view_subject" />
+		<text name="lbl4">メッセージ:</text>
+		<text_editor name="view_message" />
+		<button name="open_attachment" label="添付を開く" />
+		<line_editor name="view_inventory_name" />
+		<icon name="view_inv_icon" />
+	</panel>
+</panel>

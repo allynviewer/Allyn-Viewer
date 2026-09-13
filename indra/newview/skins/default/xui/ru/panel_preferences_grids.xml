@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Grids panel" label="Сетки">
+	<text name="grid_selector_label">Выберите сетку:</text>
+	<combo_box name="grid_selector" />
+	<button name="btn_default" label="По умолчанию" />
+	<text name="default_grid">([DEFAULT])</text>
+	<button name="btn_delete" label="Удалить" tool_tip="Удалить выбранную сетку из списка" />
+	<button name="btn_add" label="Создавать" tool_tip="Добавить новую сетку в список" />
+	<button name="btn_copy" label="Копировать" tool_tip="Создайте новую запись, используя выбранную запись в качестве шаблона." />
+	<button name="btn_advanced" label="Передовой" />
+	<text name="loginuri_label">URI входа:</text>
+	<line_editor name="loginuri" />
+	<button name="btn_gridinfo" label="Обновить URL-адреса сетки" tool_tip="Получить всю информацию о сетке из заданного URI входа в систему (перезаписав текущие URL-адреса, см. «Дополнительно»)." />
+	<text name="platform_label">Платформа:</text>
+	<combo_box name="platform" />
+	<text name="gridname_label">Имя сетки:</text>
+	<line_editor name="gridname" />
+	<text name="gridmessage_label">Информация о сетке:</text>
+	<text_editor name="gridmessage" />
+	<text name="loginpage_label">Заставка:</text>
+	<line_editor name="loginpage" />
+	<text name="helperuri_label">URL-адрес помощника:</text>
+	<line_editor name="helperuri" />
+	<text name="website_label">Веб-сайт:</text>
+	<line_editor name="website" />
+	<text name="support_label">URL-адрес поддержки:</text>
+	<line_editor name="support" />
+	<text name="register_label">URL-адрес учетной записи:</text>
+	<line_editor name="register" />
+	<text name="password_label">URL-адрес пароля:</text>
+	<line_editor name="password" />
+	<text name="partner_label">URL-адрес партнера:</text>
+	<line_editor name="partner" />
+	<text name="search_label">URL-адрес поиска:</text>
+	<line_editor name="search" />
+	<check_box name="render_compat" label="Совместимость рендеринга" />
+	<button name="btn_help_render_compat" label="?" />
+</panel>

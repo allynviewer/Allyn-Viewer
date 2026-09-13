@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="groups_menu" label="Grup">
+	<menu_item_call name="show_group" label="Profili Göster" />
+	<menu_item_call name="im_group" label="Grup Sohbetini Aç" />
+	<menu_item_call name="call_group" label="Çağrı Grubu" />
+	<menu_item_call name="activate_group" label="Grubu Etkinleştir" />
+	<menu_item_call name="Chat History" label="Sohbet Geçmişi" />
+	<menu_item_call name="join_group" label="Gruba Katıl" />
+	<menu_item_call name="leave_group" label="Gruptan Ayrıl" />
+	<menu_item_call name="copy_name" label="Adı Kopyala" />
+	<menu_item_call name="copy_url" label="SLURL kopyala" />
+	<menu_item_call name="copy_key" label="Anahtarı Kopyala" />
+</menu>

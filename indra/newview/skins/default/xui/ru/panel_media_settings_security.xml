@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Media Settings Security" label="Безопасность">
+	<check_box name="whitelist_enable" label="Разрешить доступ только к указанным шаблонам URL-адресов" />
+	<scroll_list name="whitelist" />
+	<icon name="Parcel_Exp_Color" />
+	<text name="home_url_fails_some_items_in_whitelist">Записи, с которыми не работает домашняя страница, отмечены:</text>
+	<button name="whitelist_add" label="Добавить" />
+	<button name="whitelist_del" label="Удалить" />
+	<text name="home_url_fails_whitelist">
+		Внимание: домашняя страница, указанная на вкладке «Общие», не открывается. 
+пройти этот белый список.  Он был отключен до тех пор, пока не будет действительна запись. 
+был добавлен.
+	</text>
+</panel>

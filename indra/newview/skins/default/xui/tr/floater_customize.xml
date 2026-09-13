@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater customize" title="Görünüm">
+	<tab_container name="customize tab container">
+		<panel name="body_parts_placeholder" label="Gövde Parçaları" />
+		<panel name="Shape" label="Şekil">
+			<icon name="square" />
+			<icon name="icon" />
+			<button name="Revert" label="Geri al" />
+			<button name="Body" label="Vücut" />
+			<button name="Head" label="kafa" />
+			<button name="Eyes" label="Gözler" />
+			<button name="Ears" label="Kulaklar" />
+			<button name="Nose" label="Burun" />
+			<button name="Mouth" label="Ağız" />
+			<button name="Chin" label="Çene" />
+			<button name="Torso" label="Torso" />
+			<button name="Legs" label="Bacaklar" />
+			<radio_group name="sex radio">
+				<radio_item name="radio">Kadın</radio_item>
+				<radio_item name="radio2">Erkek</radio_item>
+			</radio_group>
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: değiştirilemez</text>
+			<text name="title_loading">[DESC]: yükleniyor...</text>
+			<text name="title_not_worn">[DESC]: giyilmemiş</text>
+			<text name="path">[PATH] konumunda bulunuyor</text>
+			<text name="not worn instructions">
+				Envanterinizden birini sürükleyerek yeni bir şekil takın
+avatarına. Alternatif olarak, bir
+sıfırdan yenisini alıp giyin.
+			</text>
+			<text name="no modify instructions">Bu giyilebilir cihazı değiştirme izniniz yok.</text>
+			<button name="Create New" label="Yeni Şekil Oluştur" />
+			<text name="avatar_height_label" visible="false">Yükseklik:</text>
+			<text name="avheight" visible="false">[AVHEIGHT]</text>
+			<text name="includes_shoes" visible="false">(ayakkabılar dahil)</text>
+			<button name="Save" label="Kaydet" />
+			<button name="Save As" label="Farklı Kaydet..." />
+		</panel>
+		<panel name="Skin" label="Cilt">
+			<icon name="square" />
+			<icon name="icon" />
+			<button name="Skin Color" label="Ten Rengi" />
+			<button name="Face Detail" label="Yüz Detayı" />
+			<button name="Makeup" label="Makyaj" />
+			<button name="Body Detail" label="Gövde Detayı" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: değiştirilemez</text>
+			<text name="title_loading">[DESC]: yükleniyor...</text>
+			<text name="title_not_worn">[DESC]: giyilmemiş</text>
+			<text name="path">[PATH] konumunda bulunuyor</text>
+			<text name="not worn instructions">
+				Envanterinizden birini sürükleyerek yeni bir görünüm takın
+avatarına. Alternatif olarak, bir
+sıfırdan yenisini alıp giyin.
+			</text>
+			<text name="no modify instructions">Bu giyilebilir cihazı değiştirme izniniz yok.</text>
+			<texture_picker name="Head Tattoos" label="Kafa Dövmeleri" tool_tip="Bir resim seçmek için tıklayın" />
+			<texture_picker name="Upper Tattoos" label="Üst Dövmeler" tool_tip="Bir resim seçmek için tıklayın" />
+			<texture_picker name="Lower Tattoos" label="Alt Dövmeler" tool_tip="Bir resim seçmek için tıklayın" />
+			<button name="Create New" label="Yeni Görünüm Oluştur" />
+			<button name="Save" label="Kaydet" />
+			<button name="Save As" label="Farklı Kaydet..." />
+			<button name="Revert" label="Geri al" />
+		</panel>
+		<panel name="Hair" label="Saç">
+			<icon name="square" />
+			<icon name="icon" />
+			<button name="Color" label="Color" />
+			<button name="Style" label="Stil" />
+			<button name="Eyebrows" label="Kaşlar" />
+			<button name="Facial" label="Facial" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: değiştirilemez</text>
+			<text name="title_loading">[DESC]: yükleniyor...</text>
+			<text name="title_not_worn">[DESC]: giyilmemiş</text>
+			<text name="path">[PATH] konumunda bulunuyor</text>
+			<text name="not worn instructions">
+				Envanterinizden birini sürükleyerek yeni bir saç takın
+avatarına. Alternatif olarak, bir
+sıfırdan yenisini alıp giyin.
+			</text>
+			<text name="no modify instructions">Bu giyilebilir cihazı değiştirme izniniz yok.</text>
+			<texture_picker name="Texture" label="Doku" tool_tip="Bir resim seçmek için tıklayın" />
+			<button name="Create New" label="Yeni Saç Yarat" />
+			<button name="Save" label="Kaydet" />
+			<button name="Save As" label="Farklı Kaydet..." />
+			<button name="Revert" label="Geri al" />
+		</panel>
+		<panel name="Eyes" label="Gözler">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: değiştirilemez</text>
+			<text name="title_loading">[DESC]: yükleniyor...</text>
+			<text name="title_not_worn">[DESC]: giyilmemiş</text>
+			<text name="path">[PATH] konumunda bulunuyor</text>
+			<text name="not worn instructions">
+				Envanterinizden birini sürükleyerek yeni gözler takın
+avatarına. Alternatif olarak, şuradan yeni bir tane yaratırsınız:
+çizin ve giyin.
+			</text>
+			<text name="no modify instructions">Bu giyilebilir cihazı değiştirme izniniz yok.</text>
+			<texture_picker name="Iris" label="Iris" tool_tip="Bir resim seçmek için tıklayın" />
+			<button name="Create New" label="Yeni Gözler Yaratın" />
+			<button name="Save" label="Kaydet" />
+			<button name="Save As" label="Farklı Kaydet..." />
+			<button name="Revert" label="Geri al" />
+		</panel>
+		<panel name="clothes_placeholder" label="Giysiler" />
+		<panel name="Shirt" label="Gömlek">
+			<icon name="square" />
+			<icon name="icon" />
+			<texture_picker name="Fabric" label="Kumaş" tool_tip="Bir resim seçmek için tıklayın" />
+			<color_swatch name="Color/Tint" label="Renk/Ton" tool_tip="Renk Seçiciyi açmak için tıklayın" />
+			<button name="Create New" label="Yeni Gömlek Oluştur" />
+			<button name="Take Off" label="Kalkış" />
+			<button name="New Layer" label="Yeni Katman" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="İç katmana geçin." />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Dış katmana geçin." />
+			<button name="Save" label="Kaydet" />
+			<button name="Save As" label="Farklı Kaydet..." />
+			<button name="Revert" label="Geri al" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: değiştirilemez</text>
+			<text name="title_loading">[DESC]: yükleniyor...</text>
+			<text name="title_not_worn">[DESC]: giyilmemiş</text>
+			<text name="path">[PATH] konumunda bulunuyor</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Gömleğinizden birini sürükleyerek yeni bir gömlek giyin.
+envanterinizi avatarınıza ekleyin. Alternatif olarak şunları da oluşturabilirsiniz:
+sıfırdan yeni bir tane alın ve onu giyin.
+			</text>
+			<text name="no modify instructions">Bu giyilebilir cihazı değiştirme izniniz yok.</text>
+		</panel>
+		<panel name="Pants" label="Pantolon">
+			<icon name="square" />
+			<icon name="icon" />
+			<texture_picker name="Fabric" label="Kumaş" tool_tip="Bir resim seçmek için tıklayın" />
+			<color_swatch name="Color/Tint" label="Renk/Ton" tool_tip="Renk Seçiciyi açmak için tıklayın" />
+			<button name="Create New" label="Yeni Pantolon Yarat" />
+			<button name="Take Off" label="Kalkış" />
+			<button name="New Layer" label="Yeni Katman" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="İç katmana geçin." />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Dış katmana geçin." />
+			<button name="Save" label="Kaydet" />
+			<button name="Save As" label="Farklı Kaydet..." />
+			<button name="Revert" label="Geri al" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: değiştirilemez</text>
+			<text name="title_loading">[DESC]: yükleniyor...</text>
+			<text name="title_not_worn">[DESC]: giyilmemiş</text>
+			<text name="path">[PATH] konumunda bulunuyor</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Yeni pantolonlardan birini cebinizden sürükleyerek giyin.
+envanterinizi avatarınıza ekleyin. Alternatif olarak şunları da oluşturabilirsiniz:
+sıfırdan yeni bir tane alın ve onu giyin.
+			</text>
+			<text name="no modify instructions">Bu giyilebilir cihazı değiştirme izniniz yok.</text>
+		</panel>
+		<panel name="Shoes" label="Ayakkabı">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: değiştirilemez</text>
+			<text name="title_loading">[DESC]: yükleniyor...</text>
+			<text name="title_not_worn">[DESC]: giyilmemiş</text>
+			<text name="path">[PATH] konumunda bulunuyor</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Yeni ayakkabılarınızdan birini sürükleyerek giyin
+envanterinizi avatarınıza ekleyin. Alternatif olarak şunları da oluşturabilirsiniz:
+sıfırdan yeni bir tane alın ve onu giyin.
+			</text>
+			<text name="no modify instructions">Bu giyilebilir cihazı değiştirme izniniz yok.</text>
+			<texture_picker name="Fabric" label="Kumaş" tool_tip="Bir resim seçmek için tıklayın" />
+			<color_swatch name="Color/Tint" label="Renk/Ton" tool_tip="Renk Seçiciyi açmak için tıklayın" />
+			<button name="Create New" label="Yeni Ayakkabılar Yarat" />
+			<button name="Take Off" label="Kalkış" />
+			<button name="New Layer" label="Yeni Katman" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="İç katmana geçin." />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Dış katmana geçin." />
+			<button name="Save" label="Kaydet" />
+			<button name="Save As" label="Farklı Kaydet..." />
+			<button name="Revert" label="Geri al" />
+		</panel>
+		<panel name="Socks" label="Çorap">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: değiştirilemez</text>
+			<text name="title_loading">[DESC]: yükleniyor...</text>
+			<text name="title_not_worn">[DESC]: giyilmemiş</text>
+			<text name="path">[PATH] konumunda bulunuyor</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Yeni çoraplardan birini yanınızdan sürükleyerek giyin.
+envanterinizi avatarınıza ekleyin. Alternatif olarak şunları da oluşturabilirsiniz:
+sıfırdan yeni bir tane alın ve onu giyin.
+			</text>
+			<text name="no modify instructions">Bu giyilebilir cihazı değiştirme izniniz yok.</text>
+			<texture_picker name="Fabric" label="Kumaş" tool_tip="Bir resim seçmek için tıklayın" />
+			<color_swatch name="Color/Tint" label="Renk/Ton" tool_tip="Renk Seçiciyi açmak için tıklayın" />
+			<button name="Create New" label="Yeni Çoraplar Yaratın" />
+			<button name="Take Off" label="Kalkış" />
+			<button name="New Layer" label="Yeni Katman" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="İç katmana geçin." />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Dış katmana geçin." />
+			<button name="Save" label="Kaydet" />
+			<button name="Save As" label="Farklı Kaydet..." />
+			<button name="Revert" label="Geri al" />
+		</panel>
+		<panel name="Jacket" label="Ceket">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: değiştirilemez</text>
+			<text name="title_loading">[DESC]: yükleniyor...</text>
+			<text name="title_not_worn">[DESC]: giyilmemiş</text>
+			<text name="path">[PATH] konumunda bulunuyor</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Ceketinizden birini sürükleyerek yeni bir ceket giyin.
+envanterinizi avatarınıza ekleyin. Alternatif olarak şunları da oluşturabilirsiniz:
+sıfırdan yeni bir tane alın ve onu giyin.
+			</text>
+			<text name="no modify instructions">Bu giyilebilir cihazı değiştirme izniniz yok.</text>
+			<texture_picker name="Upper Fabric" label="Üst Kumaş" tool_tip="Bir resim seçmek için tıklayın" />
+			<texture_picker name="Lower Fabric" label="Alt Kumaş" tool_tip="Bir resim seçmek için tıklayın" />
+			<color_swatch name="Color/Tint" label="Renk/Ton" tool_tip="Renk Seçiciyi açmak için tıklayın" />
+			<button name="Create New" label="Yeni Ceket Oluştur" />
+			<button name="Take Off" label="Kalkış" />
+			<button name="New Layer" label="Yeni Katman" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="İç katmana geçin." />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Dış katmana geçin." />
+			<button name="Save" label="Kaydet" />
+			<button name="Save As" label="Farklı Kaydet..." />
+			<button name="Revert" label="Geri al" />
+		</panel>
+		<panel name="Gloves" label="Eldiven">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: değiştirilemez</text>
+			<text name="title_loading">[DESC]: yükleniyor...</text>
+			<text name="title_not_worn">[DESC]: giyilmemiş</text>
+			<text name="path">[PATH] konumunda bulunuyor</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Yeni eldivenlerden birini elinizden sürükleyerek takın.
+envanterinizi avatarınıza ekleyin. Alternatif olarak şunları da oluşturabilirsiniz:
+sıfırdan yeni bir tane alın ve onu giyin.
+			</text>
+			<text name="no modify instructions">Bu giyilebilir cihazı değiştirme izniniz yok.</text>
+			<texture_picker name="Fabric" label="Kumaş" tool_tip="Bir resim seçmek için tıklayın" />
+			<color_swatch name="Color/Tint" label="Renk/Ton" tool_tip="Renk Seçiciyi açmak için tıklayın" />
+			<button name="Create New" label="Yeni Eldivenler Yaratın" />
+			<button name="Take Off" label="Kalkış" />
+			<button name="New Layer" label="Yeni Katman" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="İç katmana geçin." />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Dış katmana geçin." />
+			<button name="Save" label="Kaydet" />
+			<button name="Save As" label="Farklı Kaydet..." />
+			<button name="Revert" label="Geri al" />
+		</panel>
+		<panel name="Undershirt" label="Fanila">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: değiştirilemez</text>
+			<text name="title_loading">[DESC]: yükleniyor...</text>
+			<text name="title_not_worn">[DESC]: giyilmemiş</text>
+			<text name="path">[PATH] konumunda bulunuyor</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				İçinizden birini sürükleyerek yeni bir fanila giyin.
+envanterinizi avatarınıza ekleyin. Alternatif olarak, bir
+sıfırdan yenisini alıp giyin.
+			</text>
+			<text name="no modify instructions">Bu giyilebilir cihazı değiştirme izniniz yok.</text>
+			<texture_picker name="Fabric" label="Kumaş" tool_tip="Bir resim seçmek için tıklayın" />
+			<color_swatch name="Color/Tint" label="Renk/Ton" tool_tip="Renk Seçiciyi açmak için tıklayın" />
+			<button name="Create New" label="Yeni Fanila Oluştur" />
+			<button name="Take Off" label="Kalkış" />
+			<button name="New Layer" label="Yeni Katman" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="İç katmana geçin." />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Dış katmana geçin." />
+			<button name="Save" label="Kaydet" />
+			<button name="Save As" label="Farklı Kaydet..." />
+			<button name="Revert" label="Geri al" />
+		</panel>
+		<panel name="Underpants" label="külot">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: değiştirilemez</text>
+			<text name="title_loading">[DESC]: yükleniyor...</text>
+			<text name="title_not_worn">[DESC]: giyilmemiş</text>
+			<text name="path">[PATH] konumunda bulunuyor</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Yeni külotlardan birini yanınızdan sürükleyerek giyin.
+envanterinizi avatarınıza ekleyin. Alternatif olarak, bir
+sıfırdan yenisini alıp giyin.
+			</text>
+			<text name="no modify instructions">Bu giyilebilir cihazı değiştirme izniniz yok.</text>
+			<texture_picker name="Fabric" label="Kumaş" tool_tip="Bir resim seçmek için tıklayın" />
+			<color_swatch name="Color/Tint" label="Renk/Ton" tool_tip="Renk Seçiciyi açmak için tıklayın" />
+			<button name="Create New" label="Yeni Külot Yarat" />
+			<button name="Take Off" label="Kalkış" />
+			<button name="New Layer" label="Yeni Katman" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="İç katmana geçin." />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Dış katmana geçin." />
+			<button name="Save" label="Kaydet" />
+			<button name="Save As" label="Farklı Kaydet..." />
+			<button name="Revert" label="Geri al" />
+		</panel>
+		<panel name="Skirt" label="Etek">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: değiştirilemez</text>
+			<text name="title_loading">[DESC]: yükleniyor...</text>
+			<text name="title_not_worn">[DESC]: giyilmemiş</text>
+			<text name="path">[PATH] konumunda bulunuyor</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Bir tanesini yanınızdan sürükleyerek yeni bir etek giyin.
+envanterinizi avatarınıza ekleyin. Alternatif olarak şunları da oluşturabilirsiniz:
+sıfırdan yeni bir tane alın ve onu giyin.
+			</text>
+			<text name="no modify instructions">Bu giyilebilir cihazı değiştirme izniniz yok.</text>
+			<texture_picker name="Fabric" label="Kumaş" tool_tip="Bir resim seçmek için tıklayın" />
+			<color_swatch name="Color/Tint" label="Renk/Ton" tool_tip="Renk Seçiciyi açmak için tıklayın" />
+			<button name="Create New" label="Yeni Etek Oluştur" />
+			<button name="Take Off" label="Kalkış" />
+			<button name="New Layer" label="Yeni Katman" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="İç katmana geçin." />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Dış katmana geçin." />
+			<button name="Save" label="Kaydet" />
+			<button name="Save As" label="Farklı Kaydet..." />
+			<button name="Revert" label="Geri al" />
+		</panel>
+		<panel name="Tattoo" label="Dövme">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: değiştirilemez</text>
+			<text name="title_loading">[DESC]: yükleniyor...</text>
+			<text name="title_not_worn">[DESC]: giyilmemiş</text>
+			<text name="path">[PATH] konumunda bulunuyor</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Bir dövmeyi bilgisayarınızdan sürükleyerek yeni bir dövme yapın.
+envanterinizi avatarınıza ekleyin. Alternatif olarak şunları da oluşturabilirsiniz:
+sıfırdan yeni bir tane alın ve onu giyin.
+			</text>
+			<text name="no modify instructions">Bu giyilebilir cihazı değiştirme izniniz yok.</text>
+			<texture_picker name="Head Tattoo" label="Kafa Dövmesi" tool_tip="Bir resim seçmek için tıklayın" />
+			<texture_picker name="Upper Tattoo" label="Üst Dövme" tool_tip="Bir resim seçmek için tıklayın" />
+			<texture_picker name="Lower Tattoo" label="Alt Dövme" tool_tip="Bir resim seçmek için tıklayın" />
+			<color_swatch name="Color/Tint" label="Renk/Ton" tool_tip="Renk Seçiciyi açmak için tıklayın" />
+			<button name="Create New" label="Yeni Dövme Oluştur" />
+			<button name="Take Off" label="Kalkış" />
+			<button name="New Layer" label="Yeni Katman" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="İç katmana geçin." />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Dış katmana geçin." />
+			<button name="Save" label="Kaydet" />
+			<button name="Save As" label="Farklı Kaydet..." />
+			<button name="Revert" label="Geri al" />
+		</panel>
+		<panel name="Alpha" label="Alfa">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: değiştirilemez</text>
+			<text name="title_loading">[DESC]: yükleniyor...</text>
+			<text name="title_not_worn">[DESC]: giyilmemiş</text>
+			<text name="path">[PATH] konumunda bulunuyor</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Yeni bir alfa maskesini cihazınızdan sürükleyerek takın.
+envanterinizi avatarınıza ekleyin. Alternatif olarak, bir
+sıfırdan yenisini alıp giyin.
+			</text>
+			<text name="no modify instructions">Bu giyilebilir cihazı değiştirme izniniz yok.</text>
+			<texture_picker name="Head Alpha" label="Baş Alfa" tool_tip="Bir resim seçmek için tıklayın" />
+			<texture_picker name="Upper Alpha" label="Üst Alfa" tool_tip="Bir resim seçmek için tıklayın" />
+			<texture_picker name="Lower Alpha" label="Alt Alfa" tool_tip="Bir resim seçmek için tıklayın" />
+			<check_box name="head alpha texture invisible" />
+			<check_box name="upper alpha texture invisible" />
+			<check_box name="lower alpha texture invisible" />
+			<texture_picker name="Hair Alpha" label="Saç Alfa" tool_tip="Bir resim seçmek için tıklayın" />
+			<texture_picker name="Eye Alpha" label="Göz Alfa" tool_tip="Bir resim seçmek için tıklayın" />
+			<check_box name="hair alpha texture invisible" />
+			<check_box name="eye alpha texture invisible" />
+			<button name="Create New" label="Yeni Alfa Oluştur" />
+			<button name="Take Off" label="Kalkış" />
+			<button name="New Layer" label="Yeni Katman" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="İç katmana geçin." />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Dış katmana geçin." />
+			<button name="Save" label="Kaydet" />
+			<button name="Save As" label="Farklı Kaydet..." />
+			<button name="Revert" label="Geri al" />
+		</panel>
+		<panel name="Universal" label="Universal">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: değiştirilemez</text>
+			<text name="title_loading">[DESC]: yükleniyor...</text>
+			<text name="title_not_worn">[DESC]: giyilmemiş</text>
+			<text name="path">[PATH] konumunda bulunuyor</text>
+			<tab_container name="layer_tabs" />
+			<scroll_container name="tab_container">
+				<panel name="tab_panel">
+					<text name="not worn instructions">
+						Put on a new universal by dragging one from your
+          inventory to your avatar. Alternately, you can create a
+          new one from scratch and wear it.
+					</text>
+					<text name="no modify instructions">Bu giyilebilir cihazı değiştirme izniniz yok.</text>
+					<texture_picker name="Head Universal Tattoo" label="Kafa Dövmesi" tool_tip="Bir resim seçmek için tıklayın" />
+					<texture_picker name="Upper Universal Tattoo" label="Üst Dövme" tool_tip="Bir resim seçmek için tıklayın" />
+					<texture_picker name="Lower Universal Tattoo" label="Alt Dövme" tool_tip="Bir resim seçmek için tıklayın" />
+					<texture_picker name="Skirt Tattoo" label="Etek Dövmesi" tool_tip="Bir resim seçmek için tıklayın" />
+					<texture_picker name="Hair Tattoo" label="Saç Dövmesi" tool_tip="Bir resim seçmek için tıklayın" />
+					<texture_picker name="Eyes Tattoo" label="Gözler Dövme" tool_tip="Bir resim seçmek için tıklayın" />
+					<texture_picker name="Left Arm Tattoo" label="Sol Kol Dövmesi" tool_tip="Bir resim seçmek için tıklayın" />
+					<texture_picker name="Left Leg Tattoo" label="Sol Bacak Dövmesi" tool_tip="Bir resim seçmek için tıklayın" />
+					<texture_picker name="Aux1 Tattoo" label="Aux1 Dövme" tool_tip="Bir resim seçmek için tıklayın" />
+					<texture_picker name="Aux2 Tattoo" label="Aux2 Dövme" tool_tip="Bir resim seçmek için tıklayın" />
+					<texture_picker name="Aux3 Tattoo" label="Aux3 Dövme" tool_tip="Bir resim seçmek için tıklayın" />
+					<color_swatch name="Color/Tint" label="Renk/Ton" tool_tip="Renk seçiciyi açmak için tıklayın" />
+				</panel>
+			</scroll_container>
+			<button name="Create New" label="Yeni Evrensel Oluştur" />
+			<button name="Take Off" label="Kalkış" />
+			<button name="New Layer" label="Yeni Katman" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="İç katmana geçin." />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Dış katmana geçin." />
+			<button name="Save" label="Kaydet" />
+			<button name="Save As" label="Farklı Kaydet..." />
+			<button name="Revert" label="Geri al" />
+		</panel>
+		<panel name="Physics" label="Fizik">
+			<icon name="square" />
+			<icon name="icon" />
+			<button name="Belly Bounce" label="Göbek Sıçraması" />
+			<button name="Breast Bounce" label="Göğüs Sıçraması" />
+			<button name="Breast Cleavage" label="Meme Bölünmesi" />
+			<button name="Breast Sway" label="Göğüs Sallanması" />
+			<button name="Butt Bounce" label="popo sıçrama" />
+			<button name="Butt Sway" label="popo sallanma" />
+			<button name="Advanced Parameters" label="Gelişmiş Parametreler" />
+			<button name="Take Off" label="Kalkış" />
+			<button name="New Layer" label="Yeni Katman" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="İç katmana geçin." />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Dış katmana geçin." />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: değiştirilemez</text>
+			<text name="title_loading">[DESC]: yükleniyor...</text>
+			<text name="title_not_worn">[DESC]: giyilmemiş</text>
+			<text name="path">[PATH] konumunda bulunuyor</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Birini sürükleyerek giyilebilir yeni bir fizik takın
+envanterinizden avatarınıza. Alternatif olarak siz
+sıfırdan yeni bir tane yaratıp onu giyebilir.
+			</text>
+			<text name="no modify instructions">Bu giyilebilir cihazı değiştirme izniniz yok.</text>
+			<button name="Create New" label="Yeni Fizik Yaratın" />
+			<button name="Save" label="Kaydet" />
+			<button name="Save As" label="Farklı Kaydet..." />
+			<button name="Revert" label="Geri al" />
+		</panel>
+	</tab_container>
+	<scroll_container name="panel_container" />
+	<text name="AvatarHeightText" visible="false">Avatar Yüksekliği:</text>
+	<text name="HeightTextM" visible="false">(metrik)</text>
+	<text name="HeightTextI" visible="false">(imperial)</text>
+	<button name="Import" label="İthalat" tool_tip="Seçili giysiye içe aktar; giysi değiştirilebilir olmalı" />
+	<button name="Export" label="İhracat" tool_tip="Seçili giysiyi dışa aktar; kopyala/değiştir/transfer izni ve yaratıcı olman gerekir" />
+	<button name="Cancel" label="İptal" />
+	<button name="Ok" label="OK" />
+	<flyout_button name="Make Outfit" label="Kıyafet Yap..." />
+	<string name="Save changes to" />
+	<string name="No Outfit" />
+	<string name="Changing outfits" />
+</floater>

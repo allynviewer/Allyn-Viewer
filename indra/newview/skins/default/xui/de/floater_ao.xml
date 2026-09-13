@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="geminifloater" title="AO-Einstellungen">
+	<drop_target name="ao_notecard" label="ZHAO-Notecard hierher ziehen" tool_tip="ZHAO-Notecard hierher ziehen. Animationen müssen im selben Inventarordner liegen."/>
+	<button name="opencard" label="" tool_tip="Aktuelle AO-Notecard anzeigen"/>
+	<button name="reloadcard" label="" tool_tip="Animationen aus der AO-Notecard neu laden"/>
+	<button name="newcard" label="" tool_tip="Neue AO-Notecard-Vorlage im Inventar erstellen"/>
+	<check_box name="AOEnabled" label="Animations-Override aktivieren" tool_tip="Animation Overrider ein- oder ausschalten"/>
+	<check_box name="AOSwimEnabled" label="Schwimm-Override aktivieren" tool_tip="Fluganimationen unter Wasser durch Schwimmunimationen ersetzen"/>
+	<check_box name="AOSitsEnabled" label="Sitz-Override aktivieren" tool_tip="Sitz- und Bodensitzanimationen überschreiben"/>
+	<text name="buttons_desc">Stände:</text>
+	<combo_box name="stands" tool_tip="Aktuelle Stand-Animation"/>
+	<button name="prevstand" label="" tool_tip="Vorheriger Stand"/>
+	<button name="nextstand" label="" tool_tip="Nächster Stand"/>
+	<check_box name="AOStandRandomize" label="Stand-Reihenfolge zufällig" tool_tip="Stände zufällig statt nacheinander wechseln"/>
+	<check_box name="AONoStandsInMouselook" label="Keine Stände im Mouselook" tool_tip="Stand-Animationen im Mouselook anhalten"/>
+	<check_box name="ao_remote_checkbox" label="AO-Toolbar anzeigen" tool_tip="AO-Fernbedienung in der unteren Toolbar anzeigen"/>
+	<spinner name="standtime" label="Standzeit:" tool_tip="Dauer jedes Stands in Sekunden"/>
+	<button name="more_btn" label="Mehr &gt;&gt;" label_selected="&lt;&lt; Weniger" tool_tip="Standard-Animationen ein- oder ausblenden"/>
+	<tab_container name="tabcontainer" label="Standard">
+		<panel name="tabdefaultanims" label="Standard-Anims">
+			<text name="textdefaultwalk">Walk:</text>
+			<combo_box name="walks" tool_tip="Standard-Gehanimation"/>
+			<text name="textdefaultrun">Run:</text>
+			<combo_box name="runs" tool_tip="Standard-Laufanimation"/>
+			<text name="textdefaultjump">Jump:</text>
+			<combo_box name="jumps" tool_tip="Standard-Sprunganimation"/>
+			<text name="textdefaultsit">Sit:</text>
+			<combo_box name="sits" tool_tip="Standard-Sitzanimation"/>
+			<text name="textdefaultgsit">Ground sit:</text>
+			<combo_box name="gsits" tool_tip="Standard-Bodensitzanimation"/>
+			<text name="textdefaultcrouch">Crouch:</text>
+			<combo_box name="crouchs" tool_tip="Standard-Duckanimation"/>
+			<text name="textdefaultcrouchwalk">Crouch walk:</text>
+			<combo_box name="cwalks" tool_tip="Standard-Ducking-Gehanimation"/>
+			<text name="textdefaultfall">Fall:</text>
+			<combo_box name="falls" tool_tip="Standard-Fallanimation"/>
+			<text name="textdefaulthover">Hover:</text>
+			<combo_box name="hovers" tool_tip="Standard-Schwebeanimation"/>
+			<text name="textdefaultfly">Fly:</text>
+			<combo_box name="flys" tool_tip="Standard-Fluganimation"/>
+			<text name="textdefaultflyslow">Slow fly:</text>
+			<combo_box name="flyslows" tool_tip="Standard-Langsamfluganimation"/>
+			<text name="textdefaultflyup">Fly up:</text>
+			<combo_box name="flyups" tool_tip="Standard-Aufwärtsfluganimation"/>
+			<text name="textdefaultflydown">Fly down:</text>
+			<combo_box name="flydowns" tool_tip="Standard-Abwärtsfluganimation"/>
+			<text name="textdefaultland">Land:</text>
+			<combo_box name="lands" tool_tip="Standard-Landeanimation"/>
+			<text name="textdefaultstandup">Stand up:</text>
+			<combo_box name="standups" tool_tip="Standard-Aufstehanimation"/>
+			<text name="textdefaultprejump">Pre-jump:</text>
+			<combo_box name="prejumps" tool_tip="Standard-Absprunganimation"/>
+			<text name="textdefaultfloat">Float:</text>
+			<combo_box name="floats" tool_tip="Standard-Treibanimation"/>
+			<text name="textdefaultswim">Swim:</text>
+			<combo_box name="swims" tool_tip="Standard-Schwimmanimation"/>
+			<text name="textdefaultswimup">Swim up:</text>
+			<combo_box name="swimups" tool_tip="Standard-Aufwärtsschwimmanimation"/>
+			<text name="textdefaultswimdown">Swim down:</text>
+			<combo_box name="swimdowns" tool_tip="Standard-Abwärtsschwimmanimation"/>
+			<text name="textdefaulttyping">Typing:</text>
+			<combo_box name="typings" tool_tip="Standard-Tippanimation"/>
+		</panel>
+	</tab_container>
+</floater>

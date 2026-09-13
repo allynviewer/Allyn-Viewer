@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Estate" label="Эстейт">
+	<text name="estate_help_text">Изменения на этой вкладке действуют на все регионы эстейта.</text>
+	<text name="estate_text">Эстейт:</text>
+	<text name="estate_name">(неизвестно)</text>
+	<text name="owner_text">Владелец эстейта:</text>
+	<name_box name="estate_owner">(неизвестно)</name_box>
+	<check_box name="externally_visible_check" label="Открытый доступ" />
+	<button name="externally_visible_help" label=""  tool_tip="Справка"/>
+	<check_box name="voice_chat_check" label="Разрешить голосовой чат" />
+	<button name="voice_chat_help" label=""  tool_tip="Справка"/>
+	<check_box name="allow_direct_teleport" label="Разрешить прямой телепорт" />
+	<button name="allow_direct_teleport_help" label=""  tool_tip="Справка"/>
+	<check_box name="use_global_time_check" label="Глобальное время" />
+	<button name="use_global_time_help" label=""  tool_tip="Справка"/>
+	<check_box name="fixed_sun_check" label="Фиксированное солнце" />
+	<button name="fixed_sun_help" label=""  tool_tip="Справка"/>
+	<icon name="daycycle" />
+	<slider name="sun_hour_slider" label="Фаза" />
+	<button name="apply_btn" label="Применить" />
+	<text name="Only Allow">Доступ только для резидентов, у которых:</text>
+	<check_box name="limit_payment" label="Есть платёжные данные" tool_tip="Для входа на этот эстейт у резидента должны быть платёжные данные." />
+	<check_box name="limit_age_verified" label="Возраст 18+" tool_tip="Для входа на этот эстейт резидент должен быть старше 18 лет. Подробности: support.secondlife.com." />
+	<button name="message_estate_btn" label="Сообщение эстейту..." />
+	<button name="kick_user_from_estate_btn" label="Выгнать резидента с эстейта..." />
+</panel>

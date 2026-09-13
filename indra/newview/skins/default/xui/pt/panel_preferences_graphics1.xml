@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Gráficos" name="Display panel">
+	<check_box label="Executar visualizador em uma janela" name="windowed mode" tool_tip="Se desmarcado, o visualizador será exibido em tela cheia ao fazer login." />
+	<button label="Restaurar Padrões" tool_tip="Restaurar para configurações gráficas recomendadas" name="Defaults" />
+	<text name="WindowSizeLabel">Tamanho da Janela:</text>
+	<combo_box name="windowsize combo">
+		<combo_item name="800x600" value="800 x 600">800x600</combo_item>
+		<combo_item name="720x480" value="720 x 480">720x480 (NTSC)</combo_item>
+		<combo_item name="768x576" value="768 x 576">768x576 (PAL)</combo_item>
+		<combo_item name="1024x768" value="1024 x 768">1024x768</combo_item>
+		<combo_item name="1280x720" value="1280 x 720">1280x720 (HD)</combo_item>
+		<combo_item name="1366x768" value="1366 x 768">1366x768</combo_item>
+		<combo_item name="1280x800" value="1280 x 800">1280x800</combo_item>
+		<combo_item name="1440x900" value="1440 x 900">1440x900</combo_item>
+		<combo_item name="1600x900" value="1600 x 900">1600x900 (HD+)</combo_item>
+		<combo_item name="1680x1050" value="1680 x 1050">1680x1050</combo_item>
+		<combo_item name="1440x1080" value="1440 x 1080">1440x1080 (HDV1080)</combo_item>
+		<combo_item name="1920x1080" value="1920 x 1080">1920x1080 (Full-HD)</combo_item>
+		<combo_item name="2560x1440" value="2560 x 1440">2560x1440</combo_item>
+	</combo_box>
+	<text name="DisplayResLabel">Resolução de Tela:</text>
+	<combo_box name="fullscreen combo" />
+	<text name="AspectRatioLabel1">Proporção de Tela:</text>
+	<combo_box name="aspect_ratio" tool_tip="largura / altura">
+		<combo_item name="4:3(StandardCRT)" value="1.333333">4:3 (CRT Padrão)</combo_item>
+		<combo_item name="5:4(1280x1024LCD)" value="1.25">5:4 (1280x1024 LCD)</combo_item>
+		<combo_item name="8:5(Widescreen)" value="1.6">16:10 (Widescreen PC)</combo_item>
+		<combo_item name="16:9(Widescreen)" value="1.7777777">16:9 (Widescreen TV)</combo_item>
+	</combo_box>
+	<check_box label="Detectar proporção automaticamente" name="aspect_auto_detect" />
+	<tab_container name="graphics_tab">
+		<panel label="Principal" name="Main">
+			<scroll_container name="main_gfx_scroll">
+				<panel name="main_gfx_inner">
+					<text name="QualityText">Qualidade/Perf:</text>
+					<text name="FasterText">Rápido</text>
+					<text name="ShadersPrefText">Baixo</text>
+					<text name="ShadersPrefText2">Médio</text>
+					<text name="ShadersPrefText3">Alto</text>
+					<text name="ShadersPrefText4">Ultra</text>
+					<text name="QualityText2">Qualidade alta</text>
+					<slider control_name="RenderQualityPerformance" increment="1" initial_val="0" max_val="3" min_val="0" name="QualityPerformanceSelection" show_text="false" />
+					<check_box control_name="RenderCustomSettings" label="Personalizado" name="CustomSettings" />
+					<text visibility_control="RenderCustomSettings" name="ShadersText">Sombreamento:</text>
+					<check_box control_name="RenderTransparentWater" visibility_control="RenderCustomSettings" label="Água transparente" name="TransparentWater" />
+					<check_box control_name="RenderObjectBump" visibility_control="RenderCustomSettings" label="Mapeamento bump e brilho" name="BumpShiny" />
+					<check_box control_name="RenderLocalLights" visibility_control="RenderCustomSettings" label="Luzes Locais" name="LightingDetailRadio" />
+					<check_box control_name="VertexShaderEnable" visibility_control="RenderCustomSettings" label="Sombreamento básico" name="BasicShaders" tool_tip="Desabilitar esta opção pode impedir que alguns drivers de placa de vídeo travem." />
+					<check_box control_name="WindLightUseAtmosShaders" visibility_control="RenderCustomSettings" label="Sombreamento atmosférico" name="WindLightUseAtmosShaders" />
+					<check_box control_name="RenderDeferred" visibility_control="RenderCustomSettings" label="Modelo de Iluminação Avançado" tool_tip="Sombreamento Diferido" name="RenderDeferred" />
+					<check_box control_name="RenderDeferredSSAO" visibility_control="RenderCustomSettings" label="Oclusão de Ambiente" name="UseSSAO" />
+					<text visibility_control="RenderCustomSettings" name="TerrainScaleText">Escala do Terreno:</text>
+					<combo_box control_name="RenderTerrainScale" visibility_control="RenderCustomSettings" label="Escala do Terreno" name="TerrainScaleCombo">
+						<combo_item name="Low" value="12">Baixo</combo_item>
+						<combo_item name="Medium" value="9">Médio</combo_item>
+						<combo_item name="High" value="7">Alto</combo_item>
+						<combo_item name="Ultra" value="5">Ultra</combo_item>
+					</combo_box>
+					<text visibility_control="RenderCustomSettings" name="ShadowDetailText">Sombras:</text>
+					<combo_box control_name="RenderShadowDetail" visibility_control="RenderCustomSettings" label="Detalhe de Sombra" name="ShadowDetailCombo">
+						<combo_item name="0" value="0">Desabilitado</combo_item>
+						<combo_item name="1" value="1">Sol/Lua</combo_item>
+						<combo_item name="2" value="2">Sol/Lua + Projetores</combo_item>
+					</combo_box>
+					<text visibility_control="RenderCustomSettings" name="ReflectionDetailText">Reflexos de Água:</text>
+					<combo_box control_name="RenderReflectionDetail" visibility_control="RenderCustomSettings" label="Detalhe de Reflexão" name="ReflectionDetailCombo">
+						<combo_item name="0" value="0">Mínimo</combo_item>
+						<combo_item name="1" value="1">Terreno e árvores</combo_item>
+						<combo_item name="2" value="2">Todos objetos estáticos</combo_item>
+						<combo_item name="3" value="3">Todos avatares e objetos</combo_item>
+						<combo_item name="4" value="4">Tudo</combo_item>
+					</combo_box>
+					<slider control_name="RenderAvatarPhysicsLODFactor" visibility_control="RenderCustomSettings" increment="0.1" label="Física avatar:" max_val="1" min_val="0" name="AvatarPhysicsDetail" show_text="false" />
+					<text visibility_control="RenderCustomSettings" name="AvatarPhysicsDetailText">Desligado</text>
+					<text visibility_control="RenderCustomSettings" name="DrawDistanceMeterText">m</text>
+					<slider control_name="RenderFarClip" visibility_control="RenderCustomSettings" decimal_digits="0" increment="8" initial_val="160" label="Distância visão:" max_val="1024" min_val="24" name="DrawDistance" />
+					<slider control_name="RenderMaxPartCount" visibility_control="RenderCustomSettings" decimal_digits="0" increment="256" initial_val="4096" label="Máx. partículas:" max_val="8192" min_val="0" name="MaxParticleCount" />
+					<slider control_name="RenderAvatarMaxVisible" visibility_control="RenderCustomSettings" enabled_control="RenderUseImpostors" decimal_digits="0" increment="1" initial_val="35" label="Máx. não-impostores:" max_val="50" min_val="1" name="AvatarMaxVisible" />
+					<slider control_name="RenderGlowResolutionPow" visibility_control="RenderCustomSettings" decimal_digits="0" increment="1" initial_val="8" label="Pós-processamento:" max_val="9" min_val="8" name="RenderPostProcess" show_text="false" />
+					<text visibility_control="RenderCustomSettings" name="PostProcessText">Baixo</text>
+					<text visibility_control="RenderCustomSettings" name="MeshDetailText">Nível de Detalhe:</text>
+					<slider control_name="RenderVolumeLODFactor" visibility_control="RenderCustomSettings" increment="0.09375" label="Objetos:" max_val="4" min_val="0.5" name="ObjectMeshDetail" show_text="false" />
+					<slider control_name="RenderFlexTimeFactor" visibility_control="RenderCustomSettings" increment="0.1" label="Flexiprims:" max_val="1" min_val="0" name="FlexibleMeshDetail" show_text="false" />
+					<slider control_name="RenderTreeLODFactor" visibility_control="RenderCustomSettings" increment="0.125" label="Árvores:" max_val="2" min_val="0" name="TreeMeshDetail" show_text="false" />
+					<slider control_name="RenderAvatarLODFactor" visibility_control="RenderCustomSettings" increment="0.125" label="Avatares:" max_val="1" min_val="0" name="AvatarMeshDetail" show_text="false" />
+					<slider control_name="RenderTerrainLODFactor" visibility_control="RenderCustomSettings" increment="0.125" label="Terreno:" max_val="2" min_val="1" name="TerrainMeshDetail" show_text="false" />
+					<slider control_name="WLSkyDetail" visibility_control="RenderCustomSettings" enabled_control="WindLightUseAtmosShaders" decimal_digits="0" increment="8" label="Céu:" max_val="128" min_val="16" name="SkyMeshDetail" show_text="false" />
+					<text visibility_control="RenderCustomSettings" name="ObjectMeshDetailText">Baixo</text>
+					<text visibility_control="RenderCustomSettings" name="FlexibleMeshDetailText">Baixo</text>
+					<text visibility_control="RenderCustomSettings" name="TreeMeshDetailText">Baixo</text>
+					<text visibility_control="RenderCustomSettings" name="AvatarMeshDetailText">Baixo</text>
+					<text visibility_control="RenderCustomSettings" name="TerrainMeshDetailText">Baixo</text>
+					<text visibility_control="RenderCustomSettings" enabled_control="WindLightUseAtmosShaders" name="SkyMeshDetailText">Baixo</text>
+					<text visibility_control="RenderCustomSettings" name="AvatarRenderingText">Renderização de Avatar:</text>
+					<text name="AvatarDisplayLabel">Exibir avatares:</text>
+					<combo_box name="AvatarDisplayCombo" tool_tip="Como outros avatares são mostrados quando passam da Complexidade máxima.">
+						<combo_item name="0" value="0">Limitar por complexidade</combo_item>
+						<combo_item name="1" value="1">Sempre mostrar amigos</combo_item>
+						<combo_item name="2" value="2">Mostrar só amigos</combo_item>
+						<combo_item name="3" value="3">Mostrar só a si</combo_item>
+					</combo_box>
+					<slider label="Complexidade máx. do avatar:" label_width="200" name="IndirectMaxComplexity" tool_tip="Avatares mais complexos que isto viram bonecos de gelatina. Tudo à direita = sem limite." />
+					<text name="IndirectMaxComplexityText">Sem limite</text>
+					<check_box label="Mostrar valores de complexidade" name="ShowAvatarComplexity" tool_tip="Mostra a complexidade visual de cada avatar sobre o nome (Ctrl+Alt+Shift+C)." />
+					<check_box control_name="RenderUseImpostors" visibility_control="RenderCustomSettings" label="Impostores de avatar" name="AvatarImpostors" />
+					<check_box control_name="RenderAvatarVP" visibility_control="RenderCustomSettings" label="Skinning por hardware" name="AvatarVertexProgram" />
+					<check_box control_name="RenderAvatarCloth" visibility_control="RenderCustomSettings" label="Vestimenta do avatar" name="AvatarCloth" />
+					<text visibility_control="RenderCustomSettings" name="TerrainDetailText">Detalhe do terreno:</text>
+					<radio_group name="TerrainDetailRadio" tool_tip="Baixo usa textura de terreno mais simples. Alto usa detalhe completo.">
+						<radio_item name="0">Baixo</radio_item>
+						<radio_item name="2">Alto</radio_item>
+					</radio_group>
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel label="Hardware" name="Hardware">
+			<check_box label="Filtragem Anisotrópica (mais lenta quando ativada)" name="ani" />
+			<text name="Antialiasing:">Antialiasing:</text>
+			<combo_box name="fsaa">
+				<combo_item name="FSAADisabled" value="0">Desabilitado</combo_item>
+				<combo_item name="2x" value="2">2x</combo_item>
+				<combo_item name="4x" value="4">4x</combo_item>
+				<combo_item name="8x" value="8">8x</combo_item>
+				<combo_item name="16x" value="16">16x</combo_item>
+			</combo_box>
+			<text name="VSync:">VSync:</text>
+			<combo_box name="vsync">
+				<combo_item name="VSyncDisabled" value="0">Desabilitado</combo_item>
+				<combo_item name="VSyncStandard" value="1">Padrão</combo_item>
+				<combo_item name="VSyncAdaptive" value="-1">Adaptável</combo_item>
+			</combo_box>
+			<spinner label="Memória de Textura (MB):" name="GrapicsCardTextureMemory" tool_tip="Quantidade de memória para alocar para texturas. Padrão é a Memória da Placa de Vídeo. Reduzir pode melhorar a performance, mas pode deixar texturas borradas." />
+			<spinner label="Gamma:" name="gamma" tool_tip="(brilho, menor é mais claro)" />
+			<spinner label="Proporção de Névoa:" name="fog" />
+			<text name="note">
+Nota: As configurações de Gamma e Proporção de Névoa
+não estão disponíveis (pois são inúteis)
+quando os Sombreamentos Atmosféricos estão ativados.
+ </text>
+			<check_box label="Ativar Compressão de Textura (Requer reinicialização)" name="compressed_textures" tool_tip="Ativar reduz o consumo de memória da GPU às custas da qualidade da textura no mundo." />
+			<check_box label="Ativar OpenGL Vertex Buffer Objects" name="vbo" tool_tip="Ativar em hardware moderno dá ganho de performance. Porém, hardware antigo geralmente tem implementações ruins de VBOs e pode causar travamentos." />
+			<check_box label="Ativar Streamed VBOs" name="vbo_stream" tool_tip="Desativar pode melhorar a performance quando VBOs estão ativados. Desativar produziu melhora observável em várias GPUs AMD." />
+			<check_box label="Ativar OpenGL Frame Buffer Objects" name="fbo" tool_tip="Ativar em hardware moderno pode dar ganho de performance. Porém, quando combinado com antialiasing em GPUs AMD, pode causar artefatos nas bordas. Esta opção é necessária para renderização diferida." />
+		</panel>
+		<panel label="Profundidade de Campo" name="DoF">
+			<check_box control_name="RenderDepthOfField" label="Ativar Profundidade de Campo" tool_tip="Alterna um efeito de Profundidade de Campo como o de uma câmera, usado para desfocar distâncias ou coisas que não deveriam estar em foco" name="RenderDepthOfField" />
+			<slider control_name="CameraFNumber" can_edit_text="true" decimal_digits="1" increment="0.1" max_val="128" min_val="0.50" name="CameraFNum" label="F-Number:" tool_tip="Valor de abertura (f-number) da câmera para o efeito de Profundidade de Campo" />
+			<button name="reset_f_num" label="Redefinir">
+				<button.commit_callback function="Prefs.Reset" parameter="CameraFNumber" />
+			</button>
+			<slider control_name="CameraFocalLength" can_edit_text="true" decimal_digits="1" increment="0.1" max_val="300" min_val="0" name="CameraFocal" label="Distância Focal(mm):" tool_tip="Distância focal da câmera para o efeito de Profundidade de Campo (em milímetros)" />
+			<button name="reset_focal_length" label="Redefinir">
+				<button.commit_callback function="Prefs.Reset" parameter="CameraFocalLength" />
+			</button>
+			<slider control_name="CameraMaxCoF" can_edit_text="true" decimal_digits="1" increment="0.1" max_val="100" min_val="0" name="CameraCoF" label="Círculo de Confusão:" tool_tip="Define o círculo de confusão da câmera" />
+			<button name="reset_max_cof" label="Redefinir">
+				<button.commit_callback function="Prefs.Reset" parameter="CameraMaxCoF" />
+			</button>
+			<slider control_name="CameraFocusTransitionTime" can_edit_text="true" decimal_digits="2" increment="0.01" max_val="20" min_val="0.01" name="CameraFocusTrans" label="Tempo de Transição(seg):" tool_tip="Tempo para alterar o foco de um lugar para outro" />
+			<button name="reset_trans_time" label="Redefinir">
+				<button.commit_callback function="Prefs.Reset" parameter="CameraFocusTransitionTime" />
+			</button>
+			<slider control_name="CameraDoFResScale" can_edit_text="true" decimal_digits="2" increment="0.01" max_val="1" min_val="0.25" name="CameraDoFRes" label="Resolução:" tool_tip="Define a Resolução (Qualidade) de cada pixel DoF" />
+			<button name="reset_res_scale" label="Redefinir">
+				<button.commit_callback function="Prefs.Reset" parameter="CameraDoFResScale" />
+			</button>
+			<button name="reset_dof" label="Redefinir profundidade de campo">
+				<button.commit_callback function="Graphics.ResetTab" parameter="DoF" />
+			</button>
+		</panel>
+	</tab_container>
+	<string name="resolution_format">[RES_X] x [RES_Y]</string>
+	<string name="aspect_ratio_text">[NUM]:[DEN]</string>
+	<string name="complexity_no_limit">Sem limite</string>
+</panel>

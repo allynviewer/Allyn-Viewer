@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="network" label="Rede">
+	<button name="set_sound_cache" label="Definir" label_selected="Definir"/>
+	<button name="reset_sound_cache" label="Redefinir" label_selected="Redefinir"/>
+	<button name="set_chat_logs" label="Definir" label_selected="Definir"/>
+	<button name="reset_chat_logs" label="Redefinir" label_selected="Redefinir"/>
+	<text name="cannot_change_crash_label">(não pode alterar)</text>
+	<text name="cannot_change_user_label">(não pode alterar)</text>
+	<scroll_container name="network_scroll">
+		<panel name="network_scroll_inner">
+			<text name="text_box">Banda máxima:</text>
+			<slider name="max_bandwidth"/>
+			<text name="text_box2">kbps</text>
+			<text name="text_box4">kbps</text>
+			<text name="text_box3">Banda de texturas:</text>
+			<slider name="tex_bandwidth"/>
+			<text name="use_http_for" visible="false">Usar HTTP para:</text>
+			<check_box label="Texturas" name="http_textures" visible="false"/>
+			<check_box label="Inventário" name="http_inventory" visible="false"/>
+			<text name="cache_size_label_l">Cache em disco:</text>
+			<slider name="cache_size"/>
+			<text name="text_box5">MB</text>
+			<text name="cache_location_label">Pasta do cache em disco:</text>
+			<line_editor max_length="4096" name="cache_location"/>
+			<button name="set_cache" label="Definir" label_selected="Definir"/>
+			<button name="reset_cache" label="Redefinir" label_selected="Redefinir"/>
+			<text name="socks5_auth_label">Proxy HTTP:</text>
+			<radio_group name="socks5_http_proxy_type">
+				<radio_item name="None" tool_tip="Sem proxy HTTP">Nenhum</radio_item>
+				<radio_item name="Socks" tool_tip="Usar SOCKS como proxy HTTP">SOCKS</radio_item>
+				<radio_item name="Web" tool_tip="Usar proxy da web para HTTP">Web</radio_item>
+			</radio_group>
+			<check_box label="Ativar proxy SOCKS 5" name="socks5_proxy_enabled"/>
+			<text name="socks5_host_label">Host SOCKS 5:</text>
+			<line_editor name="socks5_proxy_host" tool_tip="Nome ou endereço IP do proxy SOCKS 5"/>
+			<spinner label="Porta:" name="socks5_proxy_port"/>
+			<text name="socks5_auth_label2">Autenticação SOCKS 5:</text>
+			<radio_group name="socks5_auth">
+				<radio_item name="None" tool_tip="Sem autenticação">Nenhuma</radio_item>
+				<radio_item name="UserPass" tool_tip="Autenticação com usuário e senha">Usuário/senha</radio_item>
+			</radio_group>
+			<text name="socks5_username_label">Usuário:</text>
+			<line_editor name="socks5_proxy_username" tool_tip="Nome de usuário do proxy SOCKS 5"/>
+			<text name="socks5_password_label">Senha:</text>
+			<line_editor name="socks5_proxy_password" tool_tip="Senha do proxy SOCKS 5"/>
+			<button name="clear_cache" label="Limpar cache"/>
+			<check_box name="connection_port_enabled" label="Porta de conexão personalizada"/>
+			<spinner name="connection_port" label="Número da porta:"/>
+		</panel>
+	</scroll_container>
+</panel>

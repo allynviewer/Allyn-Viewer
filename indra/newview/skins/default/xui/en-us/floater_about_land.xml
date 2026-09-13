@@ -1,0 +1,940 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" can_tear_off="false" enabled="true" height="450"
+     left="367" min_height="450" min_width="600" mouse_opaque="true"
+     name="floaterland" rect_control="FloaterLandRect6" title="About Land"
+     width="600">
+	<tab_container bottom="0" enabled="true" follows="left|top|right|bottom"
+	     left="1" mouse_opaque="false" name="landtab" right="-1"
+	     tab_position="top" tab_width="0" top="-20">
+		<panel border="true" enabled="true" follows="left|top|right|bottom"
+		     height="400" label="General" left="0" mouse_opaque="true"
+		     name="land_general_panel" width="590">
+			<text type="string" length="1" bottom="-20" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="12" name="Name:" use_ellipses="true"
+			     width="120">
+				Name:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-20"
+			     enabled="true" follows="left|top|right" font="SansSerifSmall"
+			     height="18" left="140" max_length="63" name="Name" right="-12"
+			     select_all_on_focus_received="false" select_on_focus="false" />
+			<text type="string" length="1" bottom="-42" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="12" name="Description:"
+			     use_ellipses="true" width="120">
+				Description:
+			</text>
+			<text_editor type="string" bevel_style="in" border_style="line" border_thickness="1"
+			     bottom="-80" embedded_items="false" enabled="true" follows="left|top|right"
+			     font="SansSerifSmall" height="36" left="140" max_length="255"
+			     name="Description" right="-12" select_all_on_focus_received="false"
+			     select_on_focus="false" word_wrap="true" spell_check="true" />
+			<text type="string" length="1" bottom="-100" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="12" name="LandType" use_ellipses="true"
+			     width="120">
+				Type:
+			</text>
+			<text type="string" length="1" bottom="-100" enabled="true" follows="left|top|right"
+			     font="SansSerifSmall" height="16" left="140" name="LandTypeText" right="-12"
+			     use_ellipses="true">
+				Mainland / Homestead
+			</text>
+			<text type="string" length="1" bottom="-120" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="12" name="ContentRating"
+			     use_ellipses="true" width="120">
+				Rating:
+			</text>
+			<text type="string" length="1" bottom="-120" enabled="true" follows="left|top|right"
+			     font="SansSerifSmall" height="16" left="140" name="ContentRatingText"
+			     right="-12" use_ellipses="true">
+				Adult
+			</text>
+			<text type="string" length="1" bottom="-140" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="12" name="Owner:" use_ellipses="true"
+			     width="120">
+				Owner:
+			</text>
+			<name_box type="string" length="1" bottom="-140" enabled="true" follows="left|top|right"
+			     font="SansSerifSmall" height="16" left="140" name="OwnerText" right="-12">
+				Leyla Linden
+			</name_box>
+			<text type="string" length="1" bottom="-160" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="12" name="Group:" use_ellipses="true"
+			     width="120">
+				Group:
+			</text>
+			<name_box type="string" length="1" bottom="-160" enabled="false" follows="left|top"
+			     font="SansSerifSmall" height="16" id_type="1" left="140" name="GroupText"
+			     width="276" />
+			<button bottom="-162" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="20" label="Set..." label_selected="Set..." left="428" name="Set..."
+			     scale_image="true" use_ellipses="true" width="150" />
+			<check_box bottom="-182" enabled="false" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false" label="Allow Deed to Group" left="140"
+			     name="check deed" radio_style="false" width="276"
+			     tool_tip="A group officer can deed this land to the group, so it will be supported by the group&amp;apos;s land allocation." />
+			<button bottom="-184" enabled="false" follows="left|top" font="SansSerifSmall"
+			     height="20" label="Deed..." label_selected="Deed..." left="428" name="Deed..."
+			     scale_image="true" use_ellipses="true"
+			     tool_tip="You may only deed land if you are an officer in the selected group."
+			     width="150" />
+			<check_box bottom="-204" enabled="false" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false" label="Owner Makes Contribution With Deed"
+			     left="140" name="check contrib" radio_style="false" width="438"
+			     tool_tip="When the land is deeded to the group, the former owner contributes enough land allocation to support it." />
+			<text type="string" length="1" bottom="-226" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="12" name="For Sale:" use_ellipses="true"
+			     width="120">
+				For Sale:
+			</text>
+			<text type="string" length="1" bottom="-226" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="140" name="Not for sale."
+			     use_ellipses="true" width="276">
+				Not for sale.
+			</text>
+			<text type="string" length="1" bottom="-226" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="140" name="For Sale: Price L$[PRICE]."
+			     use_ellipses="true" width="276">
+				Price: [CURRENCY][PRICE] ([CURRENCY][PRICE_PER_SQM]/sq.m.).
+			</text>
+			<button bottom="-228" enabled="true" follows="left|top" font="SansSerif"
+			     height="20" label="Sell Land..." label_selected="Sell Land..."
+			     left="428" name="Sell Land..." scale_image="true" use_ellipses="true"
+			     width="150" />
+			<button bottom="-228" enabled="true" follows="left|top" font="SansSerif"
+			     height="20" label="Cancel Land Sale" label_selected="Cancel Land Sale"
+			     left="428" name="Cancel Land Sale" scale_image="true" use_ellipses="true"
+			     width="150" />
+			<text type="string" length="1" bottom="-248" enabled="false" follows="left|top"
+			     font="SansSerifSmall" height="16" left="140" name="SalePending"
+			     use_ellipses="true" width="438" />
+			<text type="string" length="1" bottom="-248" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="140" name="For sale to"
+			     use_ellipses="true" width="438">
+				For sale to: [BUYER]
+			</text>
+			<text type="string" length="1" bottom="-268" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="140"
+			     name="Sell with landowners objects in parcel." use_ellipses="true" width="438">
+				Objects included in sale.
+			</text>
+			<text type="string" length="1" bottom="-268" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="140"
+			     name="Selling with no objects in parcel." use_ellipses="true" width="438">
+				Objects not included in sale.
+			</text>
+			<text type="string" length="1" bottom="-288" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="12" name="Claimed:" use_ellipses="true"
+			     width="120">
+				Claimed:
+			</text>
+			<text type="string" length="1" bottom="-288" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="140" name="DateClaimText"
+			     use_ellipses="true" width="276">
+				Tue Aug 15 13:47:25 2006
+			</text>
+			<text type="string" length="1" bottom="-308" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="12" name="PriceLabel" use_ellipses="true"
+			     width="120">
+				Area:
+			</text>
+			<text type="string" length="1" bottom="-308" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="140" name="PriceText"
+			     use_ellipses="true" width="276">
+				4048 sq.m.
+			</text>
+			<text type="string" length="1" bottom="-328" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="12" name="Traffic:" use_ellipses="true"
+			     width="120">
+				Traffic:
+			</text>
+			<text type="string" length="1" bottom="-328" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="140" name="DwellText"
+			     use_ellipses="true" width="276">
+				0
+			</text>
+			<button bottom="-330" enabled="false" follows="left|top" font="SansSerif"
+			     height="20" label="Linden Sale..." label_selected="Linden Sale..."
+			     left="428" name="Linden Sale..." scale_image="true" use_ellipses="true"
+			     tool_tip="Land must be owned, set content, and not already for auction."
+			     width="150" />
+			<button bottom="-354" enabled="true" follows="left|top" font="SansSerif"
+			     height="22" label="Script Info" left="12" name="Scripts..."
+			     use_ellipses="true" width="140" />
+			<button bottom="-354" enabled="false" follows="left|top" font="SansSerif"
+			     height="22" label="Buy Land..." label_selected="Buy Land..." left="160"
+			     name="Buy Land..." scale_image="true" use_ellipses="true" width="128" />
+			<button bottom="-354" enabled="false" follows="left|top" font="SansSerif"
+			     height="22" label="Buy Pass..." label_selected="Buy Pass..." left="296"
+			     name="Buy Pass..." scale_image="true" use_ellipses="true"
+			     tool_tip="A pass gives you temporary access to this land." width="124" />
+			<button bottom="-354" enabled="true" follows="left|top" font="SansSerif"
+			     height="22" label="Abandon Land..." label_selected="Abandon Land..."
+			     left="428" name="Abandon Land..." scale_image="true" use_ellipses="true"
+			     width="150" />
+			<button bottom="-354" enabled="true" follows="left|top" font="SansSerif"
+			     height="22" label="Reclaim Land..." label_selected="Reclaim Land..."
+			     left="428" name="Reclaim Land..." scale_image="true" use_ellipses="true"
+			     width="150" />
+			<button bottom="-380" enabled="false" follows="left|top" font="SansSerif"
+			     height="22" label="Buy For Group..." label_selected="Buy For Group..."
+			     left="160" name="Buy For Group..." scale_image="true" use_ellipses="true"
+			     width="260" />
+			<string name="new users only">
+				New users only
+			</string>
+			<string name="anyone">
+				Anyone
+			</string>
+			<string name="area_text">
+				Area
+			</string>
+			<string name="area_size_text">
+				[AREA] sq.m.
+			</string>
+			<string name="auction_id_text">
+				Auction ID: [ID]
+			</string>
+			<string name="need_tier_to_modify">
+				You must approve your purchase to modify this land.
+			</string>
+			<string name="group_owned_text">
+				(Group Owned)
+			</string>
+			<string name="public_text">
+				(public)
+			</string>
+			<string name="none_text">
+				(none)
+			</string>
+			<string name="sale_pending_text">
+				(Sale Pending)
+			</string>
+			<string name="no_selection_text">
+			No parcel selected.
+Go to World menu > About Land or select another parcel to show its details.
+			</string>
+		</panel>
+		<panel border="true" enabled="true" follows="left|top|right|bottom"
+		     height="400" label="Covenant" left="0" mouse_opaque="true"
+		     name="land_covenant_panel" width="590">
+			<text type="string" length="1" bottom="-24" enabled="true" follows="left|top"
+			     font="SansSerif" height="20" left="12" name="estate_section_lbl" width="120">
+				Estate:
+			</text>
+			<text type="string" length="1" bottom="-48" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="24" name="estate_name_lbl" width="100">
+				Name:
+			</text>
+			<text type="string" length="1" bottom="-48" enabled="true" follows="left|top|right"
+			     font="SansSerifSmall" height="16" left="128" name="estate_name_text" right="-12">
+				mainland
+			</text>
+			<text type="string" length="1" bottom="-72" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="24" name="estate_owner_lbl" width="100">
+				Owner:
+			</text>
+			<name_box type="string" length="1" bottom="-72" enabled="true" follows="left|top|right"
+			     font="SansSerifSmall" height="16" left="128" name="estate_owner_text" right="-12">
+				(none)
+			</name_box>
+			<text_editor type="string" length="1" bottom="-248" embedded_items="false"
+			     enabled="false" follows="left|top|right" font="SansSerifSmall" height="164"
+			     left="128" max_length="65535" name="covenant_editor" right="-12"
+			     word_wrap="true" spell_check="true">
+				There is no Covenant provided for this Estate.
+			</text_editor>
+			<text type="string" length="1" bottom="-272" enabled="true" follows="left|top|right"
+			     font="SansSerifSmall" height="16" left="128" name="covenant_timestamp_text"
+			     right="-12">
+				Last Modified Wed Dec 31 16:00:00 1969
+			</text>
+			<text type="string" length="1" bottom="-300" enabled="true" follows="left|top"
+			     font="SansSerif" height="20" left="12" name="region_section_lbl" width="120">
+				Region:
+			</text>
+			<text type="string" length="1" bottom="-324" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="24" name="region_name_lbl" width="100">
+				Name:
+			</text>
+			<text type="string" length="1" bottom="-324" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="128" name="region_name_text" width="160">
+				leyla
+			</text>
+			<text type="string" length="1" bottom="-324" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="310" name="region_landtype_lbl" width="50">
+				Type:
+			</text>
+			<text type="string" length="1" bottom="-324" enabled="true" follows="left|top|right"
+			     font="SansSerifSmall" height="16" left="364" name="region_landtype_text" right="-12">
+				Mainland / Homestead
+			</text>
+			<text type="string" length="1" bottom="-348" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="24" name="region_maturity_lbl" width="100">
+				Rating:
+			</text>
+			<text type="string" length="1" bottom="-348" enabled="true" follows="left|top|right"
+			     font="SansSerifSmall" height="16" left="128" name="region_maturity_text" right="-12">
+				Adult
+			</text>
+			<text type="string" length="1" bottom="-372" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="24" name="resellable_lbl" width="100">
+				Resale:
+			</text>
+			<text type="string" length="1" bottom="-372" enabled="true" follows="left|top|right"
+			     font="SansSerifSmall" height="16" left="128" name="resellable_clause" right="-12">
+				Land in this region may not be resold.
+			</text>
+			<text type="string" length="1" bottom="-392" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="24" name="changeable_lbl" width="100">
+				Subdivide:
+			</text>
+			<text type="string" length="1" bottom="-392" enabled="true" follows="left|top|right"
+			     font="SansSerifSmall" height="16" left="128" name="changeable_clause" right="-12">
+				Land in this region may not be joined/subdivided.
+			</text>
+			<string name="can_resell">
+				Purchased land in this region may be resold.
+			</string>
+			<string name="can_not_resell">
+				Purchased land in this region may not be resold.
+			</string>
+			<string name="can_change">
+				Purchased land in this region may be joined or subdivided.
+			</string>
+			<string name="can_not_change">
+				Purchased land in this region may not be joined or subdivided.
+			</string>
+		</panel>
+		<panel border="true" enabled="true" follows="left|top|right|bottom"
+		     height="400" label="Objects" left="0" mouse_opaque="true"
+		     name="land_objects_panel" width="590">
+			<text type="string" length="1" bottom="-20" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="12" name="parcel_object_bonus"
+			     use_ellipses="true" visible="false" width="566">
+				Region Object Bonus Factor: [BONUS]
+			</text>
+			<text type="string" length="1" bottom="-42" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="12" name="Simulator primitive usage:"
+			     use_ellipses="true" width="250">
+				Simulator primitive usage:
+			</text>
+			<text type="string" length="1" bottom="-42" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="268" name="objects_available"
+			     use_ellipses="true" width="310">
+				[COUNT] out of [MAX] ([AVAILABLE] available)
+			</text>
+			<string name="objects_available_text">
+				[COUNT] out of [MAX] ([AVAILABLE] available)
+			</string>
+			<string name="objects_deleted_text">
+				[COUNT] out of [MAX] ([DELETED] will be deleted)
+			</string>
+			<text type="string" length="1" bottom="-64" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="12" name="Primitives parcel supports:"
+			     use_ellipses="true" width="250">
+				Primitives parcel supports:
+			</text>
+			<text type="string" length="1" bottom="-64" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="268" name="object_contrib_text"
+			     width="80">
+				[COUNT]
+			</text>
+			<text type="string" length="1" bottom="-86" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="12" name="Primitives on parcel:"
+			     use_ellipses="true" width="250">
+				Primitives on parcel:
+			</text>
+			<text type="string" length="1" bottom="-86" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="268" name="total_objects_text" width="80">
+				[COUNT]
+			</text>
+			<text type="string" length="1" bottom="-112" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="24" name="Owned by parcel owner:"
+			     use_ellipses="true" width="248">
+				Owned by parcel owner:
+			</text>
+			<text type="string" length="1" bottom="-112" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="276" name="owner_objects_text" width="48">
+				[COUNT]
+			</text>
+			<button bottom="-114" enabled="false" follows="left|top" font="SansSerifSmall"
+			     height="18" label="Show" label_selected="Show" left="360" name="ShowOwner"
+			     scale_image="true" use_ellipses="true" width="80" />
+			<button bottom="-114" enabled="false" follows="left|top" font="SansSerifSmall"
+			     height="18" label="Return..." label_selected="Return..." left="448"
+			     name="ReturnOwner..." scale_image="true" tool_tip="Return objects to their owners."
+			     use_ellipses="true" width="130" />
+			<text type="string" length="1" bottom="-136" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="24" name="Set to group:"
+			     use_ellipses="true" width="248">
+				Set to group:
+			</text>
+			<text type="string" length="1" bottom="-136" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="276" name="group_objects_text" width="48">
+				[COUNT]
+			</text>
+			<button bottom="-138" enabled="false" follows="left|top" font="SansSerifSmall"
+			     height="18" label="Show" label_selected="Show" left="360" name="ShowGroup"
+			     scale_image="true" use_ellipses="true" width="80" />
+			<button bottom="-138" enabled="false" follows="left|top" font="SansSerifSmall"
+			     height="18" label="Return..." label_selected="Return..." left="448"
+			     name="ReturnGroup..." scale_image="true" tool_tip="Return objects to their owners."
+			     use_ellipses="true" width="130" />
+			<text type="string" length="1" bottom="-160" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="24" name="Owned by others:"
+			     use_ellipses="true" width="248">
+				Owned by others:
+			</text>
+			<text type="string" length="1" bottom="-160" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="276" name="other_objects_text" width="48">
+				[COUNT]
+			</text>
+			<button bottom="-162" enabled="false" follows="left|top" font="SansSerifSmall"
+			     height="18" label="Show" label_selected="Show" left="360" name="ShowOther"
+			     scale_image="true" use_ellipses="true" width="80" />
+			<button bottom="-162" enabled="false" follows="left|top" font="SansSerifSmall"
+			     height="18" label="Return..." label_selected="Return..." left="448"
+			     name="ReturnOther..." scale_image="true" tool_tip="Return objects to their owners."
+			     use_ellipses="true" width="130" />
+			<text type="string" length="1" bottom="-184" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="24" name="Selected / sat upon:"
+			     use_ellipses="true" width="248">
+				Selected / sat upon:
+			</text>
+			<text type="string" length="1" bottom="-184" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="276" name="selected_objects_text"
+			     width="48">
+				[COUNT]
+			</text>
+			<text type="string" length="1" bottom="-210" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="12" name="Autoreturn"
+			     use_ellipses="true" width="428">
+				Autoreturn other residents&apos; objects (minutes, 0 for off):
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-212"
+			     enabled="true" follows="left|top" font="SansSerifSmall" height="18"
+			     left="448" max_length="6" name="clean other time"
+			     select_all_on_focus_received="false" select_on_focus="false" width="130" />
+			<text type="string" length="1" bottom="-236" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="12" name="Object Owners:"
+			     use_ellipses="true" width="130">
+				Object Owners:
+			</text>
+			<button bottom="-238" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="20" label="Refresh List" label_selected="Refresh List" left="150"
+			     name="Refresh List" use_ellipses="true" width="150" />
+			<button bottom="-238" enabled="false" follows="left|top" font="SansSerifSmall"
+			     height="20" label="Return objects..." label_selected="Return objects..."
+			     left="310" name="Return objects..." use_ellipses="true" width="268" />
+			<name_list allow_calling_card_drop="false" background_visible="true" bottom="12"
+			     column_padding="0" draw_border="true" draw_heading="true"
+			     draw_stripes="true" enabled="true" follows="left|top|right|bottom"
+			     left="12" mouse_opaque="true" multi_select="true"
+			     name="owner list" name_column_index="2" right="-12" top="-252">
+				<column name="type" label="Type" sort="online_status" width="24" />
+				<column name="online_status" width="-1" />
+				<column name="name" dynamicwidth="true" label="Name" />
+				<column name="count" label="Count" width="70" />
+				<column name="mostrecent" label="Most Recent" width="160" />
+			</name_list>
+		</panel>
+		<panel border="true" enabled="true" follows="left|top|right|bottom"
+		     height="400" label="Options" left="0" mouse_opaque="true"
+		     name="land_options_panel" width="590">
+			<text type="string" length="1" bottom="-22" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="12" name="allow_label" width="270">
+				Allow other residents to:
+			</text>
+			<check_box bottom="-46" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false" label="Edit Terrain" left="24"
+			     name="edit land check" radio_style="false"
+			     tool_tip="If checked, anyone can terraform your land. It is best to leave this unchecked, as you can always edit your own land."
+			     width="250" />
+			<check_box bottom="-70" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false" label="Create Landmarks" left="24"
+			     name="check landmark" radio_style="false" width="250" />
+			<check_box bottom="-94" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false" label="Fly" left="24"
+			     name="check fly" radio_style="false"
+			     tool_tip="If checked, Residents can fly on your land. If unchecked, they can only fly into and over your land."
+			     width="250" />
+			<text type="string" length="1" bottom="-46" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="268" name="allow_label2" width="112">
+				Create Objects:
+			</text>
+			<check_box bottom="-46" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false" label="All Residents" left="382"
+			     name="edit objects check" radio_style="false" width="130" />
+			<check_box bottom="-46" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false" label="Group" left="518"
+			     name="edit group objects check" radio_style="false" width="60" />
+			<text type="string" length="1" bottom="-70" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="268" name="allow_label3" width="112">
+				Object Entry:
+			</text>
+			<check_box bottom="-70" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false" label="All Residents" left="382"
+			     name="all object entry check" radio_style="false" width="130" />
+			<check_box bottom="-70" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false" label="Group" left="518"
+			     name="group object entry check" radio_style="false" width="60" />
+			<text type="string" length="1" bottom="-94" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="268" name="allow_label4" width="112">
+				Run Scripts:
+			</text>
+			<check_box bottom="-94" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false" label="All Residents" left="382"
+			     name="check other scripts" radio_style="false" width="130" />
+			<check_box bottom="-94" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false" label="Group" left="518"
+			     name="check group scripts" radio_style="false" width="60" />
+			<text type="string" length="1" bottom="-122" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="12" name="land_options_label" width="270">
+				Land Options:
+			</text>
+			<check_box bottom="-146" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false" label="Safe (no damage)" left="24"
+			     name="check safe" radio_style="false"
+			     tool_tip="If checked, sets the land to Safe, disabling damage combat. If cleared, damage combat is enabled."
+			     width="250" />
+			<check_box bottom="-146" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false" label="No Pushing" left="286"
+			     name="PushRestrictCheck" radio_style="false"
+			     tool_tip="Prevents scripts from pushing. Checking this option may be useful for preventing disruptive behavior on your land."
+			     width="160" />
+			<check_box bottom="-170" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false"
+			     label="Show Place in Search ([DIRECTORYFEE]) under" left="24"
+			     name="ShowDirectoryCheck" radio_style="false"
+			     tool_tip="Let people see this parcel in search results" width="320" />
+			<string name="search_enabled_tooltip">
+				Let people see this parcel in search results
+			</string>
+			<string name="search_disabled_small_tooltip">
+				This option is disabled because this parcel&apos;s area is 128 sq.m. or smaller.
+Only large parcels can be listed in search.
+			</string>
+			<string name="search_disabled_permissions_tooltip">
+				This option is disabled because you cannot modify this parcel&apos;s options.
+			</string>
+			<combo_box allow_text_entry="false" bottom="-170" enabled="false" follows="left|top"
+			     height="18" left="350" max_chars="20" name="land category with adult"
+			     visible="false" width="190">
+				<combo_item name="AnyCategory" value="any">
+					Any Category
+				</combo_item>
+				<combo_item name="LindenLocation" value="linden">
+					Linden Location
+				</combo_item>
+				<combo_item name="Adult" value="adult">
+					Adult
+				</combo_item>
+				<combo_item name="Arts&amp;Culture" value="arts">
+					Arts and Culture
+				</combo_item>
+				<combo_item name="Business" value="store">
+					Business
+				</combo_item>
+				<combo_item name="Educational" value="educational">
+					Educational
+				</combo_item>
+				<combo_item name="Gaming" value="game">
+					Gaming
+				</combo_item>
+				<combo_item name="Hangout" value="gather">
+					Hangout
+				</combo_item>
+				<combo_item name="NewcomerFriendly" value="newcomer">
+					Newcomer Friendly
+				</combo_item>
+				<combo_item name="Parks&amp;Nature" value="park">
+					Parks and Nature
+				</combo_item>
+				<combo_item name="Residential" value="home">
+					Residential
+				</combo_item>
+				<combo_item name="Shopping" value="shopping">
+					Shopping
+				</combo_item>
+				<combo_item name="Other" value="other">
+					Other
+				</combo_item>
+				<combo_item name="Rental" value="rental">
+					Rental
+				</combo_item>
+			</combo_box>
+			<combo_box allow_text_entry="false" bottom="-170" enabled="false" follows="left|top"
+			     height="18" left="350" max_chars="20" name="land category"
+			     visible="false" width="190">
+				<combo_item name="AnyCategory" value="any">
+					Any Category
+				</combo_item>
+				<combo_item name="LindenLocation" value="linden">
+					Linden Location
+				</combo_item>
+				<combo_item name="Arts&amp;Culture" value="arts">
+					Arts and Culture
+				</combo_item>
+				<combo_item name="Business" value="store">
+					Business
+				</combo_item>
+				<combo_item name="Educational" value="educational">
+					Educational
+				</combo_item>
+				<combo_item name="Gaming" value="game">
+					Gaming
+				</combo_item>
+				<combo_item name="Hangout" value="gather">
+					Hangout
+				</combo_item>
+				<combo_item name="NewcomerFriendly" value="newcomer">
+					Newcomer Friendly
+				</combo_item>
+				<combo_item name="Parks&amp;Nature" value="park">
+					Parks and Nature
+				</combo_item>
+				<combo_item name="Residential" value="home">
+					Residential
+				</combo_item>
+				<combo_item name="Shopping" value="shopping">
+					Shopping
+				</combo_item>
+				<combo_item name="Other" value="other">
+					Other
+				</combo_item>
+				<combo_item name="Rental" value="rental">
+					Rental
+				</combo_item>
+			</combo_box>
+			<button bottom="-170" enabled="true" follows="left|top" font="SansSerif"
+			     height="18" label="?" label_selected="?" left="548" name="?" width="18" />
+			<check_box bottom="-194" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false" label="Mature Content" left="24"
+			     name="MatureCheck" radio_style="false" tool_tip=" " width="160" />
+			<check_box name="GamingCheck" label="This parcel is used for gaming" bottom="-194"
+			     left="286" follows="left|top" height="16" width="280" />
+			<string name="mature_check_mature">
+				Mature Content
+			</string>
+			<string name="mature_check_adult">
+				Adult Content
+			</string>
+			<string name="mature_check_mature_tooltip">
+				Your parcel information or content is considered mature.
+			</string>
+			<string name="mature_check_adult_tooltip">
+				Your parcel information or content is considered adult.
+			</string>
+			<text type="string" length="1" bottom="-222" enabled="true" follows="left|top|right"
+			     font="SansSerifSmall" height="16" left="12" name="allow_label5" right="-12">
+				Allow Residents on other parcels to:
+			</text>
+			<check_box bottom="-246" enabled="false" follows="left|top|right" font="SansSerifSmall"
+			     height="16" initial_value="false"
+			     label="See and chat with residents on this parcel" left="24"
+			     name="SeeAvatarsCheck" radio_style="false" right="-12"
+			     tool_tip="Allows residents on other parcels to see and chat with residents on this parcel, and you to see and chat with them." />
+			<text type="string" length="1" bottom="-274" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="12" name="Snapshot:" width="220">
+				Snapshot:
+			</text>
+			<texture_picker allow_no_texture="true" bottom="-394" can_apply_immediately="false"
+			     default_image_name="" enabled="true" follows="left|top" height="116"
+			     label="" left="12" name="snapshot_ctrl"
+			     tool_tip="Click to choose a picture" width="220" />
+			<text type="string" length="1" bottom="-274" enabled="true" follows="left|top|right"
+			     font="SansSerifSmall" height="16" left="248" name="landing_point" right="-12">
+				Landing Point: [LANDING]
+			</text>
+			<string name="landing_point_none">
+				(none)
+			</string>
+			<button bottom="-298" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="20" label="Set" label_selected="Set" left="248" name="Set"
+			     scale_image="true"
+			     tool_tip="Sets the landing point where visitors arrive. Sets to your avatar&apos;s location inside this parcel."
+			     width="70" />
+			<button bottom="-298" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="20" label="Clear" label_selected="Clear" left="326" name="Clear"
+			     scale_image="true" tool_tip="Clear the landing point." width="70" />
+			<text type="string" length="1" bottom="-328" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="248" name="Teleport Routing: "
+			     width="140">
+				Teleport Routing:
+			</text>
+			<combo_box allow_text_entry="false" bottom="-330" enabled="true" follows="left|top"
+			     height="18" left="390" max_chars="20" name="landing type"
+			     tool_tip="Teleport Routing -- select how to handle teleports onto your land."
+			     width="160">
+				<combo_item type="string" length="1" enabled="true" name="Blocked" value="Blocked">
+					Blocked
+				</combo_item>
+				<combo_item type="string" length="1" enabled="true" name="LandingPoint" value="Landing Point">
+					Landing Point
+				</combo_item>
+				<combo_item type="string" length="1" enabled="true" name="Anywhere" value="Anywhere">
+					Anywhere
+				</combo_item>
+			</combo_box>
+			<string name="push_restrict_text">
+				No Pushing
+			</string>
+			<string name="push_restrict_region_text">
+				No Pushing (Region Override)
+			</string>
+		</panel>
+		<panel border="true" border_visible="true" enabled="true"
+		     follows="left|top|right|bottom" height="400" label="Media" left="0"
+		     mouse_opaque="true" name="land_media_panel" width="590">
+			<text bottom="-28" follows="left|top" font="SansSerifSmall" height="16"
+			     left="12" length="1" name="with media:" type="string" width="90">
+				Type:
+			</text>
+			<combo_box allow_text_entry="false" bottom="-30" follows="left|top" height="18"
+			     left="110" max_chars="20" name="media type"
+			     tool_tip="Specify if the URL is a movie, web page, or other media" width="160" />
+			<text bottom="-28" follows="left|top|right" font="SansSerifSmall" height="16"
+			     left="280" name="mime_type" right="-12" />
+			<text type="string" bottom="-58" follows="left|top" font="SansSerifSmall"
+			     height="16" left="12" length="1" name="at URL:" width="90">
+				Home URL:
+			</text>
+			<line_editor bottom="-58" follows="left|top|right" font="SansSerifSmall"
+			     height="18" left="110" max_length="255" name="media_url" right="-110"
+			     select_all_on_focus_received="true" select_on_focus="true"
+			     text_readonly_color="TextFgReadOnlyColor" />
+			<button bottom="-58" follows="right|top" font="SansSerifSmall" height="18"
+			     label="Set..." label_selected="Set..." name="set_media_url" right="-12"
+			     scale_image="true" width="86" />
+			<text bottom="-88" follows="left|top" font="SansSerifSmall" height="16"
+			     left="12" length="1" name="at URL2:" type="string" width="90">
+				Current URL:
+			</text>
+			<text bottom="-88" follows="left|top|right" font="SansSerifSmall" height="16"
+			     left="110" name="current_url" right="-110" />
+			<button bottom="-88" follows="right|top" font="SansSerifSmall" height="18"
+			     label="Reset..." label_selected="Reset..." name="reset_media_url"
+			     right="-12" scale_image="true" width="86" />
+			<text bottom="-118" follows="left|top" font="SansSerifSmall" height="16"
+			     left="110" length="1" name="media_reset"
+			     tool_tip="Amount of time until parcel automatically reverts to default URL (0 for never return)"
+			     type="string" width="170">
+				Return to Home URL in:
+			</text>
+			<spinner bottom="-118" decimal_digits="0" enabled="false" follows="left|top"
+			     height="18" increment="1" initial_val="0" left="286" max_val="1024"
+			     min_val="0" name="media_reset_time"
+			     tool_tip="Amount of time until parcel reverts to default URL (0 for never return)"
+			     width="70" />
+			<text bottom="-118" follows="left|top" font="SansSerifSmall" height="16"
+			     left="364" length="1" name="minutes" type="string" width="80">
+				minutes
+			</text>
+			<text bottom="-148" follows="left|top" font="SansSerifSmall" height="16"
+			     left="12" length="1" name="Description:" type="string" width="90">
+				Description:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1"
+			     bottom="-148" follows="left|top|right" font="SansSerifSmall" height="18"
+			     left="110" max_length="255" name="url_description" right="-12"
+			     select_all_on_focus_received="true" select_on_focus="true"
+			     tool_tip="Text displayed next to play/load button" />
+			<text bottom="-182" follows="left|top" font="SansSerifSmall" height="16"
+			     left="12" length="1" name="Media texture:" type="string" width="90">
+				Texture:
+			</text>
+			<texture_picker allow_no_texture="true" bottom="-310" can_apply_immediately="false"
+			     default_image_name="Default" follows="left|top" height="120" label=""
+			     left="110" name="media texture" tool_tip="Click to choose a texture"
+			     width="120" />
+			<text type="string" length="1" bottom="-310" follows="left|top|right"
+			     font="SansSerifSmall" height="120" left="246" name="replace_texture_help"
+			     right="-12">
+				Objects using this texture will show the movie or
+web page after you click the play arrow.
+
+Select the thumbnail to choose a different texture.
+			</text>
+			<text bottom="-346" follows="left|top" font="SansSerifSmall" height="16"
+			     left="12" length="1" name="Options:" type="string" width="90">
+				Options:
+			</text>
+			<check_box bottom="-346" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false" label="Loop" left="110"
+			     name="media_loop" radio_style="false"
+			     tool_tip="Play media in a loop.  When the media has finished playing, it will restart from the beginning."
+			     width="160" />
+			<check_box bottom="-346" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false" label="Auto scale" left="286"
+			     name="media_auto_scale" radio_style="false"
+			     tool_tip="Checking this option will scale the content for this parcel automatically. It may be slightly slower and lower quality visually but no other texture scaling or alignment will be required."
+			     width="250" />
+			<text bottom="-380" follows="left|top" font="SansSerifSmall" height="16"
+			     left="12" length="1" name="media_size"
+			     tool_tip="Size to render Web media, leave 0 for default." type="string"
+			     width="90">
+				Media Size:
+			</text>
+			<spinner bottom="-380" decimal_digits="0" enabled="false" follows="left|top"
+			     halign="right" height="18" increment="1" initial_val="0" left="110"
+			     max_val="1024" min_val="0" name="media_size_width"
+			     tool_tip="Width to render Web media, leave 0 for default." width="70" />
+			<spinner bottom="-380" decimal_digits="0" enabled="false" follows="left|top"
+			     halign="right" height="18" increment="1" initial_val="0" left="188"
+			     max_val="1024" min_val="0" name="media_size_height"
+			     tool_tip="Height to render Web media, leave 0 for default." width="70" />
+			<text bottom="-380" follows="left|top" font="SansSerifSmall" height="16"
+			     left="268" length="1" name="pixels" type="string" width="70">
+				pixels
+			</text>
+		</panel>
+		<panel border="true" follows="left|top|right|bottom" height="400" label="Audio"
+		     left="0" name="land_audio_panel" width="590">
+			<text bottom="-32" follows="left|top" height="16" left="12" length="1"
+			     name="MusicURL:" type="string" width="110">
+				Music URL:
+			</text>
+			<line_editor border_style="line" border_thickness="1" bottom="-32"
+			     follows="left|top|right" height="18" left="126" max_length="255"
+			     name="music_url" right="-12" select_on_focus="true" />
+			<text bottom="-80" follows="left|top" height="16" left="12" length="1"
+			     name="Sound:" type="string" width="250">
+				Sound:
+			</text>
+			<check_box bottom="-108" follows="left|top|right" height="16"
+			     label="Restrict gesture and object sounds to this parcel" left="24"
+			     name="check_sound_local" right="-50" />
+			<button bottom="-108" follows="right|top" height="18" label="?"
+			     label_selected="?" name="?" right="-12" width="22" />
+			<text bottom="-160" follows="left|top" height="16" left="12" length="1"
+			     name="Avatar Sounds:" type="string" width="250">
+				Avatar Sounds:
+			</text>
+			<check_box bottom="-188" follows="left|top" height="16" label="Everyone"
+			     left="24" name="all av sound check" width="200" />
+			<check_box bottom="-216" follows="left|top" height="16" label="Group"
+			     left="24" name="group av sound check" width="200" />
+			<text bottom="-160" follows="left|top" height="16" left="300" length="1"
+			     name="Voice:" type="string" width="250">
+				Voice:
+			</text>
+			<radio_group bottom="-300" draw_border="false" enabled="true" follows="left|top"
+			     height="120" left="300" name="parcel_voice_channel" tab_stop="true"
+			     width="270">
+				<radio_item bottom="-28" enabled="true" follows="left|top" height="20"
+				     left="0" length="1" name="Estate"
+				     tool_tip="Use the estate voice channel." type="string" width="250">
+					Estate Channel
+				</radio_item>
+				<radio_item bottom="-60" enabled="true" follows="left|top" height="20"
+				     left="0" length="1" name="Parcel"
+				     tool_tip="Restrict Voice to this parcel." type="string" width="250">
+					Parcel Channel
+				</radio_item>
+				<radio_item bottom="-92" enabled="true" follows="left|top" height="20"
+				     left="0" length="1" name="Disabled"
+				     tool_tip="Disable voice on this parcel." type="string" width="250">
+					Disabled
+				</radio_item>
+			</radio_group>
+		</panel>
+		<panel border="true" enabled="true" follows="left|top|right|bottom"
+		     height="400" label="Access" left="0" mouse_opaque="true"
+		     name="land_access_panel" width="590">
+			<text type="string" length="1" bottom="-24" enabled="true" follows="left|top"
+			     font="SansSerif" height="20" left="12"
+			     name="Limit access to this parcel to:" width="400">
+				Access To This Parcel
+			</text>
+			<check_box bottom="-48" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false" label="Allow Public Access" left="12"
+			     name="public_access" radio_style="false" width="400" />
+			<text type="string" length="1" bottom="-72" enabled="true" follows="left|top"
+			     font="SansSerifSmall" height="16" left="32" name="Only Allow" width="400">
+				Block Access By:
+			</text>
+			<check_box bottom="-96" enabled="true" follows="left|top|right" font="SansSerifSmall"
+			     height="16" initial_value="false"
+			     label="Residents who have not given payment info to Linden Lab"
+			     left="32" name="limit_payment" radio_style="false"
+			     tool_tip="Ban unidentified residents." right="-12" />
+			<check_box bottom="-120" enabled="true" follows="left|top|right" font="SansSerifSmall"
+			     height="16" initial_value="false"
+			     label="Residents who are not age verified adults" left="32"
+			     name="limit_age_verified" radio_style="false"
+			     tool_tip="Ban residents who have not verified their age. See support.secondlife.com for more information."
+			     right="-12" />
+			<string name="estate_override">
+				One or more of these options is set at the estate level
+			</string>
+			<string name="minutes">minutes</string>
+			<string name="1_minute">1 minute</string>
+			<string name="1_second">1 second</string>
+			<string name="seconds">seconds</string>
+			<string name="remaining">remaining</string>
+			<string name="Always">Always</string>
+			<check_box bottom="-144" enabled="true" follows="left|top|right" font="SansSerifSmall"
+			     height="16" initial_value="false" label="Allow Group Access: [GROUP]"
+			     left="12" name="GroupCheck" radio_style="false"
+			     tool_tip="Set group in the General tab." right="-12" />
+			<check_box bottom="-168" enabled="false" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false" label="Sell passes to:" left="12"
+			     name="PassCheck" radio_style="false"
+			     tool_tip="Allows temporary access to this parcel" width="140" />
+			<combo_box allow_text_entry="false" bottom="-168" enabled="true" follows="left|top"
+			     height="18" left="160" max_chars="20" name="pass_combo" width="140">
+				<combo_item name="Anyone" value="anyone">
+					Anyone
+				</combo_item>
+				<combo_item name="Group" value="group">
+					Group
+				</combo_item>
+			</combo_box>
+			<spinner bottom="-192" enabled="false" follows="left|top" height="18"
+			     increment="1" initial_val="10" label="Price in [CURRENCY]:" label_width="140"
+			     left="32" max_val="500" min_val="1" name="PriceSpin" width="220" />
+			<spinner bottom="-216" enabled="false" follows="left|top" height="18"
+			     increment="0.25" initial_val="1" label="Hours of access:" label_width="140"
+			     left="32" max_val="24" min_val="0.01" name="HoursSpin" width="220" />
+			<text bottom="-248" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" left="12" name="AllowedText" width="278">
+				Allowed ([COUNT], max [MAX])
+			</text>
+			<name_list allow_calling_card_drop="false" background_visible="true" bottom="40"
+			     column_padding="0" draw_border="true" draw_heading="true" enabled="true"
+			     follows="left|top|bottom" heading_font="SansSerifSmall" heading_height="16"
+			     height="100" left="12" mouse_opaque="true" multi_select="true"
+			     name="AccessList" name_system="LandManagementNameSystem"
+			     tool_tip="([LISTED] listed, [MAX] max)" width="278" menu_num="0">
+				<column label="Name" name="name" width="180" />
+				<column label="Duration" name="duration" width="90" />
+			</name_list>
+			<button bottom="12" enabled="true" follows="left|bottom" font="SansSerifSmall"
+			     height="20" label="Add..." label_selected="Add..." left="12"
+			     name="add_allowed" scale_image="true" width="130" />
+			<button bottom="12" enabled="true" follows="left|bottom" font="SansSerifSmall"
+			     height="20" label="Remove" label_selected="Remove" left="152"
+			     name="remove_allowed" scale_image="true" width="130" />
+			<text bottom="-248" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" left="300" name="BanCheck" width="278">
+				Banned ([COUNT], max [MAX])
+			</text>
+			<name_list allow_calling_card_drop="false" background_visible="true" bottom="40"
+			     column_padding="0" draw_border="true" draw_heading="true" enabled="true"
+			     follows="left|top|bottom" heading_font="SansSerifSmall" heading_height="16"
+			     height="100" left="300" mouse_opaque="true" multi_select="true"
+			     name="BannedList" name_system="LandManagementNameSystem"
+			     tool_tip="([LISTED] listed, [MAX] max)" width="278" menu_num="0">
+				<column label="Name" name="name" width="180" />
+				<column label="Duration" name="duration" width="90" />
+			</name_list>
+			<button bottom="12" enabled="true" follows="left|bottom" font="SansSerifSmall"
+			     height="20" label="Add..." label_selected="Add..." left="300"
+			     name="add_banned" scale_image="true" width="130" />
+			<button bottom="12" enabled="false" follows="left|bottom" font="SansSerifSmall"
+			     height="20" label="Remove" label_selected="Remove" left="440"
+			     name="remove_banned" scale_image="true" width="130" />
+		</panel>
+	</tab_container>
+</floater>

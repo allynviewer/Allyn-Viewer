@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview lsl text" title="Script: Rotation Script">
+	<panel name="script panel" />
+	<icon name="lock" />
+	<text name="desc txt">Açıklama:</text>
+	<line_editor name="desc" />
+</floater>

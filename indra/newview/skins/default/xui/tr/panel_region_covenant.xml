@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Covenant" label="Sözleşme">
+	<text name="estate_section_lbl">Emlak:</text>
+	<text name="estate_name_lbl">İsim:</text>
+	<text name="estate_name_text">anakara</text>
+	<text name="estate_owner_lbl">Sahibi:</text>
+	<name_box name="estate_owner_text">(yok)</name_box>
+	<text name="estate_cov_lbl">Sözleşme:</text>
+	<text name="covenant_timestamp_text">Son Değiştirilme 31 Aralık Çarşamba 16:00:00 1969</text>
+	<button name="covenant_help" label=""  tool_tip="Yardım"/>
+	<text_editor name="covenant_editor">Bu Mülk için herhangi bir Sözleşme sağlanmamıştır.</text_editor>
+	<button name="reset_covenant" label="Sıfırla" />
+	<text name="covenant_help_text">Sözleşmede yapılan değişiklikler mülkteki tüm parsellerde gösterilecektir.</text>
+	<text name="covenant_instructions">Bu Sitenin Sözleşmesini değiştirmek için bir not kartını sürükleyip bırakın.</text>
+	<text name="region_section_lbl">Bölge:</text>
+	<text name="region_name_lbl">İsim:</text>
+	<text name="region_name_text">leyla</text>
+	<text name="region_landtype_lbl">Tür:</text>
+	<text name="region_landtype_text">Mainland / Homestead</text>
+	<text name="region_maturity_lbl">Değerlendirme:</text>
+	<text name="region_maturity_text">Yetişkin</text>
+	<text name="resellable_lbl">Yeniden satış:</text>
+	<text name="resellable_clause">Bu bölgedeki araziler yeniden satılamaz.</text>
+	<text name="changeable_lbl">Alt bölümlere ayır:</text>
+	<text name="changeable_clause">Bu bölgedeki araziler birleştirilemez/bölünemez.</text>
+	<string name="can_resell">Bu bölgede satın alınan araziler yeniden satılabilir.</string>
+	<string name="can_not_resell">Bu bölgede satın alınan araziler yeniden satılamaz.</string>
+	<string name="can_change">Bu bölgede satın alınan araziler birleştirilebilir veya bölünebilir.</string>
+	<string name="can_not_change">Bu bölgede satın alınan araziler birleştirilemez veya bölünemez.</string>
+</panel>

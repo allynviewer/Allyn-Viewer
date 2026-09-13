@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="top_objects" title="Топ объектов">
+	<string name="top_scripts_title">Топ скриптов</string>
+	<string name="top_scripts_text">[COUNT] скриптов, всего [TIME] мс</string>
+	<string name="scripts_score_label">Время</string>
+	<string name="top_colliders_title">Топ коллизий</string>
+	<string name="top_colliders_text">Топ-[COUNT] объектов с частыми потенциальными столкновениями</string>
+	<string name="colliders_score_label">Очки</string>
+	<string name="none_descriptor">Ничего не найдено.</string>
+	<text name="title_text">Загрузка...</text>
+	<scroll_list name="objects_list">
+		<column name="score" label="Очки" />
+		<column name="name" label="Имя" />
+		<column name="owner" label="Владелец" />
+		<column name="location" label="Место" />
+		<column name="parcel" label="Парцел" />
+		<column name="time" label="Время" />
+		<column name="URLs" label="URL" />
+		<column name="memory" label="Память (КБ)" />
+	</scroll_list>
+	<text name="id_text">ID объекта:</text>
+	<line_editor name="id_editor" />
+	<button name="show_beacon_btn" label="Маяк" />
+	<text name="obj_name_text">Имя объекта:</text>
+	<line_editor name="object_name_editor" />
+	<button name="filter_object_btn" label="Фильтр" />
+	<text name="owner_name_text">Владелец:</text>
+	<line_editor name="owner_name_editor" />
+	<button name="filter_owner_btn" label="Фильтр" />
+	<text name="parcel_name_text">Парцел:</text>
+	<line_editor name="parcel_name_editor" />
+	<button name="filter_parcel_btn" label="Фильтр" />
+	<button name="refresh_btn" label="Обновить" />
+	<button name="return_selected_btn" label="Вернуть выбранные" />
+	<button name="return_all_btn" label="Вернуть все" />
+	<button name="teleport_to_btn" label="Телепорт" />
+	<button name="profile_btn" label="Профиль" />
+	<button name="disable_selected_btn" label="Отключить выбранные" />
+	<button name="disable_all_btn" label="Отключить все" />
+	<button name="estate_kick_btn" label="Кик с эстейта" />
+	<button name="focus_on_btn" label="Фокус" />
+</floater>

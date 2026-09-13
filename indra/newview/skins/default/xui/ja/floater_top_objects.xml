@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="top_objects" title="上位オブジェクト">
+	<string name="top_scripts_title">上位スクリプト</string>
+	<string name="top_scripts_text">[COUNT] 個のスクリプトが合計 [TIME] ms 使用中</string>
+	<string name="scripts_score_label">時間</string>
+	<string name="top_colliders_title">上位コライダー</string>
+	<string name="top_colliders_text">衝突の可能性がある上位 [COUNT] 個のオブジェクト</string>
+	<string name="colliders_score_label">スコア</string>
+	<string name="none_descriptor">見つかりませんでした。</string>
+	<text name="title_text">読み込み中...</text>
+	<scroll_list name="objects_list">
+		<column name="score" label="スコア" />
+		<column name="name" label="名前" />
+		<column name="owner" label="所有者" />
+		<column name="location" label="場所" />
+		<column name="parcel" label="パーセル" />
+		<column name="time" label="時間" />
+		<column name="URLs" label="URL" />
+		<column name="memory" label="メモリ (KB)" />
+	</scroll_list>
+	<text name="id_text">オブジェクトID:</text>
+	<line_editor name="id_editor" />
+	<button name="show_beacon_btn" label="ビーコンを表示" />
+	<text name="obj_name_text">オブジェクト名:</text>
+	<line_editor name="object_name_editor" />
+	<button name="filter_object_btn" label="フィルター" />
+	<text name="owner_name_text">所有者:</text>
+	<line_editor name="owner_name_editor" />
+	<button name="filter_owner_btn" label="フィルター" />
+	<text name="parcel_name_text">パーセル:</text>
+	<line_editor name="parcel_name_editor" />
+	<button name="filter_parcel_btn" label="フィルター" />
+	<button name="refresh_btn" label="更新" />
+	<button name="return_selected_btn" label="選択を返却" />
+	<button name="return_all_btn" label="すべて返却" />
+	<button name="teleport_to_btn" label="テレポート" />
+	<button name="profile_btn" label="プロフィール" />
+	<button name="disable_selected_btn" label="選択を無効化" />
+	<button name="disable_all_btn" label="すべて無効化" />
+	<button name="estate_kick_btn" label="エステートキック" />
+	<button name="focus_on_btn" label="フォーカス" />
+</floater>

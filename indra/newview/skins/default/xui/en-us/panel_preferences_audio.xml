@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="false" height="612" label="Audio &amp; Video" left="0" name="Media panel" width="648">
+	<scroll_container bottom="-612" follows="all" height="612" left="0" name="audio_scroll" opaque="false" width="648">
+		<panel border="false" bottom="-720" follows="top|left" height="720" left="0" name="audio_scroll_inner" width="628">
+	<text bottom="-20" follows="top" font="SansSerifSmall" height="12" left="20" name="muting_text" text_color="LabelSelectedColor">VOLUME</text>
+	<icon bottom="-26" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_vol_rule" width="588"/>
+	<panel border="false" bottom="-200" filename="panel_audio.xml" height="165" label="Volume" left="20" name="Volume Panel" width="260"/>
+
+	<text bottom="-224" follows="top" font="SansSerifSmall" height="12" left="20" name="Media Filtering" text_color="LabelSelectedColor">MEDIA FILTERING</text>
+	<icon bottom="-230" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_filter_rule" width="588"/>
+	<radio_group bottom="-262" control_name="MediaEnableFilter" draw_border="false" follows="top" height="24" left="20" name="filter_group" tab_stop="true" width="580">
+	  <radio_item bottom="0" left="0" name="0" value="0" width="80">Off</radio_item>
+	  <radio_item bottom="0" left="100" name="1" value="1" width="140">Blacklist Only</radio_item>
+	  <radio_item bottom="0" left="260" name="2" value="2" width="100">Prompt</radio_item>
+	</radio_group>
+
+	<text bottom="-300" follows="top" font="SansSerifSmall" height="12" left="20" name="streaming_prefs_text" text_color="LabelSelectedColor">STREAMING</text>
+	<icon bottom="-306" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_stream_rule" width="588"/>
+	<check_box bottom="-332" control_name="AudioStreamingMusic" follows="top" height="16" initial_value="true" label="Play Streaming Music When Available (uses more bandwidth)" left="20" name="streaming_music"/>
+	<check_box bottom="-356" control_name="AudioStreamingMedia" follows="top" height="16" initial_value="true" label="Play Streaming Media When Available (uses more bandwidth)" left="20" name="streaming_video"/>
+	<check_box bottom="-380" control_name="PrimMediaAutoPlayEnable" follows="top" height="16" initial_value="true" label="Automatically play prim media" left="20" name="auto_prim_streaming_video"/>
+	<check_box bottom="-404" control_name="ParcelMediaAutoPlayEnable" follows="top" height="16" initial_value="true" label="Automatically play parcel media" left="20" name="auto_streaming_video"/>
+	<check_box bottom="-428" control_name="MuteWhenMinimized" follows="top" height="16" initial_value="true" label="Mute Audio When Window Minimized" left="20" name="mute_when_minimized"/>
+
+	<text bottom="-464" follows="top" font="SansSerifSmall" height="12" left="20" name="audio_prefs_text" text_color="LabelSelectedColor">AUDIO PREFERENCES</text>
+	<icon bottom="-470" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_audio_rule" width="588"/>
+	<slider bottom="-500" control_name="AudioLevelDoppler" edit_text="true" follows="top" height="16" increment="0.1" initial_val="1" label="Doppler Effect" label_width="180" left="20" max_val="2" min_val="0" name="Doppler Effect" show_text="true" width="500"/>
+	<slider bottom="-528" control_name="AudioLevelRolloff" edit_text="true" follows="top" height="16" increment="0.1" initial_val="1" label="Rolloff Factor (Default)" label_width="180" left="20" max_val="2" min_val="0" name="Rolloff Factor" width="500"/>
+	<slider bottom="-556" control_name="AudioLevelUnderwaterRolloff" edit_text="true" follows="top" height="16" increment="0.1" initial_val="3" label="Rolloff Factor (Underwater)" label_width="180" left="20" max_val="8" min_val="0" name="Underwater Rolloff Factor" width="500"/>
+	<spinner bottom="-588" control_name="UISndMoneyChangeThreshold" decimal_digits="0" follows="top" height="16" increment="10" initial_val="10" label="[CURRENCY] change threshold:" label_width="220" left="20" max_val="10000" min_val="0" name="currency_change_threshold" width="360"/>
+	<spinner bottom="-616" control_name="UISndHealthReductionThreshold" decimal_digits="0" follows="top" height="16" increment="10" initial_val="20" label="Health Change Threshold" label_width="220" left="20" max_val="10000" min_val="0" name="Health Change Threshold" width="360"/>
+		</panel>
+	</scroll_container>
+</panel>

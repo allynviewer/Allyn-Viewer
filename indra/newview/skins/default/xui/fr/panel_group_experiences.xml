@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="experiences_tab" label="Expériences">
+	<string name="help_text">Les expériences associées au groupe sont listées ici, s'il y en a.</string>
+	<text name="panel_header">Expériences du groupe</text>
+</panel>

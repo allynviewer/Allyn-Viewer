@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="beacons" title="İşaretler">
+	<panel name="beacons_panel">
+		<check_box name="always_on" label="Pencereyı kapatırken işaretçileri koruyun" />
+		<check_box name="beacons" label="İşleme İşaretleri" />
+		<check_box name="highlights" label="Render Öne Çıkanlar" />
+		<text name="beacon_width_label">İşaret Genişliği:</text>
+		<slider name="beacon_width" />
+		<check_box name="physical" label="Fiziksel Nesneler" />
+		<check_box name="scripted" label="Komut Dosyalı Nesneler" />
+		<check_box name="touch_only" label="Yalnızca Dokunma Özellikli Komut Dosyalı Nesneler" />
+		<check_box name="sounds" label="Ses Kaynakları" />
+		<check_box name="particles" label="Parçacık Kaynakları" />
+		<check_box name="moapbeacon" label="Medya kaynakları" />
+	</panel>
+</floater>

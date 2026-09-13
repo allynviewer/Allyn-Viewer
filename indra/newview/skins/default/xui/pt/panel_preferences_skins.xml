@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Temas" name="Skins panel">
+	<text name="Skin_txt1">Tema selecionado</text>
+	<combo_box name="custom_skin_combo"/>
+	<text name="Skin_txt2">Autor principal</text>
+	<view_border name="custom_box1"/>
+	<text name="custom_skin_author">autor do tema</text>
+	<text name="Skin_txt3">Autores adicionais</text>
+	<view_border name="custom_box2"/>
+	<text name="custom_skin_ad_authors">autores adicionais do tema</text>
+	<text name="Skin_txt4">Pasta do tema</text>
+	<view_border name="custom_box3"/>
+	<text name="custom_skin_folder">pasta do tema</text>
+	<button image_selected="skin_thumbnail_default.png" image_unselected="skin_thumbnail_default.png" image_hover_selected="skin_thumbnail_default.png" image_hover_unselected="skin_thumbnail_default.png" default_image_name="None" label="" name="custom_skin_preview" tool_tip="Visualização do tema"/>
+	<text name="Skin_txt5">Informações adicionais</text>
+	<text_editor enabled="false" name="custom_skin_info" word_wrap="true"/>
+</panel>

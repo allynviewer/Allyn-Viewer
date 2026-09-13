@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Adv_Settings">
+	<text name="Camera Preset:">Prérégl. cam. :</text>
+	<button name="Rear" tool_tip="Vue arrière"/>
+	<button name="Front" tool_tip="Vue de face"/>
+	<button name="Group" tool_tip="Vue de côté"/>
+	<slider name="DrawDistance" label="Dist. dessin :" tool_tip="Modifier votre distance de dessin"/>
+	<slider name="HoverHeightSlider" label="Haut. vol :"/>
+	<slider name="MaxParticleCount" label="Particules :" tool_tip="Quantité de particules à afficher"/>
+	<slider name="RenderAvatarMaxVisible" label="Max avatars :" tool_tip="Nombre d'avatars à afficher pleinement à l'écran. Le baisser améliore fortement les FPS dans les foules. Nécessite que les imposteurs d'avatars soient activés. [Défaut 35]"/>
+	<slider name="Object Detail" label="Détail obj. :" tool_tip="Contrôle le niveau de détail des primitives (multiplicateur de la surface d'écran actuelle pour le calcul du niveau de détail [0,5 à 2,0 est stable])"/>
+	<button name="PostProcessButton" tool_tip="Effets de post-traitement"/>
+	<combo_box name="PostProcessPresetsCombo" tool_tip="Préréglages de post-traitement"/>
+	<button name="EnvAdvancedSkyButton" tool_tip="Ciel avancé"/>
+	<combo_box name="WLSkyPresetsCombo" tool_tip="Préréglages WindLight pour votre ciel."/>
+	<button name="EnvAdvancedWaterButton" tool_tip="Eau avancée"/>
+	<combo_box name="WLWaterPresetsCombo" tool_tip="Préréglages WindLight pour votre eau."/>
+	<check_box name="use_estate_wl" label="WL région" tool_tip="Utiliser les paramètres WindLight de la région lorsqu'ils sont disponibles."/>
+	<check_box name="Crossfade" label="Fondu ?" tool_tip="Si décoché, les changements de paramètres WindLight du ciel s'appliquent immédiatement, sans transition/animation."/>
+	<button name="expand" tool_tip="Masquer le panneau des paramètres"/>
+</panel>

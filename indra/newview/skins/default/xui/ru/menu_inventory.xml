@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="Popup">
+	<menu_item_call name="Marketplace Create Listing" label="Создать объявление" />
+	<menu_item_call name="Marketplace Associate Listing" label="Связать с объявлением" />
+	<menu_item_call name="Marketplace Get Listing" label="Получить (обновить) объявление" />
+	<menu_item_call name="Marketplace Check Listing" label="Проверить ошибки" />
+	<menu_item_call name="Marketplace Edit Listing" label="Править объявление" />
+	<menu_item_call name="Marketplace List" label="Опубликовать" />
+	<menu_item_call name="Marketplace Unlist" label="Снять с публикации" />
+	<menu_item_call name="Marketplace Activate" label="Активировать" />
+	<menu_item_call name="Marketplace Deactivate" label="Деактивировать" />
+	<menu_item_call name="Marketplace Copy ID" label="Копировать ID объявления" />
+	<menu_item_separator name="Marketplace Listings Separator" />
+	<menu_item_call name="Task Buy" label="Купить" />
+	<menu_item_call name="Task Open" label="Открыть" />
+	<menu_item_call name="Task Play" label="Проиграть" />
+	<menu_item_call name="Task Properties" label="Свойства" />
+	<menu_item_call name="Task Rename" label="Переименовать" />
+	<menu_item_call name="Task Remove" label="Удалить" />
+	<menu_item_call name="Task Reset" label="Сбросить" />
+	<menu_item_call name="Task Set Not Running" label="Остановить" />
+	<menu_item_call name="Task Set Running" label="Запустить" />
+	<menu_item_call name="Empty Trash" label="Очистить корзину" />
+	<menu_item_call name="Empty Lost And Found" label="Очистить «Потерянное»" />
+	<menu_item_call name="Open Folder In New Window" label="Открыть в новом окне" />
+	<menu_item_call name="Copy Folder UUID" label="Копировать UUID папки" />
+	<menu_item_call name="New Folder" label="Новая папка" />
+	<menu_item_call name="New Script" label="Новый скрипт" />
+	<menu_item_call name="New Note" label="Новая ноуткард" />
+	<menu_item_call name="New Gesture" label="Новый жест" />
+	<menu name="New Clothes" label="Новая одежда">
+		<menu_item_call name="New Shirt" label="Новая рубашка" />
+		<menu_item_call name="New Pants" label="Новые брюки" />
+		<menu_item_call name="New Shoes" label="Новая обувь" />
+		<menu_item_call name="New Socks" label="Новые носки" />
+		<menu_item_call name="New Jacket" label="Новая куртка" />
+		<menu_item_call name="New Skirt" label="Новая юбка" />
+		<menu_item_call name="New Gloves" label="Новые перчатки" />
+		<menu_item_call name="New Undershirt" label="Новая майка" />
+		<menu_item_call name="New Underpants" label="Новые трусы" />
+		<menu_item_call name="New Tattoo" label="Новое тату" />
+		<menu_item_call name="New Alpha" label="Новая альфа" />
+		<menu_item_call name="New Universal" label="Новое универсальное" />
+		<menu_item_call name="New Physics" label="Новая физика" />
+	</menu>
+	<menu name="New Body Parts" label="Новые части тела">
+		<menu_item_call name="New Shape" label="Новая форма" />
+		<menu_item_call name="New Skin" label="Новая кожа" />
+		<menu_item_call name="New Hair" label="Новые волосы" />
+		<menu_item_call name="New Eyes" label="Новые глаза" />
+	</menu>
+	<menu_item_call name="Landmark Open" label="Телепортироваться" />
+	<menu_item_call name="Animation Open" label="Открыть" />
+	<menu_item_call name="Sound Open" label="Открыть" />
+	<menu_item_call name="Find Original" label="Найти оригинал" />
+	<menu_item_call name="Purge Item" label="Удалить навсегда" />
+	<menu_item_call name="Restore Item" label="Восстановить" />
+	<menu name="Open With...">
+		<menu_item_call name="Hex Open" label="Шестнадцатеричный редактор" />
+		<menu_item_call name="Open Text" label="Текстовый редактор" />
+		<menu_item_call name="Rez" label="Зарезить объект" />
+	</menu>
+	<menu_item_call name="Open" label="Открыть" />
+	<menu_item_call name="Properties" label="Свойства" />
+	<menu_item_call name="Rename" label="Переименовать" />
+	<menu_item_call name="Copy Asset UUID" label="Копировать UUID ассета" />
+	<menu_item_call name="Acquire Asset ID" label="Получить ID ассета" />
+	<menu_item_separator name="Copy Separator" />
+	<menu_item_call name="Cut" label="Вырезать" />
+	<menu_item_call name="Copy" label="Копировать" />
+	<menu_item_call name="Paste" label="Вставить" />
+	<menu_item_call name="Paste As Copy" label="Вставить как копию" />
+	<menu_item_call name="Paste As Link" label="Вставить как ссылку" />
+	<menu_item_call name="Restore to Last Position" label="Вернуть в мир" />
+	<menu_item_separator name="Paste Separator" />
+	<menu_item_call name="Remove Link" label="Удалить ссылку" />
+	<menu_item_call name="Delete" label="Удалить" />
+	<menu_item_call name="Move to Lost And Found" label="В «Потерянное»" />
+	<menu_item_call name="Delete System Folder" label="Удалить системную папку" />
+	<menu_item_separator name="Folder Wearables Separator" />
+	<menu_item_call name="Wear Items" label="Надеть предметы" />
+	<menu_item_call name="Add To Outfit" label="Добавить к наряду" />
+	<menu_item_call name="Replace Outfit" label="Заменить наряд" />
+	<menu_item_separator name="Replace Remove Separator" />
+	<menu_item_call name="Remove From Outfit" label="Убрать из наряда" />
+	<menu_item_separator name="Outfit Separator" />
+	<menu_item_separator name="Calling Card Separator" />
+	<menu_item_call name="Conference Chat Folder" label="Начать конференцию" />
+	<menu_item_separator name="Sound Separator" />
+	<menu_item_call name="Sound Play" label="Проиграть" />
+	<menu_item_separator name="Landmark Separator" />
+	<menu_item_call name="Teleport To Landmark" label="Телепорт по ландмарку" />
+	<menu_item_call name="Show On Map" label="Показать на карте" />
+	<menu_item_separator name="Animation Separator" />
+	<menu_item_call name="Animation Play" label="Проиграть в мире" />
+	<menu_item_call name="Animation Audition" label="Проиграть локально" />
+	<menu_item_separator name="Send Instant Message Separator" />
+	<menu_item_call name="Web Profile" label="Веб-профиль" />
+	<menu_item_call name="Send Instant Message" label="Отправить IM" />
+	<menu_item_call name="Offer Teleport..." label="Предложить телепорт..." />
+	<menu_item_call name="Request Teleport..." label="Запросить телепорт..." />
+	<menu_item_call name="Conference Chat" label="Начать конференцию" />
+	<menu_item_separator name="Gesture Separator" />
+	<menu_item_call name="Activate" label="Активировать" />
+	<menu_item_call name="Deactivate" label="Деактивировать" />
+	<menu_item_separator name="Texture Separator" />
+	<menu_item_call name="Save As" label="Сохранить как" />
+	<menu_item_separator name="Wearable And Object Separator" />
+	<menu_item_call name="Wearable And Object Wear" label="Надеть" />
+	<menu_item_call name="Wearable Add" label="Надеть поверх" />
+	<menu_item_call name="Wearable Move Forward" label="▲ Вперёд" />
+	<menu_item_call name="Wearable Move Back" label="▼ Назад" />
+	<menu name="Attach To" label="Прикрепить к" />
+	<menu name="Attach To HUD" label="Прикрепить к HUD" />
+	<menu_item_call name="Detach From Yourself" label="Отсоединить от себя" />
+	<menu_item_call name="Wearable Edit" label="Править" />
+	<menu_item_call name="Take Off" label="Снять" />
+	<menu_item_separator name="Marketplace Separator" />
+	<menu_item_call name="Marketplace Copy" label="Копировать в объявления Marketplace" />
+	<menu_item_call name="Marketplace Move" label="Перенести в объявления Marketplace" />
+	<menu_item_call name="Share" label="Поделиться" />
+	<menu_item_call name="--no options--" label="— нет вариантов —" />
+</menu>

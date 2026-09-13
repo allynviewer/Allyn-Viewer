@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Grundbesitz" name="Estate">
+ <text name="estate_help_text">Änderungen auf diesem Reiter gelten für alle Regionen des Grundbesitzes.</text>
+ <text name="estate_text">Grundbesitz:</text>
+ <text name="estate_name">(unbekannt)</text>
+ <text name="owner_text">Grundbesitzer:</text>
+ <name_box name="estate_owner">(unbekannt)</name_box>
+
+ 
+
+ <check_box label="Freien Zugang erlauben" name="externally_visible_check"/>
+ <button label="" name="externally_visible_help" tool_tip="Hilfe"/>
+
+ <check_box label="Voice-Chat erlauben" name="voice_chat_check"/>
+ <button label="" name="voice_chat_help" tool_tip="Hilfe"/>
+
+ <check_box label="Direktteleport zulassen" name="allow_direct_teleport"/>
+ <button label="" name="allow_direct_teleport_help" tool_tip="Hilfe"/>
+ <check_box label="Globale Zeit verwenden" name="use_global_time_check"/>
+ <button label="" name="use_global_time_help" tool_tip="Hilfe"/>
+ <check_box label="Sonne fest" name="fixed_sun_check"/>
+ <button label="" name="fixed_sun_help" tool_tip="Hilfe"/>
+ 
+ <slider label="Phase" name="sun_hour_slider"/>
+ <button label="Anwenden" name="apply_btn"/>
+
+ <text name="Only Allow">Zugang nur für Einwohner, die:</text>
+ <check_box label="Zahlungsdaten hinterlegt haben" name="limit_payment" tool_tip="Einwohner müssen Zahlungsdaten hinterlegt haben, um diesen Grundbesitz zu betreten."/>
+ <check_box label="18 Jahre oder älter sind" name="limit_age_verified" tool_tip="Einwohner müssen mindestens 18 Jahre alt sein. Weitere Infos: support.secondlife.com."/>
+
+ <text name="estate_manager_label">Grundstücksverwalter:</text>
+ <button label="" name="estate_manager_help" tool_tip="Hilfe"/>
+ <text name="allow_resident_label">Zulässige Einwohner:</text>
+ <button label="" name="allow_resident_help" tool_tip="Hilfe"/>
+
+ 
+
+ 
+
+ <button label="Hinzufügen..." name="add_estate_manager_btn"/>
+ <button label="Entfernen..." name="remove_estate_manager_btn"/>
+
+ <button label="Hinzufügen..." name="add_allowed_avatar_btn"/>
+ <button label="Entfernen..." name="remove_allowed_avatar_btn"/>
+
+ <text name="allow_group_label">Zulässige Gruppen:</text>
+ <button label="" name="allow_group_help" tool_tip="Hilfe"/>
+ <text name="ban_resident_label">Verbannte Einwohner:</text>
+ <button label="" name="ban_resident_help" tool_tip="Hilfe"/>
+
+ 
+
+ 
+
+ <button label="Hinzufügen..." name="add_allowed_group_btn"/>
+ <button label="Entfernen..." name="remove_allowed_group_btn"/>
+
+ <button label="Hinzufügen..." name="add_banned_avatar_btn"/>
+ <button label="Entfernen..." name="remove_banned_avatar_btn"/>
+
+ <button label="Nachricht an Grundstück senden..." name="message_estate_btn"/>
+ <button label="Einwohner vom Grundbesitz entfernen..." name="kick_user_from_estate_btn"/>
+
+</panel>

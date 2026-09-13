@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="im_translation_config" title="Chat-Übersetzung">
+	<text name="src_label">Quellsprache:</text>
+	<combo_box name="source_lang" tool_tip="Sprache, in der Sie schreiben (ISO-Code). Freie Eingabe möglich."/>
+	<text name="dst_label">Zielsprache:</text>
+	<combo_box name="target_lang" tool_tip="Sprache, in die eingehende Nachrichten übersetzt werden."/>
+	<check_box name="incoming_check" label="Eingehend übersetzen" tool_tip="Eingehende Nachrichten in diesem Gespräch übersetzen"/>
+	<check_box name="outgoing_check" label="Ausgehend übersetzen" tool_tip="Ausgehende Nachrichten in diesem Gespräch übersetzen"/>
+	<text name="hint">Quelle = Sie sprechen. Ziel = andere sprechen. Das Kontrollkästchen Übersetzung im Chat schaltet die Übersetzung ein oder aus. Einstellungen werden gespeichert.</text>
+	<button name="ok_btn" label="OK"/>
+	<button name="cancel_btn" label="Abbrechen"/>
+</floater>

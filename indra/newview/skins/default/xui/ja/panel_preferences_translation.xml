@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="翻訳" name="translation">
+ <tab_container label="翻訳" name="translation_tabs">
+ <panel label="一般" name="General">
+ <check_box label="AI翻訳を有効にする" name="enable_check"/>
+ <text name="scope_label">適用先:</text>
+ <combo_box name="scope_combo">
+ <combo_item name="im">IMのみ</combo_item>
+ <combo_item name="nearby">近くのチャットのみ</combo_item>
+ <combo_item name="both">両方</combo_item>
+ </combo_box>
+ <check_box label="受信メッセージを翻訳" name="incoming_check"/>
+ <check_box label="送信メッセージを翻訳" name="outgoing_check"/>
+ <text name="src_label">自分の言語:</text>
+ <combo_box name="source_lang" tool_tip="任意の ISO コード (pt, en, ja, ru, zh...)。カスタムコードも入力できます。">
+ <combo_item name="pt">ポルトガル語 (pt)</combo_item>
+ <combo_item name="en">英語 (en)</combo_item>
+ <combo_item name="es">スペイン語 (es)</combo_item>
+ <combo_item name="fr">フランス語 (fr)</combo_item>
+ <combo_item name="de">ドイツ語 (de)</combo_item>
+ <combo_item name="it">イタリア語 (it)</combo_item>
+ <combo_item name="ru">ロシア語 (ru)</combo_item>
+ <combo_item name="ja">日本語 (ja)</combo_item>
+ <combo_item name="ko">韓国語 (ko)</combo_item>
+ <combo_item name="zh">中国語 (zh)</combo_item>
+ <combo_item name="ar">アラビア語 (ar)</combo_item>
+ <combo_item name="nl">オランダ語 (nl)</combo_item>
+ <combo_item name="pl">ポーランド語 (pl)</combo_item>
+ <combo_item name="tr">トルコ語 (tr)</combo_item>
+ <combo_item name="hi">ヒンディー語 (hi)</combo_item>
+ <combo_item name="th">タイ語 (th)</combo_item>
+ <combo_item name="vi">ベトナム語 (vi)</combo_item>
+ <combo_item name="uk">ウクライナ語 (uk)</combo_item>
+ </combo_box>
+ <text name="dst_label">相手の言語:</text>
+ <combo_box name="target_lang" tool_tip="任意の ISO コード。一覧にない言語は自由に入力できます。">
+ <combo_item name="en">英語 (en)</combo_item>
+ <combo_item name="pt">ポルトガル語 (pt)</combo_item>
+ <combo_item name="es">スペイン語 (es)</combo_item>
+ <combo_item name="fr">フランス語 (fr)</combo_item>
+ <combo_item name="de">ドイツ語 (de)</combo_item>
+ <combo_item name="it">イタリア語 (it)</combo_item>
+ <combo_item name="ru">ロシア語 (ru)</combo_item>
+ <combo_item name="ja">日本語 (ja)</combo_item>
+ <combo_item name="ko">韓国語 (ko)</combo_item>
+ <combo_item name="zh">中国語 (zh)</combo_item>
+ <combo_item name="ar">アラビア語 (ar)</combo_item>
+ <combo_item name="nl">オランダ語 (nl)</combo_item>
+ <combo_item name="pl">ポーランド語 (pl)</combo_item>
+ <combo_item name="tr">トルコ語 (tr)</combo_item>
+ <combo_item name="hi">ヒンディー語 (hi)</combo_item>
+ <combo_item name="th">タイ語 (th)</combo_item>
+ <combo_item name="vi">ベトナム語 (vi)</combo_item>
+ <combo_item name="uk">ウクライナ語 (uk)</combo_item>
+ </combo_box>
+ <text name="in_disp_label">受信:</text>
+ <combo_box name="incoming_display">
+ <combo_item name="translation_only">翻訳のみ（原文を非表示）</combo_item>
+ <combo_item name="both">原文と翻訳</combo_item>
+ </combo_box>
+ <text name="out_disp_label">送信:</text>
+ <combo_box name="outgoing_display">
+ <combo_item name="translation_only">翻訳のみ（原文を非表示）</combo_item>
+ <combo_item name="both">原文と翻訳</combo_item>
+ </combo_box>
+ <text name="in_color_label">受信の色:</text>
+ <color_swatch name="incoming_color"/>
+ <text name="out_color_label">送信の色:</text>
+ <color_swatch name="outgoing_color"/>
+ <text name="privacy_tip">自分の言語 / 相手の言語 = 任意の言語（ISO コード: ja, ru, zh...）。&#10;送信: 自分→相手。受信: 相手→自分。&#10;[IA] は受信のみ。既に対象言語の場合は重複行を表示しません。</text>
+ </panel>
+ <panel label="グループ" name="Groups">
+ <check_box label="グループチャットを翻訳" name="groups_enable"/>
+ <text name="group_mode_label">グループ:</text>
+ <combo_box name="group_mode">
+ <combo_item name="all">すべてのマイグループ</combo_item>
+ <combo_item name="selected">下で選択したもののみ</combo_item>
+ </combo_box>
+ <scroll_list name="group_list" tool_tip="Ctrl+クリックで複数のグループを選択（選択モード）">
+ <column label="グループ" name="name"/>
+ </scroll_list>
+ <button label="グループ一覧を更新" name="group_refresh_btn"/>
+ </panel>
+ <panel label="プロバイダー" name="Provider">
+ <text name="provider_label">プロバイダー:</text>
+ <combo_box name="provider_combo">
+ <combo_item name="openai">OpenAI (ChatGPT)</combo_item>
+ <combo_item name="anthropic">Anthropic (Claude)</combo_item>
+ <combo_item name="opencode_zen">OpenCode Zen</combo_item>
+ <combo_item name="openrouter">OpenRouter</combo_item>
+ <combo_item name="custom">カスタム（OpenAI 互換）</combo_item>
+ </combo_box>
+ <text name="key_label">APIキー:</text>
+ <line_editor name="api_key"/>
+ <text name="url_label">ベース URL:</text>
+ <line_editor name="base_url"/>
+ <text name="model_label">モデル:</text>
+ <line_editor name="model"/>
+ <button label="接続をテスト" name="test_btn"/>
+ <text name="status_text">未テスト</text>
+ <text name="provider_tip">APIキーはこのPCのローカル設定にのみ保存されます。&#10;OpenCode Zen: chat/completions（例: mimo-v2.5-free）。&#10;OpenRouter: https://openrouter.ai/api/v1（例: minimax/minimax-m3:free）。</text>
+ </panel>
+ </tab_container>
+</panel>

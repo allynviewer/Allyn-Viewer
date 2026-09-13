@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Anim Preview" title="Carica animazione raw">
+	<text name="name_label">Nome:</text>
+	<text name="description_label">Descrizione:</text>
+	<button name="ok_btn" label="Carica ([UPLOADFEE])"/>
+	<button name="cancel_btn" label="Annulla" label_selected="Annulla"/>
+</floater>

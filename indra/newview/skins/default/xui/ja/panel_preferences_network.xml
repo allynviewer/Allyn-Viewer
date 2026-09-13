@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="network" label="ネットワーク">
+	<scroll_container name="network_scroll">
+		<panel name="network_scroll_inner">
+			<text name="section_bw">帯域幅</text>
+			<icon name="section_bw_rule" />
+			<text name="text_box">最大帯域幅:</text>
+			<slider name="max_bandwidth" />
+			<text name="text_box2">kbps</text>
+			<text name="text_box3">テクスチャ帯域幅:</text>
+			<slider name="tex_bandwidth" />
+			<text name="text_box4">kbps</text>
+			<text name="use_http_for">HTTPを使用:</text>
+			<check_box name="http_textures" label="テクスチャ" />
+			<check_box name="http_inventory" label="インベントリ" />
+			<text name="section_cache">ディスクキャッシュ</text>
+			<icon name="section_cache_rule" />
+			<text name="cache_size_label_l">ディスクキャッシュサイズ:</text>
+			<slider name="cache_size" />
+			<text name="text_box5">MB</text>
+			<button name="clear_cache" label="キャッシュをクリア" />
+			<text name="cache_location_label">ディスクキャッシュの場所:</text>
+			<line_editor name="cache_location" />
+			<button name="set_cache" label="設定" />
+			<button name="reset_cache" label="リセット" />
+			<text name="connection_section">接続</text>
+			<icon name="section_conn_rule" />
+			<check_box name="connection_port_enabled" label="カスタムポートで接続" />
+			<spinner name="connection_port" label="ポート番号:" />
+			<text name="socks5_auth_label">HTTPプロキシ:</text>
+			<icon name="section_proxy_rule" />
+			<radio_group name="socks5_http_proxy_type">
+				<radio_item name="None" tool_tip="HTTPプロキシなし">なし</radio_item>
+				<radio_item name="Socks" tool_tip="HTTPプロキシにSOCKSを使用">SOCKS</radio_item>
+				<radio_item name="Web" tool_tip="HTTPプロキシにWebプロキシを使用">Web</radio_item>
+			</radio_group>
+			<check_box name="socks5_proxy_enabled" label="SOCKS 5プロキシを有効にする" />
+			<text name="socks5_host_label">SOCKS5ホスト:</text>
+			<line_editor name="socks5_proxy_host" tool_tip="使用するSOCKS5プロキシの名前またはIPアドレス" />
+			<spinner name="socks5_proxy_port" label="ポート番号:" />
+			<text name="socks5_auth_label2">SOCKS5認証:</text>
+			<radio_group name="socks5_auth">
+				<radio_item name="None" tool_tip="認証なし">なし</radio_item>
+				<radio_item name="UserPass" tool_tip="ユーザー名／パスワード認証">ユーザー名／パスワード</radio_item>
+			</radio_group>
+			<text name="socks5_username_label">ユーザー名:</text>
+			<line_editor name="socks5_proxy_username" tool_tip="SOCKS5プロキシのユーザー名" />
+			<text name="socks5_password_label">パスワード:</text>
+			<line_editor name="socks5_proxy_password" tool_tip="SOCKS5プロキシのパスワード" />
+		</panel>
+	</scroll_container>
+</panel>

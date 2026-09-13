@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Animation Preview">
+	<text name="name_label">Имя:</text>
+	<line_editor name="name_form" />
+	<text name="description_label">Описание:</text>
+	<line_editor name="description_form" />
+	<spinner name="priority" label="Приоритет" tool_tip="Управляет тем, какие другие анимации могут быть переопределены этой анимацией." />
+	<check_box name="loop_check" label="Петля" tool_tip="Делает этот цикл анимации." />
+	<spinner name="loop_in_point" label="В(%)" tool_tip="Устанавливает точку в анимации, к которой возвращается цикл." />
+	<spinner name="loop_out_point" label="Вне(%)" tool_tip="Устанавливает точку в анимации, завершающую цикл." />
+	<text name="hand_label">Поза руки</text>
+	<combo_box name="hand_pose_combo" tool_tip="Управляет действиями рук во время анимации.">
+		<combo_item name="Spread">Распространение</combo_item>
+		<combo_item name="Relaxed">Расслабленный</combo_item>
+		<combo_item name="PointBoth">Точка Оба</combo_item>
+		<combo_item name="Fist">Кулак</combo_item>
+		<combo_item name="RelaxedLeft">Расслабленный левый</combo_item>
+		<combo_item name="PointLeft">Точка слева</combo_item>
+		<combo_item name="FistLeft">Кулак слева</combo_item>
+		<combo_item name="RelaxedRight">Расслабленное правое</combo_item>
+		<combo_item name="PointRight">Точка вправо</combo_item>
+		<combo_item name="FistRight">Кулак вправо</combo_item>
+		<combo_item name="SaluteRight">Салют прямо</combo_item>
+		<combo_item name="Typing">Ввод текста</combo_item>
+		<combo_item name="PeaceRight">Право на мир</combo_item>
+	</combo_box>
+	<text name="emote_label">Выражение</text>
+	<combo_box name="emote_combo" tool_tip="Управляет действиями лица во время анимации.">
+		<combo_item name="[None]">[None]</combo_item>
+		<combo_item name="Aaaaah">Aaaaah</combo_item>
+		<combo_item name="Afraid">Испуганный</combo_item>
+		<combo_item name="Angry">Злой</combo_item>
+		<combo_item name="BigSmile">Большая улыбка</combo_item>
+		<combo_item name="Bored">Скучающий</combo_item>
+		<combo_item name="Cry">Плакать</combo_item>
+		<combo_item name="Disdain">Презрение</combo_item>
+		<combo_item name="Embarrassed">Смущенный</combo_item>
+		<combo_item name="Frown">Хмуриться</combo_item>
+		<combo_item name="Kiss">Целовать</combo_item>
+		<combo_item name="Laugh">Смех</combo_item>
+		<combo_item name="Plllppt">Пллпппт</combo_item>
+		<combo_item name="Repulsed">Отбитый</combo_item>
+		<combo_item name="Sad">Грустно</combo_item>
+		<combo_item name="Shrug">Пожать плечами</combo_item>
+		<combo_item name="Smile">Улыбка</combo_item>
+		<combo_item name="Surprise">Сюрприз</combo_item>
+		<combo_item name="Wink">Подмигивание</combo_item>
+		<combo_item name="Worry">Волноваться</combo_item>
+	</combo_box>
+	<text name="preview_label">Предварительный просмотр во время</text>
+	<combo_box name="preview_base_anim" tool_tip="Используйте это, чтобы проверить поведение анимации, пока ваш аватар выполняет стандартные действия.">
+		<combo_item name="Standing">Стоя</combo_item>
+		<combo_item name="Walking">Прогулка</combo_item>
+		<combo_item name="Sitting">Сидя</combo_item>
+		<combo_item name="Flying">Летающий</combo_item>
+	</combo_box>
+	<spinner name="ease_in_time" label="Легкость входа (сек)" tool_tip="Время (в секундах), в течение которого анимация смешивается." />
+	<spinner name="ease_out_time" label="Легкость (сек.)" tool_tip="Время (в секундах), в течение которого анимация смешивается." />
+	<button name="play_btn" tool_tip="Воспроизведите/приостановите анимацию." />
+	<button name="stop_btn" tool_tip="Остановить воспроизведение анимации" />
+	<slider name="playback_slider" />
+	<text name="bad_animation_text">
+		Невозможно прочитать файл анимации.
+
+Мы рекомендуем файлы BVH, экспортированные из Poser 4.
+	</text>
+	<button name="cancel_btn" label="Отмена" />
+	<button name="ok_btn" label="Загрузить ([UPLOADFEE])" />
+	<string name="failed_to_initialize">Не удалось инициализировать движение</string>
+	<string name="anim_too_long">
+		Длина файла анимации составляет [LENGTH] секунд.
+
+Максимальная продолжительность анимации — [MAX_LENGTH] секунд.
+	</string>
+	<string name="failed_file_read">
+		Невозможно прочитать файл анимации.
+
+[STATUS]
+	</string>
+	<string name="in_world">Предварительный просмотр анимации воспроизводится на вашем аватаре.</string>
+</floater>

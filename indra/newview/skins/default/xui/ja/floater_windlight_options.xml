@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="WindLight floater" title="高度な空エディター">
+	<text name="KeyFramePresetsText">空のプリセット:</text>
+	<button name="WLNewPreset" label="新規" label_selected="新規" />
+	<button name="WLSavePreset" label="保存" label_selected="保存" />
+	<button name="WLDeletePreset" label="削除" label_selected="削除" />
+	<button name="WLDayCycleMenuButton" label="日周期エディター" label_selected="日周期エディター" />
+	<tab_container name="WindLight Tabs">
+		<panel name="Atmosphere" label="大気">
+			<text name="BHText">青の地平線</text>
+			<text name="BDensText">地平線の霞</text>
+			<text name="BDensText2">青の密度</text>
+			<text name="HDText">霞の密度</text>
+			<text name="DensMultText">密度乗数</text>
+			<text name="WLDistanceMultText">距離乗数</text>
+			<text name="MaxAltText">最大高度</text>
+		</panel>
+		<panel name="Lighting" label="ライティング">
+			<text name="SLCText">太陽/月の色</text>
+			<text name="TODText">太陽/月の位置</text>
+			<text name="WLAmbientText">環境光</text>
+			<text name="WLEastAngleText">東の角度</text>
+			<text name="SunGlowText">太陽の輝き</text>
+			<slider name="WLGlowB" label="焦点" />
+			<slider name="WLGlowR" label="サイズ" />
+			<text name="SceneGammaText">シーンガンマ</text>
+			<text name="WLStarText">星の明るさ</text>
+		</panel>
+		<panel name="Clouds" label="雲">
+			<text name="WLCloudColorText">雲の色</text>
+			<text name="WLCloudColorText2">雲のXY/密度</text>
+			<text name="WLCloudCoverageText">雲の被覆</text>
+			<text name="WLCloudScaleText">雲のスケール</text>
+			<text name="WLCloudDetailText">雲の詳細 (XY/密度)</text>
+			<text name="WLCloudScrollXText">雲のスクロール X</text>
+			<check_box name="WLCloudLockX" label="ロック" />
+			<text name="WLCloudScrollYText">雲のスクロール Y</text>
+			<check_box name="WLCloudLockY" label="ロック" />
+			<check_box name="DrawClassicClouds" label="クラシックな雲" />
+			<text name="cloud_settings_title">テクスチャ</text>
+			<combo_box name="cloud_settings_preset_combo">
+				<combo_box.item name="altocumulus_cloud" label="高積雲" />
+				<combo_box.item name="cumulonimbus_cloud" label="積乱雲" />
+				<combo_box.item name="default_cloud" label="デフォルト" />
+				<combo_box.item name="layered_cloud" label="層状" />
+			</combo_box>
+		</panel>
+	</tab_container>
+</floater>

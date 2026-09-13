@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<teleport_messages>
+	<message_set name="errors">
+		<message name="invalid_tport">
+			Не удалось обработать запрос телепорта. Возможно, нужно выйти и войти снова. Если сообщение повторяется, см. FAQ поддержки:
+www.secondlife.com/support
+		</message>
+		<message name="invalid_region_handoff">
+			Не удалось обработать переход между регионами. Возможно, нужно выйти и войти снова. Если сообщение повторяется, см. FAQ поддержки:
+www.secondlife.com/support
+		</message>
+		<message name="blocked_tport">
+			Телепорт сейчас заблокирован. Попробуйте через минуту.
+Если снова не получится, выйдите и войдите заново.
+		</message>
+		<message name="nolandmark_tport">Не удалось найти ландмарк.</message>
+		<message name="timeout_tport">
+			Не удалось завершить соединение телепорта.
+Попробуйте через минуту.
+		</message>
+		<message name="noaccess_tport">Нет доступа к этому пункту телепорта.</message>
+		<message name="missing_attach_tport">
+			Вложения ещё не загрузились. Подождите несколько секунд или выйдите и войдите снова, прежде чем телепортироваться.
+		</message>
+		<message name="too_many_uploads_tport">
+			Очередь ассетов в этом регионе перегружена, поэтому телепорт не успеет пройти. Попробуйте через несколько минут или перейдите в менее загруженное место.
+		</message>
+		<message name="expired_tport">
+			Не удалось вовремя выполнить телепорт. Попробуйте через несколько минут.
+		</message>
+		<message name="expired_region_handoff">
+			Не удалось вовремя завершить переход между регионами. Попробуйте через несколько минут.
+		</message>
+		<message name="no_host">
+			Не найден пункт назначения телепорта. Он может быть временно недоступен или больше не существует. Попробуйте через несколько минут.
+		</message>
+		<message name="no_inventory_host">Система инвентаря сейчас недоступна.</message>
+	</message_set>
+	<message_set name="progress">
+		<message name="sending_dest">Отправка в пункт назначения.</message>
+		<message name="redirecting">Перенаправление в другое место.</message>
+		<message name="relaying">Передача в пункт назначения.</message>
+		<message name="sending_home">Запрос домашней точки.</message>
+		<message name="sending_landmark">Запрос точки ландмарка.</message>
+		<message name="completing">Завершение телепорта.</message>
+		<message name="resolving">Определение пункта назначения.</message>
+		<message name="contacting">Связь с новым регионом.</message>
+		<message name="arriving">Прибытие...</message>
+		<message name="requesting">Запрос телепорта...</message>
+	</message_set>
+</teleport_messages>

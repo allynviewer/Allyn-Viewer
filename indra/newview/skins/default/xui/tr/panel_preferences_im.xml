@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="im" label="İletişim">
+	<text name="text_box">Çevrimiçi Durumum:</text>
+	<check_box name="online_visibility" label="Çevrimiçi olduğumu yalnızca Arkadaşlarım ve Gruplarım görebilir" />
+	<text name="text_box2">Sohbet Seçenekleri:</text>
+	<string name="log_in_to_change">değiştirmek için giriş yapın</string>
+	<string name="email_unverified_tooltip">IM'nin E-postaya gönderilmesini etkinleştirmek için lütfen e-postanızı doğrulayın. Bunu ızgaranın web sitesinde yapabilirsiniz.</string>
+	<check_box name="send_im_to_email" label="Anlık Mesajı E-postaya Gönder ([EMAIL])" />
+	<check_box name="include_im_in_chat_console" label="IM'yi sohbet konsoluna dahil et" />
+	<check_box name="show_timestamps_check" label="IM'de zaman damgalarını göster" />
+	<check_box name="friends_online_notify_checkbox" label="Çevrimiçi Arkadaş bildirimlerini göster" />
+	<text name="conference_block_text">Gelen konferanslar:</text>
+	<radio_group name="block_conferences_radio">
+		<radio_item name="accept">Kabul et</radio_item>
+		<radio_item name="friends only">Yalnızca Arkadaşlar</radio_item>
+		<radio_item name="block">Blok</radio_item>
+	</radio_group>
+	<text name="text_box4">Günlüğe Kaydetme Seçenekleri:</text>
+	<check_box name="log_instant_messages" label="Bilgisayarıma bir anlık mesajlaşma günlüğü kaydet" />
+	<check_box name="log_instant_messages_timestamp" label="Sohbet günlüğünde zaman damgalarını göster" />
+	<check_box name="log_show_history" label="Son anlık mesajlaşma görüşmesinin sonunu göster" />
+	<check_box name="log_chat" label="Yerel Sohbet günlüğünü bilgisayarıma kaydet" />
+	<check_box name="log_chat_timestamp" label="Yerel Sohbet günlüğünde zaman damgalarını göster" />
+	<check_box name="log_chat_IM" label="Gelen anlık iletiyi Yerel Sohbet günlüğünde göster" />
+	<check_box name="log_date_timestamp" label="Zaman damgalarıyla tarihi dahil et" />
+	<check_box name="logfile_name_datestamp" label="Günlük dosya adına tarih ekleyin" />
+	<button name="log_path_button" label="Yolu Değiştir" />
+	<line_editor name="log_path_string" />
+</panel>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="navigation_bar">
+	<button name="back_btn" tool_tip="Вернуться в предыдущую локацию"/>
+	<button name="forward_btn" tool_tip="Идти вперед на одну локацию"/>
+	<button name="home_btn" tool_tip="Телепортироваться домой"/>
+	<button name="About_Land" label="Земля" tool_tip="Открывает окно информации об участке"/>
+	<button name="PersonalLighting" label="Свет" tool_tip="Открывает окно личного освещения"/>
+	<combo_box name="location_combo" label="Локация"
+	     tool_tip="Текущая локация. Введите регион или SLURL и нажмите Enter для телепорта."/>
+	<button name="add_landmark_btn" tool_tip="Создать закладку здесь"/>
+	<line_editor name="search_editor" label="Поиск" tool_tip="Поиск"/>
+	<button name="search_btn" tool_tip="Поиск"/>
+</panel>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="invite_panel" label="Üye Davet Et">
+	<text name="help_text">
+		Birden fazla sakin seçebilirsiniz 
+grubunuza davet edin. 'Aç'ı tıklayın 
+Sakin Seçici'yi başlatın.
+	</text>
+	<button name="add_button" label="Sakin Seçiciyi Aç" />
+	<name_list name="invitee_list" tool_tip="Çoklu seçim için Ctrl tuşunu basılı tutun ve yerleşik adlara tıklayın." />
+	<button name="remove_button" label="Seçileni Listeden Kaldır" tool_tip="Yukarıda seçilen sakinleri davet listesinden çıkarır." />
+	<text name="role_text">Onlara hangi Rolün atanacağını seçin:</text>
+	<combo_box name="role_name" tool_tip="Üye atamanıza izin verilen Roller listesinden seçim yapın." />
+	<button name="invite_button" label="Davetiye Gönder" />
+	<button name="cancel_button" label="İptal" />
+	<string name="confirm_invite_owner_str">Yeni sahip(ler)i davet etmek istediğinizden emin misiniz? Bu eylem kalıcıdır!</string>
+	<string name="already_in_group">Seçtiğiniz sakinlerden bazıları zaten grupta yer aldığından onlara davetiye gönderilmedi.</string>
+	<string name="invite_selection_too_large">Grup Davetiyeleri gönderilemedi: çok fazla Sakin seçildi. Grup Davetiyeleri istek başına 100 ile sınırlıdır.</string>
+	<string name="loading">(yükleniyor...)</string>
+</panel>

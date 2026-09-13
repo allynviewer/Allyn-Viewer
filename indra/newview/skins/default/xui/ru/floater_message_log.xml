@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Message Log" title="Журнал сообщений">
+	<scroll_list name="net_list">
+		<column name="text" label="текст" />
+		<column name="icon0" label="icon0" />
+		<column name="icon1" label="icon1" />
+	</scroll_list>
+	<button name="filter_choice_btn" label="…" />
+	<line_editor name="filter_edit" />
+	<button name="filter_apply_btn" label="✔" />
+	<button name="clear_log_btn" label="C" />
+	<scroll_list name="message_log">
+		<column name="sequence" label="последовательность" />
+		<column name="type" label="тип" />
+		<column name="direction" label="направление" />
+		<column name="net" label="сеть" />
+		<column name="name" label="имя" />
+		<column name="summary" label="краткое содержание" />
+	</scroll_list>
+	<text name="log_status_text" />
+	<text_editor name="net_info" />
+</floater>

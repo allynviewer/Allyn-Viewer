@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="panel_voice_effect">
+	<string name="no_voice_effect">Distorsione voce disattiva</string>
+	<string name="preview_voice_effects">Anteprima distorsione voce ▶</string>
+	<string name="get_voice_effects">Ottieni distorsione voce ▶</string>
+	<combo_box name="voice_effect" tool_tip="Seleziona una distorsione voce per cambiare la tua voce">
+		<combo_item name="no_voice_effect" label="Distorsione voce disattiva"/>
+	</combo_box>
+</panel>

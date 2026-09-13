@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="associate listing" title="Angebot verknüpfen">
+	<text name="message">Angebots-ID:</text>
+	<line_editor name="listing_id">ID-Nummer hier eingeben</line_editor>
+	<button name="OK" label="OK"/>
+	<button name="Cancel" label="Abbrechen"/>
+</floater>

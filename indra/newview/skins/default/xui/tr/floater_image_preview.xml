@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Image Preview">
+	<text name="name_label">Ad:</text>
+	<line_editor name="name_form" />
+	<text name="description_label">Açıklama:</text>
+	<line_editor name="description_form" />
+	<text name="preview_label">Önizleme:</text>
+	<combo_box name="clothing_type_combo" label="Giysi türü">
+		<combo_item name="Image">Resim</combo_item>
+		<combo_item name="Hair">Saç</combo_item>
+		<combo_item name="FemaleHead">Kadın baş</combo_item>
+		<combo_item name="FemaleUpperBody">Kadın üst gövde</combo_item>
+		<combo_item name="FemaleLowerBody">Kadın alt gövde</combo_item>
+		<combo_item name="MaleHead">Erkek baş</combo_item>
+		<combo_item name="MaleUpperBody">Erkek üst gövde</combo_item>
+		<combo_item name="MaleLowerBody">Erkek alt gövde</combo_item>
+		<combo_item name="Skirt">Etek</combo_item>
+		<combo_item name="SculptedPrim">Sculpt prim</combo_item>
+	</combo_box>
+	<text name="bad_image_text">
+		Resim okunamadı.
+
+Görüntüyü 24 bit Targa (.tga) olarak kaydetmeyi dene.
+	</text>
+	<check_box name="lossless_check" label="Kayıpsız sıkıştırma" />
+	<check_box name="temp_check" label="Geçici (ücretsiz)" tool_tip="Varlık ücretsiz olur ama kısa süre sonra silinir." />
+	<button name="cancel_btn" label="İptal" />
+	<button name="ok_btn" label="Yükle ([UPLOADFEE])" />
+</floater>

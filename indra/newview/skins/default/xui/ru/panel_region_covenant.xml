@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Covenant" label="Завет">
+	<text name="estate_section_lbl">Имущество:</text>
+	<text name="estate_name_lbl">Имя:</text>
+	<text name="estate_name_text">материк</text>
+	<text name="estate_owner_lbl">Владелец:</text>
+	<name_box name="estate_owner_text">(никто)</name_box>
+	<text name="estate_cov_lbl">Завет:</text>
+	<text name="covenant_timestamp_text">Последнее изменение: среда, 31 декабря, 16:00:00, 1969 г.</text>
+	<button name="covenant_help" label=""  tool_tip="Справка"/>
+	<text_editor name="covenant_editor">Для этого эстейта не предусмотрено никакого Соглашения.</text_editor>
+	<button name="reset_covenant" label="Перезагрузить" />
+	<text name="covenant_help_text">Изменения в соглашении отразятся на всех участках эстейта.</text>
+	<text name="covenant_instructions">Перетащите карточку с заметками, чтобы изменить Ковенант для этого эстейта.</text>
+	<text name="region_section_lbl">Область:</text>
+	<text name="region_name_lbl">Имя:</text>
+	<text name="region_name_text">leyla</text>
+	<text name="region_landtype_lbl">Тип:</text>
+	<text name="region_landtype_text">Mainland / Homestead</text>
+	<text name="region_maturity_lbl">Рейтинг:</text>
+	<text name="region_maturity_text">Взрослый</text>
+	<text name="resellable_lbl">Перепродажа:</text>
+	<text name="resellable_clause">Земля в этом регионе не подлежит перепродаже.</text>
+	<text name="changeable_lbl">Разделить:</text>
+	<text name="changeable_clause">Земли в этом регионе не могут быть объединены/разделены.</text>
+	<string name="can_resell">Купленная земля в этом регионе может быть перепродана.</string>
+	<string name="can_not_resell">Купленная земля в этом регионе не подлежит перепродаже.</string>
+	<string name="can_change">Купленные земли в этом регионе могут быть объединены или разделены.</string>
+	<string name="can_not_change">Купленная земля в этом регионе не может быть объединена или разделена.</string>
+</panel>

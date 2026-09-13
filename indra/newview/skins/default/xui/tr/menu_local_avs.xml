@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="Local Avs Menu">
+	<menu_item_call name="Profile" label="Profil" />
+	<menu name="Avatar" label="Avatar">
+		<menu_item_call name="Web Profile" label="Web Profili" />
+		<menu_item_call name="Pay" label="Ödeme" />
+		<menu_item_call name="Instant Message" label="Anlık Mesaj" />
+		<menu_item_call name="Conference Chat" label="Konferans Sohbeti" />
+		<menu_item_call name="Call" label="Ara" />
+		<menu_item_call name="Conference Call" label="Konferans Görüşmesi" />
+		<menu_item_call name="Add Friend" label="Arkadaş Ekle" />
+		<menu_item_call name="Remove Friend" label="Arkadaşı Kaldır" />
+		<menu_item_call name="Invite To Group" label="Gruba Davet Et" />
+		<menu_item_call name="Follow" label="Takip et" />
+		<menu_item_call name="Move To" label="Şuraya Taşı" />
+		<menu_item_call name="Offer Teleport" label="Teleport teklifi" />
+		<menu_item_call name="Teleport To" label="Işınlan" />
+		<menu_item_call name="Request Teleport" label="Teleport isteği" />
+		<menu_item_call name="Find on Map" label="Haritada Bul" />
+		<menu_item_call name="Share" label="Paylaş" />
+		<menu_item_call name="Chat History" label="Sohbet Geçmişi" />
+		<menu_item_call name="Track/Untrack" label="Takip Et/İzlemeyi Kaldır" />
+		<menu_item_call name="Copy Key" label="Anahtarı Kopyala" />
+		<menu_item_call name="Copy Names" label="Adları Kopyala" />
+		<menu_item_call name="Copy SLURL" label="SLURL kopyala" />
+	</menu>
+	<menu_item_call name="Focus" label="Odak" />
+	<menu name="Moderation" label="Moderasyon">
+		<menu_item_call name="Mute/Unmute" label="Sesi Kapat/Sesi Aç" />
+		<menu_item_call name="Ban From Group" label="Gruptan Yasaklama" />
+		<menu_item_call name="Report Abuse" label="Kötüye Kullanımı Bildir" />
+		<menu_item_call name="Freeze" label="Dondur" />
+		<menu_item_call name="Eject/Ban from Parcel" label="Paketten Çıkarma/Yasaklama" />
+		<menu_item_call name="Eject from estate" label="Malikaneden çıkarma" />
+		<menu_item_call name="Eject and ban from estate" label="Mülkten çıkarma ve yasaklama" />
+	</menu>
+</menu>

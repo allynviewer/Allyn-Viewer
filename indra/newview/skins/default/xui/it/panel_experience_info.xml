@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="panel_experience_info">
+	<scroll_container name="xp_scroll">
+		<panel name="scrolling_panel">
+			<layout_stack>
+				<layout_panel name="location panel">
+					<text name="Location">Posizione:</text>
+					<text name="LocationTextText">da qualche parte</text>
+					<button name="teleport_btn" label="Teleport"/>
+					<button name="map_btn" label="Mappa"/>
+				</layout_panel>
+				<layout_panel name="marketplace panel">
+					<text name="Location">Negozio Marketplace:</text>
+					<text name="LocationTextText">da qualche parte</text>
+				</layout_panel>
+				<layout_panel>
+					<text name="ContentRating">Classificazione:</text>
+					<text name="ContentRatingText">Adult</text>
+					<text name="Owner">Proprietario:</text>
+					<text name="OwnerText">Kyle</text>
+					<button name="edit_btn" label="Modifica"/>
+				</layout_panel>
+			</layout_stack>
+		</panel>
+	</scroll_container>
+</panel>

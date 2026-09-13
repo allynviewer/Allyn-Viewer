@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="modal container">
+	<button name="Cancel" label="Отмена" />
+	<text name="Save item as:">Нажмите клавишу, чтобы выбрать</text>
+</floater>

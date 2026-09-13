@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="gesture_preview">
+	<string name="step_anim" />
+	<string name="step_sound" />
+	<string name="step_chat" />
+	<string name="step_wait" />
+	<string name="stop_txt">Останавливаться</string>
+	<string name="preview_txt">Предварительный просмотр</string>
+	<string name="none_text">-- Никто --</string>
+	<text name="desc_label">Описание:</text>
+	<line_editor name="desc" />
+	<text name="trigger_label">Курок:</text>
+	<line_editor name="trigger_editor" />
+	<text name="replace_text" tool_tip="Замените триггерные слова этими словами. Например, замена триггера «привет» на «привет» превратит чат «Я хотел поздороваться» в «Я хотел поздороваться», а также воспроизведет этот жест!">Заменить на:</text>
+	<line_editor name="replace_editor" tool_tip="Замените триггерные слова этими словами. Например, замена триггера «привет» на «привет» превратит чат «Я хотел поздороваться» в «Я хотел поздороваться», а также воспроизведет этот жест." />
+	<text name="key_label">Сочетание клавиш:</text>
+	<combo_box name="modifier_combo" label="Никто" />
+	<combo_box name="key_combo" label="Никто" />
+	<text name="library_label">Библиотека:</text>
+	<text name="steps_label">Шаги:</text>
+	<scroll_list name="library_list">
+		<row name="action_animation" />
+		<row name="action_sound" />
+		<row name="action_chat" />
+		<row name="action_wait" />
+	</scroll_list>
+	<button name="add_btn" label="Добавить &gt;&gt;" />
+	<button name="up_btn" label="Двигаться вверх" />
+	<button name="down_btn" label="Вниз" />
+	<button name="delete_btn" label="Удалить" />
+	<scroll_list name="step_list" />
+	<text name="help_label">
+		Все шаги происходят одновременно, 
+если вы не добавите шаги ожидания.
+	</text>
+	<text name="options_text" />
+	<combo_box name="animation_list" />
+	<combo_box name="sound_list" />
+	<line_editor name="chat_editor" />
+	<radio_group name="animation_trigger_type">
+		<radio_item name="start">Начинать</radio_item>
+		<radio_item name="stop">Останавливаться</radio_item>
+	</radio_group>
+	<check_box name="wait_anim_check" label="пока анимация не будет готова" />
+	<check_box name="wait_time_check" label="время в секундах" />
+	<line_editor name="wait_time_editor" />
+	<check_box name="active_check" label="Активный" tool_tip="Активные жесты можно активировать, произнеся их триггерные фразы в чате или нажав горячие клавиши.  Жесты обычно становятся неактивными при возникновении конфликта привязок клавиш." />
+	<flyout_button name="preview_btn" label="Предварительный просмотр">
+		<flyout_button_item name="Local" label="Локальный просмотр" />
+	</flyout_button>
+	<button name="save_btn" label="Сохранить" />
+</floater>

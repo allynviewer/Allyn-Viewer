@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Inventory Finder" title="インベントリ_最近_項目">
+	<icon name="icon_animation" />
+	<check_box name="check_animation" label="アニメーション" />
+	<icon name="icon_calling_card" />
+	<check_box name="check_calling_card" label="コーリングカード" />
+	<icon name="icon_clothing" />
+	<check_box name="check_clothing" label="衣類" />
+	<icon name="icon_gesture" />
+	<check_box name="check_gesture" label="ジェスチャー" />
+	<icon name="icon_landmark" />
+	<check_box name="check_landmark" label="ランドマーク" />
+	<icon name="icon_notecard" />
+	<check_box name="check_notecard" label="ノートカード" />
+	<icon name="icon_object" />
+	<check_box name="check_object" label="オブジェクト" />
+	<icon name="icon_script" />
+	<check_box name="check_script" label="Scripts" />
+	<icon name="icon_sound" />
+	<check_box name="check_sound" label="サウンド" />
+	<icon name="icon_texture" />
+	<check_box name="check_texture" label="テクスチャ" />
+	<icon name="icon_snapshot" />
+	<check_box name="check_snapshot" label="スナップショット" />
+	<button name="All" label="すべて" />
+	<button name="None" label="なし" />
+	<text name="links">リンク:</text>
+	<radio_group name="radio_links">
+		<radio_item name="Any">任意</radio_item>
+		<radio_item name="Only">のみ</radio_item>
+		<radio_item name="None">なし</radio_item>
+	</radio_group>
+	<check_box name="check_show_empty" label="常にフォルダを表示" />
+	<check_box name="check_since_logoff" label="ログオフ以降" />
+	<text name="- OR -">- または -</text>
+	<spinner name="spin_hours_ago" label="時間 Ago" />
+	<spinner name="spin_days_ago" label="日 Ago" />
+	<button name="Close" label="閉じる" />
+</floater>

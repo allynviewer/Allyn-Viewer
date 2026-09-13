@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rlva_strings>
+
+ <strings>
+ <string name="hidden_generic">(Versteckt)</string>
+ <string name="hidden_parcel">(Versteckte Parzelle)</string>
+ <string name="hidden_region">(Versteckte Region)</string>
+
+ <string name="blocked_recvim">*** IM wurde von deinem Viewer blockiert.</string>
+ <string name="blocked_sendim">*** IM wurde vom Viewer des Senders blockiert.</string>
+
+ <string name="blocked_generic">Aktion konnte aufgrund von RLV-Einschränkungen nicht durchgeführt werden.</string>
+ <string name="blocked_permattach">Der Versuch „[OBJECT]“ anzuhängen wurde aufgrund von RLV-Einschränkungen verweigert.</string>
+ <string name="blocked_startim">IM-Sitzung mit [RECIPIENT] konnte aufgrund von RLV-Einschränkungen nicht gestartet werden.</string>
+ <string name="blocked_startconf">Konferenz konnte aufgrund von RLV-Einschränkungen nicht gestartet werden.</string>
+ <string name="blocked_teleport">Teleport konnte aufgrund von RLV-Einschränkungen nicht initialisiert werden.</string>
+ <string name="blocked_viewxxx">[TYPE] konnte aufgrund von RLV-Einschränkungen nicht geöffnet werden.</string>
+
+ <string name="blocked_recvim_remote">Dieser Einwohner kann Ihre Instant Messages derzeit nicht lesen. Bitte versuchen Sie es später erneut.</string>
+ <string name="blocked_tplure_remote">Dieser Einwohner kann derzeit keine Teleport-Angebote annehmen. Bitte versuchen Sie es später erneut.</string>
+
+ </strings>
+
+ <anonyms>
+ <anonym>Ein Einwohner</anonym>
+ <anonym>Dieser Einwohner</anonym>
+ <anonym>Jener Einwohner</anonym>
+ <anonym>Eine Person</anonym>
+ <anonym>Diese Person</anonym>
+ <anonym>Jene Person</anonym>
+ <anonym>Jemand</anonym>
+ <anonym>Diese Person</anonym>
+ <anonym>Jene Person</anonym>
+ <anonym>Ein Unbekannter</anonym>
+ <anonym>Dieser Unbekannte</anonym>
+ <anonym>Jener Unbekannte</anonym>
+ <anonym>Ein Wesen</anonym>
+ <anonym>Dieses Wesen</anonym>
+ <anonym>Jenes Wesen</anonym>
+ <anonym>Ein Agent</anonym>
+ <anonym>Dieser Agent</anonym>
+ <anonym>Jener Agent</anonym>
+ <anonym>Eine Seele</anonym>
+ <anonym>Diese Seele</anonym>
+ <anonym>Jene Seele</anonym>
+ <anonym>Jemand</anonym>
+ <anonym>Einige Leute</anonym>
+ <anonym>Jemand</anonym>
+ <anonym>Eine geheimnisvolle Gestalt</anonym>
+ <anonym>Ein unbekanntes Wesen</anonym>
+ <anonym>Eine unbekannte Gestalt</anonym>
+ <anonym>Eine unbekannte Person</anonym>
+ </anonyms>
+
+ 
+
+</rlva_strings>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="ban_duration" title="Продолжительность">
+	<combo_box name="ban_duration_combo">
+		<combo_item name="permanent" label="Постоянный" />
+		<combo_item name="hours" label="Часы" />
+		<combo_item name="days" label="Дни" />
+		<combo_item name="weeks" label="Недели" />
+		<combo_item name="months" label="Месяцы" />
+	</combo_box>
+	<spinner name="ban_duration" />
+	<button name="ok_btn" label="ОК" />
+	<button name="cancel_btn" label="Отмена" />
+</floater>

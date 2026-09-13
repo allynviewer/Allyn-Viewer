@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="mute floater" title="Sessize Alınan Sakinler ve Nesneler">
+	<name_list name="mutes" tool_tip="Sessiz nesnelerin/avatarların adları">
+		<column name="icon" />
+		<column name="name" label="İsim" tool_tip="İsim" />
+	</name_list>
+	<button name="Mute resident..." label="Sessiz Sakin..." tool_tip="Sessize alınacak bir sakin seçin" />
+	<button name="Mute object by name..." label="Nesneyi adına göre sessize al..." />
+	<button name="Unmute" label="Sesi aç" tool_tip="Sakini veya nesneyi sessize alınan listeden kaldır" />
+</floater>

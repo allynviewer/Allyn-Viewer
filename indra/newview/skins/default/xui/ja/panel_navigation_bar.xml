@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="navigation_bar">
+	<button name="back_btn" tool_tip="前の場所へ移動します。"/>
+	<button name="forward_btn" tool_tip="次の場所へ移動します。"/>
+	<button name="home_btn" tool_tip="ホームへテレポートします。"/>
+	<button name="About_Land" label="土地情報" tool_tip="土地情報のウィンドウを開きます。" width="80"/>
+	<button name="PersonalLighting" label="個人的光源" tool_tip="個人的光源エディタを開きます。" width="90"/>
+	<combo_box name="location_combo" label="場所"
+	     tool_tip="現在地。リージョン名またはSLURLを入力してEnterでテレポートします。"/>
+	<button name="add_landmark_btn" tool_tip="ここにランドマークを作成"/>
+	<line_editor name="search_editor" label="検索" tool_tip="検索"/>
+	<button name="search_btn" tool_tip="検索"/>
+</panel>

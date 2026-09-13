@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="overlay">
+	<layout_stack name="overlay_layout_panel">
+		<layout_panel name="main_panel">
+			<layout_stack name="chatbar_and_buttons">
+				<layout_panel name="padding" />
+				<layout_panel name="state_management_buttons_container">
+					<button name="New IM" label="Новый IM" tool_tip="Есть непрочитанный IM. Нажмите, чтобы открыть." />
+					<button name="Set Not Busy" label="Не занят" tool_tip="Режим «занят»: чат и IM скрыты. Нажмите, чтобы выйти." />
+					<button name="Flycam" label="Флайкам" tool_tip="Камерой управляет джойстик. Нажмите, чтобы отпустить." />
+					<button name="Mouselook" label="Мауслук" tool_tip="Вид от первого лица. С оружием щелчок стреляет." />
+					<button name="Stand Up" label="Встать" tool_tip="Встать" />
+					<button name="Cancel TP" label="Отменить ТП" tool_tip="Нажмите здесь, чтобы отменить текущий процесс телепортации." />
+				</layout_panel>
+				<layout_panel name="chat_bar_layout_panel">
+					<panel name="chat_bar" />
+				</layout_panel>
+			</layout_stack>
+		</layout_panel>
+		<layout_panel name="ao_remote_container">
+			<panel name="ao_remote" />
+		</layout_panel>
+		<layout_panel name="media_remote_container">
+			<panel name="media_remote" />
+		</layout_panel>
+		<layout_panel name="voice_remote_container">
+			<panel name="voice_remote" />
+		</layout_panel>
+		<layout_panel name="AdvSettings_container">
+			<panel name="Adv_Settings" />
+		</layout_panel>
+	</layout_stack>
+	<string name="unread_count_string_plural">Новые мгновенные сообщения</string>
+</panel>

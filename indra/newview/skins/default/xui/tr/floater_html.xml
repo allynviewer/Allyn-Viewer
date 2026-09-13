@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="htmlfloater">
+	<button name="close_btn" label="Kapat" />
+	<web_browser name="html_floater_browser" />
+	<button name="back_btn" label="Geri" />
+	<button name="forward_btn" label="İleri" />
+	<line_editor name="url_edit" />
+	<button name="go_btn" label="Git" />
+	<string name="home_page_url" />
+	<string name="support_page_url" />
+</floater>

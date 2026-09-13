@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="test" title="UI-Test">
+	<tab_container name="test_tab">
+		<panel name="first_tab_panel" label="Steuerelemente">
+			<text name="section_buttons">SCHALTFLÄCHEN</text>
+			<button name="can't click" label="Kein Klick" tool_tip="Deaktivierte Schaltfläche"/>
+			<button name="can click" label="Klickbar" tool_tip="Aktivierte Schaltfläche"/>
+			<button name="unicode_btn" label="Unicode" tool_tip="Schaltfläche mit Unicode-Beschriftung"/>
+			<button name="image_btn" tool_tip="Bildschaltfläche"/>
+			<text name="section_options">OPTIONEN</text>
+			<check_box name="simple_check" label="Einfaches Kontrollkästchen"/>
+			<check_box name="unicode_check" label="Unicode-Kontrollkästchen"/>
+			<combo_box name="combo" tool_tip="Beispiel-Kombinationsfeld">
+				<combo_item name="top_item">soll nach oben</combo_item>
+				<combo_item name="first_item">erster Eintrag</combo_item>
+				<combo_item name="second_item">zweiter Eintrag</combo_item>
+				<combo_item name="disabled_item">deaktivierter Eintrag</combo_item>
+			</combo_box>
+			<text name="section_radio">OPTIONSFELD</text>
+			<radio_group name="radio_group">
+				<radio_item name="Radio1">Option 1</radio_item>
+				<radio_item name="Radio2">Option 2</radio_item>
+				<radio_item name="Radio3">Option 3</radio_item>
+			</radio_group>
+			<text_editor name="widgets_help">
+Dieses Fenster testet gängige UI-Steuerelemente.
+
+Klicks, Häkchen, Combo und Optionen werden in der Viewer-Konsole protokolliert.
+			</text_editor>
+			<text name="section_line">ZEILENEDITOR</text>
+			<line_editor name="test_line">Unicode-Text hier eingeben</line_editor>
+			<text name="section_slider">SCHIEBEREGLER</text>
+			<text name="section_names">NAMENSLISTE</text>
+			<name_list name="test_name_list">
+				<column name="name" label="Name"/>
+			</name_list>
+		</panel>
+		<panel name="second_tab_panel" label="Listen">
+			<text name="lists_help">Beispielliste der UI-Steuerelemente. Zeile anklicken, um die Auswahl zu protokollieren.</text>
+			<button name="Simple Button" label="Einfache Schaltfläche"/>
+			<scroll_list name="test_scroll_list">
+				<column name="widget" label="Steuerelement"/>
+				<column name="notes" label="Hinweise"/>
+			</scroll_list>
+		</panel>
+		<panel name="text_tab_panel" label="Text">
+			<text name="simple_text">Sans-serif-Text (mausundurchlässig — klicken)</text>
+			<text name="simple2_text" tool_tip="Ich bin ein Tooltip">Monospace-Text mit Tooltip (nicht mausundurchlässig)</text>
+			<text name="unicode_text" tool_tip="Dies sollte Unicode-Text sein">Datei</text>
+			<text_editor name="test_text_editor">
+Dies ist ein mehrzeiliger Texteditor.
+
+Er wächst mit dem Fenster, damit Test UI den gesamten Innenbereich nutzt.
+
+Hier tippen, um Tastatur, Scrollen und Zeilenumbruch zu testen.
+			</text_editor>
+		</panel>
+	</tab_container>
+</floater>

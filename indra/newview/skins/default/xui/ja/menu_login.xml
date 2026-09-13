@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu_bar name="Login Menu">
+	<menu name="File" label="ファイル">
+		<menu_item_call name="Quit" label="終了" />
+	</menu>
+	<menu name="Edit" label="編集">
+		<menu_item_call name="Undo" label="元に戻す" />
+		<menu_item_call name="Redo" label="やり直し" />
+		<menu_item_call name="Cut" label="切り取り" />
+		<menu_item_call name="Copy" label="コピー" />
+		<menu_item_call name="Paste" label="貼り付け" />
+		<menu_item_call name="Delete" label="削除" />
+		<menu_item_call name="Preferences..." label="環境設定..." />
+	</menu>
+	<menu name="Help" label="ヘルプ">
+		<menu_item_call name="About Second Life..." label="[SHORT_APP_NAME] について..." />
+		<menu_item_call name="Grid Status..." label="グリッド ステータス..." />
+	</menu>
+</menu_bar>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="0" follows="left|right|top|bottom" height="548" label="Region"
+     layout="topleft" left="0" name="General" width="690">
+	<text bottom="-28" follows="left|top" font="SansSerif" height="20" left="12"
+	     name="region_text_lbl" width="80">
+		Region:
+	</text>
+	<text bottom="-28" follows="left|top|right" font="SansSerif" height="20" left="96"
+	     name="region_text" width="580">
+		unknown
+	</text>
+	<text bottom="-52" follows="left|top" font="SansSerifSmall" height="20" left="12"
+	     name="version_channel_text_lbl" width="80">
+		Version:
+	</text>
+	<text bottom="-52" follows="left|top" font="SansSerifSmall" height="20" left="96"
+	     name="version_channel_text" width="240">
+		unknown
+	</text>
+	<text bottom="-52" follows="left|top" font="SansSerifSmall" height="20" left="360"
+	     name="region_type_lbl" width="50">
+		Type:
+	</text>
+	<text bottom="-52" follows="left|top|right" font="SansSerifSmall" height="20" left="414"
+	     name="region_type" width="260">
+		unknown
+	</text>
+
+	<view_border bevel_style="none" follows="top|left" height="200" left="12" bottom="-268" width="330" />
+	<view_border bevel_style="none" follows="top|left|right" height="200" left="354" bottom="-268" width="324" />
+
+	<check_box bottom="-88" follows="left|top" height="22" label="Block Terraform"
+	     left="24" name="block_terraform_check" width="260" />
+	<button bottom="-88" follows="left|top" font="SansSerifSmall" height="22" label=""
+	     tool_tip="Help" image_overlay="icn_region_help.png" image_overlay_alignment="center"
+	     left="296" name="terraform_help" width="22" />
+	<check_box bottom="-118" follows="left|top" height="22" label="Block Fly" left="24"
+	     name="block_fly_check" width="260" />
+	<button bottom="-118" follows="left|top" height="22" label="" tool_tip="Help"
+	     image_overlay="icn_region_help.png" image_overlay_alignment="center"
+	     left="296" name="fly_help" width="22" />
+	<check_box bottom="-148" follows="left|top" height="22" label="Block Parcel Fly Over"
+	     tool_tip="Extend access checks upwards to prevent flying over a parcel"
+	     left="24" name="block_fly_over_check" width="260" />
+	<check_box bottom="-178" follows="left|top" height="22" label="Allow Damage"
+	     left="24" name="allow_damage_check" width="260" />
+	<button bottom="-178" follows="left|top" font="SansSerifSmall" height="22" label=""
+	     tool_tip="Help" image_overlay="icn_region_help.png" image_overlay_alignment="center"
+	     left="296" name="damage_help" width="22" />
+	<check_box bottom="-208" follows="left|top" height="22" label="Restrict Pushing"
+	     left="24" name="restrict_pushobject" width="260" />
+	<button bottom="-208" follows="left|top" font="SansSerifSmall" height="22" label=""
+	     tool_tip="Help" image_overlay="icn_region_help.png" image_overlay_alignment="center"
+	     left="296" name="restrict_pushobject_help" width="22" />
+	<check_box bottom="-238" follows="left|top" height="22" label="Allow Land Resell"
+	     left="24" name="allow_land_resell_check" width="260" />
+	<button bottom="-238" follows="left|top" font="SansSerifSmall" height="22" label=""
+	     tool_tip="Help" image_overlay="icn_region_help.png" image_overlay_alignment="center"
+	     left="296" name="land_resell_help" width="22" />
+
+	<check_box bottom="-88" follows="left|top" height="22"
+	     label="Allow Land Join/Divide" left="366" name="allow_parcel_changes_check"
+	     width="250" />
+	<button bottom="-88" follows="left|top" font="SansSerifSmall" height="22" label=""
+	     tool_tip="Help" image_overlay="icn_region_help.png" image_overlay_alignment="center"
+	     left="644" name="parcel_changes_help" width="22" />
+	<check_box bottom="-118" follows="left|top" height="22"
+	     label="Block Land Show in Search" left="366"
+	     name="block_parcel_search_check"
+	     tool_tip="Let people see this region and its parcels in search results"
+	     width="250" />
+	<button bottom="-118" follows="left|top" font="SansSerifSmall" height="22" label=""
+	     tool_tip="Help" image_overlay="icn_region_help.png" image_overlay_alignment="center"
+	     left="644" name="parcel_search_help" width="22" />
+	<spinner bottom="-156" follows="left|top" height="22" increment="1"
+	     label="Agent Limit" label_width="110" left="366" max_val="110" min_val="1"
+	     name="agent_limit_spin" width="250" />
+	<button bottom="-156" follows="left|top" font="SansSerifSmall" height="22" label=""
+	     tool_tip="Help" image_overlay="icn_region_help.png" image_overlay_alignment="center"
+	     left="644" name="agent_limit_help" width="22" />
+	<spinner bottom="-186" follows="left|top" height="22" increment="0.5"
+	     label="Object Bonus" label_width="110" left="366" max_val="10" min_val="1"
+	     name="object_bonus_spin" width="250" />
+	<button bottom="-186" follows="left|top" font="SansSerifSmall" height="22" label=""
+	     tool_tip="Help" image_overlay="icn_region_help.png" image_overlay_alignment="center"
+	     left="644" name="object_bonus_help" width="22" />
+	<text bottom="-220" follows="left|top" height="20" left="366"
+	     name="access_text" width="80">
+		Rating:
+	</text>
+	<combo_box bottom="-222" follows="left|top" height="22" label="Mature" left="450"
+	     name="access_combo" width="170">
+		<combo_item name="Adult" value="42">
+			Adult
+		</combo_item>
+		<combo_item name="Mature" value="21">
+			Mature
+		</combo_item>
+		<combo_item name="PG" value="13">
+			PG
+		</combo_item>
+	</combo_box>
+	<button bottom="-222" follows="left|top" font="SansSerifSmall" height="22" label=""
+	     tool_tip="Help" image_overlay="icn_region_help.png" image_overlay_alignment="center"
+	     left="644" name="access_help" width="22" />
+
+	<check_box bottom="-300" follows="left|top" height="22" label="Use Estate Sun" left="12" name="use_estate_sun_check" width="220" />
+	<button bottom="-300" follows="left|top" font="SansSerifSmall" height="22" label=""
+	     tool_tip="Help" image_overlay="icn_region_help.png" image_overlay_alignment="center"
+	     name="use_estate_sun_help" left="240" width="22" />
+	<check_box bottom="-300" follows="left|top" height="22" label="Fixed Sun" left="280" name="fixed_sun_check" width="160" />
+	<button bottom="-300" follows="left|top" font="SansSerifSmall" height="22" label=""
+	     tool_tip="Help" image_overlay="icn_region_help.png" image_overlay_alignment="center"
+	     name="fixed_sun_help" left="448" width="22" />
+	<icon bottom="-338" follows="left|top" height="24" image_name="icn_region_daycycle.png" left="12" name="daycycle" width="240"/>
+	<slider bottom="-338" follows="left|top|right" height="22" increment="0.001"
+	     label="Phase" left="268" max_val="30" min_val="6" name="sun_hour_slider" show_text="false" width="400" />
+
+	<button bottom="-384" enabled="false" follows="left|top" height="28" label="Apply"
+	     image_overlay="icn_region_apply.png" image_overlay_alignment="left" pad_left="6"
+	     font="SansSerifSmall" left="270" name="apply_btn" width="150" />
+	<button bottom="-432" follows="left|top" height="28"
+	     label="Teleport Home One User..." left="12" name="kick_btn" width="328"
+	     image_overlay="icn_region_kick.png" image_overlay_alignment="left" pad_left="6" font="SansSerifSmall" />
+	<button bottom="-432" follows="left|top" height="28"
+	     label="Teleport Home All Users..." left="350" name="kick_all_btn" width="328"
+	     image_overlay="icn_region_kick.png" image_overlay_alignment="left" pad_left="6" font="SansSerifSmall" />
+	<button bottom="-472" follows="left|top" height="28"
+	     label="Send Message To Region..." left="12" name="im_btn" width="328"
+	     image_overlay="icn_region_message.png" image_overlay_alignment="left" pad_left="6" font="SansSerifSmall" />
+	<button bottom="-472" follows="left|top" height="28" label="Manage Telehub..."
+	     left="350" name="manage_telehub_btn" width="328"
+	     image_overlay="icn_region_telehub.png" image_overlay_alignment="left" pad_left="6" font="SansSerifSmall" />
+</panel>

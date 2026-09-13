@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Marketplace Panel" label="Marketplace">
+	<panel name="tool_panel">
+		<button name="sort_btn" tool_tip="Opzioni visualizzazione/ordinamento"/>
+		<button name="add_btn" tool_tip="Crea una nuova cartella annuncio"/>
+		<button name="audit_btn" label="Controlla errori" tool_tip="Controlla i tuoi annunci Marketplace"/>
+	</panel>
+	<panel name="tab_container_panel">
+		<filter_editor name="filter_editor" label="Filtra annunci Marketplace"/>
+		<tab_container name="marketplace_filter_tabs">
+			<inventory_panel name="All Items" label="Tutti"/>
+			<inventory_panel name="Active Items" label="Attivo"/>
+			<inventory_panel name="Inactive Items" label="Inattivo"/>
+			<inventory_panel name="Unassociated Items" label="Non associato"/>
+		</tab_container>
+	</panel>
+	<panel name="marketplace_drop_zone">
+		<text name="marketplace_drop_zone_text">Trascina qui le cartelle per creare nuovi annunci</text>
+	</panel>
+</panel>

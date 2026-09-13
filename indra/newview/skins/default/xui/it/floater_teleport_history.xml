@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="teleporthistory" title="Cronologia teleport">
+	<scroll_list name="places_list">
+		<column name="parcel" label="Terreno"/>
+		<column name="region" label="Regione"/>
+		<column name="position" label="Posizione"/>
+		<column name="visited" label="Visitati"/>
+	</scroll_list>
+	<button name="teleport" label="Teleport" tool_tip="Teleport alla posizione selezionata"/>
+	<button name="show_on_map" label="Mostra sulla mappa" tool_tip="Centra la mappa sulla posizione selezionata."/>
+	<button name="copy_slurl" label="Copia SLURL negli Appunti" tool_tip="Copia la posizione selezionata come SLURL."/>
+</floater>

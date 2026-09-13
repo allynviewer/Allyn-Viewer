@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-150" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" height="300" left="50" min_height="300"
+     min_width="700" mouse_opaque="true" name="Day Cycle Floater"
+     rect_control="FloaterDayCycleRect" title="Day Cycle Editor" width="700">
+	<tab_container bottom="-270" follows="left|top" height="254" left="12"
+	     mouse_opaque="false" name="Day Cycle Tabs" tab_position="top" width="676">
+		<panel border="true" bottom="-254" follows="left|top|right|bottom" height="254"
+		     label="Day Cycle" left="1" mouse_opaque="false"
+		     name="Day Cycle" width="674">
+			<button bottom="-18" follows="left|top" font="SansSerifSmall" height="18"
+			     label="?" left="646" name="WLDayCycleHelp" width="18" />
+			<multi_slider allow_overlap="false" bottom="-36" can_edit_text="true"
+			     control_name="WLTimeSlider" decimal_digits="0" draw_track="false"
+			     follows="left|top" height="12" increment="0.08333333333" initial_val="0"
+			     label="" left="16" max_sliders="20" max_val="24" min_val="0"
+			     mouse_opaque="true" name="WLTimeSlider" show_text="false"
+			     use_triangle="true" value="0" width="528" />
+			<multi_slider allow_overlap="false" bottom="-58" can_edit_text="true"
+			     control_name="WLDayCycleKeys" decimal_digits="0" follows="left|top"
+			     height="12" increment="0.08333333333" initial_val="0" label="" left="16"
+			     max_sliders="20" max_val="24" min_val="0" mouse_opaque="true"
+			     name="WLDayCycleKeys" show_text="false" value="0" width="528" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-84" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+			     height="14" left="8" mouse_opaque="true" name="WL12am"
+			     v_pad="0" width="60">
+				12am
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+			     height="14" left_delta="66" mouse_opaque="true" name="WL3am"
+			     v_pad="0" width="60">
+				3am
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+			     height="14" left_delta="66" mouse_opaque="true" name="WL6am"
+			     v_pad="0" width="60">
+				6am
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+			     height="14" left_delta="66" mouse_opaque="true"
+			     name="WL9amHash" v_pad="0" width="60">
+				9am
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+			     height="14" left_delta="66" mouse_opaque="true"
+			     name="WL12pmHash" v_pad="0" width="60">
+				12pm
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+			     height="14" left_delta="66" mouse_opaque="true" name="WL3pm"
+			     v_pad="0" width="60">
+				3pm
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+			     height="14" left_delta="66" mouse_opaque="true" name="WL6pm"
+			     v_pad="0" width="60">
+				6pm
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+			     height="14" left_delta="66" mouse_opaque="true" name="WL9pm"
+			     v_pad="0" width="60">
+				9pm
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+			     height="14" left_delta="66" mouse_opaque="true"
+			     name="WL12am2" v_pad="0" width="60">
+				12am
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-68" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerif" h_pad="0" halign="left"
+			     height="14" left="16" mouse_opaque="true" name="WL12amHash"
+			     v_pad="0" width="4">
+				|
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerif" h_pad="0" halign="left"
+			     height="11" left_delta="66" mouse_opaque="true"
+			     name="WL3amHash" v_pad="0" width="4">
+				I
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerif" h_pad="0" halign="left"
+			     height="14" left_delta="66" mouse_opaque="true"
+			     name="WL6amHash" v_pad="0" width="4">
+				|
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerif" h_pad="0" halign="left"
+			     height="11" left_delta="66" mouse_opaque="true"
+			     name="WL9amHash2" v_pad="0" width="4">
+				I
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerif" h_pad="0" halign="left"
+			     height="14" left_delta="66" mouse_opaque="true"
+			     name="WL12pmHash2" v_pad="0" width="4">
+				|
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerif" h_pad="0" halign="left"
+			     height="11" left_delta="66" mouse_opaque="true"
+			     name="WL3pmHash" v_pad="0" width="4">
+				I
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerif" h_pad="0" halign="left"
+			     height="14" left_delta="66" mouse_opaque="true"
+			     name="WL6pmHash" v_pad="0" width="4">
+				|
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerif" h_pad="0" halign="left"
+			     height="11" left_delta="66" mouse_opaque="true"
+			     name="WL9pmHash" v_pad="0" width="4">
+				I
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerif" h_pad="0" halign="left"
+			     height="14" left_delta="66" mouse_opaque="true"
+			     name="WL12amHash2" v_pad="0" width="4">
+				|
+			</text>
+			<button bottom="-38" enabled="true" follows="left|top" font="SansSerifSmall" halign="center" height="22"
+			     label="Add Key" label_selected="Add Key" left="556"
+			     mouse_opaque="true" name="WLAddKey" scale_image="true" width="96" />
+			<button bottom="-64" enabled="true" follows="left|top" font="SansSerifSmall" halign="center" height="22"
+			     label="Delete Key" label_selected="Delete Key" left="556"
+			     mouse_opaque="true" name="WLDeleteKey" scale_image="true" width="96" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-104" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerif" h_pad="0" halign="left"
+			     height="16" left="22" mouse_opaque="true"
+			     name="WLCurKeyFrameText" v_pad="0" width="196">
+				Key Frame Settings:
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-124" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerif" h_pad="0" halign="left"
+			     height="16" left="24" mouse_opaque="true"
+			     name="WLCurKeyTimeText" v_pad="0" width="180">
+				Key Time:
+			</text>
+			<spinner bottom="-146" can_edit_text="true" control_name="WLCurKeyHour"
+			     decimal_digits="0" enabled="true" follows="left|top" height="18"
+			     increment="1" initial_val="0" label="Hour" label_width="40" left="24"
+			     max_val="100" min_val="0" mouse_opaque="true" name="WLCurKeyHour"
+			     width="96" />
+			<spinner bottom="-146" can_edit_text="true" control_name="WLCurKeyMin"
+			     decimal_digits="0" enabled="true" follows="left|top" height="18"
+			     increment="5" initial_val="0" label="Min" label_width="32" left="128"
+			     max_val="55" min_val="0" mouse_opaque="true" name="WLCurKeyMin" width="88" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-168" drop_shadow_visible="true" follows="left|top" font="SansSerif"
+			     h_pad="0" halign="left" height="16" left="24"
+			     mouse_opaque="true" name="WLCurKeyTimeText2" v_pad="0" width="180">
+				Key Preset:
+			</text>
+			<combo_box allow_text_entry="false" bottom="-190" enabled="true" follows="left|top"
+			     height="20" label="Preset" left="24" max_chars="20"
+			     mouse_opaque="true" name="WLKeyPresets" width="192" />
+			<view_border bevel_style="none" border_thickness="1" bottom="-204" follows="top|left"
+			     height="112" left="12" width="216" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-104" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerif" h_pad="0" halign="left"
+			     height="16" left="244" mouse_opaque="true"
+			     name="DayCycleText" v_pad="0" width="160">
+				Snap:
+			</text>
+			<combo_box allow_text_entry="false" bottom="-128" enabled="false" follows="left|top"
+			     height="20" label="5 min" left="244" max_chars="20" mouse_opaque="true"
+			     name="WLSnapOptions" width="110" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-156" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerif" h_pad="0" halign="left"
+			     height="16" left="244" mouse_opaque="true"
+			     name="DayCycleText2" v_pad="0" width="200">
+				Length of Cycle:
+			</text>
+			<spinner bottom="-178" can_edit_text="true" control_name="WLLengthOfDayHour"
+			     decimal_digits="0" enabled="true" follows="left|top" height="18"
+			     increment="1" initial_val="0" label="Hour" label_width="40" left="244"
+			     max_val="100" min_val="0" mouse_opaque="true" name="WLLengthOfDayHour"
+			     width="84" />
+			<spinner bottom="-178" can_edit_text="true" control_name="WLLengthOfDayMin"
+			     decimal_digits="0" enabled="true" follows="left|top" height="18"
+			     increment="1" initial_val="0" label="Min" label_width="28" left="336"
+			     max_val="59" min_val="0" mouse_opaque="true" name="WLLengthOfDayMin"
+			     width="72" />
+			<spinner bottom="-178" can_edit_text="true" control_name="WLLengthOfDaySec"
+			     decimal_digits="0" enabled="true" follows="left|top" height="18"
+			     increment="1" initial_val="24" label="Sec" label_width="28" left="416"
+			     max_val="59" min_val="0" mouse_opaque="true" name="WLLengthOfDaySec"
+			     width="72" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-104" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerif" h_pad="0" halign="left"
+			     height="16" left="500" mouse_opaque="true"
+			     name="DayCycleText3" v_pad="0" width="152">
+				Preview:
+			</text>
+			<button bottom="-128" enabled="true" follows="left|top" font="SansSerifSmall" halign="center" height="22"
+			     label="Play" label_selected="Play" left="500"
+			     mouse_opaque="true" name="WLAnimSky" scale_image="true" width="74" />
+			<button bottom="-128" enabled="true" follows="left|top" font="SansSerifSmall" halign="center" height="22"
+			     label="Stop" label_selected="Stop" left="580"
+			     mouse_opaque="true" name="WLStopAnimSky" scale_image="true" width="72" />
+			<button bottom="-154" enabled="true" follows="left|top" font="SansSerifSmall" halign="center" height="22"
+			     label="Use Estate Time" label_selected="Go to Estate Time"
+			     left="500" mouse_opaque="true" name="WLUseLindenTime"
+			     scale_image="true" width="152" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+				bottom="-178" drop_shadow_visible="true"
+				follows="left|top" font="SansSerif" h_pad="0" halign="left" height="16"
+				left="500" mouse_opaque="true" name="KeyFramePresetsText" v_pad="0"
+				width="152">
+				Presets:
+			</text>
+			<combo_box allow_text_entry="false" bottom="-198" follows="left|top" height="20"
+				left="500" max_chars="20" mouse_opaque="true" name="DayCyclePresetsCombo"
+				width="152" />
+			<button bottom="-222" enabled="true" follows="left|top" font="SansSerifSmall" halign="center" height="22"
+				label="New" label_selected="New" left="500"
+				mouse_opaque="true" name="DayCycleNewPreset" scale_image="true" width="48" />
+			<button bottom="-222" enabled="true" follows="left|top" font="SansSerifSmall" halign="center" height="22"
+				label="Save" label_selected="Save" left="552"
+				mouse_opaque="true" name="DayCycleSavePreset" scale_image="true" width="52" />
+			<button bottom="-222" enabled="true" follows="left|top" font="SansSerifSmall" halign="center" height="22"
+				label="Delete" label_selected="Delete" left="608"
+				mouse_opaque="true" name="DayCycleDeletePreset" scale_image="true" width="44" />
+		</panel>
+	</tab_container>
+	<string name="DaycycleDefaultNames">
+		Default:Happy%20Bivouac
+	</string>
+</floater>

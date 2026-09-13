@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="worldmap" title="Mappa del mondo">
+	<panel name="right_controls">
+	<text name="you_label">
+		Tu
+	</text>
+	<text name="home_label">
+		Casa
+	</text>
+	<text name="auction_label">
+		Asta
+	</text>
+	<text name="land_for_sale_label">
+		Terreno in vendita
+	</text>
+	<button label="Vai a casa" label_selected="Vai a casa" name="Go Home" tool_tip="Teletrasportati a casa"/>
+	<check_box label="Residenti" name="people_chk"/>
+	<check_box label="Infohub" name="infohub_chk"/>
+	<check_box label="Telehub" name="telehubchk"/>
+	<check_box label="Terreno in vendita" name="land_for_sale_chk"/>
+	<text name="events_label">
+		Eventi:
+	</text>
+	<check_box label="PG" name="event_chk"/>
+	<check_box label="Mature" name="events_mature_chk"/>
+	<check_box label="Adult" name="events_adult_chk"/>
+	<combo_box label="Amici online" name="friend combo" tool_tip="Amico da mostrare sulla mappa">
+		<combo_item name="none_selected">
+			Amici online
+		</combo_item>
+	</combo_box>
+	<combo_box label="Landmark" name="landmark combo" tool_tip="Landmark da mostrare sulla mappa">
+		<combo_item name="none_selected">
+			Landmark
+		</combo_item>
+	</combo_box>
+	<search_editor label="Cerca per nome di regione" name="location" tool_tip="Scrivi il nome di una regione"/>
+	<button label="Cerca" name="DoSearch" tool_tip="Cerca regione"/>
+	<text name="search_label">
+		Risultati della ricerca:
+	</text>
+	<text name="location_label">
+		Posizione:
+	</text>
+	<spinner name="spin x" tool_tip="Coordinata X del luogo da mostrare sulla mappa"/>
+	<spinner name="spin y" tool_tip="Coordinata Y del luogo da mostrare sulla mappa"/>
+	<spinner name="spin z" tool_tip="Coordinata Z del luogo da mostrare sulla mappa"/>
+	<button label="Teletrasporto" label_selected="Teletrasporto" name="Teleport" tool_tip="Teletrasporto al luogo selezionato"/>
+	<button label="Mostra destinazione" label_selected="Mostra destinazione" name="Show Destination" tool_tip="Centra la mappa sul luogo selezionato"/>
+	<button label="Pulisci" label_selected="Pulisci" name="Clear" tool_tip="Interrompi il tracciamento"/>
+	<button label="La mia posizione" label_selected="La mia posizione" name="Show My Location" tool_tip="Centra la mappa sulla posizione del tuo avatar"/>
+	<button label="Copia SLURL" name="copy_slurl" tool_tip="Copia la posizione attuale come SLURL utilizzabile sul web."/>
+	<button label="Traccia regione" name="track_region" tool_tip="Aggiungi la regione al tracciatore di regioni"/>
+	<slider label="Zoom" name="zoom slider"/>
+	</panel>
+</floater>

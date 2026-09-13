@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+ legacy_header_height="18"
+ can_close="true"
+ can_minimize="false"
+ can_resize="false"
+ enabled="true"
+ width="420"
+ height="340"
+ min_width="420"
+ min_height="340"
+ mouse_opaque="true"
+ name="voice_device_settings"
+ title="Device Settings">
+	<panel
+	 filename="panel_sound_devices.xml"
+	 bottom="-290"
+	 left="10"
+	 width="400"
+	 height="250"
+	 follows="left|top|right"
+	 name="device_settings_panel"/>
+	<button
+	 bottom="-320"
+	 follows="right|bottom"
+	 height="22"
+	 label="OK"
+	 left="115"
+	 name="OK"
+	 width="90"/>
+	<button
+	 bottom_delta="0"
+	 follows="right|bottom"
+	 height="22"
+	 label="Cancel"
+	 left_delta="100"
+	 name="Cancel"
+	 width="90"/>
+	<button
+	 bottom_delta="0"
+	 follows="right|bottom"
+	 height="22"
+	 label="Apply"
+	 left_delta="100"
+	 name="Apply"
+	 width="90"/>
+</floater>

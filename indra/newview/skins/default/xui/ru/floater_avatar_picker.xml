@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="avatarpicker" title="Выберите резидента">
+	<string name="not_found">'[TEXT]' не найден</string>
+	<string name="no_one_near">Никого рядом</string>
+	<string name="no_results">Нет результатов</string>
+	<string name="searching">Идет поиск...</string>
+	<string name="Select">Выбирать</string>
+	<string name="Close">Закрыть</string>
+	<tab_container name="ResidentChooserTabs">
+		<panel name="SearchPanel" label="Поиск">
+			<text name="InstructSearchResidentName">Введите часть имени жителя:</text>
+			<line_editor name="Edit" />
+			<button name="Find" label="Находить" />
+			<scroll_list name="SearchResults" />
+		</panel>
+		<panel name="FriendsPanel" label="Друзья">
+			<text name="InstructSelectFriend">Выберите человека:</text>
+			<button name="RefreshFriends" label="Обновить список" />
+			<scroll_list name="Friends" />
+		</panel>
+		<panel name="NearMePanel" label="Рядом со мной">
+			<text name="InstructSelectResident">Выберите жителя поблизости:</text>
+			<button name="Refresh" label="Обновить список" />
+			<slider name="near_me_range" label="Диапазон" />
+			<text name="meters">Метры</text>
+			<scroll_list name="NearMe" />
+		</panel>
+		<panel name="KeyPanel" label="По UUID">
+			<text name="InstructSelectResident">UUID аватара или группы:</text>
+			<line_editor name="EditUUID" />
+		</panel>
+	</tab_container>
+	<button name="ok_btn" label="ОК" />
+	<button name="cancel_btn" label="Отмена" />
+</floater>

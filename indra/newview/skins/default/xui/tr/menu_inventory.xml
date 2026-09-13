@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="Popup">
+	<menu_item_call name="Marketplace Create Listing" label="Giriş oluştur" />
+	<menu_item_call name="Marketplace Associate Listing" label="Ortak listeleme" />
+	<menu_item_call name="Marketplace Get Listing" label="Listeyi al (Yenile)" />
+	<menu_item_call name="Marketplace Check Listing" label="Hataları kontrol edin" />
+	<menu_item_call name="Marketplace Edit Listing" label="İlanı düzenle" />
+	<menu_item_call name="Marketplace List" label="Liste" />
+	<menu_item_call name="Marketplace Unlist" label="Listeden kaldır" />
+	<menu_item_call name="Marketplace Activate" label="Etkinleştir" />
+	<menu_item_call name="Marketplace Deactivate" label="Devre dışı bırak" />
+	<menu_item_call name="Marketplace Copy ID" label="İlan Kimliğini Kopyala" />
+	<menu_item_separator name="Marketplace Listings Separator" />
+	<menu_item_call name="Task Buy" label="Satın al" />
+	<menu_item_call name="Task Open" label="Aç" />
+	<menu_item_call name="Task Play" label="Oyna" />
+	<menu_item_call name="Task Properties" label="Özellikler" />
+	<menu_item_call name="Task Rename" label="Yeniden adlandır" />
+	<menu_item_call name="Task Remove" label="Sil" />
+	<menu_item_call name="Task Reset" label="Sıfırla" />
+	<menu_item_call name="Task Set Not Running" label="Çalışmıyor Ayarı" />
+	<menu_item_call name="Task Set Running" label="Çalıştırmayı Ayarla" />
+	<menu_item_call name="Empty Trash" label="Çöp Kutusunu Boşalt" />
+	<menu_item_call name="Empty Lost And Found" label="Boş Kayıp Eşya" />
+	<menu_item_call name="Open Folder In New Window" label="Yeni Pencerede Aç" />
+	<menu_item_call name="Copy Folder UUID" label="Klasör UUID'sini Kopyala" />
+	<menu_item_call name="New Folder" label="Yeni Klasör" />
+	<menu_item_call name="New Script" label="Yeni script" />
+	<menu_item_call name="New Note" label="Yeni Not" />
+	<menu_item_call name="New Gesture" label="Yeni jest" />
+	<menu name="New Clothes" label="Yeni Giysiler">
+		<menu_item_call name="New Shirt" label="Yeni Gömlek" />
+		<menu_item_call name="New Pants" label="Yeni Pantolon" />
+		<menu_item_call name="New Shoes" label="Yeni Ayakkabılar" />
+		<menu_item_call name="New Socks" label="Yeni Çoraplar" />
+		<menu_item_call name="New Jacket" label="Yeni Ceket" />
+		<menu_item_call name="New Skirt" label="Yeni Etek" />
+		<menu_item_call name="New Gloves" label="Yeni Eldivenler" />
+		<menu_item_call name="New Undershirt" label="Yeni Fanila" />
+		<menu_item_call name="New Underpants" label="Yeni Külot" />
+		<menu_item_call name="New Tattoo" label="Yeni Dövme" />
+		<menu_item_call name="New Alpha" label="Yeni Alfa" />
+		<menu_item_call name="New Universal" label="Yeni Evrensel" />
+		<menu_item_call name="New Physics" label="Yeni Fizik" />
+	</menu>
+	<menu name="New Body Parts" label="Yeni Gövde Parçaları">
+		<menu_item_call name="New Shape" label="Yeni Şekil" />
+		<menu_item_call name="New Skin" label="Yeni cilt" />
+		<menu_item_call name="New Hair" label="Yeni Saç" />
+		<menu_item_call name="New Eyes" label="Yeni Gözler" />
+	</menu>
+	<menu_item_call name="Landmark Open" label="Teleport" />
+	<menu_item_call name="Animation Open" label="Aç" />
+	<menu_item_call name="Sound Open" label="Aç" />
+	<menu_item_call name="Find Original" label="Orijinali Bul" />
+	<menu_item_call name="Purge Item" label="Öğeyi Temizle" />
+	<menu_item_call name="Restore Item" label="Öğeyi Geri Yükle" />
+	<menu name="Open With...">
+		<menu_item_call name="Hex Open" label="Hex Düzenleyici" />
+		<menu_item_call name="Open Text" label="Metin Düzenleyici" />
+		<menu_item_call name="Rez" label="Rez" />
+	</menu>
+	<menu_item_call name="Open" label="Aç" />
+	<menu_item_call name="Properties" label="Özellikler" />
+	<menu_item_call name="Rename" label="Yeniden adlandır" />
+	<menu_item_call name="Copy Asset UUID" label="Varlık UUID'sini Kopyala" />
+	<menu_item_call name="Acquire Asset ID" label="Varlık Kimliğini Edinin" />
+	<menu_item_separator name="Copy Separator" />
+	<menu_item_call name="Cut" label="Kes" />
+	<menu_item_call name="Copy" label="Kopyala" />
+	<menu_item_call name="Paste" label="Yapıştır" />
+	<menu_item_call name="Paste As Copy" label="Kopya Olarak Yapıştır" />
+	<menu_item_call name="Paste As Link" label="Bağlantı Olarak Yapıştır" />
+	<menu_item_call name="Restore to Last Position" label="Dünyada Geri Yükle" />
+	<menu_item_separator name="Paste Separator" />
+	<menu_item_call name="Remove Link" label="Bağlantıyı Kaldır" />
+	<menu_item_call name="Delete" label="Sil" />
+	<menu_item_call name="Move to Lost And Found" label="Kayıp Eşya'ya taşı" />
+	<menu_item_call name="Delete System Folder" label="Sistem Klasörünü Sil" />
+	<menu_item_separator name="Folder Wearables Separator" />
+	<menu_item_call name="Wear Items" label="Öğeleri giy" />
+	<menu_item_call name="Add To Outfit" label="Kıyafete ekle" />
+	<menu_item_call name="Replace Outfit" label="Kıyafeti Değiştir" />
+	<menu_item_separator name="Replace Remove Separator" />
+	<menu_item_call name="Remove From Outfit" label="Kıyafetten Çıkar" />
+	<menu_item_separator name="Outfit Separator" />
+	<menu_item_separator name="Calling Card Separator" />
+	<menu_item_call name="Conference Chat Folder" label="Konferans Sohbetini Başlat" />
+	<menu_item_separator name="Sound Separator" />
+	<menu_item_call name="Sound Play" label="Oyna" />
+	<menu_item_separator name="Landmark Separator" />
+	<menu_item_call name="Teleport To Landmark" label="Landmark Hakkında" />
+	<menu_item_call name="Show On Map" label="Haritada Göster" />
+	<menu_item_separator name="Animation Separator" />
+	<menu_item_call name="Animation Play" label="Dünyada Oyna" />
+	<menu_item_call name="Animation Audition" label="Yerel Olarak Oyna" />
+	<menu_item_separator name="Send Instant Message Separator" />
+	<menu_item_call name="Web Profile" label="Web Profili" />
+	<menu_item_call name="Send Instant Message" label="Anlık Mesaj Gönder" />
+	<menu_item_call name="Offer Teleport..." label="Teleport teklifi..." />
+	<menu_item_call name="Request Teleport..." label="Teleport iste..." />
+	<menu_item_call name="Conference Chat" label="Konferans Sohbetini Başlat" />
+	<menu_item_separator name="Gesture Separator" />
+	<menu_item_call name="Activate" label="Etkinleştir" />
+	<menu_item_call name="Deactivate" label="Devre dışı bırak" />
+	<menu_item_separator name="Texture Separator" />
+	<menu_item_call name="Save As" label="Farklı Kaydet" />
+	<menu_item_separator name="Wearable And Object Separator" />
+	<menu_item_call name="Wearable And Object Wear" label="Giy" />
+	<menu_item_call name="Wearable Add" label="Giyilene ekle" />
+	<menu_item_call name="Wearable Move Forward" label="▲ İleriye Git" />
+	<menu_item_call name="Wearable Move Back" label="▼ Geri Taşı" />
+	<menu name="Attach To" label="Şuraya tak" />
+	<menu name="Attach To HUD" label="HUD'a tak" />
+	<menu_item_call name="Detach From Yourself" label="Üzerinizden çıkar" />
+	<menu_item_call name="Wearable Edit" label="Düzenle" />
+	<menu_item_call name="Take Off" label="Çıkar" />
+	<menu_item_separator name="Marketplace Separator" />
+	<menu_item_call name="Marketplace Copy" label="Marketplace Listelerine kopyala" />
+	<menu_item_call name="Marketplace Move" label="Marketplace Listelerine Taşı" />
+	<menu_item_call name="Share" label="Paylaş" />
+	<menu_item_call name="--no options--" label="--seçenek yok--" />
+</menu>

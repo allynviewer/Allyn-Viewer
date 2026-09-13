@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Marketplace Panel" label="Marketplace">
+	<panel name="tool_panel">
+		<button name="sort_btn" tool_tip="Options d'affichage/tri"/>
+		<button name="add_btn" tool_tip="Créer un nouveau dossier d'annonce"/>
+		<button name="audit_btn" label="Vérifier les erreurs" tool_tip="Vérifier vos annonces Marketplace"/>
+	</panel>
+	<panel name="tab_container_panel">
+		<filter_editor name="filter_editor" label="Filtrer les annonces Marketplace"/>
+		<tab_container name="marketplace_filter_tabs">
+			<inventory_panel name="All Items" label="Tous"/>
+			<inventory_panel name="Active Items" label="Actifs"/>
+			<inventory_panel name="Inactive Items" label="Inactifs"/>
+			<inventory_panel name="Unassociated Items" label="Non associés"/>
+		</tab_container>
+	</panel>
+	<panel name="marketplace_drop_zone">
+		<text name="marketplace_drop_zone_text">Déposez des dossiers ici pour créer de nouvelles annonces</text>
+	</panel>
+</panel>

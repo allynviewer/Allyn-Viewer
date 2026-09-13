@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floatermediafilter" title="Medya Filtresi">
+	<text name="info1">Kalın harflerle yazılan alanlar kalıcı listededir (yani beyaz listeye veya kara listeye alınmıştır).</text>
+	<text name="info2">İtalik olarak yazılan alanlar oturum listesindedir (yani geçici olarak izin verilir veya reddedilir).</text>
+	<scroll_list name="whitelist_list">
+		<column name="whitelist_col" label="İzin verilen alanlar veya sunucu nesneleri" />
+	</scroll_list>
+	<scroll_list name="blacklist_list">
+		<column name="blacklist_col" label="Engellenen alanlar veya sunucu nesneleri" />
+	</scroll_list>
+	<button name="add_whitelist" label="Ekle..." tool_tip="Beyaz listeye bir sunucu ekleme" />
+	<button name="remove_whitelist" label="Kaldır" tool_tip="Seçilen sunucuyu beyaz listeden kaldır" />
+	<button name="clear_lists" label="Listeleri temizle" tool_tip="Tüm listeleri temizle" />
+	<button name="show_ips" label="IP'leri göster" tool_tip="Her alan adıyla ilişkili IP'yi göster (DNS aramaları nedeniyle liste yenilenirken izleyicinin duraklatılmasını sağlar)" />
+	<button name="add_blacklist" label="Ekle..." tool_tip="Kara listeye bir sunucu ekleme" />
+	<button name="remove_blacklist" label="Kaldır" tool_tip="Seçilen sunucuyu kara listeden kaldır" />
+	<text name="add_text">Yeni alan adı:</text>
+	<check_box name="match_ip" label="Eşleşen IP'yi ekle/kaldır" tool_tip="Eklenen veya kaldırılan alan adıyla ilişkili herhangi bir IP'yi ekleyin veya kaldırın" />
+	<line_editor name="input_domain" tool_tip="Yeni URL'yi, etki alanı adını, IP'yi veya script içeren nesne HTTP sunucusu yolunu buraya girin" />
+	<button name="commit_domain" label="Ekle" tool_tip="Listeye ekle" />
+</floater>

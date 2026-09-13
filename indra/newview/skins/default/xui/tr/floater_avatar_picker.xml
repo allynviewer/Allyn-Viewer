@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="avatarpicker" title="Sakin Seçin">
+	<string name="not_found">'[TEXT]' bulunamadı</string>
+	<string name="no_one_near">Yakında kimse yok</string>
+	<string name="no_results">Sonuç yok</string>
+	<string name="searching">Aranıyor...</string>
+	<string name="Select">Seç</string>
+	<string name="Close">Kapat</string>
+	<tab_container name="ResidentChooserTabs">
+		<panel name="SearchPanel" label="Ara">
+			<text name="InstructSearchResidentName">Sakinin adının bir kısmını yazın:</text>
+			<line_editor name="Edit" />
+			<button name="Find" label="Bul" />
+			<scroll_list name="SearchResults" />
+		</panel>
+		<panel name="FriendsPanel" label="Arkadaşlar">
+			<text name="InstructSelectFriend">Bir kişiyi seçin:</text>
+			<button name="RefreshFriends" label="Listeyi Yenile" />
+			<scroll_list name="Friends" />
+		</panel>
+		<panel name="NearMePanel" label="yakınımdaki">
+			<text name="InstructSelectResident">Yakındaki sakini seçin:</text>
+			<button name="Refresh" label="Listeyi Yenile" />
+			<slider name="near_me_range" label="Aralık" />
+			<text name="meters">Metre</text>
+			<scroll_list name="NearMe" />
+		</panel>
+		<panel name="KeyPanel" label="UUID'ye göre">
+			<text name="InstructSelectResident">Avatar veya Grup UUID'si:</text>
+			<line_editor name="EditUUID" />
+		</panel>
+	</tab_container>
+	<button name="ok_btn" label="OK" />
+	<button name="cancel_btn" label="İptal" />
+</floater>

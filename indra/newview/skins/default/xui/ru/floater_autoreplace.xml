@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="autoreplace_floater" title="Настройки автозамены">
+	<check_box name="autoreplace_enable" label="Включить автоматическую замену" tool_tip="При вводе текста чата заменяйте любое из введенных ключевых слов соответствующей заменой." />
+	<view_border name="divisor1" />
+	<button name="autoreplace_import_list" label="Импортировать список..." tool_tip="Загрузите ранее экспортированный список из файла." />
+	<button name="autoreplace_export_list" label="Экспортировать список..." tool_tip="Сохраните выбранный список в файл, чтобы можно было поделиться им." />
+	<button name="autoreplace_new_list" label="Новый список..." tool_tip="Создайте новый список." />
+	<button name="autoreplace_delete_list" label="Удалить список" tool_tip="Удалить выбранный список." />
+	<scroll_list name="autoreplace_list_name" />
+	<button name="autoreplace_list_up" tool_tip="Переместите этот список вверх по приоритету." />
+	<button name="autoreplace_list_down" tool_tip="Переместите этот список вниз по приоритету." />
+	<view_border name="divisor2" />
+	<scroll_list name="autoreplace_list_replacements">
+		<scroll_list.columns name="Keyword" label="Ключевое слово" />
+		<scroll_list.columns name="Replacement" label="Замена" />
+	</scroll_list>
+	<button name="autoreplace_add_entry" label="Добавить..." />
+	<button name="autoreplace_delete_entry" label="Удалить" />
+	<view_border name="divisor3" />
+	<text name="keyword">Ключевое слово:</text>
+	<line_editor name="autoreplace_keyword" />
+	<text name="replacement">Замена:</text>
+	<line_editor name="autoreplace_replacement" />
+	<button name="autoreplace_save_entry" label="Сохранить запись" tool_tip="Сохраните эту запись." />
+	<view_border name="divisor4" />
+	<button name="autoreplace_save_changes" label="Сохранить изменения" tool_tip="Сохраните все изменения." />
+	<button name="autoreplace_cancel" label="Отмена" tool_tip="Отменить все изменения." />
+</floater>

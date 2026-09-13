@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="inspect" title="オブジェクトを調べる">
+	<scroll_list name="object_list" tool_tip="リストのオブジェクトを選ぶと、ワールド内でハイライトされます">
+		<column name="object_name" label="オブジェクト名" />
+		<column name="owner_name" label="所有者名" />
+		<column name="last_owner_name" label="前の所有者名" />
+		<column name="creator_name" label="作成者名" />
+		<column name="face_num" label="面" />
+		<column name="vertex_num" label="頂点" />
+		<column name="script_num" label="スクリプト" />
+		<column name="inv_num" label="インベントリ合計" />
+		<column name="creation_date" label="作成日" />
+	</scroll_list>
+	<button name="button owner" label="所有者のプロフィール..." tool_tip="ハイライト中のオブジェクトの所有者のプロフィールを見る" />
+	<button name="button last owner" label="前の所有者のプロフィール..." tool_tip="ハイライト中のオブジェクトの前の所有者のプロフィールを見る" />
+	<button name="button creator" label="作成者のプロフィール..." tool_tip="ハイライト中のオブジェクトの作成者のプロフィールを見る" />
+</floater>

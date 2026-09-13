@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Image Preview">
+	<text name="name_label">Имя:</text>
+	<line_editor name="name_form" />
+	<text name="description_label">Описание:</text>
+	<line_editor name="description_form" />
+	<text name="preview_label">Предварительный просмотр изображения как:</text>
+	<combo_box name="clothing_type_combo" label="Тип одежды">
+		<combo_item name="Image">Изображение</combo_item>
+		<combo_item name="Hair">Волосы</combo_item>
+		<combo_item name="FemaleHead">Женская голова</combo_item>
+		<combo_item name="FemaleUpperBody">Женская верхняя часть тела</combo_item>
+		<combo_item name="FemaleLowerBody">Женская нижняя часть тела</combo_item>
+		<combo_item name="MaleHead">Мужская голова</combo_item>
+		<combo_item name="MaleUpperBody">Мужская верхняя часть тела</combo_item>
+		<combo_item name="MaleLowerBody">Мужская нижняя часть тела</combo_item>
+		<combo_item name="Skirt">Юбка</combo_item>
+		<combo_item name="SculptedPrim">Скульптурная Прим</combo_item>
+	</combo_box>
+	<text name="bad_image_text">
+		Невозможно прочитать изображение.
+
+Попробуйте сохранить изображение в формате 24 бит Targa (.tga).
+	</text>
+	<check_box name="lossless_check" label="Используйте сжатие без потерь" />
+	<check_box name="temp_check" label="Временный (бесплатно)" tool_tip="Делает актив временным, что означает, что он бесплатен, но, в свою очередь, действителен только в течение короткого времени, прежде чем он перестанет существовать." />
+	<button name="cancel_btn" label="Отмена" />
+	<button name="ok_btn" label="Загрузить ([UPLOADFEE])" />
+</floater>

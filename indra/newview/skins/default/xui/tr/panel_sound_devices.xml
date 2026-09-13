@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="device_settings_panel">
+	<string name="default_text">Varsayılan</string>
+	<string name="name_no_device">Cihaz Yok</string>
+	<string name="name_default_system_device">Varsayılan Sistem Cihazı</string>
+	<text name="Input">Giriş (mikrofon):</text>
+	<combo_box name="voice_input_device" />
+	<locate name="bar0" />
+	<locate name="bar1" />
+	<locate name="bar2" />
+	<locate name="bar3" />
+	<locate name="bar4" />
+	<text name="My volume label">Giriş Seviyesi:</text>
+	<volume_slider name="mic_volume_slider" tool_tip="Mikrofon giriş düzeyini değiştirme" />
+	<text name="wait_text">Lütfen bekleyin</text>
+	<text name="Output">Çıkış (hoparlörler):</text>
+	<combo_box name="voice_output_device" />
+	<text_editor name="mic_test_label">Speak into the microphone. Green bars show the level; you should also hear yourself in the speakers.</text_editor>
+</panel>

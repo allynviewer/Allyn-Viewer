@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_contact_groups" title="Gérer les groupes de contacts">
+	<text name="InstructManageContacts">Sélectionnez un groupe (ou cliquez sur Nouveau pour en créer un) :</text>
+	<combo_box name="buddy_group_combobox" tool_tip="Groupe d'amis">
+		<combo_item name="All">Tous</combo_item>
+	</combo_box>
+	<button name="combo_group_create" label="Nouveau"/>
+	<text name="contact_list_text">Actuellement dans :</text>
+</floater>

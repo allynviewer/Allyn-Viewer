@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="mute by name" title="名前でオブジェクトをミュート">
+	<text name="message">名前でのミュートはオブジェクトのチャットとIMにのみ影響し、サウンドには影響しません。オブジェクト名を正確に入力してください。</text>
+	<line_editor name="object_name">オブジェクト名</line_editor>
+	<button name="OK" label="OK" />
+	<button name="Cancel" label="キャンセル" />
+</floater>

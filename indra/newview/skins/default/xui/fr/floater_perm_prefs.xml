@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="perm prefs" title="Droits de création par défaut">
+	<panel label="Droits" name="permissions">
+		<text name="NextOwnerLabel">Prochain propriétaire :</text>
+		<text name="NextOwnerCopyLabel">Copier</text>
+		<text name="NextOwnerModifyLabel">Modifier</text>
+		<text name="NextOwnerTransferLabel">Transférer</text>
+		<text name="ShareWithGroupLabel">Partager avec le groupe</text>
+		<text name="AnyoneCopyLabel">Autoriser tout le monde à copier</text>
+		<text name="ExportationLabel">Autoriser l'exportation</text>
+		<text name="ObjectsLabel" tool_tip="Définir les droits par défaut lors de la création d'objets">Objets</text>
+		<text name="UploadsLabel" tool_tip="Définir les droits par défaut pour les éléments envoyés">Envois</text>
+		<text name="ScriptsLabel" tool_tip="Définir les droits par défaut lors de la création de scripts">Scripts</text>
+		<text name="NotecardsLabel" tool_tip="Définir les droits par défaut lors de la création de notes">Notes</text>
+		<text name="GesturesLabel" tool_tip="Définir les droits par défaut lors de la création de gestes">Gestes</text>
+		<text name="WearablesLabel" tool_tip="Définir les droits par défaut lors de la création de vêtements ou de parties du corps">Habits</text>
+	</panel>
+	<button label="OK" label_selected="OK" name="ok"/>
+	<button label="Annuler" label_selected="Annuler" name="cancel"/>
+</floater>

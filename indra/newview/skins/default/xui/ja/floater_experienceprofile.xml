@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater title="エクスペリエンス プロファイル">
+	<floater.string name="empty_slurl">（なし）</floater.string>
+	<floater.string name="maturity_icon_general">map_event.tga</floater.string>
+	<floater.string name="maturity_icon_moderate">map_event_mature.tga</floater.string>
+	<floater.string name="maturity_icon_adult">map_event_adult.tga</floater.string>
+	<name_box name="experience_title" />
+	<tab_container name="tab_container">
+		<panel name="panel_experience_info">
+			<scroll_container name="xp_scroll">
+				<panel name="scrolling_panel">
+					<layout_stack name="Experience_profile">
+						<layout_panel name="top panel">
+							<text name="grid_wide" />
+							<button name="edit_btn" label="編集" />
+						</layout_panel>
+						<layout_panel name="image_panel">
+							<texture_picker name="logo" />
+						</layout_panel>
+						<layout_panel name="description panel">
+							<text_editor name="experience_description" />
+						</layout_panel>
+						<layout_panel name="maturity panel">
+							<text name="ContentRating">レーティング:</text>
+							<text name="ContentRatingText" />
+						</layout_panel>
+						<layout_panel name="location panel">
+							<text name="Location">場所:</text>
+							<text_editor name="LocationTextText" />
+						</layout_panel>
+						<layout_panel name="marketplace panel">
+							<text>マーケットプレイスストア:</text>
+							<text_editor name="marketplace" />
+						</layout_panel>
+						<layout_panel name="owner panel">
+							<text name="Owner">所有者:</text>
+							<name_box name="OwnerText" />
+						</layout_panel>
+						<layout_panel name="group_panel">
+							<text name="Group">グループ:</text>
+							<name_box name="GroupText" />
+						</layout_panel>
+						<layout_panel name="perm panel">
+							<button name="allow_btn" label="許可" />
+							<button name="forget_btn" label="忘れる" />
+							<button name="block_btn" label="ブロック" />
+							<text name="privileged">このエクスペリエンスはすべてのレジデントに対して有効です。</text>
+							<button name="report_btn" label="通報" />
+						</layout_panel>
+					</layout_stack>
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="edit_panel_experience_info">
+			<scroll_container name="edit_xp_scroll">
+				<panel name="edit_scrolling_panel">
+					<texture_picker name="edit_logo" />
+					<text name="edit_experience_title_label" />
+					<line_editor name="edit_experience_title" />
+					<text name="edit_experience_desc_label" />
+					<text_editor name="edit_experience_description" />
+					<button name="Group_btn" label="グループを設定" />
+					<name_box name="edit_GroupText" />
+					<text name="edit_ContentRating">レーティング:</text>
+					<combo_box name="edit_ContentRatingText" label="モデレート" tool_tip="エクスペリエンスの成熟度レーティングを上げると、許可していた全レジデントの権限がリセットされます。">
+						<combo_item name="Adult" label="アダルト" />
+						<combo_item name="Mature" label="モデレート" />
+						<combo_item name="PG" label="一般" />
+					</combo_box>
+					<text name="edit_Location">場所:</text>
+					<text_editor name="edit_LocationTextText" />
+					<button name="location_btn" label="現在地に設定" />
+					<button name="clear_btn" label="場所をクリア" />
+					<text>マーケットプレイスストア:</text>
+					<line_editor name="edit_marketplace" />
+					<check_box name="edit_enable_btn" label="エクスペリエンスを有効にする" />
+					<check_box name="edit_private_btn" label="検索から隠す" />
+					<text name="changes" />
+					<button name="cancel_btn" label="後で" />
+					<button name="save_btn" label="保存" />
+				</panel>
+			</scroll_container>
+		</panel>
+	</tab_container>
+</floater>

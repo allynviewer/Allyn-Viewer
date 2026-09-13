@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="MemLeak" title="Bellek Sızıntısı Simülasyonu">
+	<spinner name="leak_speed" label="Sızıntı Hızı (kare başına bayt):" />
+	<spinner name="max_leak" label="Maksimum Sızdırılan Bellek (MB):" />
+	<text name="total_leaked_label">Şu anda sızdırılan bellek: [SIZE] KB</text>
+	<text name="note_label_1">[NOTE1]</text>
+	<text name="note_label_2">[NOTE2]</text>
+	<button name="start_btn" label="Başlat" />
+	<button name="stop_btn" label="Durdur" />
+	<button name="release_btn" label="Sürüm" />
+	<button name="close_btn" label="Kapat" />
+</floater>

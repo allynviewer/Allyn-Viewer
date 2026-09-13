@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel border="true" bottom="-409" height="408" label="Chat vocal" left="102" name="chat" width="517">
+	<string value="Permet à plusieurs instances d'utiliser la voix simultanément (redémarrage requis)" name="multivoice_label"/>
+	<scroll_container name="voice_scroll">
+		<panel name="voice_scroll_inner">
+			<text visibility_control="CmdLineDisableVoice" bottom_delta="-14" follows="left|top" left_delta="12" name="voice_unavailable">Le chat vocal n'est pas disponible</text>
+			<check_box control_name="local_enable" invisibility_control="CmdLineDisableVoice" bottom_delta="-6" follows="top" height="16" initial_value="false" label="Activer le chat vocal" left="8" name="enable_voice_check" />
+			<check_box bottom_delta="-18" follows="top" height="16" name="enable_multivoice_check" />
+			<radio_group enabled_control="local_enable" bottom_delta="-66" draw_border="false" follows="top" height="60" left_delta="20" name="ear_location" width="364">
+				<radio_item bottom="-19" height="16" left="3" name="0">Entendre le chat vocal depuis la caméra.</radio_item>
+				<radio_item bottom="-35" height="16" name="1">Entendre le chat vocal depuis l'avatar.</radio_item>
+				<radio_item bottom="-51" height="16" name="3">Entendre le chat vocal également de tous.</radio_item>
+			</radio_group>
+			<text enabled_control="local_enable" bottom_delta="-20" follows="top" height="16" name="push_to_talk_heading">Appuyer pour parler</text>
+			<check_box enabled_control="local_enable" bottom_delta="-20" follows="top" height="16" initial_value="false" label="Utiliser 'Appuyer pour Parler' en mode bascule" name="push_to_talk_toggle_check" tool_tip="Lorsque activé, appuyez sur le déclencheur push-to-talk pour activer ou désactiver le micro. Lorsque désactivé, le micro est éteint sauf si le déclencheur est maintenu enfoncé." />
+			<text enabled_control="local_enable" bottom_delta="-20" follows="top" height="16" left_delta="4" name="push_to_talk_label">Touche de contrôle :</text>
+			<line_editor enabled_control="local_enable" bottom_delta="-20" follows="top" height="19" name="modifier_combo" width="280" />
+			<button enabled_control="local_enable" bottom_delta="-25" follows="top" height="20" label="Définir la touche" name="set_voice_hotkey_button" width="115" />
+			<button enabled_control="local_enable" bottom_delta="0" follows="top" height="20" label="Molette de la souris" left_delta="120" name="set_voice_middlemouse_button" width="160" />
+			<check_box enabled_control="local_enable" bottom_delta="-24" follows="top" height="16" initial_value="false" label="Activer l'animation des lèvres" left="28" name="enable_lip_sync_check" />
+			<check_box enabled_control="local_enable" bottom_delta="-20" follows="top" height="16" initial_value="false" label="N'accepter que les appels vocaux de mes amis" name="voice_call_friends_only_check" />
+			<check_box enabled_control="local_enable" bottom_delta="-18" follows="top" height="16" initial_value="false" label="Couper le micro à la fin des appels IM" name="auto_disengage_mic_check" />
+			<check_box enabled_control="local_enable" control_name="VoiceEchoCancellation" bottom_delta="-20" follows="top" height="16" initial_value="true" label="Annulation d'écho" name="echo_cancellation_check" />
+			<check_box enabled_control="local_enable" control_name="VoiceAutomaticGainControl" bottom_delta="-18" follows="top" height="16" initial_value="true" label="Contrôle automatique du gain" name="agc_check" />
+			<text enabled_control="local_enable" bottom_delta="-20" follows="top" height="16" name="noise_suppression_label">Suppression du bruit :</text>
+			<combo_box enabled_control="local_enable" control_name="VoiceNoiseSuppressionLevel" bottom_delta="-20" follows="top" height="20" name="noise_suppression_combo" width="200">
+				<combo_item name="0" value="0">Désactivé</combo_item>
+				<combo_item name="1" value="1">Faible</combo_item>
+				<combo_item name="2" value="2">Modéré</combo_item>
+				<combo_item name="3" value="3">Élevé</combo_item>
+				<combo_item name="4" value="4">Très élevé</combo_item>
+			</combo_box>
+			<button enabled_control="local_enable" bottom_delta="-40" follows="top" height="20" label="Paramètres du matériel" mouse_opaque="true" name="device_settings_btn" width="155" tool_tip="Ouvre les paramètres du périphérique. Le chat vocal est temporairement suspendu tant que cette fenêtre est ouverte." />
+		</panel>
+	</scroll_container>
+</panel>

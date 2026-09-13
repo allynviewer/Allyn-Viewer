@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Debug" label="デバッグ">
+	<text name="region_text_lbl">リージョン:</text>
+	<text name="region_text">不明</text>
+	<check_box name="disable_scripts_check" label="スクリプトを無効にする" tool_tip="このリージョンのすべてのスクリプトを無効にします" />
+	<button name="disable_scripts_help" label=""  tool_tip="ヘルプ"/>
+	<check_box name="disable_collisions_check" label="衝突を無効にする" tool_tip="このリージョンのアバター以外の衝突を無効にします" />
+	<button name="disable_collisions_help" label=""  tool_tip="ヘルプ"/>
+	<check_box name="disable_physics_check" label="物理を無効にする" tool_tip="このリージョンのすべての物理を無効にします" />
+	<button name="disable_physics_help" label=""  tool_tip="ヘルプ"/>
+	<button name="apply_btn" label="適用" />
+	<text name="objret_text_lbl">オブジェクトの返却</text>
+	<text name="resident_text_lbl">レジデント:</text>
+	<line_editor name="target_avatar_name">（なし）</line_editor>
+	<button name="choose_avatar_btn" label="選択..." />
+	<text name="options_text_lbl">オプション:</text>
+	<check_box name="return_scripts" label="スクリプト付きオブジェクトのみ返却" tool_tip="スクリプトのあるオブジェクトだけを返却します。" />
+	<check_box name="return_other_land" label="他人の土地上のオブジェクトのみ返却" tool_tip="他人の土地にあるオブジェクトだけを返却します" />
+	<check_box name="return_estate_wide" label="このエステートの全リージョンでオブジェクトを返却" tool_tip="このエステートを構成するすべてのリージョンでオブジェクトを返却します" />
+	<button name="return_btn" label="返却" />
+	<button name="top_colliders_btn" label="衝突が多いオブジェクト..." tool_tip="衝突が多いオブジェクトの一覧" />
+	<button name="top_colliders_help" label=""  tool_tip="ヘルプ"/>
+	<button name="top_scripts_btn" label="負荷の高いスクリプト..." tool_tip="スクリプト実行時間が最も長いオブジェクトの一覧" />
+	<button name="top_scripts_help" label=""  tool_tip="ヘルプ"/>
+	<button name="restart_btn" label="リージョンを再起動" tool_tip="指定秒数のカウントダウンのあとリージョンを再起動します" />
+	<spinner name="rcount" label="秒:" />
+	<button name="restart_help" label=""  tool_tip="ヘルプ"/>
+	<button name="cancel_restart_btn" label="再起動を遅延" tool_tip="リージョンの再起動を1時間遅らせます" />
+</panel>

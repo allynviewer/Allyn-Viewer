@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="Radar Menu">
+	<menu label="Avatar" name="Avatar">
+		<menu_item_call label="Profil" name="Profile"/>
+		<menu_item_call label="Web-Profil" name="Web Profile"/>
+		<menu_item_call label="Bezahlen" name="Pay"/>
+		<menu_item_call label="Nachricht senden" name="Instant Message"/>
+		<menu_item_call label="Konferenz-Chat" name="Conference Chat"/>
+		<menu_item_call label="Anrufen" name="Call"/>
+		<menu_item_call label="Konferenzgespräch" name="Conference Call"/>
+		<menu_item_call label="Freund hinzufügen" name="Add Friend"/>
+		<menu_item_call label="Freund entfernen" name="Remove Friend"/>
+		<menu_item_call label="Zur Gruppe einladen" name="Invite To Group"/>
+		<menu_item_call label="Teleport anbieten" name="Offer Teleport"/>
+		<menu_item_call label="Zu Avatar teleportieren" name="Teleport To"/>
+		<menu_item_call label="Verfolgen ein/aus" name="Track/Untrack"/>
+		<menu_item_call label="Schlüssel kopieren" name="Copy Key"/>
+	</menu>
+	<menu label="Fokus" name="Focusing">
+		<menu_item_call label="Fokus" name="Focus"/>
+		<menu_item_call label="Nächster Fokus" name="Focus Next"/>
+		<menu_item_call label="Vorheriger Fokus" name="Focus Previous"/>
+		<menu_item_call label="Nächster markierter Fokus" name="Focus Next Marked"/>
+		<menu_item_call label="Vorheriger markierter Fokus" name="Focus Previous Marked"/>
+	</menu>
+	<menu label="Hinweise" name="Alerts">
+		<menu_item_check label="Hinweise anzeigen, wenn ein Avatar" name="Display alerts in chat"/>
+		<menu_item_check label="die Sim betritt/verlässt" name="sim alerts"/>
+		<menu_item_check label="die Sichtweite betritt/verlässt" name="draw distance alerts"/>
+		<menu_item_check label="die Rufweite betritt/verlässt" name="shout range alerts"/>
+		<menu_item_check label="die Chat-Reichweite betritt/verlässt" name="chat range alerts"/>
+		<menu_item_check label="unter der Altersschwelle liegt" name="chat range alerts"/>
+		<menu_item_check label="Ansagen auch wenn geschlossen" name="Announce even when closed"/>
+		<menu_item_check label="IDs an HUD senden" name="Announce keys to HUD"/>
+		<menu_item_call label="Schlüssel jetzt ansagen" name="Announce keys now"/>
+	</menu>
+	<menu label="Moderation" name="Moderation">
+		<menu_item_call label="Stummschaltung" name="Mute/Unmute"/>
+		<menu_item_call label="Einfrieren" name="Freeze"/>
+		<menu_item_call label="Vom Parcel werfen/sperren" name="Eject/Ban from Parcel"/>
+		<menu_item_call label="Vom Estate werfen" name="Eject from estate"/>
+		<menu_item_call label="Vom Estate werfen und sperren" name="Eject and ban from estate"/>
+	</menu>
+	<menu label="Spalten ausblenden" name="Hide Columns">
+		<menu_item_check label="Markieren" name="Mark"/>
+		<menu_item_check label="Position" name="Position"/>
+		<menu_item_check label="Höhe" name="Altitude"/>
+		<menu_item_check label="Aktivität" name="Activity"/>
+		<menu_item_check label="Alter" name="Age"/>
+		<menu_item_check label="Uhrzeit" name="Time"/>
+		<menu_item_check label="Client" name="Client"/>
+	</menu>
+	<menu_item_check label="Liste aktualisieren" name="Update List"/>
+</menu>

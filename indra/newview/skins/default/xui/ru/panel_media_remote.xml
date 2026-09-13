@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="media_remote">
+	<string name="Title">Заголовок</string>
+	<string name="Artist">Художник</string>
+	<string name="Now_playing">Сейчас играю</string>
+</panel>

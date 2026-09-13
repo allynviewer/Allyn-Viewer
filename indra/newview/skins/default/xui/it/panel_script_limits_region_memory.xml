@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="script_limits_region_memory_panel" label="Memoria della regione">
+	<text name="script_memory">Memoria script del terreno</text>
+	<text name="loading_text">Caricamento...</text>
+	<scroll_list name="scripts_list">
+		<column name="name" label="Oggetto"/>
+		<column name="size" label="Dimensione" tool_tip="Dimensione in kilobyte"/>
+		<column name="urls" label="URL"/>
+		<column name="owner" label="Proprietario"/>
+		<column name="parcel" label="Terreno"/>
+		<column name="location" label="Posizione"/>
+	</scroll_list>
+	<button name="refresh_list_btn" label="Aggiorna elenco"/>
+	<button name="highlight_btn" label="Evidenzia"/>
+	<button name="return_btn" label="Restituisci"/>
+</panel>

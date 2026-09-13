@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="ban_duration" title="期間">
+	<combo_box name="ban_duration_combo">
+		<combo_item name="permanent" label="永続的" />
+		<combo_item name="hours" label="時間" />
+		<combo_item name="days" label="日" />
+		<combo_item name="weeks" label="週" />
+		<combo_item name="months" label="月" />
+	</combo_box>
+	<spinner name="ban_duration" />
+	<button name="ok_btn" label="OK" />
+	<button name="cancel_btn" label="キャンセル" />
+</floater>

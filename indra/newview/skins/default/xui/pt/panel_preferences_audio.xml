@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Áudio e vídeo" name="Media panel">
+	<slider label="Fator de distância" name="Distance Factor"/>
+	<scroll_container name="audio_scroll">
+		<panel name="audio_scroll_inner">
+			<text name="muting_text">Volume:</text>
+			<text name="streaming_prefs_text">Streaming:</text>
+			<text name="audio_prefs_text">Preferências de áudio:</text>
+			<panel label="Volume" name="Volume Panel"/>
+			<text name="Media Filtering">Filtro de mídia</text>
+			<radio_group name="filter_group">
+				<radio_item name="0">Desligado</radio_item>
+				<radio_item name="1">Lista negra</radio_item>
+				<radio_item name="2">Perguntar</radio_item>
+			</radio_group>
+			<check_box label="Tocar música em streaming (usa mais banda)" name="streaming_music"/>
+			<check_box label="Tocar mídia em streaming (usa mais banda)" name="streaming_video"/>
+			<check_box label="Reproduzir mídia de prim automaticamente" name="auto_prim_streaming_video"/>
+			<check_box label="Tocar mídia automaticamente" name="auto_streaming_video"/>
+			<check_box label="Silenciar o áudio ao minimizar a janela" name="mute_when_minimized"/>
+			<slider label="Efeito Doppler" name="Doppler Effect"/>
+			<slider label="Atenuação" name="Rolloff Factor"/>
+			<slider label="Atenuação (submerso)" name="Underwater Rolloff Factor"/>
+			<spinner label="Alertar L$ a partir de:" name="currency_change_threshold"/>
+			<spinner label="Alertar saúde a partir de:" name="Health Change Threshold"/>
+		</panel>
+	</scroll_container>
+</panel>

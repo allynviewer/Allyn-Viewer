@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="EmeraldIRC_dictionaries" title="Yeni Sözlükleri İndir">
+	<text name="EmDics_txt">
+		Aşağıda, kullanabileceğiniz ek sözlüklerin bir listesi bulunmaktadır.
+izleyicinin web sitesinden indirilebilir.
+
+Lütfen mevcut olmasını istediğiniz sözlüğü seçin
+yüklemek için ve ardından indirme düğmesine basın.
+	</text>
+	<combo_box name="Emerald_combo_dics" />
+	<button name="Emerald_dic_download" label="İndir" />
+</floater>

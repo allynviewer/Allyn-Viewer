@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="script_limits_region_memory_panel" label="リージョン メモリ">
+	<text name="script_memory">パーセル スクリプト メモリ</text>
+	<text name="parcels_listed" />
+	<text name="memory_used" />
+	<text name="urls_used" />
+	<text name="loading_text">読み込み中...</text>
+	<scroll_list name="scripts_list">
+		<column name="name" label="オブジェクト" />
+		<column name="size" label="サイズ" tool_tip="サイズ 内 kilobytes" />
+		<column name="urls" label="URLs" />
+		<column name="owner" label="所有者" />
+		<column name="parcel" label="パーセル" />
+		<column name="location" label="場所" />
+	</scroll_list>
+	<button name="refresh_list_btn" label="リストを更新" />
+	<button name="highlight_btn" label="ハイライト" />
+	<button name="return_btn" label="返却" />
+</panel>

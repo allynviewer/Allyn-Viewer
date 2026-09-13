@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floatermediafilter" title="Filtro media">
+	<text name="info1">I domini in grassetto sono nell'elenco persistente (cioè in whitelist o blacklist).</text>
+	<text name="info2">I domini in corsivo sono nell'elenco della sessione (cioè temporaneamente consentiti o negati).</text>
+	<scroll_list name="whitelist_list">
+		<column name="whitelist_col" label="Domini o oggetti server consentiti"/>
+	</scroll_list>
+	<scroll_list name="blacklist_list">
+		<column name="blacklist_col" label="Domini o oggetti server bloccati"/>
+	</scroll_list>
+	<button name="add_whitelist" label="Aggiungi..." tool_tip="Aggiungi un server alla whitelist"/>
+	<button name="remove_whitelist" label="Rimuovi" tool_tip="Rimuovi il server selezionato dalla whitelist"/>
+	<button name="clear_lists" label="Svuota elenchi" tool_tip="Svuota tutti gli elenchi"/>
+	<button name="show_ips" label="Mostra IP" tool_tip="Mostra l'IP associato a ogni nome di dominio (il viewer si ferma durante l'aggiornamento dell'elenco, a causa delle ricerche DNS)"/>
+	<button name="add_blacklist" label="Aggiungi..." tool_tip="Aggiungi un server alla blacklist"/>
+	<button name="remove_blacklist" label="Rimuovi" tool_tip="Rimuovi il server selezionato dalla blacklist"/>
+	<text name="add_text">Nuovo dominio:</text>
+	<check_box name="match_ip" label="Aggiungi/rimuovi IP corrispondenti" tool_tip="Aggiungi o rimuovi qualsiasi IP associato al nome di dominio aggiunto o rimosso"/>
+	<line_editor name="input_domain" tool_tip="Inserisci qui il nuovo URL, nome di dominio, IP o percorso HTTP dell'oggetto con script"/>
+	<button name="commit_domain" label="Aggiungi" tool_tip="Aggiungi all'elenco"/>
+</floater>

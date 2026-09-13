@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Geral" name="general_panel">
+	<scroll_container name="general_scroll">
+		<panel name="general_scroll_inner">
+			<text name="start_location_textbox">POSIÇÃO INICIAL</text>
+			<radio_group name="default_start_location">
+				<radio_item name="home" tool_tip="Ao entrar, ir para a minha casa.">Casa</radio_item>
+				<radio_item name="last" tool_tip="Ao entrar, ir para a última posição.">Última posição</radio_item>
+			</radio_group>
+			<check_box label="Mostrar posição inicial na tela de login" name="show_location_checkbox"/>
+			<text name="show_names_textbox">NOMES</text>
+			<combo_box name="fade_out_combobox">
+				<combo_item name="Never">Nunca</combo_item>
+				<combo_item name="Show Temporarily">Por um tempo</combo_item>
+				<combo_item name="Always">Sempre</combo_item>
+			</combo_box>
+			<combo_box name="namesystem_combobox">
+				<combo_item name="Old Names">Nome de usuário</combo_item>
+				<combo_item name="Display Names (with Username)">Nome de exibição (com usuário)</combo_item>
+				<combo_item name="Display Names only">Só nome de exibição</combo_item>
+				<combo_item name="Old Names (with Display Names)">Nome de usuário (com exibição)</combo_item>
+			</combo_box>
+			<check_box label="Mostrar “Residente”" name="show_resident_checkbox"/>
+			<check_box label="Nomes pequenos" name="small_avatar_names_checkbox"/>
+			<check_box label="Ocultar meu nome na minha tela" name="show_my_name_checkbox"/>
+			<text name="group_titles_textbox">TÍTULOS DE GRUPO</text>
+			<check_box label="Ocultar todos os títulos" name="show_all_title_checkbox"/>
+			<check_box label="Ocultar meu título" name="show_my_title_checkbox"/>
+			<text name="UI Size:">TAMANHO DA INTERFACE</text>
+			<check_box label="Usar escala independente da resolução" name="ui_auto_scale"/>
+			<check_box label="Ausente se ocioso" name="away_when_idle_checkbox"/>
+			<spinner label="Após:" name="afk_timeout_spinner"/>
+			<text name="seconds_textbox">segundos</text>
+			<check_box label="Avisar troca de L$" name="notify_money_change_checkbox"/>
+			<check_box label="sem entupir o canto" name="no_transaction_clutter_checkbox" tool_tip="Ainda mostra as notificações, mas elas aparecem no canto inferior direito por um instante e depois desaparecem — você percebe a transação sem a tela ficar lotada."/>
+			<text name="maturity_desired_label">Classificação:</text>
+			<text name="maturity_desired_prompt">Quero acessar:</text>
+			<combo_box name="maturity_desired_combobox">
+				<combo_item name="Desired_Adult">PG, Mature e Adult</combo_item>
+				<combo_item name="Desired_Mature">PG e Mature</combo_item>
+				<combo_item name="Desired_PG">somente PG</combo_item>
+			</combo_box>
+			<text name="maturity_desired_textbox">somente PG</text>
+			<text name="crash_report_textbox">Falhas:</text>
+			<combo_box name="crash_behavior_combobox">
+				<combo_item name="Askbeforesending">Perguntar antes</combo_item>
+				<combo_item name="Alwayssend">Sempre enviar</combo_item>
+				<combo_item name="Neversend">Nunca enviar</combo_item>
+			</combo_box>
+			<text name="language_textbox">Idioma:</text>
+			<text name="language_textbox2">(precisa reiniciar)</text>
+			<string name="region_name_prompt">Digite o nome da região</string>
+			<combo_box name="language_combobox">
+				<combo_item name="System Default Language">Padrão do sistema</combo_item>
+				<combo_item name="English">English (inglês)</combo_item>
+				<combo_item name="Spanish">Español (espanhol)</combo_item>
+				<combo_item name="Portugese">Português</combo_item>
+				<combo_item name="French">Français (francês)</combo_item>
+				<combo_item name="Deutsch(German)">Deutsch (alemão)</combo_item>
+				<combo_item name="Italian">Italiano</combo_item>
+				<combo_item name="Turkish">Türkçe (turco)</combo_item>
+				<combo_item name="Russian">Русский (russo)</combo_item>
+				<combo_item name="Japanese">日本語 (japonês)</combo_item>
+			</combo_box>
+			<check_box label="Informar idioma aos objetos" name="language_is_public" tool_tip="Permite que objetos no mundo saibam o idioma que você prefere."/>
+			<button label="Redefinir tudo" name="clear_settings"/>
+		</panel>
+	</scroll_container>
+</panel>

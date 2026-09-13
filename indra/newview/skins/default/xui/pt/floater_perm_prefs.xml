@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="perm prefs" title="Permissões Padrão de Criação">
+	<panel label="Permissões" name="permissions">
+		<text name="NextOwnerLabel">Próximo proprietário:</text>
+		<text name="NextOwnerCopyLabel">Copiar</text>
+		<text name="NextOwnerModifyLabel">Modificar</text>
+		<text name="NextOwnerTransferLabel">Transferir</text>
+		<text name="ShareWithGroupLabel">Compartilhar com o grupo</text>
+		<text name="AnyoneCopyLabel">Permitir que qualquer um copie</text>
+		<text name="ExportationLabel">Permitir exportação</text>
+		<text name="ObjectsLabel" tool_tip="Definir permissões padrão para quando Objetos são criados">Objetos</text>
+		<text name="UploadsLabel" tool_tip="Definir permissões padrão para itens enviados">Envios</text>
+		<text name="ScriptsLabel" tool_tip="Definir permissões padrão para quando Scripts são criados">Scripts</text>
+		<text name="NotecardsLabel" tool_tip="Definir permissões padrão para quando Anotações são criadas">Anotações</text>
+		<text name="GesturesLabel" tool_tip="Definir permissões padrão para quando Gestos são criados">Gestos</text>
+		<text name="WearablesLabel" tool_tip="Definir permissões padrão para quando Roupas ou Partes do corpo são criadas">Vestimentas</text>
+	</panel>
+	<button label="OK" label_selected="OK" name="ok"/>
+	<button label="Cancelar" label_selected="Cancelar" name="cancel"/>
+</floater>

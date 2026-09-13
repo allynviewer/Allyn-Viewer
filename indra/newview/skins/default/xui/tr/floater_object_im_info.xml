@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="object im info" title="Nesne Bilgileri">
+	<text name="LabelItemNameTitle">Nesne:</text>
+	<text name="ObjectName" />
+	<text name="LabelSlurlTitle">Konum:</text>
+	<text name="Slurl" />
+	<text name="Unknown_Slurl">(Konum Bilgisi Mevcut Değil)</text>
+	<text name="LabelOwnerNameTitle">Sahibi:</text>
+	<name_box name="OwnerName" />
+	<text name="LabelObjectID">Anahtar:</text>
+	<line_editor name="ObjectID" />
+	<button name="Mute" label="Sahibin Sesini Kapat" />
+	<string name="owner" />
+</floater>

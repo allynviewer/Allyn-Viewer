@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="voice_effects" title="Distorsione voce">
+	<string name="no_voice_effect">(Nessuna distorsione voce)</string>
+	<string name="active_voice_effect">(Attivo)</string>
+	<string name="unsubscribed_voice_effect">(Non sottoscritto)</string>
+	<string name="new_voice_effect">(Nuovo!)</string>
+	<string name="effect_Arena">Arena</string>
+	<string name="effect_Beast">Bestia</string>
+	<string name="effect_Buff">Energico</string>
+	<string name="effect_Buzz">Ronzio</string>
+	<string name="effect_Camille">Camille</string>
+	<string name="effect_Creepy">Inquietante</string>
+	<string name="effect_CreepyBot">CreepyBot</string>
+	<string name="effect_Cyber">Cyber</string>
+	<string name="effect_DeepBot">DeepBot</string>
+	<string name="effect_Demon">Demone</string>
+	<string name="effect_Female Elf">Elfa</string>
+	<string name="effect_Flirty">Civettuolo</string>
+	<string name="effect_Foxy">Volpe</string>
+	<string name="effect_Halloween 2010 Bonus">Halloween_2010_Bonus</string>
+	<string name="effect_Helium">Elio</string>
+	<string name="effect_Husky">Rauco</string>
+	<string name="effect_Husky Whisper">Sussurro rauco</string>
+	<string name="effect_Intercom">Citofono</string>
+	<string name="effect_Julia">Julia</string>
+	<string name="effect_Lo Lilt">Lo Lilt</string>
+	<string name="effect_Macho">Macho</string>
+	<string name="effect_Micro">Micro</string>
+	<string name="effect_Mini">Mini</string>
+	<string name="effect_Model">Modello</string>
+	<string name="effect_Nano">Nano</string>
+	<string name="effect_Nightmare">Incubo</string>
+	<string name="effect_PopBot">PopBot</string>
+	<string name="effect_Rachel">Rachel</string>
+	<string name="effect_Radio">Radio</string>
+	<string name="effect_Robot">Robot</string>
+	<string name="effect_Roxanne">Roxanne</string>
+	<string name="effect_Rumble">Rombo</string>
+	<string name="effect_Sabrina">Sabrina</string>
+	<string name="effect_Samantha">Samantha</string>
+	<string name="effect_Sexy">Sexy</string>
+	<string name="effect_Shorty">Shorty</string>
+	<string name="effect_Smaller">Più piccolo</string>
+	<string name="effect_Sneaky">Furtivo</string>
+	<string name="effect_Stallion">Stallone</string>
+	<string name="effect_Sultry">Sensuale</string>
+	<string name="effect_Thunder">Tuono</string>
+	<string name="effect_Vixen">Vixen</string>
+	<string name="effect_WhinyBot">WhinyBot</string>
+	<text name="preview_text">Anteprima</text>
+	<text name="status_text">Registra un campione, poi clicca su una voce per sentire come suonerà.</text>
+	<button name="record_btn" label="Registra" tool_tip="Registra un campione della tua voce."/>
+	<button name="record_stop_btn" label="Ferma"/>
+	<button name="activate_btn" label="Attiva"/>
+	<text_editor name="voice_morphing_link">Iscriviti ora</text_editor>
+	<scroll_list name="voice_effect_list" tool_tip="Registra un campione della tua voce, poi clicca un effetto per l'anteprima.">
+		<column name="name" label="Nome voce"/>
+		<column name="expires" label="Scade"/>
+	</scroll_list>
+</floater>

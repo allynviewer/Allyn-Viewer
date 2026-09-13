@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="modal container">
+	<button name="Continue" label="Devam et" />
+	<button name="Cancel" label="İptal" />
+	<check_box name="agree_chk" label="Hizmet Şartlarını Kabul Ediyorum" />
+	<text name="tos_heading">
+		Lütfen aşağıdaki Hizmet Şartlarını dikkatlice okuyun. Second Life'da oturum açmaya devam etmek için,
+anlaşmayı kabul etmelisiniz.
+	</text>
+	<text_editor name="tos_text">TOS_TEXT</text_editor>
+	<web_browser name="tos_html" />
+	<string name="real_url" />
+</floater>

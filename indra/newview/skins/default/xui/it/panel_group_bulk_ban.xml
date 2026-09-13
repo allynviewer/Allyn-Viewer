@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="bulk_ban_panel" label="Bandisci residenti">
+	<panel.string name="loading">(caricamento...)</panel.string>
+	<panel.string name="ban_selection_too_large">Ban di gruppo non inviati: troppi residenti selezionati. I ban di gruppo sono limitati a 100 per richiesta.</panel.string>
+	<panel.string name="ban_not_permitted">Ban di gruppo non inviato: non hai l'abilità 'Gestisci elenco ban'.</panel.string>
+	<panel.string name="ban_limit_fail">Ban di gruppo non inviato: il gruppo ha raggiunto il limite di record di ban consentiti.</panel.string>
+	<panel.string name="partial_ban">Alcuni ban di gruppo non sono stati inviati: [REASONS]</panel.string>
+	<panel.string name="ban_failed">Ban di gruppo non inviati: [REASONS]</panel.string>
+	<panel.string name="residents_already_banned">- I seguenti residenti sono già banditi: [RESIDENTS].</panel.string>
+	<panel.string name="ban_limit_reached">- Limite di ban raggiunto, i seguenti agent non sono stati banditi: [RESIDENTS].</panel.string>
+	<panel.string name="cant_ban_yourself">- Non puoi bandire te stesso da un gruppo.</panel.string>
+	<text name="help_text">Puoi selezionare più residenti da bandire dal tuo gruppo. Clicca 'Apri selettore residenti' per iniziare.</text>
+	<button name="add_button" label="Apri selettore residenti"/>
+	<name_list name="banned_agent_list" tool_tip="Tieni premuto Ctrl e clicca i nomi dei residenti per la selezione multipla"/>
+	<button name="remove_button" label="Rimuovi i selezionati dall'elenco" tool_tip="Rimuove i residenti selezionati sopra dall'elenco dei ban"/>
+	<button name="ban_button" label="Bandisci residenti"/>
+	<button name="cancel_button" label="Annulla"/>
+	<string name="GroupBulkBan">Ban di gruppo</string>
+</panel>

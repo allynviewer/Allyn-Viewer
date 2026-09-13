@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="voice_controls">
+	<button name="speakers_btn" tool_tip="周囲でボイスチャットを使っているレジデントのリストを表示" />
+	<button name="push_to_talk" label="話す" tool_tip="ボタンを長押しして話します" />
+	<button name="ptt_lock" tool_tip="クリックしてトークモードに切り替えます" />
+	<icon name="voice_volume" />
+	<button name="show_channel" tool_tip="クリックして現在のボイスチャンネルを表示" />
+</panel>

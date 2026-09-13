@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_report_abuse" title="Сообщить о нарушении">
+	<string name="Screenshot">Скриншот</string>
+	<string name="Ridiculous1" />
+	<string name="Ridiculous2" />
+	<string name="Ridiculous3" />
+	<texture_picker name="screenshot" />
+	<check_box name="screen_check" label="Включить скриншот" />
+	<text name="reporter_title">Репортер:</text>
+	<name_box name="reporter_field">Loremipsum Dolorsitamut</name_box>
+	<text name="sim_title">Область:</text>
+	<text name="sim_field">Название региона</text>
+	<text name="pos_title">Позиция:</text>
+	<text name="pos_field">{128.1, 128.1, 15.4}</text>
+	<text name="select_object_label">Нажмите кнопку, затем объект:</text>
+	<button name="pick_btn" tool_tip="Средство выбора объекта — определите объект как предмет этого отчета." />
+	<text name="object_name_label">Имя:</text>
+	<text name="object_name">Consetetur Sadipscing</text>
+	<text name="owner_name_label">Владелец:</text>
+	<name_box name="owner_name">Hendrerit Vulputate</name_box>
+	<combo_box name="category_combo" tool_tip="Категория — выберите категорию, которая лучше всего описывает этот отчет.">
+		<combo_box.item name="Select_category" label="Выберите категорию" />
+		<combo_box.item name="Age__Age_play" label="Возраст &gt; Игра с возрастом" />
+		<combo_box.item name="Assault__Safe_area" label="Нападение &gt; Стрельба, толчки или удары в безопасной зоне" />
+		<combo_box.item name="Disclosure__Real_world_information" label="Разглашение &gt; Данные из реальной жизни" />
+		<combo_box.item name="Disturbing_the_peace__Excessive_scripted_objects" label="Нарушение порядка &gt; Слишком много скриптовых объектов" />
+		<combo_box.item name="Disturbing_the_peace__Object_littering" label="Нарушение порядка &gt; Захламление объектами" />
+		<combo_box.item name="Disturbing_the_peace__Repetitive_spam" label="Нарушение порядка &gt; Повторяющийся спам" />
+		<combo_box.item name="Fraud__US$" label="Мошенничество &gt; L$ или доллары США" />
+		<combo_box.item name="Ridiculous3" label="Фрейд &gt; Пользователь слишком интересуется своей матерью" />
+		<combo_box.item name="Harassment__Solicting_inciting_others_to_violate_ToS" label="Домогательства &gt; Целенаправленное поведение, мешающее другим" />
+		<combo_box.item name="Ridiculous1" label="Домогательства &gt; Пользователь облизывает палец и трогает меня" />
+		<combo_box.item name="Indecency__Broadly_offensive_content_or_conduct" label="Непристойность &gt; Оскорбительный контент или поведение" />
+		<combo_box.item name="Indecency__Inappropriate_avatar_name" label="Непристойность &gt; Неподходящее имя аватара" />
+		<combo_box.item name="Indecency__Mature_content_in_PG_region" label="Непристойность &gt; Контент не по рейтингу региона" />
+		<combo_box.item name="Intolerance" label="Нетерпимость" />
+		<combo_box.item name="Land__Encroachment__Objects_textures" label="Земля &gt; Захват &gt; Объекты или текстуры" />
+		<combo_box.item name="Ridiculous2" label="Земля &gt; Захват &gt; Пользователь не держится своей стороны машины" />
+		<combo_box.item name="Wagering_gambling" label="Нарушение правил игр на навык" />
+		<combo_box.item name="Other" label="Другой" />
+	</combo_box>
+	<text name="abuser_name_title">Имя обидчика:</text>
+	<line_editor name="abuser_name_edit" />
+	<button name="select_abuser" label="Выберите резидента" tool_tip="Выберите имя обидчика из списка" />
+	<check_box name="omit_abuser_name" label="Не знаю имени обидчика" tool_tip="Установите этот флажок, если вы не можете указать имя обидчика." />
+	<text name="abuser_name_title2">Место инцидента:</text>
+	<line_editor name="abuse_location_edit" />
+	<text name="sum_title">Краткое содержание:</text>
+	<line_editor name="summary_edit" />
+	<text name="dscr_title">Подробности:</text>
+	<text name="bug_aviso">
+		Указывайте как можно более конкретно: дату, место,
+характер насилия, соответствующий текст чата/IM и т. д.
+* Неполные отчеты не будут расследоваться.
+	</text>
+	<text_editor name="details_edit" />
+	<text name="incomplete_title">Примечание. Неполные отчеты не будут расследоваться.</text>
+	<button name="cancel_btn" label="Отмена" />
+	<button name="send_btn" label="Сообщить о нарушении" />
+</floater>

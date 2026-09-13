@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Place" title="Место">
+	<texture_picker name="snapshot_ctrl" />
+	<text name="name_label">Имя:</text>
+	<text name="name_editor" />
+	<text name="description_label">Описание:</text>
+	<text_editor name="desc_editor" />
+	<text name="information_label">Информация:</text>
+	<text name="info_editor" />
+	<text name="land_type_label">Тип земли:</text>
+	<text name="land_type_display" />
+	<text name="location_label">Расположение:</text>
+	<text name="location_editor" />
+	<button name="teleport_btn" label="Телепортироваться" />
+	<button name="map_btn" label="Показать на карте" />
+	<button name="auction_btn" label="Ставки..." />
+	<string name="traffic_text">Пробка: [TRAFFIC]</string>
+	<string name="area_text">Площадь: [AREA] м².</string>
+	<string name="forsale_text">Продается за [CURRENCY][PRICE]</string>
+	<string name="auction_text">Идентификатор аукциона [ID].</string>
+	<string name="server_update_text">Информация о месте недоступна без обновления сервера.</string>
+	<string name="server_error_text">В настоящее время информация об этом местоположении недоступна. Повторите попытку позже.</string>
+	<string name="server_forbidden_text">Информация об этом месте недоступна из-за ограничений доступа.  Пожалуйста, проверьте свои разрешения у владельца парцела.</string>
+</panel>

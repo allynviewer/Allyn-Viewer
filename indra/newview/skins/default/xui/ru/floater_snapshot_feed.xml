@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_snapshot_profile" title="Опубликовать в ленте моего профиля">
+	<text_editor name="caption">Введите здесь свое сообщение.</text_editor>
+	<check_box name="add_location_cb" label="Включить местоположение" />
+	<button name="cancel_btn" label="Отмена" />
+	<button name="post_btn" label="Почта" />
+	<string name="default_message">Нажмите на ссылку «снимок» выше, чтобы увидеть оригинал в большем размере.</string>
+	<string name="upload_message">"Загрузка..."</string>
+</floater>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Covenant" label="コベナント">
+	<text name="estate_section_lbl">エステート:</text>
+	<text name="estate_name_lbl">名前:</text>
+	<text name="estate_name_text">メインランド</text>
+	<text name="estate_owner_lbl">所有者:</text>
+	<name_box name="estate_owner_text">（なし）</name_box>
+	<text name="estate_cov_lbl">コベナント:</text>
+	<text name="covenant_timestamp_text">最終更新 Wed Dec 31 16:00:00 1969</text>
+	<button name="covenant_help" label=""  tool_tip="ヘルプ"/>
+	<text_editor name="covenant_editor">このエステートにはコベナントがありません。</text_editor>
+	<button name="reset_covenant" label="リセット" />
+	<text name="covenant_help_text">コベナントの変更は、エステート内のすべてのパーセルに表示されます。</text>
+	<text name="covenant_instructions">ノートカードをドラッグ＆ドロップして、このエステートのコベナントを変更します。</text>
+	<text name="region_section_lbl">リージョン:</text>
+	<text name="region_name_lbl">名前:</text>
+	<text name="region_name_text">leyla</text>
+	<text name="region_landtype_lbl">タイプ:</text>
+	<text name="region_landtype_text">Mainland / Homestead</text>
+	<text name="region_maturity_lbl">レーティング:</text>
+	<text name="region_maturity_text">アダルト</text>
+	<text name="resellable_lbl">再販:</text>
+	<text name="resellable_clause">このリージョンの土地は再販できません。</text>
+	<text name="changeable_lbl">分割:</text>
+	<text name="changeable_clause">このリージョンの土地は結合／分割できません。</text>
+	<string name="can_resell">このリージョンで購入した土地は再販できます。</string>
+	<string name="can_not_resell">このリージョンで購入した土地は再販できません。</string>
+	<string name="can_change">このリージョンで購入した土地は結合または分割できます。</string>
+	<string name="can_not_change">このリージョンで購入した土地は結合または分割できません。</string>
+</panel>

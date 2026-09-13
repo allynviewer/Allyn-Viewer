@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="im_floater" title="(desconhecido)">
+	<string name="answering">Conectando...</string>
+	<string name="ringing">Chamando...</string>
+	<string name="connected">Conectado. Clique em Encerrar para desligar.</string>
+	<string name="hang_up">Chamada encerrada</string>
+	<string name="voice_icon">icn_voice-pvtfocus.tga</string>
+	<string name="title_string">IM com [NAME]</string>
+	<string name="typing_start_string">[NAME] está digitando...</string>
+	<string name="session_start_string">Conectando com [NAME]...</string>
+	<string name="default_text_label">Clique para enviar uma mensagem</string>
+	<string name="unavailable_text_label">O chat de texto não está disponível nesta chamada.</string>
+	<string name="inventory_item_offered">Item do inventário oferecido</string>
+	<flyout_button name="instant_message_flyout" label="Perfil">
+		<flyout_button_item name="profile_item" label="Perfil"/>
+		<flyout_button_item name="history_btn" label="Histórico"/>
+		<flyout_button_item name="profile_tele_btn" label="Oferecer TP"/>
+		<flyout_button_item name="request_teleport_item" label="Pedir TP"/>
+		<flyout_button_item name="pay_item" label="Pagar"/>
+		<flyout_button_item name="group_invite_item" label="Convidar para grupo"/>
+		<flyout_button_item name="copy_slurl_item" label="Copiar SLURL"/>
+		<flyout_button_item name="conference" label="Adicionar à conferência"/>
+		<flyout_button_item name="report" label="Denunciar abuso"/>
+	</flyout_button>
+	<button name="start_call_btn" label="Ligar"/>
+	<button name="end_call_btn" label="Encerrar"/>
+	<check_box name="im_translate_check" tool_tip="Marque para ativar a tradução"/>
+	<button name="im_translate_btn" label="Tradução" tool_tip="Configurar idiomas desta conversa"/>
+	<panel name="speaker_controls">
+		<button name="mute_btn" tool_tip="Silenciar a voz deste residente"/>
+	</panel>
+	<line_editor name="chat_editor" label="Clique para enviar uma mensagem"/>
+	<button name="send_btn" label="Enviar"/>
+	<string name="live_help_dialog">*** Bem-vindo à solicitação de ajuda ***
+Confira primeiro as páginas de ajuda pressionando F1 ou acessando a Base de Conhecimento em http://secondlife.com/knowledgebase/
+Se a resposta não estiver lá, digite sua pergunta e aguarde um pouco até que um ajudante disponível responda.
+-=-=- O tempo de resposta varia, especialmente nos horários de pico -=-=-</string>
+</floater>

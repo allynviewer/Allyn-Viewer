@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview_anim">
+	<line_editor name="desc" />
+	<text name="desc txt">説明:</text>
+	<button name="Anim play btn" label="ワールドで再生" tool_tip="他の人にも見えるようにこのアニメーションを再生します。" />
+	<button name="Anim audition btn" label="ローカルで再生" tool_tip="自分にだけ見えるようにこのアニメーションを再生します。" />
+</floater>

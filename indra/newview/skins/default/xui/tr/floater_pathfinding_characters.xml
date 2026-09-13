@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_pathfinding_characters" title="Yol bulma karakterleri">
+	<string name="messaging_initial" />
+	<string name="messaging_get_inprogress">Yol bulma karakterleri sorgulanıyor...</string>
+	<string name="messaging_get_error">Yol bulma karakterleri sorgulanırken hata algılandı.</string>
+	<string name="messaging_set_inprogress" />
+	<string name="messaging_set_error" />
+	<string name="messaging_complete_none_found">Yol bulma karakteri yok.</string>
+	<string name="messaging_complete_available">[NUM_TOTAL] arasından seçilen [NUM_SELECTED] karakter.</string>
+	<string name="messaging_not_enabled">Bu bölge yol bulma için etkinleştirilmedi.</string>
+	<string name="character_cpu_time">[CPU_TIME] µs</string>
+	<string name="character_owner_loading">[Loading]</string>
+	<string name="character_owner_unknown">[Unknown]</string>
+	<string name="character_owner_group">[group]</string>
+	<panel name="pathfinding_chars_main">
+		<scroll_list name="objects_scroll_list">
+			<column name="name" label="İsim" />
+			<column name="description" label="Açıklama" />
+			<column name="owner" label="Sahip" />
+			<column name="cpu_time" label="CPU" />
+			<column name="altitude" label="Rakım" />
+		</scroll_list>
+		<text name="messaging_status">Karakterler:</text>
+		<button name="refresh_objects_list" label="Listeyi yenile" />
+		<button name="select_all_objects" label="Tümünü seç" />
+		<button name="select_none_objects" label="Hiçbirini seçme" />
+	</panel>
+	<view_border name="horiz_separator" />
+	<panel name="pathfinding_chars_actions">
+		<text name="actions_label">Seçilen karakterlere ilişkin eylemler:</text>
+		<check_box name="show_beacon" label="İşareti göster" />
+		<button name="take_objects" label="Al" />
+		<button name="take_copy_objects" label="Kopyasını al" />
+		<button name="teleport_me_to_object" label="Beni ona ışınla" tool_tip="Yalnızca bir karakter seçildiğinde etkinleştirilir." />
+		<button name="return_objects" label="Dönüş" />
+		<button name="delete_objects" label="Sil" />
+	</panel>
+</floater>

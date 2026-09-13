@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel enabled="true" label="Grades" name="Grids panel"
+		height="408" width="517" left="102"
+		follows="left|top|right|bottom" border="true" mouse_opaque="true">
+ <text type="string" length="1" enabled="true" name="grid_selector_label"
+		height="10" width="100" left="12" bottom="-20"
+		h_pad="0" v_pad="0" halign="left"
+		font="SansSerifSmall"
+		follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+	 drop_shadow_visible="true" border_drop_shadow_visible="false">
+ Selecione uma grade:
+ </text>
+ <combo_box max_chars="20" allow_text_entry="false" name="grid_selector"
+		height="18" width="200" left="120" bottom_delta="-4"
+		follows="left|top" mouse_opaque="true" />
+ <button label="Padrão" label_selected="Padrão" enabled="true" name="btn_default"
+ height="18" width="75" left_delta="210" bottom_delta="0"
+ halign="center"
+ follows="left|top" scale_image="true"
+ font="SansSerifSmall" mouse_opaque="true" />
+ <text type="string" length="1" enabled="true" name="default_grid"
+ height="10" width="200" left_delta="80" bottom_delta="5"
+ h_pad="0" v_pad="0" halign="left"
+ font="SansSerifSmall"
+ follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+ drop_shadow_visible="true" border_drop_shadow_visible="false">
+ ([PADRÃO])
+ </text>
+ <button label="Excluir" label_selected="Excluir" enabled="true" name="btn_delete"
+		height="18" width="75" left="120" bottom_delta="-27"
+		halign="center" tool_tip="Excluir a grade selecionada da lista"
+		follows="left|top" scale_image="true"
+	 font="SansSerifSmall" mouse_opaque="true" />
+ <button label="Criar" label_selected="Adicionar" enabled="true" name="btn_add"
+		height="18" width="75" left_delta="78" bottom_delta="0"
+		halign="center" tool_tip="Adicionar uma nova grade à lista"
+		follows="left|top" scale_image="true"
+	 font="SansSerifSmall" mouse_opaque="true" />
+ <button label="Copiar" label_selected="Copiar" enabled="true" name="btn_copy"
+		height="18" width="75" left_delta="78" bottom_delta="0"
+		halign="center" tool_tip="Criar uma nova entrada usando a entrada selecionada como modelo"
+		follows="left|top" scale_image="true"
+	 font="SansSerifSmall" mouse_opaque="true" />
+ <button label="Avançado" label_selected="Avançado" enabled="true" name="btn_advanced"
+		height="18" width="75" left_delta="78" bottom_delta="0"
+		halign="center"
+		follows="left|top" scale_image="true"
+	 font="SansSerifSmall" mouse_opaque="true" />
+ <text type="string" length="1" enabled="true" name="loginuri_label"
+		height="10" width="100" left="12" bottom_delta="-32"
+		h_pad="0" v_pad="0" halign="left"
+		font="SansSerifSmall"
+		follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+	 drop_shadow_visible="true" border_drop_shadow_visible="false">
+ URI de Login:
+ </text>
+ <line_editor max_length="254" enabled="true" name="loginuri"
+		handle_edit_keys_directly="true"
+		height="18" left="120" right="-12" bottom_delta="-4"
+		halign="right"
+		font="SansSerifSmall"
+		follows="left|top|right" border_visible="false" mouse_opaque="false"
+		drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <button label="Atualizar URLs das Grades" enabled="true" name="btn_gridinfo"
+		height="18" width="120" left="120" bottom_delta="-22"
+		halign="center" tool_tip="Recuperar todas as informações da grade a partir da URI de Login fornecida (sobrescrevendo as URLs atuais, veja Avançado)"
+		follows="left|top" scale_image="true"
+	 font="SansSerifSmall" mouse_opaque="true" />
+ <text type="string" length="1" enabled="true" name="platform_label"
+		height="10" width="100" left="12" bottom_delta="-32"
+		h_pad="0" v_pad="0" halign="left"
+		font="SansSerifSmall"
+		follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+	 drop_shadow_visible="true" border_drop_shadow_visible="false">
+ Plataforma:
+ </text>
+ <combo_box max_chars="20" allow_text_entry="false" name="platform"
+		height="18" width="200" left="120" bottom_delta="-4"
+		follows="left|top" mouse_opaque="true" />
+ <text type="string" length="1" enabled="true" name="gridname_label"
+		height="10" width="100" left="12" bottom_delta="-20"
+		h_pad="0" v_pad="0" halign="left"
+		font="SansSerifSmall"
+		follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+		drop_shadow_visible="true" border_drop_shadow_visible="false">
+ Nome da Grade:
+ </text>
+ <line_editor max_length="254" enabled="true" name="gridname"
+		handle_edit_keys_directly="true"
+		height="18" left="120" right="-12" bottom_delta="-4"
+		halign="right"
+		font="SansSerifSmall"
+		follows="left|top|right" border_visible="false" mouse_opaque="false"
+		drop_shadow_visible="true" border_drop_shadow_visible="false" />
+
+ <text type="string" length="1" enabled="true" name="gridmessage_label"
+		height="10" width="100" left="12" bottom_delta="-50"
+		h_pad="0" v_pad="0" halign="left"
+		font="SansSerifSmall"
+		follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+		drop_shadow_visible="true" border_drop_shadow_visible="false">
+ Informações da Grade:
+ </text>
+ <text_editor type="string" length="1" bottom="-185" embedded_items="false" enabled="true" follows="left|top|right"
+	 handle_edit_keys_directly="true" 
+ font="SansSerifSmall" height="50" left="120" right="-12" bottom_delta="-4" max_length="512"
+	 mouse_opaque="true" name="gridmessage" word_wrap="true" spell_check="true" />
+ 
+ 
+ <text type="string" length="1" enabled="true" name="loginpage_label"
+		height="10" width="100" left="12" bottom_delta="-22" visible="false"
+		h_pad="0" v_pad="0" halign="left"
+		font="SansSerifSmall"
+		follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+		drop_shadow_visible="true" border_drop_shadow_visible="false">
+ Página Inicial:
+ </text>
+ <line_editor max_length="254" enabled="true" name="loginpage"
+		handle_edit_keys_directly="true" visible="false"
+		height="18" left="120" right="-12" bottom_delta="-4"
+		halign="right"
+		font="SansSerifSmall"
+		follows="left|top|right" border_visible="false" mouse_opaque="false"
+		drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <text type="string" length="1" enabled="true" name="helperuri_label"
+		height="10" width="100" left="12" bottom_delta="-20" visible="false"
+		h_pad="0" v_pad="0" halign="left"
+		font="SansSerifSmall"
+		follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+	 drop_shadow_visible="true" border_drop_shadow_visible="false">
+ URL de Ajuda:
+ </text>
+ <line_editor max_length="254" enabled="true" name="helperuri"
+		handle_edit_keys_directly="true" visible="false"
+		height="18" left="120" right="-12" bottom_delta="-4"
+		halign="right"
+		font="SansSerifSmall"
+		follows="left|top|right" border_visible="false" mouse_opaque="false"
+		drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <text type="string" length="1" enabled="true" name="website_label"
+ height="10" width="100" left="12" bottom_delta="-20" visible="false"
+ h_pad="0" v_pad="0" halign="left"
+ font="SansSerifSmall"
+ follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+ drop_shadow_visible="true" border_drop_shadow_visible="false">
+ Site:
+ </text>
+ <line_editor max_length="254" enabled="true" name="website"
+ handle_edit_keys_directly="true" visible="false"
+ height="18" left="120" right="-12" bottom_delta="-4"
+ halign="right"
+ font="SansSerifSmall"
+ follows="left|top|right" border_visible="false" mouse_opaque="false"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <text type="string" length="1" enabled="true" name="support_label"
+ height="10" width="100" left="12" bottom_delta="-20" visible="false"
+ h_pad="0" v_pad="0" halign="left"
+ font="SansSerifSmall"
+ follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+ drop_shadow_visible="true" border_drop_shadow_visible="false">
+ URL de Suporte:
+ </text>
+ <line_editor max_length="254" enabled="true" name="support"
+ handle_edit_keys_directly="true" visible="false"
+ height="18" left="120" right="-12" bottom_delta="-4"
+ halign="right"
+ font="SansSerifSmall"
+ follows="left|top|right" border_visible="false" mouse_opaque="false"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <text type="string" length="1" enabled="true" name="register_label"
+ height="10" width="100" left="12" bottom_delta="-20" visible="false"
+ h_pad="0" v_pad="0" halign="left"
+ font="SansSerifSmall"
+ follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+ drop_shadow_visible="true" border_drop_shadow_visible="false">
+ URL da Conta:
+ </text>
+ <line_editor max_length="254" enabled="true" name="register"
+ handle_edit_keys_directly="true" visible="false"
+ height="18" left="120" right="-12" bottom_delta="-4"
+ halign="right"
+ font="SansSerifSmall"
+ follows="left|top|right" border_visible="false" mouse_opaque="false"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <text type="string" length="1" enabled="true" name="password_label"
+ height="10" width="100" left="12" bottom_delta="-20" visible="false"
+ h_pad="0" v_pad="0" halign="left"
+ font="SansSerifSmall"
+ follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+ drop_shadow_visible="true" border_drop_shadow_visible="false">
+ URL de Senha:
+ </text>
+ <line_editor max_length="254" enabled="true" name="password"
+ handle_edit_keys_directly="true" visible="false"
+ height="18" left="120" right="-12" bottom_delta="-4"
+ halign="right"
+ font="SansSerifSmall"
+ follows="left|top|right" border_visible="false" mouse_opaque="false"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <text name="partner_label" height="10" width="100" left="12" bottom_delta="-20" follows="left|top" visible="false">URL de Parceiro:</text>
+ <line_editor max_length="254" name="partner" handle_edit_keys_directly="true" height="18" left="120" right="-12" bottom_delta="-4" font="SansSerifSmall" follows="left|top|right" visible="false"/>
+ <text type="string" length="1" enabled="true" name="search_label"
+ height="10" width="100" left="12" bottom_delta="-20" visible="false"
+ h_pad="0" v_pad="0" halign="left"
+ font="SansSerifSmall"
+ follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+ drop_shadow_visible="true" border_drop_shadow_visible="false">
+ URL de Pesquisa:
+ </text>
+ <line_editor max_length="254" enabled="true" name="search"
+ handle_edit_keys_directly="true" visible="false"
+ height="18" left="120" right="-12" bottom_delta="-4"
+ halign="right"
+ font="SansSerifSmall"
+ follows="left|top|right" border_visible="false" mouse_opaque="false"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <check_box enabled="true" radio_style="false"
+		label="Compatibilidade de Renderização" name="render_compat" visible="false"
+		height="18" left="115" bottom_delta="-25"
+		h_pad="0" v_pad="0" halign="left"
+		font="SansSerifSmall"
+		follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+		drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <button label="?" label_selected="?" enabled="true" name="btn_help_render_compat"
+		height="18" width="18" left_delta="160" bottom_delta="1" visible="false"
+		halign="center" follows="left|top"
+	 font="SansSerifSmall" mouse_opaque="true" />
+</panel>

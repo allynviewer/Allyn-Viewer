@@ -1,0 +1,25 @@
+# -*- cmake -*-
+include(Prebuilt)
+
+set(EXPAT_FIND_QUIETLY ON)
+set(EXPAT_FIND_REQUIRED ON)
+
+if (STANDALONE)
+  include(FindEXPAT)
+else (STANDALONE)
+    use_prebuilt_binary(expat)
+    if (WINDOWS)
+        # Linden/expat prebuilt may be named libexpatMT (old) or libexpat (modern).
+        if (EXISTS "${LIBS_PREBUILT_DIR}/lib/release/libexpatMT.lib")
+            set(EXPAT_LIBRARIES libexpatMT)
+        else ()
+            set(EXPAT_LIBRARIES libexpat)
+        endif ()
+    else (WINDOWS)
+        set(EXPAT_LIBRARIES expat)
+    endif (WINDOWS)
+    set(EXPAT_INCLUDE_DIRS ${LIBS_PREBUILT_DIR}/include)
+    if (EXISTS "${LIBS_PREBUILT_DIR}/include/expat/expat.h")
+      list(APPEND EXPAT_INCLUDE_DIRS ${LIBS_PREBUILT_DIR}/include/expat)
+    endif ()
+endif (STANDALONE)

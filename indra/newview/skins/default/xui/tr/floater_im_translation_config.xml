@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="im_translation_config" title="Sohbet çevirisi">
+	<text name="src_label">Kaynak dil:</text>
+	<combo_box name="source_lang" tool_tip="Yazdığınız dil (ISO kodu). Özgürce yazabilirsiniz." />
+	<text name="dst_label">Hedef dil:</text>
+	<combo_box name="target_lang" tool_tip="Gelen iletilerin çevrileceği dil." />
+	<check_box name="incoming_check" label="Gelenleri çevir" tool_tip="Bu sohbette aldığınız iletileri çevir" />
+	<check_box name="outgoing_check" label="Gidenleri çevir" tool_tip="Bu sohbette gönderdiğiniz iletileri çevir" />
+	<text name="hint">Kaynak = konuşuyorsunuz. Hedef = diğerleri. Çeviri onay kutusu açar/kapatır. Ayarlar kaydedilir.</text>
+	<button name="ok_btn" label="OK" />
+	<button name="cancel_btn" label="İptal" />
+</floater>

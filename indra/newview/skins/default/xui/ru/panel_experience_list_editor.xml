@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel>
+	<panel.string name="loading">загрузка...</panel.string>
+	<panel.string name="panel_allowed">Разрешенный опыт:</panel.string>
+	<panel.string name="panel_blocked">Заблокированные впечатления:</panel.string>
+	<panel.string name="panel_trusted">Надежный опыт:</panel.string>
+	<panel.string name="no_results">(пустой)</panel.string>
+	<text name="text_name">Список опыта</text>
+	<text name="text_count" />
+	<name_list name="experience_list">
+		<columns name="experience_name" label="Имя" />
+	</name_list>
+	<button name="btn_add" label="Добавить..." />
+	<button name="btn_remove" label="Удалить" />
+	<button name="btn_profile" label="Профиль..." />
+</panel>

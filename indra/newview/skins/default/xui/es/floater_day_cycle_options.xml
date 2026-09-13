@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Day Cycle Floater" title="Editor del ciclo diario">
+	<tab_container name="Day Cycle Tabs">
+		<panel label="Ciclo diario" name="Day Cycle">
+			<button label="?" name="WLDayCycleHelp"/>
+			<text name="WL12am">00:00</text>
+			<text name="WL3am">03:00</text>
+			<text name="WL6am">06:00</text>
+			<text name="WL9amHash">09:00</text>
+			<text name="WL12pmHash">12:00</text>
+			<text name="WL3pm">15:00</text>
+			<text name="WL6pm">18:00</text>
+			<text name="WL9pm">21:00</text>
+			<text name="WL12am2">24:00</text>
+			<button label="Añadir punto" label_selected="Añadir punto" name="WLAddKey"/>
+			<button label="Quitar punto" label_selected="Quitar punto" name="WLDeleteKey"/>
+			<text name="WLCurKeyFrameText">Ajustes de fotograma clave:</text>
+			<text name="WLCurKeyTimeText">Hora clave:</text>
+			<spinner label="Hora" name="WLCurKeyHour"/>
+			<spinner label="Min" name="WLCurKeyMin"/>
+			<text name="WLCurKeyTimeText2">Preajuste de clave:</text>
+			<combo_box label="Preajuste" name="WLKeyPresets"/>
+			<text name="DayCycleText">Ajuste:</text>
+			<combo_box label="5 min" name="WLSnapOptions"/>
+			<text name="DayCycleText2">Duración del ciclo:</text>
+			<spinner label="Hora" name="WLLengthOfDayHour"/>
+			<spinner label="Min" name="WLLengthOfDayMin"/>
+			<spinner label="Seg" name="WLLengthOfDaySec"/>
+			<text name="DayCycleText3">Vista previa:</text>
+			<button label="Reproducir" label_selected="Reproducir" name="WLAnimSky"/>
+			<button label="Parar" label_selected="Parar" name="WLStopAnimSky"/>
+			<button label="Usar hora de la finca" label_selected="Ir a hora de la finca" name="WLUseLindenTime"/>
+			<text name="KeyFramePresetsText">Preajustes:</text>
+			<button label="Nuevo" label_selected="Nuevo" name="DayCycleNewPreset"/>
+			<button label="Guardar" label_selected="Guardar" name="DayCycleSavePreset"/>
+			<button label="Borrar" label_selected="Borrar" name="DayCycleDeletePreset"/>
+		</panel>
+	</tab_container>
+	<string name="DaycycleDefaultNames">Default:Happy%20Bivouac</string>
+</floater>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="region_tracker" title="Трекер региона">
+	<text name="region_label_text" />
+	<button name="refresh" />
+	<button name="remove" />
+	<button name="open_map" />
+	<scroll_list name="region_list" tool_tip="Дважды щелкните запись, чтобы открыть ее на карте мира.">
+		<scroll_list.columns name="region_label" label="Этикетка" />
+		<scroll_list.columns name="region_maturity_icon" />
+		<scroll_list.columns name="region_name" label="Область" />
+		<scroll_list.columns name="region_agent_count" label="Считать" />
+	</scroll_list>
+</floater>

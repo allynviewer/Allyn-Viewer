@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Classified" title="クラシファイド">
+	<texture_picker name="snapshot_ctrl" />
+	<line_editor name="given_name_editor" tool_tip="名前は句読点ではなく、文字または数字で始めてください。" />
+	<text_editor name="desc_editor" />
+	<line_editor name="location_editor" tool_tip="このクラシファイドの場所を現在位置に設定します。" />
+	<button name="set_location_btn" label="場所を設定" />
+	<button name="classified_teleport_btn" label="テレポート" />
+	<button name="classified_map_btn" label="マップ" />
+	<combo_box name="classified_category_combo" />
+	<combo_box name="classified_mature_check">
+		<combo_item name="select_mature">- マチュアを選択 -</combo_item>
+		<combo_item name="mature">Mature コンテンツ</combo_item>
+		<combo_item name="pg">PG コンテンツ</combo_item>
+	</combo_box>
+	<text name="classified_info_text" tool_tip="広告に支払う金額が多いほど、リストの上位に表示されます。">広告掲載: 未公開</text>
+	<text name="click_through_text" tool_tip="このクラシファイド掲載以降の各ボタンのクリック合計です。">クリック数:</text>
+	<button name="classified_update_btn" label="公開..." />
+	<check_box name="auto_renew_check" label="毎週自動更新" />
+	<string name="ad_placed_paid">広告掲載: [DATE]、[CURRENCY][AMT] を支払い掲載しました。</string>
+	<string name="update_txt">更新</string>
+	<string name="publish_txt">公開...</string>
+</panel>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="sell land" title="Продать землю">
+	<texture_picker name="info_image" />
+	<text name="info_parcel_label">Парцел:</text>
+	<text name="info_parcel">PARCEL NAME</text>
+	<text name="info_size_label">Размер:</text>
+	<text name="info_size">[AREA] кв.м.</text>
+	<text name="info_action">Чтобы продать этот участок:</text>
+	<icon name="step_price" />
+	<text name="price_label">Установите цену:</text>
+	<text name="price_text">Выберите подходящую цену за эту землю.</text>
+	<text name="price_ld">[CURRENCY]</text>
+	<line_editor name="price" />
+	<text name="price_per_m">([CURRENCY][PER_METER] за квадратный метр)</text>
+	<icon name="step_sell_to" />
+	<text name="sell_to_label">Продать землю:</text>
+	<text name="sell_to_text">Выберите, продавать ли кому-либо или конкретному покупателю.</text>
+	<combo_box name="sell_to">
+		<combo_item name="--selectone--">-- выберите один --</combo_item>
+		<combo_item name="Anyone">Любой</combo_item>
+		<combo_item name="Specificuser:">Конкретный пользователь:</combo_item>
+	</combo_box>
+	<line_editor name="sell_to_agent" />
+	<button name="sell_to_select_agent" label="Выбирать..." />
+	<icon name="step_sell_objects" />
+	<text name="sell_objects_label">Продать объекты вместе с землей?</text>
+	<text name="sell_objects_text">Передаваемые объекты землевладельца на участке изменят право собственности.</text>
+	<radio_group name="sell_objects">
+		<radio_item name="none" />
+		<radio_item name="no">Нет, сохранить право собственности на объекты</radio_item>
+		<radio_item name="yes">Да, продаем объекты с землей</radio_item>
+	</radio_group>
+	<button name="show_objects" label="Показать объекты" />
+	<text name="nag_message_label">ПОМНИТЕ: Все продажи являются окончательными.</text>
+	<button name="sell_btn" label="Установить землю на продажу" />
+	<button name="cancel_btn" label="Отмена" />
+</floater>

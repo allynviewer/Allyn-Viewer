@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="radar" title="Radar">
+	<string name="Title">Radar</string>
+	<string name="TitleOneAvatar">Radar (1 avatar)</string>
+	<string name="TitleWithCount">Radar ([COUNT] avatar)</string>
+	<filter_editor name="filter_input" label="Filtra per nome..." tool_tip="Filtra gli avatar per nome utente o nome visualizzato"/>
+	<scroll_list name="avatar_list" tool_tip="Tieni premuto Maiusc o Ctrl mentre clicchi per selezionare più avatar">
+		<column name="marked" label="Segna" tool_tip="Avatar segnati"/>
+		<column name="avatar_name" label="Nome" tool_tip="Tieni premuto Maiusc o Ctrl mentre clicchi per selezionare più avatar"/>
+		<column name="distance" label="Dist." tool_tip="Distanza dal tuo avatar (rosso=raggio chat, giallo=raggio shout, verde=distanza di disegno)"/>
+		<column name="position" label="Pos." tool_tip="Posizione (X, Y) in questa sim, o direzione generale (punto cardinale) per sim esterne"/>
+		<column name="altitude" label="Alt." tool_tip="Altitudine"/>
+		<column name="activity" label="Att." tool_tip="Attività"/>
+		<column name="voice" tool_tip="Stato voice"/>
+		<column name="notes" tool_tip="Se hai aggiunto o meno note al profilo di questo avatar"/>
+		<column name="age" label="Età" tool_tip="Età"/>
+		<column name="time" label="Tempo" tool_tip="Tempo dall'arrivo nella sim."/>
+		<column name="client" label="Client" tool_tip="Client che l'avatar sta probabilmente usando"/>
+	</scroll_list>
+	<tab_container name="actions_tab_container">
+		<panel name="actions_tab" label="Avatar">
+			<button name="profile_btn" label="Profilo" tool_tip="Mostra immagine, gruppi e altre informazioni"/>
+			<button name="track_btn" label="Traccia/Smetti" tool_tip="Attiva/disattiva il tracciamento della posizione di questo avatar"/>
+			<button name="get_key_btn" label="Ottieni chiave" tool_tip="Copia la chiave dell'avatar negli Appunti"/>
+			<button name="im_btn" label="IM" tool_tip="Apri sessione Instant Message (Maiusc-Invio)"/>
+			<button name="offer_btn" label="Offri TP" tool_tip="Offri Teleport"/>
+			<button name="teleport_btn" label="TP a" tool_tip="Teleport alla posizione dell'avatar (Ctrl-Invio)"/>
+			<button name="mark_btn" label="Segna/Togli segno" tool_tip="Segna o togli il segno da questo avatar nell'elenco"/>
+			<button name="prev_marked_btn" label="Precedente segnato" tool_tip="Metti a fuoco la camera sull'avatar segnato precedente"/>
+			<button name="next_marked_btn" label="Prossimo segnato" tool_tip="Metti a fuoco la camera sul prossimo avatar segnato"/>
+			<button name="focus_btn" label="Focus" tool_tip="Metti a fuoco la camera su questo avatar nell'elenco (Invio)"/>
+			<button name="prev_in_list_btn" label="Precedente" tool_tip="Metti a fuoco la camera sull'avatar precedente nell'elenco"/>
+			<button name="next_in_list_btn" label="Successivo" tool_tip="Metti a fuoco la camera sul prossimo avatar nell'elenco"/>
+		</panel>
+		<panel name="alerts_tab" label="Avvisi">
+			<check_box name="radar_alerts" label="Mostra avvisi in chat" tool_tip="Annuncia in chat gli avvisi su avatar in arrivo e in uscita"/>
+			<check_box name="alerts_sim" label="Avatar in ingresso/uscita dalla sim" tool_tip="Segnala avatar in ingresso o uscita dalla sim"/>
+			<check_box name="alerts_draw" label="Avatar dentro/oltre la distanza di disegno" tool_tip="Segnala avatar che entrano o escono dalla distanza di disegno"/>
+			<check_box name="alerts_chat" label="Avatar dentro/oltre il raggio di shout" tool_tip="Segnala avatar che entrano o escono dal raggio di shout"/>
+			<check_box name="alerts_chat" label="Avatar dentro/oltre il raggio di chat" tool_tip="Segnala avatar che entrano o escono dal raggio di chat"/>
+		</panel>
+		<panel name="land_tab" label="Moderazione">
+			<button name="mute_btn" label="Muta/Smuta" tool_tip="Muta o smuta questo avatar (i nomi degli avatar mutati sono evidenziati in rosso nell'elenco)."/>
+			<button name="freeze_btn" label="Immobilizza" tool_tip="Immobilizza l'avatar, impedendogli di muoversi"/>
+			<button name="ar_btn" label="AR" tool_tip="Denuncia abuso su questo avatar"/>
+			<button name="eject_btn" label="Eietta" tool_tip="Eietta l'avatar dal terreno"/>
+			<button name="estate_eject_btn" label="Eietta dalla proprietà" tool_tip="Eietta questo avatar dalla proprietà"/>
+			<button name="estate_ban_btn" label="Eietta e bandisci dalla proprietà" tool_tip="Eietta e bandisci questo avatar dalla proprietà"/>
+		</panel>
+		<panel name="options_tab" label="Opzioni">
+			<check_box name="update_enabled_cb" label="Aggiorna" tool_tip="Imposta se l'elenco avatar deve aggiornarsi"/>
+			<check_box name="keep_open" label="Annuncia anche se chiuso" tool_tip="Nasconde il floater invece di chiuderlo per continuare ad annunciare in chat"/>
+			<check_box name="radar_chat_keys" label="Annuncia le chiavi all'HUD" tool_tip="Imposta se inviare le chiavi degli avatar agli script LSL"/>
+			<button name="send_keys_btn" label="Annuncia ora" tool_tip="Invia tutte le chiavi all'HUD ora"/>
+		</panel>
+		<panel name="extras_tab" label="Extra">
+			<check_box name="agealert" label="Avviso età avatar" tool_tip="Attiva avviso età avatar"/>
+			<spinner name="AgeAlertDays" label="Soglia di età" tool_tip="Il numero minimo di giorni che un avatar può aver passato sulla grid senza attivare un avviso"/>
+			<text name="hide_columns">Nascondi colonne:</text>
+			<check_box name="hide_mark" label="Segna"/>
+			<check_box name="hide_pos" label="Pos." tool_tip="Posizione"/>
+			<check_box name="hide_alt" label="Alt." tool_tip="Altitudine"/>
+			<check_box name="hide_act" label="Att." tool_tip="Attività"/>
+			<check_box name="hide_voice" label="Voice" tool_tip="Stato voice"/>
+			<check_box name="hide_notes" label="Note" tool_tip="Casella note"/>
+			<check_box name="hide_age" label="Età"/>
+			<check_box name="hide_time" label="Tempo"/>
+			<check_box name="hide_client" label="Client"/>
+		</panel>
+	</tab_container>
+	<string name="Out Of Range">Fuori portata</string>
+	<string name="Moving">In movimento</string>
+	<string name="Playing a gesture">Riproduzione di una gesture</string>
+	<string name="Playing a sound">Riproduzione di un suono</string>
+	<string name="Rezzing objects">Rez oggetti</string>
+	<string name="Creating particles">Creazione particelle</string>
+	<string name="Just arrived">Appena arrivato</string>
+	<string name="Typing">Digitazione</string>
+</floater>

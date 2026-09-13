@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="ascsys" label="Адв. Чат">
+	<tab_container name="Ascent Chat" label="Расширенный чат">
+		<panel name="Chat/IM" label="Чат/чат">
+			<scroll_container name="advchat_im_scroll">
+				<panel name="advchat_im_inner">
+					<text name="objects_link_text_box">ИМС</text>
+					<icon name="section_im_rule" />
+					<check_box name="quickstart_im_check" label="Объявлять о входящих мгновенных сообщениях" tool_tip="Открывает окно обмена мгновенными сообщениями, когда кто-то начинает отправлять вам мгновенные сообщения. Это дает вам представление о том, что кто-то отправляет вам мгновенное сообщение, прежде чем нажмет кнопку «Ввод»." />
+					<check_box name="hide_typing_check" label="Не отправлять сообщение «[name] печатает...» в мгновенных сообщениях." tool_tip="Партнеры по обмену мгновенными сообщениями не увидят сообщение «______ печатает...», когда вы отвечаете." />
+					<check_box name="InstantMessagesFriendsOnly" label="Принимайте мгновенные сообщения только от друзей" />
+					<check_box name="allow_mu_pose_check" label="Разрешить метод позы MU." tool_tip="Позволяет использовать /me и : для демонстрации эмоций." />
+					<check_box name="close_ooc_check" label="Автоматическое закрытие комментариев OOC." tool_tip="Автоматически добавит '))' к любому сообщению, начинающемуся с '((', или наоборот." />
+					<text name="objects_link_text_box2">ЧАТ</text>
+					<icon name="section_chat_rule" />
+					<check_box name="play_typing_sound_check" label="Воспроизвести звук набора текста для локального чата" tool_tip="Отключает звук разговора, делая его тише, например, во время выступлений." />
+					<check_box name="hide_notifications_in_chat_check" label="Не отображать/записывать уведомления в чате" />
+					<check_box name="append_group_name_check" label="Показывать название группы в чате" tool_tip="Название группы также будет отображаться, если мгновенное сообщение поступило из группового чата." />
+					<check_box name="display_name_change" label="Показать изменения отображаемого имени" tool_tip="Если этот флажок установлен, в чате будет появляться уведомление при каждом изменении отображаемого имени." />
+					<check_box name="use_typing_bubbles" label="Используйте пузырьки-индикаторы набора текста над головой." />
+					<text name="objects_link_text_box3">Показывать ссылки на имена объектов чата в истории чата для:</text>
+					<radio_group name="objects_link" tool_tip="Включает ссылку, показывающую владельца говорящего объекта.">
+						<radio_item name="no_object">Нет объекта</radio_item>
+						<radio_item name="others_objects">Чужие объекты</radio_item>
+						<radio_item name="anyones_objects">чьи-либо объекты</radio_item>
+					</radio_group>
+					<text name="time_format_text_box">Формат времени:</text>
+					<combo_box name="time_format_combobox" tool_tip="Показывать часы в формате 12–23 или 12–23:00.">
+						<combo_item name="24hours">24-часовые часы</combo_item>
+						<combo_item name="12hours">12-часовые часы</combo_item>
+					</combo_box>
+					<check_box name="seconds_in_chat_and_ims_check" label="Секунды в чате/временные метки мгновенных сообщений" />
+					<text name="date_format_text_box">Формат даты:</text>
+					<combo_box name="date_format_combobox">
+						<combo_item name="year_first">YYYY-MM-DD</combo_item>
+						<combo_item name="year_first_slashes">YYYY/MM/DD</combo_item>
+						<combo_item name="day_first">DD/MM/YYYY</combo_item>
+						<combo_item name="month_first">MM/DD/YYYY</combo_item>
+					</combo_box>
+					<check_box name="seconds_in_log" label="Секунды в временных метках журнала" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="ChatUI" label="Интерфейс чата">
+			<scroll_container name="advchat_ui_scroll">
+				<panel name="advchat_ui_inner">
+					<check_box name="use_vertical_ims_check" label="Использовать вертикальные мгновенные сообщения (требуется перезагрузка)" />
+					<check_box name="chats_torn_off" label="Открывайте новые мгновенные сообщения в отдельных плавающих сообщениях." />
+					<check_box name="chat_steal_focus" label="Сосредоточьтесь на новых мгновенных сообщениях" />
+					<check_box name="show_local_chat_floater_bar" label="Показывать панель чата в оторванном всплывающем окне локального чата" />
+					<check_box name="horiz_butt" label="Используйте горизонтальные кнопки для всплывающего окна контактов (требуется перезагрузка)" tool_tip="Если этот параметр включен, кнопки на панелях «Друзья» и «Группы» будут расположены внизу и горизонтально, а не вертикально справа." />
+					<text name="namesystems_text_box">ФОРМАТ НАЗВАНИЯ</text>
+					<icon name="section_names_rule" />
+					<text name="chat_tabs_namesystem_text_box">Вкладки чата:</text>
+					<combo_box name="chat_tabs_namesystem_combobox">
+						<combo_item name="Old Names">Старые имена</combo_item>
+						<combo_item name="Display Names (with Username)">Отображаемые имена (с логином)</combo_item>
+						<combo_item name="Display Names only">Только отображаемые имена</combo_item>
+						<combo_item name="Old Names (with Display Names)">Старые имена (с отображаемыми)</combo_item>
+					</combo_box>
+					<text name="friends_namesystem_text_box">Друзья:</text>
+					<combo_box name="friends_namesystem_combobox">
+						<combo_item name="Old Names">Старые имена</combo_item>
+						<combo_item name="Display Names (with Username)">Отображаемые имена (с логином)</combo_item>
+						<combo_item name="Display Names only">Только отображаемые имена</combo_item>
+						<combo_item name="Old Names (with Display Names)">Старые имена (с отображаемыми)</combo_item>
+					</combo_box>
+					<text name="group_members_namesystem_text_box">Члены группы:</text>
+					<combo_box name="group_members_namesystem_combobox">
+						<combo_item name="Old Names">Старые имена</combo_item>
+						<combo_item name="Display Names (with Username)">Отображаемые имена (с логином)</combo_item>
+						<combo_item name="Display Names only">Только отображаемые имена</combo_item>
+						<combo_item name="Old Names (with Display Names)">Старые имена (с отображаемыми)</combo_item>
+					</combo_box>
+					<text name="land_management_namesystem_text_box">Землеустройство:</text>
+					<combo_box name="land_management_namesystem_combobox">
+						<combo_item name="Old Names">Старые имена</combo_item>
+						<combo_item name="Display Names (with Username)">Отображаемые имена (с логином)</combo_item>
+						<combo_item name="Display Names only">Только отображаемые имена</combo_item>
+						<combo_item name="Old Names (with Display Names)">Старые имена (с отображаемыми)</combo_item>
+					</combo_box>
+					<text name="profile_namesystem_text_box">Профили:</text>
+					<combo_box name="profile_namesystem_combobox">
+						<combo_item name="Old Names">Старые имена</combo_item>
+						<combo_item name="Display Names (with Username)">Отображаемые имена (с логином)</combo_item>
+						<combo_item name="Display Names only">Только отображаемые имена</combo_item>
+						<combo_item name="Old Names (with Display Names)">Старые имена (с отображаемыми)</combo_item>
+					</combo_box>
+					<text name="radar_namesystem_text_box">Radar:</text>
+					<combo_box name="radar_namesystem_combobox">
+						<combo_item name="Old Names">Старые имена</combo_item>
+						<combo_item name="Display Names (with Username)">Отображаемые имена (с логином)</combo_item>
+						<combo_item name="Display Names only">Только отображаемые имена</combo_item>
+						<combo_item name="Old Names (with Display Names)">Старые имена (с отображаемыми)</combo_item>
+					</combo_box>
+					<text name="speaker_namesystem_text_box">Спикеры:</text>
+					<combo_box name="speaker_namesystem_combobox">
+						<combo_item name="Old Names">Старые имена</combo_item>
+						<combo_item name="Display Names (with Username)">Отображаемые имена (с логином)</combo_item>
+						<combo_item name="Display Names only">Только отображаемые имена</combo_item>
+						<combo_item name="Old Names (with Display Names)">Старые имена (с отображаемыми)</combo_item>
+					</combo_box>
+					<check_box name="im_concise_butt" label="Кнопки в той же строке, что и имя для мгновенных сообщений (влияет на новые мгновенные сообщения)" />
+					<check_box name="group_concise_butt" label="Кнопки в строке имени группового чата (влияет на новые групповые чаты)" />
+					<check_box name="conf_concise_butt" label="Кнопки в строке заголовка конференции (влияет на новые конференции)" />
+					<check_box name="legacy_log_launch" label="Кнопка журнала открывает внешний текстовый редактор" />
+					<check_box name="only_comm" label="Запретить открытие ярлыка для общения с отключенным списком друзей" />
+					<check_box name="scroll_to_end_on_focus" label="Автоматическая прокрутка до конца чатов, когда они восстанавливают фокус" />
+					<check_box name="italicize_actions" label="Выделить курсивом сообщения о действиях (/me)" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="Autoresponse" label="Автоответ">
+			<text name="Autoresponse Info">
+				Автоответ позволяет зрителю отвечать людям, которые пишут вам, персонализированным сообщением.
+Для улучшения автоответов доступны следующие подстановочные знаки: #n для устаревшего имени пользователя,
+#d для их отображаемого имени, #r для SLURL к вашему местоположению, #i для вашего времени простоя в минутах.
+			</text>
+			<check_box name="AscentInstantMessageResponseRepeat" label="Автоответчик каждый раз, когда вы получаете сообщение, для которого вы включили автоответчик." />
+			<check_box name="AutoresponseOnlyIfAway" label="Отправляйте автоответы только во время отсутствия" />
+			<tab_container name="Autoresponses">
+				<panel name="Basic" label="Базовый">
+					<check_box name="AutoresponseAnyone" label="Давать возможность" tool_tip="Отправьте сообщение в поле ниже людям, у которых вы не отключили звук." />
+					<check_box name="AutoresponseAnyoneFriendsOnly" label="только для друзей" tool_tip="Избегает отправки этого ответа тем, кого вы не знаете" />
+					<check_box name="AutoresponseAnyoneItem" label="Отправить товар" />
+					<check_box name="AutoresponseAnyoneShow" label="Показать, что это было отправлено" />
+					<text_editor name="AutoresponseAnyoneMessage" />
+					<drop_target name="AutoresponseAnyoneItemID" tool_tip="Перетащите сюда элемент, чтобы он был отправлен с указанным выше ответом." />
+				</panel>
+				<panel name="Nonfriends" label="Недрузья">
+					<check_box name="AutoresponseNonFriends" label="Давать возможность" tool_tip="Отправьте сообщение в поле ниже людям, которые не являются вашими друзьями." />
+					<check_box name="AutoresponseNonFriendsItem" label="Отправить товар" />
+					<check_box name="AutoresponseNonFriendsShow" label="Показать, что это было отправлено" />
+					<text_editor name="AutoresponseNonFriendsMessage" />
+					<drop_target name="AutoresponseNonFriendsItemID" tool_tip="Перетащите сюда элемент, чтобы он был отправлен с указанным выше ответом." />
+				</panel>
+				<panel name="Muted" label="Без звука">
+					<check_box name="AutoresponseMuted" label="Давать возможность" tool_tip="Отправьте сообщение в поле ниже людям, которых вы отключили." />
+					<check_box name="AutoresponseMutedItem" label="Отправить товар" />
+					<check_box name="AutoresponseMutedShow" label="Показать, что это было отправлено" />
+					<text_editor name="AutoresponseMutedMessage" />
+					<drop_target name="AutoresponseMutedItemID" tool_tip="Перетащите сюда элемент, чтобы он был отправлен с указанным выше ответом." />
+				</panel>
+				<panel name="Busy Mode" label="Режим занятости" tool_tip="Отправьте сообщение в поле ниже тем, кто пишет, когда вы заняты.">
+					<check_box name="BusyModeResponseItem" label="Отправить товар" />
+					<check_box name="BusyModeResponseShow" label="Показать, что это было отправлено" />
+					<text_editor name="BusyModeResponse" />
+					<drop_target name="BusyModeResponseItemID" tool_tip="Перетащите сюда элемент, чтобы он был отправлен с указанным выше ответом." />
+				</panel>
+			</tab_container>
+		</panel>
+		<panel name="Spam" label="Спам">
+			<scroll_container name="advchat_spam_scroll">
+				<panel name="advchat_spam_inner">
+					<check_box name="enable_as" label="Включить антиспам" />
+					<button name="reset_antispam" label="Сброс очередей защиты от спама" />
+					<check_box name="spammsg_checkbox" label="Никаких очередей спама для конкретных типов сообщений." />
+					<spinner name="antispamtime" label="Время защиты от спама (секунды):" tool_tip="Нижний уровень менее чувствителен" />
+					<spinner name="antispamamount" label="Сумма антиспама:" tool_tip="Чем выше, тем менее чувствительна" />
+					<spinner name="antispamsoundmulti" label="Множитель суммы для воспроизведения звука:" tool_tip="Чем выше, тем менее чувствительна" />
+					<spinner name="antispamsoundpreloadmulti" label="Множитель суммы для предварительной загрузки звука:" tool_tip="Чем выше, тем менее чувствительна" />
+					<spinner name="antispamnewlines" label="Количество новых строк в сообщении instablock:" tool_tip="Чем выше, тем менее чувствительна" />
+					<check_box name="Notify On Spam" label="Уведомлять, когда спам блокируется" tool_tip="Если эта функция включена, правый нижний угол может стать источником псевдоспама всякий раз, когда реальный спам блокируется." />
+					<check_box name="antispam_checkbox" label="Отключить все диалоги (сбрасывается при входе в систему)" />
+					<text name="Block All Dialogs From">Заблокировать все диалоги из</text>
+					<check_box name="Alerts" label="Оповещения" />
+					<check_box name="Friendship Offers" label="Предложения дружбы" />
+					<check_box name="Group Invites" label="Все приглашения в группу" />
+					<check_box name="Group Fee Invites" label="Приглашения на групповую плату" />
+					<check_box name="Item Offers" label="Предложения предметов" />
+					<check_box name="Scripts" label="Скрипты" />
+					<check_box name="Teleport Offers" label="Предложения телепорта" />
+					<check_box name="Group Notices" label="Уведомления группы" />
+					<check_box name="Teleport Requests" label="Запросы на телепортацию" />
+					<check_box name="LM Offers" label="Предложения ландмарков" />
+					<text name="Except those from:">Кроме тех, что из:</text>
+					<check_box name="My objects" label="Мои объекты" />
+					<check_box name="My friends" label="Мои друзья" />
+					<check_box name="Enable Gesture Sounds" label="Включить звуки жестов" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="TextOptions" label="Параметры текста">
+			<scroll_container name="advchat_text_scroll">
+				<panel name="advchat_text_inner">
+					<check_box name="SpellDisplay" label="Показывать слова с ошибками красным цветом" />
+					<text name="EmSpell_txt1">Текущий язык (словарь):</text>
+					<combo_box name="SpellBase" />
+					<text name="EmSpell_txt3">Скачанные языки (словари):</text>
+					<combo_box name="EmSpell_Avail" />
+					<button name="EmSpell_Add" label="Установить" />
+					<button name="EmSpell_GetMore" label="Скачать Подробнее..." tool_tip="Получите больше словарей, доступных онлайн" />
+					<text name="EmSpell_txt2">Дополнительные пользовательские языки (словари):</text>
+					<combo_box name="EmSpell_Installed" />
+					<button name="EmSpell_Remove" label="Удалить" />
+					<button name="EmSpell_EditCustom" label="Редактировать пользовательский словарь" />
+					<text name="EmSpell_txt4">
+						Чтобы использовать проверку орфографии, щелкните правой кнопкой мыши слово с ошибкой.
+(красный или другой) и выберите ему замену
+					</text>
+					<button name="autoreplace" label="Настройки автозамены" />
+					<view_border name="CmdDivisor" />
+					<check_box name="KeywordsOn" label="Выделяйте сообщения, если какое-либо из них содержит термины" />
+					<text name="keyword_txt1">(разделенные запятыми)</text>
+					<line_editor name="KeywordsList" />
+					<text name="EmKeyw">Находится внутри:</text>
+					<check_box name="KeywordsInChat" label="Местный чат" />
+					<check_box name="KeywordsInIM" label="Плавающее сообщение для мгновенных сообщений" />
+					<check_box name="KeywordsChangeColor" label="Выделите сообщение этим цветом:" />
+					<color_swatch name="KeywordsColor" tool_tip="Нажмите, чтобы открыть палитру цветов" />
+					<check_box name="KeywordsPlaySound" label="Воспроизведите это звуковое оповещение: (UUID)" />
+					<line_editor name="KeywordsSound" />
+				</panel>
+			</scroll_container>
+		</panel>
+	</tab_container>
+</panel>

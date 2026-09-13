@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="device_settings_panel">
+	<string name="default_text">デフォルト</string>
+	<string name="name_no_device">デバイスなし</string>
+	<string name="name_default_system_device">システムのデフォルトデバイス</string>
+	<text name="Input">入力（マイク）:</text>
+	<combo_box name="voice_input_device" />
+	<locate name="bar0" />
+	<locate name="bar1" />
+	<locate name="bar2" />
+	<locate name="bar3" />
+	<locate name="bar4" />
+	<text name="My volume label">入力レベル:</text>
+	<volume_slider name="mic_volume_slider" tool_tip="マイクの入力レベルを変更" />
+	<text name="wait_text">お待ちください</text>
+	<text name="Output">出力（スピーカー）:</text>
+	<combo_box name="voice_output_device" />
+	<text_editor name="mic_test_label">マイクに向かって話してください。緑のバーがレベルを示します。スピーカーからも自分の声が聞こえるはずです。</text_editor>
+</panel>

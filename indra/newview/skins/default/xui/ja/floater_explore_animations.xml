@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_explore_animations" title="アニメーション">
+	<scroll_list name="anim_list">
+		<column name="name" label="名前" />
+		<column name="info" />
+	</scroll_list>
+</floater>

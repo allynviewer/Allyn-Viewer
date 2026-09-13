@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Post-Process Floater" title="Paramètres de post-traitement">
+	<tab_container name="Post-Process Tabs">
+		<panel name="ColorFilterPanel" label="Filtre couleur">
+			<check_box name="enable_color_filter" label="Activer"/>
+			<text name="ColorFilterGammaText">Gamma</text>
+			<text name="ColorFilterBrightnessText">Luminosité</text>
+			<text name="ColorFilterSaturationText">Saturation</text>
+			<text name="ColorFilterContrastText">Contraste</text>
+			<text name="ColorFilterBaseText">Couleurs de base du contraste</text>
+			<slider name="contrast_base[0]" label="R"/>
+			<slider name="contrast_base[1]" label="V"/>
+			<slider name="contrast_base[2]" label="B"/>
+			<slider name="contrast_base[3]" label="I"/>
+		</panel>
+		<panel name="GaussBlurPanel" label="Flou gaussien">
+			<check_box name="enable_gauss_blur" label="Activer"/>
+			<text name="GaussBlurPassesText">Passes à appliquer</text>
+		</panel>
+		<panel name="NightVisionPanel" label="Vision nocturne">
+			<check_box name="enable_night_vision" label="Activer"/>
+			<text name="NightVisionBrightMultText">Amplification de lumière</text>
+			<text name="NightVisionNoiseSizeText">Taille du bruit</text>
+			<text name="NightVisionNoiseStrengthText">Intensité du bruit</text>
+		</panel>
+		<panel name="PosterizePanel" label="Postérisation">
+			<check_box name="enable_posterize" label="Activer"/>
+			<text name="PosterLayersText">Nombre de couches</text>
+		</panel>
+		<panel name="MotionBlurPanel" label="Flou de mouvement">
+			<check_box name="enable_motionblur" label="Activer"/>
+			<text name="MotionBlurText">Intensité du flou de mouvement</text>
+		</panel>
+		<panel name="VignettePanel" label="Vignette">
+			<check_box name="enable_vignette" label="Activer"/>
+			<text name="VignetteStrengthText">Intensité</text>
+			<text name="VignetteRadiusText">Rayon</text>
+			<text name="VignetteDarknessText">Obscurité</text>
+			<text name="VignetteDesaturateText">Intensité de désaturation</text>
+			<text name="VignetteChormaticAberrationText">Aberration chromatique</text>
+		</panel>
+		<panel name="Extras" label="Extras">
+			<text name="PPSavedEffectsText">Effets enregistrés</text>
+			<combo_box name="PPEffectsCombo"/>
+			<line_editor name="PPEffectNameEditor" label="Nom de l'effet"/>
+			<button name="PPLoadEffect" label="Charger l'effet" label_selected="Charger l'effet"/>
+			<button name="PPSaveEffect" label="Enregistrer" label_selected="Enregistrer"/>
+			<text name="PPSaveAsText">Enregistrer sous</text>
+			<text name="PPExtrasHelpText">Chargez un préréglage enregistré ou saisissez un nouveau nom pour enregistrer les réglages actuels.</text>
+		</panel>
+	</tab_container>
+</floater>

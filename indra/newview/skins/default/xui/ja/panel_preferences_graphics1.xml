@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Display panel" label="グラフィックス">
+	<check_box name="windowed mode" label="ビューアをウィンドウで実行" tool_tip="オフにすると、ログイン後は全画面表示になります。" />
+	<button name="Defaults" label="デフォルトにリセット" tool_tip="推奨グラフィックス設定に戻します" />
+	<text name="WindowSizeLabel">ウィンドウサイズ:</text>
+	<combo_box name="windowsize combo">
+		<combo_item name="800x600">800x600</combo_item>
+		<combo_item name="720x480">720x480 (NTSC)</combo_item>
+		<combo_item name="768x576">768x576 (PAL)</combo_item>
+		<combo_item name="1024x768">1024x768</combo_item>
+		<combo_item name="1280x720">1280x720 (HD)</combo_item>
+		<combo_item name="1366x768">1366x768</combo_item>
+		<combo_item name="1280x800">1280x800</combo_item>
+		<combo_item name="1440x900">1440x900</combo_item>
+		<combo_item name="1600x900">1600x900 (HD+)</combo_item>
+		<combo_item name="1680x1050">1680x1050</combo_item>
+		<combo_item name="1440x1080">1440x1080 (HDV1080)</combo_item>
+		<combo_item name="1920x1080">1920x1080 (Full-HD)</combo_item>
+		<combo_item name="2560x1440">2560x1440</combo_item>
+	</combo_box>
+	<text name="DisplayResLabel">画面解像度:</text>
+	<combo_box name="fullscreen combo" />
+	<text name="AspectRatioLabel1">アスペクト比:</text>
+	<combo_box name="aspect_ratio" tool_tip="幅 / 高さ">
+		<combo_item name="4:3(StandardCRT)">4:3（標準CRT）</combo_item>
+		<combo_item name="5:4(1280x1024LCD)">5:4 (1280x1024 LCD)</combo_item>
+		<combo_item name="8:5(Widescreen)">16:10（ワイドスクリーンPC）</combo_item>
+		<combo_item name="16:9(Widescreen)">16:9（ワイドスクリーンTV）</combo_item>
+	</combo_box>
+	<check_box name="aspect_auto_detect" label="比率を自動検出" />
+	<tab_container name="graphics_tab">
+		<panel name="Main" label="メイン">
+			<scroll_container name="main_gfx_scroll">
+				<panel name="main_gfx_inner">
+					<text name="QualityText">品質とパフォーマンス</text>
+					<icon name="section_quality_rule" />
+					<text name="FasterText">高速</text>
+					<text name="ShadersPrefText">低</text>
+					<text name="ShadersPrefText2">中</text>
+					<text name="ShadersPrefText3">高</text>
+					<text name="ShadersPrefText4">最高</text>
+					<text name="QualityText2">高品質</text>
+					<slider name="QualityPerformanceSelection" />
+					<check_box name="CustomSettings" label="カスタム" />
+					<text name="ShadersText">シェーダー</text>
+					<icon name="section_shaders_rule" />
+					<check_box name="TransparentWater" label="透明な水" />
+					<check_box name="BumpShiny" label="バンプマッピングと光沢" />
+					<check_box name="LightingDetailRadio" label="ローカルライト" />
+					<check_box name="BasicShaders" label="基本シェーダー" tool_tip="オフにすると、一部のグラフィックドライバのクラッシュを防げます。" />
+					<check_box name="WindLightUseAtmosShaders" label="大気シェーダー" />
+					<check_box name="RenderDeferred" label="高度なライティングモデル" tool_tip="ディファードシェーディング" />
+					<check_box name="UseSSAO" label="アンビエントオクルージョン" />
+					<text name="TerrainScaleText">地形スケール:</text>
+					<combo_box name="TerrainScaleCombo" label="地形スケール">
+						<combo_item name="Low">低</combo_item>
+						<combo_item name="Medium">中</combo_item>
+						<combo_item name="High">高</combo_item>
+						<combo_item name="Ultra">最高</combo_item>
+					</combo_box>
+					<text name="ShadowDetailText">影:</text>
+					<combo_box name="ShadowDetailCombo" label="影の詳細">
+						<combo_item name="0">無効</combo_item>
+						<combo_item name="1">太陽／月</combo_item>
+						<combo_item name="2">太陽／月＋プロジェクター</combo_item>
+					</combo_box>
+					<text name="ReflectionDetailText">水面反射:</text>
+					<combo_box name="ReflectionDetailCombo" label="反射の詳細">
+						<combo_item name="0">最小</combo_item>
+						<combo_item name="1">地形と木</combo_item>
+						<combo_item name="2">すべての静的オブジェクト</combo_item>
+						<combo_item name="3">すべてのアバターとオブジェクト</combo_item>
+						<combo_item name="4">すべて</combo_item>
+					</combo_box>
+					<slider name="AvatarPhysicsDetail" label="アバター物理:" />
+					<text name="AvatarPhysicsDetailText">オフ</text>
+					<slider name="DrawDistance" label="描画距離:" />
+					<text name="DrawDistanceMeterText">m</text>
+					<slider name="MaxParticleCount" label="パーティクル最大数:" />
+					<slider name="AvatarMaxVisible" label="非インポスターの最大数:" />
+					<slider name="RenderPostProcess" label="ポストプロセス品質:" />
+					<text name="PostProcessText">低</text>
+					<text name="MeshDetailText">詳細レベル</text>
+					<icon name="section_lod_rule" />
+					<slider name="ObjectMeshDetail" label="オブジェクト:" />
+					<text name="ObjectMeshDetailText">低</text>
+					<slider name="FlexibleMeshDetail" label="フレキシプリム:" />
+					<text name="FlexibleMeshDetailText">低</text>
+					<slider name="TreeMeshDetail" label="木:" />
+					<text name="TreeMeshDetailText">低</text>
+					<slider name="AvatarMeshDetail" label="アバター:" />
+					<text name="AvatarMeshDetailText">低</text>
+					<slider name="TerrainMeshDetail" label="地形:" />
+					<text name="TerrainMeshDetailText">低</text>
+					<slider name="SkyMeshDetail" label="空:" />
+					<text name="SkyMeshDetailText">低</text>
+					<text name="AvatarRenderingText">アバターレンダリング</text>
+					<icon name="section_av_rule" />
+					<text name="AvatarDisplayLabel">アバター表示:</text>
+					<combo_box name="AvatarDisplayCombo" tool_tip="最大複雑度を超えた他アバターの表示方法。">
+						<combo_item name="0" value="0">複雑度で制限</combo_item>
+						<combo_item name="1" value="1">フレンドは常に表示</combo_item>
+						<combo_item name="2" value="2">フレンドのみ表示</combo_item>
+						<combo_item name="3" value="3">自分のみ表示</combo_item>
+					</combo_box>
+					<slider label="アバター最大複雑度:" label_width="200" name="IndirectMaxComplexity" tool_tip="これより複雑なアバターはゼリー人形になります。右端で無制限。" />
+					<text name="IndirectMaxComplexityText">無制限</text>
+					<check_box label="複雑度の値を表示" name="ShowAvatarComplexity" tool_tip="各アバターの視覚的複雑度を名前の上に表示します（Ctrl+Alt+Shift+C）。" />
+					<check_box name="AvatarImpostors" label="アバターインポスター" />
+					<check_box name="AvatarVertexProgram" label="ハードウェアスキニング" />
+					<check_box name="AvatarCloth" label="アバタークロス" />
+					<text name="TerrainDetailText">地形の詳細:</text>
+					<radio_group name="TerrainDetailRadio" tool_tip="低はより単純な地形テクスチャを使います。高はフルディテールです。">
+						<radio_item name="0">低</radio_item>
+						<radio_item name="2">高</radio_item>
+					</radio_group>
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="Hardware" label="ハードウェア">
+			<check_box name="ani" label="異方性フィルタリング（オンにすると遅くなります）" />
+			<text name="Antialiasing:">アンチエイリアス:</text>
+			<combo_box name="fsaa" label="アンチエイリアス">
+				<combo_item name="FSAADisabled">無効</combo_item>
+				<combo_item name="2x">2x</combo_item>
+				<combo_item name="4x">4x</combo_item>
+				<combo_item name="8x">8x</combo_item>
+				<combo_item name="16x">16x</combo_item>
+			</combo_box>
+			<text name="VSync:">垂直同期:</text>
+			<combo_box name="vsync" label="垂直同期">
+				<combo_item name="VSyncDisabled">無効</combo_item>
+				<combo_item name="VSyncStandard">標準</combo_item>
+				<combo_item name="VSyncAdaptive">アダプティブ</combo_item>
+			</combo_box>
+			<spinner name="GrapicsCardTextureMemory" label="テクスチャメモリ (MB):" tool_tip="テクスチャに割り当てるメモリ量です。デフォルトはビデオカードのメモリです。減らすとパフォーマンスが上がることがありますが、テクスチャがぼやける場合があります。" />
+			<spinner name="gamma" label="ガンマ:" tool_tip="（明るさ。値が低いほど明るい）" />
+			<spinner name="fog" label="霧距離の比率:" />
+			<text name="note">注: 大気シェーダーが有効なとき、ガンマと霧距離の比率は使えません（効果がないため）。</text>
+			<check_box name="compressed_textures" label="テクスチャ圧縮を有効にする（再起動が必要）" tool_tip="オンにするとGPUメモリ消費が減りますが、ワールド内のテクスチャ品質は下がります。" />
+			<check_box name="vbo" label="OpenGL頂点バッファオブジェクトを有効にする" tool_tip="新しいハードウェアではパフォーマンスが上がります。古いハードウェアではVBOの実装が弱く、クラッシュすることがあります。" />
+			<check_box name="vbo_stream" label="ストリームVBOを有効にする" tool_tip="VBOが有効なときにオフにすると、パフォーマンスが上がることがあります。一部のAMD GPUでは改善が見られました。" />
+			<check_box name="fbo" label="OpenGLフレームバッファオブジェクトを有効にする" tool_tip="新しいハードウェアではパフォーマンスが上がることがあります。AMD GPUでアンチエイリアスと併用するとエッジにアーティファクトが出ることがあります。ディファードレンダリングには必須です。" />
+		</panel>
+		<panel name="DoF" label="被写界深度">
+			<check_box name="RenderDepthOfField" label="被写界深度を有効にする" tool_tip="カメラのような被写界深度を切り替えます。遠くやピントの合っていないものをぼかすために使います" />
+			<slider name="CameraFNum" label="F値:" tool_tip="被写界深度のカメラF値" />
+			<button name="reset_f_num" label="リセット" />
+			<slider name="CameraFocal" label="焦点距離 (mm):" tool_tip="被写界深度のカメラ焦点距離（ミリメートル）" />
+			<button name="reset_focal_length" label="リセット" />
+			<slider name="CameraCoF" label="錯乱円:" tool_tip="カメラの錯乱円を設定します" />
+			<button name="reset_max_cof" label="リセット" />
+			<slider name="CameraFocusTrans" label="遷移時間（秒）:" tool_tip="フォーカスが次の位置に移るまでの時間" />
+			<button name="reset_trans_time" label="リセット" />
+			<slider name="CameraDoFRes" label="解像度:" tool_tip="各DoFピクセルの解像度（品質）を設定します" />
+			<button name="reset_res_scale" label="リセット" />
+			<button name="reset_dof" label="被写界深度の設定をすべてリセット" />
+		</panel>
+	</tab_container>
+	<string name="resolution_format">[RES_X] x [RES_Y]</string>
+	<string name="aspect_ratio_text">[NUM]:[DEN]</string>
+	<string name="complexity_no_limit">無制限</string>
+</panel>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="fast_timers">
+	<string name="pause">一時停止</string>
+	<string name="run">走る</string>
+	<button name="pause_btn" label="一時停止" />
+</floater>

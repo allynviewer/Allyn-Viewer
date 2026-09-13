@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="popups" label="Pop-up'lar" title="Pop-up'lar">
+	<check_box name="accept_new_inventory" label="Ürün tekliflerini otomatik olarak kabul et" />
+	<check_box name="show_new_inventory" label="Önizlenebilir öğeleri kabul ettikten sonra görüntüleyin" />
+	<check_box name="show_in_inventory" label="Yeni kabul edilen nesneleri envanterde göster" />
+	<text name="show_label">HER ZAMAN GÖSTER</text>
+	<icon name="section_show_rule" />
+	<scroll_list name="enabled_popups" />
+	<button name="reset_dialogs_btn" label="Tümünü etkinleştir" tool_tip="Tüm isteğe bağlı açılır pencereleri ve 'ilk kullanım' bildirimlerini etkinleştirin." />
+	<button name="enable_popup" />
+	<button name="disable_popup" />
+	<button name="skip_dialogs_btn" label="Tümünü devre dışı bırak" tool_tip="Tüm isteğe bağlı açılır pencereleri ve 'ilk kullanım' bildirimlerini devre dışı bırakın." />
+	<button name="skip_frst_btn" label="İlk seferde açılan pencereleri devre dışı bırak..." tool_tip="İlk kullanım bildirimlerinin tümünü devre dışı bırakın." />
+	<text name="dont_show_label">ASLA GÖSTERME</text>
+	<icon name="section_hide_rule" />
+	<scroll_list name="disabled_popups" />
+</panel>

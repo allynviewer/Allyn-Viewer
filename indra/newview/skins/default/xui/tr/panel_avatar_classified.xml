@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Classified" title="Gizli">
+	<texture_picker name="snapshot_ctrl" />
+	<line_editor name="given_name_editor" tool_tip="İsim noktalama işaretiyle değil, harf veya rakamla başlamalıdır." />
+	<text_editor name="desc_editor" />
+	<line_editor name="location_editor" tool_tip="Bu sınıflandırılmanın konumunu mevcut konumunuza ayarlayın." />
+	<button name="set_location_btn" label="Konumu Ayarla" />
+	<button name="classified_teleport_btn" label="Teleport" />
+	<button name="classified_map_btn" label="Harita" />
+	<combo_box name="classified_category_combo" />
+	<combo_box name="classified_mature_check">
+		<combo_item name="select_mature">- Olgun'u seçin -</combo_item>
+		<combo_item name="mature">Yetişkin İçerik</combo_item>
+		<combo_item name="pg">PG İçeriği</combo_item>
+	</combo_box>
+	<text name="classified_info_text" tool_tip="Reklamınız için ne kadar çok ödeme yapmayı seçerseniz, listede o kadar yüksek görünür.">İlan verildi: Henüz yayınlanmadı</text>
+	<text name="click_through_text" tool_tip="Bu ilan yayınlandığından beri her bir düğmenin toplam tıklama sayısı.">Clicks:</text>
+	<button name="classified_update_btn" label="Yayınla..." />
+	<check_box name="auto_renew_check" label="Her hafta otomatik olarak yenile" />
+	<string name="ad_placed_paid">İlan verildi: [DATE], Listeleme için [CURRENCY][AMT] ödendi.</string>
+	<string name="update_txt">Güncelleme</string>
+	<string name="publish_txt">Yayınla...</string>
+</panel>

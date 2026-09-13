@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Message Builder" title="Construtor de mensagens">
+	<scroll_list name="net_list">
+		<column name="text" label="texto"/>
+		<column name="state" label="estado"/>
+	</scroll_list>
+	<combo_box name="untrusted_message_combo" tool_tip="Sem confiança"/>
+	<combo_box name="trusted_message_combo" tool_tip="Confiança"/>
+	<button name="send_btn" label="Enviar" tool_tip="Enviar (Ctrl+Enter)"/>
+</floater>

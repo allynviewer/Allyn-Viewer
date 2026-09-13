@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="rlvLocks" title="アクティブなRLVロック">
+	<scroll_list name="lock_list">
+		<column name="lock_type" label="Lock タイプ" />
+		<column name="lock_addrem" label="追加 / 削除" />
+		<column name="lock_target" label="ロック ターゲット" />
+		<column name="lock_origin" label="Held による" />
+	</scroll_list>
+</floater>

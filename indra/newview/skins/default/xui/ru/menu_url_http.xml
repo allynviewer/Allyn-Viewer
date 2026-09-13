@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<context_menu name="Url Popup" label="URL">
+	<menu_item_call name="url_open" label="Открыть страницу" />
+	<menu_item_call name="url_open_internal" label="Открыть во встроенном браузере" />
+	<menu_item_call name="url_open_external" label="Открыть во внешнем браузере" />
+	<menu_item_call name="url_copy" label="Копировать URL" />
+	<menu_item_call name="Select All" label="Выделить всё" />
+</context_menu>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Marketplace Panel" label="Marketplace">
+	<panel name="tool_panel">
+		<button name="sort_btn" tool_tip="Опции просмотра/сортировки" />
+		<button name="add_btn" tool_tip="Создайте новую папку со списком" />
+		<button name="audit_btn" label="Проверьте наличие ошибок" tool_tip="Проверьте свои списки на торговой площадке" />
+	</panel>
+	<panel name="tab_container_panel">
+		<filter_editor name="filter_editor" label="Фильтрация списков торговой площадки" />
+		<tab_container name="marketplace_filter_tabs">
+			<inventory_panel name="All Items" label="Все" />
+			<inventory_panel name="Active Items" label="Активный" />
+			<inventory_panel name="Inactive Items" label="Неактивный" />
+			<inventory_panel name="Unassociated Items" label="Несвязанный" />
+		</tab_container>
+	</panel>
+	<panel name="marketplace_drop_zone">
+		<text name="marketplace_drop_zone_text">Перетащите сюда папки, чтобы создавать новые объявления.</text>
+	</panel>
+</panel>

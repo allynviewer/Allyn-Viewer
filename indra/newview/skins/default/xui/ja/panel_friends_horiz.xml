@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="friends">
+	<string name="Multiple">複数のフレンド...</string>
+	<scroll_list name="friend_list" tool_tip="ShiftまたはCtrlを押しながらクリックすると、複数のフレンドを選択できます">
+		<column name="icon_online_status" tool_tip="オンライン状態" />
+		<column name="friend_name" label="名前" tool_tip="名前" />
+		<column name="icon_visible_online" tool_tip="フレンドはあなたがオンラインのときに確認できます" />
+		<column name="icon_visible_map" tool_tip="フレンドはマップであなたの位置を確認できます" />
+		<column name="icon_edit_mine" tool_tip="フレンドはオブジェクトを編集、削除、取得できます" />
+		<column name="icon_visible_online_theirs" tool_tip="相手がオンラインのときに確認できます（ログイン時のみ更新）" />
+		<column name="icon_visible_map_theirs" tool_tip="マップで相手の位置を確認できます" />
+		<column name="icon_edit_theirs" tool_tip="このフレンドのオブジェクトを編集できます" />
+		<column name="friend_last_update_generation" />
+	</scroll_list>
+	<filter_editor name="buddy_search_lineedit" label="連絡先検索" tool_tip="検索したいフレンド名" />
+	<button name="expand_collapse_btn" tool_tip="追加情報を展開／折りたたむ" />
+	<text name="friends">オンライン:</text>
+	<text name="f_num" />
+	<text name="sel">| 選択済み:</text>
+	<text name="s_num" />
+	<button name="im_btn" label="IM／通話" tool_tip="IMセッションを開く" />
+	<button name="profile_btn" label="プロフィール" tool_tip="画像、グループ、その他の情報を表示" />
+	<button name="offer_teleport_btn" label="テレポート..." tool_tip="このフレンドに現在地へのテレポートを提供" />
+	<button name="pay_btn" label="支払う..." tool_tip="このフレンドにワールド内通貨（[CURRENCY]）を渡す" />
+	<button name="remove_btn" label="削除..." tool_tip="この人をフレンドリストから削除" />
+	<button name="add_btn" label="追加..." tool_tip="レジデントにフレンド申請する" />
+</panel>

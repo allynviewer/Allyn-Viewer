@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Media panel" label="Аудио и видео">
+	<scroll_container name="audio_scroll">
+		<panel name="audio_scroll_inner">
+			<text name="muting_text">ОБЪЕМ</text>
+			<icon name="section_vol_rule" />
+			<panel name="Volume Panel" label="Объем" />
+			<text name="Media Filtering">МЕДИА ФИЛЬТРАЦИЯ</text>
+			<icon name="section_filter_rule" />
+			<radio_group name="filter_group">
+				<radio_item name="0">Выключенный</radio_item>
+				<radio_item name="1">Только черный список</radio_item>
+				<radio_item name="2">Быстрый</radio_item>
+			</radio_group>
+			<text name="streaming_prefs_text">СТРИМИНГ</text>
+			<icon name="section_stream_rule" />
+			<check_box name="streaming_music" label="Воспроизведение потоковой музыки, когда она доступна (использует больше полосы пропускания)" />
+			<check_box name="streaming_video" label="Воспроизведение потокового мультимедиа, когда оно доступно (использует больше пропускной способности)" />
+			<check_box name="auto_prim_streaming_video" label="Автоматически воспроизводить Prim Media" />
+			<check_box name="auto_streaming_video" label="Автоматически воспроизводить медиа парцела" />
+			<check_box name="mute_when_minimized" label="Отключение звука при сворачивании окна" />
+			<text name="audio_prefs_text">АУДИО ПРЕДПОЧТЕНИЯ</text>
+			<icon name="section_audio_rule" />
+			<slider name="Doppler Effect" label="Эффект Доплера" />
+			<slider name="Rolloff Factor" label="Коэффициент спада (по умолчанию)" />
+			<slider name="Underwater Rolloff Factor" label="Фактор спада (под водой)" />
+			<spinner name="currency_change_threshold" label="[CURRENCY] изменение порога:" />
+			<spinner name="Health Change Threshold" label="Порог изменения здоровья" />
+		</panel>
+	</scroll_container>
+</panel>

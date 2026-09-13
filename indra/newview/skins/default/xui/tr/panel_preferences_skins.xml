@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Skins panel" label="Kaplamalar">
+	<text name="Skin_txt1">SEÇİLEN CİLT</text>
+	<icon name="section_skin_rule" />
+	<combo_box name="custom_skin_combo" />
+	<text name="Skin_txt2">Birincil Yazar</text>
+	<view_border name="custom_box1" />
+	<text name="custom_skin_author">cilt yazarı</text>
+	<text name="Skin_txt3">Ek Yazarlar</text>
+	<view_border name="custom_box2" />
+	<text name="custom_skin_ad_authors">ek cilt yazarları</text>
+	<text name="Skin_txt4">Görünüm klasörü</text>
+	<view_border name="custom_box3" />
+	<text name="custom_skin_folder">cilt klasörü</text>
+	<button name="custom_skin_preview" tool_tip="Cilt Önizlemesi" />
+	<text name="Skin_txt5">Ek bilgi</text>
+	<text_editor name="custom_skin_info" />
+</panel>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Display Name" title="表示名を変更">
+	<text name="lockout_text">次に変更できる日時: [TIME]。</text>
+	<text name="set_name_label">新しい表示名:</text>
+	<line_editor name="display_name_editor" />
+	<text name="name_confirm_label">確認のため、新しい名前をもう一度入力:</text>
+	<line_editor name="display_name_confirm" />
+	<button name="save_btn" label="保存" tool_tip="新しい表示名を保存" />
+	<button name="reset_btn" label="リセット" tool_tip="表示名をユーザー名と同じにする" />
+	<button name="cancel_btn" label="キャンセル" tool_tip="キャンセルしてこのダイアログを閉じる" />
+	<text name="name_confirm_label2">アバターに付ける名前を表示名と呼びます。</text>
+	<text name="name_confirm_label3">週に1回変更できます。</text>
+</floater>

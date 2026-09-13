@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Texture" label="Текстура">
+	<panel.string name="string repeats per meter">Повторов на метр</panel.string>
+	<panel.string name="string repeats per face">Повторы на лицо</panel.string>
+	<text name="color label">Color</text>
+	<color_swatch name="colorswatch" tool_tip="Нажмите, чтобы открыть палитру цветов" />
+	<text name="color trans">Альфа %</text>
+	<spinner name="ColorTrans" />
+	<text name="glow label">Светиться</text>
+	<spinner name="glow" />
+	<check_box name="checkbox fullbright" label="Полный Яркий" />
+	<combo_box name="combobox matmedia">
+		<combo_box.item name="Materials" label="Материалы" />
+		<combo_box.item name="Media" label="Медиа" />
+	</combo_box>
+	<combo_box name="combobox mattype">
+		<combo_box.item name="Texture (diffuse)" label="Текстура (диффузная)" />
+		<combo_box.item name="Bumpiness (normal)" label="Неровность (нормальная)" />
+		<combo_box.item name="Shininess (specular)" label="Блеск (зеркальный)" />
+	</combo_box>
+	<texture_picker name="texture control" label="Текстура" tool_tip="Нажмите, чтобы выбрать картинку" />
+	<text name="label alphamode">Альфа-режим</text>
+	<combo_box name="combobox alphamode">
+		<combo_box.item name="None" label="Нет" />
+		<combo_box.item name="Alpha blending" label="Альфа-смешение" />
+		<combo_box.item name="Alpha masking" label="Альфа-маскировка" />
+		<combo_box.item name="Emissive mask" label="Эмиссионная маска" />
+	</combo_box>
+	<text name="label maskcutoff">Отсечение маски</text>
+	<spinner name="maskcutoff" />
+	<texture_picker name="bumpytexture control" label="Текстура" tool_tip="Нажмите, чтобы выбрать картинку" />
+	<text name="label bumpiness">Неровность</text>
+	<combo_box name="combobox bumpiness">
+		<combo_box.item name="None" label="Нет" />
+		<combo_box.item name="Brightness" label="Яркость" />
+		<combo_box.item name="Darkness" label="Тьма" />
+		<combo_box.item name="woodgrain" label="рисунок под дерево" />
+		<combo_box.item name="bark" label="лаять" />
+		<combo_box.item name="bricks" label="кирпичи" />
+		<combo_box.item name="checker" label="шашка" />
+		<combo_box.item name="concrete" label="конкретный" />
+		<combo_box.item name="crustytile" label="корковая плитка" />
+		<combo_box.item name="cutstone" label="каменный камень" />
+		<combo_box.item name="discs" label="диски" />
+		<combo_box.item name="gravel" label="гравий" />
+		<combo_box.item name="petridish" label="Петриоватый" />
+		<combo_box.item name="siding" label="сайдинг" />
+		<combo_box.item name="stonetile" label="каменная плитка" />
+		<combo_box.item name="stucco" label="лепнина" />
+		<combo_box.item name="suction" label="всасывание" />
+		<combo_box.item name="weave" label="ткать" />
+	</combo_box>
+	<texture_picker name="shinytexture control" label="Текстура" tool_tip="Нажмите, чтобы выбрать картинку" />
+	<text name="label shininess">Блеск</text>
+	<combo_box name="combobox shininess">
+		<combo_box.item name="None" label="Нет" />
+		<combo_box.item name="Low" label="Низкий" />
+		<combo_box.item name="Medium" label="Середина" />
+		<combo_box.item name="High" label="Высокий" />
+	</combo_box>
+	<text name="label glossiness">Глянцевость</text>
+	<spinner name="glossiness" />
+	<text name="label environment">Среда</text>
+	<spinner name="environment" />
+	<text name="label shinycolor">Color</text>
+	<color_swatch name="shinycolorswatch" tool_tip="Нажмите, чтобы открыть палитру цветов" />
+	<text name="media_info">Здесь находится URL-адрес выбранного носителя, если таковой имеется.</text>
+	<button name="add_media" label="Выбирать..." tool_tip="Добавить медиа" />
+	<button name="delete_media" label="Удалить" tool_tip="Удалить эту медиа-текстуру" />
+	<button name="button align" label="Выровнять" tool_tip="Выровнять медиа-текстуру (сначала необходимо загрузить)" />
+	<check_box name="checkbox maps sync" label="Синхронизировать материалы" tool_tip="Синхронизировать параметры карты текстур" />
+	<text name="tex gen">Картирование</text>
+	<combo_box name="combobox texgen">
+		<combo_box.item name="Default" label="По умолчанию" />
+		<combo_box.item name="Planar" label="Планарный" />
+	</combo_box>
+	<check_box name="checkbox planar align" label="Выровнять планарно" tool_tip="Выравнивает текстуры на всех выбранных гранях по последней выбранной грани. Требуется планарное наложение текстур." />
+	<spinner name="TexScaleU" label="Горизонтальный масштаб" />
+	<button name="flipTextureScaleU" tool_tip="Подбросить" />
+	<spinner name="TexScaleV" label="Вертикальный масштаб" />
+	<button name="flipTextureScaleV" tool_tip="Подбросить" />
+	<spinner name="rptctrl" label="Повторов на метр" />
+	<spinner name="TexRot" label="Градусы вращения" />
+	<spinner name="TexOffsetU" label="Горизонтальное смещение" />
+	<spinner name="TexOffsetV" label="Вертикальное смещение" />
+	<spinner name="bumpyScaleU" label="Горизонтальный масштаб" />
+	<spinner name="bumpyScaleV" label="Вертикальный масштаб" />
+	<spinner name="bumpyRot" label="Градусы вращения" />
+	<spinner name="bumpyOffsetU" label="Горизонтальное смещение" />
+	<spinner name="bumpyOffsetV" label="Вертикальное смещение" />
+	<spinner name="shinyScaleU" label="Горизонтальный масштаб" />
+	<spinner name="shinyScaleV" label="Вертикальный масштаб" />
+	<spinner name="shinyRot" label="Градусы вращения" />
+	<spinner name="shinyOffsetU" label="Горизонтальное смещение" />
+	<spinner name="shinyOffsetV" label="Вертикальное смещение" />
+	<button name="copytextures" label="Копировать" tool_tip="Копировать параметры текстуры" />
+	<button name="pastetextures" label="Вставить" tool_tip="Вставить параметры текстуры" />
+	<web_browser name="title_media" />
+</panel>

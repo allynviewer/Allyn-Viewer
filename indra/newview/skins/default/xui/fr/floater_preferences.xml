@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Preferences" title="Préférences">
+	<button label="A propos" label_selected="A propos" name="About..."/>
+	<button label="OK" label_selected="OK" name="OK"/>
+	<button label="Annuler" label_selected="Annuler" name="Cancel"/>
+	<button label="Appliquer" label_selected="Appliquer" name="Apply"/>
+	<button label="Aide" label_selected="Aide" name="Help"/>
+	<tab_container name="pref core"/>
+	<filter_editor name="search_prefs_edit" label="Filtrer les paramètres"
+	     tool_tip="Saisissez un terme de recherche. Les options correspondantes seront mises en surbrillance et les onglets sans résultat seront masqués."/>
+</floater>

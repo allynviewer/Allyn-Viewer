@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_pathfinding_linksets" title="Linksets de pathfinding">
+	<string name="messaging_get_inprogress">Consultando linksets de pathfinding...</string>
+	<string name="messaging_get_error">Erro detectado ao consultar linksets de pathfinding.</string>
+	<string name="messaging_set_inprogress">Modificando linksets de pathfinding selecionados...</string>
+	<string name="messaging_set_error">Erro detectado ao modificar os linksets de pathfinding selecionados.</string>
+	<string name="messaging_complete_none_found">Nenhum linkset de pathfinding.</string>
+	<string name="messaging_complete_available">[NUM_SELECTED] linksets selecionados de [NUM_TOTAL].</string>
+	<string name="messaging_not_enabled">Esta região não está habilitada para pathfinding.</string>
+	<string name="linkset_terrain_name">[Terreno]</string>
+	<string name="linkset_terrain_description">--</string>
+	<string name="linkset_terrain_owner">--</string>
+	<string name="linkset_terrain_scripted">--</string>
+	<string name="linkset_terrain_land_impact">--</string>
+	<string name="linkset_terrain_dist_from_you">--</string>
+	<string name="linkset_owner_loading">[Carregando]</string>
+	<string name="linkset_owner_unknown">[Desconhecido]</string>
+	<string name="linkset_owner_group">[grupo]</string>
+	<string name="linkset_is_scripted">Sim</string>
+	<string name="linkset_is_not_scripted">Não</string>
+	<string name="linkset_is_unknown_scripted">Desconhecido</string>
+	<string name="linkset_use_walkable">Caminhável</string>
+	<string name="linkset_use_static_obstacle">Obstáculo estático</string>
+	<string name="linkset_use_dynamic_obstacle">Obstáculo móvel</string>
+	<string name="linkset_use_material_volume">Volume de material</string>
+	<string name="linkset_use_exclusion_volume">Volume de exclusão</string>
+	<string name="linkset_use_dynamic_phantom">Fantasma móvel</string>
+	<string name="linkset_is_terrain">[não modificável]</string>
+	<string name="linkset_is_restricted_state">[restrito]</string>
+	<string name="linkset_is_non_volume_state">[côncavo]</string>
+	<string name="linkset_is_restricted_non_volume_state">[restrito,côncavo]</string>
+	<string name="linkset_choose_use">Escolher uso do linkset...</string>
+	<panel name="pathfinding_linksets_main">
+		<text name="linksets_filter_label">Filtrar por:</text>
+		<text name="linksets_name_label">Nome</text>
+		<text name="linksets_desc_label">Descrição</text>
+		<combo_box name="filter_by_linkset_use">
+			<combo_item name="filter_by_linkset_use_none">Filtrar por uso do linkset...</combo_item>
+			<combo_item name="filter_by_linkset_use_walkable">Caminhável</combo_item>
+			<combo_item name="filter_by_linkset_use_static_obstacle">Obstáculo estático</combo_item>
+			<combo_item name="filter_by_linkset_use_dynamic_obstacle">Obstáculo móvel</combo_item>
+			<combo_item name="filter_by_linkset_use_material_volume">Volume de material</combo_item>
+			<combo_item name="filter_by_linkset_use_exclusion_volume">Volume de exclusão</combo_item>
+			<combo_item name="filter_by_linkset_use_dynamic_phantom">Fantasma móvel</combo_item>
+		</combo_box>
+		<button name="apply_filters" label="Aplicar"/>
+		<button name="clear_filters" label="Limpar"/>
+		<scroll_list name="objects_scroll_list">
+			<column name="name" label="Nome (prim raiz)"/>
+			<column name="description" label="Descrição (prim raiz)"/>
+			<column name="owner" label="Dono"/>
+			<column name="scripted" label="Com script"/>
+			<column name="land_impact" label="Impacto"/>
+			<column name="dist_from_you" label="Distância"/>
+			<column name="linkset_use" label="Uso do linkset"/>
+			<column name="a_percent" label="A%"/>
+			<column name="b_percent" label="B%"/>
+			<column name="c_percent" label="C%"/>
+			<column name="d_percent" label="D%"/>
+		</scroll_list>
+		<text name="messaging_status">Linksets:</text>
+		<button name="refresh_objects_list" label="Atualizar lista"/>
+		<button name="select_all_objects" label="Selecionar todos"/>
+		<button name="select_none_objects" label="Selecionar nenhum"/>
+	</panel>
+	<panel name="pathfinding_linksets_actions">
+		<text name="linksets_actions_label">Ações nos linksets selecionados (se um linkset for removido do mundo, seus atributos podem ser perdidos):</text>
+		<check_box name="show_beacon" label="Mostrar farol"/>
+		<button name="take_objects" label="Pegar"/>
+		<button name="take_copy_objects" label="Pegar cópia"/>
+		<button name="teleport_me_to_object" label="Teleportar-me até ele"/>
+		<button name="return_objects" label="Devolver"/>
+		<button name="delete_objects" label="Excluir"/>
+	</panel>
+	<panel name="pathfinding_linksets_attributes">
+		<text name="linksets_attributes_label">Edite os atributos dos linksets selecionados e pressione o botão para aplicar as alterações</text>
+		<text name="walkability_coefficients_label">Caminhabilidade:</text>
+		<text name="edit_a_label">A</text>
+		<line_editor name="edit_a_value" tool_tip="Caminhabilidade para personagens do tipo A. Exemplo: humanóide."/>
+		<text name="edit_b_label">B</text>
+		<line_editor name="edit_b_value" tool_tip="Caminhabilidade para personagens do tipo B. Exemplo: criatura."/>
+		<text name="edit_c_label">C</text>
+		<line_editor name="edit_c_value" tool_tip="Caminhabilidade para personagens do tipo C. Exemplo: mecânico."/>
+		<text name="edit_d_label">D</text>
+		<line_editor name="edit_d_value" tool_tip="Caminhabilidade para personagens do tipo D. Exemplo: outro."/>
+		<button name="apply_edit_values" label="Aplicar alterações"/>
+		<text name="suggested_use_a_label">(Humanóide)</text>
+		<text name="suggested_use_b_label">(Criatura)</text>
+		<text name="suggested_use_c_label">(Mecânico)</text>
+		<text name="suggested_use_d_label">(Outro)</text>
+	</panel>
+</floater>

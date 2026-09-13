@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="area search" title="Objekte in der Nähe suchen">
+	<text name="name_label">Name:</text>
+	<text name="desc_label">Beschreibung:</text>
+	<text name="owner_label">Eigentümer:</text>
+	<text name="group_label">Gruppe:</text>
+	<scroll_list name="result_list">
+		<column name="Name" label="Name" tool_tip="Doppelklick setzt eine Positionsmarkierung"/>
+		<column name="Description" label="Beschreibung" tool_tip="Doppelklick setzt eine Positionsmarkierung"/>
+		<column name="Owner" label="Eigentümer" tool_tip="Doppelklick setzt eine Positionsmarkierung"/>
+		<column name="Group" label="Gruppe" tool_tip="Doppelklick setzt eine Positionsmarkierung"/>
+	</scroll_list>
+	<text name="counter">Angezeigt/Ausstehend/Gesamt</text>
+</floater>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<llsd>
+	<map>
+		<key>strings</key>
+		<map>
+			<key>hidden_generic</key>
+			<map>
+				<key>value</key>
+				<string>(скрыто)</string>
+			</map>
+			<key>hidden_parcel</key>
+			<map>
+				<key>value</key>
+				<string>(скрытый парцел)</string>
+			</map>
+			<key>hidden_region</key>
+			<map>
+				<key>value</key>
+				<string>(скрытый регион)</string>
+			</map>
+			<key>blocked_recvim</key>
+			<map>
+				<key>value</key>
+				<string>*** IM заблокирован вашим вьюером</string>
+				<key>description</key>
+				<string>Показывается вместо входящего IM, когда он заблокирован</string>
+				<key>label</key>
+				<string>Заблокированный входящий IM (локально)</string>
+				<key>customizable</key>
+			</map>
+			<key>blocked_sendim</key>
+			<map>
+				<key>value</key>
+				<string>*** IM заблокирован вьюером отправителя</string>
+				<key>description</key>
+				<string>Показывается (и отправляется собеседнику), когда исходящий IM заблокирован</string>
+				<key>label</key>
+				<string>Заблокированный исходящий IM (локально и у собеседника)</string>
+				<key>customizable</key>
+			</map>
+			<key>blocked_generic</key>
+			<map>
+				<key>value</key>
+				<string>Действие недоступно из-за ограничений RLV</string>
+			</map>
+			<key>blocked_permattach</key>
+			<map>
+				<key>value</key>
+				<string>Не удалось прикрепить «[OBJECT]»: ограничения RLV</string>
+			</map>
+			<key>blocked_permteleport</key>
+			<map>
+				<key>value</key>
+				<string>«[OBJECT]» не может телепортировать вас: ограничения RLV</string>
+			</map>
+			<key>blocked_startim</key>
+			<map>
+				<key>value</key>
+				<string>Не удалось начать IM с [RECIPIENT]: ограничения RLV</string>
+			</map>
+			<key>blocked_startconf</key>
+			<map>
+				<key>value</key>
+				<string>Не удалось начать конференцию с [RECIPIENT]: ограничения RLV</string>
+			</map>
+			<key>blocked_teleport</key>
+			<map>
+				<key>value</key>
+				<string>Не удалось начать телепорт: ограничения RLV</string>
+			</map>
+			<key>blocked_viewxxx</key>
+			<map>
+				<key>value</key>
+				<string>Не удалось открыть [TYPE]: ограничения RLV</string>
+			</map>
+			<key>blocked_wireframe</key>
+			<map>
+				<key>value</key>
+				<string>Не удалось включить каркасный режим: ограничения RLV</string>
+			</map>
+			<key>blocked_recvim_remote</key>
+			<map>
+				<key>value</key>
+				<string>Сейчас этот резидент не может читать ваши IM. Попробуйте позже.</string>
+				<key>description</key>
+				<string>Отправляется собеседнику, когда его IM заблокирован</string>
+				<key>label</key>
+				<string>Заблокированный входящий IM (у собеседника)</string>
+				<key>customizable</key>
+			</map>
+			<key>blocked_tplurerequest_remote</key>
+			<map>
+				<key>value</key>
+				<string>Сейчас этот резидент не может принять предложение. Попробуйте позже.</string>
+				<key>description</key>
+				<string>Отправляется собеседнику, когда его предложение или запрос телепорта заблокированы</string>
+				<key>label</key>
+				<string>Заблокированное предложение телепорта (у собеседника)</string>
+				<key>customizable</key>
+			</map>
+		</map>
+		<key>anonyms</key>
+		<array>
+			<string>Резидент</string>
+			<string>Этот резидент</string>
+			<string>Тот резидент</string>
+			<string>Некто</string>
+			<string>Этот человек</string>
+			<string>Тот человек</string>
+			<string>Человек</string>
+			<string>Этот персонаж</string>
+			<string>Тот персонаж</string>
+			<string>Незнакомец</string>
+			<string>Этот незнакомец</string>
+			<string>Тот незнакомец</string>
+			<string>Существо</string>
+			<string>Это существо</string>
+			<string>То существо</string>
+			<string>Агент</string>
+			<string>Этот агент</string>
+			<string>Тот агент</string>
+			<string>Душа</string>
+			<string>Эта душа</string>
+			<string>Та душа</string>
+			<string>Кто-то</string>
+			<string>Какие-то люди</string>
+			<string>Кто-нибудь</string>
+			<string>Загадочный</string>
+			<string>Неизвестное существо</string>
+			<string>Неопознанный</string>
+			<string>Неизвестный</string>
+		</array>
+	</map>
+</llsd>

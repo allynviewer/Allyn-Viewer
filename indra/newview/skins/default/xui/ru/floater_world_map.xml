@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="worldmap" title="Карта мира">
+	<panel name="right_controls">
+	<text name="you_label">Вы</text>
+	<text name="home_label">Дом</text>
+	<text name="auction_label">Аукцион</text>
+	<text name="land_for_sale_label">На продажу</text>
+	<button name="Go Home" label="Домой" label_selected="Домой" tool_tip="Телепортироваться домой" />
+	<check_box name="people_chk" label="Резидент" />
+	<check_box name="infohub_chk" label="Инфохаб" />
+	<check_box name="telehubchk" label="Телехаб" />
+	<check_box name="land_for_sale_chk" label="На продажу" />
+	<text name="events_label">События:</text>
+	<check_box name="event_chk" label="PG" />
+	<check_box name="events_mature_chk" label="Mature" />
+	<check_box name="events_adult_chk" label="Adult" />
+	<combo_box name="friend combo" label="Друзья онлайн" tool_tip="Друг, которого нужно показать на карте">
+		<combo_item name="none_selected">Друзья онлайн</combo_item>
+	</combo_box>
+	<combo_box name="landmark combo" label="Закладки" tool_tip="Закладка, которую нужно показать на карте">
+		<combo_item name="none_selected">Закладки</combo_item>
+	</combo_box>
+	<search_editor name="location" label="Поиск по названию региона" tool_tip="Введите название региона" />
+	<button name="DoSearch" label="Поиск" tool_tip="Поиск региона" />
+	<text name="search_label">Результаты поиска:</text>
+	<text name="location_label">Позиция:</text>
+	<spinner name="spin x" tool_tip="Координата X местоположения для отображения на карте" />
+	<spinner name="spin y" tool_tip="Координата Y для отображения на карте" />
+	<spinner name="spin z" tool_tip="Координата Z для отображения на карте" />
+	<button name="Teleport" label="Телепорт" tool_tip="Телепортироваться в выбранное место" />
+	<button name="Show Destination" label="Показать цель" tool_tip="Центрировать карту в выбранном месте" />
+	<button name="Clear" label="Очистить" tool_tip="Прекратить отслеживание" />
+	<button name="Show My Location" label="Моё место" tool_tip="Центрировать карту по местоположению вашего аватара" />
+	<button name="copy_slurl" label="Копировать SLURL" tool_tip="Копирует текущее местоположение в формате SLURL для использования в Интернете." />
+	<button name="track_region" label="Следить за регионом" tool_tip="Добавить регион в трекер регионов" />
+	<slider name="zoom slider" label="Масштаб" />
+	</panel>
+</floater>

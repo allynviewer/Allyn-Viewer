@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Debug" label="Hata ayıklama">
+	<text name="region_text_lbl">Bölge:</text>
+	<text name="region_text">bilinmiyor</text>
+	<check_box name="disable_scripts_check" label="Komut Dosyalarını Devre Dışı Bırak" tool_tip="Bu bölgedeki tüm komut dosyalarını devre dışı bırakın" />
+	<button name="disable_scripts_help" label=""  tool_tip="Yardım"/>
+	<check_box name="disable_collisions_check" label="Çarpışmaları Devre Dışı Bırak" tool_tip="Bu bölgede avatar dışı çarpışmaları devre dışı bırakın" />
+	<button name="disable_collisions_help" label=""  tool_tip="Yardım"/>
+	<check_box name="disable_physics_check" label="Fiziği Devre Dışı Bırak" tool_tip="Bu bölgedeki tüm fiziği devre dışı bırak" />
+	<button name="disable_physics_help" label=""  tool_tip="Yardım"/>
+	<button name="apply_btn" label="Uygula" />
+	<text name="objret_text_lbl">Nesne Dönüşü</text>
+	<text name="resident_text_lbl">Sakin:</text>
+	<line_editor name="target_avatar_name">(yok)</line_editor>
+	<button name="choose_avatar_btn" label="Seç..." />
+	<text name="options_text_lbl">Seçenekler:</text>
+	<check_box name="return_scripts" label="Yalnızca script içeren nesneleri döndür" tool_tip="Yalnızca komut dosyaları olan nesneleri döndürün." />
+	<check_box name="return_other_land" label="Yalnızca başka birinin arazisindeki nesneleri iade edin" tool_tip="Yalnızca başka birine ait arazide bulunan nesneleri iade edin" />
+	<check_box name="return_estate_wide" label="Bu mülkün her bölgesindeki nesneleri döndür" tool_tip="Bu mülkü oluşturan tüm bölgelerdeki nesneleri döndür" />
+	<button name="return_btn" label="Dönüş" />
+	<button name="top_colliders_btn" label="En İyi Çarpıştırıcıları Alın..." tool_tip="En olası çarpışmayı yaşayan nesnelerin listesi" />
+	<button name="top_colliders_help" label=""  tool_tip="Yardım"/>
+	<button name="top_scripts_btn" label="En İyi Komut Dosyalarını Alın..." tool_tip="Komut dosyalarını çalıştırırken en çok zaman harcayan nesnelerin listesi" />
+	<button name="top_scripts_help" label=""  tool_tip="Yardım"/>
+	<button name="restart_btn" label="Bölgeyi Yeniden Başlat" tool_tip="X saniyelik geri sayım yapın ve bölgeyi yeniden başlatın" />
+	<spinner name="rcount" label="Saniye:" />
+	<button name="restart_help" label=""  tool_tip="Yardım"/>
+	<button name="cancel_restart_btn" label="Gecikmeli Yeniden Başlatma" tool_tip="Bölgenin yeniden başlatılmasını bir saat geciktirin" />
+</panel>

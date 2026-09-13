@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_explore_animations" title="Animazioni">
+	<scroll_list name="anim_list">
+		<column name="name" label="Nome"/>
+	</scroll_list>
+</floater>

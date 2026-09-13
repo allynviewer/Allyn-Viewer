@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Give Money">
+	<text name="payee_group">Группа оплаты:</text>
+	<text name="payee_resident">Оплата резиденту:</text>
+	<text name="payee_name">[NAME]</text>
+	<text name="object_name_label">Через объект:</text>
+	<text name="object_name_text" />
+	<text name="fastpay text">Быстрая оплата:</text>
+	<text name="amount text">Количество:</text>
+	<button name="fastpay 1" label="[CURRENCY]1" />
+	<button name="fastpay 5" label="[CURRENCY]5" />
+	<button name="fastpay 10" label="[CURRENCY]10" />
+	<button name="fastpay 20" label="[CURRENCY]20" />
+	<button name="pay btn" label="Оплатить" />
+	<button name="cancel btn" label="Отмена" />
+	<line_editor name="amount" />
+</floater>

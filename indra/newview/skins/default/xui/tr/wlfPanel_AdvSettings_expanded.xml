@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Adv_Settings">
+	<text name="Camera Preset:">Kam Ön Ayarı:</text>
+	<button name="Rear" tool_tip="Arka Görünüm" />
+	<button name="Front" tool_tip="Önden Görünüm" />
+	<button name="Group" tool_tip="Yan Görünüm" />
+	<slider name="DrawDistance" label="Çizim Mesafesi:" tool_tip="Çizim Mesafenizi Değiştirin" />
+	<slider name="HoverHeightSlider" label="Hover:" />
+	<slider name="MaxParticleCount" label="Parçacıklar:" tool_tip="Oluşturulacak parçacık miktarı" />
+	<slider name="RenderAvatarMaxVisible" label="Max Avs:" tool_tip="Ekranda tam olarak kaç tane avatar oluşturulacak. Bunu düşürmek kalabalık durumlarda FPS'yi büyük ölçüde artırır. Avatar Impostor açık olmalıdır. [Default 35]" />
+	<slider name="Object Detail" label="Obj. Detay:" tool_tip="Temel öğelerin ayrıntı düzeyini kontrol eder (ayrıntı düzeyi hesaplandığında geçerli ekran alanı çarpanı[0.5 to 2.0 is stable])" />
+	<button name="PostProcessButton" tool_tip="Post-process efektleri" />
+	<combo_box name="PostProcessPresetsCombo" tool_tip="Post-process ön ayarları" />
+	<button name="PPprev" />
+	<button name="PPnext" />
+	<button name="EnvAdvancedSkyButton" tool_tip="Gelişmiş Gökyüzü" />
+	<combo_box name="WLSkyPresetsCombo" tool_tip="Gökyüzünüz için WindLight Ön Ayarları." />
+	<button name="WLprev" />
+	<button name="WLnext" />
+	<button name="EnvAdvancedWaterButton" tool_tip="Gelişmiş Su" />
+	<combo_box name="WLWaterPresetsCombo" tool_tip="Suyunuz için WindLight Ön Ayarları." />
+	<button name="WWprev" />
+	<button name="WWnext" />
+	<check_box name="use_estate_wl" label="Bölge WL" tool_tip="Mümkün olduğunda bölgenin rüzgar ışığı ayarlarını kullanın." />
+	<check_box name="Crossfade" label="Geçiş mi?" tool_tip="İşaretlenmezse Sky Windlight ayar değişiklikleri tereddüt etmeden/animasyon olmadan anında uygulanacaktır." />
+	<slider name="EnvTimeSlider" />
+	<button name="expand" tool_tip="Ayarlar Panelini Gizle" />
+</panel>

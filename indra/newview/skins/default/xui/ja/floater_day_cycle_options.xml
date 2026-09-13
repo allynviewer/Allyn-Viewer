@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Day Cycle Floater" title="日周期エディタ">
+	<tab_container name="Day Cycle Tabs">
+		<panel name="Day Cycle" label="日周期">
+			<button name="WLDayCycleHelp" label="?"/>
+			<text name="WL12am">0時</text>
+			<text name="WL3am">3時</text>
+			<text name="WL6am">6時</text>
+			<text name="WL9amHash">9時</text>
+			<text name="WL12pmHash">12時</text>
+			<text name="WL3pm">15時</text>
+			<text name="WL6pm">18時</text>
+			<text name="WL9pm">21時</text>
+			<text name="WL12am2">24時</text>
+			<button name="WLAddKey" label="キーを追加" label_selected="キーを追加"/>
+			<button name="WLDeleteKey" label="キーを削除" label_selected="キーを削除"/>
+			<text name="WLCurKeyFrameText">キーフレーム設定:</text>
+			<text name="WLCurKeyTimeText">キー時刻:</text>
+			<spinner name="WLCurKeyHour" label="時"/>
+			<spinner name="WLCurKeyMin" label="分"/>
+			<text name="WLCurKeyTimeText2">キープリセット:</text>
+			<combo_box name="WLKeyPresets" label="プリセット"/>
+			<text name="DayCycleText">スナップ:</text>
+			<combo_box name="WLSnapOptions" label="5分"/>
+			<text name="DayCycleText2">周期の長さ:</text>
+			<spinner name="WLLengthOfDayHour" label="時"/>
+			<spinner name="WLLengthOfDayMin" label="分"/>
+			<spinner name="WLLengthOfDaySec" label="秒"/>
+			<text name="DayCycleText3">プレビュー:</text>
+			<button name="WLAnimSky" label="再生" label_selected="再生"/>
+			<button name="WLStopAnimSky" label="停止" label_selected="停止"/>
+			<button name="WLUseLindenTime" label="リージョン時間を使用" label_selected="リージョン時間へ"/>
+			<text name="KeyFramePresetsText">プリセット:</text>
+			<button name="DayCycleNewPreset" label="新規" label_selected="新規"/>
+			<button name="DayCycleSavePreset" label="保存" label_selected="保存"/>
+			<button name="DayCycleDeletePreset" label="削除" label_selected="削除"/>
+		</panel>
+	</tab_container>
+	<string name="DaycycleDefaultNames">Default:Happy%20Bivouac</string>
+</floater>

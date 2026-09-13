@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="chat" label="Голосовой чат">
+	<string name="multivoice_label" value="Разрешить нескольким экземплярам использовать голос одновременно (нужен перезапуск)"/>
+	<scroll_container name="voice_scroll">
+		<panel name="voice_scroll_inner">
+			<text name="voice_unavailable">Голосовой чат недоступен</text>
+			<check_box name="enable_voice_check" label="Включить голосовой чат" />
+			<check_box name="enable_multivoice_check" />
+			<radio_group name="ear_location">
+				<radio_item name="0">Слушайте голосовой чат с позиции камеры.</radio_item>
+				<radio_item name="1">Слушайте голосовой чат с позиции аватара.</radio_item>
+				<radio_item name="3">Слушайте голосовой чат одинаково от всех.</radio_item>
+			</radio_group>
+			<text name="push_to_talk_heading">НАЖМИТЕ, ЧТОБЫ ПОГОВОРИТЬ</text>
+			<icon name="section_ptt_rule" />
+			<check_box name="push_to_talk_toggle_check" label="Используйте Push-to-Talk в режиме переключения" tool_tip="Когда эта функция включена, нажмите кнопку «Нажми и говори», чтобы включить или выключить микрофон. Если этот параметр отключен, микрофон отключается, если не удерживать нажатой кнопку." />
+			<text name="push_to_talk_label">Триггер «Нажми и говори»:</text>
+			<line_editor name="modifier_combo" />
+			<button name="set_voice_hotkey_button" label="Установить клавишу" />
+			<button name="set_voice_middlemouse_button" label="Средняя кнопка мыши" />
+			<check_box name="enable_lip_sync_check" label="Включить анимацию синхронизации губ" />
+			<check_box name="voice_call_friends_only_check" label="Принимайте голосовые вызовы только от людей из списка «Мои друзья»" />
+			<check_box name="auto_disengage_mic_check" label="Выключайте микрофон при завершении мгновенных вызовов" />
+			<check_box name="echo_cancellation_check" label="Эхоподавление" />
+			<check_box name="agc_check" label="Автоматическая регулировка усиления" />
+			<text name="noise_suppression_label">Шумоподавление:</text>
+			<combo_box name="noise_suppression_combo">
+				<combo_item name="0">Отключено</combo_item>
+				<combo_item name="1">Низкий</combo_item>
+				<combo_item name="2">Умеренный</combo_item>
+				<combo_item name="3">Высокий</combo_item>
+				<combo_item name="4">Очень высокий</combo_item>
+			</combo_box>
+			<button name="device_settings_btn" label="Настройки устройства" tool_tip="Открывает настройки устройства. Голосовой чат временно приостановлен, пока открыто это окно." />
+		</panel>
+	</scroll_container>
+</panel>

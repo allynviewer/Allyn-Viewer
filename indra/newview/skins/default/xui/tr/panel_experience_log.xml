@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Etkinlikler">
+	<string name="no_events" />
+	<string name="loading" />
+	<layout_stack name="experience_panel">
+		<layout_panel name="event_panel">
+			<scroll_list name="experience_log_list">
+				<columns name="time" label="Zaman" />
+				<columns name="event" label="Etkinlik" />
+				<columns name="experience_name" label="Experience" />
+				<columns name="object_name" label="Nesne" />
+			</scroll_list>
+			<button name="btn_notify" label="Bildir" />
+			<button name="btn_profile_xp" label="Profil" />
+			<button name="btn_report_xp" label="Rapor" />
+		</layout_panel>
+		<layout_panel name="button_panel">
+			<check_box name="notify_all" label="Tüm Etkinlik Günlerini Bildir" />
+			<spinner name="logsizespinner" />
+			<button name="btn_clear" label="Temizle" />
+			<button name="btn_prev" />
+			<button name="btn_next" />
+		</layout_panel>
+	</layout_stack>
+</panel>

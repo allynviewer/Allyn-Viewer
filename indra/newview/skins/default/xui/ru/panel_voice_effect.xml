@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="panel_voice_effect">
+	<string name="no_voice_effect">Преобразование голоса выключено</string>
+	<string name="preview_voice_effects">Предварительный просмотр морфинга голоса ▶</string>
+	<string name="get_voice_effects">Получите морфинг голоса ▶</string>
+	<combo_box name="voice_effect" tool_tip="Выберите Voice Morph, чтобы изменить свой голос">
+		<combo_item name="no_voice_effect" label="Преобразование голоса выключено" />
+	</combo_box>
+</panel>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="popup">
+	<menu_item_call name="Zoom Close" label="ズームイン" />
+	<menu_item_call name="Zoom Medium" label="中距離ズーム" />
+	<menu_item_call name="Zoom Far" label="ズームアウト" />
+	<menu_item_check name="Center on Camera" label="カメラを中央に" />
+	<menu_item_check name="Rotate Mini-Map" label="ミニマップを回転" />
+	<menu name="Minimap Show" label="表示">
+		<menu_item_check name="Objects" label="オブジェクト" />
+		<menu_item_check name="Property Lines" label="境界線" />
+		<menu_item_check name="Parcels for Sale" label="売却中のパーセル" />
+		<menu_item_check name="Radar Tracking Circles" label="レーダー追跡サークル" />
+	</menu>
+	<menu name="Chat Distance Rings" label="チャット距離リング">
+		<menu_item_check name="Show All" label="すべてを表示" />
+		<menu_item_check name="Show Whisper Ring" label="ささやきリングを表示" />
+		<menu_item_check name="Show Chat Ring" label="チャットリングを表示" />
+		<menu_item_check name="Show Shout Ring" label="叫びリングを表示" />
+	</menu>
+	<menu_item_call name="Stop Tracking" label="追跡を停止" />
+	<menu name="Mark" label="マーク">
+		<menu_item_call name="Red" label="赤" />
+		<menu_item_call name="Green" label="緑" />
+		<menu_item_call name="Blue" label="青" />
+		<menu_item_call name="Yellow" label="黄" />
+		<menu_item_call name="Custom" label="カスタム..." />
+	</menu>
+	<menu_item_call name="Unmark" label="マーク解除" />
+	<menu name="avs_menu" label="選択したアバター" />
+	<menu_item_check name="World Map Textures" label="ワールドマップテクスチャ" />
+</menu>

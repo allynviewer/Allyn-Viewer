@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Display Name" title="ИЗМЕНИТЬ ОТОБРАЖАЕМОЕ ИМЯ">
+	<text name="lockout_text">Следующее возможное изменение: [TIME].</text>
+	<text name="set_name_label">Новое отображаемое имя:</text>
+	<line_editor name="display_name_editor" />
+	<text name="name_confirm_label">Введите новое имя еще раз для подтверждения:</text>
+	<line_editor name="display_name_confirm" />
+	<button name="save_btn" label="Сохранить" tool_tip="Сохраните новое отображаемое имя." />
+	<button name="reset_btn" label="Перезагрузить" tool_tip="Сделайте отображаемое имя таким же, как имя пользователя." />
+	<button name="cancel_btn" label="Отмена" tool_tip="Отменить и закрыть это диалоговое окно" />
+	<text name="name_confirm_label2">Имя, которое вы даете своему аватару, называется вашим отображаемым именем.</text>
+	<text name="name_confirm_label3">Вы можете менять его раз в неделю.</text>
+</floater>

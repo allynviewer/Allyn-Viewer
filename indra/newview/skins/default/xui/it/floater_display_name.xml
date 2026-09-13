@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Display Name" title="CAMBIA NOME VISUALIZZATO">
+	<text name="lockout_text">Prossimo cambiamento possibile: [TIME].</text>
+	<text name="set_name_label">Nuovo nome visualizzato:</text>
+	<text name="name_confirm_label">Digita di nuovo il nuovo nome per confermare:</text>
+	<button name="save_btn" label="Salva" tool_tip="Salva il nuovo nome visualizzato"/>
+	<button name="reset_btn" label="Reimposta" tool_tip="Rendi il nome visualizzato uguale allo username"/>
+	<button name="cancel_btn" label="Annulla" tool_tip="Annulla e chiudi questa finestra"/>
+	<text name="name_confirm_label2">Il nome che dai al tuo avatar si chiama Nome visualizzato.</text>
+	<text name="name_confirm_label3">Puoi cambiarlo una volta a settimana.</text>
+</floater>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="im_floater" label="(inconnue)" title="(inconnue)">
+	<string name="answering">Connexion en cours...</string>
+	<string name="ringing">Appel en cours...</string>
+	<string name="connected">Connecté(e). Cliquez sur « Raccrocher » pour terminer l'appel.</string>
+	<string name="hang_up">Appel terminé</string>
+	<string name="title_string">IM avec [NAME]</string>
+	<string name="typing_start_string">[NAME] est en train d'écrire...</string>
+	<string name="session_start_string">Début de la session avec [NAME], veuillez patienter.</string>
+	<string name="default_text_label">Cliquez ici pour envoyer un IM.</string>
+	<string name="unavailable_text_label">Le chat écrit n'est pas disponible pour cet appel.</string>
+	<string name="inventory_item_offered">Objet de l'inventaire offert</string>
+	<flyout_button name="instant_message_flyout" label="Profil">
+		<flyout_button_item name="profile_item" label="Profil"/>
+		<flyout_button_item name="history_btn" label="Historique"/>
+		<flyout_button_item name="profile_tele_btn" label="Proposer une TP"/>
+		<flyout_button_item name="request_teleport_item" label="Demander une TP"/>
+		<flyout_button_item name="pay_item" label="Payer"/>
+		<flyout_button_item name="group_invite_item" label="Inviter dans le groupe"/>
+		<flyout_button_item name="copy_slurl_item" label="Copier la SLURL"/>
+		<flyout_button_item name="conference" label="Ajouter à la conférence"/>
+		<flyout_button_item name="report" label="Signaler un abus"/>
+	</flyout_button>
+	<button name="start_call_btn" label="Appeler"/>
+	<button name="end_call_btn" label="Terminer"/>
+	<check_box name="im_translate_check" tool_tip="Cochez pour activer la traduction"/>
+	<button name="im_translate_btn" label="Traduction" tool_tip="Configurer les langues de cette conversation"/>
+	<panel name="speaker_controls">
+		<button name="mute_btn" tool_tip="Couper le son"/>
+	</panel>
+	<line_editor name="chat_editor" label="Cliquez ici pour envoyer un IM"/>
+	<button name="send_btn" label="Envoyer"/>
+	<string name="live_help_dialog">*** Bienvenue sur la page Demande d'aide ***
+Veuillez au préalable consulter les pages d'aide de Second Life en appuyant sur la touche F1, ou en accédant à la base de connaissances http://secondlife.com/knowledgebase/
+Si vous ne trouvez pas ce que vous cherchez, saisissez votre question et attendez quelques instants pour que quelqu'un vous réponde.
+-=-=- Les temps de réponse varient, surtout pendant les périodes de pointe -=-=-</string>
+</floater>

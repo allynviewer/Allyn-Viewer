@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="general_panel" label="Genel">
+	<scroll_container name="general_scroll">
+		<panel name="general_scroll_inner">
+			<text name="start_location_textbox">BAŞLANGIÇ KONUMU</text>
+			<icon name="section_start_rule" />
+			<radio_group name="default_start_location">
+				<radio_item name="home" tool_tip="Varsayılan olarak ev konumumda oturum açın.">Evim</radio_item>
+				<radio_item name="last" tool_tip="Varsayılan olarak son konumumda oturum aç.">Son Konumum</radio_item>
+			</radio_group>
+			<check_box name="show_location_checkbox" label="Girişte başlangıç konumu" />
+			<text name="show_names_textbox">ADLAR</text>
+			<icon name="section_names_rule" />
+			<combo_box name="fade_out_combobox">
+				<combo_item name="Never">Asla</combo_item>
+				<combo_item name="Show Temporarily">Geçici göster</combo_item>
+				<combo_item name="Always">Her Zaman</combo_item>
+			</combo_box>
+			<combo_box name="namesystem_combobox">
+				<combo_item name="Old Names">Eski Adlar</combo_item>
+				<combo_item name="Display Names (with Username)">Görünen Ad (kullanıcı adı)</combo_item>
+				<combo_item name="Display Names only">Yalnızca görünen ad</combo_item>
+				<combo_item name="Old Names (with Display Names)">Eski adlar (görünen)</combo_item>
+			</combo_box>
+			<check_box name="show_resident_checkbox" label="Sakinleri göster" />
+			<check_box name="small_avatar_names_checkbox" label="Küçük avatar adları" />
+			<check_box name="show_my_name_checkbox" label="Adımı ekranda gizle" />
+			<text name="group_titles_textbox">GRUP BAŞLIKLARI</text>
+			<icon name="section_groups_rule" />
+			<check_box name="show_all_title_checkbox" label="Grup başlıklarını gizle" />
+			<check_box name="show_my_title_checkbox" label="Grubum başlığını gizle" />
+			<text name="UI Size:">UI BOYUTU</text>
+			<icon name="section_ui_rule" />
+			<slider name="ui_scale_slider" />
+			<check_box name="ui_auto_scale" label="Çözünürlükten bağımsız ölçek" />
+			<check_box name="away_when_idle_checkbox" label="Boştayken uzaklaş" />
+			<spinner name="afk_timeout_spinner" label="Sonra:" />
+			<text name="seconds_textbox">saniye</text>
+			<check_box name="notify_money_change_checkbox" label="Para değişince bildir" />
+			<check_box name="no_transaction_clutter_checkbox" label="köşeyi doldurmadan" tool_tip="Bildirimleri yine de sunun, ancak bir anlığına sağ altta belirmelerini sağlayın, sonra bırakın, böylece işlem dikkat çeker ancak yolunuza çıkmaz." />
+			<text name="maturity_desired_label">Derece:</text>
+			<text name="maturity_desired_prompt">Şu dereceli içeriğe eriş:</text>
+			<combo_box name="maturity_desired_combobox">
+				<combo_item name="Desired_Adult">PG, Olgun ve Yetişkin</combo_item>
+				<combo_item name="Desired_Mature">PG ve Yetişkin</combo_item>
+				<combo_item name="Desired_PG">Yalnızca PG</combo_item>
+			</combo_box>
+			<text name="maturity_desired_textbox">Yalnızca PG</text>
+			<text name="crash_report_textbox">Çökme raporları:</text>
+			<combo_box name="crash_behavior_combobox">
+				<combo_item name="Neversend">Asla</combo_item>
+				<combo_item name="Alwayssend">Her Zaman</combo_item>
+			</combo_box>
+			<text name="language_textbox">Dil:</text>
+			<combo_box name="language_combobox">
+				<combo_item name="System Default Language">Sistem varsayılanı</combo_item>
+				<combo_item name="English">English</combo_item>
+				<combo_item name="Spanish">Español</combo_item>
+				<combo_item name="Portugese">Português</combo_item>
+				<combo_item name="French">Français</combo_item>
+				<combo_item name="Deutsch(German)">Deutsch</combo_item>
+				<combo_item name="Italian">Italiano</combo_item>
+				<combo_item name="Turkish">Türkçe</combo_item>
+				<combo_item name="Russian">Русский</combo_item>
+				<combo_item name="Japanese">日本語</combo_item>
+			</combo_box>
+			<text name="language_textbox2">(Yeniden başlat)</text>
+			<string name="region_name_prompt" />
+			<check_box name="language_is_public" label="Dili nesnelerle paylaş" tool_tip="Bu, dünyadaki nesnelerin tercih ettiğiniz dili bilmesini sağlar." />
+			<button name="clear_settings" label="Ayarları sıfırla" />
+		</panel>
+	</scroll_container>
+</panel>

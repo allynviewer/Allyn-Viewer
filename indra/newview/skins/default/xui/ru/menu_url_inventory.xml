@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<context_menu name="Url Popup" label="Инвентарь">
+	<menu_item_call name="show_item" label="Показать предмет в инвентаре" />
+	<menu_item_call name="url_copy_label" label="Копировать имя" />
+	<menu_item_call name="url_copy" label="Копировать SLURL" />
+	<menu_item_call name="Select All" label="Выделить всё" />
+</context_menu>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Joystick" title="Конфигурация джойстика">
+	<check_box name="enable_joystick">Включить джойстик:</check_box>
+	<text name="joystick_type" />
+	<string name="JoystickMonitor">Джойстик Монитор</string>
+	<string name="Axis">Ось [NUM]</string>
+	<string name="NoDevice">устройство не обнаружено</string>
+	<spinner name="JoystickAxis1" label="Отображение оси X" />
+	<spinner name="JoystickAxis4" label="Составление карты питча" />
+	<spinner name="JoystickAxis6" label="Масштабирование карты" />
+	<spinner name="JoystickAxis2" label="Отображение оси Y" />
+	<spinner name="JoystickAxis5" label="Отображение отклонения от курса" />
+	<spinner name="JoystickAxis0" label="Отображение оси Z" />
+	<spinner name="JoystickAxis3" label="Ролл-мэппинг" />
+	<check_box name="ZoomDirect" label="Прямой зум" />
+	<check_box name="Cursor3D" label="3D-курсор" />
+	<check_box name="AutoLeveling" label="Автоматический уровень" />
+	<text name="Control Modes:">Режимы управления:</text>
+	<check_box name="JoystickAvatarEnabled">Avatar</check_box>
+	<check_box name="JoystickBuildEnabled">Строить</check_box>
+	<check_box name="JoystickFlycamEnabled">Flycam</check_box>
+	<text name="XScale">X-шкала</text>
+	<spinner name="AvatarAxisScale1" />
+	<spinner name="BuildAxisScale1" />
+	<spinner name="FlycamAxisScale1" />
+	<text name="YScale">Масштаб Y</text>
+	<spinner name="AvatarAxisScale2" />
+	<spinner name="BuildAxisScale2" />
+	<spinner name="FlycamAxisScale2" />
+	<text name="ZScale">Z-шкала</text>
+	<spinner name="AvatarAxisScale0" />
+	<spinner name="BuildAxisScale0" />
+	<spinner name="FlycamAxisScale0" />
+	<text name="PitchScale">Шкала шага</text>
+	<spinner name="AvatarAxisScale4" />
+	<spinner name="BuildAxisScale4" />
+	<spinner name="FlycamAxisScale4" />
+	<text name="YawScale">Шкала рыскания</text>
+	<spinner name="AvatarAxisScale5" />
+	<spinner name="BuildAxisScale5" />
+	<spinner name="FlycamAxisScale5" />
+	<text name="RollScale">Рулонная шкала</text>
+	<spinner name="BuildAxisScale3" />
+	<spinner name="FlycamAxisScale3" />
+	<text name="XDeadZone">X Мертвая зона</text>
+	<spinner name="AvatarAxisDeadZone1" />
+	<spinner name="BuildAxisDeadZone1" />
+	<spinner name="FlycamAxisDeadZone1" />
+	<text name="YDeadZone">Y Мертвая зона</text>
+	<spinner name="AvatarAxisDeadZone2" />
+	<spinner name="BuildAxisDeadZone2" />
+	<spinner name="FlycamAxisDeadZone2" />
+	<text name="ZDeadZone">Z Мертвая зона</text>
+	<spinner name="AvatarAxisDeadZone0" />
+	<spinner name="BuildAxisDeadZone0" />
+	<spinner name="FlycamAxisDeadZone0" />
+	<text name="PitchDeadZone">Шаг мертвой зоны</text>
+	<spinner name="AvatarAxisDeadZone4" />
+	<spinner name="BuildAxisDeadZone4" />
+	<spinner name="FlycamAxisDeadZone4" />
+	<text name="YawDeadZone">Мертвая зона рыскания</text>
+	<spinner name="AvatarAxisDeadZone5" />
+	<spinner name="BuildAxisDeadZone5" />
+	<spinner name="FlycamAxisDeadZone5" />
+	<text name="RollDeadZone">Перевернуть мертвую зону</text>
+	<spinner name="BuildAxisDeadZone3" />
+	<spinner name="FlycamAxisDeadZone3" />
+	<text name="Feathering">Растушевка</text>
+	<spinner name="AvatarFeathering" />
+	<spinner name="BuildFeathering" />
+	<spinner name="FlycamFeathering" />
+	<text name="ZoomScale2">Масштаб масштабирования</text>
+	<spinner name="FlycamAxisScale6" />
+	<text name="ZoomDeadZone">Увеличить Мертвая зона</text>
+	<spinner name="FlycamAxisDeadZone6" />
+	<flyout_button name="Default" label="Установить настройки по умолчанию">
+		<flyout_button_item name="Space Navigator" label="Space Navigator" />
+		<flyout_button_item name="OUYA" label="Контроллер ОУЯ" />
+		<flyout_button_item name="XBOX" label="XBOX-контроллер" />
+		<flyout_button_item name="DS3" label="DualShock 3" />
+	</flyout_button>
+	<button name="ok_btn" label="ОК" />
+	<button name="cancel_btn" label="Отмена" />
+</floater>

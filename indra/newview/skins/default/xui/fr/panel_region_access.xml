@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Access" label="Accès">
+	<tab_container name="tabs">
+		<panel name="estate_managers_panel" label="Gestionnaires d'estate">
+			<text name="estate_manager_label">Gestionnaires d'estate :</text>
+			<name_list name="estate_manager_name_list">
+				<column name="name" label="Nom"/>
+			</name_list>
+			<button name="add_estate_manager_btn" label="Ajouter..."/>
+			<button name="remove_estate_manager_btn" label="Retirer..."/>
+		</panel>
+		<panel name="allowed_panel" label="Autorisés">
+			<text name="allow_resident_label">Résidents autorisés :</text>
+			<panel name="allowed_search_panel">
+				<filter_editor name="allowed_search_input" label="Rechercher les agents autorisés"/>
+			</panel>
+			<name_list name="allowed_avatar_name_list">
+				<column name="name" label="Nom"/>
+			</name_list>
+			<button name="add_allowed_avatar_btn" label="Ajouter..."/>
+			<button name="remove_allowed_avatar_btn" label="Retirer..."/>
+			<button name="copy_allowed_list_btn" label="Tout copier"/>
+		</panel>
+		<panel name="allowed_groups_panel" label="Groupes autorisés">
+			<text name="allow_group_label">Groupes autorisés :</text>
+			<panel name="allowed_group_search_panel">
+				<filter_editor name="allowed_group_search_input" label="Rechercher les groupes autorisés"/>
+			</panel>
+			<name_list name="allowed_group_name_list">
+				<column name="name" label="Nom"/>
+			</name_list>
+			<button name="add_allowed_group_btn" label="Ajouter..."/>
+			<button name="remove_allowed_group_btn" label="Retirer..."/>
+			<button name="copy_allowed_group_list_btn" label="Tout copier"/>
+		</panel>
+		<panel name="banned_panel" label="Bannis">
+			<text name="ban_resident_label">Résidents bannis :</text>
+			<panel name="banned_search_panel">
+				<filter_editor name="banned_search_input" label="Rechercher les agents bannis"/>
+			</panel>
+			<name_list name="banned_avatar_name_list">
+				<column name="name" label="Nom"/>
+				<column name="last_login_date" label="Dernière connexion"/>
+				<column name="ban_date" label="Date de bannissement"/>
+				<column name="bannedby" label="Banni par"/>
+			</name_list>
+			<button name="add_banned_avatar_btn" label="Ajouter..."/>
+			<button name="remove_banned_avatar_btn" label="Retirer..."/>
+			<button name="copy_banned_list_btn" label="Tout copier"/>
+		</panel>
+	</tab_container>
+</panel>

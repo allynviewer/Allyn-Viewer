@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="radar" title="レーダー">
+	<string name="Title">レーダー</string>
+	<string name="TitleOneAvatar">レーダー（1アバター）</string>
+	<string name="TitleWithCount">レーダー（[COUNT]アバター）</string>
+	<filter_editor name="filter_input" label="名前で絞り込み..." tool_tip="ユーザー名または表示名でアバターを絞り込みます"/>
+	<scroll_list name="avatar_list" tool_tip="ShiftまたはCtrlを押しながらクリックすると、複数のアバターを選択できます">
+		<column name="marked" label="マーク" tool_tip="マークしたアバター" />
+		<column name="avatar_name" label="名前" tool_tip="ShiftまたはCtrlを押しながらクリックすると、複数のアバターを選択できます" />
+		<column name="distance" label="距離" tool_tip="自分のアバターからの距離（赤＝チャット範囲内、黄＝シャウト範囲内、緑＝描画距離内）" />
+		<column name="position" label="位置" tool_tip="このSIM内の位置（X, Y）、または外部SIMの大まかな方位" />
+		<column name="altitude" label="高度" tool_tip="高度" />
+		<column name="activity" label="活動" tool_tip="アクティビティ" />
+		<column name="voice" tool_tip="ボイス状態" />
+		<column name="notes" tool_tip="このアバターのプロフィールにメモを追加したかどうか" />
+		<column name="age" label="年齢" tool_tip="年齢" />
+		<column name="time" label="時間" tool_tip="SIM到着からの経過時間" />
+		<column name="client" label="クライアント" tool_tip="アバターが使っていると思われるクライアント" />
+	</scroll_list>
+	<tab_container name="actions_tab_container">
+		<panel name="actions_tab" label="アバター">
+			<button name="profile_btn" label="プロフィール" tool_tip="画像、グループ、その他の情報を表示" />
+			<button name="track_btn" label="追跡／解除" tool_tip="このアバターの位置追跡を切り替え" />
+			<button name="get_key_btn" label="キーを取得" tool_tip="アバターのキーをクリップボードにコピー" />
+			<button name="im_btn" label="IM" tool_tip="IMセッションを開く（Shift-Enter）" />
+			<button name="offer_btn" label="TPを提供" tool_tip="テレポートを提供" />
+			<button name="teleport_btn" label="TPする" tool_tip="アバターの位置へテレポート（Ctrl-Enter）" />
+			<button name="mark_btn" label="マーク／解除" tool_tip="リスト内のこのアバターのマークを切り替え" />
+			<button name="prev_marked_btn" label="前のマーク" tool_tip="前のマーク済みアバターにカメラを合わせる" />
+			<button name="next_marked_btn" label="次のマーク" tool_tip="次のマーク済みアバターにカメラを合わせる" />
+			<button name="focus_btn" label="フォーカス" tool_tip="リスト内のこのアバターにカメラを合わせる（Enter）" />
+			<button name="prev_in_list_btn" label="前へ" tool_tip="リストの前のアバターにカメラを合わせる" />
+			<button name="next_in_list_btn" label="次へ" tool_tip="リストの次のアバターにカメラを合わせる" />
+		</panel>
+		<panel name="alerts_tab" label="アラート">
+			<check_box name="radar_alerts" label="チャットにアラートを表示" tool_tip="出入りするアバターのアラートをチャットに通知します" />
+			<check_box name="alerts_sim" label="SIMに入る／出るアバター" tool_tip="SIMに入るまたは出るアバターを報告します" />
+			<check_box name="alerts_draw" label="描画距離の内外のアバター" tool_tip="描画距離に入るまたは出るアバターを報告します" />
+			<check_box name="alerts_chat" label="シャウト範囲の内外のアバター" tool_tip="シャウト範囲に入るまたは出るアバターを報告します" />
+			<check_box name="alerts_chat" label="チャット範囲の内外のアバター" tool_tip="チャット範囲に入るまたは出るアバターを報告します" />
+		</panel>
+		<panel name="land_tab" label="モデレーション">
+			<button name="mute_btn" label="ミュート／解除" tool_tip="このアバターをミュートまたは解除します（ミュートした名前はリストで赤く表示されます）。" />
+			<button name="freeze_btn" label="フリーズ" tool_tip="アバターを凍結して移動できなくします" />
+			<button name="ar_btn" label="AR" tool_tip="このアバターを通報します" />
+			<button name="eject_btn" label="排出" tool_tip="アバターをパーセルから排出します" />
+			<button name="estate_eject_btn" label="エステートから排出" tool_tip="このアバターをエステートから排出します" />
+			<button name="estate_ban_btn" label="エステートから排出してバン" tool_tip="このアバターをエステートから排出してバンします" />
+		</panel>
+		<panel name="options_tab" label="オプション">
+			<check_box name="update_enabled_cb" label="更新" tool_tip="アバターリストを更新するかどうかを設定します" />
+			<check_box name="keep_open" label="閉じていても通知する" tool_tip="閉じる代わりに隠して、チャット通知を続けます" />
+			<check_box name="radar_chat_keys" label="キーをHUDに通知" tool_tip="アバターのキーをLSLスクリプトへ送るかどうかを設定します" />
+			<button name="send_keys_btn" label="今すぐ通知" tool_tip="すべてのキーを今すぐHUDへ送ります" />
+		</panel>
+		<panel name="extras_tab" label="その他">
+			<check_box name="agealert" label="アバター年齢アラート" tool_tip="アバター年齢アラートを有効にする" />
+			<spinner name="AgeAlertDays" label="年齢しきい値" tool_tip="アラートを出さずにグリッド上で過ごせる最小日数" />
+			<text name="hide_columns">列を非表示:</text>
+			<check_box name="hide_mark" label="マーク" />
+			<check_box name="hide_pos" label="位置" tool_tip="位置" />
+			<check_box name="hide_alt" label="高度" tool_tip="高度" />
+			<check_box name="hide_act" label="活動" tool_tip="アクティビティ" />
+			<check_box name="hide_voice" label="ボイス" tool_tip="ボイス状態" />
+			<check_box name="hide_notes" label="メモ" tool_tip="メモのチェックボックス" />
+			<check_box name="hide_age" label="年齢" />
+			<check_box name="hide_time" label="時間" />
+			<check_box name="hide_client" label="クライアント" />
+		</panel>
+	</tab_container>
+	<string name="Out Of Range">範囲外</string>
+	<string name="Moving">移動中</string>
+	<string name="Playing a gesture">ジェスチャー再生中</string>
+	<string name="Playing a sound">サウンド再生中</string>
+	<string name="Rezzing objects">オブジェクトをリズ中</string>
+	<string name="Creating particles">パーティクル作成中</string>
+	<string name="Just arrived">到着したばかり</string>
+	<string name="Typing">入力中</string>
+</floater>

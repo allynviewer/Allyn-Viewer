@@ -1,0 +1,1123 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-580" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" follows="left|top" height="580"
+     left="20" min_height="240" min_width="650" mouse_opaque="true"
+     name="toolbox floater" rect_control="ToolboxRect650" sound_flags="0"
+     title="Build" short_title="Build" width="650">
+
+    <floater.string name="status_selectcount">
+        Primitives: [OBJ_COUNT], LI: [LAND_IMPACT]
+    </floater.string>
+    <string name="Selected Face:" value="Selected Face:"/>
+    <string name="Link number:" value="Link number:"/>
+    <string name="Selected prims:" value="Selected prims:"/>
+    <string name="Selected objects:" value="Selected objects:"/>
+    <floater.string name="status_remaining_capacity">
+        Remaining capacity [LAND_CAPACITY].
+    </floater.string>
+
+	<button bottom="-72" follows="left|top" font="SansSerif" halign="center" height="36"
+	    image_disabled="tool_zoom.tga" image_disabled_selected="tool_zoom_active.tga"
+	    image_selected="tool_zoom_active.tga" image_unselected="tool_zoom.tga"
+	    image_hover_unselected="tool_zoom_active.tga" image_hover_selected="tool_zoom_active.tga"
+	    label="" label_selected="" left="12" mouse_opaque="true" name="button focus"
+	    scale_image="true" tool_tip="Focus — zoom, orbit and pan the camera" width="36">
+	  <button.commit_callback function="BuildTool.setTool" parameter="Focus" />
+	</button>
+	<button bottom="-72" follows="left|top" font="SansSerif" halign="center" height="36"
+	    image_disabled="tool_move.tga" image_disabled_selected="tool_move_active.tga"
+	    image_selected="tool_move_active.tga" image_unselected="tool_move.tga"
+	    image_hover_unselected="tool_move_active.tga" image_hover_selected="tool_move_active.tga"
+	    label="" label_selected="" left="64" mouse_opaque="true" name="button move"
+	    scale_image="true" tool_tip="Move — drag objects, Ctrl lifts, Ctrl-Shift spins" width="36">
+	  <button.commit_callback function="BuildTool.setTool" parameter="Move" />
+	</button>
+	<button bottom="-72" follows="left|top" font="SansSerif" halign="center" height="36"
+	    image_disabled="tool_edit.tga" image_disabled_selected="tool_edit_active.tga"
+	    image_selected="tool_edit_active.tga" image_unselected="tool_edit.tga"
+	    image_hover_unselected="tool_edit_active.tga" image_hover_selected="tool_edit_active.tga"
+	    label="" label_selected="" left="116" mouse_opaque="true" name="button edit"
+	    scale_image="true" tool_tip="Edit — position, rotate, stretch and align" width="36">
+	  <button.commit_callback function="BuildTool.setTool" parameter="Edit" />
+	</button>
+	<button bottom="-72" follows="left|top" font="SansSerif" halign="center" height="36"
+	    image_disabled="tool_create.tga" image_disabled_selected="tool_create_active.tga"
+	    image_selected="tool_create_active.tga" image_unselected="tool_create.tga"
+	    image_hover_unselected="tool_create_active.tga" image_hover_selected="tool_create_active.tga"
+	    label="" label_selected="" left="168" mouse_opaque="true" name="button create"
+	    scale_image="true" tool_tip="Create — click inworld to place a new primitive" width="36">
+	  <button.commit_callback function="BuildTool.setTool" parameter="Create" />
+	</button>
+	<button bottom="-72" follows="left|top" font="SansSerif" halign="center" height="36"
+	    image_disabled="tool_dozer.tga" image_disabled_selected="tool_dozer_active.tga"
+	    image_selected="tool_dozer_active.tga" image_unselected="tool_dozer.tga"
+	    image_hover_unselected="tool_dozer_active.tga" image_hover_selected="tool_dozer_active.tga"
+	    label="" label_selected="" left="220" mouse_opaque="true" name="button land"
+	    scale_image="true" tool_tip="Land — select and sculpt terrain" width="36">
+	  <button.commit_callback function="BuildTool.setTool" parameter="Land" />
+	</button>
+	<button name="mini_button" bottom="-68" left="612" height="26" width="26"
+	    control_name="LiruMiniBuildFloater" label=""
+	    image_selected="down_arrow.tga" image_unselected="up_arrow.tga"
+	    scale_image="true" toggle="true"
+	    tool_tip="Toggle compact build window (hides object tabs)"/>
+
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	    bottom="-94" drop_shadow_visible="true" follows="left|top"
+	    font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"
+	    mouse_opaque="true" name="text status" v_pad="0" width="626">
+		Drag to move, shift-drag to copy
+	</text>
+
+	<panel name="focus_panel" left="12" bottom="-226" width="626" height="126"
+	     follows="left|top" mouse_opaque="false" visible="false" border="false">
+	<check_box bottom="-28" follows="left|top" font="SansSerifSmall" height="16"
+	    initial_value="false" label="Zoom" left="4" mouse_opaque="true"
+	    name="radio zoom" radio_style="true" width="120"
+	    tool_tip="Zoom the camera toward the click point">
+	    <check_box.commit_callback function="BuildTool.commitRadioFocus"/>
+	</check_box>
+	<volume_slider bottom="-28" follows="left|top" height="16" increment="0.01"
+	    initial_val="0.125" left="130" max_val="0.5" min_val="0"
+	    mouse_opaque="true" name="slider zoom" width="490"
+	    tool_tip="Camera zoom strength">
+	 <volume_slider.commit_callback function="BuildTool.commitZoom"/>
+	</volume_slider>
+	<check_box bottom="-56" follows="left|top" font="SansSerifSmall" height="16"
+	    initial_value="false" label="Orbit (Ctrl)" left="4" mouse_opaque="true"
+	    name="radio orbit" radio_style="true" width="230"
+	    tool_tip="Orbit the camera around the focus point">
+	    <check_box.commit_callback function="BuildTool.commitRadioFocus"/>
+	</check_box>
+	<check_box bottom="-84" follows="left|top" font="SansSerifSmall" height="16"
+	    initial_value="false" label="Pan (Ctrl-Shift)" left="4"
+	    mouse_opaque="true" name="radio pan" radio_style="true" width="230"
+	    tool_tip="Pan the camera left, right, up and down">
+	    <check_box.commit_callback function="BuildTool.commitRadioFocus"/>
+	</check_box>
+	</panel>
+
+	<panel name="move_panel" left="12" bottom="-226" width="626" height="126"
+	     follows="left|top" mouse_opaque="false" visible="false" border="false">
+	<check_box bottom="-36" follows="left|top" font="SansSerifSmall" height="16"
+	    initial_value="false" label="Move" left="4" mouse_opaque="true"
+	    name="radio move" radio_style="true" width="190"
+	    tool_tip="Drag to move the grabbed object">
+	    <check_box.commit_callback function="BuildTool.commitRadioMove"/>
+	</check_box>
+	<check_box bottom="-36" follows="left|top" font="SansSerifSmall" height="16"
+	    initial_value="false" label="Lift (Ctrl)" left="212" mouse_opaque="true"
+	    name="radio lift" radio_style="true" width="190"
+	    tool_tip="Lift the object vertically">
+	    <check_box.commit_callback function="BuildTool.commitRadioMove"/>
+	</check_box>
+	<check_box bottom="-36" follows="left|top" font="SansSerifSmall" height="16"
+	    initial_value="false" label="Spin (Ctrl-Shift)" left="420"
+	    mouse_opaque="true" name="radio spin" radio_style="true" width="190"
+	    tool_tip="Spin the object in place">
+	    <check_box.commit_callback function="BuildTool.commitRadioMove"/>
+	</check_box>
+	</panel>
+
+	<panel name="edit_panel" left="12" bottom="-226" width="626" height="126"
+	     follows="left|top" mouse_opaque="false" visible="false" border="false">
+	<check_box bottom="-24" follows="left|top" font="SansSerifSmall" height="16"
+	    initial_value="false" label="Position" left="4" mouse_opaque="true"
+	    name="radio position" radio_style="true" width="190"
+	    tool_tip="Move the selected object in the world">
+	    <check_box.commit_callback function="BuildTool.commitRadioEdit"/>
+	</check_box>
+	<check_box bottom="-24" follows="left|top" font="SansSerifSmall" height="16"
+	    initial_value="false" label="Rotate (Ctrl)" left="212" mouse_opaque="true"
+	    name="radio rotate" radio_style="true" width="190"
+	    tool_tip="Rotate the selected object">
+	    <check_box.commit_callback function="BuildTool.commitRadioEdit"/>
+	</check_box>
+	<check_box bottom="-24" follows="left|top" font="SansSerifSmall" height="16"
+	    initial_value="false" label="Stretch (Ctrl-Shift)" left="420"
+	    mouse_opaque="true" name="radio stretch" radio_style="true" width="190"
+	    tool_tip="Stretch the selected object">
+	    <check_box.commit_callback function="BuildTool.commitRadioEdit"/>
+	</check_box>
+	<check_box bottom="-48" follows="left|top" font="SansSerifSmall" height="16"
+	    initial_value="false" label="Select Face" left="4" mouse_opaque="true"
+	    name="radio select face" radio_style="true" width="190"
+	    tool_tip="Select a single face for texture edits">
+	    <check_box.commit_callback function="BuildTool.commitRadioEdit"/>
+	</check_box>
+	<check_box bottom="-48" follows="left|top" font="SansSerifSmall" height="16"
+	    initial_value="false" label="Align" left="212" mouse_opaque="true"
+	    name="radio align" radio_style="true" width="190"
+	    tool_tip="Align selected objects along an axis">
+	    <check_box.commit_callback function="BuildTool.commitRadioEdit"/>
+	</check_box>
+	<check_box bottom="-48" control_name="EditLinkedParts" follows="left|top"
+	    font="SansSerifSmall" height="16" initial_value="false"
+	    label="Edit linked parts" left="420" mouse_opaque="true"
+	    name="checkbox edit linked parts" width="190"
+	    tool_tip="Edit a single prim inside a linkset">
+	    <check_box.commit_callback function="BuildTool.selectComponent"/>
+	</check_box>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	    bottom="-74" drop_shadow_visible="true" follows="left|top"
+	    font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
+	    mouse_opaque="true" name="text ruler mode" v_pad="0" width="50">
+		Ruler:
+	</text>
+	<combo_box allow_text_entry="false" bottom="-76" follows="left|top" height="18"
+	    left="54" max_chars="20" mouse_opaque="true"
+	    name="combobox grid mode" width="110"
+	    tool_tip="Grid / ruler reference frame">
+		<combo_item name="World" value="World">World</combo_item>
+		<combo_item name="Local" value="Local">Local</combo_item>
+		<combo_item name="Reference" value="Reference">Reference</combo_item>
+	    	<combo_box.commit_callback function="BuildTool.gridMode"/>
+	</combo_box>
+	<check_box bottom="-74" control_name="SnapEnabled" follows="left|top"
+	    font="SansSerifSmall" height="16" initial_value="true" label="Use Grid"
+	    left="220" mouse_opaque="true" name="checkbox snap to grid" width="120"
+	    tool_tip="Snap moves and stretches to the grid"/>
+	<button bottom="-76" follows="left|top" font="SansSerifSmall" halign="center"
+		valign="center" height="18" label="Options"
+		left="400" mouse_opaque="true" name="Options..." scale_image="TRUE" width="100"
+		tool_tip="Open grid spacing and snap options">
+	 	<button.commit_callback function="BuildTool.gridOptions"/>
+	</button>
+	<check_box bottom="-98" control_name="ScaleUniform" follows="left|top"
+	    font="SansSerifSmall" height="16" initial_value="false"
+	    label="Stretch Both Sides" left="4" mouse_opaque="true"
+	    name="checkbox uniform" width="200"
+	    tool_tip="Scale from the center instead of one side"/>
+	<check_box bottom="-98" control_name="ScaleStretchTextures" follows="left|top"
+	    font="SansSerifSmall" height="16" initial_value="true"
+	    label="Stretch Textures" left="220" mouse_opaque="true"
+	    name="checkbox stretch textures" width="180"
+	    tool_tip="Scale textures together with the object"/>
+	<check_box bottom="-98" control_name="LimitDragDistance" follows="left|top"
+	    font="SansSerifSmall" height="16" initial_value="true"
+	    label="Limit drag distance" left="420" mouse_opaque="true"
+	    name="checkbox limit drag distance" width="190"
+	    tool_tip="Prevent accidental huge drags"/>
+	<check_box bottom="-118" control_name="AscentBuildPrefs_ActualRoot" follows="left|top"
+		height="16" label="Edit Axis at Root" name="checkbox actual root"
+		left="4" width="200"
+		tool_tip="Show the edit axis on the linkset root"/>
+	<check_box bottom="-118" control_name="RenderHighlightSelections" follows="left|top"
+		height="16" label="Show Highlight" name="checkbox show highlight"
+		left="220" width="180"
+		tool_tip="Highlight the current selection"/>
+	</panel>
+
+	<panel name="create_panel" left="12" bottom="-226" width="626" height="126"
+	     follows="left|top" mouse_opaque="false" visible="false" border="false">
+	<button bottom="-50" follows="left|top" font="SansSerif" halign="center" height="36"
+	    image_disabled="object_cube.tga" image_disabled_selected="object_cube_active.tga"
+	    image_selected="object_cube_active.tga" image_unselected="object_cube.tga"
+	    image_hover_unselected="object_cube_active.tga" image_hover_selected="object_cube_active.tga"
+	    label="" label_selected="" left="4" mouse_opaque="true" name="ToolCube"
+	    scale_image="TRUE" width="36" tool_tip="Cube — box primitive"/>
+	<button bottom="-50" follows="left|top" font="SansSerif" halign="center" height="36"
+	    image_disabled="object_prism.tga" image_disabled_selected="object_prism_active.tga"
+	    image_selected="object_prism_active.tga" image_unselected="object_prism.tga"
+	    image_hover_unselected="object_prism_active.tga" image_hover_selected="object_prism_active.tga"
+		label="" label_selected="" left="44" mouse_opaque="true" name="ToolPrism"
+		scale_image="TRUE" tool_tip="Prism — triangular prism" width="36" />
+	<button bottom="-50" follows="left|top" font="SansSerif" halign="center" height="36"
+	    image_disabled="object_pyramid.tga" image_disabled_selected="object_pyramid_active.tga"
+	    image_selected="object_pyramid_active.tga" image_unselected="object_pyramid.tga"
+	    image_hover_unselected="object_pyramid_active.tga" image_hover_selected="object_pyramid_active.tga"
+	    label="" label_selected="" left="84" mouse_opaque="true" name="ToolPyramid"
+	    scale_image="TRUE" tool_tip="Pyramid" width="36" />
+	<button bottom="-50" follows="left|top" font="SansSerif" halign="center" height="36"
+	    image_disabled="object_tetrahedron.tga" image_disabled_selected="object_tetrahedron_active.tga"
+	    image_selected="object_tetrahedron_active.tga" image_unselected="object_tetrahedron.tga"
+	    image_hover_unselected="object_tetrahedron_active.tga" image_hover_selected="object_tetrahedron_active.tga"
+	    label="" label_selected="" left="124" mouse_opaque="true" name="ToolTetrahedron"
+	    scale_image="TRUE" tool_tip="Tetrahedron" width="36" />
+	<button bottom="-50" follows="left|top" font="SansSerif" halign="center" height="36"
+	    image_disabled="object_cylinder.tga" image_disabled_selected="object_cylinder_active.tga"
+	    image_selected="object_cylinder_active.tga" image_unselected="object_cylinder.tga"
+	    image_hover_unselected="object_cylinder_active.tga" image_hover_selected="object_cylinder_active.tga"
+	    label="" label_selected="" left="164" mouse_opaque="true" name="ToolCylinder"
+	    scale_image="TRUE" tool_tip="Cylinder" width="36"/>
+	<button bottom="-50" follows="left|top" font="SansSerif" halign="center" height="36"
+	    image_disabled="object_hemi_cylinder.tga" image_disabled_selected="object_hemi_cylinder_active.tga"
+	    image_selected="object_hemi_cylinder_active.tga" image_unselected="object_hemi_cylinder.tga"
+	    image_hover_unselected="object_hemi_cylinder_active.tga" image_hover_selected="object_hemi_cylinder_active.tga"
+	    label="" label_selected="" left="204" mouse_opaque="true" name="ToolHemiCylinder"
+	    scale_image="TRUE" tool_tip="Hemicylinder" width="36" />
+	<button bottom="-50" follows="left|top" font="SansSerif" halign="center" height="36"
+	    image_disabled="object_cone.tga" image_disabled_selected="object_cone_active.tga"
+	    image_selected="object_cone_active.tga" image_unselected="object_cone.tga"
+	    image_hover_unselected="object_cone_active.tga" image_hover_selected="object_cone_active.tga"
+	    label="" label_selected="" left="244" mouse_opaque="true" name="ToolCone"
+	    scale_image="TRUE" tool_tip="Cone" width="36" />
+	<button bottom="-50" follows="left|top" font="SansSerif" halign="center" height="36"
+	    image_disabled="object_hemi_cone.tga" image_disabled_selected="object_hemi_cone_active.tga"
+	    image_selected="object_hemi_cone_active.tga" image_unselected="object_hemi_cone.tga"
+	    image_hover_unselected="object_hemi_cone_active.tga" image_hover_selected="object_hemi_cone_active.tga"
+	    label="" label_selected="" left="284" mouse_opaque="true" name="ToolHemiCone"
+	    scale_image="TRUE" tool_tip="Hemicone" width="36" />
+	<text name="tree_grass_label" bottom="-24" follows="left|top" height="16" width="220" left="400"/>
+	<combo_box name="trees_grass" bottom="-50" follows="left|top" height="20" width="220" left="400"
+	    tool_tip="Tree or grass species to create"/>
+	<button bottom="-94" follows="left|top" font="SansSerif" halign="center" height="36"
+	     image_disabled="object_sphere.tga" image_disabled_selected="object_sphere_active.tga"
+	     image_selected="object_sphere_active.tga" image_unselected="object_sphere.tga"
+	     image_hover_unselected="object_sphere_active.tga" image_hover_selected="object_sphere_active.tga"
+	     label="" label_selected="" left="4" mouse_opaque="true" name="ToolSphere"
+	     scale_image="TRUE" width="36" tool_tip="Sphere" />
+	<button bottom="-94" follows="left|top" font="SansSerif" halign="center" height="36"
+	     image_disabled="object_hemi_sphere.tga" image_disabled_selected="object_hemi_sphere_active.tga"
+	     image_selected="object_hemi_sphere_active.tga" image_unselected="object_hemi_sphere.tga"
+	     image_hover_unselected="object_hemi_sphere_active.tga" image_hover_selected="object_hemi_sphere_active.tga"
+	     label="" label_selected="" left="44" mouse_opaque="true" name="ToolHemiSphere"
+	     scale_image="TRUE" tool_tip="Hemisphere" width="36" />
+	<button bottom="-94" follows="left|top" font="SansSerif" halign="center" height="36"
+	     image_disabled="object_torus.tga" image_disabled_selected="object_torus_active.tga"
+	     image_selected="object_torus_active.tga" image_unselected="object_torus.tga"
+	     image_hover_unselected="object_torus_active.tga" image_hover_selected="object_torus_active.tga"
+	     label="" label_selected="" left="84" mouse_opaque="true" name="ToolTorus"
+	     scale_image="TRUE" tool_tip="Torus" width="36" />
+	<button bottom="-94" follows="left|top" font="SansSerif" halign="center" height="36"
+	     image_disabled="object_tube.tga" image_disabled_selected="object_tube_active.tga"
+	     image_selected="object_tube_active.tga" image_unselected="object_tube.tga"
+	     image_hover_unselected="object_tube_active.tga" image_hover_selected="object_tube_active.tga"
+	     label="" label_selected="" left="124" mouse_opaque="true" name="ToolTube"
+	     scale_image="TRUE" tool_tip="Tube" width="36" />
+	<button bottom="-94" follows="left|top" font="SansSerif" halign="center" height="36"
+	     image_disabled="object_ring.tga" image_disabled_selected="object_ring_active.tga"
+	     image_selected="object_ring_active.tga" image_unselected="object_ring.tga"
+	     image_hover_unselected="object_ring_active.tga" image_hover_selected="object_ring_active.tga"
+	     label="" label_selected="" left="164" mouse_opaque="true" name="ToolRing"
+	     scale_image="TRUE" tool_tip="Ring" width="36" />
+	<button bottom="-94" follows="left|top" font="SansSerif" halign="center" height="36"
+	     image_disabled="object_tree.tga" image_disabled_selected="object_tree_active.tga"
+	     image_selected="object_tree_active.tga" image_unselected="object_tree.tga"
+	     image_hover_unselected="object_tree_active.tga" image_hover_selected="object_tree_active.tga"
+	     label="" label_selected="" left="204" mouse_opaque="true" name="ToolTree"
+	     scale_image="TRUE" tool_tip="Tree" width="36" />
+	<button bottom="-94" follows="left|top" font="SansSerif" halign="center" height="36"
+	     image_disabled="object_grass.tga" image_disabled_selected="object_grass_active.tga"
+	     image_selected="object_grass_active.tga" image_unselected="object_grass.tga"
+	     image_hover_unselected="object_grass_active.tga" image_hover_selected="object_grass_active.tga"
+	     label="" label_selected="" left="244" mouse_opaque="true" name="ToolGrass"
+	     scale_image="TRUE" tool_tip="Grass" width="36" />
+	<string name="Random">Random</string>
+	<check_box bottom="-118" control_name="CreateToolKeepSelected" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false"
+	     label="Keep selected" left="4" mouse_opaque="true"
+	     name="checkbox sticky" width="190"
+	     tool_tip="Keep the create tool selected after placing"/>
+	<check_box bottom="-118" control_name="CreateToolCopySelection" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false"
+	     label="Copy selected" left="200" mouse_opaque="true"
+	     name="checkbox copy selection" width="190"
+	     tool_tip="Create copies of the current selection"/>
+	<check_box bottom="-118" control_name="CreateToolCopyCenters" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="true" label="Center"
+	     left="400" mouse_opaque="true" name="checkbox copy centers" width="90"
+	     tool_tip="Copy around the selection center"/>
+	<check_box bottom="-118" control_name="CreateToolCopyRotates" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false" label="Rotate"
+	     left="500" mouse_opaque="true" name="checkbox copy rotates" width="110"
+	     tool_tip="Rotate copies to follow the drag"/>
+	</panel>
+
+	<panel name="land_panel" left="12" bottom="-226" width="626" height="126"
+	     follows="left|top" mouse_opaque="false" visible="false" border="false">
+	<check_box bottom="-24" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Select Land" left="4" mouse_opaque="true"
+	     name="radio select land" radio_style="true" width="150"
+	     tool_tip="Click and drag to select terrain">
+	     <check_box.commit_callback function="BuildTool.commitRadioLand"/>
+	</check_box>
+	<check_box bottom="-24" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Flatten" left="160" mouse_opaque="true"
+	     name="radio flatten" radio_style="true" width="110"
+	     tool_tip="Flatten terrain toward the click height">
+	     <check_box.commit_callback function="BuildTool.commitRadioLand"/>
+	</check_box>
+	<check_box bottom="-24" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Raise" left="280" mouse_opaque="true"
+	     name="radio raise" radio_style="true" width="110"
+	     tool_tip="Raise terrain">
+	     <check_box.commit_callback function="BuildTool.commitRadioLand"/>
+	</check_box>
+	<check_box bottom="-24" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Lower" left="420" mouse_opaque="true"
+	     name="radio lower" radio_style="true" width="110"
+	     tool_tip="Lower terrain">
+	     <check_box.commit_callback function="BuildTool.commitRadioLand"/>
+	</check_box>
+	<check_box bottom="-50" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Smooth" left="4" mouse_opaque="true"
+	     name="radio smooth" radio_style="true" width="150"
+	     tool_tip="Smooth terrain bumps">
+	     <check_box.commit_callback function="BuildTool.commitRadioLand"/>
+	</check_box>
+	<check_box bottom="-50" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Roughen" left="160" mouse_opaque="true"
+	     name="radio noise" radio_style="true" width="110"
+	     tool_tip="Add noise to terrain">
+	     <check_box.commit_callback function="BuildTool.commitRadioLand"/>
+	</check_box>
+	<check_box bottom="-50" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Revert" left="280" mouse_opaque="true"
+	     name="radio revert" radio_style="true" width="110"
+	     tool_tip="Revert terrain toward the original bake">
+	     <check_box.commit_callback function="BuildTool.commitRadioLand"/>
+	</check_box>
+	<button bottom="-52" follows="left|top" font="SansSerifSmall" halign="center"
+	     height="22" label="Apply" label_selected="Apply"
+	     left="420" mouse_opaque="true" name="button apply to selection"
+	     scale_image="TRUE" tool_tip="Apply the current brush to the selected land" width="110">
+	     <button.commit_callback function="BuildTool.applyToSelection"/>
+    	</button>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false"
+	     border_visible="false" bottom="-76" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="14" left="4"
+	     hidden="false" mouse_opaque="true" name="Bulldozer:" v_pad="0" width="80">
+	          Bulldozer:
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false"
+	     border_visible="false" bottom="-76" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="14" left="90"
+	     hidden="false" mouse_opaque="true" name="Dozer Size:" v_pad="0" width="40">
+	          Size
+	</text>
+	<volume_slider bottom="-78" follows="left|top" height="16" hidden="false"
+         increment="0.1" initial_val="2.0" left="136" max_val="11.0" min_val="1.0"
+	     mouse_opaque="true" name="slider brush size" width="482"
+	     tool_tip="Brush size">
+	     <volume_slider.commit_callback function="BuildTool.commitDozerSize"/>
+    	</volume_slider>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false"
+	     border_visible="false" bottom="-104" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="14" left="90"
+	      hidden="false" mouse_opaque="true" name="Strength:" v_pad="0" width="40">
+	          Strength
+	</text>
+	<volume_slider bottom="-106" follows="left|top" height="16" hidden="false"
+	     increment="0.1" initial_val="0.00" left="136" max_val="2.0" min_val="-1.0"
+	     mouse_opaque="true" name="slider force" width="482"
+	     tool_tip="Brush strength">
+	     <volume_slider.commit_callback function="BuildTool.LandBrushForce"/>
+    	</volume_slider>
+	</panel>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+         bottom="-248" left="12" drop_shadow_visible="true" follows="left|top"
+         font="SansSerifSmall" h_pad="0" halign="left" height="16" visible="false"
+         mouse_opaque="true" name="link_num_obj_count" v_pad="0" width="626">
+		[DESC] [NUM]
+	</text>
+    <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom="-248" left="12" drop_shadow_visible="true" follows="left|top"
+       halign="left" height="16" mouse_opaque="true" name="selection_empty" width="626">Nothing selected.</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom="-248" left="12" drop_shadow_visible="true" follows="left|top"
+       font="SansSerifSmall" halign="left" height="16" font-style="UNDERLINE"
+       mouse_opaque="true" name="selection_count" v_pad="0" width="626"/>
+
+	<tab_container bottom="-568" follows="left|top" height="314" left="12" mouse_opaque="false"
+	     name="Object Info Tabs" tab_max_width="110" tab_min_width="60"
+	     tab_position="top" width="626">
+		<panel border="true" bottom="-291" follows="left|top|right|bottom" height="289"
+		     label="General" left="1" mouse_opaque="false" name="General" width="622">
+
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-20" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="10"
+			     mouse_opaque="true" name="Name:" v_pad="0" width="90">Name:</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-24"
+			     follows="left|top" font="SansSerifSmall" height="18" left="100"
+			     max_length="63" mouse_opaque="true" name="Object Name"
+			     select_all_on_focus_received="true" width="120" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-44" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="10"
+			     mouse_opaque="true" name="Description:" v_pad="0" width="90">Description:</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-48"
+			     follows="left|top" font="SansSerifSmall" height="18" left="100"
+			     max_length="127" mouse_opaque="true" name="Object Description"
+			     select_all_on_focus_received="true" width="120" />
+			<string name="multiple_objects_selected" value="Multiple (bulk change mode)"/>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-72" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+			     mouse_opaque="true" name="Creator:" v_pad="0" width="90">Creator:</text>
+			<name_box bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-72" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="100"
+			     mouse_opaque="true" name="Creator Name" v_pad="0" rlv_sensitive="true" width="120">
+		        Thrax Linden
+            </name_box>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-94" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+			     mouse_opaque="true" name="Owner:" v_pad="0" width="90">Owner:</text>
+			<name_box bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-94" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="100"
+			     mouse_opaque="true" name="Owner Name" v_pad="0" rlv_sensitive="true" width="120">
+		        Thrax Linden
+		    </name_box>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+				bottom="-116" drop_shadow_visible="true" follows="left|top"
+				font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+				mouse_opaque="true" name="Last Owner:" v_pad="0" width="90">Last Owner:</text>
+			<name_box bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+				bottom="-116" drop_shadow_visible="true" follows="left|top"
+				font="SansSerifSmall" h_pad="0" halign="left" height="16" left="100"
+				mouse_opaque="true" name="Last Owner Name" v_pad="0" rlv_sensitive="true" width="120">
+				Thrax Linden
+			</name_box>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+				bottom="-140" drop_shadow_visible="true" follows="left|top"
+				font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+				mouse_opaque="true" name="Group:" v_pad="0" width="90">Group:</text>
+			<name_box follows="left|top" height="16" initial_value="Loading..."
+			    bottom="-140" left="100" name="Group Name Proxy" width="80" id_type="1"/>
+			<button bottom="-142" follows="left|top" font="SansSerifSmall" halign="center"
+			    height="18" label="Set" label_selected="Set..." left="184"
+			    mouse_opaque="true" name="button set group" scale_image="TRUE" width="36"
+			    tool_tip="Set the object's group"/>
+
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			    bottom="-168" drop_shadow_visible="true" follows="left|top"
+			    font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+			    mouse_opaque="true" name="Permissions:" v_pad="0" width="210">Permissions:</text>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			    bottom="-188" drop_shadow_visible="true" follows="left|top"
+			    font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+			    mouse_opaque="true" name="perm_modify" v_pad="0" width="210">
+				You can modify this object.
+			</text>
+			<check_box bottom="-214" follows="left|top" font="SansSerifSmall" height="16"
+			    initial_value="false" label="Share with group" left="10"
+			    mouse_opaque="true" name="checkbox share with group"
+			    tool_tip="Allow group members to share this object's permissions. Deed to enable role restrictions."
+			    width="130" />
+			<string name="text deed continued">Deed...</string>
+			<string name="text deed">Deed</string>
+			<button bottom="-216" follows="left|top" font="SansSerifSmall" halign="center"
+			     height="20" label="Deed..." label_selected="Deed..." left="145"
+			     mouse_opaque="true" name="button deed" scale_image="TRUE"
+			     tool_tip="Group shared objects can be deeded by a group officer."
+			     width="70" />
+			<text name="text anyone can" bottom="-242" left="10" follows="left|top" width="210">Anyone can:</text>
+			<check_box bottom="-262" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Move" left="10"
+			     mouse_opaque="true" name="checkbox allow everyone move" width="70" />
+			<check_box bottom="-262" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Copy" left="80"
+			     mouse_opaque="true" name="checkbox allow everyone copy" width="70" />
+			<check_box name="checkbox allow export" label="Export" bottom="-262" left="150" follows="left|top" width="70"/>
+			<check_box bottom="-282" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Show in search" left="10" name="search_check"
+			     tool_tip="Let people see this object in search results" width="210" />
+
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-20" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="230"
+			     mouse_opaque="true" name="label click action" v_pad="0" width="200">
+				When Left-Clicked:
+			</text>
+			<combo_box bottom="-46" allow_text_entry="false" follows="left|top" height="22"
+			     left="330" max_chars="20" mouse_opaque="true" name="clickaction" width="258">
+				<combo_item name="Touch/grab(default)" value="Touch/grab (default)">Touch/grab (default)</combo_item>
+				<combo_item name="Sitonobject" value="Sit on object">Sit on object</combo_item>
+				<combo_item name="Buyobject" value="Buy object">Buy object</combo_item>
+				<combo_item name="Payobject" value="Pay object">Pay object</combo_item>
+				<combo_item name="Open" value="Open">Open</combo_item>
+				<combo_item name="Play" value="Play">Play parcel media</combo_item>
+				<combo_item name="Opemmedia" value="Open Media">Open parcel media</combo_item>
+			</combo_box>
+			<check_box bottom="-76" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="For Sale" left="330" mouse_opaque="true"
+			     name="checkbox for sale" width="90" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-76" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="420"
+			     mouse_opaque="true" name="Cost" v_pad="0" width="60">
+				Price:  [CURRENCY]
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-76"
+			     follows="left|top" font="SansSerifSmall" height="16" left="482"
+			     max_length="25" mouse_opaque="true" name="Edit Cost" width="56" />
+			<radio_group bottom="-100" draw_border="false" follows="left|top" height="16"
+			     left="330" mouse_opaque="true" name="sale type" width="258">
+				<radio_item bottom="-16" follows="left|top" height="16" left="0" mouse_opaque="true"
+				     name="Original" width="70">Original</radio_item>
+				<radio_item bottom="-16" follows="left|top" height="16" left="70" mouse_opaque="true"
+				     name="Copy" width="70">Copy</radio_item>
+				<radio_item bottom="-16" follows="left|top" height="16" left="140" mouse_opaque="true"
+				     name="Contents" width="68">Contents</radio_item>
+			</radio_group>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-128" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="330"
+			     mouse_opaque="true" name="Next owner can:" v_pad="0" width="258">
+				Next owner can:
+			</text>
+			<check_box bottom="-150" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Modify" left="330" mouse_opaque="true"
+			     name="checkbox next owner can modify" width="70" />
+			<check_box bottom="-150" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Copy" left="400" mouse_opaque="true"
+			     name="checkbox next owner can copy" width="60" />
+			<check_box bottom="-150" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Resell/Give away" left="460"
+			     mouse_opaque="true" name="checkbox next owner can transfer" width="80" />
+			<button bottom="-180" follows="left|top" font="SansSerifSmall" halign="center"
+				height="22" label="Copy Key" label_selected="Copy Key" left="330"
+				mouse_opaque="true" name="button cpy_key" scale_image="TRUE"
+				tool_tip="Copies the object key to the clipboard."
+				width="100" />
+			<panel bottom="-216" border="false" follows="left|top" layout="topleft"
+			     mouse_opaque="false" name="pathfinding_attrs_panel"
+			     left="330" height="32" width="258">
+				<text type="string" follows="left|top" name="pathfinding_attributes_label"
+				   top_pad="4" width="90" left="0">Pathfinding:</text>
+				<text bottom_delta="0" left_delta="90" type="string" text_color="TextLinkColor"
+				   follows="left|top" name="pathfinding_attributes_value"
+				   width="160" word_wrap="false" left_pad="0">Test</text>
+			</panel>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-258" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="330"
+			     mouse_opaque="true" name="B:" v_pad="0" width="40">B:</text>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-258" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="370"
+			     mouse_opaque="true" name="G:" v_pad="0" width="40">G:</text>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-258" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="410"
+			     mouse_opaque="true" name="E:" v_pad="0" width="40">E:</text>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-258" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="450"
+			     mouse_opaque="true" name="N:" v_pad="0" width="40">N:</text>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-258" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="490"
+			     mouse_opaque="true" name="F:" v_pad="0" width="40">F:</text>
+			<string name="text modify info 1">You can modify this object.</string>
+			<string name="text modify info 2">You can modify these objects.</string>
+			<string name="text modify info 3">You cannot modify this object.</string>
+			<string name="text modify info 4">You cannot modify these objects.</string>
+			<string name="text modify info 5">You can't modify this object across a region boundary</string>
+			<string name="text modify info 6">You can't modify these objects across a region boundary</string>
+			<string name="text modify warning">Must select entire object to set permissions.</string>
+			<string name="Cost Default">Price:           [CURRENCY]</string>
+			<string name="Cost Total">Total Price:  [CURRENCY]</string>
+			<string name="Cost Per Unit">Price Per:     [CURRENCY]</string>
+			<string name="Cost Mixed">Mixed Price</string>
+			<string name="Sale Mixed">Mixed Sale</string>
+		</panel>
+
+		<panel border="true" bottom="-291" follows="left|top|right|bottom" height="289"
+		     label="Object" left="1" mouse_opaque="false" name="Object" width="622">
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-16" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
+			     mouse_opaque="true" name="select_single" v_pad="0" width="196">
+			</text>
+			<button bottom="-22" follows="left|top" font="SansSerifSmall" halign="center"
+			     height="16" label="Link" left="10" mouse_opaque="true" name="link_obj" enabled="true"
+			     tool_tip="Link selected objects" width="96" />
+			<button bottom="-22" follows="left|top" font="SansSerifSmall" halign="center"
+			     height="16" label="Unlink" left="110" mouse_opaque="true" name="unlink_obj" enabled="true"
+			     tool_tip="Unlink the selected linkset" width="96" />
+			<check_box bottom="-22" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Locked" left="218" mouse_opaque="true"
+			     name="checkbox locked"
+			     tool_tip="Prevents object from being moved or deleted."
+			     width="96" />
+			<check_box bottom="-22" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Physical" left="318" mouse_opaque="true"
+			     name="Physical Checkbox Ctrl"
+			     tool_tip="Allows object to be pushed and affected by gravity" width="96" />
+			<check_box bottom="-22" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Temporary" left="426" mouse_opaque="true"
+			     name="Temporary Checkbox Ctrl"
+			     tool_tip="Causes object to be deleted 1 minute after creation." width="96" />
+			<check_box bottom="-22" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Phantom" left="526" mouse_opaque="true"
+			     name="Phantom Checkbox Ctrl"
+			     tool_tip="Causes object to not collide with other objects or avatars"
+			     width="96" />
+
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-42" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
+			     mouse_opaque="true" name="label material" v_pad="0" width="196">
+				Material
+			</text>
+			<combo_box allow_text_entry="false" bottom="-60" follows="left|top" height="16"
+			     left="10" max_chars="20" mouse_opaque="true" name="material" width="196">
+				<combo_item name="Stone" value="Stone">Stone</combo_item>
+				<combo_item name="Metal" value="Metal">Metal</combo_item>
+				<combo_item name="Glass" value="Glass">Glass</combo_item>
+				<combo_item name="Wood" value="Wood">Wood</combo_item>
+				<combo_item name="Flesh" value="Flesh">Flesh</combo_item>
+				<combo_item name="Plastic" value="Plastic">Plastic</combo_item>
+				<combo_item name="Rubber" value="Rubber">Rubber</combo_item>
+			</combo_box>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-42" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="218"
+			     mouse_opaque="true" name="edit_object" v_pad="0" width="196">Params</text>
+			<button bottom="-60" follows="left|top" font="SansSerifSmall" halign="center"
+			    height="16" label="Copy" left="218" mouse_opaque="true" name="copyparams" enabled="true"
+			    tool_tip="Copy Parameters to Clipboard" width="96" />
+			<button bottom="-60" follows="left|top" font="SansSerifSmall" halign="center"
+			     height="16" label="Paste" left="318" mouse_opaque="true" name="pasteparams" enabled="true"
+     			 tool_tip="Paste Parameters from Clipboard" width="96" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-42" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="426"
+			     mouse_opaque="true" name="label basetype" v_pad="0" width="196">
+				Type
+			</text>
+			<combo_box allow_text_entry="false" bottom="-60" follows="left|top" height="16"
+			     left="426" max_chars="20" mouse_opaque="true" name="comboBaseType" width="196">
+				<combo_item name="Box" value="Box">Box</combo_item>
+				<combo_item name="Cylinder" value="Cylinder">Cylinder</combo_item>
+				<combo_item name="Prism" value="Prism">Prism</combo_item>
+				<combo_item name="Sphere" value="Sphere">Sphere</combo_item>
+				<combo_item name="Torus" value="Torus">Torus</combo_item>
+				<combo_item name="Tube" value="Tube">Tube</combo_item>
+				<combo_item name="Ring" value="Ring">Ring</combo_item>
+				<combo_item name="Sculpted" value="Sculpted">Sculpted</combo_item>
+				<combo_item name="Hemicylinder" value="Hemicylinder">Hemicylinder</combo_item>
+				<combo_item name="Spiral Circle" value="Spiral Circle">Spiral Circle</combo_item>
+				<combo_item name="Spiral Square" value="Spiral Square">Spiral Square</combo_item>
+				<combo_item name="Spiral Triangle" value="Spiral Triangle">Spiral Triangle</combo_item>
+				<combo_item name="Spiral Semicircle" value="Spiral Semicircle">Spiral Semicircle</combo_item>
+				<combo_item name="Test Cylinder" value="Test Cylinder">Test Cylinder</combo_item>
+				<combo_item name="Test Box" value="Test Box">Test Box</combo_item>
+				<combo_item name="Test Prism" value="Test Prism">Test Prism</combo_item>
+				<combo_item name="Test Hemicylinder" value="Test Hemicylinder">Test Hemicylinder</combo_item>
+			</combo_box>
+
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-82" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+			     mouse_opaque="true" name="label position" v_pad="0" width="130">
+				Position
+			</text>
+			<button bottom="-84" follows="left|top" font="SansSerifSmall" halign="center"
+				 valign="center" height="18" label="C" left="142" mouse_opaque="true" name="copypos" enabled="true"
+				 tool_tip="Copy Position" width="20" />
+			<button bottom="-84" follows="left|top" font="SansSerifSmall" halign="center"
+			     valign="center" height="18" label="P" left="164" mouse_opaque="true" name="pastepos" enabled="true"
+			     tool_tip="Paste Position" width="20" />
+			<button bottom="-84" follows="left|top" font="SansSerifSmall" halign="center"
+			     valign="center" height="18" label="p" left="186" mouse_opaque="true" name="pasteposclip" enabled="true"
+			     tool_tip="Paste Position from Clipboard" width="20" />
+			<spinner bottom="-108" decimal_digits="4" follows="left|top" height="18"
+			     increment="0.01" initial_val="0" label="X" label_width="12" left="10"
+			     max_val="512" min_val="-256" mouse_opaque="true" name="Pos X"
+			     text_enabled_color="110, 15, 15, 255" width="64" />
+			<spinner bottom="-108" decimal_digits="4" follows="left|top" height="18"
+			     increment="0.01" initial_val="0" label="Y" label_width="12" left="76"
+			     max_val="512" min_val="-256" mouse_opaque="true" name="Pos Y"
+			     text_enabled_color="0, 100, 40, 255" width="64" />
+			<spinner bottom="-108" decimal_digits="4" follows="left|top" height="18"
+			     increment="0.01" initial_val="0" label="Z" label_width="12" left="142"
+			     min_val="-3.5" mouse_opaque="true" name="Pos Z"
+			     text_enabled_color="0, 67, 132, 255" width="64" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-82" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="218"
+			     mouse_opaque="true" name="label size" v_pad="0" width="130">Size</text>
+			<button bottom="-84" follows="left|top" font="SansSerifSmall" halign="center"
+			     valign="center" height="18" label="C" left="350" mouse_opaque="true" name="copysize" enabled="true"
+			     tool_tip="Copy Size" width="20" />
+			<button bottom="-84" follows="left|top" font="SansSerifSmall" halign="center"
+			     valign="center" height="18" label="P" left="372" mouse_opaque="true" name="pastesize" enabled="true"
+			     tool_tip="Paste Size" width="20" />
+			<button bottom="-84" follows="left|top" font="SansSerifSmall" halign="center"
+			     valign="center" height="18" label="p" left="394" mouse_opaque="true" name="pastesizeclip" enabled="true"
+			     tool_tip="Paste Size from Clipboard" width="20" />
+			<spinner bottom="-108" decimal_digits="5" follows="left|top" height="18"
+			     increment="0.01" initial_val="0" label="X" label_width="12" left="218"
+			     max_val="256" min_val="0.01" mouse_opaque="true" name="Scale X"
+			     text_enabled_color="1, 1, 1, 1" width="64" />
+			<spinner bottom="-108" decimal_digits="5" follows="left|top" height="18"
+			     increment="0.01" initial_val="0" label="Y" label_width="12" left="284"
+			     max_val="256" min_val="0.01" mouse_opaque="true" name="Scale Y"
+			     text_enabled_color="1, 1, 1, 1" width="64" />
+			<spinner bottom="-108" decimal_digits="5" follows="left|top" height="18"
+			     increment="0.01" initial_val="0" label="Z" label_width="12" left="350"
+			     max_val="256" min_val="0.01" mouse_opaque="true" name="Scale Z"
+			     text_enabled_color="1, 1, 1, 1" width="64" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-82" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="426"
+			     mouse_opaque="true" name="label rotation" v_pad="0" width="130">
+				Rotation
+			</text>
+			<button bottom="-84" follows="left|top" font="SansSerifSmall" halign="center"
+				 valign="center" height="18" label="C" left="558" mouse_opaque="true" name="copyrot" enabled="true"
+				 tool_tip="Copy Rotation" width="20" />
+			<button bottom="-84" follows="left|top" font="SansSerifSmall" halign="center"
+			     valign="center" height="18" label="P" left="580" mouse_opaque="true" name="pasterot" enabled="true"
+			     tool_tip="Paste Rotation" width="20" />
+			<button bottom="-84" follows="left|top" font="SansSerifSmall" halign="center"
+			     valign="center" height="18" label="p" left="602" mouse_opaque="true" name="pasterotclip" enabled="true"
+			     tool_tip="Paste Rotation from Clipboard" width="20" />
+			<spinner bottom="-108" decimal_digits="2" follows="left|top" height="18"
+			     increment="1" initial_val="0" label="X" label_width="12" left="426"
+			     max_val="9999" min_val="-9999" mouse_opaque="true" name="Rot X"
+			     text_enabled_color="1, 1, 1, 1" width="64" />
+			<spinner bottom="-108" decimal_digits="2" follows="left|top" height="18"
+			     increment="1" initial_val="0" label="Y" label_width="12" left="492"
+			     max_val="9999" min_val="-9999" mouse_opaque="true" name="Rot Y"
+			     text_enabled_color="1, 1, 1, 1" width="64" />
+			<spinner bottom="-108" decimal_digits="2" follows="left|top" height="18"
+			     increment="1" initial_val="0" label="Z" label_width="12" left="558"
+			     max_val="9999" min_val="-9999" mouse_opaque="true" name="Rot Z"
+			     text_enabled_color="1, 1, 1, 1" width="64" />
+
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-128" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
+			     mouse_opaque="true" name="text cut" v_pad="0" width="196">Path Cut</text>
+			<spinner bottom="-148" decimal_digits="3" follows="left|top" height="18"
+			     increment="0.025" initial_val="0" label="B" label_width="12" left="10"
+			     max_val="0.98" min_val="0" mouse_opaque="true" name="cut begin" width="96" />
+			<spinner bottom="-148" decimal_digits="3" follows="left|top" height="18"
+			     increment="0.025" initial_val="1" label="E" label_width="12" left="110"
+			     max_val="1" min_val="0.02" mouse_opaque="true" name="cut end" width="96" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-128" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="218"
+			     mouse_opaque="true" name="text hollow" v_pad="0" width="96">Hollow</text>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-128" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="318"
+			     mouse_opaque="true" name="text skew" v_pad="0" width="96">Skew</text>
+			<spinner bottom="-148" decimal_digits="1" follows="left|top" height="18"
+			     increment="5" initial_val="0" left="218" max_val="95" min_val="0"
+			     mouse_opaque="true" name="Scale 1" width="96" />
+			<spinner bottom="-148" decimal_digits="2" follows="left|top" height="18"
+			     increment="0.05" initial_val="0" left="318" max_val="0.99"
+			     min_val="-0.99" mouse_opaque="true" name="Skew" width="96" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-128" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="426"
+			     mouse_opaque="true" name="Hollow Shape" v_pad="0" width="196">Hollow Shape</text>
+			<combo_box allow_text_entry="false" bottom="-148" follows="left|top" height="18"
+			     left="426" max_chars="20" mouse_opaque="true" name="hole" width="196">
+				<combo_item name="Default" value="Default">Default</combo_item>
+				<combo_item name="Circle" value="Circle">Circle</combo_item>
+				<combo_item name="Square" value="Square">Square</combo_item>
+				<combo_item name="Triangle" value="Triangle">Triangle</combo_item>
+			</combo_box>
+
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-164" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
+			     mouse_opaque="true" name="text twist" v_pad="0" width="196">Twist</text>
+			<spinner bottom="-184" decimal_digits="0" follows="left|top" height="18"
+			     increment="9" initial_val="0" label="B" label_width="12" left="10"
+			     max_val="180" min_val="-180" mouse_opaque="true" name="Twist Begin" width="96" />
+			<spinner bottom="-184" decimal_digits="0" follows="left|top" height="18"
+			     increment="9" initial_val="0" label="E" label_width="12" left="110"
+			     max_val="180" min_val="-180" mouse_opaque="true" name="Twist End" width="96" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-164" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="218"
+			     mouse_opaque="true" name="scale_taper" v_pad="0" width="196">Taper</text>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-164" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="218"
+			     mouse_opaque="true" name="scale_hole" v_pad="0" width="196">Hole Size</text>
+			<spinner bottom="-184" decimal_digits="2" follows="left|top" height="18"
+			     increment="0.05" initial_val="0" label="X" label_width="12" left="218"
+			     max_val="1" min_val="-1" mouse_opaque="true" name="Taper Scale X" width="96" />
+			<spinner bottom="-184" decimal_digits="2" follows="left|top" height="18"
+			     increment="0.05" initial_val="0" label="Y" label_width="12" left="318"
+			     max_val="1" min_val="-1" mouse_opaque="true" name="Taper Scale Y" width="96" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-164" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="426"
+			     mouse_opaque="true" name="text topshear" v_pad="0" width="196">Top Shear</text>
+			<spinner bottom="-184" decimal_digits="2" follows="left|top" height="18"
+			     increment="0.05" initial_val="0" label="X" label_width="12" left="426"
+			     max_val="0.5" min_val="-0.5" mouse_opaque="true" name="Shear X" width="96" />
+			<spinner bottom="-184" decimal_digits="2" follows="left|top" height="18"
+			     increment="0.05" initial_val="0" label="Y" label_width="12" left="526"
+			     max_val="0.5" min_val="-0.5" mouse_opaque="true" name="Shear Y" width="96" />
+
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-206" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
+			     mouse_opaque="true" name="advanced_cut" v_pad="0" width="196">Profile Cut</text>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-206" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
+			     mouse_opaque="true" name="advanced_dimple" v_pad="0" width="196">Dimple</text>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-206" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
+			     mouse_opaque="true" name="advanced_slice" v_pad="0" width="196">Slice</text>
+			<spinner bottom="-226" decimal_digits="3" follows="left|top" height="18"
+			     increment="0.025" initial_val="0" label="B" label_width="12" left="10"
+			     max_val="0.99" min_val="0" mouse_opaque="true" name="Path Limit Begin" width="96" />
+			<spinner bottom="-226" decimal_digits="3" follows="left|top" height="18"
+			     increment="0.025" initial_val="1" label="E" label_width="12" left="110"
+			     max_val="1" min_val="0.01" mouse_opaque="true" name="Path Limit End" width="96" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-206" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="218"
+			     mouse_opaque="true" name="text taper2" v_pad="0" width="196">Taper</text>
+			<spinner bottom="-226" decimal_digits="2" follows="left|top" height="18"
+			     increment="0.01" initial_val="0" label="X" label_width="12" left="218"
+			     max_val="1" min_val="-1" mouse_opaque="true" name="Taper X" width="96" />
+			<spinner bottom="-226" decimal_digits="2" follows="left|top" height="18"
+			     increment="0.01" initial_val="0" label="Y" label_width="12" left="318"
+			     max_val="1" min_val="-1" mouse_opaque="true" name="Taper Y" width="96" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-206" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="426"
+			     mouse_opaque="true" name="text radius delta" v_pad="0" width="96">Radius</text>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-206" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="526"
+			     mouse_opaque="true" name="text revolutions" v_pad="0" width="96">Revolutions</text>
+			<spinner bottom="-226" decimal_digits="3" follows="left|top" height="18"
+			     increment="0.05" initial_val="0" left="426" max_val="1" min_val="-1"
+			     mouse_opaque="true" name="Radius Offset" width="96" />
+			<spinner bottom="-226" decimal_digits="2" follows="left|top" height="18"
+			     increment="0.1" initial_val="1" left="526" max_val="4" min_val="1"
+			     mouse_opaque="true" name="Revolutions" width="96" />
+
+			<texture_picker allow_no_texture="false" bottom="-226" can_apply_immediately="true"
+			     default_image_name="Default" follows="left|top" height="90"
+			     label="Sculpt Texture" left="218" mouse_opaque="true"
+			     name="sculpt texture control" tool_tip="Click to choose a sculpt map"
+			     visible="false" width="404" />
+            <check_box bottom="-248" follows="left|top" font="SansSerifSmall" height="16"
+                 initial_value="false" label="Mirror" left="218" mouse_opaque="true"
+                 name="sculpt mirror control" visible="false"
+                 tool_tip="Flips sculpted prim along the X axis." width="100" />
+            <check_box bottom="-248" follows="left|top" font="SansSerifSmall" height="16"
+                 initial_value="false" label="Inside-out" left="322" mouse_opaque="true"
+                 name="sculpt invert control" visible="false"
+                 tool_tip="Inverts the sculpted prims normals, making it appear inside-out." width="120" />
+			<text align="left" bg_visible="false" border_drop_shadow_visible="false"
+			     border_visible="false" bottom="-268" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" height="12" left="218"
+			     mouse_opaque="true" name="label sculpt type" v_pad="0" visible="false" width="196">
+				Stitching
+			</text>
+			<combo_box allow_text_entry="false" bottom="-286" follows="left|top" height="16"
+			     left="218" max_chars="20" mouse_opaque="true" name="sculpt type control"
+			     visible="false" width="404">
+				<combo_item name="None" value="None">(none)</combo_item>
+				<combo_item name="Sphere" value="Sphere">Sphere</combo_item>
+				<combo_item name="Torus" value="Torus">Torus</combo_item>
+				<combo_item name="Plane" value="Plane">Plane</combo_item>
+				<combo_item name="Cylinder" value="Cylinder">Cylinder</combo_item>
+      		</combo_box>
+		</panel>
+
+		<panel border="true" bottom="-291" follows="left|top|right|bottom" height="289"
+		     label="Features" left="1" mouse_opaque="false" name="Features" width="622">
+		     	<string name="None">None</string>
+			<string name="Prim">Prim</string>
+			<string name="Convex Hull">Convex Hull</string>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-22" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
+			     mouse_opaque="true" name="select_single" v_pad="0" width="600">
+				Select only one primitive to edit features.
+			</text>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-22" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
+			     mouse_opaque="true" name="edit_object" v_pad="0" width="600">
+				Edit object features:
+			</text>
+            <check_box height="16" label="Animated Mesh" left="10"
+             name="Animated Mesh Checkbox Ctrl"
+             tool_tip="Allows rigged mesh objects to be animated independently"
+             bottom="-46" width="200" />
+			<check_box bottom="-70" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Flexible Path" left="10" mouse_opaque="true"
+			     name="Flexible1D Checkbox Ctrl"
+			     tool_tip="Allows object to flex about the Z axis. (Client-side only)"
+			     width="200" />
+			<spinner bottom="-94" decimal_digits="0" follows="left|top" height="16"
+			     increment="1" initial_val="2" label="Softness" label_width="70" left="10"
+			     max_val="3" min_val="0" mouse_opaque="true" name="FlexNumSections" width="200" />
+			<spinner bottom="-116" decimal_digits="5" follows="left|top" height="16"
+			     increment="0.5" initial_val="0.3" label="Gravity" label_width="70"
+			     left="10" max_val="10" min_val="-10" mouse_opaque="true" name="FlexGravity" width="200" />
+			<spinner bottom="-138" decimal_digits="5" follows="left|top" height="16"
+			     increment="0.5" initial_val="2" label="Drag" label_width="70" left="10"
+			     max_val="10" min_val="0" mouse_opaque="true" name="FlexFriction" width="200" />
+			<spinner bottom="-160" decimal_digits="5" follows="left|top" height="16"
+			     increment="0.5" initial_val="0" label="Wind" label_width="70" left="10"
+			     max_val="10" min_val="0" mouse_opaque="true" name="FlexWind" width="200" />
+			<spinner bottom="-182" decimal_digits="5" follows="left|top" height="16"
+			     increment="0.5" initial_val="1" label="Tension" label_width="70" left="10"
+			     max_val="10" min_val="0" mouse_opaque="true" name="FlexTension" width="200" />
+			<spinner bottom="-204" decimal_digits="5" follows="left|top" height="16"
+			     increment="0.01" initial_val="0" label="Force X" label_width="70" left="10"
+			     max_val="10" min_val="-10" mouse_opaque="true" name="FlexForceX" width="200" />
+			<spinner bottom="-226" decimal_digits="5" follows="left|top" height="16"
+			     increment="0.01" initial_val="0" label="Force Y" label_width="70" left="10"
+			     max_val="10" min_val="-10" mouse_opaque="true" name="FlexForceY" width="200" />
+			<spinner bottom="-240" decimal_digits="5" follows="left|top" height="16"
+			     increment="0.01" initial_val="0" label="Force Z" label_width="70" left="10"
+			     max_val="10" min_val="-10" mouse_opaque="true" name="FlexForceZ" width="200" />
+			<check_box bottom="-70" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Light" left="330" mouse_opaque="true"
+			     name="Light Checkbox Ctrl" tool_tip="Causes object to emit light" width="200" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-94" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="330"
+			     mouse_opaque="true" name="label color" v_pad="0" width="58">Color</text>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-94" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="430"
+			     mouse_opaque="true" name="label texture" v_pad="0" width="58">Texture</text>
+			<color_swatch border_color="0.45098, 0.517647, 0.607843, 1" bottom="-156"
+				left="330" can_apply_immediately="true" color="0.5, 0.5, 0.5, 1" follows="left|top"
+			     height="56" label="" mouse_opaque="true" name="colorswatch"
+			     tool_tip="Click to open Color Picker" width="56" />
+			 <texture_picker allow_no_texture="true" bottom="-156" can_apply_immediately="true"
+		            default_image_name="Default" follows="left|top" height="56" label=""
+		            left="430" mouse_opaque="true" name="light texture control"
+		            tool_tip="Click to choose a projection image (only has effect with deferred rendering enabled)"
+		            width="56" />
+			<spinner bottom="-178" decimal_digits="3" follows="left|top" height="16" left="330"
+			     increment="0.1" initial_val="0.5" label="Intensity" label_width="55"
+			     max_val="1" min_val="0" mouse_opaque="true" name="Light Intensity" width="100" />
+			<spinner bottom="-178" decimal_digits="3" follows="left|top" height="16" left="434"
+			     increment="0.1" initial_val="0.5" label="FOV" label_width="40"
+			     max_val="3" min_val="0" mouse_opaque="true" name="Light FOV" width="104" />
+			<spinner bottom="-202" decimal_digits="3" follows="left|top" height="16" left="330"
+			     increment="0.1" initial_val="5" label="Radius" label_width="55"
+			     max_val="20" min_val="0" mouse_opaque="true" name="Light Radius" width="100" />
+			<spinner bottom="-202" decimal_digits="3" follows="left|top" height="16" left="434"
+			     increment="0.5" initial_val="0.5" label="Focus" label_width="40"
+			     max_val="20" min_val="-20" mouse_opaque="true" name="Light Focus" width="104" />
+			<spinner bottom="-226" decimal_digits="3" follows="left|top" height="16" left="330"
+			     increment="0.25" initial_val="1" label="Falloff" label_width="55"
+			     max_val="2" min_val="0" mouse_opaque="true" name="Light Falloff" width="100" />
+			<spinner bottom="-226" decimal_digits="3" follows="left|top" height="16" left="434"
+			    increment="0.05" initial_val="1" label="Ambiance" label_width="55"
+			    max_val="1" min_val="0" mouse_opaque="true" name="Light Ambiance" width="104" />
+            <text type="string" length="1" follows="left|top" height="12" layout="topleft"
+             name="label physicsshapetype" left="10" bottom="-254" width="200">
+                Physics Shape Type:
+            </text>
+			<combo_box height="16" bottom="-270" layout="topleft" follows="left|top"
+			   name="Physics Shape Type Combo Ctrl"
+			   tool_tip="Choose the physics shape type" left="10" width="200"/>
+	    <spinner follows="left|top" height="16" increment="0.1" initial_value="1"
+             label="Gravity" label_width="70" layout="topleft" min_val="-1" max_val="28"
+             name="Physics Gravity" left="330" bottom="-254" width="258" />
+            <spinner follows="left|top" height="16" increment="0.1" initial_value="0"
+             label="Friction" label_width="70" layout="topleft" left="330"
+             max_val="255" min_val="0" name="Physics Friction" bottom="-270" width="258" />
+            <spinner follows="left|top" height="16" increment="0.1" initial_value="0"
+             label="Density" label_width="70" label_wrap="true" layout="topleft" left="10"
+             max_val="22587" min_val="1" name="Physics Density" bottom="-286" width="200" />
+            <spinner follows="left|top" height="16" increment="0.01" initial_value="0"
+             label="Restitution" label_width="70" layout="topleft" left="330"
+             max_val="1" min_val="0" name="Physics Restitution" bottom="-286" width="258" />
+		</panel>
+        <panel label="Texture" help_topic="toolbox_texture_tab" name="Texture"
+         filename="panel_tools_texture.xml">
+	   </panel>
+       <panel border="true" bottom="-291" follows="left|top|right|bottom" height="289"
+		     label="Content" left="1" mouse_opaque="false" name="Contents" width="622">
+      		<button bottom="-28" follows="left|top" font="SansSerif" halign="center" height="24"
+      		    label="New Script" label_selected="New Script" left="10" name="button new script"
+      		    scale_image="TRUE" width="140" tool_tip="Create a new script in this object"/>
+			<button bottom="-28" left="200" width="180" height="24" follows="left|top"
+            label="Permissions..." name="button permissions" font="SansSerif" halign="center"
+            mouse_opaque="true" scale_image="TRUE" tool_tip="Bulk-change content permissions" />
+			<panel bottom="-282" follows="left|top|right|bottom" height="246" left="10"
+			     mouse_opaque="true" name="ContentsInventory" width="602" />
+		</panel>
+	</tab_container>
+
+	<panel bottom="-568" follows="left|top" height="314" left="12" mouse_opaque="true"
+	     name="land info panel" width="626">
+		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		     bottom="-32" drop_shadow_visible="true" follows="left|top"
+		     font="SansSerif" h_pad="0" halign="left" height="18" left="20"
+		     mouse_opaque="true" name="label_parcel_info" v_pad="0" width="580">
+			Parcel Information
+		</text>
+		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		     bottom="-62" drop_shadow_visible="true" follows="left|top"
+		     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="20"
+		     mouse_opaque="true" name="label_area_price" v_pad="0" width="580">
+			Price: [CURRENCY][PRICE] for [AREA] sq. m.
+		</text>
+		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		     bottom="-88" drop_shadow_visible="true" follows="left|top"
+		     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="20"
+		     mouse_opaque="true" name="label_area" v_pad="0" width="580">
+			Area: [AREA] sq. m.
+		</text>
+		<button bottom="-122" follows="left|top" font="SansSerif" halign="center"
+		     height="26" label="About Land..." label_selected="About Land..." left="20"
+		     mouse_opaque="true" name="button about land" scale_image="TRUE" width="250" />
+		<check_box bottom="-158" control_name="ShowParcelOwners" follows="left|top"
+		     tool_tip="Colour parcels according to their ownership" font="SansSerifSmall"
+		     height="16" initial_value="false" label="Show owners" left="20"
+		     mouse_opaque="true" name="checkbox show owners" width="160" />
+		<button bottom="-158" follows="left|top" font="SansSerif" halign="center"
+		     height="18" label="?" label_selected="?" left="190"
+		     mouse_opaque="true" name="button show owners help" width="22"
+		     tool_tip="Help for parcel owner colors"/>
+		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		     bottom="-200" drop_shadow_visible="true" follows="left|top"
+		     font="SansSerif" h_pad="0" halign="left" height="18" left="20"
+		     mouse_opaque="true" name="label_parcel_modify" v_pad="0" width="580">
+			Modify Parcel
+		</text>
+		<button bottom="-236" follows="left|top" font="SansSerif" halign="center"
+		     height="26" label="Subdivide..." label_selected="Subdivide..." left="20"
+		     mouse_opaque="true" name="button subdivide land" scale_image="TRUE" width="250" />
+		<button bottom="-236" follows="left|top" font="SansSerif" halign="center"
+		     height="26" label="Join..." label_selected="Join..." left="330"
+		     mouse_opaque="true" name="button join land" scale_image="TRUE" width="250" />
+		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		     bottom="-280" drop_shadow_visible="true" follows="left|top"
+		     font="SansSerif" h_pad="0" halign="left" height="18" left="20"
+		     mouse_opaque="true" name="label_parcel_trans" v_pad="0" width="580">
+			Land Transactions
+		</text>
+		<button bottom="-306" follows="left|top" font="SansSerif" halign="center"
+		     height="26" label="Buy Land..." label_selected="Buy Land..." left="20"
+		     mouse_opaque="true" name="button buy land" scale_image="TRUE" width="250" />
+		<button bottom="-306" follows="left|top" font="SansSerif" halign="center"
+		     height="26" label="Abandon Land..." label_selected="Abandon Land..."
+		     left="330" mouse_opaque="true" name="button abandon land" scale_image="TRUE" width="250" />
+	</panel>
+	<string name="status_rotate">Drag colored bands to rotate object</string>
+	<string name="status_scale">Click and drag to stretch selected side</string>
+	<string name="status_move">Drag to move, shift-drag to copy</string>
+	<string name="status_align">Click an arrow to align objects in that direction</string>
+	<string name="status_modifyland">Click and hold to modify land</string>
+	<string name="status_camera">Click and drag to change view</string>
+	<string name="status_grab">Drag to move, Ctrl to lift, Ctrl-Shift to rotate</string>
+	<string name="status_place">Click inworld to build</string>
+	<string name="status_selectland">Click and drag to select land</string>
+	<string name="grid_screen_text">Screen</string>
+	<string name="grid_local_text">Local</string>
+	<string name="grid_world_text">World</string>
+	<string name="grid_reference_text">Reference</string>
+	<string name="grid_attachment_text">Attachment</string>
+</floater>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floatermedialists" title="Filtro media">
+	<floater.string name="EnterUrlAllow">Inserisci dominio o URL da consentire sempre:</floater.string>
+	<floater.string name="EnterUrlDeny">Inserisci dominio o URL da non consentire mai:</floater.string>
+	<layout_stack name="lists_layout_stack">
+		<layout_panel name="whitelist_layout_panel">
+			<scroll_list name="whitelist">
+				<column name="list" label="Domini consentiti"/>
+			</scroll_list>
+			<layout_stack name="whitelist_buttons_layout_stack">
+				<layout_panel name="whitelist_buttons_panel_add">
+					<button name="add_whitelist" label="Aggiungi..."/>
+				</layout_panel>
+				<layout_panel name="whitelist_buttons_panel_remove">
+					<button name="remove_whitelist" label="Rimuovi"/>
+				</layout_panel>
+			</layout_stack>
+		</layout_panel>
+		<layout_panel name="blacklist_layout_panel">
+			<scroll_list name="blacklist">
+				<column name="list" label="Domini bloccati"/>
+			</scroll_list>
+			<layout_stack name="blacklist_buttons_layout_stack">
+				<layout_panel name="blacklist_buttons_panel_add">
+					<button name="add_blacklist" label="Aggiungi..."/>
+				</layout_panel>
+				<layout_panel name="blacklist_buttons_panel_remove">
+					<button name="remove_blacklist" label="Rimuovi"/>
+				</layout_panel>
+			</layout_stack>
+		</layout_panel>
+	</layout_stack>
+</floater>

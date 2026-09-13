@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<menu name="media ctrl context menu">
+	<menu_item_call name="undo" label="Annulla"/>
+	<menu_item_call name="redo" label="Ripeti"/>
+	<menu_item_call name="copy_page_url" label="Copia URL della pagina"/>
+	<menu_item_call name="Cut" label="Taglia"/>
+	<menu_item_call name="Copy" label="Copia"/>
+	<menu_item_call name="Paste" label="Incolla"/>
+	<menu_item_call name="delete" label="Cancella"/>
+	<menu_item_call name="select_all" label="Seleziona tutto"/>
+	<menu_item_call name="open_webinspector" label="Apri ispettore Web"/>
+	<menu_item_call name="show_page_source" label="Mostra sorgente"/>
+</menu>

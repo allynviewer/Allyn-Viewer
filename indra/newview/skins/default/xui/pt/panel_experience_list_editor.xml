@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel>
+	<panel.string name="loading">carregando...</panel.string>
+	<panel.string name="panel_allowed">Experiences permitidas:</panel.string>
+	<panel.string name="panel_blocked">Experiences bloqueadas:</panel.string>
+	<panel.string name="panel_trusted">Experiences confiáveis:</panel.string>
+	<panel.string name="no_results">(vazio)</panel.string>
+	<text name="text_name">Lista de Experiences</text>
+	<name_list name="experience_list">
+		<columns name="experience_name" label="Nome"/>
+	</name_list>
+	<button name="btn_add" label="Adicionar..."/>
+	<button name="btn_remove" label="Remover"/>
+	<button name="btn_profile" label="Perfil..."/>
+</panel>

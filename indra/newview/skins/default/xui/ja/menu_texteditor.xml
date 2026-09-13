@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="rclickmenu" label="テキスト">
+	<menu_item_call name="Cut" label="切り取り" />
+	<menu_item_call name="Copy" label="コピー" />
+	<menu_item_call name="Copy Raw" label="Rawをコピー" />
+	<menu_item_call name="Paste" label="貼り付け" />
+	<menu_item_call name="Delete" label="削除" />
+	<menu_item_call name="Select All" label="すべて選択" />
+</menu>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_blacklist" title="Blacklist">
+	<button name="add_btn" label="Adicionar..."/>
+	<button name="remove_btn" label="Remover"/>
+	<combo_box name="asset_combo" label="Tipo de asset"/>
+	<line_editor name="id_edit" label="UUID do asset aqui."/>
+	<line_editor name="name_edit" label="Nome da entrada aqui."/>
+	<scroll_list name="file_list">
+		<column name="asset_id" label="ID do asset"/>
+		<column name="entry_name" label="Nome"/>
+		<column name="entry_type" label="Tipo"/>
+		<column name="entry_agent" label="Adicionado por"/>
+		<column name="entry_date" label="Data"/>
+	</scroll_list>
+	<button name="save_btn" label="Salvar XML"/>
+	<button name="load_btn" label="Carregar XML"/>
+	<button name="clear_btn" label="Limpar"/>
+	<button name="copy_uuid_btn" label="Copiar UUID"/>
+</floater>

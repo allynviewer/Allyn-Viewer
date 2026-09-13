@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_toolbar_prefs.xml" title="Araç çubuğunda gösterilmesini istediğiniz düğmeleri seçin">
+	<filter_editor name="filter_input" label="Ada göre filtrele..." tool_tip="Listeyi süzmek için bir düğme adı yazın" />
+	<check_box name="chat_btn" label="Sohbet Çubuğu Geçişi" />
+	<check_box name="communicate_flyout" label="İletişim Açılır Penceresi" />
+	<check_box name="communicate_btn" label="İletişim Düğmesi" />
+	<check_box name="friends_btn" label="Arkadaşlar" />
+	<check_box name="groups_btn" label="Gruplar" />
+	<check_box name="group_titles_btn" label="Grup Başlıkları" />
+	<check_box name="chat_history_btn" label="Yerel Sohbet" />
+	<check_box name="active_speakers_btn" label="Konuşanlar" />
+	<check_box name="mute_list_btn" label="Sessiz liste" />
+	<check_box name="black_list_btn" label="Varlık Kara Listesi" />
+	<check_box name="voice_effects_btn" label="Ses FX" />
+	<check_box name="gestures_btn" label="Jestler" />
+	<check_box name="beacons_btn" label="İşaretler" />
+	<check_box name="radar_list_btn" label="Radar" />
+	<check_box name="region_tracker_btn" label="Bölge Takibi" />
+	<check_box name="camera_controls_btn" label="Kamera Kontrolleri" />
+	<check_box name="movement_controls_btn" label="Hareket Kontrolleri" />
+	<check_box name="look_btn" label="Fare bakışı" />
+	<check_box name="fly_btn" label="Uç" />
+	<check_box name="sit_btn" label="Otur" />
+	<check_box name="run_btn" label="Çalıştır" />
+	<check_box name="velocity_btn" label="Hız" />
+	<check_box name="bumps_btn" label="çarpmalar" />
+	<check_box name="media_ticker_btn" label="Akış Görüntüsü" />
+	<check_box name="media_filter_btn" label="Medya Filtresi" />
+	<check_box name="snapshot_btn" label="Anlık Görüntü" />
+	<check_box name="appearance_btn" label="Görünüm" />
+	<check_box name="directory_btn" label="Ara" />
+	<check_box name="web_browser_btn" label="Web Tarayıcısı" />
+	<check_box name="ao_btn" label="AO Ayarları" />
+	<check_box name="debug_settings_btn" label="Hata Ayıklama Ayarları" />
+	<check_box name="debug_avatar_btn" label="Avatarda Hata Ayıklama" />
+	<check_box name="anims_explorer_btn" label="Animasyon Gezgini" />
+	<check_box name="sound_explorer_btn" label="Ses Gezgini" />
+	<check_box name="areasearch_btn" label="Alan Arama" />
+	<check_box name="inspect_btn" label="İncele" />
+	<check_box name="pathing_characters_btn" label="Karakterler" />
+	<check_box name="pathing_linksets_btn" label="Bağlantı setleri" />
+	<check_box name="build_btn" label="Yapı" />
+	<check_box name="grid_options_btn" label="Grid Seçenekleri" />
+	<check_box name="local_textures_btn" label="Yerel Dokular" />
+	<check_box name="perm_prefs_btn" label="İzinleri Yükle" />
+	<check_box name="script_errors_btn" label="Script hataları" />
+	<check_box name="env_editor_btn" label="Ortam Düzenleyicisi" />
+	<check_box name="day_cycle_editor_btn" label="Gün döngüsü" />
+	<check_box name="windlight_btn" label="Windlight" />
+	<check_box name="water_editor_btn" label="Su Editörü" />
+	<check_box name="post_process_btn" label="Süreç Sonrası FX" />
+	<check_box name="buy_currency_btn" label="[CURRENCY] satın al" />
+	<check_box name="buy_land_btn" label="Arsa Satın Al" />
+	<check_box name="my_land_btn" label="Arsam" />
+	<check_box name="about_land_btn" label="Arsa Hakkında" />
+	<check_box name="script_info_btn" label="Script bilgisi" />
+	<check_box name="about_region_btn" label="Bölge/Emlak" />
+	<check_box name="god_tools_btn" label="Tanrı Araçları" />
+	<check_box name="teleport_history_btn" label="TP Geçmişi" />
+	<check_box name="map_btn" label="Harita" />
+	<check_box name="minimap_btn" label="Mini Harita" />
+	<check_box name="experiences_btn" label="Deneyimler" />
+	<check_box name="rlv_restrictions_btn" label="RLVa Kısıtlamalar" />
+	<check_box name="rlv_locks_btn" label="RLVa Kilitler" />
+	<check_box name="rlv_strings_btn" label="RLVa Dizeler" />
+	<check_box name="memleak_btn" label="Bellek Sızıntısı" />
+	<check_box name="message_log_btn" label="Mesaj Günlüğü" />
+	<check_box name="stats_btn" label="İstatistikler" />
+	<check_box name="notifications_console_btn" label="Bildirim Konsolu" />
+	<check_box name="debug_console_btn" label="Hata Ayıklama Konsolu" />
+	<check_box name="region_console_btn" label="Bölge Konsolu" />
+	<check_box name="fast_timers_btn" label="Hızlı Zamanlayıcılar" />
+	<check_box name="frame_console_btn" label="Çerçeve Konsolu" />
+	<check_box name="http_console_btn" label="HTTP Konsolu" />
+	<check_box name="texture_console_btn" label="Doku Konsolu" />
+	<check_box name="texture_category_console_btn" label="Doku Kategorisi Konsolu" />
+	<check_box name="texture_size_console_btn" label="Doku Boyutu Konsolu" />
+	<check_box name="default_avatars_btn" label="Varsayılan Avatarlar" />
+	<check_box name="make_outfit_btn" label="Kıyafet Yap" />
+	<check_box name="outfits_btn" label="Kıyafetler" />
+	<check_box name="favs_btn" label="Favoriler" />
+	<check_box name="inventory_btn" label="Envanter" />
+	<check_box name="received_items_btn" label="Alınan Öğeler" />
+	<check_box name="marketplace_listings_btn" label="Marketplace ilanları" />
+	<check_box name="marketplace_btn" label="Marketplace" />
+	<check_box name="preferences_btn" label="Ayarlar" />
+	<check_box name="joystick_btn" label="Kumanda Kolu Yapılandırması" />
+	<check_box name="auto_replace_btn" label="Otomatik değiştir" />
+	<check_box name="display_name_btn" label="Görünen Ad" />
+	<check_box name="floater_test_btn" label="Pencere testi" />
+	<check_box name="edit_ui_btn" label="Kullanıcı arayüzünü düzenle" />
+	<check_box name="font_test_btn" label="Yazı Tipi Testi" />
+	<check_box name="abuse_btn" label="Kötüye Kullanımı Bildir" />
+	<check_box name="tutorial_btn" label="Eğitim" />
+	<check_box name="about_btn" label="[SHORT_APP_NAME] Hakkında" />
+	<check_box name="quit_btn" label="Çık" />
+	<check_box name="change_buttons_btn" label="Düğmeleri Değiştir" />
+</floater>

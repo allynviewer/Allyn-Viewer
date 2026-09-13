@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Anim Preview" title="Enviar animação bruta">
+	<text name="name_label">Nome:</text>
+	<text name="description_label">Descrição:</text>
+	<button name="ok_btn" label="Enviar ([UPLOADFEE])"/>
+	<button name="cancel_btn" label="Cancelar" label_selected="Cancelar"/>
+</floater>

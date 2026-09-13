@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_buy_contents" title="Купить контент">
+	<text name="contains_text">[NAME] содержит:</text>
+	<scroll_list name="item_list">
+		<column name="icon" />
+		<column name="text" />
+	</scroll_list>
+	<text name="buy_text">Купить за [CURRENCY][AMOUNT] у [NAME]?</text>
+	<button name="cancel_btn" label="Отмена" />
+	<button name="buy_btn" label="Купить" />
+	<check_box name="wear_check" label="Носите одежду сейчас" />
+	<string name="no_copy_text">(без копии)</string>
+	<string name="no_modify_text">(без изменений)</string>
+	<string name="no_transfer_text">(без перевода)</string>
+</floater>

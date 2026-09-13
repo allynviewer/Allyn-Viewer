@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview_texture">
+	<text name="desc txt">Açıklama:</text>
+	<line_editor name="desc" />
+	<button name="Keep" label="Tut" />
+	<button name="Discard" label="At" />
+	<text name="dimensions">Boyutlar: [WIDTH] x [HEIGHT]</text>
+</floater>

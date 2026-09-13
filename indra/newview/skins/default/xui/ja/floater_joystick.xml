@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Joystick" title="ジョイスティック設定">
+	<check_box name="enable_joystick">ジョイスティックを有効にする</check_box>
+	<text name="joystick_type" />
+	<string name="JoystickMonitor">ジョイスティックモニター</string>
+	<string name="Axis">Axis[NUM]</string>
+	<string name="NoDevice">デバイスが検出されません</string>
+	<spinner name="JoystickAxis1" label="X軸の割り当て" />
+	<spinner name="JoystickAxis4" label="ピッチの割り当て" />
+	<spinner name="JoystickAxis6" label="ズームの割り当て" />
+	<spinner name="JoystickAxis2" label="Y軸の割り当て" />
+	<spinner name="JoystickAxis5" label="ヨーの割り当て" />
+	<spinner name="JoystickAxis0" label="Z軸の割り当て" />
+	<spinner name="JoystickAxis3" label="ロールの割り当て" />
+	<check_box name="ZoomDirect" label="直接ズーム" />
+	<check_box name="Cursor3D" label="3Dカーソル" />
+	<check_box name="AutoLeveling" label="自動水平" />
+	<text name="Control Modes:">操作モード:</text>
+	<check_box name="JoystickAvatarEnabled">Avatar</check_box>
+	<check_box name="JoystickBuildEnabled">ビルド</check_box>
+	<check_box name="JoystickFlycamEnabled">Flycam</check_box>
+	<text name="XScale">X スケール</text>
+	<spinner name="AvatarAxisScale1" />
+	<spinner name="BuildAxisScale1" />
+	<spinner name="FlycamAxisScale1" />
+	<text name="YScale">Y スケール</text>
+	<spinner name="AvatarAxisScale2" />
+	<spinner name="BuildAxisScale2" />
+	<spinner name="FlycamAxisScale2" />
+	<text name="ZScale">Z スケール</text>
+	<spinner name="AvatarAxisScale0" />
+	<spinner name="BuildAxisScale0" />
+	<spinner name="FlycamAxisScale0" />
+	<text name="PitchScale">ピッチスケール</text>
+	<spinner name="AvatarAxisScale4" />
+	<spinner name="BuildAxisScale4" />
+	<spinner name="FlycamAxisScale4" />
+	<text name="YawScale">ヨースケール</text>
+	<spinner name="AvatarAxisScale5" />
+	<spinner name="BuildAxisScale5" />
+	<spinner name="FlycamAxisScale5" />
+	<text name="RollScale">ロールスケール</text>
+	<spinner name="BuildAxisScale3" />
+	<spinner name="FlycamAxisScale3" />
+	<text name="XDeadZone">X デッドゾーン</text>
+	<spinner name="AvatarAxisDeadZone1" />
+	<spinner name="BuildAxisDeadZone1" />
+	<spinner name="FlycamAxisDeadZone1" />
+	<text name="YDeadZone">Y デッドゾーン</text>
+	<spinner name="AvatarAxisDeadZone2" />
+	<spinner name="BuildAxisDeadZone2" />
+	<spinner name="FlycamAxisDeadZone2" />
+	<text name="ZDeadZone">Z デッドゾーン</text>
+	<spinner name="AvatarAxisDeadZone0" />
+	<spinner name="BuildAxisDeadZone0" />
+	<spinner name="FlycamAxisDeadZone0" />
+	<text name="PitchDeadZone">ピッチデッドゾーン</text>
+	<spinner name="AvatarAxisDeadZone4" />
+	<spinner name="BuildAxisDeadZone4" />
+	<spinner name="FlycamAxisDeadZone4" />
+	<text name="YawDeadZone">ヨーデッドゾーン</text>
+	<spinner name="AvatarAxisDeadZone5" />
+	<spinner name="BuildAxisDeadZone5" />
+	<spinner name="FlycamAxisDeadZone5" />
+	<text name="RollDeadZone">ロールデッドゾーン</text>
+	<spinner name="BuildAxisDeadZone3" />
+	<spinner name="FlycamAxisDeadZone3" />
+	<text name="Feathering">フェザリング</text>
+	<spinner name="AvatarFeathering" />
+	<spinner name="BuildFeathering" />
+	<spinner name="FlycamFeathering" />
+	<text name="ZoomScale2">ズームスケール</text>
+	<spinner name="FlycamAxisScale6" />
+	<text name="ZoomDeadZone">ズームデッドゾーン</text>
+	<spinner name="FlycamAxisDeadZone6" />
+	<flyout_button name="Default" label="デフォルトに設定">
+		<flyout_button_item name="Space Navigator" label="Space Navigator" />
+		<flyout_button_item name="OUYA" label="OUYA コントローラー" />
+		<flyout_button_item name="XBOX" label="XBOX コントローラー" />
+		<flyout_button_item name="DS3" label="DualShock 3" />
+	</flyout_button>
+	<button name="ok_btn" label="OK" />
+	<button name="cancel_btn" label="キャンセル" />
+</floater>

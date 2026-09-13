@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="popup">
+	<menu_item_call name="Zoom Close" label="Близко" />
+	<menu_item_call name="Zoom Medium" label="Средне" />
+	<menu_item_call name="Zoom Far" label="Далеко" />
+	<menu_item_check name="Center on Camera" label="Центр по камере" />
+	<menu_item_check name="Rotate Mini-Map" label="Вращать мини-карту" />
+	<menu name="Minimap Show" label="Показывать">
+		<menu_item_check name="Objects" label="Объекты" />
+		<menu_item_check name="Property Lines" label="Границы участков" />
+		<menu_item_check name="Parcels for Sale" label="Парцелы на продажу" />
+		<menu_item_check name="Radar Tracking Circles" label="Круги слежения радара" />
+	</menu>
+	<menu name="Chat Distance Rings" label="Кольца дистанции чата">
+		<menu_item_check name="Show All" label="Показать все" />
+		<menu_item_check name="Show Whisper Ring" label="Шёпот" />
+		<menu_item_check name="Show Chat Ring" label="Чат" />
+		<menu_item_check name="Show Shout Ring" label="Крик" />
+	</menu>
+	<menu_item_call name="Stop Tracking" label="Прекратить слежение" />
+	<menu name="Mark" label="Метка">
+		<menu_item_call name="Red" label="Красный" />
+		<menu_item_call name="Green" label="Зелёный" />
+		<menu_item_call name="Blue" label="Синий" />
+		<menu_item_call name="Yellow" label="Жёлтый" />
+		<menu_item_call name="Custom" label="Свой..." />
+	</menu>
+	<menu_item_call name="Unmark" label="Снять метку" />
+	<menu name="avs_menu" label="Избранные аватары" />
+	<menu_item_check name="World Map Textures" label="Текстуры карты мира" />
+</menu>

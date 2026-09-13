@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Terrain" label="Arazi">
+	<text name="region_text_lbl">Bölge:</text>
+	<text name="region_text">bilinmiyor</text>
+	<spinner name="water_height_spin" label="Su Yüksekliği" />
+	<button name="water_height_help" label=""  tool_tip="Yardım"/>
+	<spinner name="terrain_raise_spin" label="Arazi Yükseltme Limiti" />
+	<button name="terrain_raise_help" label=""  tool_tip="Yardım"/>
+	<spinner name="terrain_lower_spin" label="Arazi Alt Limiti" />
+	<button name="terrain_lower_help" label=""  tool_tip="Yardım"/>
+	<text name="detail_texture_text">Arazi Dokuları</text>
+	<texture_picker name="texture_detail_0" />
+	<texture_picker name="texture_detail_1" />
+	<texture_picker name="texture_detail_2" />
+	<texture_picker name="texture_detail_3" />
+	<text name="height_text_lbl">1 (Düşük)</text>
+	<text name="height_text_lbl2" />
+	<text name="height_text_lbl3" />
+	<text name="height_text_lbl4">4 (Yüksek)</text>
+	<text name="height_text_lbl5">Doku Yükseklik Aralıkları</text>
+	<text name="height_text_lbl10">
+		Bu değerler karışımı temsil eder
+yukarıdaki dokular için aralık.
+	</text>
+	<text name="height_text_lbl11">
+		Metre cinsinden ölçülen DÜŞÜK değer
+Doku #1'in MAKSİMUM yüksekliğidir,
+ve YÜKSEK değer
+Doku #4'ün MİNİMUM yüksekliği.
+	</text>
+	<text name="height_text_lbl6">Kuzeybatı</text>
+	<text name="height_text_lbl7">Kuzeydoğu</text>
+	<spinner name="height_start_spin_1" label="Düşük" />
+	<spinner name="height_start_spin_3" label="Düşük" />
+	<spinner name="height_range_spin_1" label="Yüksek" />
+	<spinner name="height_range_spin_3" label="Yüksek" />
+	<text name="height_text_lbl8">Güneybatı</text>
+	<text name="height_text_lbl9">Güneydoğu</text>
+	<spinner name="height_start_spin_0" label="Düşük" />
+	<spinner name="height_start_spin_2" label="Düşük" />
+	<spinner name="height_range_spin_0" label="Yüksek" />
+	<spinner name="height_range_spin_2" label="Yüksek" />
+	<button name="download_raw_btn" label="RAW arazisini indirin..." tool_tip="Yöneticilere değil, yalnızca mülk sahiplerine açıktır" />
+	<button name="download_raw_help" label=""  tool_tip="Yardım"/>
+	<button name="upload_raw_btn" label="RAW arazisini yükle..." tool_tip="Yöneticilere değil, yalnızca mülk sahiplerine açıktır" />
+	<button name="upload_raw_help" label=""  tool_tip="Yardım"/>
+	<button name="bake_terrain_btn" label="Araziyi Fırınla" tool_tip="Limitleri yükseltme/alçaltma için mevcut araziyi orta nokta olarak ayarlayın" />
+	<button name="bake_terrain_help" label=""  tool_tip="Yardım"/>
+	<button name="apply_btn" label="Uygula" />
+</panel>

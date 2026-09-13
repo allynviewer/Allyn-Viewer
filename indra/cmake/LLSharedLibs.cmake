@@ -1,0 +1,49 @@
+# ll_deploy_sharedlibs_command
+# target_exe: the cmake target of the executable for which the shared libs will be deployed.
+macro(ll_deploy_sharedlibs_command target_exe) 
+  set(TARGET_LOCATION $<TARGET_FILE:${target_exe}>)
+  get_filename_component(OUTPUT_PATH ${TARGET_LOCATION} PATH)
+
+  if(WINDOWS)
+    SET_TEST_PATH(SEARCH_DIRS)
+    LIST(APPEND SEARCH_DIRS "$ENV{SystemRoot}/system32")
+
+    add_custom_command(
+      TARGET ${target_exe} POST_BUILD
+      COMMAND ${CMAKE_COMMAND} 
+      ARGS
+      "-DBIN_NAME=\"${TARGET_LOCATION}\""
+      "-DSEARCH_DIRS=\"${SEARCH_DIRS}\""
+      "-DDST_PATH=\"${OUTPUT_PATH}\""
+      "-P"
+      "${CMAKE_SOURCE_DIR}/cmake/DeploySharedLibs.cmake"
+      )
+  endif(WINDOWS)
+
+endmacro(ll_deploy_sharedlibs_command)
+
+# ll_stage_sharedlib
+# Performs config and adds a copy command for a sharedlib target.
+macro(ll_stage_sharedlib DSO_TARGET)
+  # target gets written to the DLL staging directory.
+  # Also this directory is shared with RunBuildTest.cmake, y'know, for the tests.
+  set_target_properties(${DSO_TARGET} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${SHARED_LIB_STAGING_DIR})
+  if(NOT WINDOWS)
+    get_target_property(DSO_PATH ${DSO_TARGET} LOCATION)
+    get_filename_component(DSO_FILE ${DSO_PATH} NAME)
+    set(SHARED_LIB_STAGING_DIR_CONFIG ${SHARED_LIB_STAGING_DIR}/${CMAKE_CFG_INTDIR})
+
+      # *TODO - maybe make this a symbolic link? -brad
+      add_custom_command(
+        TARGET ${DSO_TARGET} POST_BUILD
+        COMMAND ${CMAKE_COMMAND}
+        ARGS
+          -E
+          copy_if_different
+          ${DSO_PATH}
+          ${SHARED_LIB_STAGING_DIR_CONFIG}/${DSO_FILE}
+          COMMENT "Copying llcommon to the staging folder."
+        )
+    endif(NOT WINDOWS)
+
+endmacro(ll_stage_sharedlib)

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Marketplace Panel">
+	<panel name="tool_panel">
+		<button name="sort_btn" tool_tip="Opções de visualização/ordenação"/>
+		<button name="add_btn" tool_tip="Criar uma nova pasta de anúncio"/>
+		<button name="audit_btn" label="Verificar erros" tool_tip="Verificar seus anúncios do Marketplace"/>
+	</panel>
+	<panel name="tab_container_panel">
+		<filter_editor name="filter_editor" label="Filtrar anúncios do Marketplace"/>
+		<tab_container name="marketplace_filter_tabs">
+			<inventory_panel name="All Items" label="Todos"/>
+			<inventory_panel name="Active Items" label="Ativos"/>
+			<inventory_panel name="Inactive Items" label="Inativos"/>
+			<inventory_panel name="Unassociated Items" label="Não associados"/>
+		</tab_container>
+	</panel>
+	<panel name="marketplace_drop_zone">
+		<text name="marketplace_drop_zone_text">Solte pastas aqui para criar novos anúncios</text>
+	</panel>
+</panel>

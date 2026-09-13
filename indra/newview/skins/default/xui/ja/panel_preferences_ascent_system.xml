@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="ascsys" label="システム">
+	<tab_container name="Ascent System" label="システム">
+		<panel name="User Interface" label="一般">
+			<scroll_container name="sys_ui_scroll">
+				<panel name="sys_ui_inner">
+					<text name="double_click_text" value="ダブルクリックを有効にする" />
+					<check_box name="double_click_teleport_check" label="テレポート" tool_tip="オブジェクトや人をダブルクリックすると、その場所へテレポートします。" />
+					<check_box name="double_click_autopilot_check" label="オートパイロット" tool_tip="何かをダブルクリックすると、その場所まで歩きます。" />
+					<check_box name="center_after_teleport_check" label="テレポート後にカメラをリセット" tool_tip="ローカルテレポート後、カメラを背後の中央に戻します。" />
+					<check_box name="offset_teleport_check" label="TP先をアバターの半分の高さ分ずらす" tool_tip="狙った地点に足が着地するよう、TPの照準を調整します。" />
+					<check_box name="clear_beacon_after_tp" label="テレポート後に赤い目的地ビーコンを消す" />
+					<check_box name="fly_after_tp" label="テレポート後は常に飛行" tool_tip="到着時に自動で飛行し、高所からの落下を避けます。" />
+					<check_box name="continue_flying" label="起立しても飛行を続ける" tool_tip="座ったときの飛行状態を維持します。起立後も飛行したまま、または地上のままになります。鳥や妖精、椅子からドラマチックに飛び立つ人に便利です。" />
+					<check_box name="preview_anim_in_world_check" label="アップロード前のアニメーションをダミーではなくアバターでプレビュー" tool_tip="アニメーションのアップロードウィンドウで、プレビューを自分のアバター上で再生します。" />
+					<check_box name="save_scripts_as_mono_check" label="インベントリのスクリプトをLSL2ではなくMonoとして保存" tool_tip="保存時にスクリプトを自動でMonoにコンパイルします。通常はオブジェクト内に置いたときのみ可能です。" />
+					<check_box name="always_rez_in_group_check" label="可能な場合は常に土地グループでオブジェクトをリズ" tool_tip="アクティブなタグに関係なく、リズ先の土地と同じグループでオブジェクトをリズします。" />
+					<check_box name="always_build_check" label="ビルドを常に有効として表示" tool_tip="ビルドメニューを制限なく使用できます。実際にそこでビルドできるとは限りません。" />
+					<check_box name="always_fly_check" label="常に飛行を許可" tool_tip="本来許可されない場所でも飛行できます。自己責任で使用してください。できることとすべきことは別です。" />
+					<check_box name="disable_camera_zoom_check" label="カメラの最短距離を無効にする" tool_tip="カメラを物に非常に近づけられます。" />
+					<check_box name="power_user_check" label="パワーユーザー機能を有効にする" tool_tip="通常使用には危険とみなされる機能を追加します。誤用すると自分や所持品に悪影響を及ぼす可能性があります。よろしければ、下のチェックボックスも有効にしてください。" />
+					<check_box name="power_user_confirm_check" label="パワーユーザー機能を確認" tool_tip="パワーユーザーの有効化を確認します。自己責任でオンにし、機能は慎重に使ってください。[SHORT_APP_NAME]の開発者は壊れたものを補償しません。対象になるものはバックアップを取っておくことをおすすめします。ほとんどのチェックボックスと違い、「適用」または「OK」をクリックするまで有効になりません。" />
+					<check_box name="fetch_inventory_on_login_check" label="ログイン後にバックグラウンドでインベントリを取得" tool_tip="ログイン時にインベントリを先読みするため、最初の検索で待つ必要がありません。" />
+					<check_box name="enable_wind" label="風の効果を有効にする" />
+					<check_box name="enable_clouds" label="雲を有効にする" />
+					<check_box name="enable_classic_clouds" label="クラシック雲を有効にする" />
+					<check_box name="speed_rez_check" label="描画距離の段階変更で高速リズを有効にする" tool_tip="オンにすると描画距離を段階的に伸ばし、近いオブジェクトや人が先にリズされます。" />
+					<spinner name="speed_rez_interval" label="描画距離の段階変更間隔:" />
+					<text name="speed_rez_seconds">秒</text>
+					<check_box name="use_context_menus" label="パイメニューの代わりにコンテキストメニューを使用" />
+					<check_box name="use_web_profiles" label="従来のv1プロフィールの代わりにWebプロフィールを使用" tool_tip="一部のグリッドでは利用できない場合があります" />
+					<check_box name="use_web_search" label="従来のv1検索の代わりにWeb検索を使用" tool_tip="一部のグリッドでは利用できない場合があります" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="Command Line" label="コマンドライン">
+			<scroll_container name="sys_cmd_scroll">
+				<panel name="sys_cmd_inner">
+					<check_box name="chat_cmd_toggle" label="チャットバーをコマンドラインとして使う" />
+					<text name="cmd_line_text_2">SIM内テレポート（使用例: cmd x y z）</text>
+					<line_editor name="AscentCmdLinePos" />
+					<text name="cmd_line_text_3">地面へテレポート（使用例: cmd）</text>
+					<line_editor name="AscentCmdLineGround" />
+					<text name="cmd_line_text_4">高度へテレポート（使用例: cmd z）</text>
+					<line_editor name="AscentCmdLineHeight" />
+					<text name="cmd_line_text_5">ホームへテレポート（使用例: cmd）</text>
+					<line_editor name="AscentCmdLineTeleportHome" />
+					<text name="cmd_line_text_6">プラットフォームをリズ（使用例: cmd 0 - 30）</text>
+					<line_editor name="AscentCmdLineRezPlatform" />
+					<slider name="AscentPlatformSize" label="デフォルト幅:" tool_tip="プラットフォームの大きさを指定します。" />
+					<text name="cmd_line_text_8">式の計算（使用例: cmd 2 + 2）</text>
+					<line_editor name="AscentCmdLineCalc" />
+					<text name="cmd_line_text_15">チャット履歴をクリア（使用例: cmd）</text>
+					<line_editor name="AscentCmdLineClearChat" tool_tip="チャットスパムによるラグを防ぐため、チャット履歴をクリアします。" />
+					<text name="cmd_line_text_16">URL/slurlを開く（使用例: cmd slurl）</text>
+					<line_editor name="SinguCmdLineURL" />
+					<text name="hover_txt">アニメーションを再同期（使用例: cmd）</text>
+					<line_editor name="AlchemyChatCommandResyncAnim" />
+					<view_border name="CmdDivisor" />
+					<text name="cmd_line_text_9">描画距離を変更（使用例: cmd meters）</text>
+					<line_editor name="AscentCmdLineDrawDistance" />
+					<text name="cmd_line_text_10">カメラ位置へテレポート（使用例: cmd）</text>
+					<line_editor name="AscentCmdTeleportToCam" />
+					<text name="cmd_line_text_11">キーからアバター名を取得（使用例: cmd キー）</text>
+					<line_editor name="AscentCmdLineKeyToName" />
+					<text name="cmd_line_text_12">アバターにテレポートを提供（使用例: cmd キー）</text>
+					<line_editor name="AscentCmdLineOfferTp" />
+					<text name="cmd_line_text_7">SIM x へテレポート（使用例: cmd simname）</text>
+					<line_editor name="AscentCmdLineMapTo" />
+					<check_box name="map_to_keep_pos" label="SIM間で同じ位置を使用" />
+					<text name="cmd_line_text_13">アバターへテレポート（使用例: cmd 名前）</text>
+					<line_editor name="AscentCmdLineTP2" tool_tip="部分一致の名前が使え、大文字小文字は区別しません。レーダーを開いていると結果が良くなります。" />
+					<text name="cmd_line_text_14">偽の離席ステータスを切り替え（使用例: cmd）</text>
+					<line_editor name="SinguCmdLineAway" />
+					<text name="cmd_line_text_15">リージョンメッセージを送信（使用例: cmd msg）</text>
+					<line_editor name="SinguCmdLineRegionSay" tool_tip="許可の緩いリージョン（エステートマネージャーのみ）でのみ正しく動作し、それ以外は通常チャットになります" />
+					<text name="hover_txt">ホバーの高さ（使用例: cmd 高さ）</text>
+					<line_editor name="AlchemyChatCommandHoverHeight" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="Security" label="セキュリティとプライバシー">
+			<scroll_container name="sys_sec_scroll">
+				<panel name="sys_sec_inner">
+					<check_box name="broadcast_viewer_effects" label="ビューアエフェクトを放送（pointatとlookatには影響しません）" />
+					<check_box name="disable_point_at_and_beams_check" label="指差しとビームを無効にする" tool_tip="オブジェクト選択時に指差しや編集ビームを表示しません。" />
+					<check_box name="private_look_at_check" label="オブジェクトやアバターを見ない" tool_tip="頭の向きとLookAtビーコンを無効にし、アバターが正面を向いたままになります（スクリプトで変更されない限り）。" />
+					<check_box name="LookAtHideOwn" label="自分のLookAtビーコンを表示しない" tool_tip="自分のカメラ十字線を表示しません" />
+					<check_box name="show_look_at_check" label="LookAtビーコンを表示" tool_tip="人がどこを見ているかを表示します。" />
+					<combo_box name="lookat_namesystem_combobox" tool_tip="LookAtビーコン上の名前の表示形式">
+						<combo_item name="No Names">名前なし</combo_item>
+						<combo_item name="Old Names">旧ユーザー名</combo_item>
+						<combo_item name="Display Names (with Username)">表示名（ユーザー名付き）</combo_item>
+						<combo_item name="Display Names only">表示名のみ</combo_item>
+						<combo_item name="Old Names (with Display Names)">旧ユーザー名（表示名付き）</combo_item>
+					</combo_box>
+					<check_box name="lineslookat" label="LookAtビーコンからアバターまで線を表示" tool_tip="カメラの注視点とアバターを線でつなぎ、相手の場所を探しやすくします。" />
+					<check_box name="announce_bumps" label="ぶつかれたときにチャットで通知" />
+					<check_box name="AlchemySitOnAway" label="AFKになると座る" />
+					<check_box name="detach_bridge" label="LSL Bridgeを自動で外す" tool_tip="PhoenixまたはFirestormビューアのLSL Bridgeを自動で外します。" />
+					<check_box name="render_muted" label="ミュートしたアバターを描画する" />
+					<check_box name="quiet_snapshots_check" label="ディスク保存のスナップショットを無音にする" tool_tip="コンピュータへスナップショットを保存するとき、カメラ音も周囲への通知もしません。" />
+					<check_box name="revoke_perms_on_stand_up_check" label="起立時に座っていたオブジェクトの権限を取り消す" tool_tip="オブジェクトは通常、リセットされるか別のユーザーが権限を与えるまで、操作取得とアニメーション再生の権限を保持します。オンにすると、これらの権限をすぐに取り消します。" />
+					<check_box name="disable_click_sit_check" label="オブジェクトのクリック着席を無効にする" tool_tip="一部のグリーファーツールは、クリックすると座らされるオブジェクトで権限を奪います。llSitTargetを無効にします。ポーズボールや家具では「座る」を選ぶ必要があります。" />
+					<check_box name="disable_click_sit_own_check" label="自分が所有していないもの" tool_tip="自分が所有していないオブジェクトのクリック着席を無効にします（グループ用と併用する場合、どちらか一方で十分です）" />
+					<check_box name="totalscriptjumps" label="スクリプト総数の変化を表示:" tool_tip="リージョン内のスクリプト数の変化を、右で選んだしきい値に応じて表示します。" />
+					<spinner name="ScriptJumpCount" tool_tip="スクリプト数変化メッセージのしきい値［デフォルト: 100］" />
+					<check_box name="RestrainedLove" label="Restrained Love APIサポート（RLVa）" tool_tip="対応オブジェクトを装着している場合、スクリプトがビューアをより強く制御できます。" />
+					<check_box name="SinguReplaceLinks" label="slurlと書式付きリンクをラベルに置き換える" tool_tip="右クリックしてコピーすれば実際の行き先は確認できますが、一見するとリンクが誤解を招く場合があります。" />
+					<text name="EmergencyTeleportDesc">リージョン再起動前に自動テレポートするランドマークを下にドロップ</text>
+					<spinner name="EmergencyTeleportSeconds" label="再起動の何秒前からテレポートを試みるか" />
+					<drop_target name="emergency_teleport_landmark_drop" />
+					<text name="EmergencyTeleportBackupDesc">上の地点に既にいる場合に使うバックアップランドマークを下にドロップ</text>
+					<drop_target name="emergency_teleport_landmark_backup_drop" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="Building" label="ビルド">
+			<scroll_container name="sys_build_scroll">
+				<panel name="sys_build_inner">
+					<text name="text_box6">ピボットポイント</text>
+					<spinner name="X pos" label="X位置" />
+					<spinner name="Y pos" label="Y位置" />
+					<spinner name="Z pos" label="Z位置" />
+					<check_box name="EmPivotPercToggle" label="値はパーセント" tool_tip="デフォルトはパーセントで、各軸は50です" />
+					<text name="Dimensions">寸法</text>
+					<spinner name="X size" label="Xサイズ" />
+					<spinner name="Y size" label="Yサイズ" />
+					<spinner name="Z size" label="Zサイズ" />
+					<text name="Material">マテリアル:</text>
+					<combo_box name="material">
+						<combo_item name="Stone">石</combo_item>
+						<combo_item name="Metal">金属</combo_item>
+						<combo_item name="Glass">ガラス</combo_item>
+						<combo_item name="Wood">木</combo_item>
+						<combo_item name="Flesh">肌</combo_item>
+						<combo_item name="Plastic">プラスチック</combo_item>
+						<combo_item name="Rubber">ゴム</combo_item>
+					</combo_box>
+					<text name="text_box7">次の所有者の権限</text>
+					<text name="text_box8">オブジェクト</text>
+					<check_box name="next_owner_copy" label="コピー" tool_tip="次の所有者は作成物をコピーできます" />
+					<check_box name="next_owner_modify" label="変更" tool_tip="次の所有者は作成物を編集できます" />
+					<check_box name="next_owner_transfer" label="譲渡" tool_tip="次の所有者は作成物を渡す（または売る）ことができます" />
+					<text name="text_box9">スクリプト</text>
+					<check_box name="script_next_owner_copy" label="コピー" tool_tip="次の所有者はスクリプトをコピーできます" />
+					<check_box name="script_next_owner_modify" label="変更" tool_tip="次の所有者はスクリプトを編集できます" />
+					<check_box name="script_next_owner_transfer" label="譲渡" tool_tip="次の所有者はスクリプトを渡す（または売る）ことができます" />
+					<check_box name="EmPhantomToggle" label="ファントム" />
+					<check_box name="EmPhysicalToggle" label="物理" />
+					<check_box name="EmTemporaryToggle" label="一時的" />
+					<texture_picker name="texture control" label="     テクスチャ" tool_tip="クリックしてテクスチャを選択" />
+					<color_swatch name="colorswatch" label="      カラー" tool_tip="クリックしてカラーピッカーを開く" />
+					<spinner name="alpha" label="アルファ" />
+					<spinner name="glow" label="グロー" />
+					<check_box name="EmFBToggle" label="フルブライト" />
+					<text name="shine">光沢</text>
+					<combo_box name="combobox shininess" tool_tip="オブジェクトの光沢量を設定します">
+						<combo_item name="None">なし</combo_item>
+						<combo_item name="Low">低</combo_item>
+						<combo_item name="Medium">中</combo_item>
+						<combo_item name="High">高</combo_item>
+					</combo_box>
+					<check_box name="EmeraldBuildPrefsEmbedItem" label="新しいオブジェクトにアイテムを入れる" />
+					<drop_target name="build_item_add_disp_rect" />
+					<check_box name="EmBuildPrefsRenderHighlight_toggle" label="選択したプリムをハイライト" />
+					<check_box name="EmBuildPrefsActualRoot_toggle" label="軸矢印をルートプリムの位置に表示" tool_tip="デフォルトではリンクセットの重心に軸を表示します。オンにすると、リンクセットのルートプリムに軸を表示します。" />
+				</panel>
+			</scroll_container>
+		</panel>
+	</tab_container>
+</panel>

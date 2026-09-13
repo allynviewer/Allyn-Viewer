@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floaterbulkperms" title="İçerik izinlerini toplu değiştirme">
+	<text name="applyto">İçerik Türleri</text>
+	<icon name="icon_animation" />
+	<check_box name="check_animation" label="Animasyon" />
+	<icon name="icon_bodypart" />
+	<check_box name="check_bodypart" label="Gövde Parçaları" />
+	<icon name="icon_clothing" />
+	<check_box name="check_clothing" label="Giyim" />
+	<icon name="icon_gesture" />
+	<check_box name="check_gesture" label="Jestler" />
+	<icon name="icon_landmark" />
+	<check_box name="check_landmark" label="Landmark'lar" />
+	<icon name="icon_notecard" />
+	<check_box name="check_notecard" label="Not kartları" />
+	<icon name="icon_object" />
+	<check_box name="check_object" label="Nesneler" />
+	<icon name="icon_script" />
+	<check_box name="check_script" label="Scriptler" />
+	<icon name="icon_sound" />
+	<check_box name="check_sound" label="Sesler" />
+	<icon name="icon_texture" />
+	<check_box name="check_texture" label="Dokular" />
+	<button name="check_all" label="Tümünü işaretle" />
+	<button name="check_none" label="Tümünün İşaretini Kaldır" />
+	<text name="newperms">Yeni İzinler</text>
+	<check_box name="share_with_group" label="Grupla paylaş" />
+	<check_box name="everyone_copy" label="Herkesin kopyalamasına izin ver" />
+	<text name="NextOwnerLabel">Sonraki sahip şunları yapabilir:</text>
+	<check_box name="next_owner_modify" label="Değiştir" />
+	<check_box name="next_owner_copy" label="Kopyala" />
+	<check_box name="next_owner_transfer" label="Tekrar Sat/Ver" />
+	<scroll_list name="queue output" />
+	<button name="help" label="Yardım" />
+	<button name="apply" label="Uygula" />
+	<button name="close" label="Kapat" />
+	<string name="nothing_to_modify_text">Seçim düzenlenebilir içerik içermiyor.</string>
+	<string name="status_text">[NAME] üzerinde izinler ayarlanıyor</string>
+	<string name="start_text">İzin değişikliği istekleri başlatılıyor...</string>
+	<string name="done_text">İzin değişikliği istekleri tamamlandı.</string>
+</floater>

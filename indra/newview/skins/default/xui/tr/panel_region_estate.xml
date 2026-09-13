@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Estate" label="Emlak">
+	<text name="estate_help_text">Bu sekmedeki ayarlarda yapılan değişiklikler sitedeki tüm bölgeleri etkileyecektir.</text>
+	<text name="estate_text">Emlak:</text>
+	<text name="estate_name">(bilinmiyor)</text>
+	<text name="owner_text">Mülk sahibi:</text>
+	<name_box name="estate_owner">(bilinmiyor)</name_box>
+	<check_box name="externally_visible_check" label="Genel Erişime İzin Ver" />
+	<button name="externally_visible_help" label=""  tool_tip="Yardım"/>
+	<check_box name="voice_chat_check" label="Sesli Sohbete İzin Ver" />
+	<button name="voice_chat_help" label=""  tool_tip="Yardım"/>
+	<check_box name="allow_direct_teleport" label="Doğrudan Teleportya İzin Ver" />
+	<button name="allow_direct_teleport_help" label=""  tool_tip="Yardım"/>
+	<check_box name="use_global_time_check" label="Küresel Saati Kullan" />
+	<button name="use_global_time_help" label=""  tool_tip="Yardım"/>
+	<check_box name="fixed_sun_check" label="Sabit Güneş" />
+	<button name="fixed_sun_help" label=""  tool_tip="Yardım"/>
+	<icon name="daycycle" />
+	<slider name="sun_hour_slider" label="Aşama" />
+	<button name="apply_btn" label="Uygula" />
+	<text name="Only Allow">Yalnızca aşağıdaki özelliklere sahip Sakinlerin erişimine izin verin:</text>
+	<check_box name="limit_payment" label="Ödeme bilgilerinin dosyada bulunması" tool_tip="Konut sakinlerinin bu mülke erişebilmeleri için ödeme bilgilerinin kayıtlı olması gerekir." />
+	<check_box name="limit_age_verified" label="18 yaşında veya daha büyük" tool_tip="Bu mülke erişebilmek için sakinlerin 18 yaşında veya daha büyük olması gerekir. Daha fazla bilgi için support.secondlife.com adresine bakın." />
+	<button name="message_estate_btn" label="Emlak'a Mesaj Gönder..." />
+	<button name="kick_user_from_estate_btn" label="Sakini Siteden Atın..." />
+</panel>

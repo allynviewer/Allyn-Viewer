@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Temi dell&apos;interfaccia" name="Skins panel">
+ <text name="Skin_txt1">Skin selezionata</text>
+ <combo_box max_chars="200" name="custom_skin_combo" width="300"/>
+ <text name="Skin_txt2">Autore principale</text>
+ <view_border name="custom_box1" width="260"/>
+ <text name="custom_skin_author">autore skin</text>
+ <text name="Skin_txt3">Autori aggiuntivi</text>
+ <view_border name="custom_box2" width="260"/>
+ <text name="custom_skin_ad_authors">autori skin aggiuntivi</text>
+ <text name="Skin_txt4">Cartella skin</text>
+ <view_border name="custom_box3" width="260"/>
+ <text name="custom_skin_folder">cartella skin</text>
+ <button label="" name="custom_skin_preview" tool_tip="Anteprima skin"/>
+ <text name="Skin_txt5">Informazioni aggiuntive</text>
+ <text_editor enabled="false" max_length="511" name="custom_skin_info" width="350"/>
+</panel>

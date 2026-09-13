@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="perm prefs" title="デフォルト作成権限">
+	<panel name="permissions" label="権限">
+		<text name="NextOwnerLabel">次の所有者:</text>
+		<text name="NextOwnerCopyLabel">コピー</text>
+		<text name="NextOwnerModifyLabel">変更</text>
+		<text name="NextOwnerTransferLabel">譲渡</text>
+		<text name="ShareWithGroupLabel">グループと共有</text>
+		<text name="AnyoneCopyLabel">誰でもコピー可能</text>
+		<text name="ExportationLabel">エクスポートを許可</text>
+		<text name="ObjectsLabel" tool_tip="オブジェクト作成時のデフォルト権限を設定">オブジェクト</text>
+		<text name="UploadsLabel" tool_tip="アップロードしたアイテムのデフォルト権限を設定">アップロード</text>
+		<text name="ScriptsLabel" tool_tip="スクリプト作成時のデフォルト権限を設定">スクリプト</text>
+		<text name="NotecardsLabel" tool_tip="ノートカード作成時のデフォルト権限を設定">ノートカード</text>
+		<text name="GesturesLabel" tool_tip="ジェスチャー作成時のデフォルト権限を設定">ジェスチャー</text>
+		<text name="WearablesLabel" tool_tip="衣類または体のパーツ作成時のデフォルト権限を設定">ウェアラブル</text>
+	</panel>
+	<button name="ok" label="OK"/>
+	<button name="cancel" label="キャンセル"/>
+</floater>

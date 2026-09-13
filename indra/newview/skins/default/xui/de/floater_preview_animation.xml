@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview_anim">
+	
+	<text name="desc txt">Beschreibung:</text>
+	<button label="In Welt abspielen" label_selected="Stopp" name="Anim play btn" tool_tip="Gibt diese Animation so wieder, dass andere sie sehen können."/>
+	<button label="Lokal abspielen" label_selected="Stopp" name="Anim audition btn" tool_tip="Gibt diese Animation so wieder, dass nur Sie sie sehen."/>
+</floater>

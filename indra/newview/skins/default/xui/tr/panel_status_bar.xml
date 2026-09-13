@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="status">
+	<text name="ParcelNameText" tool_tip="Üzerinde durduğunuz arsanın adı. Arsa Hakkında için tıklayınız.">parsel adı buraya gelecek</text>
+	<text name="BalanceText" tool_tip="Hesap Bakiyesi">Yükleniyor...</text>
+	<text name="UPCText" tool_tip="Kredi yükle">UPC - N/A -</text>
+	<button name="buycurrency" tool_tip="Para birimi satın al" />
+	<text name="TimeText" tool_tip="Şimdiki Saat (Pasifik)">12:00 AM</text>
+	<string name="StatBarDaysOfWeek">Pazar:Pazartesi:Salı:Çarşamba:Perşembe:Cuma:Cumartesi</string>
+	<string name="StatBarMonthsOfYear">Ocak:Şubat:Mart:Nisan:Mayıs:Haziran:Temmuz:Ağustos:Eylül:Ekim:Kasım:Aralık</string>
+	<button name="scriptout" tool_tip="Script uyarıları ve hataları" />
+	<button name="health" tool_tip="Sağlık" />
+	<text name="HealthText" tool_tip="Sağlık">100%</text>
+	<button name="no_fly" tool_tip="Uçmaya izin verilmiyor" />
+	<button name="no_build" tool_tip="İnşa etmeye/Rezzing'e izin verilmiyor" />
+	<button name="no_scripts" tool_tip="Komut dosyalarına izin verilmiyor" />
+	<button name="restrictpush" tool_tip="İtme Yok" />
+	<button name="status_no_voice" tool_tip="Ses burada mevcut değil" />
+	<button name="status_SeeAV" tool_tip="Paketin Avatar gizliliği var" />
+	<button name="pf_dirty" tool_tip="Hareket eden nesneler, bölge yeniden oluşturulana kadar bu bölgede doğru davranmayabilir." />
+	<button name="pf_disabled" tool_tip="Bu bölgede dinamik yol bulma etkin değil." />
+	<button name="buyland" tool_tip="Bu paketi satın al" />
+	<button name="menubar_search_bevel_bg" />
+	<line_editor name="search_editor" label="Ara" tool_tip="Ara" />
+	<button name="search_btn" tool_tip="Ara" />
+	<text name="stat_btn" />
+	<string name="packet_loss_tooltip">Paket Kaybı</string>
+	<string name="bandwidth_tooltip">Bant genişliği</string>
+	<string name="Local">Yerel</string>
+</panel>

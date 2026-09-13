@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Panel Avatar">
+	<tab_container name="tab">
+		<panel label="2ème vie" name="2nd Life">
+			<string name="CaptionTextAcctInfo">
+				[ACCTTYPE]
+[PAYMENTINFO]
+[AGEVERIFICATION]
+			</string>
+			<text name="Name:">Nom :</text>
+			<flyout_button label="Copier :" name="copy_flyout" tool_tip="Copie la clé dans le presse-papiers. La flèche ouvre d’autres options de copie">
+				<flyout_button_item label="Copier le SLURL" name="copy_slurl_item"/>
+			</flyout_button>
+			<text name="online_yes">En ligne</text>
+			<text name="Key:">Clé :</text>
+			<button label="Profil web" name="web_profile"/>
+			<text name="Photo:">Photo :</text>
+			<texture_picker label="" name="img" tool_tip="Cliquez pour sélectionner une image"/>
+			<text name="label">Né(e) le :</text>
+			<text name="label2">Compte :</text>
+			<text name="partner_label" tool_tip="Partenaire sur Second Life. Pour en savoir plus, allez sur www.secondlife.com/partner">Partenaire :</text>
+			<button label="?" label_selected="?" name="partner_help"/>
+			<text name="About:">À propos :</text>
+			<text name="(500 chars)">(500 car.)</text>
+			<text name="Groups:">Groupes :</text>
+			<button label="+" label_selected="+" name="GroupInvite_Button" tool_tip="Inviter dans un groupe"/>
+			<string name="None">Aucun</string>
+			<text name="Give item:">Partager :</text>
+			<drop_target name="drop_target_rect" label="Déposez un objet d’inventaire ici." tool_tip="Glissez des objets d’inventaire ici pour les donner à cette personne."/>
+			<check_box label="Afficher dans la recherche" name="allow_publish" tool_tip="Publiez des infos supplémentaires telles qu'une description et une image dans la Recherche."/>
+			<button label="?" label_selected="?" name="?"/>
+			<button label="Carte" label_selected="Carte" name="Find on Map"/>
+			<button label="Offrir TP" label_selected="Offrir TP" name="Offer Teleport..."/>
+			<button label="Ajouter ami" label_selected="Ajouter ami" name="Add Friend..."/>
+			<button label="Payer" label_selected="Payer" name="Pay..."/>
+			<button label="Message" label_selected="Message" name="Instant Message..." tool_tip="Message instantané (IM)"/>
+			<button label="Bloquer" label_selected="Débloquer" name="Mute"/>
+			<button label="Journal" name="Log"/>
+		</panel>
+		<panel label="Web" name="WebProfile">
+			<flyout_button label="Charger" label_selected="Charger" name="load" tool_tip="Charge cette page du profil avec le navigateur web incorporé.">
+				<flyout_button_item name="open_item">Dans un navigateur externe</flyout_button_item>
+				<flyout_button_item name="home_item">URL de la page d'accueil</flyout_button_item>
+			</flyout_button>
+			<button label="?" label_selected="?" name="web_profile_help"/>
+			<check_box label="Charger directement la page web" name="auto_load" tool_tip="Charge automatiquement toutes les pages web des profils sans demander au préalable."/>
+		</panel>
+		<panel label="Intérêts" name="Interests">
+			<text name="I Want To:">Je veux :</text>
+			<check_box label="Construire" name="chk0"/>
+			<check_box label="Explorer" name="chk1"/>
+			<check_box label="Faire des rencontres" name="chk2"/>
+			<check_box label="Être engagé" name="chk6"/>
+			<check_box label="Rejoindre un groupe" name="chk3"/>
+			<check_box label="Acheter" name="chk4"/>
+			<check_box label="Vendre" name="chk5"/>
+			<check_box label="Recruter" name="chk7"/>
+			<text name="Skills:">Mes talents :</text>
+			<check_box label="Textures" name="schk0"/>
+			<check_box label="Architecture" name="schk1"/>
+			<check_box label="Organisation d'événements" name="schk2"/>
+			<check_box label="Modèle" name="schk3"/>
+			<check_box label="Scripter" name="schk4"/>
+			<check_box label="Customiser des avatars" name="schk5"/>
+			<text name="Languages:">Langues :</text>
+		</panel>
+		<panel label="Favoris" name="Picks">
+			<text name="Tell everyone about your favorite places in Second Life.">Faites connaître aux autres résidents vos endroits favoris dans Second Life.</text>
+			<button label="Créer" label_selected="Créer" name="New..."/>
+			<button label="Supprimer" label_selected="Supprimer" name="Delete..."/>
+			<button label="Importer..." label_selected="Importer..." name="Import..."/>
+			<button label="Exporter..." label_selected="Exporter..." name="Export..."/>
+			<text name="loading_text">Chargement...</text>
+		</panel>
+		<panel label="Annonces" name="Classified">
+			<text name="Place an ad in Second Life&apos;s classified listings.">Passez une petite annonce sur Second Life.</text>
+			<button label="Créer" label_selected="Créer" name="New..."/>
+			<button label="Supprimer" label_selected="Supprimer" name="Delete..."/>
+			<text name="loading_text">Chargement...</text>
+		</panel>
+		<panel label="1ère vie" name="1st Life">
+			<text name="Photo:">Photo :</text>
+			<texture_picker label="" name="img" tool_tip="Cliquer pour sélectionner une photo"/>
+			<text name="Info:">Infos :</text>
+			<text name="(250 chars)">(250 car.)</text>
+		</panel>
+		<panel label="Mes notes" name="My Notes">
+			<string name="Loading">Chargement...</string>
+			<text name="label">Dans cet espace, vous pouvez enregistrer vos remarques au sujet de ce résident. Vous êtes le seul à pouvoir y accéder.</text>
+		</panel>
+	</tab_container>
+	<button label="OK" label_selected="OK" name="OK"/>
+	<button label="Annuler" label_selected="Annuler" name="Cancel"/>
+	<button label="Éjecter" label_selected="Éjecter" name="Kick"/>
+	<button label="Geler" label_selected="Geler" name="Freeze" tool_tip="Empêche le résident de bouger et de chatter."/>
+	<button label="Dégeler" label_selected="Dégeler" name="Unfreeze" tool_tip="Dégèle le résident"/>
+	<button label="Admin" label_selected="Admin" name="csr_btn" tool_tip="Permet de contacter le Service Clientèle pour ce résident"/>
+	<string name="ShowOnMapNonFriend">Voir sur la carte.
+Ceci n&apos;est pas possible car vous
+n&apos;êtes pas ami(e) avec cette personne.</string>
+	<string name="ShowOnMapFriendOffline">Voir sur la carte.
+ Ceci n'est pas possible car le résident
+ en question n&apos;est pas connecté.</string>
+	<string name="ShowOnMapFriendOnline">Voir sur la carte.</string>
+	<string name="TeleportGod">Téléporter le résident là où vous êtes, de force.</string>
+	<string name="TeleportPrelude">Proposer au résident d'être téléporté là où vous êtes.
+Ceci n'est pas possible tant que vous êtes sur l'île d'orientation.</string>
+	<string name="TeleportNormal">Offrir au résident d'être téléporté là où vous êtes.</string>
+	<string name="Loading">Chargement...</string>
+</panel>

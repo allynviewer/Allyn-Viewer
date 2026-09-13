@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<context_menu name="Url Popup" label="URL">
+	<menu_item_call name="Select All" label="Tümünü Seç" />
+</context_menu>

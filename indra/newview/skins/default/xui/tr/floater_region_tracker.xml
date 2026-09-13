@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="region_tracker" title="Bölge Takibi">
+	<text name="region_label_text" />
+	<button name="refresh" />
+	<button name="remove" />
+	<button name="open_map" />
+	<scroll_list name="region_list" tool_tip="Bir girişi dünya haritasında açmak için çift tıklayın.">
+		<scroll_list.columns name="region_label" label="Etiket" />
+		<scroll_list.columns name="region_maturity_icon" />
+		<scroll_list.columns name="region_name" label="Bölge" />
+		<scroll_list.columns name="region_agent_count" label="Sayım" />
+	</scroll_list>
+</floater>

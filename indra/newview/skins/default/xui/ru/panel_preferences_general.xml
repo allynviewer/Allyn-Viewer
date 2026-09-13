@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Общие" name="general_panel">
+	<scroll_container name="general_scroll">
+		<panel name="general_scroll_inner">
+			<text name="start_location_textbox">СТАРТОВАЯ ЛОКАЦИЯ</text>
+			<radio_group name="default_start_location">
+				<radio_item name="home" tool_tip="По умолчанию входить в мой дом.">Мой дом</radio_item>
+				<radio_item name="last" tool_tip="По умолчанию входить в последнюю локацию.">Последняя локация</radio_item>
+			</radio_group>
+			<check_box label="Показывать стартовую локацию на экране входа" name="show_location_checkbox"/>
+			<text name="show_names_textbox">ИМЕНА</text>
+			<combo_box name="fade_out_combobox">
+				<combo_item name="Never">Никогда</combo_item>
+				<combo_item name="Show Temporarily">Временно</combo_item>
+				<combo_item name="Always">Всегда</combo_item>
+			</combo_box>
+			<combo_box name="namesystem_combobox">
+				<combo_item name="Old Names">Старые имена</combo_item>
+				<combo_item name="Display Names (with Username)">Отображаемые имена (с логином)</combo_item>
+				<combo_item name="Display Names only">Только отображаемые имена</combo_item>
+				<combo_item name="Old Names (with Display Names)">Старые имена (с отображаемыми)</combo_item>
+			</combo_box>
+			<check_box label="Показывать Resident" name="show_resident_checkbox"/>
+			<check_box label="Маленькие имена аватаров" name="small_avatar_names_checkbox"/>
+			<check_box label="Скрыть моё имя на экране" name="show_my_name_checkbox"/>
+			<text name="group_titles_textbox">ЗВАНИЯ ГРУПП</text>
+			<check_box label="Скрыть все звания групп" name="show_all_title_checkbox"/>
+			<check_box label="Скрыть моё звание группы" name="show_my_title_checkbox"/>
+			<text name="UI Size:">РАЗМЕР UI</text>
+			<check_box label="Масштаб независимо от разрешения" name="ui_auto_scale"/>
+			<check_box label="Отошёл при простое" name="away_when_idle_checkbox"/>
+			<spinner label="Через:" name="afk_timeout_spinner"/>
+			<text name="seconds_textbox">секунд</text>
+			<check_box label="Уведомлять об обмене валюты" name="notify_money_change_checkbox"/>
+			<check_box label="Не засорять угол" name="no_transaction_clutter_checkbox" tool_tip="Уведомления ненадолго появляются в правом нижнем углу и исчезают."/>
+			<text name="maturity_desired_label">Рейтинг:</text>
+			<text name="maturity_desired_prompt">Я хочу получить доступ к контенту:</text>
+			<combo_box name="maturity_desired_combobox">
+				<combo_item name="Desired_Adult">PG, Mature и Adult</combo_item>
+				<combo_item name="Desired_Mature">PG и Mature</combo_item>
+				<combo_item name="Desired_PG">Только PG</combo_item>
+			</combo_box>
+			<text name="maturity_desired_textbox">Только PG</text>
+			<text name="crash_report_textbox">Отчёты о сбоях:</text>
+			<combo_box name="crash_behavior_combobox">
+				<combo_item name="Neversend">Не отправлять</combo_item>
+				<combo_item name="Alwayssend">Отправлять</combo_item>
+			</combo_box>
+			<text name="language_textbox">Язык:</text>
+			<text name="language_textbox2">(Требуется перезапуск)</text>
+			<string name="region_name_prompt">&lt;Введите название региона&gt;</string>
+			<combo_box name="language_combobox">
+				<combo_item name="System Default Language" value="default">Системный</combo_item>
+				<combo_item name="English" value="en-us">English</combo_item>
+				<combo_item name="Spanish" value="es">Español (Испанский)</combo_item>
+				<combo_item name="Portugese" value="pt">Português (Португальский)</combo_item>
+				<combo_item name="French" value="fr">Français (Французский)</combo_item>
+				<combo_item name="Deutsch(German)" value="de">Deutsch (Немецкий)</combo_item>
+				<combo_item name="Italian" value="it">Italiano (Итальянский)</combo_item>
+				<combo_item name="Turkish" value="tr">Türkçe (Турецкий)</combo_item>
+				<combo_item name="Russian" value="ru">Русский</combo_item>
+				<combo_item name="Japanese" value="ja">日本語 (Японский)</combo_item>
+			</combo_box>
+			<check_box label="Сообщать язык объектам" name="language_is_public" tool_tip="Позволяет объектам в мире знать ваш предпочитаемый язык."/>
+			<button label="Сбросить все настройки" name="clear_settings"/>
+		</panel>
+	</scroll_container>
+</panel>

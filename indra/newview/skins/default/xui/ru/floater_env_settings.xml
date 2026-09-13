@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Environment Editor Floater" title="Редактор среды">
+	<text name="EnvTimeText">Время суток</text>
+	<text name="EnvTimeText2">12:00 PM</text>
+	<icon name="EnvDayCycle" />
+	<slider name="EnvTimeSlider" />
+	<text name="EnvCloudText">Облачный покров</text>
+	<slider name="EnvCloudSlider" />
+	<text name="EnvWaterColorText">Цвет воды</text>
+	<color_swatch name="EnvWaterColor" tool_tip="Нажмите, чтобы открыть палитру цветов" />
+	<text name="EnvWaterFogText">Водяной туман</text>
+	<slider name="EnvWaterFogSlider" />
+	<button name="EnvUseEstateTimeButton" label="Используйте время недвижимости" />
+	<button name="EnvAdvancedSkyButton" label="Продвинутое небо" />
+	<button name="EnvAdvancedWaterButton" label="Продвинутая вода" />
+	<button name="EnvSettingsHelpButton" label="?" />
+</floater>

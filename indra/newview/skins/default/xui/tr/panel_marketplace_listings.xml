@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Marketplace Panel" label="Marketplace">
+	<panel name="tool_panel">
+		<button name="sort_btn" tool_tip="Görüntüleme/sıralama seçenekleri" />
+		<button name="add_btn" tool_tip="Yeni bir listeleme klasörü oluşturun" />
+		<button name="audit_btn" label="Hataları Kontrol Et" tool_tip="Pazar yeri listelerinizi kontrol edin" />
+	</panel>
+	<panel name="tab_container_panel">
+		<filter_editor name="filter_editor" label="Marketplace Listelerini Filtrele" />
+		<tab_container name="marketplace_filter_tabs">
+			<inventory_panel name="All Items" label="Hepsi" />
+			<inventory_panel name="Active Items" label="Aktif" />
+			<inventory_panel name="Inactive Items" label="Etkin değil" />
+			<inventory_panel name="Unassociated Items" label="İlişkisiz" />
+		</tab_container>
+	</panel>
+	<panel name="marketplace_drop_zone">
+		<text name="marketplace_drop_zone_text">Yeni listeler oluşturmak için klasörleri buraya bırakın</text>
+	</panel>
+</panel>

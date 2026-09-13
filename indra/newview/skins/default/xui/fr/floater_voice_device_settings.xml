@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="voice_device_settings" title="Paramètres des périphériques">
+	<button name="OK" label="OK"/>
+	<button name="Cancel" label="Annuler"/>
+	<button name="Apply" label="Appliquer"/>
+</floater>

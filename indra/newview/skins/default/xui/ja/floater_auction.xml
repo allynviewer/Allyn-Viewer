@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_auction" title="リンデン土地販売を開始">
+	<icon name="snapshot_icon" />
+	<text name="parcel_text" />
+	<check_box name="fence_check" label="黄色い選択フェンスを含める" />
+	<button name="snapshot_btn" label="スナップショット" />
+	<button name="ok_btn" label="OK" />
+	<string name="already for sale">すでに売却中のパーセルはオークションに出せません。</string>
+</floater>

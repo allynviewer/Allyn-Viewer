@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="script search" title="Ara / Değiştir">
+	<check_box name="case_text" label="Büyük/Küçük Harfe Duyarsız" />
+	<button name="search_btn" label="Ara" />
+	<button name="replace_btn" label="Değiştir" />
+	<button name="replace_all_btn" label="Tümünü Değiştir" />
+	<text name="search_label">Ara</text>
+	<text name="replace_label">Değiştir</text>
+	<line_editor name="search_text" />
+	<line_editor name="replace_text" />
+</floater>

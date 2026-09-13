@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="panel_voice_effect">
+	<string name="no_voice_effect">ボイスモーフィング オフ</string>
+	<string name="preview_voice_effects">ボイスモーフィングをプレビュー ▶</string>
+	<string name="get_voice_effects">ボイスモーフィングを入手 ▶</string>
+	<combo_box name="voice_effect" tool_tip="ボイスを変えるボイスモーフを選びます">
+		<combo_item name="no_voice_effect" label="ボイスモーフィング オフ" />
+	</combo_box>
+</panel>

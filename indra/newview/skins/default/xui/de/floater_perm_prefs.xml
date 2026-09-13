@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="perm prefs" title="Standard-Erstellungsberechtigungen">
+	<panel label="Berechtigungen" name="permissions">
+		<text name="NextOwnerLabel">Nächster Eigentümer:</text>
+		<text name="NextOwnerCopyLabel">Kopieren</text>
+		<text name="NextOwnerModifyLabel">Bearbeiten</text>
+		<text name="NextOwnerTransferLabel">Transferieren</text>
+		<text name="ShareWithGroupLabel">Mit Gruppe teilen</text>
+		<text name="AnyoneCopyLabel">Kopieren allen erlauben</text>
+		<text name="ExportationLabel">Export erlauben</text>
+		<text name="ObjectsLabel" tool_tip="Standardberechtigungen festlegen, wenn Objekte erstellt werden">Objekte</text>
+		<text name="UploadsLabel" tool_tip="Standardberechtigungen für hochgeladene Objekte festlegen">Uploads</text>
+		<text name="ScriptsLabel" tool_tip="Standardberechtigungen festlegen, wenn Skripte erstellt werden">Skripte</text>
+		<text name="NotecardsLabel" tool_tip="Standardberechtigungen festlegen, wenn Notizkarten erstellt werden">Notizkarten</text>
+		<text name="GesturesLabel" tool_tip="Standardberechtigungen festlegen, wenn Gesten erstellt werden">Gesten</text>
+		<text name="WearablesLabel" tool_tip="Standardberechtigungen festlegen, wenn Kleidung oder Körperteile erstellt werden">Kleidung</text>
+	</panel>
+	<button label="OK" label_selected="OK" name="ok"/>
+	<button label="Abbrechen" label_selected="Abbrechen" name="cancel"/>
+</floater>

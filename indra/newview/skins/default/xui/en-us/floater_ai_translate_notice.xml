@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="ai_translate_notice"
+	title="AI translation notice"
+	can_close="true" can_minimize="false" can_resize="true"
+	width="640" height="560" min_width="480" min_height="360">
+	<text_editor name="notice_text"
+		left="16" right="-16" top="-32" bottom="52"
+		follows="left|top|right|bottom"
+		font="SansSerifSmall"
+		word_wrap="true"
+		enabled="false"
+		hide_border="false"
+		max_length="65536"
+		bg_readonly_color="transparent"/>
+	<button name="cancel_btn" label="CANCEL" label_selected="CANCEL"
+		left="16" bottom="12" width="120" height="28"
+		follows="left|bottom"/>
+	<button name="accept_btn" label="I HAVE READ AND ACCEPT" label_selected="I HAVE READ AND ACCEPT"
+		right="-16" bottom="12" width="220" height="28"
+		follows="right|bottom"
+		enabled="false"/>
+	<string name="notice_body">Before enabling AI translation, please read this notice carefully.
+
+1. How the feature works
+
+AI translation uses artificial intelligence services that may be provided, hosted or operated by third parties. Allyn Viewer acts as an interface to offer this feature and does not necessarily control the models, systems, servers, algorithms or internal processes used by the AI provider.
+
+Translations are generated automatically and may contain errors, omissions, incorrect interpretations, loss of context, unexpected results or inappropriate content. No AI-generated translation is guaranteed to be accurate, complete or fit for a particular purpose.
+
+2. Third-party services
+
+The feature may depend on the availability and terms of external services. Those services may change, be interrupted, limited, taken down for maintenance, become unavailable or be discontinued without Allyn Viewer having control over those circumstances.
+
+Allyn Viewer does not guarantee the availability, continuity, accuracy, performance or response time of AI services provided by third parties.
+
+3. Costs and charges
+
+Some AI services may have usage limits, free or paid plans, fees, usage charges, credits, subscriptions or other commercial terms.
+
+Where applicable, any cost arising from use of an AI service is determined by the respective provider and is the user's responsibility under the terms of the service used.
+
+Allyn Viewer does not set or control prices, fees, plans, limits, credits, billing methods or commercial changes made by AI service providers.
+
+The user is responsible for checking the commercial terms of the service before using it.
+
+4. Processing and transmission of data
+
+To perform a translation, text or other data required by the feature may be sent to third-party services.
+
+Depending on the configuration and provider used, that data may be processed, stored or transferred to servers located in other countries.
+
+The user should review the privacy policy and terms of use of the respective provider before using the service.
+
+5. Personal and confidential information
+
+We do not recommend sending passwords, access credentials, financial information, personal documents, highly confidential information or other sensitive data through AI translation.
+
+The user should assess whether they have adequate authorization to send a given piece of content to an external service.
+
+6. International data transfers
+
+When use of the feature involves international transfer of personal data, processing must follow the mechanisms and requirements of applicable law.
+
+In Brazil, when the LGPD applies, international transfers must follow the LGPD and the regulations of the National Data Protection Authority, including the legally admitted mechanisms for international data transfer.
+
+7. Privacy
+
+Processing of personal data related to AI translation must follow the privacy policy applicable to Allyn Viewer and, where third-party services are involved, those providers' own policies and terms.
+
+Information about purpose, data categories, sharing, retention, international transfer, data-subject rights and contact details should be available in the corresponding privacy policy.
+
+8. Security
+
+Allyn Viewer shall adopt reasonable security measures appropriate to the feature offered, but no system for transmitting or processing data can guarantee absolute security.
+
+The user acknowledges that external services may have their own security measures, policies and procedures.
+
+9. Changes to AI services
+
+AI providers may change models, features, prices, limits, policies, terms of use, technical requirements, availability or other characteristics of their services.
+
+Those changes may affect how AI translation works in Allyn Viewer.
+
+10. Generated content
+
+Content produced by AI is the result of automated processing and does not necessarily represent a statement, opinion or position of Allyn Viewer.
+
+The user is responsible for evaluating a translation before using it for purposes that depend on accuracy.
+
+11. Liability for third-party services
+
+Allyn Viewer does not control the external services used to process AI and cannot guarantee that those services will remain available or will operate in a particular way.
+
+To the extent permitted by applicable law, Allyn Viewer will not be liable for failures, unavailability, delays, changes, errors or limitations arising solely from third-party services.
+
+This is not intended to exclude or limit liabilities that cannot be excluded or limited by applicable law.
+
+12. Applicable law
+
+Use of the feature is subject to the laws and regulations applicable to the user, to Allyn Viewer and to the respective service providers.
+
+Where different laws apply, nothing in this notice is intended to waive rights or obligations that are mandatory under applicable law.
+
+13. Transparency about artificial intelligence
+
+The user is informed that translation is performed, wholly or in part, by artificial intelligence systems.
+
+Where required by applicable law, additional information will be provided about the use of artificial intelligence and about processing of data related to the feature.
+
+14. Acceptance
+
+By selecting "Enable AI translation", the user confirms that they had access to this notice, understood that the feature uses third-party artificial intelligence services, and is aware of its possible limitations, costs, conditions, data processing and dependence on external services.
+
+Use of the feature is also subject to the terms of use and privacy policy applicable to Allyn Viewer.
+
+This notice does not replace legal advice and does not exclude, limit or modify rights, warranties or liabilities that cannot be excluded, limited or modified by applicable law.</string>
+</floater>

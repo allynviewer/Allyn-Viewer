@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Texture" label="Doku">
+	<panel.string name="string repeats per meter">Metre Başına Tekrar Sayısı</panel.string>
+	<panel.string name="string repeats per face">Yüz Başına Tekrarlar</panel.string>
+	<text name="color label">Color</text>
+	<color_swatch name="colorswatch" tool_tip="Renk seçiciyi açmak için tıklayın" />
+	<text name="color trans">Alfa %</text>
+	<spinner name="ColorTrans" />
+	<text name="glow label">Parıltı</text>
+	<spinner name="glow" />
+	<check_box name="checkbox fullbright" label="Tam Parlak" />
+	<combo_box name="combobox matmedia">
+		<combo_box.item name="Materials" label="Malzemeler" />
+		<combo_box.item name="Media" label="Media" />
+	</combo_box>
+	<combo_box name="combobox mattype">
+		<combo_box.item name="Texture (diffuse)" label="Doku (yaygın)" />
+		<combo_box.item name="Bumpiness (normal)" label="Tümseklik (normal)" />
+		<combo_box.item name="Shininess (specular)" label="Parlaklık (aynasal)" />
+	</combo_box>
+	<texture_picker name="texture control" label="Doku" tool_tip="Bir resim seçmek için tıklayın" />
+	<text name="label alphamode">Alfa modu</text>
+	<combo_box name="combobox alphamode">
+		<combo_box.item name="None" label="Yok" />
+		<combo_box.item name="Alpha blending" label="Alfa harmanlama" />
+		<combo_box.item name="Alpha masking" label="Alfa maskeleme" />
+		<combo_box.item name="Emissive mask" label="Emisif maske" />
+	</combo_box>
+	<text name="label maskcutoff">Maske kesintisi</text>
+	<spinner name="maskcutoff" />
+	<texture_picker name="bumpytexture control" label="Doku" tool_tip="Bir resim seçmek için tıklayın" />
+	<text name="label bumpiness">tümseklik</text>
+	<combo_box name="combobox bumpiness">
+		<combo_box.item name="None" label="Yok" />
+		<combo_box.item name="Brightness" label="Parlaklık" />
+		<combo_box.item name="Darkness" label="Karanlık" />
+		<combo_box.item name="woodgrain" label="damarlı damarlı" />
+		<combo_box.item name="bark" label="ağaç kabuğu" />
+		<combo_box.item name="bricks" label="tuğlalar" />
+		<combo_box.item name="checker" label="denetleyici" />
+		<combo_box.item name="concrete" label="beton" />
+		<combo_box.item name="crustytile" label="kabuklu" />
+		<combo_box.item name="cutstone" label="kesme taşı" />
+		<combo_box.item name="discs" label="diskler" />
+		<combo_box.item name="gravel" label="çakıl" />
+		<combo_box.item name="petridish" label="taşlaşmış" />
+		<combo_box.item name="siding" label="dış cephe kaplaması" />
+		<combo_box.item name="stonetile" label="taş döşeme" />
+		<combo_box.item name="stucco" label="sıva" />
+		<combo_box.item name="suction" label="emme" />
+		<combo_box.item name="weave" label="örgü" />
+	</combo_box>
+	<texture_picker name="shinytexture control" label="Doku" tool_tip="Bir resim seçmek için tıklayın" />
+	<text name="label shininess">parlaklık</text>
+	<combo_box name="combobox shininess">
+		<combo_box.item name="None" label="Yok" />
+		<combo_box.item name="Low" label="Düşük" />
+		<combo_box.item name="Medium" label="Orta" />
+		<combo_box.item name="High" label="Yüksek" />
+	</combo_box>
+	<text name="label glossiness">parlaklık</text>
+	<spinner name="glossiness" />
+	<text name="label environment">Çevre</text>
+	<spinner name="environment" />
+	<text name="label shinycolor">Color</text>
+	<color_swatch name="shinycolorswatch" tool_tip="Renk seçiciyi açmak için tıklayın" />
+	<text name="media_info">Varsa seçilen medyanın URL'si buraya gelir</text>
+	<button name="add_media" label="Seç..." tool_tip="Medya Ekle" />
+	<button name="delete_media" label="Kaldır" tool_tip="Bu medya dokusunu silin" />
+	<button name="button align" label="Hizala" tool_tip="Medya dokusunu hizalayın (önce yüklenmeli)" />
+	<check_box name="checkbox maps sync" label="Malzemeleri senkronize edin" tool_tip="Doku haritası parametrelerini senkronize et" />
+	<text name="tex gen">Haritalama</text>
+	<combo_box name="combobox texgen">
+		<combo_box.item name="Default" label="Varsayılan" />
+		<combo_box.item name="Planar" label="Düzlemsel" />
+	</combo_box>
+	<check_box name="checkbox planar align" label="Düzlemsel hizalama" tool_tip="Seçilen tüm yüzlerdeki dokuları son seçilen yüze hizalar. Düzlemsel doku haritalaması gerektirir." />
+	<spinner name="TexScaleU" label="Yatay ölçek" />
+	<button name="flipTextureScaleU" tool_tip="Çevir" />
+	<spinner name="TexScaleV" label="Dikey ölçek" />
+	<button name="flipTextureScaleV" tool_tip="Çevir" />
+	<spinner name="rptctrl" label="Metre başına tekrarlar" />
+	<spinner name="TexRot" label="Dönme dereceleri" />
+	<spinner name="TexOffsetU" label="Yatay ofset" />
+	<spinner name="TexOffsetV" label="Dikey ofset" />
+	<spinner name="bumpyScaleU" label="Yatay ölçek" />
+	<spinner name="bumpyScaleV" label="Dikey ölçek" />
+	<spinner name="bumpyRot" label="Dönme dereceleri" />
+	<spinner name="bumpyOffsetU" label="Yatay ofset" />
+	<spinner name="bumpyOffsetV" label="Dikey ofset" />
+	<spinner name="shinyScaleU" label="Yatay ölçek" />
+	<spinner name="shinyScaleV" label="Dikey ölçek" />
+	<spinner name="shinyRot" label="Dönme dereceleri" />
+	<spinner name="shinyOffsetU" label="Yatay ofset" />
+	<spinner name="shinyOffsetV" label="Dikey ofset" />
+	<button name="copytextures" label="Kopyala" tool_tip="Doku Parametrelerini Kopyala" />
+	<button name="pastetextures" label="Yapıştır" tool_tip="Doku Parametrelerini Yapıştır" />
+	<web_browser name="title_media" />
+</panel>

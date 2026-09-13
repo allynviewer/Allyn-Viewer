@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="bulk_ban_panel" label="Запретить резидентов">
+	<panel.string name="loading">(загрузка...)</panel.string>
+	<panel.string name="ban_selection_too_large">Групповые баны не отправлены: выбрано слишком много резидентов. Групповые баны ограничены 100 на запрос.</panel.string>
+	<panel.string name="ban_not_permitted">Групповой бан не отправлен: у вас нет возможности «Управлять списком банов».</panel.string>
+	<panel.string name="ban_limit_fail">Групповой бан не отправлен: ваша группа достигла лимита разрешенных записей о банах.</panel.string>
+	<panel.string name="partial_ban">
+		Некоторые групповые баны не были отправлены:
+[REASONS]
+	</panel.string>
+	<panel.string name="ban_failed">
+		Групповые баны не отправлялись:
+[REASONS]
+	</panel.string>
+	<panel.string name="residents_already_banned">- Следующие резиденты уже забанены: [RESIDENTS].</panel.string>
+	<panel.string name="ban_limit_reached">- Достигнут лимит банов, следующие агенты не забанены: [RESIDENTS].</panel.string>
+	<panel.string name="cant_ban_yourself">- Вы не можете запретить себе участие в группе.</panel.string>
+	<text name="help_text">
+		Вы можете выбрать нескольких резидентов для
+забанить из своей группы. Нажмите «Открыть»
+Выбор резидента» для начала.
+	</text>
+	<button name="add_button" label="Открыть выбор резидента" />
+	<name_list name="banned_agent_list" tool_tip="Удерживая клавишу Ctrl, нажмите «Имена резидентов», чтобы выбрать несколько вариантов." />
+	<button name="remove_button" label="Удалить выбранное из списка" tool_tip="Удаляет жителей, выбранных выше, из списка банов." />
+	<button name="ban_button" label="Запретить резидентов" />
+	<button name="cancel_button" label="Отмена" />
+	<string name="GroupBulkBan">Групповой бан</string>
+</panel>

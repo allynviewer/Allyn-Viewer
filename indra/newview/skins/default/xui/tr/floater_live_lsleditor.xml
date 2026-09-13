@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="script ed float" title="Script: Yeni script">
+	<button name="Reset" label="Sıfırla" />
+	<check_box name="running" label="Çalışıyor" />
+	<check_box name="mono" label="Mono" />
+	<check_box name="enable_xp" label="Deneyim kullan" />
+	<combo_box name="Experiences..." />
+	<button name="view_profile" />
+	<panel name="script ed panel" />
+	<string name="not_allowed">Bu betiği görüntülemenize izin verilmiyor.</string>
+	<string name="script_running">Çalışıyor</string>
+	<string name="experience_enabled">Mevcut Experience'i kaldırmak için işareti kaldırın</string>
+	<string name="no_experiences">Hiçbir Experience için yetkiniz yok</string>
+	<string name="add_experiences">Experience eklemek için seçin</string>
+	<string name="show_experience_profile">Deneyim profilini görmek için tıklayın</string>
+</floater>

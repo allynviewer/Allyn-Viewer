@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="queue" title="リセットの進行状況">
+	<string name="Starting">[COUNT]件中 [START]件目を開始しています。</string>
+	<string name="Done">完了。</string>
+	<string name="Resetting">リセット中</string>
+	<string name="Running">実行中</string>
+	<string name="NotRunning">停止中</string>
+	<button name="close" label="閉じる" />
+	<scroll_list name="queue output" />
+</floater>

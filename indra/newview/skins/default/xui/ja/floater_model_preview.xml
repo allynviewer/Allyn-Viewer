@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Model Preview" title="モデルをアップロード">
+	<string name="status_idle" />
+	<string name="status_parse_error">エラー: DAEの解析に問題があります。詳細はログを確認してください。</string>
+	<string name="status_bind_shape_orientation">警告: bind shape 行列が標準のX前方向きではありません。</string>
+	<string name="status_material_mismatch">エラー: モデルのマテリアルが参照モデルのサブセットではありません。</string>
+	<string name="status_reading_file">読み込み中...</string>
+	<string name="status_generating_meshes">メッシュを生成中...</string>
+	<string name="status_vertex_number_overflow">エラー: 頂点数が65534を超えたため中止しました。</string>
+	<string name="bad_element">エラー: 要素が無効です</string>
+	<string name="high">高</string>
+	<string name="medium">中</string>
+	<string name="low">低</string>
+	<string name="lowest">最低</string>
+	<string name="mesh_status_good">問題なし</string>
+	<string name="mesh_status_na">N/A</string>
+	<string name="mesh_status_none">なし</string>
+	<string name="mesh_status_submesh_mismatch">詳細レベルごとにテクスチャ可能な面の数が異なります。</string>
+	<string name="mesh_status_mesh_mismatch">詳細レベルごとにメッシュインスタンスの数が異なります。</string>
+	<string name="mesh_status_too_many_vertices">この詳細レベルの頂点が多すぎます。</string>
+	<string name="mesh_status_missing_lod">必須の詳細レベルがありません。</string>
+	<string name="mesh_status_invalid_material_list">LODのマテリアルが参照モデルのサブセットではありません。</string>
+	<string name="phys_status_vertex_limit_exceeded">一部の物理ハルが頂点制限を超えています。</string>
+	<string name="layer_all">すべて</string>
+	<string name="decomposing">分析中...</string>
+	<string name="simplifying">簡略化中...</string>
+	<string name="tbd">TBD</string>
+	<panel name="left_panel">
+		<panel name="model_name_representation_panel">
+			<text name="name_label">モデル名:</text>
+			<text name="model_category_label">このモデルは次を表します...</text>
+			<line_editor name="description_form" />
+			<combo_box name="model_category_combo">
+				<combo_item name="Choose one">1つ選択...</combo_item>
+				<combo_item name="Avatar shape">アバターシェイプ</combo_item>
+				<combo_item name="Avatar attachment">アバターアタッチメント</combo_item>
+				<combo_item name="Moving object (vehicle, animal)">動くオブジェクト（乗り物、動物）</combo_item>
+				<combo_item name="Building Component">建物の部品</combo_item>
+				<combo_item name="Large, non moving etc">大型の静止物など</combo_item>
+				<combo_item name="Smaller, non-moving etc">小型の静止物など</combo_item>
+				<combo_item name="Not really any of these">どれにも当てはまらない</combo_item>
+			</combo_box>
+		</panel>
+		<tab_container name="import_tab">
+			<panel name="lod_panel" label="詳細レベル" title="詳細レベル">
+				<view_border name="lod_tab_border" />
+				<text name="source">ソース</text>
+				<text name="triangles">三角形</text>
+				<text name="vertices">頂点</text>
+				<text name="high_label">高</text>
+				<combo_box name="lod_source_high">
+					<combo_item name="Load from file">ファイルから読み込み</combo_item>
+					<combo_item name="Generate">生成</combo_item>
+				</combo_box>
+				<line_editor name="lod_file_high" />
+				<button name="lod_browse_high" label="参照..." />
+				<combo_box name="lod_mode_high">
+					<combo_item name="Triangle Limit">三角形数の上限</combo_item>
+					<combo_item name="Error Threshold">誤差しきい値</combo_item>
+				</combo_box>
+				<spinner name="lod_triangle_limit_high" />
+				<spinner name="lod_error_threshold_high" />
+				<text name="high_triangles" />
+				<text name="high_vertices" />
+				<text name="high_status" />
+				<icon name="status_icon_high" />
+				<text name="medium_label">中</text>
+				<combo_box name="lod_source_medium">
+					<combo_item name="Load from file">ファイルから読み込み</combo_item>
+					<combo_item name="Generate">生成</combo_item>
+					<combo_item name="Use LoD above">上のLODを使用</combo_item>
+				</combo_box>
+				<line_editor name="lod_file_medium" />
+				<button name="lod_browse_medium" label="参照..." />
+				<combo_box name="lod_mode_medium">
+					<combo_item name="Triangle Limit">三角形数の上限</combo_item>
+					<combo_item name="Error Threshold">誤差しきい値</combo_item>
+				</combo_box>
+				<spinner name="lod_triangle_limit_medium" />
+				<spinner name="lod_error_threshold_medium" />
+				<text name="medium_triangles" />
+				<text name="medium_vertices" />
+				<text name="medium_status" />
+				<icon name="status_icon_medium" />
+				<text name="low_label">低</text>
+				<combo_box name="lod_source_low">
+					<combo_item name="Load from file">ファイルから読み込み</combo_item>
+					<combo_item name="Generate">生成</combo_item>
+					<combo_item name="Use LoD above">上のLODを使用</combo_item>
+				</combo_box>
+				<line_editor name="lod_file_low" />
+				<button name="lod_browse_low" label="参照..." />
+				<combo_box name="lod_mode_low">
+					<combo_item name="Triangle Limit">三角形数の上限</combo_item>
+					<combo_item name="Error Threshold">誤差しきい値</combo_item>
+				</combo_box>
+				<spinner name="lod_triangle_limit_low" />
+				<spinner name="lod_error_threshold_low" />
+				<text name="low_triangles" />
+				<text name="low_vertices" />
+				<text name="low_status" />
+				<icon name="status_icon_low" />
+				<text name="lowest_label">最低</text>
+				<combo_box name="lod_source_lowest">
+					<combo_item name="Load from file">ファイルから読み込み</combo_item>
+					<combo_item name="Generate">生成</combo_item>
+					<combo_item name="Use LoD above">上のLODを使用</combo_item>
+				</combo_box>
+				<line_editor name="lod_file_lowest" />
+				<button name="lod_browse_lowest" label="参照..." />
+				<combo_box name="lod_mode_lowest">
+					<combo_item name="Triangle Limit">三角形数の上限</combo_item>
+					<combo_item name="Error Threshold">誤差しきい値</combo_item>
+				</combo_box>
+				<spinner name="lod_triangle_limit_lowest" />
+				<spinner name="lod_error_threshold_lowest" />
+				<text name="lowest_triangles" />
+				<text name="lowest_vertices" />
+				<text name="lowest_status" />
+				<icon name="status_icon_lowest" />
+				<icon name="lod_status_message_icon" />
+				<text name="lod_status_message_text" />
+				<view_border name="lod_tab_border" />
+				<check_box name="gen_normals" label="法線を生成" />
+				<text name="crease_label">折り目角度:</text>
+				<spinner name="crease_angle" />
+			</panel>
+			<panel name="physics_panel" label="物理" title="物理">
+				<view_border name="physics_tab_border" />
+				<panel name="physics geometry">
+					<text name="first_step_name">ステップ1: 詳細レベル</text>
+					<combo_box name="physics_lod_combo" tool_tip="物理シェイプに使用するLOD">
+						<combo_item name="choose_one">1つ選択...</combo_item>
+						<combo_item name="physics_high">高</combo_item>
+						<combo_item name="physics_medium">中</combo_item>
+						<combo_item name="physics_low">低</combo_item>
+						<combo_item name="physics_lowest">最低</combo_item>
+						<combo_item name="load_from_file">ファイルから</combo_item>
+					</combo_box>
+					<line_editor name="physics_file" />
+					<button name="physics_browse" label="参照..." />
+				</panel>
+				<view_border name="physics_tab_border" />
+				<panel name="physics analysis">
+					<text name="method_label">ステップ2: 分析</text>
+					<text name="analysis_method_label">方法:</text>
+					<text name="quality_label">品質:</text>
+					<text name="smooth_method_label">スムーズ:</text>
+					<combo_box name="Method" />
+					<combo_box name="Decompose Quality" />
+					<combo_box name="Cosine%" />
+					<check_box name="Close Holes (Slow)" label="穴を閉じる" />
+					<button name="Decompose" label="分析" />
+					<button name="decompose_cancel" label="キャンセル" />
+				</panel>
+				<view_border name="physics_tab_border2" />
+				<panel name="physics simplification">
+					<text name="second_step_label">ステップ3: 簡略化</text>
+					<text name="simp_method_header">方法:</text>
+					<text name="pass_method_header">パス数:</text>
+					<text name="Detail Scale label">詳細スケール:</text>
+					<text name="Retain%_label">保持:</text>
+					<combo_box name="Simplify Method" />
+					<combo_box name="Combine Quality" />
+					<spinner name="Detail Scale" />
+					<spinner name="Retain%" />
+					<button name="Simplify" label="簡略化" />
+					<button name="simplify_cancel" label="キャンセル" />
+				</panel>
+				<view_border name="physics_tab_border3" />
+				<panel name="physics info">
+					<text name="results_text">結果:</text>
+					<text name="physics_triangles">三角形: [TRIANGLES],</text>
+					<text name="physics_points">頂点: [POINTS],</text>
+					<text name="physics_hulls">ハル: [HULLS]</text>
+				</panel>
+			</panel>
+			<panel name="modifiers_panel" label="アップロードオプション" title="アップロードオプション">
+				<view_border name="modifiers_tab_border" />
+				<text name="scale_label">スケール（1 = スケールなし）:</text>
+				<spinner name="import_scale" />
+				<text name="dimensions_label">寸法:</text>
+				<text name="import_dimensions">[X] X [Y] X [Z]</text>
+				<check_box name="upload_textures" label="テクスチャを含める" />
+				<view_border name="modifiers_tab_border2" />
+				<text name="include_label">アバターモデルのみ:</text>
+				<check_box name="upload_skin" label="スキンウェイトを含める" />
+				<text name="pelvis_offset_label">Zオフセット（アバターを上げる／下げる）:</text>
+				<spinner name="pelvis_offset" />
+				<check_box name="upload_joints" label="ジョイント位置を含める" />
+			</panel>
+		</tab_container>
+		<panel name="weights_and_warning_panel">
+			<button name="calculate_btn" label="ウェイトと手数料を計算" tool_tip="ウェイトと手数料を計算" />
+			<button name="cancel_btn" label="キャンセル" />
+			<button name="ok_btn" label="アップロード" tool_tip="シミュレーターにアップロード" />
+			<button name="reset_btn" label="設定をクリアしてフォームをリセット" />
+			<text name="upload_fee">アップロード手数料: [CURRENCY] [FEE]</text>
+			<text name="prim_weight">土地インパクト: [EQ]</text>
+			<text name="download_weight">ダウンロード: [ST]</text>
+			<text name="physics_weight">物理: [PH]</text>
+			<text name="server_weight">サーバー: [SIM]</text>
+			<text name="price_breakdown">価格内訳: ストリーミング: [CURRENCY] [STREAMING] 物理: [CURRENCY] [PHYSICS] インスタンス: [CURRENCY] [INSTANCES] テクスチャ: [CURRENCY] [TEXTURES] モデル: [CURRENCY] [MODEL]</text>
+			<text name="warning_title">注記:</text>
+			<text name="warning_message">メッシュモデルをアップロードする権限がありません。</text>
+			<text name="validate_url">認定の取得方法はこちらをクリック</text>
+			<text name="status">[STATUS]</text>
+		</panel>
+	</panel>
+	<text name="lod_label">プレビュー:</text>
+	<panel name="preview_panel" />
+	<panel name="right_panel">
+		<combo_box name="preview_lod_combo" tool_tip="プレビューに表示するLOD">
+			<combo_item name="high">高</combo_item>
+			<combo_item name="medium">中</combo_item>
+			<combo_item name="low">低</combo_item>
+			<combo_item name="lowest">最低</combo_item>
+		</combo_box>
+		<text name="label_display">表示...</text>
+		<check_box name="show_edges" label="辺" />
+		<check_box name="show_physics" label="物理" />
+		<check_box name="show_textures" label="テクスチャ" />
+		<check_box name="show_skin_weight" label="スキンウェイト" />
+		<check_box name="show_joint_positions" label="ジョイント" />
+		<text name="physics_explode_label">プレビューの展開:</text>
+		<slider name="physics_explode" />
+	</panel>
+</floater>

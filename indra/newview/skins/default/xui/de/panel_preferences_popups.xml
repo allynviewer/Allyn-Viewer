@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="0" height="500" label="Popups" left="0" name="popups" title="Popups" width="400">
+ <check_box bottom="-22" left="16" follows="top" height="16" label="Gegenstandsangebote automatisch annehmen" name="accept_new_inventory"/>
+ <check_box bottom_delta="0" left_delta="250" follows="top" height="16" label="Vorschauobjekte nach Annahme anzeigen" name="show_new_inventory"/>
+ <check_box bottom_delta="-20" left="16" follows="top" height="16" label="Neu angenommene Objekte im Inventar anzeigen" name="show_in_inventory"/>
+ <text bottom_delta="-12" follows="top" left="15" name="show_label">Immer anzeigen:</text>
+ <scroll_list follows="top" multi_select="true" height="169" name="enabled_popups" width="480"/>
+ <button follows="top" height="20" label="Alle aktivieren" left="25" name="reset_dialogs_btn" tool_tip="Alle optionalen Popups und Erstverwendungsmeldungen aktivieren." width="100"/>
+ <button follows="top" height="20" label="" image_overlay="arrow_up.tga" left_delta="105" name="enable_popup" width="30" bottom_delta="0"/>
+ <button follows="top" height="20" label="Erstverwendungs-Popups deaktivieren" left_delta="35" name="skip_frst_btn" tool_tip="Alle Erstverwendungsmeldungen deaktivieren." width="200" bottom_delta="0"/>
+ <button follows="top" height="20" label="" image_overlay="arrow_down.tga" left_delta="180" name="disable_popup" width="30" bottom_delta="0"/>
+ <button bottom_delta="0" follows="top" height="20" label="Alle deaktivieren" left_delta="35" name="skip_dialogs_btn" tool_tip="Alle optionalen Popups und Erstverwendungsmeldungen deaktivieren." width="130"/>
+ <text follows="top" left="15" name="dont_show_label" bottom_delta="-12">Nie anzeigen:</text>
+ <scroll_list follows="top" multi_select="true" height="169" left="15" name="disabled_popups" width="480"/>
+</panel>

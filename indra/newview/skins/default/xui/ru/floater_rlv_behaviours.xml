@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="rlv_behaviours" title="Активные ограничения RLV">
+	<tab_container name="behaviour_tab">
+		<panel name="behaviour_panel" label="Ограничения">
+			<scroll_list name="behaviour_list">
+				<column name="behaviour" label="Ограничение" />
+				<column name="issuer" label="Имя объекта" />
+			</scroll_list>
+		</panel>
+		<panel name="exception_panel" label="Исключения">
+			<scroll_list name="exception_list">
+				<column name="behaviour" label="Ограничение" />
+				<column name="option" label="Вариант" />
+				<column name="issuer" label="Имя объекта" />
+			</scroll_list>
+		</panel>
+	</tab_container>
+	<button name="copy_btn" label="Копировать в буфер обмена" />
+</floater>

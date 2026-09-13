@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="media_controls">
+	<icon name="music_icon" tool_tip="Müzik akışını oynat/duraklat" />
+	<button name="music_play" tool_tip="Müzik akışını oynat/duraklat" />
+	<button name="music_pause" tool_tip="Müzik akışını duraklat" />
+	<button name="music_stop" tool_tip="Müzik akışını durdurma" />
+	<icon name="media_icon" tool_tip="Müzik akışını oynat/duraklat" />
+	<button name="media_play" tool_tip="Akışlı medyayı oynat/duraklat" />
+	<button name="media_pause" tool_tip="Medya akışını duraklat" />
+	<button name="media_stop" tool_tip="Medya akışını durdur" />
+	<volume_slider name="volume_slider" tool_tip="Ana Cilt" />
+	<button name="mute_master" tool_tip="Usta Sessiz" />
+	<button name="expand" tool_tip="Bireysel ses seviyelerini ayarlayın" />
+	<string name="play_label">Oyna</string>
+	<string name="stop_label">Durdur</string>
+	<string name="pause_label">Duraklat</string>
+	<string name="default_tooltip_label">Medya Belirtilmedi</string>
+	<string name="media_hidden_label">(URL parsel sahibi tarafından gizlenmiştir)</string>
+	<string name="media_icon_tooltip_web">Bu konum World Wide Web'deki içeriği görüntüler. Web içeriğini görüntülemek için Oynat düğmesini tıklayın.</string>
+	<string name="media_icon_tooltip_movie">Bu konum Video içeriğini görüntüler. Videoyu oynatmak için Oynat düğmesini tıklayın.</string>
+	<string name="media_play_tooltip">Web içeriğini bu konumda görüntüleyin.</string>
+</panel>

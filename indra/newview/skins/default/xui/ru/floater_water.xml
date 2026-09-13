@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Water Floater" title="Расширенный редактор воды">
+	<text name="KeyFramePresetsText">Пресеты:</text>
+	<button name="WaterNewPreset" label="Новый" label_selected="Новый"/>
+	<button name="WaterSavePreset" label="Сохранить" label_selected="Сохранить"/>
+	<button name="WaterDeletePreset" label="Удалить" label_selected="Удалить"/>
+	<tab_container name="Water Tabs">
+		<panel name="Settings" label="Настройки">
+			<text name="BHText">Цвет водяного тумана</text>
+			<button name="WaterFogColorHelp" label="?"/>
+			<color_swatch name="WaterFogColor" tool_tip="Нажмите, чтобы открыть палитру цветов"/>
+			<text name="WaterFogDensText">Показатель плотности тумана</text>
+			<button name="WaterFogDensityHelp" label="?"/>
+			<text name="WaterUnderWaterFogModText">Модификатор подводного тумана</text>
+			<button name="WaterUnderWaterFogModHelp" label="?"/>
+			<text name="BDensText">Масштаб вейвлета отражения</text>
+			<button name="WaterNormalScaleHelp" label="?"/>
+			<text name="BHText2">1</text>
+			<text name="BHText3">2</text>
+			<text name="BHText4">3</text>
+			<text name="HDText">Шкала Френеля</text>
+			<button name="WaterFresnelScaleHelp" label="?"/>
+			<text name="FresnelOffsetText">Смещение Френеля</text>
+			<button name="WaterFresnelOffsetHelp" label="?"/>
+			<text name="DensMultText">Масштаб преломления выше</text>
+			<button name="WaterScaleAboveHelp" label="?"/>
+			<text name="WaterScaleBelowText">Масштаб преломления ниже</text>
+			<button name="WaterScaleBelowHelp" label="?"/>
+			<text name="MaxAltText">Множитель размытия</text>
+			<button name="WaterBlurMultiplierHelp" label="?"/>
+		</panel>
+		<panel name="Waves" label="Изображение">
+			<text name="BHText">Направление большой волны</text>
+			<button name="WaterWave1Help" label="?"/>
+			<text name="WaterWave1DirXText">X</text>
+			<text name="WaterWave1DirYText">Y</text>
+			<text name="BHText2">Направление малой волны</text>
+			<button name="WaterWave2Help" label="?"/>
+			<text name="WaterWave2DirXText">X</text>
+			<text name="WaterWave2DirYText">Y</text>
+			<text name="BHText3">Карта нормалей</text>
+			<button name="WaterNormalMapHelp" label="?"/>
+		</panel>
+	</tab_container>
+	<string name="WLDefaultWaterNames">Default:Glassy:Pond:Murky:Second Plague:SNAKE!!!:Valdez</string>
+</floater>

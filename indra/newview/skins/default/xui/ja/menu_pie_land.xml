@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Land Pie">
+	<menu_item_call name="About Land..." label="土地について..." />
+	<menu_item_call name="Create" label="作成" />
+	<menu_item_call name="Go Here" label="ここに移動" />
+	<menu_item_call name="Sit Here" label="ここに座る" />
+	<menu_item_call name="Land Buy Pass" label="パスを購入..." />
+	<menu_item_call name="Edit Terrain" label="地形を編集" />
+	<menu_item_call name="Land Buy" label="土地を購入..." />
+</pie_menu>

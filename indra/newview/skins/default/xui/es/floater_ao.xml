@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="geminifloater" title="Ajustes de AO">
+	<drop_target name="ao_notecard" label="Suelta un notecard ZHAO aquí" tool_tip="Suelta un notecard ZHAO aquí. Las animaciones deben estar en la misma carpeta del inventario."/>
+	<button name="opencard" label="" tool_tip="Ver el notecard de AO actual"/>
+	<button name="reloadcard" label="" tool_tip="Recargar animaciones desde el notecard de AO"/>
+	<button name="newcard" label="" tool_tip="Crear una nueva plantilla de notecard de AO en el inventario"/>
+	<check_box name="AOEnabled" label="Activar sustitución de animaciones" tool_tip="Activa o desactiva el reemplazo de animaciones"/>
+	<check_box name="AOSwimEnabled" label="Activar sustitución de nado" tool_tip="Sustituye las animaciones de vuelo por nado bajo el agua"/>
+	<check_box name="AOSitsEnabled" label="Activar sustitución de sits" tool_tip="Sustituye las animaciones de sentarse y sentarse en el suelo"/>
+	<text name="buttons_desc">Stands:</text>
+	<combo_box name="stands" tool_tip="Animación de stand actual"/>
+	<button name="prevstand" label="" tool_tip="Stand anterior"/>
+	<button name="nextstand" label="" tool_tip="Siguiente stand"/>
+	<check_box name="AOStandRandomize" label="Orden aleatorio de stands" tool_tip="Cambia los stands en orden aleatorio en lugar de secuencial"/>
+	<check_box name="AONoStandsInMouselook" label="Sin stands en mouselook" tool_tip="Detiene las animaciones de stand en mouselook"/>
+	<check_box name="ao_remote_checkbox" label="Mostrar AO en la toolbar" tool_tip="Muestra el control remoto de AO en la barra inferior"/>
+	<spinner name="standtime" label="Tiempo de stand:" tool_tip="Cuánto dura cada stand, en segundos"/>
+	<button name="more_btn" label="Más &gt;&gt;" label_selected="&lt;&lt; Menos" tool_tip="Mostrar u ocultar las animaciones predeterminadas"/>
+	<tab_container name="tabcontainer" label="Predeterminado">
+		<panel name="tabdefaultanims" label="Anims por defecto">
+			<text name="textdefaultwalk">Walk:</text>
+			<combo_box name="walks" tool_tip="Animación predeterminada de caminar"/>
+			<text name="textdefaultrun">Run:</text>
+			<combo_box name="runs" tool_tip="Animación predeterminada de correr"/>
+			<text name="textdefaultjump">Jump:</text>
+			<combo_box name="jumps" tool_tip="Animación predeterminada de salto"/>
+			<text name="textdefaultsit">Sit:</text>
+			<combo_box name="sits" tool_tip="Animación predeterminada de sentarse"/>
+			<text name="textdefaultgsit">Ground sit:</text>
+			<combo_box name="gsits" tool_tip="Animación predeterminada de sentarse en el suelo"/>
+			<text name="textdefaultcrouch">Crouch:</text>
+			<combo_box name="crouchs" tool_tip="Animación predeterminada de agacharse"/>
+			<text name="textdefaultcrouchwalk">Crouch walk:</text>
+			<combo_box name="cwalks" tool_tip="Animación predeterminada de andar agachado"/>
+			<text name="textdefaultfall">Fall:</text>
+			<combo_box name="falls" tool_tip="Animación predeterminada de caída"/>
+			<text name="textdefaulthover">Hover:</text>
+			<combo_box name="hovers" tool_tip="Animación predeterminada de flotar"/>
+			<text name="textdefaultfly">Fly:</text>
+			<combo_box name="flys" tool_tip="Animación predeterminada de vuelo"/>
+			<text name="textdefaultflyslow">Slow fly:</text>
+			<combo_box name="flyslows" tool_tip="Animación predeterminada de vuelo lento"/>
+			<text name="textdefaultflyup">Fly up:</text>
+			<combo_box name="flyups" tool_tip="Animación predeterminada de vuelo hacia arriba"/>
+			<text name="textdefaultflydown">Fly down:</text>
+			<combo_box name="flydowns" tool_tip="Animación predeterminada de vuelo hacia abajo"/>
+			<text name="textdefaultland">Land:</text>
+			<combo_box name="lands" tool_tip="Animación predeterminada de aterrizaje"/>
+			<text name="textdefaultstandup">Stand up:</text>
+			<combo_box name="standups" tool_tip="Animación predeterminada de levantarse"/>
+			<text name="textdefaultprejump">Pre-jump:</text>
+			<combo_box name="prejumps" tool_tip="Animación predeterminada de preparación del salto"/>
+			<text name="textdefaultfloat">Float:</text>
+			<combo_box name="floats" tool_tip="Animación predeterminada de flotar en el agua"/>
+			<text name="textdefaultswim">Swim:</text>
+			<combo_box name="swims" tool_tip="Animación predeterminada de nado"/>
+			<text name="textdefaultswimup">Swim up:</text>
+			<combo_box name="swimups" tool_tip="Animación predeterminada de nado hacia arriba"/>
+			<text name="textdefaultswimdown">Swim down:</text>
+			<combo_box name="swimdowns" tool_tip="Animación predeterminada de nado hacia abajo"/>
+			<text name="textdefaulttyping">Typing:</text>
+			<combo_box name="typings" tool_tip="Animación predeterminada de teclear"/>
+		</panel>
+	</tab_container>
+</floater>

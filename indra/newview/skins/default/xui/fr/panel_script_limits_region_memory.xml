@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="script_limits_region_memory_panel" label="Mémoire de la région">
+	<text name="script_memory">Mémoire de scripts de la parcelle</text>
+	<text name="loading_text">Chargement...</text>
+	<scroll_list name="scripts_list">
+		<column name="name" label="Objet"/>
+		<column name="size" label="Taille" tool_tip="Taille en kilo-octets"/>
+		<column name="urls" label="URL"/>
+		<column name="owner" label="Propriétaire"/>
+		<column name="parcel" label="Parcelle"/>
+		<column name="location" label="Emplacement"/>
+	</scroll_list>
+	<button name="refresh_list_btn" label="Actualiser la liste"/>
+	<button name="highlight_btn" label="Mettre en surbrillance"/>
+	<button name="return_btn" label="Renvoyer"/>
+</panel>

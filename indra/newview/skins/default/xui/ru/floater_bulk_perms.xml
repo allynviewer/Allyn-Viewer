@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floaterbulkperms" title="Массовое изменение разрешений на контент">
+	<text name="applyto">Типы контента</text>
+	<icon name="icon_animation" />
+	<check_box name="check_animation" label="Анимация" />
+	<icon name="icon_bodypart" />
+	<check_box name="check_bodypart" label="Части Тела" />
+	<icon name="icon_clothing" />
+	<check_box name="check_clothing" label="Одежда" />
+	<icon name="icon_gesture" />
+	<check_box name="check_gesture" label="Жесты" />
+	<icon name="icon_landmark" />
+	<check_box name="check_landmark" label="Достопримечательности" />
+	<icon name="icon_notecard" />
+	<check_box name="check_notecard" label="Карточки для заметок" />
+	<icon name="icon_object" />
+	<check_box name="check_object" label="Объекты" />
+	<icon name="icon_script" />
+	<check_box name="check_script" label="Скрипты" />
+	<icon name="icon_sound" />
+	<check_box name="check_sound" label="Звуки" />
+	<icon name="icon_texture" />
+	<check_box name="check_texture" label="Текстуры" />
+	<button name="check_all" label="Проверить все" />
+	<button name="check_none" label="Снимите все флажки" />
+	<text name="newperms">Новые разрешения</text>
+	<check_box name="share_with_group" label="Поделиться с группой" />
+	<check_box name="everyone_copy" label="Разрешить всем копировать" />
+	<text name="NextOwnerLabel">Следующий владелец может:</text>
+	<check_box name="next_owner_modify" label="Изменить" />
+	<check_box name="next_owner_copy" label="Копировать" />
+	<check_box name="next_owner_transfer" label="Перепродать/Отдать" />
+	<scroll_list name="queue output" />
+	<button name="help" label="Помощь" />
+	<button name="apply" label="Применить" />
+	<button name="close" label="Закрыть" />
+	<string name="nothing_to_modify_text">Выборка не содержит редактируемого содержимого.</string>
+	<string name="status_text">Установка разрешений на [NAME]</string>
+	<string name="start_text">Запуск запросов на изменение разрешений...</string>
+	<string name="done_text">Завершенные запросы на изменение разрешений.</string>
+</floater>

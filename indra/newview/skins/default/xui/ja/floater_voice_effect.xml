@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="voice_effects" title="ボイスモーフィング">
+	<string name="no_voice_effect">（ボイスモーフなし）</string>
+	<string name="active_voice_effect">（アクティブ）</string>
+	<string name="unsubscribed_voice_effect">（購読解除済み）</string>
+	<string name="new_voice_effect">（新着！）</string>
+	<string name="effect_Arena">アリーナ</string>
+	<string name="effect_Beast">野獣</string>
+	<string name="effect_Buff">バフ</string>
+	<string name="effect_Buzz">バズ</string>
+	<string name="effect_Camille">Camille</string>
+	<string name="effect_Creepy">不気味</string>
+	<string name="effect_CreepyBot">CreepyBot</string>
+	<string name="effect_Cyber">Cyber</string>
+	<string name="effect_DeepBot">DeepBot</string>
+	<string name="effect_Demon">悪魔</string>
+	<string name="effect_Female Elf">Female Elf</string>
+	<string name="effect_Flirty">色っぽい</string>
+	<string name="effect_Foxy">妖艶</string>
+	<string name="effect_Halloween 2010 Bonus">Halloween_2010_Bonus</string>
+	<string name="effect_Helium">ヘリウム</string>
+	<string name="effect_Husky">ハスキー</string>
+	<string name="effect_Husky Whisper">Husky Whisper</string>
+	<string name="effect_Intercom">Intercom</string>
+	<string name="effect_Julia">Julia</string>
+	<string name="effect_Lo Lilt">Lo Lilt</string>
+	<string name="effect_Macho">Macho</string>
+	<string name="effect_Micro">Micro</string>
+	<string name="effect_Mini">Mini</string>
+	<string name="effect_Model">Model</string>
+	<string name="effect_Nano">Nano</string>
+	<string name="effect_Nightmare">悪夢</string>
+	<string name="effect_PopBot">PopBot</string>
+	<string name="effect_Rachel">Rachel</string>
+	<string name="effect_Radio">Radio</string>
+	<string name="effect_Robot">Robot</string>
+	<string name="effect_Roxanne">Roxanne</string>
+	<string name="effect_Rumble">Rumble</string>
+	<string name="effect_Sabrina">Sabrina</string>
+	<string name="effect_Samantha">Samantha</string>
+	<string name="effect_Sexy">Sexy</string>
+	<string name="effect_Shorty">ちび</string>
+	<string name="effect_Smaller">Smaller</string>
+	<string name="effect_Sneaky">こそこそ</string>
+	<string name="effect_Stallion">スタリオン</string>
+	<string name="effect_Sultry">セクシー</string>
+	<string name="effect_Thunder">雷</string>
+	<string name="effect_Vixen">妖艶</string>
+	<string name="effect_WhinyBot">WhinyBot</string>
+	<text name="preview_text">プレビュー</text>
+	<text name="status_text">サンプルを録音してからボイスをクリックすると、聞こえ方が確認できます。</text>
+	<button name="record_btn" label="録音" tool_tip="自分のボイスのサンプルを録音します。" />
+	<button name="record_stop_btn" label="停止" />
+	<button name="activate_btn" label="有効化" />
+	<text_editor name="voice_morphing_link">今すぐ購読</text_editor>
+	<scroll_list name="voice_effect_list" tool_tip="録音 a sample の あなたの ボイス, then クリック an effect プレビュー.">
+		<column name="name" label="ボイス名" />
+		<column name="expires" label="期限切れ" />
+	</scroll_list>
+</floater>

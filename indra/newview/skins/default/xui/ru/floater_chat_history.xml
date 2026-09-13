@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="chat floater" title="Локальный чат">
+	<string name="ringing">Подключение к внутреннему голосовому чату...</string>
+	<string name="connected">Подключено</string>
+	<string name="unavailable">Голос недоступен в вашем текущем местоположении.</string>
+	<string name="hang_up">Отключено от внутреннего голосового чата</string>
+	<string name="voice_icon">icn_voice-localchat.tga</string>
+	<string name="IM_logging_string">-- Ведение журнала включено --</string>
+	<string name="IM_end_log_string">-- Конец журнала --</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<layout_stack name="im_contents_stack">
+				<layout_panel name="history_panel">
+					<combo_box name="Gesture" label="Жесты">
+						<combo_item name="Gestures">Жесты</combo_item>
+					</combo_box>
+					<check_box name="show mutes" label="Показать отключенный текст" />
+					<button name="chat_history_open" label="Открыть историю" tool_tip="Нажмите здесь, чтобы открыть историю чата во внешнем редакторе." />
+					<button name="toggle_active_speakers_btn" label="&lt; &lt;" tool_tip="Нажмите здесь, чтобы отобразить список активных участников этого сеанса обмена мгновенными сообщениями." />
+					<text_editor name="Chat History Editor" />
+					<text_editor name="Chat History Editor with mute" />
+				</layout_panel>
+				<layout_panel name="chat_layout_panel">
+					<panel name="chat_panel">
+						<string name="gesture_label">Жесты</string>
+						<line_editor name="Chat Editor" label="Нажмите здесь, чтобы пообщаться." />
+						<flyout_button name="Say" label="Сказать" tool_tip="(Входить)">
+							<flyout_button_item name="shout_item">Кричать</flyout_button_item>
+							<flyout_button_item name="say_item">Сказать</flyout_button_item>
+							<flyout_button_item name="whisper_item">Шепот</flyout_button_item>
+						</flyout_button>
+					</panel>
+				</layout_panel>
+			</layout_stack>
+		</layout_panel>
+		<layout_panel name="active_speakers_panel" />
+	</layout_stack>
+</floater>

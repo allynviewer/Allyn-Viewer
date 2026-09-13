@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater title="Deneyim profili">
+	<floater.string name="empty_slurl">(yok)</floater.string>
+	<floater.string name="maturity_icon_general">map_event.tga</floater.string>
+	<floater.string name="maturity_icon_moderate">map_event_mature.tga</floater.string>
+	<floater.string name="maturity_icon_adult">map_event_adult.tga</floater.string>
+	<name_box name="experience_title" />
+	<tab_container name="tab_container">
+		<panel name="panel_experience_info">
+			<scroll_container name="xp_scroll">
+				<panel name="scrolling_panel">
+					<layout_stack name="Experience_profile">
+						<layout_panel name="top panel">
+							<text name="grid_wide" />
+							<button name="edit_btn" label="Düzenle" />
+						</layout_panel>
+						<layout_panel name="image_panel">
+							<texture_picker name="logo" />
+						</layout_panel>
+						<layout_panel name="description panel">
+							<text_editor name="experience_description" />
+						</layout_panel>
+						<layout_panel name="maturity panel">
+							<text name="ContentRating">Değerlendirme:</text>
+							<text name="ContentRatingText" />
+						</layout_panel>
+						<layout_panel name="location panel">
+							<text name="Location">Konum:</text>
+							<text_editor name="LocationTextText" />
+						</layout_panel>
+						<layout_panel name="marketplace panel">
+							<text>Marketplace store:</text>
+							<text_editor name="marketplace" />
+						</layout_panel>
+						<layout_panel name="owner panel">
+							<text name="Owner">Sahibi:</text>
+							<name_box name="OwnerText" />
+						</layout_panel>
+						<layout_panel name="group_panel">
+							<text name="Group">Grup:</text>
+							<name_box name="GroupText" />
+						</layout_panel>
+						<layout_panel name="perm panel">
+							<button name="allow_btn" label="İzin ver" />
+							<button name="forget_btn" label="Unut" />
+							<button name="block_btn" label="Blok" />
+							<text name="privileged">Bu deneyim tüm sakinler için etkindir.</text>
+							<button name="report_btn" label="Kötüye Kullanımı Bildir" />
+						</layout_panel>
+					</layout_stack>
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="edit_panel_experience_info">
+			<scroll_container name="edit_xp_scroll">
+				<panel name="edit_scrolling_panel">
+					<texture_picker name="edit_logo" />
+					<text name="edit_experience_title_label" />
+					<line_editor name="edit_experience_title" />
+					<text name="edit_experience_desc_label" />
+					<text_editor name="edit_experience_description" />
+					<button name="Group_btn" label="Grubu Ayarla" />
+					<name_box name="edit_GroupText" />
+					<text name="edit_ContentRating">Değerlendirme:</text>
+					<combo_box name="edit_ContentRatingText" label="Orta" tool_tip="Deneyimin olgunluk derecesini yükseltmek, izin vermiş tüm sakinlerin iznini sıfırlar.">
+						<combo_item name="Adult" label="Yetişkin" />
+						<combo_item name="Mature" label="Orta" />
+						<combo_item name="PG" label="General" />
+					</combo_box>
+					<text name="edit_Location">Konum:</text>
+					<text_editor name="edit_LocationTextText" />
+					<button name="location_btn" label="Geçerli Olarak Ayarla" />
+					<button name="clear_btn" label="Konumu Temizle" />
+					<text>Marketplace store:</text>
+					<line_editor name="edit_marketplace" />
+					<check_box name="edit_enable_btn" label="Experience'i etkinleştir" />
+					<check_box name="edit_private_btn" label="Aramada Gizle" />
+					<text name="changes" />
+					<button name="cancel_btn" label="Geri" />
+					<button name="save_btn" label="Kaydet" />
+				</panel>
+			</scroll_container>
+		</panel>
+	</tab_container>
+</floater>

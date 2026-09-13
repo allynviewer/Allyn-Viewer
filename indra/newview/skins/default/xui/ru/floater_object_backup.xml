@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Object Backup" title="Прогресс">
+	<text name="name_label">Прогресс</text>
+	<string name="export">Экспорт объекта</string>
+	<string name="import">Импорт объекта</string>
+</floater>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Inventory" title="Envanter">
+	<filter_editor name="inventory search editor" label="Aramak için buraya yazın" />
+	<button name="collapse_btn" tool_tip="Tümünü Daralt" />
+	<button name="Inventory.ExpandAll" tool_tip="Tümünü Genişlet" />
+	<button name="Inventory.ResetAll" tool_tip="Envanteri sıfırla: filtreleri temizleyin ve tüm klasörleri daraltın." />
+	<text name="group_titles_textbox">Tür:</text>
+	<string name="filter_type_all">Tüm Türler</string>
+	<string name="filter_type_animation">Animasyonlar</string>
+	<string name="filter_type_callingcard">Arama Kartları</string>
+	<string name="filter_type_wearable">Giyim / Vücut Parçaları</string>
+	<string name="filter_type_gesture">Jestler</string>
+	<string name="filter_type_landmark">Landmark'lar</string>
+	<string name="filter_type_notecard">Notecard'lar</string>
+	<string name="filter_type_object">Nesneler</string>
+	<string name="filter_type_script">Scriptler</string>
+	<string name="filter_type_sound">Sesler</string>
+	<string name="filter_type_texture">Dokular</string>
+	<string name="filter_type_snapshot">Anlık görüntüler</string>
+	<string name="filter_type_custom">Özel...</string>
+	<combo_box name="Quick Filter" tool_tip="Türe göre filtrele">
+		<combo_item name="filter_type_all">Tüm Türler</combo_item>
+		<combo_item name="filter_type_animation">Animasyonlar</combo_item>
+		<combo_item name="filter_type_callingcard">Arama Kartları</combo_item>
+		<combo_item name="filter_type_wearable">Giyim / Vücut Parçaları</combo_item>
+		<combo_item name="filter_type_gesture">Jestler</combo_item>
+		<combo_item name="filter_type_landmark">Landmark'lar</combo_item>
+		<combo_item name="filter_type_notecard">Notecard'lar</combo_item>
+		<combo_item name="filter_type_object">Nesneler</combo_item>
+		<combo_item name="filter_type_script">Scriptler</combo_item>
+		<combo_item name="filter_type_sound">Sesler</combo_item>
+		<combo_item name="filter_type_texture">Dokular</combo_item>
+		<combo_item name="filter_type_snapshot">Anlık görüntüler</combo_item>
+		<combo_item name="filter_type_custom">Özel...</combo_item>
+	</combo_box>
+	<tab_container name="inventory filter tabs">
+		<inventory_panel name="All Items" label="Tüm öğeler" />
+		<inventory_panel name="Recent Items" label="Son öğeler" />
+		<inventory_panel name="Worn Items" label="Giyilenler" />
+	</tab_container>
+	<menu_bar name="Inventory Menu">
+		<menu name="File" label="Dosya">
+			<menu_item_call name="Open" label="Aç" />
+			<menu_item_separator name="separator" />
+			<menu_item_call name="New Window" label="Yeni Pencere" />
+			<menu_item_separator name="separator2" />
+			<menu_item_call name="Show Filters" label="Filtreleri Göster" />
+			<menu_item_call name="Reset Current" label="Filtreleri Sıfırla" />
+			<menu_item_call name="Close All Folders" label="Tüm Klasörleri Kapat" />
+			<menu_item_separator name="separator3" />
+			<menu_item_call name="Empty Trash" label="Çöp Kutusunu Boşalt" />
+			<menu_item_call name="Refresh Inventory" label="Envanteri Yenile" />
+			<menu_item_call name="Update Outfit" label="Kıyafeti Güncelle" />
+		</menu>
+		<menu name="Create" label="Oluştur">
+			<menu_item_call name="New Folder" label="Yeni Klasör" />
+			<menu_item_call name="New Script" label="Yeni script" />
+			<menu_item_call name="New Note" label="Yeni Not" />
+			<menu_item_call name="New Gesture" label="Yeni jest" />
+			<menu name="New Clothes" label="Yeni Giysiler">
+				<menu_item_call name="New Shirt" label="Yeni Gömlek" />
+				<menu_item_call name="New Pants" label="Yeni Pantolon" />
+				<menu_item_call name="New Shoes" label="Yeni Ayakkabılar" />
+				<menu_item_call name="New Socks" label="Yeni Çoraplar" />
+				<menu_item_call name="New Jacket" label="Yeni Ceket" />
+				<menu_item_call name="New Skirt" label="Yeni Etek" />
+				<menu_item_call name="New Gloves" label="Yeni Eldivenler" />
+				<menu_item_call name="New Undershirt" label="Yeni Fanila" />
+				<menu_item_call name="New Underpants" label="Yeni Külot" />
+				<menu_item_call name="New Tattoo" label="Yeni Dövme" />
+				<menu_item_call name="New Alpha" label="Yeni Alfa" />
+				<menu_item_call name="New Universal" label="Yeni Evrensel" />
+				<menu_item_call name="New Physics" label="Yeni Fizik" />
+			</menu>
+			<menu name="New Body Parts" label="Yeni Gövde Parçaları">
+				<menu_item_call name="New Shape" label="Yeni Şekil" />
+				<menu_item_call name="New Skin" label="Yeni cilt" />
+				<menu_item_call name="New Hair" label="Yeni Saç" />
+				<menu_item_call name="New Eyes" label="Yeni Gözler" />
+			</menu>
+			<menu_item_call name="New Outfit" label="Yeni Kıyafet" />
+		</menu>
+		<menu name="Sort" label="Sırala">
+			<menu_item_check name="By Name" label="İsme Göre" />
+			<menu_item_check name="By Date" label="Tarihe Göre" />
+			<menu_item_separator name="separator" />
+			<menu_item_check name="Folders Always By Name" label="Klasörler Her Zaman Ada Göre" />
+			<menu_item_check name="System Folders To Top" label="Sistem Klasörleri Başa Dön" />
+		</menu>
+		<menu name="Search" label="Ara">
+			<menu_item_check name="Item name" label="Ad" />
+			<menu_item_check name="Item description" label="Açıklama" />
+			<menu_item_check name="Item creatorr" label="Öğe yaratıcısı" />
+		</menu>
+	</menu_bar>
+</floater>

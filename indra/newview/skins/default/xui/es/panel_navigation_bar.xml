@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="navigation_bar">
+	<button name="back_btn" tool_tip="Volver a la localización anterior"/>
+	<button name="forward_btn" tool_tip="Ir una localización adelante"/>
+	<button name="home_btn" tool_tip="Teleportar a mi casa"/>
+	<button name="About_Land" label="Terreno" tool_tip="Muestra la ventana de información de la parcela" width="60"/>
+	<button name="PersonalLighting" label="Iluminación" tool_tip="Abre la ventana de iluminación personal" width="90"/>
+	<combo_box name="location_combo" label="Localización"
+	     tool_tip="Ubicación actual. Escribe una región o SLURL y pulsa Enter para teletransportarte."/>
+	<button name="add_landmark_btn" tool_tip="Crear un hito aquí"/>
+	<line_editor name="search_editor" label="Buscar" tool_tip="Buscar"/>
+	<button name="search_btn" tool_tip="Buscar"/>
+</panel>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="settings_debug" title="デバッグ設定">
+	<filter_editor name="search_settings_input" tool_tip="検索したい語句を入力してください。設定名またはコメントの部分一致が表示されます。" />
+	<scroll_list name="settings_scroll_list" />
+	<text_editor name="comment_text" />
+	<radio_group name="boolean_combo">
+		<radio_item name="TRUE">真</radio_item>
+		<radio_item name="FALSE">偽</radio_item>
+	</radio_group>
+	<color_swatch name="val_color_swatch" label="色" />
+	<spinner name="val_spinner_1" label="x" />
+	<spinner name="val_spinner_2" label="x" />
+	<spinner name="val_spinner_3" label="x" />
+	<spinner name="val_spinner_4" label="x" />
+	<text_editor name="val_text" />
+	<button name="copy_btn" label="名前をコピー" tool_tip="この設定の名前をコピーします。" />
+	<button name="default_btn" label="デフォルトに戻す" />
+</floater>

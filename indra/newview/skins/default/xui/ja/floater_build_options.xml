@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="build options floater" title="グリッド オプション">
+	<spinner name="GridResolution" label="グリッド Unit (meters)" />
+	<spinner name="GridDrawSize" label="グリッド Extents (meters)" />
+	<check_box name="GridSubUnit" label="サブ-Unit Snappingを有効にする" />
+	<check_box name="GridCrossSection" label="Cross Sectionsを表示" />
+	<slider name="GridOpacity" label="グリッド 不透明度" />
+	<spinner name="GridProtractorSize" label="制約付きステップ" />
+	<spinner name="RotationStep" label="制約なしステップ" />
+</floater>

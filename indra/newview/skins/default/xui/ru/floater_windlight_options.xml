@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="WindLight floater" title="Расширенный редактор неба">
+	<text name="KeyFramePresetsText">Пресеты неба:</text>
+	<button name="WLNewPreset" label="Новый" label_selected="Новый" />
+	<button name="WLSavePreset" label="Сохранить" label_selected="Сохранить" />
+	<button name="WLDeletePreset" label="Удалить" label_selected="Удалить" />
+	<button name="WLDayCycleMenuButton" label="Дневной цикл" label_selected="Дневной цикл" />
+	<tab_container name="WindLight Tabs">
+		<panel name="Atmosphere" label="Атмосфера">
+			<text name="BHText">Голубой горизонт</text>
+			<text name="BDensText">Дымка горизонта</text>
+			<text name="BDensText2">Синяя плотность</text>
+			<text name="HDText">Плотность дымки</text>
+			<text name="DensMultText">Множитель плотности</text>
+			<text name="WLDistanceMultText">Множитель расстояния</text>
+			<text name="MaxAltText">Макс. высота</text>
+		</panel>
+		<panel name="Lighting" label="Освещение">
+			<text name="SLCText">Цвет солнца/луны</text>
+			<text name="TODText">Положение солнца/луны</text>
+			<text name="WLAmbientText">Окружающий свет</text>
+			<text name="WLEastAngleText">Восточный угол</text>
+			<text name="SunGlowText">Солнечное сияние</text>
+			<slider name="WLGlowB" label="Фокус" />
+			<slider name="WLGlowR" label="Размер" />
+			<text name="SceneGammaText">Гамма сцены</text>
+			<text name="WLStarText">Яркость звёзд</text>
+		</panel>
+		<panel name="Clouds" label="Облака">
+			<text name="WLCloudColorText">Цвет облаков</text>
+			<text name="WLCloudColorText2">Облака XY/плотность</text>
+			<text name="WLCloudCoverageText">Облачность</text>
+			<text name="WLCloudScaleText">Масштаб облаков</text>
+			<text name="WLCloudDetailText">Детализация облаков (XY/плотность)</text>
+			<text name="WLCloudScrollXText">Прокрутка X</text>
+			<check_box name="WLCloudLockX" label="Стоп" />
+			<text name="WLCloudScrollYText">Прокрутка Y</text>
+			<check_box name="WLCloudLockY" label="Стоп" />
+			<check_box name="DrawClassicClouds" label="Классические облака" />
+			<text name="cloud_settings_title">Текстура</text>
+			<combo_box name="cloud_settings_preset_combo">
+				<combo_box.item name="altocumulus_cloud" label="Высококучевые" />
+				<combo_box.item name="cumulonimbus_cloud" label="Кучево-дождевые" />
+				<combo_box.item name="default_cloud" label="По умолчанию" />
+				<combo_box.item name="layered_cloud" label="Слоистые" />
+			</combo_box>
+		</panel>
+	</tab_container>
+</floater>

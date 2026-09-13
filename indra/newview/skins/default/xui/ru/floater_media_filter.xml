@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floatermediafilter" title="Медиа-фильтр">
+	<text name="info1">Домены, выделенные жирным шрифтом, находятся в постоянном списке (т. е. в белом или черном списке).</text>
+	<text name="info2">Домены, выделенные курсивом, находятся в списке сеансов (т.е. они временно разрешены или запрещены).</text>
+	<scroll_list name="whitelist_list">
+		<column name="whitelist_col" label="Разрешенные домены или объекты сервера" />
+	</scroll_list>
+	<scroll_list name="blacklist_list">
+		<column name="blacklist_col" label="Заблокированные домены или объекты сервера" />
+	</scroll_list>
+	<button name="add_whitelist" label="Добавить..." tool_tip="Добавить сервер в белый список" />
+	<button name="remove_whitelist" label="Удалить" tool_tip="Удалить выбранный сервер из белого списка" />
+	<button name="clear_lists" label="Очистить списки" tool_tip="Очистить все списки" />
+	<button name="show_ips" label="Показать IP-адреса" tool_tip="Показывать IP-адрес, связанный с каждым доменным именем (приостанавливает просмотр во время обновления списка из-за поиска DNS)." />
+	<button name="add_blacklist" label="Добавить..." tool_tip="Добавить сервер в черный список" />
+	<button name="remove_blacklist" label="Удалить" tool_tip="Удалить выбранный сервер из черного списка" />
+	<text name="add_text">Новый домен:</text>
+	<check_box name="match_ip" label="Добавить/удалить соответствующий IP-адрес" tool_tip="Добавьте или удалите любой IP-адрес, связанный с добавленным или удаленным доменным именем." />
+	<line_editor name="input_domain" tool_tip="Введите здесь новый URL-адрес, имя домена, IP-адрес или путь к HTTP-серверу объекта сценария." />
+	<button name="commit_domain" label="Добавить" tool_tip="Добавить в список" />
+</floater>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="invite_panel" label="メンバーを招待">
+	<text name="help_text">複数のレジデントをグループに招待できます。「レジデント選択を開く」をクリックして開始してください。</text>
+	<button name="add_button" label="レジデント選択を開く" />
+	<name_list name="invitee_list" tool_tip="Ctrlキーを押しながら名前をクリックすると、複数選択できます。" />
+	<button name="remove_button" label="選択をリストから削除" tool_tip="上で選択したレジデントを招待リストから削除します。" />
+	<text name="role_text">割り当てるロールを選択:</text>
+	<combo_box name="role_name" tool_tip="メンバーに割り当てられるロールの一覧から選びます。" />
+	<button name="invite_button" label="招待を送信" />
+	<button name="cancel_button" label="キャンセル" />
+	<string name="confirm_invite_owner_str">新しい所有者を招待しますか？この操作は取り消せません。</string>
+	<string name="already_in_group">選んだレジデントの一部はすでにグループにいるため、招待は送信されませんでした。</string>
+	<string name="invite_selection_too_large">グループ招待は送信されませんでした。選択したレジデントが多すぎます。招待は1回あたり100人までです。</string>
+	<string name="loading">（読み込み中...）</string>
+</panel>

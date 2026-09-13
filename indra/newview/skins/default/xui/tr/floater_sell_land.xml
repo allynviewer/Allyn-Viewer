@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="sell land" title="Arsa Sat">
+	<texture_picker name="info_image" />
+	<text name="info_parcel_label">Parsel:</text>
+	<text name="info_parcel">PARCEL NAME</text>
+	<text name="info_size_label">Boyut:</text>
+	<text name="info_size">[AREA] metrekare</text>
+	<text name="info_action">Bu parseli satmak için:</text>
+	<icon name="step_price" />
+	<text name="price_label">Bir fiyat belirleyin:</text>
+	<text name="price_text">Bu arsa için uygun bir fiyat seçin.</text>
+	<text name="price_ld">[CURRENCY]</text>
+	<line_editor name="price" />
+	<text name="price_per_m">([CURRENCY][PER_METER] metrekare başına)</text>
+	<icon name="step_sell_to" />
+	<text name="sell_to_label">Araziyi şuraya sat:</text>
+	<text name="sell_to_text">Herhangi birine mi yoksa belirli bir alıcıya mı satış yapacağınızı seçin.</text>
+	<combo_box name="sell_to">
+		<combo_item name="--selectone--">-- birini seç --</combo_item>
+		<combo_item name="Anyone">Herkes</combo_item>
+		<combo_item name="Specificuser:">Belirli kullanıcı:</combo_item>
+	</combo_box>
+	<line_editor name="sell_to_agent" />
+	<button name="sell_to_select_agent" label="Seç..." />
+	<icon name="step_sell_objects" />
+	<text name="sell_objects_label">Nesneleri araziyle birlikte mi satacaksınız?</text>
+	<text name="sell_objects_text">Arsa sahibinin parsel üzerindeki devredilebilir nesneleri mülkiyeti değiştirecektir.</text>
+	<radio_group name="sell_objects">
+		<radio_item name="none" />
+		<radio_item name="no">Hayır, nesnelerin mülkiyetini koruyun</radio_item>
+		<radio_item name="yes">Evet, arazili nesneleri sat</radio_item>
+	</radio_group>
+	<button name="show_objects" label="Nesneleri Göster" />
+	<text name="nag_message_label">UNUTMAYIN: Tüm satışlar nihaidir.</text>
+	<button name="sell_btn" label="Satılık Arsa Ayarla" />
+	<button name="cancel_btn" label="İptal" />
+</floater>

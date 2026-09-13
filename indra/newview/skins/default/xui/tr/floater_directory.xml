@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="directory" title="Ara">
+	<tab_container name="Directory Tabs">
+		<panel name="people_panel" label="İnsanlar">
+			<string name="searching_text">Aranıyor...</string>
+			<string name="not_found_text">Hiçbiri Bulunamadı.</string>
+			<text name="find">Bul:</text>
+			<line_editor name="name" />
+			<button name="Search" label="Ara" />
+			<scroll_list name="results">
+				<column name="icon" />
+				<column name="type" />
+				<column name="name" label="İsim" />
+			</scroll_list>
+			<text name="result_text" />
+			<button name="Next &gt;" label="Sonraki &gt;" />
+			<button name="&lt; Prev" label="&lt; Önceki" />
+		</panel>
+		<panel name="groups_panel" label="Gruplar">
+			<string name="searching_text">Aranıyor...</string>
+			<string name="not_found_text">Hiçbiri Bulunamadı.</string>
+			<button name="Next &gt;" label="Sonraki &gt;" />
+			<button name="&lt; Prev" label="&lt; Önceki" />
+			<text name="find">Bul:</text>
+			<line_editor name="name" />
+			<button name="Search" label="Ara" left="286" />
+			<check_box name="incpg" label="Genel İçerik" width="120" />
+			<check_box name="incmature" label="Hassas İçerik" left_delta="130" width="130" />
+			<check_box name="incadult" label="Yetişkinlere Yönelik İçerik" left_delta="140" width="220" />
+			<check_box name="filter_gaming" label="Oyunu Gizle" />
+			<scroll_list name="results">
+				<column name="icon" />
+				<column name="type" />
+				<column name="name" label="İsim" />
+				<column name="members" label="Üyeler" />
+				<column name="score" />
+			</scroll_list>
+			<text name="result_text" />
+		</panel>
+		<panel name="places_panel" label="Yerler">
+			<string name="searching_text">Aranıyor...</string>
+			<string name="not_found_text">Hiçbiri Bulunamadı.</string>
+			<text name="find">Bul:</text>
+			<line_editor name="name" />
+			<check_box name="incpg" label="Genel İçerik" />
+			<check_box name="incmature" label="Hassas İçerik" />
+			<check_box name="incadult" label="Yetişkinlere Yönelik İçerik" />
+			<check_box name="filter_gaming" label="Oyunu Gizle" />
+			<combo_box name="Category" width="155">
+				<combo_item name="AnyCategory">Herhangi Bir Kategori</combo_item>
+				<combo_item name="LindenLocation">Resmi Konum</combo_item>
+				<combo_item name="Arts&amp;Culture">Sanat ve Kültür</combo_item>
+				<combo_item name="Business">iş</combo_item>
+				<combo_item name="Educational">eğitici</combo_item>
+				<combo_item name="Gaming">Oyun</combo_item>
+				<combo_item name="Hangout">Hangout</combo_item>
+				<combo_item name="NewcomerFriendly">Yeni Gelen Dostu</combo_item>
+				<combo_item name="Parks&amp;Nature">Parklar ve Doğa</combo_item>
+				<combo_item name="Residential">Konut</combo_item>
+				<combo_item name="Shopping">Alışveriş</combo_item>
+				<combo_item name="Other">Diğer</combo_item>
+				<combo_item name="Rental">Kiralık</combo_item>
+			</combo_box>
+			<combo_box name="Category_Adult">
+				<combo_item name="AnyCategory">Herhangi Bir Kategori</combo_item>
+				<combo_item name="LindenLocation">Ihlamur Konumu</combo_item>
+				<combo_item name="Adult">Yetişkin</combo_item>
+				<combo_item name="Arts&amp;Culture">Sanat ve Kültür</combo_item>
+				<combo_item name="Business">iş</combo_item>
+				<combo_item name="Educational">eğitici</combo_item>
+				<combo_item name="Gaming">Oyun</combo_item>
+				<combo_item name="Hangout">Hangout</combo_item>
+				<combo_item name="NewcomerFriendly">Yeni Gelen Dostu</combo_item>
+				<combo_item name="Parks&amp;Nature">Parklar ve Doğa</combo_item>
+				<combo_item name="Residential">Konut</combo_item>
+				<combo_item name="Shopping">Alışveriş</combo_item>
+				<combo_item name="Other">Diğer</combo_item>
+				<combo_item name="Rental">Kiralık</combo_item>
+			</combo_box>
+			<button name="Search" label="Ara" />
+			<scroll_list name="results">
+				<column name="icon" />
+				<column name="type" />
+				<column name="name" label="İsim" />
+				<column name="dwell" label="Trafik" />
+			</scroll_list>
+			<text name="result_text" />
+			<button name="Next &gt;" label="Sonraki &gt;" />
+			<button name="&lt; Prev" label="&lt; Önceki" />
+		</panel>
+		<panel name="events_panel" label="Etkinlikler">
+			<string name="searching_text">Aranıyor...</string>
+			<string name="not_found_text">Hiçbiri Bulunamadı.</string>
+			<text name="text2">Bul:</text>
+			<line_editor name="name" />
+			<radio_group name="date_mode">
+				<radio_item name="current">Devam Eden ve Yaklaşan</radio_item>
+				<radio_item name="date">Tarih</radio_item>
+			</radio_group>
+			<button name="&lt;&lt;" label="&lt;&lt;" tool_tip="Bir gün geriye git" />
+			<text name="date_text">6/6</text>
+			<button name="&gt;&gt;" label="&gt;&gt;" tool_tip="Bir gün ileri git" />
+			<button name="Today" label="Bugün" tool_tip="Bugünün etkinliklerini göster" />
+			<text name="text">Kategori:</text>
+			<combo_box name="category combo">
+				<combo_item name="All">Herhangi Bir Kategori</combo_item>
+				<combo_item name="Discussion">Tartışma</combo_item>
+				<combo_item name="Sports">Spor</combo_item>
+				<combo_item name="LiveMusic">Canlı Müzik</combo_item>
+				<combo_item name="Commercial">Ticari</combo_item>
+				<combo_item name="Nightlife/Entertainment">Gece Hayatı/Eğlence</combo_item>
+				<combo_item name="Games/Contests">Oyunlar/Yarışmalar</combo_item>
+				<combo_item name="Pageants">Yarışmalar</combo_item>
+				<combo_item name="Education">Eğitim</combo_item>
+				<combo_item name="ArtsandCulture">Sanat ve Kültür</combo_item>
+				<combo_item name="Charity/SupportGroups">Hayırseverlik/Destek Grupları</combo_item>
+				<combo_item name="Miscellaneous">Çeşitli</combo_item>
+			</combo_box>
+			<check_box name="incpg" label="Genel İçerik" />
+			<check_box name="incmature" label="Hassas İçerik" />
+			<check_box name="incadult" label="Yetişkinlere Yönelik İçerik" />
+			<check_box name="filter_gaming" label="Oyunu Gizle" />
+			<button name="Search" label="Ara" />
+			<button name="Delete" label="Sil" />
+			<scroll_list name="results">
+				<column name="icon" />
+				<column name="type" />
+				<column name="name" label="İsim" />
+				<column name="date" label="Zaman (PT)" />
+				<column name="event_id" />
+				<column name="time" label="Zaman" />
+			</scroll_list>
+			<text name="result_text" />
+			<button name="Next &gt;" label="Sonraki &gt;" />
+			<button name="&lt; Prev" label="&lt; Önceki" />
+		</panel>
+		<panel name="land_sales_panel" label="Arsa Satışı">
+			<string name="searching_text">Aranıyor...</string>
+			<string name="not_found_text">Hiçbiri Bulunamadı.</string>
+			<string name="land_help_text">
+				Arazi doğrudan dünya parasıyla ([CURRENCY]) veya açık artırmada [CURRENCY] veya [REALCURRENCY] karşılığında satın alınabilir.
+Doğrudan satın almak için araziyi ziyaret edin ve başlık çubuğundaki yer adına tıklayın.
+			</string>
+			<text name="find">Bul:</text>
+			<check_box name="incpg" label="Genel İçerik" />
+			<check_box name="incmature" label="Hassas İçerik" />
+			<check_box name="incadult" label="Yetişkinlere Yönelik İçerik" />
+			<check_box name="filter_gaming" label="Oyunu Gizle" />
+			<combo_box name="type">
+				<combo_item name="AllTypes">Tüm Türler</combo_item>
+				<combo_item name="Auction">Açık artırma</combo_item>
+				<combo_item name="MainlandSales">Satılık - Anakara</combo_item>
+				<combo_item name="EstateSales">Satılık - Emlak</combo_item>
+			</combo_box>
+			<check_box name="pricecheck" label="Fiyat ≤ " />
+			<text name="pricecheck_symbol">[CURRENCY]</text>
+			<check_box name="areacheck" label="Alan ≥ " />
+			<text name="areacheck_symbol">m²</text>
+			<line_editor name="priceedit" />
+			<line_editor name="areaedit" />
+			<button name="Search" label="Ara" />
+			<scroll_list name="results">
+				<column name="icon" />
+				<column name="type" />
+				<column name="name" label="İsim" />
+				<column name="landtype" label="Tür" />
+				<column name="price" label="[CURRENCY] Fiyat" />
+				<column name="area" label="Alan" />
+				<column name="per_meter" label="[CURRENCY]/m²" />
+			</scroll_list>
+			<text name="result_text" />
+			<button name="Next &gt;" label="Sonraki &gt;" />
+			<button name="&lt; Prev" label="&lt; Önceki" />
+		</panel>
+		<panel name="classified_panel" label="İlanlar">
+			<string name="searching_text">Aranıyor...</string>
+			<string name="not_found_text">Hiçbiri Bulunamadı.</string>
+			<text name="find">Bul:</text>
+			<line_editor name="name" />
+			<check_box name="incpg" label="Genel İçerik" />
+			<check_box name="incmature" label="Hassas İçerik" />
+			<check_box name="incadult" label="Yetişkinlere Yönelik İçerik" />
+			<check_box name="filter_gaming" label="Oyunu Gizle" />
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">Herhangi Bir Kategori</combo_item>
+				<combo_item name="Shopping">Alışveriş</combo_item>
+				<combo_item name="LandRental">Arsa Kiralama</combo_item>
+				<combo_item name="PropertyRental">Gayrimenkul Kiralama</combo_item>
+				<combo_item name="SpecialAttraction">Özel Cazibe</combo_item>
+				<combo_item name="NewProducts">Yeni Ürünler</combo_item>
+				<combo_item name="Employment">İstihdam</combo_item>
+				<combo_item name="Wanted">Aranıyor</combo_item>
+				<combo_item name="Service">Hizmet</combo_item>
+				<combo_item name="Personal">Personal</combo_item>
+			</combo_box>
+			<button name="Browse" label="Göz at" />
+			<button name="Search" label="Ara" />
+			<button name="Delete" label="Sil" />
+			<scroll_list name="results">
+				<column name="icon" />
+				<column name="type" />
+				<column name="name" label="İsim" />
+				<column name="price" label="Fiyat" />
+			</scroll_list>
+			<text name="result_text" />
+			<button name="Next &gt;" label="Sonraki &gt;" />
+			<button name="&lt; Prev" label="&lt; Önceki" />
+		</panel>
+</tab_container>
+	<panel name="classified_details_panel" />
+	<panel name="Panel Avatar" />
+	<panel name="event_details_panel" />
+	<panel name="group_details_panel_holder">
+		<panel name="group_details_panel" />
+	</panel>
+	<panel name="place_details_panel" />
+	<panel name="place_details_small_panel" />
+</floater>

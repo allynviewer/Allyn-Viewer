@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="contents" title="フォント テスト">
+	<text>SansSerifSmall</text>
+	<text>SansSerifMedium</text>
+	<text>SansSerif, no size or style (should be same as medium)</text>
+	<text>SansSerifLarge</text>
+	<text>SansSerifHuge</text>
+	<text>Monospace</text>
+	<text>Monospace size=Large</text>
+	<text>SansSerifLarge style=BOLD</text>
+	<text>SansSerifBold</text>
+	<text>SansSerif style=BOLD (should be same as SansSerifBold)</text>
+	<text>SansSerif style=ITALIC</text>
+	<text>SansSerif style=BOLD|ITALIC</text>
+	<text>SansSerif style=BOLD|ITALIC shadow = DROP_SHADOW_SOFT</text>
+	<text>SansSerif style=UNDERLINE</text>
+	<text>SansSerif shadow=DROP_SHADOW</text>
+	<text>SansSerif shadow=DROP_SHADOW_SOFT</text>
+	<text>DejaVu</text>
+	<text>DejaVu style=BOLD</text>
+	<text>DejaVu style=ITALIC</text>
+	<text>DejaVu style=BOLD|ITALIC</text>
+	<text>DejaVu size=Large style=BOLD|ITALIC</text>
+	<text>Helvetica</text>
+	<text>Helvetica style=BOLD</text>
+	<text>Helvetica style=ITALIC</text>
+	<text>Helvetica style=BOLD|ITALIC</text>
+	<text>Helvetica size=Large style=BOLD|ITALIC</text>
+	<text name="linea">OverrideTest, should be times, から デフォルト/xui/en-us</text>
+	<text>BogusFontName</text>
+</floater>

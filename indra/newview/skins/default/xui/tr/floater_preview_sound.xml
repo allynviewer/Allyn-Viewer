@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview_sound">
+	<line_editor name="desc" />
+	<text name="desc txt">Açıklama:</text>
+	<button name="Sound audition btn" label="Yerel Olarak Oyna" tool_tip="Bu sesi yalnızca sizin duyabileceğiniz şekilde çalın." />
+	<button name="Sound play btn" label="Dünyada Oyna" tool_tip="Başkalarının duyabilmesi için bu sesi çalın." />
+	<string name="Sound: ">Ses:</string>
+</floater>

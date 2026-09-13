@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="bulk_ban_panel" label="Bannir des résidents">
+	<panel.string name="loading">(chargement...)</panel.string>
+	<panel.string name="ban_selection_too_large">Bannissements de groupe non envoyés : trop de résidents sélectionnés. Les bannissements de groupe sont limités à 100 par requête.</panel.string>
+	<panel.string name="ban_not_permitted">Bannissement de groupe non envoyé : vous n'avez pas la capacité « Gérer la liste de bannissement ».</panel.string>
+	<panel.string name="ban_limit_fail">Bannissement de groupe non envoyé : votre groupe a atteint la limite d'enregistrements de bannissement autorisés.</panel.string>
+	<panel.string name="partial_ban">Certains bannissements de groupe n'ont pas été envoyés :
+[REASONS]</panel.string>
+	<panel.string name="ban_failed">Les bannissements de groupe n'ont pas été envoyés :
+[REASONS]</panel.string>
+	<panel.string name="residents_already_banned">- Le(s) résident(s) suivant(s) sont déjà banni(s) : [RESIDENTS].</panel.string>
+	<panel.string name="ban_limit_reached">- Limite de bannissement atteinte, les agents suivants n'ont pas été bannis : [RESIDENTS].</panel.string>
+	<panel.string name="cant_ban_yourself">- Vous ne pouvez pas vous bannir vous-même d'un groupe.</panel.string>
+	<text name="help_text">Vous pouvez sélectionner plusieurs résidents à
+bannir de votre groupe. Cliquez sur « Ouvrir
+le sélecteur de résidents » pour commencer.</text>
+	<button name="add_button" label="Ouvrir le sélecteur de résidents"/>
+	<name_list name="banned_agent_list" tool_tip="Maintenez la touche Ctrl et cliquez sur les noms pour une sélection multiple"/>
+	<button name="remove_button" label="Retirer la sélection de la liste" tool_tip="Retire de la liste de bannissement les résidents sélectionnés ci-dessus"/>
+	<button name="ban_button" label="Bannir les résidents"/>
+	<button name="cancel_button" label="Annuler"/>
+	<string name="GroupBulkBan">Bannissement de groupe</string>
+</panel>

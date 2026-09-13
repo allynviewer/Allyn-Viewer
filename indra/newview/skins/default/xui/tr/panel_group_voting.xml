@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="voting_tab" label="Teklifler">
+	<string name="help_text">
+		Grup Teklifleri fikir edinmek için kullanılabilir
+Grubun ne yapmak istediği ya da nasıl
+grup bir şeyler hissediyor. eğer varsa 
+Uygun yetkilere sahip, teklifler oluşturabilirsiniz,
+açık tekliflere oy verin ve eski teklifleri görüntüleyin.
+	</string>
+	<panel name="open_proposals_container" />
+	<panel name="voting_history_container" />
+	<button name="help_button" label="?" />
+	<text name="proposal_header">Açık Grup Teklifleri</text>
+	<text name="proposal_instructions">Oy vermek istediğiniz teklife çift tıklayın veya yeni bir teklif oluşturmak için Teklif Oluştur'a basın</text>
+	<text name="proposal_lbl">Teklif Açıklaması</text>
+	<text name="proposal_voting_lbl">Teklifin Oylanması Sona Erdi mi?</text>
+	<scroll_list name="proposals" />
+	<button name="btn_proposal" label="Teklif Oluştur" />
+	<button name="btn_view_proposal_item" label="Teklifi Görüntüle" />
+	<text_editor name="proposal_text" />
+	<button name="btn_view_proposal_list" label="Listeyi Görüntüle" />
+	<text name="quorum_lbl">Yeter Sayısı:</text>
+	<spinner name="quorum" tool_tip="Seçim sonuçlarının bağlayıcı olması için gereken toplam oy kullanan üye sayısı." />
+	<text name="quorum_text">[MEMBERS] üyeden oy vermek gerekiyor.</text>
+	<text name="duration_lbl">Süre:</text>
+	<spinner name="duration" tool_tip="Seçim # gün sürecek." />
+	<text name="duration_text">günler</text>
+	<text name="majority_lbl" />
+	<radio_group name="majority" tool_tip="Kazanmak için toplam oyların çoğunluğu gerekiyordu.">
+		<radio_item>Basit çoğunluk</radio_item>
+		<radio_item>3'te 2 çoğunluk</radio_item>
+		<radio_item>Oybirliği</radio_item>
+	</radio_group>
+	<text name="start_lbl">Oylama Başlangıcı:</text>
+	<text name="start_date" />
+	<text name="end_lbl">Oylamanın Bitişi:</text>
+	<text name="end_date" />
+	<button name="btn_submit" label="Teklif Gönder" />
+	<button name="btn_cancel" label="İptal" />
+	<button name="btn_yes" label="Evet" />
+	<button name="btn_no" label="Hayır" />
+	<button name="btn_abstain" label="Çekimser" />
+	<text name="txt">Grup Oylama Geçmişi</text>
+	<text name="instructions">Geçmiş bir oyu çift tıklayın veya bir tanesini seçin ve sonuçları görüntülemek için Öğeyi Görüntüle'yi tıklayın.</text>
+	<text name="history_list_lbl">Geçmiş Oylama Oylaması Sona Erdi</text>
+	<scroll_list name="history_list" />
+	<button name="btn_view_history_item" label="Öğeyi Görüntüle" />
+	<text name="vote_text_lbl">Oy Sonuçları:</text>
+	<text_editor name="vote_text" />
+	<button name="btn_view_history_list" label="Listeyi Görüntüle" />
+	<string name="proposals_header_view_txt">Açık Grup Teklifleri</string>
+	<string name="proposals_header_view_inst">
+		Oy vermek istediğiniz teklife çift tıklayın veya tuşuna basın
+Yeni bir teklif oluşturmak için Teklif Oluştur'u tıklayın.
+	</string>
+	<string name="proposals_header_create_txt">Teklif Oluştur</string>
+	<string name="proposals_header_create_inst">
+		Yeni teklif için Teklif Açıklamasını yazın. değiştirebilirsiniz
+Teklifin kabulü için gereken çoğunluk, süre ve çoğunluk.
+	</string>
+	<string name="proposals_header_vote_txt">Teklif Oyu</string>
+	<string name="proposals_header_vote_inst">
+		Teklife oy vermek için Evet veya Hayır düğmesine basın,
+veya bu teklife oy vermekten kaçınmayı seçin.
+	</string>
+	<string name="proposals_header_voted_inst">Oy verdiniz: [VOTE]</string>
+	<string name="empty_proposal_txt">Oluşturmaya çalıştığınız teklif boş.  Lütfen teklifi oluşturmadan önce doldurun.</string>
+	<string name="proposals_submit_yes_txt">Teklife Evet gönderiliyor...</string>
+	<string name="proposals_submit_no_txt">Teklife Hayır gönderiliyor...</string>
+	<string name="proposals_submit_abstain_txt">Tekliften çekimser kalınıyor...</string>
+	<string name="proposals_submit_new_txt">Yeni teklif gönderiliyor...</string>
+	<string name="vote_recorded">Oyunuz alındı.</string>
+	<string name="vote_previously_recorded">Daha önce oy verdiniz.  Seçim sırasında yalnızca bir kez oy kullanabilirsiniz.</string>
+</panel>

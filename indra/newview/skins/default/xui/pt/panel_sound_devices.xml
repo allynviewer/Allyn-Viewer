@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<panel label="Configuraçõo de dispositivos" name="device_settings_panel">
+	<string name="default_text">Padrõo</string>
+	<string name="name_no_device">Nenhum</string>
+	<string name="name_default_system_device">Dispositivo padrõo do sistema</string>
+	<text name="Input">Entrada</text>
+	<text name="Output">Saída</text>
+	<text name="My volume label">Meu volume:</text>
+	<volume_slider name="mic_volume_slider" tool_tip="Ajuste o nével do microfone"/>
+	<text name="wait_text">Aguarde</text>
+	<text_editor name="mic_test_label">Fale no microfone. As barras verdes mostram o nével; você também deve se ouvir nos alto-falantes.</text_editor>
+</panel>

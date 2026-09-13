@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floatermediafilter" title="Filtre média">
+	<text name="info1">Les domaines en gras figurent dans la liste persistante (c.-à-d. qu'ils sont en liste blanche ou noire).</text>
+	<text name="info2">Les domaines en italique figurent dans la liste de session (c.-à-d. qu'ils sont temporairement autorisés ou refusés).</text>
+	<scroll_list name="whitelist_list">
+		<column name="whitelist_col" label="Domaines ou objets serveur autorisés"/>
+	</scroll_list>
+	<scroll_list name="blacklist_list">
+		<column name="blacklist_col" label="Domaines ou objets serveur bloqués"/>
+	</scroll_list>
+	<button name="add_whitelist" label="Ajouter..." tool_tip="Ajouter un serveur à la liste blanche"/>
+	<button name="remove_whitelist" label="Retirer" tool_tip="Retirer le serveur sélectionné de la liste blanche"/>
+	<button name="clear_lists" label="Effacer les listes" tool_tip="Effacer toutes les listes"/>
+	<button name="show_ips" label="Afficher les IP" tool_tip="Afficher l'IP associée à chaque nom de domaine (le visualiseur se met en pause pendant l'actualisation, à cause des recherches DNS)"/>
+	<button name="add_blacklist" label="Ajouter..." tool_tip="Ajouter un serveur à la liste noire"/>
+	<button name="remove_blacklist" label="Retirer" tool_tip="Retirer le serveur sélectionné de la liste noire"/>
+	<text name="add_text">Nouveau domaine :</text>
+	<check_box name="match_ip" label="Ajouter/retirer l'IP correspondante" tool_tip="Ajouter ou retirer toute IP associée au nom de domaine ajouté ou retiré"/>
+	<line_editor name="input_domain" tool_tip="Saisissez ici la nouvelle URL, le nom de domaine, l'IP ou le chemin du serveur HTTP de l'objet scripté"/>
+	<button name="commit_domain" label="Ajouter" tool_tip="Ajouter à la liste"/>
+</floater>

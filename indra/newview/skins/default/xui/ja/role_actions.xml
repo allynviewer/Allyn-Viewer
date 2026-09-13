@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<role_actions>
+	<action_set name="Membership">
+		<action name="member invite" />
+		<action name="member eject" />
+		<action name="allow ban" />
+		<action name="member options" />
+	</action_set>
+	<action_set name="Roles">
+		<action name="role create" />
+		<action name="role delete" />
+		<action name="role properties" />
+		<action name="role assign member limited" />
+		<action name="role assign member" />
+		<action name="role remove member" />
+		<action name="role change actions" />
+	</action_set>
+	<action_set name="Group Identity">
+		<action name="group change identity" />
+	</action_set>
+	<action_set name="Parcel Management">
+		<action name="land deed" />
+		<action name="land release" />
+		<action name="land set sale info" />
+		<action name="land divide join" />
+	</action_set>
+	<action_set name="Parcel Identity">
+		<action name="land find places" />
+		<action name="land change identity" />
+		<action name="land set landing point" />
+	</action_set>
+	<action_set name="Parcel Settings">
+		<action name="land change media" />
+		<action name="land edit" />
+		<action name="land options" />
+	</action_set>
+	<action_set name="Parcel Powers">
+		<action name="land allow edit land" />
+		<action name="land allow fly" />
+		<action name="land allow create" />
+		<action name="land allow landmark" />
+		<action name="land allow set home" />
+		<action name="land allow host event" />
+	</action_set>
+	<action_set name="Parcel Access">
+		<action name="land manage allowed" />
+		<action name="land manage banned" />
+		<action name="land manage passes" />
+		<action name="land admin" />
+	</action_set>
+	<action_set name="Parcel Content">
+		<action name="land return group owned" />
+		<action name="land return group set" />
+		<action name="land return non group" />
+		<action name="land gardening" />
+	</action_set>
+	<action_set name="Object Management">
+		<action name="object deed" />
+		<action name="object manipulate" />
+		<action name="object set sale" />
+	</action_set>
+	<action_set name="Accounting">
+		<action name="accounting accountable" />
+	</action_set>
+	<action_set name="Notices">
+		<action name="notices send" />
+		<action name="notices receive" />
+	</action_set>
+	<action_set name="Proposals">
+		<action name="proposal start" />
+		<action name="proposal vote" />
+	</action_set>
+	<action_set name="Chat">
+		<action name="join group chat" />
+		<action name="join voice chat" />
+		<action name="moderate group chat" />
+	</action_set>
+	<action_set name="experience_tools_experience">
+		<action name="experience admin" />
+		<action name="experience contributor" />
+	</action_set>
+</role_actions>

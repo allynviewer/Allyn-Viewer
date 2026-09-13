@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Experiences" label="Experience">
+	<panel.string name="trusted_estate_text">Qualsiasi Experience può essere affidabile. Le Experience affidabili hanno il permesso di funzionare su questa proprietà. Inoltre, se la proprietà non consente l'accesso pubblico, i residenti che partecipano a un'Experience affidabile possono entrare e restare finché restano nell'Experience.</panel.string>
+	<panel.string name="allowed_estate_text">Solo le Experience non a livello di grid possono essere consentite. Le Experience consentite hanno il permesso di funzionare su questa proprietà.</panel.string>
+	<panel.string name="blocked_estate_text">Solo le Experience a livello di grid possono essere bloccate. Le Experience bloccate non possono funzionare su questa proprietà.</panel.string>
+	<panel.string name="estate_caption">Le modifiche alle impostazioni in questa scheda avranno effetto su tutte le regioni della proprietà.</panel.string>
+	<panel.string name="allowed_parcel_text">Solo le Experience non a livello di grid possono essere consentite. Le Experience consentite hanno il permesso di funzionare su questo terreno se non sono bloccate dalla proprietà.</panel.string>
+	<panel.string name="blocked_parcel_text">Solo le Experience a livello di grid possono essere bloccate. Le Experience bloccate non possono funzionare su questo terreno.</panel.string>
+</panel>

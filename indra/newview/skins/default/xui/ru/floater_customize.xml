@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater customize" title="Внешность">
+	<tab_container name="customize tab container">
+		<panel name="body_parts_placeholder" label="Части тела" />
+		<panel name="Shape" label="Форма">
+			<icon name="square" />
+			<icon name="icon" />
+			<button name="Revert" label="Сбросить" />
+			<button name="Body" label="Тело" />
+			<button name="Head" label="Голова" />
+			<button name="Eyes" label="Глаза" />
+			<button name="Ears" label="Уши" />
+			<button name="Nose" label="Нос" />
+			<button name="Mouth" label="Рот" />
+			<button name="Chin" label="Подбородок" />
+			<button name="Torso" label="Торс" />
+			<button name="Legs" label="Ноги" />
+			<radio_group name="sex radio">
+				<radio_item name="radio">Женский</radio_item>
+				<radio_item name="radio2">Мужской</radio_item>
+			</radio_group>
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: нельзя изменить</text>
+			<text name="title_loading">[DESC]: загрузка...</text>
+			<text name="title_not_worn">[DESC]: не надето</text>
+			<text name="path">В папке [PATH]</text>
+			<text name="not worn instructions">
+				Наденьте новую форму, перетащив её из инвентаря на аватар. Или создайте новую с нуля и наденьте.
+			</text>
+			<text name="no modify instructions">У вас нет прав на изменение этого предмета.</text>
+			<button name="Create New" label="Создать новую форму" />
+			<text name="avatar_height_label" visible="false">Рост:</text>
+			<text name="avheight" visible="false">[AVHEIGHT]</text>
+			<text name="includes_shoes" visible="false">(включая обувь)</text>
+			<button name="Save" label="Сохранить" />
+			<button name="Save As" label="Сохранить как..." />
+		</panel>
+		<panel name="Skin" label="Кожа">
+			<icon name="square" />
+			<icon name="icon" />
+			<button name="Skin Color" label="Цвет кожи" />
+			<button name="Face Detail" label="Детали лица" />
+			<button name="Makeup" label="Макияж" />
+			<button name="Body Detail" label="Детали тела" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: нельзя изменить</text>
+			<text name="title_loading">[DESC]: загрузка...</text>
+			<text name="title_not_worn">[DESC]: не надето</text>
+			<text name="path">В папке [PATH]</text>
+			<text name="not worn instructions">
+				Наденьте новый скин, перетащив его из инвентаря на аватар. Или создайте новый с нуля и наденьте.
+			</text>
+			<text name="no modify instructions">У вас нет прав на изменение этого предмета.</text>
+			<texture_picker name="Head Tattoos" label="Тату на голове" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<texture_picker name="Upper Tattoos" label="Тату на торсе" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<texture_picker name="Lower Tattoos" label="Тату на ногах" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<button name="Create New" label="Создать новый скин" />
+			<button name="Save" label="Сохранить" />
+			<button name="Save As" label="Сохранить как..." />
+			<button name="Revert" label="Сбросить" />
+		</panel>
+		<panel name="Hair" label="Волосы">
+			<icon name="square" />
+			<icon name="icon" />
+			<button name="Color" label="Цвет" />
+			<button name="Style" label="Стиль" />
+			<button name="Eyebrows" label="Брови" />
+			<button name="Facial" label="Борода" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: нельзя изменить</text>
+			<text name="title_loading">[DESC]: загрузка...</text>
+			<text name="title_not_worn">[DESC]: не надето</text>
+			<text name="path">В папке [PATH]</text>
+			<text name="not worn instructions">
+				Наденьте новые волосы, перетащив их из инвентаря на аватар. Или создайте новые с нуля и наденьте.
+			</text>
+			<text name="no modify instructions">У вас нет прав на изменение этого предмета.</text>
+			<texture_picker name="Texture" label="Текстура" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<button name="Create New" label="Создать новую прическу" />
+			<button name="Save" label="Сохранить" />
+			<button name="Save As" label="Сохранить как..." />
+			<button name="Revert" label="Сбросить" />
+		</panel>
+		<panel name="Eyes" label="Глаза">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: нельзя изменить</text>
+			<text name="title_loading">[DESC]: загрузка...</text>
+			<text name="title_not_worn">[DESC]: не надето</text>
+			<text name="path">В папке [PATH]</text>
+			<text name="not worn instructions">
+				Наденьте новые глаза, перетащив их из инвентаря на аватар. Или создайте новые с нуля и наденьте.
+			</text>
+			<text name="no modify instructions">У вас нет прав на изменение этого предмета.</text>
+			<texture_picker name="Iris" label="Радужка" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<button name="Create New" label="Создать новые глаза" />
+			<button name="Save" label="Сохранить" />
+			<button name="Save As" label="Сохранить как..." />
+			<button name="Revert" label="Сбросить" />
+		</panel>
+		<panel name="clothes_placeholder" label="Одежда" />
+		<panel name="Shirt" label="Рубашка">
+			<icon name="square" />
+			<icon name="icon" />
+			<texture_picker name="Fabric" label="Ткань" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<color_swatch name="Color/Tint" label="Цвет/Оттенок" tool_tip="Нажмите, чтобы открыть палитру цветов" />
+			<button name="Create New" label="Создать новую рубашку" />
+			<button name="Take Off" label="Снять" />
+			<button name="New Layer" label="Новый слой" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="Внутренний слой" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Внешний слой" />
+			<button name="Save" label="Сохранить" />
+			<button name="Save As" label="Сохранить как..." />
+			<button name="Revert" label="Сбросить" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: нельзя изменить</text>
+			<text name="title_loading">[DESC]: загрузка...</text>
+			<text name="title_not_worn">[DESC]: не надето</text>
+			<text name="path">В папке [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Наденьте новую рубашку, перетащив её из инвентаря на аватар. Или создайте новую с нуля и наденьте.
+			</text>
+			<text name="no modify instructions">У вас нет прав на изменение этого предмета.</text>
+		</panel>
+		<panel name="Pants" label="Брюки">
+			<icon name="square" />
+			<icon name="icon" />
+			<texture_picker name="Fabric" label="Ткань" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<color_swatch name="Color/Tint" label="Цвет/Оттенок" tool_tip="Нажмите, чтобы открыть палитру цветов" />
+			<button name="Create New" label="Создать новые брюки" />
+			<button name="Take Off" label="Снять" />
+			<button name="New Layer" label="Новый слой" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="Внутренний слой" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Внешний слой" />
+			<button name="Save" label="Сохранить" />
+			<button name="Save As" label="Сохранить как..." />
+			<button name="Revert" label="Сбросить" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: нельзя изменить</text>
+			<text name="title_loading">[DESC]: загрузка...</text>
+			<text name="title_not_worn">[DESC]: не надето</text>
+			<text name="path">В папке [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Наденьте новые брюки, перетащив их из инвентаря на аватар. Или создайте новые с нуля и наденьте.
+			</text>
+			<text name="no modify instructions">У вас нет прав на изменение этого предмета.</text>
+		</panel>
+		<panel name="Shoes" label="Обувь">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: нельзя изменить</text>
+			<text name="title_loading">[DESC]: загрузка...</text>
+			<text name="title_not_worn">[DESC]: не надето</text>
+			<text name="path">В папке [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Наденьте новую обувь, перетащив её из инвентаря на аватар. Или создайте новую с нуля и наденьте.
+			</text>
+			<text name="no modify instructions">У вас нет прав на изменение этого предмета.</text>
+			<texture_picker name="Fabric" label="Ткань" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<color_swatch name="Color/Tint" label="Цвет/Оттенок" tool_tip="Нажмите, чтобы открыть палитру цветов" />
+			<button name="Create New" label="Создать новую обувь" />
+			<button name="Take Off" label="Снять" />
+			<button name="New Layer" label="Новый слой" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="Внутренний слой" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Внешний слой" />
+			<button name="Save" label="Сохранить" />
+			<button name="Save As" label="Сохранить как..." />
+			<button name="Revert" label="Сбросить" />
+		</panel>
+		<panel name="Socks" label="Носки">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: нельзя изменить</text>
+			<text name="title_loading">[DESC]: загрузка...</text>
+			<text name="title_not_worn">[DESC]: не надето</text>
+			<text name="path">В папке [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Наденьте новые носки, перетащив их из инвентаря на аватар. Или создайте новые с нуля и наденьте.
+			</text>
+			<text name="no modify instructions">У вас нет прав на изменение этого предмета.</text>
+			<texture_picker name="Fabric" label="Ткань" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<color_swatch name="Color/Tint" label="Цвет/Оттенок" tool_tip="Нажмите, чтобы открыть палитру цветов" />
+			<button name="Create New" label="Создать новые носки" />
+			<button name="Take Off" label="Снять" />
+			<button name="New Layer" label="Новый слой" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="Внутренний слой" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Внешний слой" />
+			<button name="Save" label="Сохранить" />
+			<button name="Save As" label="Сохранить как..." />
+			<button name="Revert" label="Сбросить" />
+		</panel>
+		<panel name="Jacket" label="Куртка">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: нельзя изменить</text>
+			<text name="title_loading">[DESC]: загрузка...</text>
+			<text name="title_not_worn">[DESC]: не надето</text>
+			<text name="path">В папке [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Наденьте новую куртку, перетащив её из инвентаря на аватар. Или создайте новую с нуля и наденьте.
+			</text>
+			<text name="no modify instructions">У вас нет прав на изменение этого предмета.</text>
+			<texture_picker name="Upper Fabric" label="Верхняя ткань" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<texture_picker name="Lower Fabric" label="Нижняя ткань" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<color_swatch name="Color/Tint" label="Цвет/Оттенок" tool_tip="Нажмите, чтобы открыть палитру цветов" />
+			<button name="Create New" label="Создать новую куртку" />
+			<button name="Take Off" label="Снять" />
+			<button name="New Layer" label="Новый слой" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="Внутренний слой" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Внешний слой" />
+			<button name="Save" label="Сохранить" />
+			<button name="Save As" label="Сохранить как..." />
+			<button name="Revert" label="Сбросить" />
+		</panel>
+		<panel name="Gloves" label="Перчатки">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: нельзя изменить</text>
+			<text name="title_loading">[DESC]: загрузка...</text>
+			<text name="title_not_worn">[DESC]: не надето</text>
+			<text name="path">В папке [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Наденьте новые перчатки, перетащив их из инвентаря на аватар. Или создайте новые с нуля и наденьте.
+			</text>
+			<text name="no modify instructions">У вас нет прав на изменение этого предмета.</text>
+			<texture_picker name="Fabric" label="Ткань" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<color_swatch name="Color/Tint" label="Цвет/Оттенок" tool_tip="Нажмите, чтобы открыть палитру цветов" />
+			<button name="Create New" label="Создать новые перчатки" />
+			<button name="Take Off" label="Снять" />
+			<button name="New Layer" label="Новый слой" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="Внутренний слой" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Внешний слой" />
+			<button name="Save" label="Сохранить" />
+			<button name="Save As" label="Сохранить как..." />
+			<button name="Revert" label="Сбросить" />
+		</panel>
+		<panel name="Undershirt" label="Майка">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: нельзя изменить</text>
+			<text name="title_loading">[DESC]: загрузка...</text>
+			<text name="title_not_worn">[DESC]: не надето</text>
+			<text name="path">В папке [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Наденьте новую майку, перетащив её из инвентаря на аватар. Или создайте новую с нуля и наденьте.
+			</text>
+			<text name="no modify instructions">У вас нет прав на изменение этого предмета.</text>
+			<texture_picker name="Fabric" label="Ткань" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<color_swatch name="Color/Tint" label="Цвет/Оттенок" tool_tip="Нажмите, чтобы открыть палитру цветов" />
+			<button name="Create New" label="Создать новую майку" />
+			<button name="Take Off" label="Снять" />
+			<button name="New Layer" label="Новый слой" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="Внутренний слой" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Внешний слой" />
+			<button name="Save" label="Сохранить" />
+			<button name="Save As" label="Сохранить как..." />
+			<button name="Revert" label="Сбросить" />
+		</panel>
+		<panel name="Underpants" label="Трусы">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: нельзя изменить</text>
+			<text name="title_loading">[DESC]: загрузка...</text>
+			<text name="title_not_worn">[DESC]: не надето</text>
+			<text name="path">В папке [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Наденьте новые трусы, перетащив их из инвентаря на аватар. Или создайте новые с нуля и наденьте.
+			</text>
+			<text name="no modify instructions">У вас нет прав на изменение этого предмета.</text>
+			<texture_picker name="Fabric" label="Ткань" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<color_swatch name="Color/Tint" label="Цвет/Оттенок" tool_tip="Нажмите, чтобы открыть палитру цветов" />
+			<button name="Create New" label="Создать новые трусы" />
+			<button name="Take Off" label="Снять" />
+			<button name="New Layer" label="Новый слой" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="Внутренний слой" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Внешний слой" />
+			<button name="Save" label="Сохранить" />
+			<button name="Save As" label="Сохранить как..." />
+			<button name="Revert" label="Сбросить" />
+		</panel>
+		<panel name="Skirt" label="Юбка">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: нельзя изменить</text>
+			<text name="title_loading">[DESC]: загрузка...</text>
+			<text name="title_not_worn">[DESC]: не надето</text>
+			<text name="path">В папке [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Наденьте новую юбку, перетащив её из инвентаря на аватар. Или создайте новую с нуля и наденьте.
+			</text>
+			<text name="no modify instructions">У вас нет прав на изменение этого предмета.</text>
+			<texture_picker name="Fabric" label="Ткань" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<color_swatch name="Color/Tint" label="Цвет/Оттенок" tool_tip="Нажмите, чтобы открыть палитру цветов" />
+			<button name="Create New" label="Создать новую юбку" />
+			<button name="Take Off" label="Снять" />
+			<button name="New Layer" label="Новый слой" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="Внутренний слой" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Внешний слой" />
+			<button name="Save" label="Сохранить" />
+			<button name="Save As" label="Сохранить как..." />
+			<button name="Revert" label="Сбросить" />
+		</panel>
+		<panel name="Tattoo" label="Тату">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: нельзя изменить</text>
+			<text name="title_loading">[DESC]: загрузка...</text>
+			<text name="title_not_worn">[DESC]: не надето</text>
+			<text name="path">В папке [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Наденьте новую тату, перетащив её из инвентаря на аватар. Или создайте новую с нуля и наденьте.
+			</text>
+			<text name="no modify instructions">У вас нет прав на изменение этого предмета.</text>
+			<texture_picker name="Head Tattoo" label="Тату На Голове" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<texture_picker name="Upper Tattoo" label="Верхняя Татуировка" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<texture_picker name="Lower Tattoo" label="Нижняя Тату" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<color_swatch name="Color/Tint" label="Цвет/Оттенок" tool_tip="Нажмите, чтобы открыть палитру цветов" />
+			<button name="Create New" label="Создать новую татуировку" />
+			<button name="Take Off" label="Снять" />
+			<button name="New Layer" label="Новый слой" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="Внутренний слой" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Внешний слой" />
+			<button name="Save" label="Сохранить" />
+			<button name="Save As" label="Сохранить как..." />
+			<button name="Revert" label="Сбросить" />
+		</panel>
+		<panel name="Alpha" label="Альфа">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: нельзя изменить</text>
+			<text name="title_loading">[DESC]: загрузка...</text>
+			<text name="title_not_worn">[DESC]: не надето</text>
+			<text name="path">В папке [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Наденьте новую альфа-маску, перетащив её из инвентаря на аватар. Или создайте новую с нуля и наденьте.
+			</text>
+			<text name="no modify instructions">У вас нет прав на изменение этого предмета.</text>
+			<texture_picker name="Head Alpha" label="Альфа головы" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<texture_picker name="Upper Alpha" label="Альфа торса" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<texture_picker name="Lower Alpha" label="Альфа ног" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<check_box name="head alpha texture invisible" />
+			<check_box name="upper alpha texture invisible" />
+			<check_box name="lower alpha texture invisible" />
+			<texture_picker name="Hair Alpha" label="Альфа волос" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<texture_picker name="Eye Alpha" label="Альфа глаз" tool_tip="Нажмите, чтобы выбрать картинку" />
+			<check_box name="hair alpha texture invisible" />
+			<check_box name="eye alpha texture invisible" />
+			<button name="Create New" label="Создать новую альфу" />
+			<button name="Take Off" label="Снять" />
+			<button name="New Layer" label="Новый слой" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="Внутренний слой" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Внешний слой" />
+			<button name="Save" label="Сохранить" />
+			<button name="Save As" label="Сохранить как..." />
+			<button name="Revert" label="Сбросить" />
+		</panel>
+		<panel name="Universal" label="Универсальный">
+			<icon name="square" />
+			<icon name="icon" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: нельзя изменить</text>
+			<text name="title_loading">[DESC]: загрузка...</text>
+			<text name="title_not_worn">[DESC]: не надето</text>
+			<text name="path">В папке [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<scroll_container name="tab_container">
+				<panel name="tab_panel">
+					<text name="not worn instructions">
+						Наденьте универсальный слой, перетащив его из инвентаря на аватар. Или создайте новый с нуля и наденьте.
+					</text>
+					<text name="no modify instructions">У вас нет прав на изменение этого предмета.</text>
+					<texture_picker name="Head Universal Tattoo" label="Тату На Голове" tool_tip="Нажмите, чтобы выбрать картинку" />
+					<texture_picker name="Upper Universal Tattoo" label="Верхняя Татуировка" tool_tip="Нажмите, чтобы выбрать картинку" />
+					<texture_picker name="Lower Universal Tattoo" label="Нижняя Тату" tool_tip="Нажмите, чтобы выбрать картинку" />
+					<texture_picker name="Skirt Tattoo" label="Тату Юбка" tool_tip="Нажмите, чтобы выбрать картинку" />
+					<texture_picker name="Hair Tattoo" label="Татуировка Волос" tool_tip="Нажмите, чтобы выбрать картинку" />
+					<texture_picker name="Eyes Tattoo" label="Тату Глаза" tool_tip="Нажмите, чтобы выбрать картинку" />
+					<texture_picker name="Left Arm Tattoo" label="Татуировка на левой руке" tool_tip="Нажмите, чтобы выбрать картинку" />
+					<texture_picker name="Left Leg Tattoo" label="Татуировка на левой ноге" tool_tip="Нажмите, чтобы выбрать картинку" />
+					<texture_picker name="Aux1 Tattoo" label="Тату AUX1" tool_tip="Нажмите, чтобы выбрать картинку" />
+					<texture_picker name="Aux2 Tattoo" label="Тату Aux2" tool_tip="Нажмите, чтобы выбрать картинку" />
+					<texture_picker name="Aux3 Tattoo" label="Тату Aux3" tool_tip="Нажмите, чтобы выбрать картинку" />
+					<color_swatch name="Color/Tint" label="Цвет/Оттенок" tool_tip="Нажмите, чтобы открыть палитру цветов" />
+				</panel>
+			</scroll_container>
+			<button name="Create New" label="Создать новый универсальный" />
+			<button name="Take Off" label="Снять" />
+			<button name="New Layer" label="Новый слой" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="Внутренний слой" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Внешний слой" />
+			<button name="Save" label="Сохранить" />
+			<button name="Save As" label="Сохранить как..." />
+			<button name="Revert" label="Сбросить" />
+		</panel>
+		<panel name="Physics" label="Физика">
+			<icon name="square" />
+			<icon name="icon" />
+			<button name="Belly Bounce" label="Подпрыгивание живота" />
+			<button name="Breast Bounce" label="Подпрыгивание груди" />
+			<button name="Breast Cleavage" label="Ложбинка" />
+			<button name="Breast Sway" label="Раскачивание груди" />
+			<button name="Butt Bounce" label="Подпрыгивание ягодиц" />
+			<button name="Butt Sway" label="Раскачивание ягодиц" />
+			<button name="Advanced Parameters" label="Расширенные параметры" />
+			<button name="Take Off" label="Снять" />
+			<button name="New Layer" label="Новый слой" />
+			<button name="Arrow Left" label="◀️◀️" tool_tip="Внутренний слой" />
+			<button name="Arrow Right" label="▶️▶️" tool_tip="Внешний слой" />
+			<text name="title">[DESC]</text>
+			<text name="title_no_modify">[DESC]: нельзя изменить</text>
+			<text name="title_loading">[DESC]: загрузка...</text>
+			<text name="title_not_worn">[DESC]: не надето</text>
+			<text name="path">В папке [PATH]</text>
+			<tab_container name="layer_tabs" />
+			<text name="not worn instructions">
+				Наденьте новую физику, перетащив её из инвентаря на аватар. Или создайте новую с нуля и наденьте.
+			</text>
+			<text name="no modify instructions">У вас нет прав на изменение этого предмета.</text>
+			<button name="Create New" label="Создать новую физику" />
+			<button name="Save" label="Сохранить" />
+			<button name="Save As" label="Сохранить как..." />
+			<button name="Revert" label="Сбросить" />
+		</panel>
+	</tab_container>
+	<scroll_container name="panel_container" />
+	<text name="AvatarHeightText" visible="false">Рост аватара:</text>
+	<text name="HeightTextM" visible="false">(метрический)</text>
+	<text name="HeightTextI" visible="false">(футы)</text>
+	<button name="Import" label="Импорт" tool_tip="Импортировать в выбранную одежду; она должна быть изменяемой" />
+	<button name="Export" label="Экспорт" tool_tip="Экспортировать выбранную одежду; нужны права копирования, изменения и передачи, и вы должны быть автором" />
+	<button name="Cancel" label="Отмена" />
+	<button name="Ok" label="ОК" />
+	<flyout_button name="Make Outfit" label="Сделать наряд..." />
+	<string name="Save changes to" />
+	<string name="No Outfit" />
+	<string name="Changing outfits" />
+</floater>

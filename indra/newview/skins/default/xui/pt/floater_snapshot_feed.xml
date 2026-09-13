@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_snapshot_profile" title="Publicar no feed do meu perfil">
+	<text_editor name="caption">Digite sua mensagem aqui.</text_editor>
+	<check_box name="add_location_cb" label="Incluir localização"/>
+	<button name="cancel_btn" label="Cancelar"/>
+	<button name="post_btn" label="Publicar"/>
+	<string name="default_message">Clique no link 'snapshot' acima para ver o original maior.</string>
+	<string name="upload_message">&quot;Enviando...&quot;</string>
+</floater>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="buy land" title="Arsa Satın Al">
+	<text name="region_name_label">Bölge:</text>
+	<text name="region_name_text">(bilinmiyor)</text>
+	<text name="region_type_label">Tür:</text>
+	<text name="region_type_text">(bilinmiyor)</text>
+	<text name="estate_name_label">Emlak:</text>
+	<text name="estate_name_text">(bilinmiyor)</text>
+	<text name="estate_owner_label">Mülk Sahibi:</text>
+	<name_box name="estate_owner_text">(bilinmiyor)</name_box>
+	<text name="resellable_changeable_label">Bu bölgede satın alınan arazi:</text>
+	<text name="resellable_clause">Yeniden satılabilir veya satılmayabilir.</text>
+	<text name="changeable_clause">Birleştirilebilir veya bölünmeyebilir veya alt bölümlere ayrılabilir.</text>
+	<text name="covenant_text">Emlak Sözleşmesini kabul etmelisiniz:</text>
+	<text name="covenant_timestamp_text" />
+	<text_editor name="covenant_editor">Yükleniyor...</text_editor>
+	<check_box name="agree_covenant" label="Yukarıda Tanımlanan Sözleşmeyi Kabul Ediyorum." />
+	<texture_picker name="info_image" />
+	<text name="info_parcel_label">Parsel:</text>
+	<text name="info_parcel">Scotopteryx 138,204</text>
+	<text name="info_size_label">Boyut:</text>
+	<text name="info_size">1024 m2</text>
+	<text name="info_price_label">Fiyat:</text>
+	<text name="info_price">
+		L$ 1500
+(L$ 1,1/m2)
+nesnelerle birlikte satılır
+	</text>
+	<text name="info_action">Bu araziyi satın almak şunları sağlayacaktır:</text>
+	<icon name="step_error" />
+	<text name="error_message">Bir şeyler doğru değil.</text>
+	<button name="error_web" label="Web sitesine git" />
+	<icon name="step_1" />
+	<text name="account_action">Sizi premium üyeliğe yükseltin.</text>
+	<text name="account_reason">Yalnızca premium üyeler arazi sahibi olabilir.</text>
+	<combo_box name="account_level">
+		<combo_item name="US$9.95/month,billedmonthly">Aylık 9,95 ABD Doları, aylık faturalandırılır</combo_item>
+		<combo_item name="US$7.50/month,billedquarterly">Aylık 7,50 ABD Doları, üç ayda bir faturalandırılır</combo_item>
+		<combo_item name="US$6.00/month,billedannually">Aylık 6,00 ABD Doları, yıllık olarak faturalandırılır</combo_item>
+	</combo_box>
+	<icon name="step_2" />
+	<text name="land_use_action">Aylık arazi kullanım ücretlerinizi ayda 40 ABD Dolarına çıkarın.</text>
+	<text name="land_use_reason">
+		1309 m2'ye sahipsiniz. arazi. 
+Bu parsel 512 m2'dir. arazi.
+	</text>
+	<icon name="step_3" />
+	<text name="purchase_action">Arazi için Joe Resident L$ 4000 ödeyin</text>
+	<text name="currency_reason">L$ 2.100'ünüz var.</text>
+	<text name="currency_action">Ek [CURRENCY] satın alın</text>
+	<line_editor name="currency_amt" />
+	<text name="currency_est">yaklaşık olarak [REALCURRENCY] [AMOUNT2]</text>
+	<text name="currency_balance">L$ 2.100'ünüz var.</text>
+	<check_box name="remove_contribution" label="Gruptan [AMOUNT] metrekarelik katkıyı kaldırın." />
+	<button name="buy_btn" label="Satın alma" />
+	<button name="cancel_btn" label="İptal" />
+	<string name="can_resell">Yeniden satılabilir.</string>
+	<string name="can_not_resell">Tekrar satılamaz.</string>
+	<string name="can_change">Birleştirilebilir veya alt bölümlere ayrılabilir.</string>
+	<string name="can_not_change">Birleştirilemez veya alt bölümlere ayrılamaz.</string>
+	<string name="cant_buy_for_group">Aktif grubunuz için arazi satın alma izniniz yok.</string>
+	<string name="no_land_selected">Arazi seçilmedi.</string>
+	<string name="multiple_parcels_selected">
+		Birden fazla farklı parsel seçildi. 
+Daha küçük bir alan seçmeyi deneyin.
+	</string>
+	<string name="no_permission">Aktif grubunuz için arazi satın alma izniniz yok.</string>
+	<string name="parcel_not_for_sale">Seçilen parsel satılık değildir.</string>
+	<string name="group_already_owns">Grup zaten parselin sahibidir.</string>
+	<string name="you_already_own">Zaten parselin sahibisiniz.</string>
+	<string name="set_to_sell_to_other">Seçilen parsel başka bir tarafa satılacak şekilde ayarlanmıştır.</string>
+	<string name="no_public_land">Seçilen alanda kamu arazisi bulunmamaktadır.</string>
+	<string name="not_owned_by_you">
+		Başka bir kullanıcıya ait olan arazi seçilir. 
+Daha küçük bir alan seçmeyi deneyin.
+	</string>
+	<string name="processing">
+		Satın alma işleminiz işleniyor...
+ 
+(Bu bir veya iki dakika sürebilir.)
+	</string>
+	<string name="fetching_error">Arazi satın alma bilgileri alınırken bir hata oluştu.</string>
+	<string name="buying_will">Bu araziyi satın almak şunları sağlayacaktır:</string>
+	<string name="buying_for_group">Grup için arazi satın almak:</string>
+	<string name="cannot_buy_now">Şu anda satın alamıyorum:</string>
+	<string name="not_for_sale">Satılık değil:</string>
+	<string name="none_needed">hiçbiri gerekli değil</string>
+	<string name="must_upgrade">Hesabınızın kendi arazinize yükseltilmesi gerekiyor.</string>
+	<string name="cant_own_land">Hesabınız arazi sahibi olabilir.</string>
+	<string name="land_holdings">[BUYER] m2'ye sahipsiniz. arazi.</string>
+	<string name="pay_to_for_land">Bu arazi için [CURRENCY] [AMOUNT] ile [SELLER] arasında ödeme yapın</string>
+	<string name="buy_for_US">Yaklaşık olarak [CURRENCY] [AMOUNT] satın alın. [REALCURRENCY] [AMOUNT2],</string>
+	<string name="parcel_meters">Bu parsel [AMOUNT] m2'dir.</string>
+	<string name="premium_land">Bu arazi premiumdur ve [AMOUNT] m2 olarak ücretlendirilecektir.</string>
+	<string name="discounted_land">Bu arsa indirimli olup [AMOUNT] m2 olarak ücretlendirilecektir.</string>
+	<string name="meters_supports_object">
+		[AMOUNT] metrekare
+[AMOUNT2] nesnelerini destekler
+	</string>
+	<string name="sold_with_objects">nesnelerle birlikte satılır</string>
+	<string name="sold_without_objects">nesneler dahil değildir</string>
+	<string name="info_price_string">
+		[CURRENCY] [PRICE]
+([CURRENCY] [PRICE_PER_SQM]/m2)
+[SOLD_WITH_OBJECTS]
+	</string>
+	<string name="insufficient_land_credits">[GROUP] grubu, satın alma işlemi tamamlanmadan önce bu parseli karşılamak için yeterli miktarda arazi kullanım kredisine ihtiyaç duyacaktır.</string>
+	<string name="have_enough_lindens">Bu araziyi satın almak için yeterli olan [CURRENCY] [AMOUNT] var.</string>
+	<string name="not_enough_lindens">Yalnızca [CURRENCY] [AMOUNT] hakkınız var ve [CURRENCY] [AMOUNT2] daha fazlasına ihtiyacınız var.</string>
+	<string name="balance_left">Satın alma işleminden sonra [CURRENCY] [AMOUNT] hakkınız kalacak.</string>
+	<string name="balance_needed">Bu araziyi karşılayabilmek için en az [CURRENCY] [AMOUNT] satın almanız gerekiyor.</string>
+	<string name="no_parcel_selected">(parsel seçilmedi)</string>
+	<string name="buy_currency">Yaklaşık olarak [CURRENCY] [LINDENS] satın alın. [REALCURRENCY] [USD]</string>
+</floater>

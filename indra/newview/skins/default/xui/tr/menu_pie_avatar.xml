@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Avatar Pie">
+	<menu_item_call name="Profile..." label="Profil..." />
+	<menu_item_call name="Avatar Mute" label="Sessiz" />
+	<menu_item_call name="Go To" label="Git" />
+	<menu_item_call name="abuse" label="Rapor..." />
+	<menu_item_call name="Add Friend" label="Arkadaş Ekle..." />
+	<menu_item_call name="Pay..." label="Ödeme..." />
+	<pie_menu name="More" label="Daha Fazla">
+		<menu_item_call name="Freeze..." label="Dondur..." />
+		<menu_item_call name="Give Card" label="Kart Ver" />
+		<menu_item_call name="Invite..." label="Grup Daveti..." />
+		<pie_menu name="Tools" label="Araçlar">
+			<menu_item_call name="Reload Textures" label="Yeniden yükle" />
+			<menu_item_call name="Reset Skeleton" label="Reset Skeleton" />
+			<menu_item_call name="Reset Skeleton And Animations" label="Reset Skeleton And Animations" />
+			<menu_item_call name="ScriptCount" label="S. Sayısı" />
+			<menu_item_call name="CopyUUID" label="UUID'yi kopyala" />
+			<menu_item_call name="ClientID" label="Müşteri Kimliği" />
+			<menu_item_call name="Derender" label="Derender" />
+		</pie_menu>
+		<menu_item_call name="Eject..." label="Çıkar..." />
+		<menu_item_call name="Object Inspect" label="İncele" />
+		<menu_item_call name="Follow" label="Takip et" />
+	</pie_menu>
+	<menu_item_call name="Send IM..." label="Anlık ileti gönder..." />
+</pie_menu>

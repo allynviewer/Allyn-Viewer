@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="WindLight floater" title="Editor de céu avançado">
+	<text name="KeyFramePresetsText">Presets de céu:</text>
+	<button name="WLNewPreset" label="Novo" label_selected="Novo" />
+	<button name="WLSavePreset" label="Salvar" label_selected="Salvar" />
+	<button name="WLDeletePreset" label="Excluir" label_selected="Excluir" />
+	<button name="WLDayCycleMenuButton" label="Ciclo do dia" label_selected="Ciclo do dia" />
+	<tab_container name="WindLight Tabs">
+		<panel name="Atmosphere" label="Atmosfera">
+			<text name="BHText">Horizonte azul</text>
+			<text name="BDensText">Horizonte da neblina</text>
+			<text name="BDensText2">Densidade de azul</text>
+			<text name="HDText">Densidade da neblina</text>
+			<text name="DensMultText">Multiplicador de densidade</text>
+			<text name="WLDistanceMultText">Multiplicador de distância</text>
+			<text name="MaxAltText">Altitude máxima</text>
+		</panel>
+		<panel name="Lighting" label="Iluminação">
+			<text name="SLCText">Cor do sol/lua</text>
+			<text name="TODText">Posição do sol/lua</text>
+			<text name="WLAmbientText">Ambiente</text>
+			<text name="WLEastAngleText">Ângulo leste</text>
+			<text name="SunGlowText">Brilho do sol</text>
+			<slider name="WLGlowB" label="Foco" />
+			<slider name="WLGlowR" label="Tamanho" />
+			<text name="SceneGammaText">Gama da cena</text>
+			<text name="WLStarText">Brilho das estrelas</text>
+		</panel>
+		<panel name="Clouds" label="Nuvens">
+			<text name="WLCloudColorText">Cor das nuvens</text>
+			<text name="WLCloudColorText2">XY/densidade das nuvens</text>
+			<text name="WLCloudCoverageText">Cobertura das nuvens</text>
+			<text name="WLCloudScaleText">Escala das nuvens</text>
+			<text name="WLCloudDetailText">Detalhe das nuvens (XY/densidade)</text>
+			<text name="WLCloudScrollXText">Rolagem X</text>
+			<check_box name="WLCloudLockX" label="Travar" />
+			<text name="WLCloudScrollYText">Rolagem Y</text>
+			<check_box name="WLCloudLockY" label="Travar" />
+			<check_box name="DrawClassicClouds" label="Desenhar nuvens clássicas" />
+			<text name="cloud_settings_title">Textura</text>
+			<combo_box name="cloud_settings_preset_combo">
+				<combo_box.item name="altocumulus_cloud" label="Altocúmulo" />
+				<combo_box.item name="cumulonimbus_cloud" label="Cumulonimbus" />
+				<combo_box.item name="default_cloud" label="Padrão" />
+				<combo_box.item name="layered_cloud" label="Em camadas" />
+			</combo_box>
+		</panel>
+	</tab_container>
+</floater>

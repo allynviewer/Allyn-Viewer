@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="texture picker" title="Pick: テクスチャ">
+	<string name="choose_picture">画像をクリックして選択</string>
+	<text name="Multiple">複数</text>
+	<text name="unknown">Dimensions:[DIMENSIONS]</text>
+	<button name="Default" label="デフォルト" />
+	<button name="Alpha" label="アルファ" />
+	<button name="Blank" label="空白" />
+	<button name="Invisible" label="不可視" />
+	<button name="None" label="なし" />
+	<check_box name="show_folders_check" label="フォルダを表示" />
+	<check_box name="apply_immediate_check" label="すぐに適用" />
+	<button name="Pipette" />
+	<button name="Cancel" label="キャンセル" />
+	<button name="Select" label="選択" />
+	<line_editor name="texture_uuid" />
+	<button name="ApplyUUID" label="適用 UUID" />
+	<string name="pick title">選択:</string>
+	<tab_container name="actions_tab_container">
+		<panel name="server_tab" label="インベントリ">
+			<filter_editor name="inventory search editor" label="名前で検索:" />
+			<inventory_panel name="inventory panel" />
+		</panel>
+		<panel name="local_tab" label="ローカル">
+			<text name="select_local">コンピュータ上のテクスチャを選んでワールド内でプレビューします</text>
+			<button name="Add" label="追加" />
+			<button name="Remove" label="削除" />
+			<button name="Browser" label="プロパティ..." />
+			<scroll_list name="local_name_list">
+				<column name="unit_name" label="名前" />
+				<column name="unit_id_HIDDEN" label="ID" />
+			</scroll_list>
+		</panel>
+		<panel name="bake" label="Bake">
+			<scroll_list name="l_bake_use_texture_combo_box" tool_tip="ベイクテクスチャを選択">
+				<scroll_list.column name="type" label="タイプ" />
+				<scroll_list.row name="BAKED_HEAD">
+					<columns name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_UPPER">
+					<column name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_LOWER">
+					<column name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_EYES">
+					<column name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_SKIRT">
+					<column name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_HAIR">
+					<column name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_LEFTARM">
+					<column name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_LEFTLEG">
+					<column name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_AUX1">
+					<column name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_AUX2">
+					<column name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_AUX3">
+					<column name="type" />
+				</scroll_list.row>
+			</scroll_list>
+		</panel>
+	</tab_container>
+</floater>

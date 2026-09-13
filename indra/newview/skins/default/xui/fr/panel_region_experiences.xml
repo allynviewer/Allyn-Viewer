@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Experiences" label="Expériences">
+	<panel.string name="trusted_estate_text">Toute expérience peut être de confiance.
+
+Les expériences de confiance ont la permission
+de s'exécuter sur cet estate.
+
+De plus, si l'estate n'autorise pas
+l'accès public, les résidents
+participant à une
+expérience de confiance peuvent entrer
+et rester tant qu'ils sont
+dans l'expérience.</panel.string>
+	<panel.string name="allowed_estate_text">Seules les expériences qui ne sont pas
+à l'échelle de la grille peuvent être autorisées.
+
+Les expériences autorisées ont la permission
+de s'exécuter sur cet estate.</panel.string>
+	<panel.string name="blocked_estate_text">Seules les expériences à l'échelle
+de la grille peuvent être bloquées.
+
+Les expériences bloquées ne peuvent pas
+s'exécuter sur cet estate.</panel.string>
+	<panel.string name="estate_caption">Les modifications de cet onglet affecteront toutes les régions de l'estate.</panel.string>
+	<panel.string name="allowed_parcel_text">Seules les expériences qui ne sont pas
+à l'échelle de la grille peuvent être autorisées.
+
+Les expériences autorisées ont
+la permission de s'exécuter sur cette parcelle
+si elles ne sont pas bloquées par l'estate.</panel.string>
+	<panel.string name="blocked_parcel_text">Seules les expériences à l'échelle
+de la grille peuvent être bloquées.
+
+Les expériences bloquées ne peuvent pas
+s'exécuter sur cette parcelle.</panel.string>
+</panel>

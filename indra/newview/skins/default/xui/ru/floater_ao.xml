@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="geminifloater" title="Настройки AO">
+	<drop_target name="ao_notecard" label="Перетащите ноуткард ZHAO сюда" tool_tip="Перетащите сюда ноуткард ZHAO. Анимации должны быть в той же папке инвентаря, что и ноуткард."/>
+	<button name="opencard" label="" tool_tip="Открыть текущий ноуткард AO"/>
+	<button name="reloadcard" label="" tool_tip="Перезагрузить анимации из ноуткарда AO"/>
+	<button name="newcard" label="" tool_tip="Создать новый шаблон ноуткарда AO в инвентаре"/>
+	<check_box name="AOEnabled" label="Включить переопределение анимаций" tool_tip="Включает или выключает переопределение анимаций"/>
+	<check_box name="AOSwimEnabled" label="Переопределять плавание" tool_tip="Заменяет анимации полёта плаванием под водой"/>
+	<check_box name="AOSitsEnabled" label="Переопределять сидение" tool_tip="Переопределяет анимации сидения и сидения на земле"/>
+	<text name="buttons_desc">Стойки:</text>
+	<combo_box name="stands" tool_tip="Текущая анимация стойки"/>
+	<button name="prevstand" label="" tool_tip="Предыдущая стойка"/>
+	<button name="nextstand" label="" tool_tip="Следующая стойка"/>
+	<check_box name="AOStandRandomize" label="Случайный порядок стоек" tool_tip="Меняет стойки в случайном порядке, а не по очереди"/>
+	<check_box name="AONoStandsInMouselook" label="Без стоек в мауслуке" tool_tip="Останавливает анимации стоек в режиме мауслука"/>
+	<check_box name="ao_remote_checkbox" label="Показать панель AO" tool_tip="Показывает пульт AO на нижней панели"/>
+	<spinner name="standtime" label="Время стойки:" tool_tip="Длительность каждой стойки в секундах"/>
+	<button name="more_btn" label="Ещё &gt;&gt;" label_selected="&lt;&lt; Меньше" tool_tip="Показать или скрыть анимации по умолчанию"/>
+	<tab_container name="tabcontainer" label="По умолчанию">
+		<panel name="tabdefaultanims" label="Анимации по умолчанию">
+			<text name="textdefaultwalk">Ходьба:</text>
+			<combo_box name="walks" tool_tip="Анимация ходьбы по умолчанию"/>
+			<text name="textdefaultrun">Бег:</text>
+			<combo_box name="runs" tool_tip="Анимация бега по умолчанию"/>
+			<text name="textdefaultjump">Прыжок:</text>
+			<combo_box name="jumps" tool_tip="Анимация прыжка по умолчанию"/>
+			<text name="textdefaultsit">Сидеть:</text>
+			<combo_box name="sits" tool_tip="Анимация сидения по умолчанию"/>
+			<text name="textdefaultgsit">Сесть на землю:</text>
+			<combo_box name="gsits" tool_tip="Анимация сидения на земле по умолчанию"/>
+			<text name="textdefaultcrouch">Присесть:</text>
+			<combo_box name="crouchs" tool_tip="Анимация приседания по умолчанию"/>
+			<text name="textdefaultcrouchwalk">Идти присев:</text>
+			<combo_box name="cwalks" tool_tip="Анимация ходьбы присев по умолчанию"/>
+			<text name="textdefaultfall">Падение:</text>
+			<combo_box name="falls" tool_tip="Анимация падения по умолчанию"/>
+			<text name="textdefaulthover">Парение:</text>
+			<combo_box name="hovers" tool_tip="Анимация парения по умолчанию"/>
+			<text name="textdefaultfly">Полёт:</text>
+			<combo_box name="flys" tool_tip="Анимация полёта по умолчанию"/>
+			<text name="textdefaultflyslow">Медленный полёт:</text>
+			<combo_box name="flyslows" tool_tip="Анимация медленного полёта по умолчанию"/>
+			<text name="textdefaultflyup">Взлёт:</text>
+			<combo_box name="flyups" tool_tip="Анимация полёта вверх по умолчанию"/>
+			<text name="textdefaultflydown">Спуск:</text>
+			<combo_box name="flydowns" tool_tip="Анимация полёта вниз по умолчанию"/>
+			<text name="textdefaultland">Приземление:</text>
+			<combo_box name="lands" tool_tip="Анимация приземления по умолчанию"/>
+			<text name="textdefaultstandup">Встать:</text>
+			<combo_box name="standups" tool_tip="Анимация вставания по умолчанию"/>
+			<text name="textdefaultprejump">Подготовка к прыжку:</text>
+			<combo_box name="prejumps" tool_tip="Анимация подготовки к прыжку по умолчанию"/>
+			<text name="textdefaultfloat">Плаванье на месте:</text>
+			<combo_box name="floats" tool_tip="Анимация плавания на месте по умолчанию"/>
+			<text name="textdefaultswim">Плавание:</text>
+			<combo_box name="swims" tool_tip="Анимация плавания по умолчанию"/>
+			<text name="textdefaultswimup">Всплытие:</text>
+			<combo_box name="swimups" tool_tip="Анимация всплытия по умолчанию"/>
+			<text name="textdefaultswimdown">Погружение:</text>
+			<combo_box name="swimdowns" tool_tip="Анимация погружения по умолчанию"/>
+			<text name="textdefaulttyping">Печать:</text>
+			<combo_box name="typings" tool_tip="Анимация печати по умолчанию"/>
+		</panel>
+	</tab_container>
+</floater>

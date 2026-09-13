@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="menu_marketplace_sort">
+	<menu_item_check name="sort_by_name" label="Nach Name sortieren"/>
+	<menu_item_check name="sort_by_recent" label="Nach Aktualität sortieren"/>
+	<menu_item_check name="sort_by_stock_amount" label="Nach Lagerbestand sortieren (niedrig bis hoch)"/>
+	<menu_item_check name="show_only_listing_folders" label="Nur Angebotsordner anzeigen"/>
+</menu>

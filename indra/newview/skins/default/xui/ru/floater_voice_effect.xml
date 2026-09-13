@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="voice_effects" title="Морфинг голоса">
+	<string name="no_voice_effect">(Без голосового преобразования)</string>
+	<string name="active_voice_effect">(Активный)</string>
+	<string name="unsubscribed_voice_effect">(Отписался)</string>
+	<string name="new_voice_effect">(Новый!)</string>
+	<string name="effect_Arena">Арена</string>
+	<string name="effect_Beast">Зверь</string>
+	<string name="effect_Buff">Бафф</string>
+	<string name="effect_Buzz">Гул</string>
+	<string name="effect_Camille">Камилла</string>
+	<string name="effect_Creepy">Противный</string>
+	<string name="effect_CreepyBot">CreepyBot</string>
+	<string name="effect_Cyber">Cyber</string>
+	<string name="effect_DeepBot">ДипБот</string>
+	<string name="effect_Demon">Демон</string>
+	<string name="effect_Female Elf">Female Elf</string>
+	<string name="effect_Flirty">Кокетливый</string>
+	<string name="effect_Foxy">Фокси</string>
+	<string name="effect_Halloween 2010 Bonus">Halloween_2010_Bonus</string>
+	<string name="effect_Helium">Гелий</string>
+	<string name="effect_Husky">Хаски</string>
+	<string name="effect_Husky Whisper">Husky Whisper</string>
+	<string name="effect_Intercom">Intercom</string>
+	<string name="effect_Julia">Julia</string>
+	<string name="effect_Lo Lilt">Lo Lilt</string>
+	<string name="effect_Macho">Macho</string>
+	<string name="effect_Micro">Micro</string>
+	<string name="effect_Mini">Mini</string>
+	<string name="effect_Model">Model</string>
+	<string name="effect_Nano">Nano</string>
+	<string name="effect_Nightmare">Кошмар</string>
+	<string name="effect_PopBot">ПопБот</string>
+	<string name="effect_Rachel">Рэйчел</string>
+	<string name="effect_Radio">Radio</string>
+	<string name="effect_Robot">Robot</string>
+	<string name="effect_Roxanne">Роксана</string>
+	<string name="effect_Rumble">Rumble</string>
+	<string name="effect_Sabrina">Sabrina</string>
+	<string name="effect_Samantha">Саманта</string>
+	<string name="effect_Sexy">Sexy</string>
+	<string name="effect_Shorty">Коротышка</string>
+	<string name="effect_Smaller">Smaller</string>
+	<string name="effect_Sneaky">Подлый</string>
+	<string name="effect_Stallion">Жеребец</string>
+	<string name="effect_Sultry">знойный</string>
+	<string name="effect_Thunder">Гром</string>
+	<string name="effect_Vixen">Виксен</string>
+	<string name="effect_WhinyBot">WhinyBot</string>
+	<text name="preview_text">Для предварительного просмотра</text>
+	<text name="status_text">Запишите сэмпл, затем нажмите на голос, чтобы услышать, как он будет звучать.</text>
+	<button name="record_btn" label="Записывать" tool_tip="Запишите образец своего голоса." />
+	<button name="record_stop_btn" label="Останавливаться" />
+	<button name="activate_btn" label="Активировать" />
+	<text_editor name="voice_morphing_link">Подпишитесь сейчас</text_editor>
+	<scroll_list name="voice_effect_list" tool_tip="Запишите образец своего голоса, затем нажмите эффект для предварительного просмотра.">
+		<column name="name" label="Голосовое имя" />
+		<column name="expires" label="Срок действия истекает" />
+	</scroll_list>
+</floater>

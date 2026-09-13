@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Object Pie">
+	<menu_item_call name="Open" label="Açık" />
+	<menu_item_call name="Create" label="Oluştur" />
+	<menu_item_call name="Object Touch" label="Dokunma">
+		<on_enable name="EnableTouch" />
+	</menu_item_call>
+	<menu_item_call name="Object Sit" label="Buraya otur">
+		<on_enable name="EnableSitOrStand" />
+	</menu_item_call>
+	<menu_item_call name="Pie Object Take" label="Al">
+		<on_enable name="EnableBuyOrTake" />
+	</menu_item_call>
+	<menu_item_call name="Pay..." label="Ödeme..." />
+	<pie_menu name="More" label="Daha Fazla">
+		<menu_item_call name="Delete" label="Sil" />
+		<menu_item_call name="Wear" label="Giymek" />
+		<menu_item_call name="Take Copy" label="Kopyasını Al" />
+		<pie_menu name="Object Attach HUD" label="HUD'yi takın" />
+		<pie_menu name="Object Attach" label="Ekle" />
+		<pie_menu name="Object Attach More" label="Daha Fazlasını Ekle" />
+		<menu_item_call name="Return..." label="Geri dön..." />
+		<pie_menu name="Rate Menu" label="Daha Fazla">
+			<pie_menu name="Export Menu" label="İhracat">
+				<menu_item_call name="XML" label="XML" />
+				<menu_item_call name="Save OBJ..." label="OBJ..." />
+				<menu_item_call name="Save DAE..." label="DAE..." />
+			</pie_menu>
+			<pie_menu name="Rate Menu" label="Araçlar">
+				<menu_item_call name="Destroy" label="Yok et" />
+				<menu_item_call name="Explode" label="Patlat" />
+				<menu_item_call name="Measure" label="Ölçü" />
+				<menu_item_call name="Data" label="Veri" />
+				<menu_item_call name="Go To" label="Git" />
+				<menu_item_call name="Follow" label="Takip et" />
+				<menu_item_call name="Reload Textures" label="Yeniden yükle" />
+			</pie_menu>
+			<menu_item_call name="Object Mute" label="Sessiz" />
+			<menu_item_call name="Object Inspect" label="İncele" />
+			<menu_item_call name="Derender" label="Derender" />
+			<menu_item_call name="Report Abuse..." label="Rapor..." />
+			<pie_menu name="PF Menu" label="Pathfinding">
+				<menu_item_call name="show_in_linksets" label="Bağlantı kümelerinde göster" />
+				<menu_item_call name="show_in_characters" label="Karakterlerle göster" />
+			</pie_menu>
+			<pie_menu name="ScriptsMenu" label="Scripts">
+				<menu_item_call name="CompileMono" label="Mono Yap" />
+				<menu_item_call name="CompileLSL" label="LSL yap" />
+				<menu_item_call name="Reset Scripts" label="Sıfırla" />
+				<menu_item_call name="Object Set Scripts to Running" label="Başlat" />
+				<menu_item_call name="Object Set Scripts to Not Running" label="Durdur" />
+				<menu_item_call name="Remove Scripts From Selection" label="Kaldır" />
+				<menu_item_call name="ScriptCount" label="Sayım" />
+			</pie_menu>
+		</pie_menu>
+		<menu_item_call name="Buy..." label="Satın al..." />
+	</pie_menu>
+	<menu_item_call name="Edit..." label="Düzenle..." />
+</pie_menu>

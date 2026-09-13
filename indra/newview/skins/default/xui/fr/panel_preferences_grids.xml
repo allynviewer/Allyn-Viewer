@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Grilles" name="Grids panel">
+ <text name="grid_selector_label">
+ Choisir une grille :
+ </text>
+ <combo_box max_chars="20" allow_text_entry="false" name="grid_selector"
+ height="18" width="200" follows="left|top" mouse_opaque="true" />
+ <button label="Par défaut" label_selected="Par défaut" enabled="true" name="btn_default"
+ height="18" width="75" halign="center" follows="left|top" scale_image="true"
+ font="SansSerifSmall" mouse_opaque="true" />
+ <text name="default_grid"
+ height="10" width="200" halign="left" font="SansSerifSmall"
+ follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+ drop_shadow_visible="true" border_drop_shadow_visible="false">
+ ([DÉFAUT])
+ </text>
+ <button label="Supprimer" name="btn_delete"/>
+ <button label="Ajouter" name="btn_add"/>
+ <button label="Copier" name="btn_copy"/>
+ <button label="Avancé" name="btn_advanced"/>
+ <text name="loginuri_label">
+ Login URL :
+ </text>
+ <line_editor max_length="254" enabled="true" name="loginuri"
+ handle_edit_keys_directly="true"
+ height="18" halign="right" font="SansSerifSmall"
+ follows="left|top|right" border_visible="false" mouse_opaque="false"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <button label="Actualiser les URL de la grille" enabled="true" name="btn_gridinfo"
+ height="18" width="120" halign="center" font="SansSerifSmall"
+ tool_tip="Récupérer toutes les informations de la grille depuis l'URL de connexion (écrase les URL actuelles, voir Avancé)"
+ follows="left|top" scale_image="true" mouse_opaque="true" />
+ <text name="platform_label">
+ Plateforme :
+ </text>
+ <combo_box max_chars="20" allow_text_entry="false" name="platform"
+ height="18" width="200" follows="left|top" mouse_opaque="true" />
+ <text name="gridname_label">
+ Nom :
+ </text>
+ <line_editor max_length="254" enabled="true" name="gridname"
+ handle_edit_keys_directly="true"
+ height="18" halign="right" font="SansSerifSmall"
+ follows="left|top|right" border_visible="false" mouse_opaque="false"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+
+ <text name="gridmessage_label">
+ Infos :
+ </text>
+ <text_editor embedded_items="false" enabled="true" follows="left|top|right"
+ handle_edit_keys_directly="true"
+ font="SansSerifSmall" height="50" max_length="512"
+ mouse_opaque="true" name="gridmessage" word_wrap="true" spell_check="true" />
+ 
+ 
+ <text name="loginpage_label">
+ Page Splash :
+ </text>
+ <line_editor max_length="254" enabled="true" name="loginpage"
+ handle_edit_keys_directly="true" visible="false"
+ height="18" halign="right" font="SansSerifSmall"
+ follows="left|top|right" border_visible="false" mouse_opaque="false"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <text name="helperuri_label">
+ Aide URL :
+ </text>
+ <line_editor max_length="254" enabled="true" name="helperuri"
+ handle_edit_keys_directly="true" visible="false"
+ height="18" halign="right" font="SansSerifSmall"
+ follows="left|top|right" border_visible="false" mouse_opaque="false"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <text name="website_label">
+ Site Web :
+ </text>
+ <line_editor max_length="254" enabled="true" name="website"
+ handle_edit_keys_directly="true" visible="false"
+ height="18" halign="right" font="SansSerifSmall"
+ follows="left|top|right" border_visible="false" mouse_opaque="false"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <text name="support_label">
+ Support URL :
+ </text>
+ <line_editor max_length="254" enabled="true" name="support"
+ handle_edit_keys_directly="true" visible="false"
+ height="18" halign="right" font="SansSerifSmall"
+ follows="left|top|right" border_visible="false" mouse_opaque="false"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <text name="register_label">
+ Compte URL :
+ </text>
+ <line_editor max_length="254" enabled="true" name="register"
+ handle_edit_keys_directly="true" visible="false"
+ height="18" halign="right" font="SansSerifSmall"
+ follows="left|top|right" border_visible="false" mouse_opaque="false"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <text name="password_label">
+ Mot de Passe URL :
+ </text>
+ <line_editor max_length="254" enabled="true" name="password"
+ handle_edit_keys_directly="true" visible="false"
+ height="18" halign="right" font="SansSerifSmall"
+ follows="left|top|right" border_visible="false" mouse_opaque="false"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <text name="partner_label">URL Partenaire :</text>
+ <line_editor max_length="254" name="partner" handle_edit_keys_directly="true" height="18" font="SansSerifSmall" follows="left|top|right" visible="false"/>
+ <text name="search_label">
+ Recherche URL :
+ </text>
+ <line_editor max_length="254" enabled="true" name="search"
+ handle_edit_keys_directly="true" visible="false"
+ height="18" halign="right" font="SansSerifSmall"
+ follows="left|top|right" border_visible="false" mouse_opaque="false"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <check_box enabled="true" radio_style="false"
+ label="Rendu de la compatibilité" name="render_compat" visible="false"
+ height="18" halign="left" font="SansSerifSmall"
+ follows="left|top" bg_visible="false" border_visible="false" mouse_opaque="true"
+ drop_shadow_visible="true" border_drop_shadow_visible="false" />
+ <button label="?" label_selected="?" enabled="true" name="btn_help_render_compat"
+ height="18" width="18" visible="false"
+ halign="center" follows="left|top"
+ font="SansSerifSmall" mouse_opaque="true" />
+</panel>

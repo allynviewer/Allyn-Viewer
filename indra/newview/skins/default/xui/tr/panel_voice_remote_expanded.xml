@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="voice_remote">
+	<panel name="panel_bg_tab" />
+	<button name="end_call_btn" tool_tip="Kapatmak için tıklayın" />
+	<button name="voice_channel_bg" />
+	<icon name="voice_channel_icon" />
+	<text name="channel_label" />
+</panel>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="EmeraldIRC_dictionaries" title="新しい辞書をダウンロード">
+	<text name="EmDics_txt">ビューアのウェブサイトから追加の辞書をダウンロードできます。インストールして使いたい辞書を選び、「ダウンロード」を押してください。</text>
+	<combo_box name="Emerald_combo_dics" />
+	<button name="Emerald_dic_download" label="ダウンロード" />
+</floater>

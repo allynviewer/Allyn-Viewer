@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Post-Process Floater" title="Настройки постобработки">
+	<tab_container name="Post-Process Tabs">
+		<panel name="ColorFilterPanel" label="Цветовой фильтр">
+			<check_box name="enable_color_filter" label="Включить"/>
+			<text name="ColorFilterGammaText">Гамма</text>
+			<text name="ColorFilterBrightnessText">Яркость</text>
+			<text name="ColorFilterSaturationText">Насыщенность</text>
+			<text name="ColorFilterContrastText">Контраст</text>
+			<text name="ColorFilterBaseText">Базовые цвета контраста</text>
+			<slider name="contrast_base[0]" label="R"/>
+			<slider name="contrast_base[1]" label="G"/>
+			<slider name="contrast_base[2]" label="B"/>
+			<slider name="contrast_base[3]" label="I"/>
+		</panel>
+		<panel name="GaussBlurPanel" label="Размытие по Гауссу">
+			<check_box name="enable_gauss_blur" label="Включить"/>
+			<text name="GaussBlurPassesText">Количество проходов</text>
+		</panel>
+		<panel name="NightVisionPanel" label="Ночное видение">
+			<check_box name="enable_night_vision" label="Включить"/>
+			<text name="NightVisionBrightMultText">Усиление света</text>
+			<text name="NightVisionNoiseSizeText">Размер шума</text>
+			<text name="NightVisionNoiseStrengthText">Сила шума</text>
+		</panel>
+		<panel name="PosterizePanel" label="Постеризация">
+			<check_box name="enable_posterize" label="Включить"/>
+			<text name="PosterLayersText">Количество слоёв</text>
+		</panel>
+		<panel name="MotionBlurPanel" label="Размытие">
+			<check_box name="enable_motionblur" label="Включить"/>
+			<text name="MotionBlurText">Сила размытия в движении</text>
+		</panel>
+		<panel name="VignettePanel" label="Виньетка">
+			<check_box name="enable_vignette" label="Включить"/>
+			<text name="VignetteStrengthText">Сила</text>
+			<text name="VignetteRadiusText">Радиус</text>
+			<text name="VignetteDarknessText">Затемнение</text>
+			<text name="VignetteDesaturateText">Сила обесцвечивания</text>
+			<text name="VignetteChormaticAberrationText">Хроматическая аберрация</text>
+		</panel>
+		<panel name="Extras" label="Дополнительно">
+			<text name="PPSavedEffectsText">Сохранённые эффекты</text>
+			<combo_box name="PPEffectsCombo"/>
+			<line_editor name="PPEffectNameEditor" label="Название эффекта"/>
+			<button name="PPLoadEffect" label="Загрузить" label_selected="Загрузить"/>
+			<button name="PPSaveEffect" label="Сохранить" label_selected="Сохранить"/>
+			<text name="PPSaveAsText">Сохранить как</text>
+			<text name="PPExtrasHelpText">Загрузите сохранённый пресет или введите новое имя, чтобы сохранить текущие настройки.</text>
+		</panel>
+	</tab_container>
+</floater>

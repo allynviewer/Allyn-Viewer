@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="navigation_bar">
+	<button name="back_btn" tool_tip="Zum vorherigen Standort zurückgehen"/>
+	<button name="forward_btn" tool_tip="Einen Standort weiter gehen"/>
+	<button name="home_btn" tool_tip="Zu meinem Zuhause teleportieren"/>
+	<button name="About_Land" label="Land" tool_tip="Landinformationen anzeigen"/>
+	<button name="PersonalLighting" label="Beleuchtung" tool_tip="Öffnet das Fenster mit den persönlichen Beleuchtungseinstellungen" width="90"/>
+	<combo_box name="location_combo" label="Standort"
+	     tool_tip="Aktueller Standort. Regionsname oder SLURL eingeben und Enter zum Teleportieren."/>
+	<button name="add_landmark_btn" tool_tip="Landmarke hier erstellen"/>
+	<line_editor name="search_editor" label="Suchen" tool_tip="Suchen"/>
+	<button name="search_btn" tool_tip="Suchen"/>
+</panel>

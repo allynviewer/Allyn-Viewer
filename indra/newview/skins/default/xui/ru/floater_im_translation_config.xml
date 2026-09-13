@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="im_translation_config" title="Перевод чата">
+	<text name="src_label">Исходный язык:</text>
+	<combo_box name="source_lang" tool_tip="Язык, на котором вы пишете (код ISO). Вы можете печатать свободно." />
+	<text name="dst_label">Целевой язык:</text>
+	<combo_box name="target_lang" tool_tip="Язык перевода входящих сообщений." />
+	<check_box name="incoming_check" label="Переводить входящие" tool_tip="Переводить сообщения, которые вы получаете в этом разговоре" />
+	<check_box name="outgoing_check" label="Переводить исходящие" tool_tip="Переводить сообщения, которые вы отправляете в этом разговоре" />
+	<text name="hint">Источник = вы говорите. Цель = говорят другие. Флажок «Перевод» включает или выключает. Настройки сохраняются.</text>
+	<button name="ok_btn" label="ОК" />
+	<button name="cancel_btn" label="Отмена" />
+</floater>

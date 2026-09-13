@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_blacklist" title="Черный список активов">
+	<button name="add_btn" label="Добавить..." />
+	<button name="remove_btn" label="Удалить" />
+	<combo_box name="asset_combo" label="Тип актива" />
+	<line_editor name="id_edit" label="Здесь находится UUID актива." />
+	<line_editor name="name_edit" label="Здесь указывается имя записи." />
+	<scroll_list name="file_list">
+		<column name="asset_id" label="Идентификатор актива" />
+		<column name="entry_name" label="Имя" />
+		<column name="entry_type" label="Тип" />
+		<column name="entry_agent" label="Внесен в черный список" />
+		<column name="entry_date" label="Дата" />
+	</scroll_list>
+	<button name="save_btn" label="Сохранить XML" />
+	<button name="load_btn" label="Загрузить XML" />
+	<button name="clear_btn" label="Очистить" />
+	<button name="copy_uuid_btn" label="Скопировать UUID" />
+</floater>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="false" height="612" label="Network" left="0" name="network" width="648">
+	<scroll_container bottom="-612" follows="all" height="612" left="0" name="network_scroll" opaque="false" width="648">
+		<panel border="false" bottom="-840" follows="top|left" height="840" left="0" name="network_scroll_inner" width="628">
+	<text bottom="-20" follows="top" font="SansSerifSmall" height="12" left="20" name="section_bw" text_color="LabelSelectedColor">BANDWIDTH</text>
+	<icon bottom="-26" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_bw_rule" width="588"/>
+	<text bottom="-48" follows="top" height="12" left="20" name="text_box">Maximum Bandwidth:</text>
+	<slider bottom="-72" can_edit_text="true" decimal_digits="0" follows="top" height="15" increment="10" initial_val="50" left="20" max_val="10000" min_val="50" name="max_bandwidth" show_text="true" value="500" width="400"/>
+	<text bottom="-70" follows="top" height="12" left="432" name="text_box2">kbps</text>
+	<text bottom="-100" follows="top" height="12" left="20" name="text_box3">Texture Bandwidth:</text>
+	<slider bottom="-124" can_edit_text="true" decimal_digits="0" follows="top" height="15" increment="10" initial_val="50" left="20" max_val="10000" min_val="50" name="tex_bandwidth" show_text="true" value="500" width="400"/>
+	<text bottom="-122" follows="top" height="12" left="432" name="text_box4">kbps</text>
+	<text bottom="-148" follows="top" height="10" left="20" name="use_http_for" visible="false">Use HTTP for:</text>
+	<check_box bottom="-148" follows="top" left="20" label="Textures" name="http_textures" visible="false"/>
+	<check_box bottom="-148" follows="top" left="200" label="Inventory" name="http_inventory" visible="false"/>
+
+	<text bottom="-164" follows="top" font="SansSerifSmall" height="12" left="20" name="section_cache" text_color="LabelSelectedColor">DISK CACHE</text>
+	<icon bottom="-170" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_cache_rule" width="588"/>
+	<text bottom="-192" follows="top" height="12" left="20" name="cache_size_label_l">Disk Cache Size:</text>
+	<slider bottom="-216" can_edit_text="true" decimal_digits="0" follows="top" height="15" increment="64" initial_val="1024" left="20" max_val="9984" min_val="64" name="cache_size" show_text="true" width="400"/>
+	<text bottom="-214" follows="top" height="12" left="432" name="text_box5">MB</text>
+	<button bottom="-248" follows="top" height="24" label="Clear Cache" left="20" name="clear_cache" scale_image="true" width="160"/>
+	<text bottom="-284" follows="top" height="12" left="20" name="cache_location_label">Disk Cache Location:</text>
+	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-312" follows="top" handle_edit_keys_directly="true" height="22" left="20" max_length="4096" name="cache_location" width="588"/>
+	<button bottom="-344" follows="top" height="24" label="Set" label_selected="Set" left="20" name="set_cache" scale_image="true" width="120"/>
+	<button bottom="-344" follows="top" height="24" label="Reset" label_selected="Set" left="152" name="reset_cache" scale_image="true" width="120"/>
+
+	<text bottom="-372" follows="top" font="SansSerifSmall" height="12" left="20" name="connection_section" text_color="LabelSelectedColor">CONNECTION</text>
+	<icon bottom="-378" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_conn_rule" width="588"/>
+	<check_box bottom="-404" follows="top" height="16" initial_value="false" label="Custom Port Connection" left="20" name="connection_port_enabled"/>
+	<spinner bottom="-432" decimal_digits="0" follows="top" height="16" increment="1" initial_val="13000" label="Port Number:" label_width="120" left="20" max_val="65535" min_val="0" name="connection_port" width="280"/>
+
+	<text bottom="-472" follows="top" font="SansSerifSmall" height="12" left="20" name="socks5_auth_label">Http Proxy:</text>
+	<icon bottom="-478" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_proxy_rule" width="588"/>
+	<radio_group bottom="-510" draw_border="false" follows="left|top" height="24" left="20" name="socks5_http_proxy_type" width="580">
+		<radio_item height="20" bottom="0" left="0" name="None" width="100" tool_tip="No Http Proxy">None</radio_item>
+		<radio_item height="20" bottom="0" left="120" name="Socks" width="100" tool_tip="Use Socks for Http Proxy">Socks</radio_item>
+		<radio_item height="20" bottom="0" left="240" name="Web" width="100" tool_tip="Use web proxy for Http Proxy">Web</radio_item>
+	</radio_group>
+	<check_box bottom="-540" follows="top" height="16" initial_value="false" label="Enable SOCKS 5 Proxy" left="20" mouse_opaque="true" name="socks5_proxy_enabled" radio_style="false"/>
+	<text bottom="-568" follows="top" height="12" left="20" name="socks5_host_label">Socks 5 Host:</text>
+	<line_editor bottom="-592" follows="top" font="SansSerif" height="22" left="20" name="socks5_proxy_host" tool_tip="The name or IP address of the SOCKS5 proxy you would like to use" width="400"/>
+	<spinner bottom="-624" decimal_digits="0" follows="top" height="16" increment="1" initial_val="80" label="Port Number:" label_width="120" left="20" max_val="65535" min_val="0" name="socks5_proxy_port" width="280"/>
+	<text bottom="-656" follows="top" height="12" left="20" name="socks5_auth_label2">Socks5 Authentication:</text>
+	<radio_group bottom="-688" draw_border="false" follows="top" height="24" left="20" name="socks5_auth" width="500">
+		<radio_item bottom="0" height="20" left="0" name="None" width="100" tool_tip="No authentication">None</radio_item>
+		<radio_item bottom="0" height="20" left="120" name="UserPass" width="200" tool_tip="Username / Password authentication">Username/Password</radio_item>
+	</radio_group>
+	<text bottom="-720" follows="top" height="12" left="20" name="socks5_username_label">Username:</text>
+	<line_editor bottom="-744" follows="top" font="SansSerif" height="22" left="20" name="socks5_proxy_username" tool_tip="Username for the Socks5 proxy" width="400"/>
+	<text bottom="-776" follows="top" height="12" left="20" name="socks5_password_label">Password:</text>
+	<line_editor bottom="-800" follows="top" font="SansSerif" height="22" left="20" name="socks5_proxy_password" tool_tip="Password for the Socks5 proxy" width="400"/>
+		</panel>
+	</scroll_container>
+</panel>

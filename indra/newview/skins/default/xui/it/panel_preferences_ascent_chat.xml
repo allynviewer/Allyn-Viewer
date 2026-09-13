@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel top="20" left="10" height="400" width="517" border="true" label="Chat Avanzata" name="ascsys">
+	<tab_container label="Chat Avanzata" bottom="0" height="440" width="497" left="0" name="Ascent Chat" tab_position="top">
+		<panel border="true" left="1" bottom="-408" height="408" width="500" label="Chat/MI" name="Chat/IM">
+			<scroll_container name="advchat_im_scroll">
+				<panel name="advchat_im_inner">
+					<text bottom="-15" left="15" name="objects_link_text_box">IM:</text>
+					<check_box bottom_delta="-25" left="10" follows="left|top" initial_value="false" control_name="AscentInstantMessageAnnounceIncoming" label="Annuncia IMs in arrivo" tool_tip="Apre una finestra IM quando qualcuno inizia a scriverti un IM. Ti avvisa che qualcuno ti sta scrivendo prima che prema invio." name="quickstart_im_check" />
+					<check_box bottom_delta="-20" follows="left|top" control_name="AscentHideTypingNotification" initial_value="false" label="Non inviare '[nome] sta scrivendo...' negli IM" tool_tip="I partner IM non vedranno '______ sta scrivendo...' quando rispondi." name="hide_typing_check" />
+					<check_box bottom_delta="-20" follows="left|top" control_name="InstantMessagesFriendsOnly" label="Accetta solo IM dagli Amici" name="InstantMessagesFriendsOnly" />
+					<check_box bottom_delta="-20" follows="left|top" control_name="AscentAllowMUpose" initial_value="false" label="Consenti metodo MU pose." tool_tip="Consente l'uso di /me e : per eseguire emote." name="allow_mu_pose_check" />
+					<check_box bottom_delta="-20" follows="left|top" control_name="AscentAutoCloseOOC" label="Chiudi automaticamente commenti OOC." tool_tip="Aggiungerà automaticamente '))' a qualsiasi messaggio che inizia con '((', o viceversa." name="close_ooc_check" />
+					<text bottom="-15" left="250" name="objects_link_text_box2" width="300">Chat:</text>
+					<check_box bottom_delta="-25" left_delta="-5" follows="left|top" control_name="PlayTypingSound" initial_value="true" label="Riproduci il suono di battitura per la chat locale" tool_tip="Silenzia il suono di battitura, rendendolo più silenzioso per cose come spettacoli." name="play_typing_sound_check" />
+					<check_box bottom_delta="-20" follows="left|top" control_name="HideNotificationsInChat" initial_value="false" label="Non mostrare/registrare notifiche nella chat" name="hide_notifications_in_chat_check" />
+					<check_box bottom_delta="-20" follows="left|top" control_name="OptionShowGroupNameInChatIM" initial_value="false" label="Mostra nome del gruppo nella chat" tool_tip="Il nome del gruppo verrà visualizzato anche se l'IM proviene da una chat di gruppo." name="append_group_name_check" />
+					<check_box bottom_delta="-20" follows="left|top" control_name="ShowDisplayNameChanges" label="Mostra cambiamenti nome visualizzato" tool_tip="Quando selezionato, apparirà una notifica nella chat ogni volta che il nome visualizzato di qualcuno cambia." name="display_name_change" />
+					<check_box bottom_delta="-20" follows="left|top" control_name="UseTypingBubbles" label="Usa indicatori di battitura sopra la testa" name="use_typing_bubbles" />
+					<text bottom="-160" left="10" follows="left|top" name="objects_link_text_box3">Mostra link sui nomi degli oggetti che parlano nella cronologia chat per:</text>
+					<radio_group bottom_delta="-26" control_name="LinksForChattingObjects" tool_tip="Abilita un link per mostrarti il proprietario dell'oggetto parlante." follows="top" height="20" left="20" name="objects_link" width="350">
+						<radio_item bottom_delta="0" left_delta="5" name="no_object" width="48" value="0">Nessun oggetto</radio_item>
+						<radio_item bottom_delta="0" left_delta="45" name="others_objects" width="48" value="1">Oggetti altrui</radio_item>
+						<radio_item bottom_delta="0" left_delta="60" name="anyones_objects" width="48" value="2">Oggetti di chiunque</radio_item>
+					</radio_group>
+					<text bottom_delta="-18" left="10" follows="top" name="time_format_text_box">Formato ora:</text>
+					<combo_box bottom_delta="-5" left="90" follows="top" height="18" tool_tip="Mostra le ore in formato 12-23 o 12PM-11PM." name="time_format_combobox" width="130">
+						<combo_item name="24hours" value="default">24 ore</combo_item>
+						<combo_item name="12hours" value="default">12 ore</combo_item>
+					</combo_box>
+					<check_box bottom_delta="0" left="240" follows="top" control_name="SecondsInChatAndIMs" initial_value="false" label="Secondi nei timestamp di chat/IM" name="seconds_in_chat_and_ims_check" />
+					<text bottom_delta="-18" left="10" follows="top" name="date_format_text_box">Formato data:</text>
+					<combo_box bottom_delta="-5" left="90" follows="top" height="18" name="date_format_combobox" width="130">
+						<combo_item name="year_first" value="default">YYYY-MM-DD</combo_item>
+						<combo_item name="year_first_slashes" value="default">YYYY/MM/DD</combo_item>
+						<combo_item name="day_first" value="default">DD/MM/YYYY</combo_item>
+						<combo_item name="month_first" value="default">MM/DD/YYYY</combo_item>
+					</combo_box>
+					<check_box bottom_delta="0" left="240" follows="top" control_name="SecondsInLog" label="Secondi nei timestamp di log" name="seconds_in_log" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel border="true" bottom="-580" height="525" label="Interfaccia Chat" left="1" name="ChatUI" width="418">
+			<scroll_container name="advchat_ui_scroll">
+				<panel name="advchat_ui_inner">
+					<check_box bottom_delta="-25" left="10" follows="top" initial_value="false" control_name="WoLfVerticalIMTabs" label="Usa IM verticali (Richiede riavvio)" name="use_vertical_ims_check" />
+					<check_box bottom_delta="-20" follows="top" control_name="OtherChatsTornOff" label="Apri nuovi IM in finestre separate" name="chats_torn_off" />
+					<check_box bottom_delta="-20" follows="top" control_name="PhoenixIMAnnounceStealFocus" label="Focus sui nuovi IMs" name="chat_steal_focus" />
+					<check_box bottom_delta="-20" follows="left|top" control_name="ShowLocalChatFloaterBar" label="Mostra barra chat nella finestra di chat locale separata" name="show_local_chat_floater_bar" />
+					<check_box bottom_delta="-20" control_name="ContactsUseHorizontalButtons" follows="top" height="16" label="Usa pulsanti orizzontali per la finestra contatti (Richiede riavvio)" tool_tip="Quando abilitato, i pulsanti sui pannelli Amici e Gruppi saranno in basso, disposti orizzontalmente, invece che verticalmente a destra." name="horiz_butt" />
+					<text bottom_delta="-14" left="16" follows="top" name="namesystems_text_box">Formato per i nomi nelle liste di/per:</text>
+					<text bottom_delta="-18" left="20" follows="top" name="chat_tabs_namesystem_text_box">Schede Chat:</text>
+					<combo_box bottom_delta="-5" left_delta="140" follows="top" height="18" control_name="IMNameSystem" name="chat_tabs_namesystem_combobox" width="130">
+						<combo_item name="Old Names" value="0">Nomi Vecchi</combo_item>
+						<combo_item name="Display Names (with Username)" value="1">Nomi Visualizzati (con Nome Utente)</combo_item>
+						<combo_item name="Display Names only" value="2">Solo Nomi Visualizzati</combo_item>
+						<combo_item name="Old Names (with Display Names)" value="3">Nomi Vecchi (con Nome Vis.)</combo_item>
+					</combo_box>
+					<text bottom_delta="-18" left="20" follows="top" name="friends_namesystem_text_box">Amici:</text>
+					<combo_box bottom_delta="-5" left_delta="140" follows="top" height="18" control_name="FriendNameSystem" name="friends_namesystem_combobox" width="130">
+						<combo_item name="Old Names" value="0">Nomi Vecchi</combo_item>
+						<combo_item name="Display Names (with Username)" value="1">Nomi Visualizzati (con Nome Utente)</combo_item>
+						<combo_item name="Display Names only" value="2">Solo Nomi Visualizzati</combo_item>
+						<combo_item name="Old Names (with Display Names)" value="3">Nomi Vecchi (con Nome Vis.)</combo_item>
+					</combo_box>
+					<text bottom_delta="-18" left="20" follows="top" name="group_members_namesystem_text_box">Membri del Gruppo:</text>
+					<combo_box bottom_delta="-5" left_delta="140" follows="top" height="18" control_name="GroupMembersNameSystem" name="group_members_namesystem_combobox" width="130">
+						<combo_item name="Old Names" value="0">Nomi Vecchi</combo_item>
+						<combo_item name="Display Names (with Username)" value="1">Nomi Visualizzati (con Nome Utente)</combo_item>
+						<combo_item name="Display Names only" value="2">Solo Nomi Visualizzati</combo_item>
+						<combo_item name="Old Names (with Display Names)" value="3">Nomi Vecchi (con Nome Vis.)</combo_item>
+					</combo_box>
+					<text bottom_delta="-18" left="20" follows="top" name="land_management_namesystem_text_box">Gestione Terreno:</text>
+					<combo_box bottom_delta="-5" left_delta="140" follows="top" height="18" control_name="LandManagementNameSystem" name="land_management_namesystem_combobox" width="130">
+						<combo_item name="Old Names" value="0">Nomi Vecchi</combo_item>
+						<combo_item name="Display Names (with Username)" value="1">Nomi Visualizzati (con Nome Utente)</combo_item>
+						<combo_item name="Display Names only" value="2">Solo Nomi Visualizzati</combo_item>
+						<combo_item name="Old Names (with Display Names)" value="3">Nomi Vecchi (con Nome Vis.)</combo_item>
+					</combo_box>
+					<text bottom_delta="-18" left="20" follows="top" name="profile_namesystem_text_box">Profili:</text>
+					<combo_box bottom_delta="-5" left_delta="140" follows="top" height="18" control_name="ProfileNameSystem" name="profile_namesystem_combobox" width="130">
+						<combo_item name="Old Names" value="0">Nomi Vecchi</combo_item>
+						<combo_item name="Display Names (with Username)" value="1">Nomi Visualizzati (con Nome Utente)</combo_item>
+						<combo_item name="Display Names only" value="2">Solo Nomi Visualizzati</combo_item>
+						<combo_item name="Old Names (with Display Names)" value="3">Nomi Vecchi (con Nome Vis.)</combo_item>
+					</combo_box>
+					<text bottom_delta="-18" left="20" follows="top" name="radar_namesystem_text_box">Radar:</text>
+					<combo_box bottom_delta="-5" left_delta="140" follows="top" height="18" control_name="RadarNameSystem" name="radar_namesystem_combobox" width="130">
+						<combo_item name="Old Names" value="0">Nomi Vecchi</combo_item>
+						<combo_item name="Display Names (with Username)" value="1">Nomi Visualizzati (con Nome Utente)</combo_item>
+						<combo_item name="Display Names only" value="2">Solo Nomi Visualizzati</combo_item>
+						<combo_item name="Old Names (with Display Names)" value="3">Nomi Vecchi (con Nome Vis.)</combo_item>
+					</combo_box>
+					<text bottom_delta="-18" left="20" follows="top" name="speaker_namesystem_text_box">Relatori:</text>
+					<combo_box bottom_delta="-5" left_delta="140" follows="top" height="18" control_name="SpeakerNameSystem" name="speaker_namesystem_combobox" width="130">
+						<combo_item name="Old Names" value="0">Nomi Vecchi</combo_item>
+						<combo_item name="Display Names (with Username)" value="1">Nomi Visualizzati (con Nome Utente)</combo_item>
+						<combo_item name="Display Names only" value="2">Solo Nomi Visualizzati</combo_item>
+						<combo_item name="Old Names (with Display Names)" value="3">Nomi Vecchi (con Nome Vis.)</combo_item>
+					</combo_box>
+					<check_box bottom_delta="-24" left="10" control_name="UseConciseIMButtons" follows="top" height="16" label="Pulsanti sulla stessa riga del nome per IM (Influisce sui nuovi IM)" name="im_concise_butt" />
+					<check_box bottom_delta="-20" control_name="UseConciseGroupChatButtons" follows="top" height="16" label="Pulsanti sulla riga del nome chat di gruppo (Influisce sulle nuove chat di gruppo)" name="group_concise_butt" />
+					<check_box bottom_delta="-20" control_name="UseConciseConferenceButtons" follows="top" height="16" label="Pulsanti sulla riga del titolo conferenza (Influisce sulle nuove conferenze)" name="conf_concise_butt" />
+					<check_box bottom_delta="-20" follows="top" height="16" control_name="LiruLegacyLogLaunch" label="Pulsante log apre editor di testo esterno" name="legacy_log_launch" />
+					<check_box bottom_delta="-20" follows="top" height="16" initial_value="false" label="Impedisci alla scorciatoia comunicazione di aprire la lista amici separata" control_name="CommunicateSpecificShortcut" name="only_comm" />
+					<check_box bottom_delta="-20" follows="top" control_name="LiruLegacyScrollToEnd" label="Scorrimento automatico alla fine delle chat quando riprendono il focus" name="scroll_to_end_on_focus" />
+					<check_box bottom_delta="-20" follows="top" height="16" control_name="LiruItalicizeActions" label="Corsivo per messaggi di azione (/me)" name="italicize_actions" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel border="true" bottom="-580" height="525" label="Risposta Automatica" left="1" name="Autoresponse" width="525">
+			<text bottom="-25" follows="left|top" height="18" left="4" name="Autoresponse Info">
+La Risposta Automatica fa sì che il visualizzatore risponda alle persone che ti scrivono, con un messaggio personalizzato.
+Sono disponibili i seguenti caratteri jolly per migliorare le tue risposte automatiche: #n per il nome legacy dell'utente,
+#d per il suo nome visualizzato, #r per SLURL della tua posizione, #i per il tuo tempo di inattività in minuti.
+ </text>
+			<check_box bottom_delta="-40" follows="left|top" control_name="AscentInstantMessageResponseRepeat" name="AscentInstantMessageResponseRepeat" label="Rispondi automaticamente ogni volta che ricevi un messaggio per cui hai abilitato la risposta automatica" />
+			<check_box bottom_delta="-20" follows="left|top" control_name="AutoresponseOnlyIfAway" name="AutoresponseOnlyIfAway" label="Invia risposte automatiche solo quando assente" />
+			<tab_container bottom_delta="-318" height="208" left="0" name="Autoresponses" tab_position="top">
+				<panel border="true" left="1" bottom="0" height="208" width="500" label="Base" name="Basic">
+					<check_box bottom="-20" left="6" follows="top" control_name="AutoresponseAnyone" name="AutoresponseAnyone" label="Abilita" tool_tip="Invia il messaggio nella casella sottostante alle persone che non hai silenziato." />
+					<check_box bottom_delta="0" left_delta="150" follows="left|top" control_name="AutoresponseAnyoneFriendsOnly" name="AutoresponseAnyoneFriendsOnly" label="solo amici" tool_tip="Evita di inviare questa risposta a chi non conosci" />
+					<check_box bottom_delta="0" left_delta="100" follows="left|top" control_name="AutoresponseAnyoneItem" name="AutoresponseAnyoneItem" label="Invia oggetto" />
+					<check_box bottom_delta="0" left_delta="80" follows="left|top" control_name="AutoresponseAnyoneShow" name="AutoresponseAnyoneShow" label="Mostra che è stato inviato" />
+					<text_editor bottom_delta="-147" left="8" font="SansSerifSmall" follows="left|top" height="145" max_length="1100" control_name="AutoresponseAnyoneMessage" name="AutoresponseAnyoneMessage" width="480" word_wrap="true" spell_check="true" commit_on_focus_lost="true" hide_scrollbar="true" />
+					<drop_target bottom_delta="-37" left="8" height="17" width="480" fill_parent="true" control_name="AutoresponseAnyoneItemID" name="AutoresponseAnyoneItemID" tool_tip="Trascina un oggetto qui per inviarlo con la risposta di cui sopra." />
+				</panel>
+				<panel border="true" left="1" bottom="0" height="208" width="500" label="Non Amici" name="Nonfriends">
+					<check_box bottom="-20" left="6" follows="left|top" control_name="AutoresponseNonFriends" name="AutoresponseNonFriends" label="Abilita" tool_tip="Invia il messaggio nella casella sottostante alle persone che non sono tue amiche" />
+					<check_box bottom_delta="0" left_delta="250" follows="left|top" control_name="AutoresponseNonFriendsItem" name="AutoresponseNonFriendsItem" label="Invia oggetto" />
+					<check_box bottom_delta="0" left_delta="80" follows="left|top" control_name="AutoresponseNonFriendsShow" name="AutoresponseNonFriendsShow" label="Mostra che è stato inviato" />
+					<text_editor bottom_delta="-147" left="8" font="SansSerifSmall" follows="left|top" height="145" max_length="1100" control_name="AutoresponseNonFriendsMessage" name="AutoresponseNonFriendsMessage" width="480" word_wrap="true" spell_check="true" commit_on_focus_lost="true" hide_scrollbar="true" />
+					<drop_target bottom_delta="-37" left="8" height="17" width="480" fill_parent="true" control_name="AutoresponseNonFriendsItemID" name="AutoresponseNonFriendsItemID" tool_tip="Trascina un oggetto qui per inviarlo con la risposta di cui sopra." />
+				</panel>
+				<panel border="true" left="1" bottom="0" height="208" width="500" label="Silenziati" name="Muted">
+					<check_box bottom="-20" left="6" follows="left|top" control_name="AutoresponseMuted" name="AutoresponseMuted" label="Abilita" tool_tip="Invia il messaggio nella casella sottostante alle persone che hai silenziato." />
+					<check_box bottom_delta="0" left_delta="250" follows="left|top" control_name="AutoresponseMutedItem" name="AutoresponseMutedItem" label="Invia oggetto" />
+					<check_box bottom_delta="0" left_delta="80" follows="left|top" control_name="AutoresponseMutedShow" name="AutoresponseMutedShow" label="Mostra che è stato inviato" />
+					<text_editor bottom_delta="-147" left="8" font="SansSerifSmall" follows="left|top" height="145" max_length="1100" control_name="AutoresponseMutedMessage" name="AutoresponseMutedMessage" width="480" word_wrap="true" spell_check="true" commit_on_focus_lost="true" hide_scrollbar="true" />
+					<drop_target bottom_delta="-37" left="8" height="17" width="480" fill_parent="true" control_name="AutoresponseMutedItemID" name="AutoresponseMutedItemID" tool_tip="Trascina un oggetto qui per inviarlo con la risposta di cui sopra." />
+				</panel>
+				<panel border="true" left="1" bottom="0" height="208" width="500" label="Modalità Occupato" name="Busy Mode" tool_tip="Invia il messaggio nella casella sottostante alle persone che scrivono quando sei occupato.">
+					<check_box bottom="-20" left="258" follows="left|top" control_name="BusyModeResponseItem" name="BusyModeResponseItem" label="Invia oggetto" />
+					<check_box bottom_delta="0" left_delta="80" follows="left|top" control_name="BusyModeResponseShow" name="BusyModeResponseShow" label="Mostra che è stato inviato" />
+					<text_editor bottom_delta="-147" left="8" font="SansSerifSmall" follows="left|top" height="145" max_length="1100" control_name="BusyModeResponse" name="BusyModeResponse" width="480" word_wrap="true" spell_check="true" commit_on_focus_lost="true" hide_scrollbar="true" />
+					<drop_target bottom_delta="-37" left="8" height="17" width="480" fill_parent="true" control_name="BusyModeResponseItemID" name="BusyModeResponseItemID" tool_tip="Trascina un oggetto qui per inviarlo con la risposta di cui sopra." />
+				</panel>
+			</tab_container>
+		</panel>
+		<panel border="true" left="1" bottom="-408" height="408" width="500" label="Spam" name="Spam">
+			<scroll_container name="advchat_spam_scroll">
+				<panel name="advchat_spam_inner">
+					<check_box control_name="AntiSpamEnabled" label="Abilita Antispam" name="enable_as" width="256" left="3" />
+					<button height="23" label="Reimposta code antispam" label_selected="Reimposta code antispam" name="reset_antispam" width="230" bottom_delta="0" left="260" />
+					<check_box enabled_control="AntiSpamEnabled" control_name="_NACL_AntiSpamGlobalQueue" label="Nessuna coda spam specifica per tipo di messaggio" name="spammsg_checkbox" width="256" left="6" bottom_delta="-20" />
+					<spinner enabled_control="AntiSpamEnabled" control_name="_NACL_AntiSpamTime" decimal_digits="0" increment="1" min_val="1" max_val="60" label="Tempo antispam (secondi):" label_width="330" tool_tip="Più basso è meno sensibile" name="antispamtime" width="390" left="10" bottom_delta="-10" />
+					<spinner enabled_control="AntiSpamEnabled" control_name="_NACL_AntiSpamAmount" decimal_digits="0" increment="1" min_val="5" max_val="99999" label="Quantità antispam:" label_width="330" tool_tip="Più alto è meno sensibile" name="antispamamount" width="390" />
+					<spinner enabled_control="AntiSpamEnabled" control_name="_NACL_AntiSpamSoundMulti" decimal_digits="0" increment="1" min_val="1" max_val="99999" label="Moltiplicatore quantità per riproduzioni sonore:" label_width="330" tool_tip="Più alto è meno sensibile" left="10" name="antispamsoundmulti" width="390" />
+					<spinner enabled_control="AntiSpamEnabled" control_name="_NACL_AntiSpamSoundPreloadMulti" decimal_digits="0" increment="1" min_val="1" max_val="99999" label="Moltiplicatore quantità per precarichi sonori:" label_width="330" tool_tip="Più alto è meno sensibile" name="antispamsoundpreloadmulti" width="390" />
+					<spinner enabled_control="AntiSpamEnabled" control_name="_NACL_AntiSpamNewlines" decimal_digits="0" increment="1" min_val="5" max_val="99999" label="Numero di a capo per bloccare immediatamente il messaggio:" label_width="330" tool_tip="Più alto è meno sensibile" name="antispamnewlines" width="390" />
+					<check_box enabled_control="AntiSpamEnabled" control_name="AntiSpamNotify" height="16" label="Notifica quando lo spam viene bloccato" name="Notify On Spam" tool_tip="Quando abilitato, l'angolo in basso a destra potrebbe diventare una fonte di pseudo-spam ogni volta che lo spam reale viene bloccato." left="6" bottom_delta="-22" />
+					<check_box control_name="_NACL_Antispam" height="16" label="Disabilita -tutte- le finestre di dialogo (si resetta al login)" name="antispam_checkbox" left="3" />
+					<text disabled_control="_NACL_Antispam" name="Block All Dialogs From" left="10" bottom_delta="-10">Blocca tutte le finestre da</text>
+					<check_box disabled_control="_NACL_Antispam" control_name="AntiSpamAlerts" height="16" label="Avvisi" name="Alerts" left="14" bottom_delta="-23" />
+					<check_box disabled_control="_NACL_Antispam" control_name="AntiSpamFriendshipOffers" height="16" label="Offerte di Amicizia" name="Friendship Offers" bottom_delta="0" left_delta="120" />
+					<check_box disabled_control="_NACL_Antispam" control_name="AntiSpamGroupInvites" height="16" label="Tutti gli Inviti di Gruppo" name="Group Invites" bottom_delta="0" left_delta="120" />
+					<check_box disabled_control="AntiSpamGroupInvites" control_name="AntiSpamGroupFeeInvites" height="16" label="Inviti a Pagamento di Gruppo" name="Group Fee Invites" bottom_delta="0" left_delta="120" />
+					<check_box disabled_control="_NACL_Antispam" control_name="AntiSpamItemOffers" height="16" label="Offerte di Oggetti" name="Item Offers" left="14" />
+					<check_box disabled_control="_NACL_Antispam" control_name="AntiSpamScripts" height="16" label="Script" name="Scripts" bottom_delta="0" left_delta="120" />
+					<check_box disabled_control="_NACL_Antispam" control_name="AntiSpamTeleports" height="16" label="Offerte di TP" name="Teleport Offers" bottom_delta="0" left_delta="120" />
+					<check_box disabled_control="_NACL_Antispam" control_name="AntiSpamGroupNotices" height="16" label="Avvisi di Gruppo" name="Group Notices" bottom_delta="0" left_delta="120" />
+					<check_box disabled_control="_NACL_Antispam" control_name="AntiSpamTeleportRequests" height="16" label="Richieste di TP" name="Teleport Requests" left="14" bottom_delta="-20" />
+					<check_box disabled_control="_NACL_Antispam" invisibility_control="AntiSpamItemOffers" control_name="AntiSpamItemOffersLandmarks" height="16" label="Offerte LM" name="LM Offers" left="14" />
+					<text name="Except those from:" left="21" bottom_delta="-10">Eccetto quelli da:</text>
+					<check_box control_name="AntiSpamNotMine" height="16" label="I miei oggetti" name="My objects" left="25" bottom_delta="-23" />
+					<check_box control_name="AntiSpamNotFriend" height="16" label="I miei amici" name="My friends" bottom_delta="0" left_delta="120" />
+					<check_box control_name="EnableGestureSounds" label="Abilita Suoni Gestuali" name="Enable Gesture Sounds" left="3" bottom_delta="-20" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel border="true" bottom="-580" height="525" label="Opzioni Testo" left="1" name="TextOptions" width="418">
+			<scroll_container name="advchat_text_scroll">
+				<panel name="advchat_text_inner">
+					<check_box bottom="-25" left="12" height="16" label="Mostra parole errate in rosso" name="SpellDisplay" control_name="SpellDisplay" />
+					<text bottom_delta="-24" follows="left|top" height="16" name="EmSpell_txt1">Lingua corrente (dizionario):</text>
+					<combo_box bottom_delta="-20" follows="left|top" height="20" name="SpellBase" width="250" control_name="SpellBase" />
+					<text bottom_delta="-24" follows="left|top" height="20" name="EmSpell_txt3">Lingue scaricate (dizionari):</text>
+					<combo_box bottom_delta="-20" follows="left|top" height="20" name="EmSpell_Avail" width="250" control_name="EmSpell_Avail" />
+					<button bottom_delta="0" left_delta="255" follows="left|top" height="20" label="Installa" name="EmSpell_Add" tool_tip="" width="80" />
+					<button bottom_delta="-22" left="12" follows="top" height="20" label="Scarica Altri..." name="EmSpell_GetMore" tool_tip="Scarica altri dizionari disponibili online" width="250" />
+					<text bottom_delta="-24" follows="left|top" height="20" name="EmSpell_txt2">Lingue personalizzate aggiuntive (dizionari):</text>
+					<combo_box bottom_delta="-20" follows="left|top" height="20" name="EmSpell_Installed" width="250" control_name="EmSpell_Installed" tool_tip="" />
+					<button bottom_delta="0" left_delta="255" follows="left|top" height="20" label="Rimuovi" name="EmSpell_Remove" tool_tip="" width="80" />
+					<button bottom_delta="-20" left="12" follows="top" height="20" label="Modifica dizionario personalizzato" name="EmSpell_EditCustom" width="250" />
+					<text bottom_delta="-24" follows="left|top" height="20" name="EmSpell_txt4">
+Per usare il controllo ortografico, fai clic destro su una parola errata
+(in rosso o meno) e seleziona la sostituzione
+ </text>
+					<button bottom_delta="-26" left="12" follows="top" height="20" width="250" label="Preferenze Sostituzione Automatica" name="autoreplace" />
+					<view_border bevel_style="none" border_thickness="1" bottom_delta="-5" follows="top" height="0" left="5" name="CmdDivisor" width="376" />
+					<check_box bottom_delta="-24" follows="left|top" font="SansSerifSmall" height="16" label="Evidenzia messaggi se uno di essi contiene i termini" name="KeywordsOn" width="270" />
+					<text bottom_delta="-20" follows="top" height="20" left="12" name="keyword_txt1">(separati da virgole)</text>
+					<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20" follows="top" height="20" left_delta="5" max_length="500" name="KeywordsList" width="300" />
+					<text bottom_delta="-24" follows="top" height="20" left_delta="0" name="EmKeyw">Trovato in:</text>
+					<check_box bottom_delta="3" follows="top" height="16" left_delta="80" label="Finestra Chat Locale" name="KeywordsInChat" />
+					<check_box bottom_delta="0" left_delta="120" follows="left|top" height="16" label="Finestra Messaggi Istantanei" name="KeywordsInIM" />
+					<check_box bottom_delta="-24" follows="top" height="16" label="Evidenzia il messaggio in questo colore:" left_delta="-195" name="KeywordsChangeColor" />
+					<color_swatch border_color="0.45098, 0.517647, 0.607843, 1" bottom_delta="-16" can_apply_immediately="true" color="1, 1, 1, 1" follows="left|top" height="35" left_delta="210" name="KeywordsColor" tool_tip="Clicca per aprire il Selettore Colore" width="50" />
+					<check_box bottom_delta="-10" follows="top" height="16" left_delta="-210" label="Riproduci questo avviso sonoro: (UUID)" name="KeywordsPlaySound" />
+					<line_editor bottom_delta="-20" follows="left|top" bevel_style="in" border_style="line" border_thickness="1" height="20" left_delta="-5" max_length="36" name="KeywordsSound" width="300" />
+				</panel>
+			</scroll_container>
+		</panel>
+	</tab_container>
+</panel>

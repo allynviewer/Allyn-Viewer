@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="WindLight floater" title="Editor avanzato del cielo">
+	<text name="KeyFramePresetsText">Cieli predefiniti:</text>
+	<button name="WLNewPreset" label="Nuovo" label_selected="Nuovo" />
+	<button name="WLSavePreset" label="Salva" label_selected="Salva" />
+	<button name="WLDeletePreset" label="Elimina" label_selected="Elimina" />
+	<button name="WLDayCycleMenuButton" label="Ciclo giorno/notte" label_selected="Ciclo giorno/notte" />
+	<tab_container name="WindLight Tabs">
+		<panel name="Atmosphere" label="Atmosfera">
+			<text name="BHText">Blu dell'orizzonte</text>
+			<text name="BDensText">Foschia all'orizzonte</text>
+			<text name="BDensText2">Densità del blu</text>
+			<text name="HDText">Densità della foschia</text>
+			<text name="DensMultText">Moltiplicatore di densità</text>
+			<text name="WLDistanceMultText">Moltiplicatore di distanza</text>
+			<text name="MaxAltText">Altitudine massima</text>
+		</panel>
+		<panel name="Lighting" label="Illuminazione">
+			<text name="SLCText">Colore sole/luna</text>
+			<text name="TODText">Posizione sole/luna</text>
+			<text name="WLAmbientText">Ambiente</text>
+			<text name="WLEastAngleText">Angolo est</text>
+			<text name="SunGlowText">Corona intorno al sole</text>
+			<slider name="WLGlowB" label="Focus" />
+			<slider name="WLGlowR" label="Dimensione" />
+			<text name="SceneGammaText">Gamma della scena</text>
+			<text name="WLStarText">Luminosità delle stelle</text>
+		</panel>
+		<panel name="Clouds" label="Nuvole">
+			<text name="WLCloudColorText">Colore delle nuvole</text>
+			<text name="WLCloudColorText2">Nuvole XY/densità</text>
+			<text name="WLCloudCoverageText">Copertura delle nuvole</text>
+			<text name="WLCloudScaleText">Scala delle nuvole</text>
+			<text name="WLCloudDetailText">Dettagli nuvole (XY/densità)</text>
+			<text name="WLCloudScrollXText">Scorrimento X</text>
+			<check_box name="WLCloudLockX" label="Blocca" />
+			<text name="WLCloudScrollYText">Scorrimento Y</text>
+			<check_box name="WLCloudLockY" label="Blocca" />
+			<check_box name="DrawClassicClouds" label="Nuvole classiche" />
+			<text name="cloud_settings_title">Texture</text>
+			<combo_box name="cloud_settings_preset_combo">
+				<combo_box.item name="altocumulus_cloud" label="Altocumuli" />
+				<combo_box.item name="cumulonimbus_cloud" label="Cumulonembi" />
+				<combo_box.item name="default_cloud" label="Predefinito" />
+				<combo_box.item name="layered_cloud" label="A strati" />
+			</combo_box>
+		</panel>
+	</tab_container>
+</floater>

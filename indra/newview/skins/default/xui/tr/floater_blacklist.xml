@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_blacklist" title="Varlık Kara Listesi">
+	<button name="add_btn" label="Ekle..." />
+	<button name="remove_btn" label="Kaldır" />
+	<combo_box name="asset_combo" label="Varlık Türü" />
+	<line_editor name="id_edit" label="Varlık UUID'si buraya gelir." />
+	<line_editor name="name_edit" label="Giriş adı buraya gelecek." />
+	<scroll_list name="file_list">
+		<column name="asset_id" label="Öğe Kimliği" />
+		<column name="entry_name" label="İsim" />
+		<column name="entry_type" label="Tür" />
+		<column name="entry_agent" label="Tarafından kara listeye alındı" />
+		<column name="entry_date" label="Tarih" />
+	</scroll_list>
+	<button name="save_btn" label="XML'i kaydet" />
+	<button name="load_btn" label="XML'i yükle" />
+	<button name="clear_btn" label="Temizle" />
+	<button name="copy_uuid_btn" label="UUID'yi kopyala" />
+</floater>

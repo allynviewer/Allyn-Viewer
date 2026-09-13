@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Display Name" title="ALTERAR NOME DE EXIBIÇÃO">
+	<text name="lockout_text">Próxima alteração possível: [TIME].</text>
+	<text name="set_name_label">Novo nome de exibição:</text>
+	<text name="name_confirm_label">Digite o novo nome novamente para confirmar:</text>
+	<button name="save_btn" label="Salvar" tool_tip="Salvar seu novo nome de exibição"/>
+	<button name="reset_btn" label="Redefinir" tool_tip="Fazer o nome de exibição igual ao nome de usuário"/>
+	<button name="cancel_btn" label="Cancelar" tool_tip="Cancelar e fechar este diálogo"/>
+	<text name="name_confirm_label2">O nome que você dá ao seu avatar é chamado de nome de exibição.</text>
+	<text name="name_confirm_label3">Você pode alterá-lo uma vez por semana.</text>
+</floater>

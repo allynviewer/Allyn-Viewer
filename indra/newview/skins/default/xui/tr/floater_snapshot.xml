@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Snapshot" title="Snapshot önizleme">
+	<text name="file_size_label">Dosya boyutu: [SIZE] KB</text>
+	<text name="type_label">Hedef</text>
+	<combo_box name="snapshot_type_radio">
+		<combo_item name="feed">Profil feed'inde yayınla</combo_item>
+		<combo_item name="postcard">E-postayla gönder</combo_item>
+		<combo_item name="texture">Envantere kaydet</combo_item>
+		<combo_item name="local">Sabit sürücüye kaydet</combo_item>
+	</combo_box>
+	<button name="new_snapshot_btn" label="Yenile" />
+	<button name="freeze_time_btn" label="Dondur" tool_tip="Tam ekran önizlemesini göster. Aynı sahnenin birden fazla anlık görüntüsünü almak için sanki zaman donmuş gibi kamera çekilmesine olanak tanır. Geri almak için ESC'ye basın!" />
+	<button name="feed_btn" label="Yükle" />
+	<button name="send_btn" label="Gönder" />
+	<button name="upload_btn" label="Yükle ([UPLOADFEE])" />
+	<flyout_button name="save_btn" label="Kaydet" tool_tip="Resmi bir dosyaya kaydet">
+		<flyout_button_item name="save_item">Kaydet</flyout_button_item>
+		<flyout_button_item name="saveas_item">Farklı Kaydet...</flyout_button_item>
+	</flyout_button>
+	<button name="discard_btn" label="İptal" />
+	<button name="more_btn" label="Daha Fazla &gt;&gt;" tool_tip="Gelişmiş Seçenekler" />
+	<button name="less_btn" label="&lt;&lt; Daha az" tool_tip="Gelişmiş Seçenekler" />
+	<text name="type_label2">Hedef Çözünürlüğü</text>
+	<text name="format_label">Biçim</text>
+	<combo_box name="feed_size_combo" label="Çözünürlük">
+		<combo_item name="CurrentWindow">Geçerli Pencere</combo_item>
+		<combo_item name="500x500">500x500 (1:1)</combo_item>
+		<combo_item name="500x375">500x375 (4:3)</combo_item>
+		<combo_item name="500x350">500x350 (10:7)</combo_item>
+		<combo_item name="500x313">500x313 (16:10)</combo_item>
+		<combo_item name="500x281">500x281 (16:9)</combo_item>
+		<combo_item name="500x250">500x250 (2:1)</combo_item>
+		<combo_item name="Custom">Özel</combo_item>
+	</combo_box>
+	<combo_box name="postcard_size_combo" label="Çözünürlük">
+		<combo_item name="CurrentWindow">Geçerli Pencere</combo_item>
+		<combo_item name="640x480">640x480</combo_item>
+		<combo_item name="700x525">700x525</combo_item>
+		<combo_item name="800x600">800x600</combo_item>
+		<combo_item name="1024x768">1024x768</combo_item>
+		<combo_item name="Custom">Özel</combo_item>
+	</combo_box>
+	<combo_box name="texture_size_combo" label="Çözünürlük">
+		<combo_item name="CurrentWindow">Geçerli Pencere</combo_item>
+		<combo_item name="512x512">512x512 (1:1)</combo_item>
+		<combo_item name="256x256">256x256 (1:1)</combo_item>
+		<combo_item name="128x128">128x128 (1:1)</combo_item>
+		<combo_item name="512x256">512x256 (2:1)</combo_item>
+		<combo_item name="256x128">256x128 (2:1)</combo_item>
+		<combo_item name="256x512">256x512 (1:2)</combo_item>
+		<combo_item name="128x256">128x256 (1:2)</combo_item>
+		<combo_item name="512x128">512x128 (4:1)</combo_item>
+		<combo_item name="128x512">128x512 (1:4)</combo_item>
+		<combo_item name="Custom">Özel</combo_item>
+	</combo_box>
+	<combo_box name="local_size_combo" label="Çözünürlük">
+		<combo_item name="CurrentWindow">Geçerli Pencere</combo_item>
+		<combo_item name="320x240">320x240</combo_item>
+		<combo_item name="640x480">640x480</combo_item>
+		<combo_item name="800x600">800x600</combo_item>
+		<combo_item name="1024x768">1024x768</combo_item>
+		<combo_item name="1280x960">1280x960</combo_item>
+		<combo_item name="1280x1024">1280x1024</combo_item>
+		<combo_item name="1600x1200">1600x1200</combo_item>
+		<combo_item name="1680x1050">1680x1050</combo_item>
+		<combo_item name="Custom">Özel</combo_item>
+	</combo_box>
+	<combo_box name="local_format_combo" label="Biçim">
+		<combo_item name="PNG">PNG</combo_item>
+		<combo_item name="JPEG">JPEG</combo_item>
+		<combo_item name="BMP">BMP</combo_item>
+	</combo_box>
+	<spinner name="snapshot_width" label="Genişlik" />
+	<spinner name="snapshot_height" label="Yükseklik" />
+	<slider name="image_quality_slider" label="Görüntü Kalitesi" />
+	<check_box name="keep_aspect" label="En boy oranını koru" tool_tip="Not: Çözünürlüğü Özel olmayana veya En Boy Oranını Varsayılana ayarlamak, uyumlu olmadıkları için bu onay kutusunu sıfırlayacaktır." />
+	<text name="type_label3" />
+	<combo_box name="feed_aspect_combo" label="Görünüş">
+		<combo_item name="Default">Varsayılan</combo_item>
+		<combo_item name="Custom">Özel</combo_item>
+	</combo_box>
+	<combo_box name="postcard_aspect_combo" label="Görünüş">
+		<combo_item name="Default">Varsayılan</combo_item>
+		<combo_item name="Custom">Özel</combo_item>
+	</combo_box>
+	<combo_box name="texture_aspect_combo" label="Görünüş">
+		<combo_item name="CurrentWindow">Geçerli Pencere</combo_item>
+		<combo_item name="1:1">1:1</combo_item>
+		<combo_item name="4:3">4:3 (profil)</combo_item>
+		<combo_item name="10:7">10:7</combo_item>
+		<combo_item name="3:2">3:2</combo_item>
+		<combo_item name="16:10">16:10</combo_item>
+		<combo_item name="16:9">16:9</combo_item>
+		<combo_item name="2:1">2:1</combo_item>
+		<combo_item name="Custom">Özel</combo_item>
+	</combo_box>
+	<combo_box name="local_aspect_combo" label="Görünüş">
+		<combo_item name="Default">Varsayılan</combo_item>
+		<combo_item name="CurrentWindow">Geçerli Pencere</combo_item>
+		<combo_item name="1:1">1:1</combo_item>
+		<combo_item name="4:3">4:3 (profil)</combo_item>
+		<combo_item name="10:7">10:7</combo_item>
+		<combo_item name="3:2">3:2</combo_item>
+		<combo_item name="16:10">16:10</combo_item>
+		<combo_item name="16:9">16:9</combo_item>
+		<combo_item name="2:1">2:1</combo_item>
+		<combo_item name="Custom">Özel</combo_item>
+	</combo_box>
+	<spinner name="aspect_ratio" />
+	<text name="aspect_one_label">:1</text>
+	<text name="layer_type_label">Yakalama:</text>
+	<combo_box name="layer_types" label="Görüntü Katmanları">
+		<combo_item name="Colors">Renkler</combo_item>
+		<combo_item name="Depth">Derinlik</combo_item>
+	</combo_box>
+	<check_box name="ui_check" label="Anlık görüntüde arayüzü göster" tool_tip="Çözünürlüğü geçerli pencere boyutuna kilitler." />
+	<check_box name="hud_check" label="Anlık görüntüde HUD nesnelerini göster" tool_tip="Çözünürlüğü geçerli pencere boyutuna kilitler." />
+	<check_box name="keep_open_check" label="Kaydettikten sonra açık tut" />
+	<check_box name="freeze_time_check" label="Pencereyi zamanı dondurarak aç" tool_tip="Anlık görüntü penceresinin hızlı bir şekilde açılmasına, ardından kameranın konumlandırılmasına ve donmuş sahnenin birden fazla çekiminin yapılmasına olanak tanır." />
+	<check_box name="auto_snapshot_check" label="Otomatik yenileme" tool_tip="Freeze Time ile birlikte kullanışlıdır: Kamerayı durdurduğunuzda yeni bir tam ekran önizleme oluşturur." />
+	<check_box name="temp_check" label="Geçici Resim (Ücretsiz)" tool_tip="Varlığın geçici olmasını, yani ücretsiz olmasını, ancak karşılığında varlığı sona ermeden önce yalnızca kısa bir süre için geçerli olmasını ayarlar. (SL ızgarasında çalışmayabilir)" />
+	<string name="unknown">bilinmiyor</string>
+	<string name="targetAR">Hedef en boy oranı</string>
+	<string name="sourceAR">Çözünürlük VE Hedef en boy oranı</string>
+</floater>

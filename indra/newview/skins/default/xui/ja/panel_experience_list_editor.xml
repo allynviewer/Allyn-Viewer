@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel>
+	<panel.string name="loading">ロード中...</panel.string>
+	<panel.string name="panel_allowed">許可されたエクスペリエンス:</panel.string>
+	<panel.string name="panel_blocked">ブロック済み Experiences:</panel.string>
+	<panel.string name="panel_trusted">信頼済みエクスペリエンス:</panel.string>
+	<panel.string name="no_results">（空）</panel.string>
+	<text name="text_name">エクスペリエンス リスト</text>
+	<text name="text_count" />
+	<name_list name="experience_list">
+		<columns name="experience_name" label="名前" />
+	</name_list>
+	<button name="btn_add" label="追加..." />
+	<button name="btn_remove" label="削除" />
+	<button name="btn_profile" label="プロフィール..." />
+</panel>

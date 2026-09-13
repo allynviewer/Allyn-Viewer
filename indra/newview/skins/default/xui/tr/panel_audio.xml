@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Media panel" label="Ses ve Video">
+	<slider name="System Volume" label="usta" />
+	<button name="mute_audio" />
+	<slider name="Music Volume" label="Müzik" />
+	<button name="mute_music" />
+	<slider name="Media Volume" label="Media" />
+	<button name="mute_media" />
+	<slider name="Voice Volume" label="Ses" />
+	<button name="mute_voice" />
+	<slider name="SFX Volume" label="Sesler" />
+	<button name="mute_sfx" />
+	<slider name="Wind Volume" label="Ortam" />
+	<button name="mute_wind" />
+	<slider name="UI Volume" label="kullanıcı arayüzü" />
+	<button name="mute_ui" />
+	<button name="nearby_media" label="Yakındaki Medya" />
+</panel>

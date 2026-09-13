@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="perm prefs" title="Varsayılan Oluşturma İzinleri">
+	<panel name="permissions" label="İzinler">
+		<text name="NextOwnerLabel">Sonraki sahibi:</text>
+		<text name="NextOwnerCopyLabel">Kopyala</text>
+		<text name="NextOwnerModifyLabel">Değiştir</text>
+		<text name="NextOwnerTransferLabel">Aktar</text>
+		<text name="ShareWithGroupLabel">Grupla Paylaş</text>
+		<text name="AnyoneCopyLabel">Herkesin kopyalamasına izin ver</text>
+		<text name="ExportationLabel">Dışa aktarmaya izin ver</text>
+		<text name="ObjectsLabel" tool_tip="Nesneler oluşturulduğunda varsayılan izinleri ayarlayın">Nesneler</text>
+		<text name="UploadsLabel" tool_tip="Yüklenen öğeler için varsayılan izinleri ayarlayın">Yüklemeler</text>
+		<text name="ScriptsLabel" tool_tip="Komut dosyaları oluşturulduğunda varsayılan izinleri ayarlayın">Scriptler</text>
+		<text name="NotecardsLabel" tool_tip="Not kartları oluşturulduğunda varsayılan izinleri ayarlayın">Not kartları</text>
+		<text name="GesturesLabel" tool_tip="Jestler oluşturulduğunda varsayılan izinleri ayarlayın">Jestler</text>
+		<text name="WearablesLabel" tool_tip="Giysi veya vücut parçaları oluşturulduğunda varsayılan izinleri ayarlayın">Giyilebilirler</text>
+	</panel>
+	<button name="ok" label="Tamam"/>
+	<button name="cancel" label="İptal"/>
+</floater>

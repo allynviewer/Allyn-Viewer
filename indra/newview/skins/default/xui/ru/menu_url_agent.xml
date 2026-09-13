@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<context_menu name="Url Popup" label="Пользователь">
+	<menu_item_call name="send_im" label="Отправить IM..." />
+	<menu name="Actions" label="Действия">
+		<menu_item_call name="Profile" label="Профиль" />
+		<menu_item_call name="Web Profile" label="Веб-профиль" />
+		<menu_item_call name="Pay" label="Оплатить" />
+		<menu_item_call name="Call" label="Звонок" />
+		<menu_item_call name="Add Friend" label="Добавить в друзья" />
+		<menu_item_call name="Remove Friend" label="Удалить из друзей" />
+		<menu_item_call name="Invite To Group" label="Пригласить в группу" />
+		<menu_item_call name="Follow" label="Следовать" />
+		<menu_item_call name="Move To" label="Подойти" />
+		<menu_item_call name="Offer Teleport" label="Предложить телепорт" />
+		<menu_item_call name="Teleport To" label="Телепорт к" />
+		<menu_item_call name="Request Teleport" label="Запросить телепорт" />
+		<menu_item_call name="Find on Map" label="Найти на карте" />
+		<menu_item_call name="Share" label="Поделиться" />
+		<menu_item_call name="Chat History" label="История чата" />
+		<menu_item_call name="Track/Untrack" label="Отслеживать" />
+		<menu_item_call name="Focus" label="Фокус" />
+	</menu>
+	<menu_item_call name="url_copy_label" label="Копировать имя" />
+	<menu_item_call name="url_copy" label="Копировать SLURL" />
+	<menu_item_call name="key_copy" label="Копировать ключ" />
+	<menu_item_call name="Select All" label="Выделить всё" />
+	<menu name="Moderation" label="Модерация">
+		<menu_item_call name="Mute" label="Заглушить" />
+		<menu_item_call name="Unmute" label="Снять заглушение" />
+		<menu_item_call name="Ban From Group" label="Забанить в группе" />
+		<menu_item_call name="Report Abuse" label="Сообщить о нарушении" />
+		<menu_item_call name="Freeze" label="Заморозить" />
+		<menu_item_call name="Eject/Ban from Parcel" label="Выгнать / забанить с парцела" />
+		<menu_item_call name="Eject from estate" label="Выгнать с эстейта" />
+		<menu_item_call name="Eject and ban from estate" label="Выгнать и забанить с эстейта" />
+	</menu>
+</context_menu>

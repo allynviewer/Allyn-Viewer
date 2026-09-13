@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="overlay">
+	<layout_stack name="overlay_layout_panel">
+		<layout_panel name="main_panel">
+			<layout_stack name="chatbar_and_buttons">
+				<layout_panel name="padding" />
+				<layout_panel name="state_management_buttons_container">
+					<button name="New IM" label="新規 IM" tool_tip="未読のインスタントメッセージがあります。クリックしてIMを表示します。" />
+					<button name="Set Not Busy" label="取り込み中を解除" tool_tip="チャットとIMは非表示になっています。クリックすると取り込み中を解除します。" />
+					<button name="Flycam" label="Flycam" tool_tip="カメラはジョイスティック制御中です。クリックすると解除します。" />
+					<button name="Mouselook" label="マウスルック" tool_tip="マウスで視点を操作します。銃を持っている場合、クリックで発射します。" />
+					<button name="Stand Up" label="立つ" tool_tip="クリックして立ちます。" />
+					<button name="Cancel TP" label="TPをキャンセル" tool_tip="クリックすると現在のテレポートをキャンセルします。" />
+				</layout_panel>
+				<layout_panel name="chat_bar_layout_panel">
+					<panel name="chat_bar" />
+				</layout_panel>
+			</layout_stack>
+		</layout_panel>
+		<layout_panel name="ao_remote_container">
+			<panel name="ao_remote" />
+		</layout_panel>
+		<layout_panel name="media_remote_container">
+			<panel name="media_remote" />
+		</layout_panel>
+		<layout_panel name="voice_remote_container">
+			<panel name="voice_remote" />
+		</layout_panel>
+		<layout_panel name="AdvSettings_container">
+			<panel name="Adv_Settings" />
+		</layout_panel>
+	</layout_stack>
+	<string name="unread_count_string_plural">新しいIM</string>
+</panel>

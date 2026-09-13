@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Classified" title="Классифицировано">
+	<texture_picker name="snapshot_ctrl" />
+	<line_editor name="given_name_editor" tool_tip="Имя должно начинаться с буквы или цифры, а не знаков препинания." />
+	<text_editor name="desc_editor" />
+	<line_editor name="location_editor" tool_tip="Установите местоположение для этого объявления в соответствии с вашей текущей позицией." />
+	<button name="set_location_btn" label="Задать" />
+	<button name="classified_teleport_btn" label="Телепортироваться" />
+	<button name="classified_map_btn" label="Показать на карте" />
+	<button name="classified_profile_btn" label="Профиль" />
+	<combo_box name="classified_mature_check">
+		<combo_item name="select_mature">- Выберите зрелый -</combo_item>
+		<combo_item name="mature">Зрелый контент</combo_item>
+		<combo_item name="pg">PG-контент</combo_item>
+	</combo_box>
+	<combo_box name="classified_category_combo" />
+	<button name="classified_update_btn" label="Обновлять" />
+	<string name="ad_placed_paid">Объявление размещено: [DATE], оплачено [CURRENCY][AMT] за размещение.</string>
+	<string name="update_txt">Обновлять</string>
+	<string name="publish_txt">Публиковать...</string>
+</panel>

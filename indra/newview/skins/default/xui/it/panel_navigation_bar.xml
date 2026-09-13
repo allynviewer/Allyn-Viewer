@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="navigation_bar">
+	<button name="back_btn" tool_tip="Torna al luogo precedente"/>
+	<button name="forward_btn" tool_tip="Vai al luogo seguente"/>
+	<button name="home_btn" tool_tip="Teleport a casa"/>
+	<button name="About_Land" label="Terreno" tool_tip="Mostra finestra delle informazioni sul terreno" width="60"/>
+	<button name="PersonalLighting" label="Illuminazione" tool_tip="Mostra finestra di illuminazione personalizzata" width="90"/>
+	<combo_box name="location_combo" label="Posizione"
+	     tool_tip="Posizione attuale. Digita una regione o uno SLURL e premi Invio per teletrasportarti."/>
+	<button name="add_landmark_btn" tool_tip="Crea un segnaposto qui"/>
+	<line_editor name="search_editor" label="Cerca" tool_tip="Cerca"/>
+	<button name="search_btn" tool_tip="Cerca"/>
+</panel>

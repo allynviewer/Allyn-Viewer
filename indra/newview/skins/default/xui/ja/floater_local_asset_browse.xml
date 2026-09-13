@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="local_bitmap_browser_floater" title="ローカルビットマップブラウザ">
+	<button name="add_btn" label="追加" />
+	<button name="del_btn" label="削除" />
+	<button name="upload_btn" label="アップロード" />
+	<button name="more_btn" label="もっと" />
+	<button name="less_btn" label="少ない" />
+	<scroll_list name="bitmap_list">
+		<column name="bitmap_name" label="名前" />
+		<column name="bitmap_uuid" label="UUID" />
+	</scroll_list>
+	<line_editor name="path_text" />
+	<text name="path_caption_text">ローカル パス:</text>
+	<line_editor name="uuid_text" />
+	<text name="uuid_caption_text">ローカル UUID:</text>
+	<texture_picker name="texture_view" label="テクスチャ" />
+	<check_box name="keep_updating_checkbox" label="更新を続ける" tool_tip="ハードディスク上の元画像が更新されたか、定期的に確認するかどうかを切り替えます" />
+	<combo_box name="type_combobox">
+		<combo_item name="type_texture">テクスチャ</combo_item>
+		<combo_item name="type_sculptie">Sculptmap</combo_item>
+		<combo_item name="type_layer">衣類</combo_item>
+	</combo_box>
+	<text name="time_caption_text">時間:</text>
+	<text name="time_text">（日付を入力）</text>
+	<text name="link_caption_text">リンク:</text>
+	<text name="link_text">（リンク状態）</text>
+	<text name="name_caption_text">名前:</text>
+	<line_editor name="name_text" />
+</floater>

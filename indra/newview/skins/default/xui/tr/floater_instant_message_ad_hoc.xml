@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="im_floater" label="(bilinmiyor)" title="(bilinmiyor)">
+	<string name="ringing">Sesli sohbete katılıyor...</string>
+	<string name="connected">Bağlandı. Aramayı sonlandırmak için Bitir'e tıkla</string>
+	<string name="hang_up">Sesli sohbetten çıktın</string>
+	<string name="voice_icon">icn_voice-groupfocus.tga</string>
+	<string name="title_string">[NAME] ile IM</string>
+	<string name="typing_start_string">[NAME] yazıyor...</string>
+	<string name="session_start_string">[NAME] ile oturum açılıyor, bir saniye...</string>
+	<string name="default_text_label">IM göndermek için tıkla</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<flyout_button name="instant_message_flyout" label="Geçmiş">
+				<flyout_button_item name="conference" label="Konferansa ekle" />
+			</flyout_button>
+			<button name="ding_btn" label="Ding" />
+			<check_box name="im_translate_check" tool_tip="Çeviriyi etkinleştirmek için işaretleyin" />
+			<button name="im_translate_btn" label="Çeviri" tool_tip="Bu konferansın dillerini ayarla" />
+			<button name="start_call_btn" label="Ara" />
+			<button name="end_call_btn" label="Bitir" />
+			<button name="toggle_active_speakers_btn" label="&lt; &lt;" tool_tip="Listeyi göster veya gizle" />
+			<text_editor name="im_history" />
+			<line_editor name="chat_editor" label="IM göndermek için tıkla" />
+			<button name="send_btn" label="Gönder" />
+		</layout_panel>
+		<layout_panel name="active_speakers_panel" />
+	</layout_stack>
+	<string name="live_help_dialog">
+		*** Yardım isteğine hoş geldin ***
+Önce F1 ile SL yardım sayfalarına bak veya bilgi bankasını aç: http://secondlife.com/knowledgebase/
+Cevabı orada yoksa sorununu yaz; müsait yardımcılar yanıtlayana kadar biraz bekle.
+-=-=- Yanıt süresi değişir, yoğun saatlerde daha uzun sürebilir -=-=-
+	</string>
+</floater>

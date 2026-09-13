@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="perm prefs" title="Default Creation Permissions" width="900" height="300" rect_control="FloaterPermPrefsRect" can_close="true" can_minimize="true" can_resize="false">
+    <panel label="Permissions" name="permissions" width="880" height="228" left="10" bottom="-252" border="false" mouse_opaque="false" follows="left|top">
+      <text follows="left|top" font="SansSerifSmall" bottom="-36" left="8" width="140" height="32" name="NextOwnerLabel">Next owner:</text>
+      <text follows="left|top" font="SansSerifSmall" bottom="-36" left="176" width="90" height="32" word_wrap="true" name="NextOwnerCopyLabel">Copy</text>
+      <text follows="left|top" font="SansSerifSmall" bottom="-36" left="276" width="90" height="32" word_wrap="true" name="NextOwnerModifyLabel">Modify</text>
+      <text follows="left|top" font="SansSerifSmall" bottom="-36" left="376" width="90" height="32" word_wrap="true" name="NextOwnerTransferLabel">Transfer</text>
+      <text follows="left|top" font="SansSerifSmall" bottom="-36" left="476" width="130" height="32" word_wrap="true" name="ShareWithGroupLabel">Share With Group</text>
+      <text follows="left|top" font="SansSerifSmall" bottom="-36" left="616" width="150" height="32" word_wrap="true" name="AnyoneCopyLabel">Allow anyone to copy</text>
+      <text follows="left|top" font="SansSerifSmall" bottom="-36" left="776" width="96" height="32" word_wrap="true" name="ExportationLabel">Allow exportation</text>
+
+      <text follows="left|top" bottom="-64" left="8" width="140" height="16" name="ObjectsLabel" tool_tip="Set default permissions for when Objects are created">Objects</text>
+      <icon follows="left|top" bottom="-64" left="150" image_name="inv_item_object.tga" width="18" height="16"/>
+      <check_box follows="left|top" bottom="-64" left="176" width="32" height="16" label="" name="Objectsnext_owner_copy" control_name="ObjectsNextOwnerCopy"/>
+      <check_box follows="left|top" bottom="-64" left="276" width="32" height="16" label="" name="Objectsnext_owner_modify" control_name="ObjectsNextOwnerModify"/>
+      <check_box follows="left|top" bottom="-64" left="376" width="32" height="16" label="" name="Objectsnext_owner_transfer" control_name="ObjectsNextOwnerTransfer"/>
+      <check_box follows="left|top" bottom="-64" left="476" width="32" height="16" label="" name="Objectsshare_with_group" control_name="ObjectsShareWithGroup"/>
+      <check_box follows="left|top" bottom="-64" left="616" width="32" height="16" label="" name="Objectseveryone_copy" control_name="ObjectsEveryoneCopy"/>
+      <check_box follows="left|top" bottom="-64" left="776" width="32" height="16" label="" name="Objectseveryone_export" control_name="ObjectsEveryoneExport"/>
+
+      <text follows="left|top" bottom="-92" left="8" width="140" height="16" name="UploadsLabel" tool_tip="Set default permissions for uploaded items">Uploads</text>
+      <icon follows="left|top" bottom="-92" left="150" image_name="inv_item_texture.tga" width="18" height="16"/>
+      <check_box follows="left|top" bottom="-92" left="176" width="32" height="16" label="" name="Uploadsnext_owner_copy" control_name="UploadsNextOwnerCopy"/>
+      <check_box follows="left|top" bottom="-92" left="276" width="32" height="16" label="" name="Uploadsnext_owner_modify" control_name="UploadsNextOwnerModify"/>
+      <check_box follows="left|top" bottom="-92" left="376" width="32" height="16" label="" name="Uploadsnext_owner_transfer" control_name="UploadsNextOwnerTransfer"/>
+      <check_box follows="left|top" bottom="-92" left="476" width="32" height="16" label="" name="Uploadsshare_with_group" control_name="UploadsShareWithGroup"/>
+      <check_box follows="left|top" bottom="-92" left="616" width="32" height="16" label="" name="Uploadseveryone_copy" control_name="UploadsEveryoneCopy"/>
+      <check_box follows="left|top" bottom="-92" left="776" width="32" height="16" label="" name="Uploadseveryone_export" control_name="UploadsEveryoneExport"/>
+
+      <text follows="left|top" bottom="-120" left="8" width="140" height="16" name="ScriptsLabel" tool_tip="Set default permissions for when Scripts are created">Scripts</text>
+      <icon follows="left|top" bottom="-120" left="150" image_name="inv_item_script.tga" width="18" height="16"/>
+      <check_box follows="left|top" bottom="-120" left="176" width="32" height="16" label="" name="Scriptsnext_owner_copy" control_name="ScriptsNextOwnerCopy"/>
+      <check_box follows="left|top" bottom="-120" left="276" width="32" height="16" label="" name="Scriptsnext_owner_modify" control_name="ScriptsNextOwnerModify"/>
+      <check_box follows="left|top" bottom="-120" left="376" width="32" height="16" label="" name="Scriptsnext_owner_transfer" control_name="ScriptsNextOwnerTransfer"/>
+      <check_box follows="left|top" bottom="-120" left="476" width="32" height="16" label="" name="Scriptsshare_with_group" control_name="ScriptsShareWithGroup"/>
+      <check_box follows="left|top" bottom="-120" left="616" width="32" height="16" label="" name="Scriptseveryone_copy" control_name="ScriptsEveryoneCopy"/>
+      <check_box follows="left|top" bottom="-120" left="776" width="32" height="16" label="" name="Scriptseveryone_export" control_name="ScriptsEveryoneExport"/>
+
+      <text follows="left|top" bottom="-148" left="8" width="140" height="16" name="NotecardsLabel" tool_tip="Set default permissions for when Notecards are created">Notecards</text>
+      <icon follows="left|top" bottom="-148" left="150" image_name="inv_item_notecard.tga" width="18" height="16"/>
+      <check_box follows="left|top" bottom="-148" left="176" width="32" height="16" label="" name="Notecardsnext_owner_copy" control_name="NotecardsNextOwnerCopy"/>
+      <check_box follows="left|top" bottom="-148" left="276" width="32" height="16" label="" name="Notecardsnext_owner_modify" control_name="NotecardsNextOwnerModify"/>
+      <check_box follows="left|top" bottom="-148" left="376" width="32" height="16" label="" name="Notecardsnext_owner_transfer" control_name="NotecardsNextOwnerTransfer"/>
+      <check_box follows="left|top" bottom="-148" left="476" width="32" height="16" label="" name="Notecardsshare_with_group" control_name="NotecardsShareWithGroup"/>
+      <check_box follows="left|top" bottom="-148" left="616" width="32" height="16" label="" name="Notecardseveryone_copy" control_name="NotecardsEveryoneCopy"/>
+      <check_box follows="left|top" bottom="-148" left="776" width="32" height="16" label="" name="Notecardseveryone_export" control_name="NotecardsEveryoneExport"/>
+
+      <text follows="left|top" bottom="-176" left="8" width="140" height="16" name="GesturesLabel" tool_tip="Set default permissions for when Gestures are created">Gestures</text>
+      <icon follows="left|top" bottom="-176" left="150" image_name="inv_item_gesture.tga" width="18" height="16"/>
+      <check_box follows="left|top" bottom="-176" left="176" width="32" height="16" label="" name="Gesturesnext_owner_copy" control_name="GesturesNextOwnerCopy"/>
+      <check_box follows="left|top" bottom="-176" left="276" width="32" height="16" label="" name="Gesturesnext_owner_modify" control_name="GesturesNextOwnerModify"/>
+      <check_box follows="left|top" bottom="-176" left="376" width="32" height="16" label="" name="Gesturesnext_owner_transfer" control_name="GesturesNextOwnerTransfer"/>
+      <check_box follows="left|top" bottom="-176" left="476" width="32" height="16" label="" name="Gesturesshare_with_group" control_name="GesturesShareWithGroup"/>
+      <check_box follows="left|top" bottom="-176" left="616" width="32" height="16" label="" name="Gestureseveryone_copy" control_name="GesturesEveryoneCopy"/>
+      <check_box follows="left|top" bottom="-176" left="776" width="32" height="16" label="" name="Gestureseveryone_export" control_name="GesturesEveryoneExport"/>
+
+      <text follows="left|top" bottom="-204" left="8" width="140" height="16" name="WearablesLabel" tool_tip="Set default permissions for when Clothing or Body Parts are created">Wearables</text>
+      <icon follows="left|top" bottom="-204" left="150" image_name="inv_item_clothing.tga" width="18" height="16"/>
+      <check_box follows="left|top" bottom="-204" left="176" width="32" height="16" label="" name="Wearablesnext_owner_copy" control_name="WearablesNextOwnerCopy"/>
+      <check_box follows="left|top" bottom="-204" left="276" width="32" height="16" label="" name="Wearablesnext_owner_modify" control_name="WearablesNextOwnerModify"/>
+      <check_box follows="left|top" bottom="-204" left="376" width="32" height="16" label="" name="Wearablesnext_owner_transfer" control_name="WearablesNextOwnerTransfer"/>
+      <check_box follows="left|top" bottom="-204" left="476" width="32" height="16" label="" name="Wearablesshare_with_group" control_name="WearablesShareWithGroup"/>
+      <check_box follows="left|top" bottom="-204" left="616" width="32" height="16" label="" name="Wearableseveryone_copy" control_name="WearablesEveryoneCopy"/>
+      <check_box follows="left|top" bottom="-204" left="776" width="32" height="16" label="" name="Wearableseveryone_export" control_name="WearablesEveryoneExport"/>
+    </panel>
+    <button follows="left|top" bottom="-286" height="22" label="OK" label_selected="OK" left="342" name="ok" width="100">
+      <button.commit_callback function="PermsDefault.OK"/>
+    </button>
+    <button follows="left|top" bottom="-286" height="22" label="Cancel" label_selected="Cancel" left="458" name="cancel" width="100">
+      <button.commit_callback function="PermsDefault.Cancel"/>
+    </button>
+</floater>

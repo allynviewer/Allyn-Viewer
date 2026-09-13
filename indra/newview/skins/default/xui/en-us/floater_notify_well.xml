@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="true"
+     height="240" width="320" min_width="260" min_height="160"
+     name="notify_well" title="Notifications"
+     rect_control="FloaterNotifyWellRect">
+	<scroll_list bottom="40" can_resize="true" column_padding="0" draw_heading="false"
+	     follows="left|top|bottom|right" left="12" multi_select="false"
+	     name="notification_list" top="-38" right="-12">
+		<column dynamic_width="true" label="" name="title" halign="left" />
+		<column width="24" label="" name="close" halign="center" />
+	</scroll_list>
+	<button bottom="12" follows="bottom|left" font="SansSerifSmall" height="20"
+	     label="Open" name="open_btn" left="12" width="80" />
+	<button bottom="12" follows="bottom|left" font="SansSerifSmall" height="20"
+	     label="Close All" name="close_all_btn" left="100" width="120" />
+</floater>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Give Money">
+	<button name="fastpay 1" label="[CURRENCY]1" />
+	<button name="fastpay 5" label="[CURRENCY]5" />
+	<button name="fastpay 10" label="[CURRENCY]10" />
+	<button name="fastpay 20" label="[CURRENCY]20" />
+	<button name="pay btn" label="Оплатить" />
+	<button name="cancel btn" label="Отмена" />
+	<text name="payee_label">Оплата резиденту:</text>
+	<text name="payee_name">[NAME]</text>
+	<text name="fastpay text">Быстрая оплата:</text>
+	<text name="message text">Сообщение:</text>
+	<line_editor name="message" />
+	<text name="amount text">Количество:</text>
+	<line_editor name="amount" />
+</floater>

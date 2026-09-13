@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Preferences" title="Настройки">
+	<button name="OK" label="ОК" />
+	<button name="Cancel" label="Отмена" />
+	<button name="Apply" label="OK" />
+	<button name="About..." label="О" />
+	<button name="Help" label="Помощь" />
+	<tab_container name="pref core" />
+	<filter_editor name="search_prefs_edit" label="Поиск настроек"
+	     tool_tip="Введите поисковый запрос. Совпадения будут подсвечены, вкладки без результатов будут скрыты." />
+</floater>

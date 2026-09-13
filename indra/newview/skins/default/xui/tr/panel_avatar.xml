@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Panel Avatar">
+	<tab_container name="tab">
+		<panel name="2nd Life" label="2. Hayat">
+			<string name="CaptionTextAcctInfo">
+				[ACCTTYPE]
+[PAYMENTINFO]
+[AGEVERIFICATION]
+			</string>
+			<text name="Name:">İsim:</text>
+			<flyout_button name="copy_flyout" label="Kopyala:" tool_tip="Anahtarı panoya kopyalayın, diğer kopyalama seçenekleri için oka basın">
+				<flyout_button_item name="copy_slurl_item" label="SLURL kopyala"/>
+			</flyout_button>
+			<text name="online_yes">Çevrimiçi</text>
+			<text name="Key:">Anahtar:</text>
+			<button name="web_profile" label="Web Profili"/>
+			<text name="Photo:">Fotoğraf:</text>
+			<texture_picker name="img" tool_tip="Bir resim seçmek için tıklayın"/>
+			<text name="label">Doğum:</text>
+			<text name="label2">Hesap:</text>
+			<text name="partner_label" tool_tip="Second Life iş ortağı. Nasıl ayarlanacağı hakkında daha fazla bilgi için bkz. www.secondlife.com/partner">Ortak:</text>
+			<button name="partner_help" label="?"/>
+			<text name="About:">Hakkında:</text>
+			<text name="(500 chars)">(500 karakter)</text>
+			<text name="Groups:">Gruplar:</text>
+			<button name="GroupInvite_Button" label="+" label_selected="+" tool_tip="Gruba davet et"/>
+			<string name="None">Yok</string>
+			<text name="Give item:">Paylaş:</text>
+			<drop_target name="drop_target_rect" label="Envanter öğesini buraya bırakın." tool_tip="Bu kişiye vermek için envanter öğelerini buraya bırakın."/>
+			<check_box name="allow_publish" label="Aramada göster" tool_tip="Açıklama ve resim gibi ekstra profil bilgilerini Arama'da yayınlayın."/>
+			<button name="?" label="?"/>
+			<button name="Find on Map" label="Haritada"/>
+			<button name="Offer Teleport..." label="TP teklif et"/>
+			<button name="Add Friend..." label="Arkadaş ekle"/>
+			<button name="Pay..." label="Öde"/>
+			<button name="Instant Message..." label="Mesaj" tool_tip="Anlık Mesaj (IM)"/>
+			<button name="Mute" label="Engelle" label_selected="Kaldır"/>
+			<button name="Log" label="Günlük"/>
+		</panel>
+		<panel name="WebProfile" label="Web">
+			<flyout_button name="load" label="Yükle" tool_tip="Bu profil sayfasını yerleşik web tarayıcısıyla yükleyin.">
+				<flyout_button_item name="open_item">Harici tarayıcıda</flyout_button_item>
+				<flyout_button_item name="home_item">Ana URL</flyout_button_item>
+			</flyout_button>
+			<button name="web_profile_help" label="?"/>
+			<check_box name="auto_load" label="Web profillerini otomatik yükle" tool_tip="Onay istemeden tüm profil web sayfalarını yükle."/>
+		</panel>
+		<panel name="Interests" label="İlgi alanları">
+			<text name="I Want To:">İstiyorum:</text>
+			<check_box name="chk0" label="İnşa"/>
+			<check_box name="chk1" label="Keşif"/>
+			<check_box name="chk2" label="Tanışma"/>
+			<check_box name="chk6" label="İşe alınmak"/>
+			<check_box name="chk3" label="Grup"/>
+			<check_box name="chk4" label="Almak"/>
+			<check_box name="chk5" label="Satmak"/>
+			<check_box name="chk7" label="İşe almak"/>
+			<text name="Skills:">Yetenekler:</text>
+			<check_box name="schk0" label="Doku"/>
+			<check_box name="schk1" label="Mimari"/>
+			<check_box name="schk2" label="Etkinlik"/>
+			<check_box name="schk3" label="Modelleme"/>
+			<check_box name="schk4" label="Betik"/>
+			<check_box name="schk5" label="Özel karakter"/>
+			<text name="Languages:">Diller:</text>
+		</panel>
+		<panel name="Picks" label="Seçimler">
+			<text name="Tell everyone about your favorite places in Second Life.">Second Life'da herkese en sevdiğiniz yerleri anlatın.</text>
+			<button name="New..." label="Yeni..."/>
+			<button name="Delete..." label="Sil..."/>
+			<button name="Import..." label="İçe aktar..."/>
+			<button name="Export..." label="Dışa aktar..."/>
+			<text name="loading_text">Yükleniyor...</text>
+		</panel>
+		<panel name="Classified" label="İlanlar">
+			<text name="Place an ad in Second Life&apos;s classified listings.">Second Life'in seri ilanlarına bir ilan yerleştirin.</text>
+			<button name="New..." label="Yeni..."/>
+			<button name="Delete..." label="Sil..."/>
+			<text name="loading_text">Yükleniyor...</text>
+		</panel>
+		<panel name="1st Life" label="1. Hayat">
+			<text name="Photo:">Fotoğraf:</text>
+			<texture_picker name="img" tool_tip="Bir resim seçmek için tıklayın"/>
+			<text name="Info:">Bilgi:</text>
+			<text name="(250 chars)">(250 karakter)</text>
+		</panel>
+		<panel name="My Notes" label="Notlarım">
+			<string name="Loading">Yükleniyor...</string>
+			<text name="label">Bu kişi hakkındaki notlarınızı kaydetmek için bu alanı kullanın. Bunları yalnızca siz görebilirsiniz.</text>
+		</panel>
+	</tab_container>
+	<button name="OK" label="OK"/>
+	<button name="Cancel" label="İptal"/>
+	<button name="Kick" label="At"/>
+	<button name="Freeze" label="Dondur" tool_tip="Bu sakinin hareketini ve sohbetini durdurur."/>
+	<button name="Unfreeze" label="Çöz" tool_tip="Sakini dondurmadan çıkar"/>
+	<button name="csr_btn" label="CSR" tool_tip="Bu sakin için müşteri hizmetleri aracını açın"/>
+	<string name="ShowOnMapNonFriend">Konumu haritada göster.
+Devre dışı: henüz arkadaş değilsiniz.</string>
+	<string name="ShowOnMapFriendOffline">Konumu haritada göster.
+    Çevrimiçi olmadıkları için devre dışı bırakıldı.</string>
+	<string name="ShowOnMapFriendOnline">Konumu haritada göster.</string>
+	<string name="TeleportGod">Bulunduğun yere teleport etmeye zorla.</string>
+	<string name="TeleportPrelude">Bulunduğunuz yere teleport teklif edin.
+Oryantasyon Adası'ndan ayrılana kadar devre dışı bırakılır.</string>
+	<string name="TeleportNormal">Bulunduğunuz yere teleport teklif edin.</string>
+	<string name="Loading">Yükleniyor...</string>
+</panel>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Chat de voz" name="chat">
+	<string name="multivoice_label" value="Permitir voz em várias instâncias (precisa reiniciar)"/>
+	<scroll_container name="voice_scroll">
+		<panel name="voice_scroll_inner">
+			<text name="voice_unavailable">O chat de voz não está disponível</text>
+			<check_box label="Ativar chat de voz" name="enable_voice_check"/>
+			<check_box name="enable_multivoice_check"/>
+			<radio_group name="ear_location">
+				<radio_item name="0">Ouvir o chat de voz a partir da câmera.</radio_item>
+				<radio_item name="1">Ouvir o chat de voz a partir do avatar.</radio_item>
+				<radio_item name="3">Ouvir todo mundo no mesmo volume.</radio_item>
+			</radio_group>
+			<text name="push_to_talk_heading">Pressione para falar</text>
+			<check_box label="Usar pressione para falar em modo alternado" name="push_to_talk_toggle_check" tool_tip="Com o modo alternado, cada toque no atalho liga ou desliga o microfone. Sem ele, o microfone só fica aberto enquanto você mantém o atalho pressionado."/>
+			<text name="push_to_talk_label">Atalho de pressione para falar:</text>
+			<line_editor name="modifier_combo"/>
+			<button label="Definir tecla" name="set_voice_hotkey_button"/>
+			<button label="Botão do meio do mouse" name="set_voice_middlemouse_button"/>
+			<check_box label="Ativar sincronia labial" name="enable_lip_sync_check"/>
+			<check_box label="Aceitar chamadas de voz só de amigos" name="voice_call_friends_only_check"/>
+			<check_box label="Desligar o microfone ao encerrar chamadas de IM" name="auto_disengage_mic_check"/>
+			<check_box label="Cancelamento de eco" name="echo_cancellation_check"/>
+			<check_box label="Controle automático de ganho" name="agc_check"/>
+			<text name="noise_suppression_label">Supressão de ruído:</text>
+			<combo_box name="noise_suppression_combo">
+				<combo_item name="0">Desligada</combo_item>
+				<combo_item name="1">Baixa</combo_item>
+				<combo_item name="2">Média</combo_item>
+				<combo_item name="3">Alta</combo_item>
+				<combo_item name="4">Muito alta</combo_item>
+			</combo_box>
+			<button label="Configurações do dispositivo" name="device_settings_btn" tool_tip="Abre as configurações do dispositivo. O chat de voz fica pausado enquanto esta janela estiver aberta."/>
+		</panel>
+	</scroll_container>
+</panel>

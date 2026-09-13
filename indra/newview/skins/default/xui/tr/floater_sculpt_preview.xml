@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Image Preview">
+	<text name="preview_label">Resmi şu şekilde önizleyin:</text>
+	<combo_box name="clothing_type_combo" label="Giyim Türü">
+		<combo_item name="Image">Resim</combo_item>
+		<combo_item name="Hair">Saç</combo_item>
+		<combo_item name="FemaleHead">Kadın kafa</combo_item>
+		<combo_item name="FemaleUpperBody">Kadın Üst Gövde</combo_item>
+		<combo_item name="FemaleLowerBody">Kadın Alt Gövde</combo_item>
+		<combo_item name="MaleHead">Erkek Kafa</combo_item>
+		<combo_item name="MaleUpperBody">Erkek Üst Gövde</combo_item>
+		<combo_item name="MaleLowerBody">Erkek Alt Gövde</combo_item>
+		<combo_item name="Skirt">Etek</combo_item>
+		<combo_item name="SculptedPrim">Oyulmuş Prim</combo_item>
+	</combo_box>
+</floater>

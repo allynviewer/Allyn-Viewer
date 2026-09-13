@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="inspect" title="Nesneleri incele">
+	<scroll_list name="object_list" tool_tip="Dünyada vurgulamak için listeden bir nesne seç">
+		<column name="object_name" label="Nesne" />
+		<column name="owner_name" label="Sahip" />
+		<column name="last_owner_name" label="Son sahip" />
+		<column name="creator_name" label="Yaratıcı" />
+		<column name="face_num" label="Yüzler" />
+		<column name="vertex_num" label="Köşeler" />
+		<column name="script_num" label="Scriptler" />
+		<column name="inv_num" label="Envanter" />
+		<column name="creation_date" label="Oluşturma tarihi" />
+	</scroll_list>
+	<button name="button owner" label="Sahibin profili..." tool_tip="Seçili nesnenin sahibinin profilini aç" />
+	<button name="button last owner" label="Son sahibin profili..." tool_tip="Seçili nesnenin son sahibinin profilini aç" />
+	<button name="button creator" label="Yaratıcının profili..." tool_tip="Seçili nesnenin yaratıcısının profilini aç" />
+</floater>

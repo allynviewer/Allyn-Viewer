@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="item properties" title="Свойства предмета инвентаря">
+	<icon name="IconLocked" />
+	<text name="LabelItemNameTitle">Имя:</text>
+	<line_editor name="LabelItemName" />
+	<text name="LabelItemDescTitle">Описание:</text>
+	<line_editor name="LabelItemDesc" />
+	<text name="LabelCreatorTitle">Создатель:</text>
+	<name_box name="LabelCreatorName">Nicole Linden</name_box>
+	<text name="LabelOwnerTitle">Владелец:</text>
+	<name_box name="LabelOwnerName">Thrax Linden</name_box>
+	<text name="LabelLastOwnerTitle">Последний владелец:</text>
+	<name_box name="LabelLastOwnerName">OnceUponA Linden</name_box>
+	<text name="LabelAcquiredTitle">Приобретенный:</text>
+	<text name="LabelAcquiredDate">Ср 24 мая 12:50:46 2006</text>
+	<text name="LabelItemExperienceTitle">Экспириенс:</text>
+	<name_box name="LabelItemExperience" />
+	<text name="OwnerLabel">Ты можешь:</text>
+	<check_box name="CheckOwnerModify" label="Изменить" />
+	<check_box name="CheckOwnerCopy" label="Копировать" />
+	<check_box name="CheckOwnerTransfer" label="Передача" />
+	<check_box name="CheckOwnerExport" label="Экспорт" />
+	<text name="BaseMaskDebug">B:</text>
+	<text name="OwnerMaskDebug">O:</text>
+	<text name="GroupMaskDebug">G:</text>
+	<text name="EveryoneMaskDebug">E:</text>
+	<text name="NextMaskDebug">N:</text>
+	<text name="GroupLabel">Участники группы могут:</text>
+	<check_box name="CheckGroupMod" label="Изменить" />
+	<check_box name="CheckGroupCopy" label="Копировать" />
+	<check_box name="CheckGroupMove" label="Двигаться" />
+	<text name="EveryoneLabel">Любой может:</text>
+	<check_box name="CheckEveryoneCopy" label="Копировать" />
+	<check_box name="CheckEveryoneMove" label="Двигаться" />
+	<check_box name="CheckExport" label="Экспорт" />
+	<text name="NextOwnerLabel">Следующий владелец может:</text>
+	<check_box name="CheckNextOwnerModify" label="Изменить" />
+	<check_box name="CheckNextOwnerCopy" label="Копировать" />
+	<check_box name="CheckNextOwnerTransfer" label="Передача" />
+	<text name="SaleLabel">Отметить элемент:</text>
+	<check_box name="CheckPurchase" label="Для продажи" />
+	<radio_group name="RadioSaleType">
+		<radio_item name="radio">Original</radio_item>
+		<radio_item name="radio2">Копировать</radio_item>
+	</radio_group>
+	<text name="TextPrice">Цена: [CURRENCY]</text>
+	<line_editor name="Edit Cost" />
+	<floater.string name="loading_experience">(загрузка)</floater.string>
+	<string name="unknown">(неизвестный)</string>
+	<string name="public">(публичный)</string>
+	<string name="you_can">Ты можешь:</string>
+	<string name="owner_can">Владелец может:</string>
+</floater>

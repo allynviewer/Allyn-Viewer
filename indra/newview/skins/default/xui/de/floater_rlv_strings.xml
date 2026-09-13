@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="rlva_strings" title="RLVa-Zeichenketten">
+	<button name="default_btn" label="Auf Standard zurücksetzen"/>
+</floater>

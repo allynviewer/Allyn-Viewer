@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="build options floater" title="Параметры сетки">
+	<spinner name="GridResolution" label="Единица сетки (метры)" />
+	<spinner name="GridDrawSize" label="Размер сетки (метры)" />
+	<check_box name="GridSubUnit" label="Включить привязку субъединиц" />
+	<check_box name="GridCrossSection" label="Показать сечения" />
+	<slider name="GridOpacity" label="Непрозрачность сетки" />
+	<spinner name="GridProtractorSize" label="Ограниченные шаги" />
+	<spinner name="RotationStep" label="Неограниченные шаги" />
+</floater>

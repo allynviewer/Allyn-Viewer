@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Inventory" title="Инвентарь">
+	<filter_editor name="inventory search editor" label="Введите здесь для поиска" />
+	<button name="collapse_btn" tool_tip="Свернуть все" />
+	<button name="Inventory.ExpandAll" tool_tip="Развернуть все" />
+	<button name="Inventory.ResetAll" tool_tip="Сбросить инвентарь: очистить фильтры и свернуть все папки." />
+	<text name="group_titles_textbox">Тип:</text>
+	<string name="filter_type_all">Все типы</string>
+	<string name="filter_type_animation">Анимации</string>
+	<string name="filter_type_callingcard">Телефонные карты</string>
+	<string name="filter_type_wearable">Одежда/Части тела</string>
+	<string name="filter_type_gesture">Жесты</string>
+	<string name="filter_type_landmark">Достопримечательности</string>
+	<string name="filter_type_notecard">Карточки для заметок</string>
+	<string name="filter_type_object">Объекты</string>
+	<string name="filter_type_script">Скрипты</string>
+	<string name="filter_type_sound">Звуки</string>
+	<string name="filter_type_texture">Текстуры</string>
+	<string name="filter_type_snapshot">Снимки</string>
+	<string name="filter_type_custom">Свой...</string>
+	<combo_box name="Quick Filter" tool_tip="Фильтровать по типу">
+		<combo_item name="filter_type_all">Все типы</combo_item>
+		<combo_item name="filter_type_animation">Анимации</combo_item>
+		<combo_item name="filter_type_callingcard">Телефонные карты</combo_item>
+		<combo_item name="filter_type_wearable">Одежда/Части тела</combo_item>
+		<combo_item name="filter_type_gesture">Жесты</combo_item>
+		<combo_item name="filter_type_landmark">Достопримечательности</combo_item>
+		<combo_item name="filter_type_notecard">Карточки для заметок</combo_item>
+		<combo_item name="filter_type_object">Объекты</combo_item>
+		<combo_item name="filter_type_script">Скрипты</combo_item>
+		<combo_item name="filter_type_sound">Звуки</combo_item>
+		<combo_item name="filter_type_texture">Текстуры</combo_item>
+		<combo_item name="filter_type_snapshot">Снимки</combo_item>
+		<combo_item name="filter_type_custom">Свой...</combo_item>
+	</combo_box>
+	<tab_container name="inventory filter tabs">
+		<inventory_panel name="All Items" label="Все предметы" />
+		<inventory_panel name="Recent Items" label="Недавние предметы" />
+		<inventory_panel name="Worn Items" label="Надетые предметы" />
+	</tab_container>
+	<menu_bar name="Inventory Menu">
+		<menu name="File" label="Файл">
+			<menu_item_call name="Open" label="Открыть" />
+			<menu_item_separator name="separator" />
+			<menu_item_call name="New Window" label="Новое окно" />
+			<menu_item_separator name="separator2" />
+			<menu_item_call name="Show Filters" label="Показать фильтры" />
+			<menu_item_call name="Reset Current" label="Сбросить фильтры" />
+			<menu_item_call name="Close All Folders" label="Закрыть все папки" />
+			<menu_item_separator name="separator3" />
+			<menu_item_call name="Empty Trash" label="Очистить корзину" />
+			<menu_item_call name="Refresh Inventory" label="Обновить инвентарь" />
+			<menu_item_call name="Update Outfit" label="Обновить наряд" />
+		</menu>
+		<menu name="Create" label="Создать">
+			<menu_item_call name="New Folder" label="Новая папка" />
+			<menu_item_call name="New Script" label="Новый сценарий" />
+			<menu_item_call name="New Note" label="Новая заметка" />
+			<menu_item_call name="New Gesture" label="Новый жест" />
+			<menu name="New Clothes" label="Новая одежда">
+				<menu_item_call name="New Shirt" label="Новая рубашка" />
+				<menu_item_call name="New Pants" label="Новые брюки" />
+				<menu_item_call name="New Shoes" label="Новая обувь" />
+				<menu_item_call name="New Socks" label="Новые носки" />
+				<menu_item_call name="New Jacket" label="Новая куртка" />
+				<menu_item_call name="New Skirt" label="Новая юбка" />
+				<menu_item_call name="New Gloves" label="Новые перчатки" />
+				<menu_item_call name="New Undershirt" label="Новая майка" />
+				<menu_item_call name="New Underpants" label="Новые трусы" />
+				<menu_item_call name="New Tattoo" label="Новая Татуировка" />
+				<menu_item_call name="New Alpha" label="Новая Альфа" />
+				<menu_item_call name="New Universal" label="Новый Универсал" />
+				<menu_item_call name="New Physics" label="Новая физика" />
+			</menu>
+			<menu name="New Body Parts" label="Новые части тела">
+				<menu_item_call name="New Shape" label="Новая форма" />
+				<menu_item_call name="New Skin" label="Новый скин" />
+				<menu_item_call name="New Hair" label="Новые волосы" />
+				<menu_item_call name="New Eyes" label="Новые глаза" />
+			</menu>
+			<menu_item_call name="New Outfit" label="Новый наряд" />
+		</menu>
+		<menu name="Sort" label="Сортировать">
+			<menu_item_check name="By Name" label="По имени" />
+			<menu_item_check name="By Date" label="По дате" />
+			<menu_item_separator name="separator" />
+			<menu_item_check name="Folders Always By Name" label="Папки всегда по имени" />
+			<menu_item_check name="System Folders To Top" label="Системные папки вверху" />
+		</menu>
+		<menu name="Search" label="Поиск">
+			<menu_item_check name="Item name" label="Название предмета" />
+			<menu_item_check name="Item description" label="Описание товара" />
+			<menu_item_check name="Item creatorr" label="Создатель предмета" />
+		</menu>
+	</menu_bar>
+</floater>

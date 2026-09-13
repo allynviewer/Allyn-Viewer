@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="web" label="Веб">
+	<radio_group name="use_external_browser">
+		<radio_item name="external" tool_tip="Используйте системный веб-браузер по умолчанию для получения справки, веб-ссылок и т. д. Не рекомендуется при работе в полноэкранном режиме.">Используйте внешний веб-браузер (Firefox, Safari, Internet Explorer)</radio_item>
+		<radio_item name="internal" tool_tip="Используйте встроенный веб-браузер для получения справки, веб-ссылок и т. д. Этот браузер открывается как новое окно внутри [SHORT_APP_NAME].">Используйте встроенный веб-браузер</radio_item>
+	</radio_group>
+	<text name="cache_size_label_l">Кэш браузера:</text>
+	<button name="clear_cache" label="Очистить сейчас" />
+	<text name="cookie_label">Cookies:</text>
+	<check_box name="cookies_enabled" label="Принимать файлы cookie с сайтов" />
+	<text name="proxy_label">Веб-прокси:</text>
+	<check_box name="web_proxy_enabled" label="Включить веб-прокси" />
+	<text name="proxy_text_label">Адрес:</text>
+	<line_editor name="web_proxy_editor" tool_tip="Имя или IP-адрес прокси-сервера, который вы хотите использовать." />
+	<spinner name="web_proxy_port" label="Номер порта:" />
+</panel>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<multi_floater name="script debug floater" title="Предупреждения и ошибки скриптов">
+	<tab_container name="Preview Tabs">
+		<floater name="all_scripts" label="Скрипт" title="[Все скрипты]" />
+	</tab_container>
+</multi_floater>

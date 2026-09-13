@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Media Settings General" label="一般">
+	<text name="home_label">ホームページ:</text>
+	<text name="home_fails_whitelist_label">（このページは指定のホワイトリストに含まれていません）</text>
+	<line_editor name="home_url" tool_tip="このメディアのホームページ" />
+	<web_browser name="preview_media" />
+	<text name="preview_label">プレビュー</text>
+	<text name="current_url_label">現在のページ:</text>
+	<text name="current_url" tool_tip="このメディアの現在のページ" />
+	<button name="current_url_reset_btn" label="リセット" />
+	<check_box name="auto_loop" label="自動ループ" />
+	<check_box name="first_click_interact" label="最初のクリックで操作" />
+	<check_box name="auto_zoom" label="自動ズーム" />
+	<check_box name="auto_play" label="メディアを自動再生" />
+	<text name="media_setting_note">注記: レジデントはこの設定を上書きできます</text>
+	<check_box name="auto_scale" label="オブジェクトの面にメディアを自動スケール" />
+	<text name="size_label">サイズ:</text>
+	<spinner name="width_pixels" />
+	<text name="X_label">X</text>
+	<spinner name="height_pixels" />
+</panel>

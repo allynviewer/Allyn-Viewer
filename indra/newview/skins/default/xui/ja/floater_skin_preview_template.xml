@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<multi_floater name="floater_chatterbox">
+	<panel name="panel_littletoolbar">
+		<button name="chat_btn" tool_tip="チャット Bar. (入力)を表示" />
+		<flyout_button name="communicate_btn" label="コミュニケーション" tool_tip="Communicate と あなたの フレンド と グループ." />
+		<button name="fly_btn" label="飛行" tool_tip="開始 飛行. 使用 E/C または PgUp/PgDn へ 飛行 上 と 下." />
+	</panel>
+	<panel name="panel_unfocused_floater">
+		<text name="titlebar_focused">フォーカス外</text>
+		<combo_box name="combo_box_1" label="Combo Box" />
+		<text_editor name="Chat History Editor">テキスト</text_editor>
+	</panel>
+	<panel name="panel_focused_floater">
+		<text name="titlebar_focused">フォーカス済み</text>
+		<icon name="chatterbox_tab_container" />
+		<tab_container name="chatterbox_tabs">
+			<panel name="test_1" label="フォーカス済み">
+				<slider name="SliderTestName" label="スライダー" />
+				<check_box name="check_box_test_1" label="真" />
+				<check_box name="check_box_test_2" label="偽" />
+				<text_editor name="Chat History Editor">チャット Text</text_editor>
+			</panel>
+			<panel name="test_2" label="フォーカス外" />
+		</tab_container>
+	</panel>
+</multi_floater>

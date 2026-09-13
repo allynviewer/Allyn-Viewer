@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="geminifloater" title="AO設定">
+	<drop_target name="ao_notecard" label="ZHAOノートカードをここにドロップ" tool_tip="ZHAOノートカードをここにドロップしてください。アニメーションはノートカードと同じインベントリフォルダに置いてください。"/>
+	<button name="opencard" label="" tool_tip="現在のAOノートカードを表示"/>
+	<button name="reloadcard" label="" tool_tip="AOノートカードからアニメーションを再読み込み"/>
+	<button name="newcard" label="" tool_tip="インベントリに新しいAOノートカードのテンプレートを作成"/>
+	<check_box name="AOEnabled" label="アニメーション上書きを有効にする" tool_tip="アニメーションオーバーライダーのオン/オフ"/>
+	<check_box name="AOSwimEnabled" label="泳ぎの上書きを有効にする" tool_tip="水中では飛行アニメーションを泳ぎに置き換えます"/>
+	<check_box name="AOSitsEnabled" label="着席の上書きを有効にする" tool_tip="着席と地面着席のアニメーションを上書きします"/>
+	<text name="buttons_desc">スタンド:</text>
+	<combo_box name="stands" tool_tip="現在のスタンドアニメーション"/>
+	<button name="prevstand" label="" tool_tip="前のスタンド"/>
+	<button name="nextstand" label="" tool_tip="次のスタンド"/>
+	<check_box name="AOStandRandomize" label="スタンド順をランダムにする" tool_tip="スタンドを順番ではなくランダムに切り替えます"/>
+	<check_box name="AONoStandsInMouselook" label="マウスルック中はスタンドを無効" tool_tip="マウスルック中はスタンドアニメーションを停止します"/>
+	<check_box name="ao_remote_checkbox" label="AOツールバーを表示" tool_tip="画面下部のツールバーにAOリモコンを表示します"/>
+	<spinner name="standtime" label="スタンド時間:" tool_tip="各スタンドの再生時間（秒）"/>
+	<button name="more_btn" label="詳細 &gt;&gt;" label_selected="&lt;&lt; 簡易" tool_tip="デフォルトアニメーションの割り当てを表示/非表示"/>
+	<tab_container name="tabcontainer" label="デフォルト">
+		<panel name="tabdefaultanims" label="デフォルトアニメーション">
+			<text name="textdefaultwalk">歩行:</text>
+			<combo_box name="walks" tool_tip="デフォルトの歩行アニメーション"/>
+			<text name="textdefaultrun">走行:</text>
+			<combo_box name="runs" tool_tip="デフォルトの走行アニメーション"/>
+			<text name="textdefaultjump">ジャンプ:</text>
+			<combo_box name="jumps" tool_tip="デフォルトのジャンプアニメーション"/>
+			<text name="textdefaultsit">着席:</text>
+			<combo_box name="sits" tool_tip="デフォルトの着席アニメーション"/>
+			<text name="textdefaultgsit">地面着席:</text>
+			<combo_box name="gsits" tool_tip="デフォルトの地面着席アニメーション"/>
+			<text name="textdefaultcrouch">しゃがみ:</text>
+			<combo_box name="crouchs" tool_tip="デフォルトのしゃがみアニメーション"/>
+			<text name="textdefaultcrouchwalk">しゃがみ歩き:</text>
+			<combo_box name="cwalks" tool_tip="デフォルトのしゃがみ歩きアニメーション"/>
+			<text name="textdefaultfall">落下:</text>
+			<combo_box name="falls" tool_tip="デフォルトの落下アニメーション"/>
+			<text name="textdefaulthover">ホバー:</text>
+			<combo_box name="hovers" tool_tip="デフォルトのホバーアニメーション"/>
+			<text name="textdefaultfly">飛行:</text>
+			<combo_box name="flys" tool_tip="デフォルトの飛行アニメーション"/>
+			<text name="textdefaultflyslow">低速飛行:</text>
+			<combo_box name="flyslows" tool_tip="デフォルトの低速飛行アニメーション"/>
+			<text name="textdefaultflyup">上昇飛行:</text>
+			<combo_box name="flyups" tool_tip="デフォルトの上昇飛行アニメーション"/>
+			<text name="textdefaultflydown">下降飛行:</text>
+			<combo_box name="flydowns" tool_tip="デフォルトの下降飛行アニメーション"/>
+			<text name="textdefaultland">着地:</text>
+			<combo_box name="lands" tool_tip="デフォルトの着地アニメーション"/>
+			<text name="textdefaultstandup">立ち上がり:</text>
+			<combo_box name="standups" tool_tip="デフォルトの立ち上がりアニメーション"/>
+			<text name="textdefaultprejump">ジャンプ前:</text>
+			<combo_box name="prejumps" tool_tip="デフォルトのジャンプ前アニメーション"/>
+			<text name="textdefaultfloat">浮遊:</text>
+			<combo_box name="floats" tool_tip="デフォルトの浮遊アニメーション"/>
+			<text name="textdefaultswim">泳ぎ:</text>
+			<combo_box name="swims" tool_tip="デフォルトの泳ぎアニメーション"/>
+			<text name="textdefaultswimup">上昇泳ぎ:</text>
+			<combo_box name="swimups" tool_tip="デフォルトの上昇泳ぎアニメーション"/>
+			<text name="textdefaultswimdown">下降泳ぎ:</text>
+			<combo_box name="swimdowns" tool_tip="デフォルトの下降泳ぎアニメーション"/>
+			<text name="textdefaulttyping">入力中:</text>
+			<combo_box name="typings" tool_tip="デフォルトの入力中アニメーション"/>
+		</panel>
+	</tab_container>
+</floater>

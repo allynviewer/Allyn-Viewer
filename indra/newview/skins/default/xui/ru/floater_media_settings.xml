@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="media_settings" title="Настройки мультимедиа">
+	<button name="OK" label="ОК" />
+	<button name="Cancel" label="Отмена" />
+	<button name="Apply" label="Применить" />
+	<tab_container name="tab_container" />
+</floater>

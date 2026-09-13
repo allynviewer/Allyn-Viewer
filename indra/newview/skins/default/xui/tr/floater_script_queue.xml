@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="queue" title="İlerlemeyi Sıfırla">
+	<string name="Starting">Starting [START] of [COUNT] items.</string>
+	<string name="Done">Done.</string>
+	<string name="Resetting">Resetting</string>
+	<string name="Running">Koşu</string>
+	<string name="NotRunning">Not Running</string>
+	<button name="close" label="Kapat" />
+	<scroll_list name="queue output" />
+</floater>

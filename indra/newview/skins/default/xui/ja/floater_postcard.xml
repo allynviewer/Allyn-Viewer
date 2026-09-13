@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Postcard" title="スナップショットをメール">
+	<text name="to_label">宛先のメール:</text>
+	<line_editor name="to_form" />
+	<text name="from_label">あなたのメール:</text>
+	<line_editor name="from_form" />
+	<text name="name_label">あなたの名前:</text>
+	<line_editor name="name_form" />
+	<text name="subject_label">件名:</text>
+	<line_editor name="subject_form" label="件名を入力" />
+	<text name="msg_label">メッセージ:</text>
+	<text_editor name="msg_form">メッセージを入力してください。</text_editor>
+	<button name="cancel_btn" label="キャンセル" />
+	<button name="send_btn" label="送信" />
+	<string name="default_subject">[SECOND_LIFE]からのポストカード。</string>
+	<string name="default_message">これを見てください！</string>
+	<string name="upload_message">「送信中...」</string>
+</floater>

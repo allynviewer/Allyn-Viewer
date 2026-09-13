@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_contact_groups" title="Управление группами контактов">
+	<text name="InstructManageContacts">Выберите группу (или нажмите «Новая», чтобы создать ее):</text>
+	<combo_box name="buddy_group_combobox" tool_tip="Группа друзей">
+		<combo_item name="All">Все</combo_item>
+	</combo_box>
+	<button name="combo_group_add" label="+" />
+	<button name="combo_group_remove" label="-" />
+	<button name="combo_group_create" label="Новый" />
+	<text name="contact_list_text">В настоящее время в:</text>
+	<scroll_list name="group_scroll_list" />
+</floater>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="status">
+	<text name="ParcelNameText" tool_tip="現在立っている土地パーセルの名前です。クリックすると「土地について」が開きます。">パーセル名</text>
+	<text name="BalanceText" tool_tip="アカウント残高">読み込み中...</text>
+	<text name="UPCText" tool_tip="アップロードクレジット">UPC - N/A -</text>
+	<button name="buycurrency" tool_tip="通貨を購入" />
+	<text name="TimeText" tool_tip="現在時刻（太平洋時間）">12:00 AM</text>
+	<string name="StatBarDaysOfWeek">日曜日:月曜日:火曜日:水曜日:木曜日:金曜日:土曜日</string>
+	<string name="StatBarMonthsOfYear">1月:2月:3月:4月:5月:6月:7月:8月:9月:10月:11月:12月</string>
+	<button name="scriptout" tool_tip="スクリプトの警告とエラー" />
+	<button name="health" tool_tip="体力" />
+	<text name="HealthText" tool_tip="体力">100%</text>
+	<button name="no_fly" tool_tip="飛行は許可されていません" />
+	<button name="no_build" tool_tip="ビルド／rezは許可されていません" />
+	<button name="no_scripts" tool_tip="スクリプトは許可されていません" />
+	<button name="restrictpush" tool_tip="プッシュ不可" />
+	<button name="status_no_voice" tool_tip="ここではボイスは利用できません" />
+	<button name="status_SeeAV" tool_tip="このパーセルではアバターのプライバシーが有効です" />
+	<button name="pf_dirty" tool_tip="このリージョンが再ベイクされるまで、移動するオブジェクトが正しく動作しない場合があります。" />
+	<button name="pf_disabled" tool_tip="このリージョンでは動的パスファインディングが有効になっていません。" />
+	<button name="buyland" tool_tip="このパーセルを購入" />
+	<button name="menubar_search_bevel_bg" />
+	<line_editor name="search_editor" label="検索" tool_tip="検索" />
+	<button name="search_btn" tool_tip="検索" />
+	<text name="stat_btn" />
+	<string name="packet_loss_tooltip">パケットロス</string>
+	<string name="bandwidth_tooltip">帯域幅</string>
+	<string name="Local">ローカル</string>
+</panel>

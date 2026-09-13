@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="mini_mapview" label="Мини-карта">
+	<text name="n_label">N</text>
+	<text name="e_label">Э</text>
+	<text name="s_label">S</text>
+	<text name="w_label">Вт</text>
+	<text name="ne_label">NE</text>
+	<text name="se_label">SE</text>
+	<text name="sw_label">ЮВ</text>
+	<text name="nw_label">СЗ</text>
+</panel>

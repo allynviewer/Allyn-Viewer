@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="beacons" title="Маяки">
+	<panel name="beacons_panel">
+		<check_box name="always_on" label="Сохраняйте маяки при закрытии поплавка" />
+		<check_box name="beacons" label="Рендеринг маяков" />
+		<check_box name="highlights" label="Основные моменты рендеринга" />
+		<text name="beacon_width_label">Ширина маяка:</text>
+		<slider name="beacon_width" />
+		<check_box name="physical" label="Физические объекты" />
+		<check_box name="scripted" label="Скриптованные объекты" />
+		<check_box name="touch_only" label="Скриптовые объекты с сенсорным управлением" />
+		<check_box name="sounds" label="Источники звука" />
+		<check_box name="particles" label="Источники частиц" />
+		<check_box name="moapbeacon" label="Медиа-источники" />
+	</panel>
+</floater>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Experiences" label="Experiences">
+	<panel.string name="trusted_estate_text">
+		Her Experience güvenilir yapılabilir.
+
+Güvenilir Experiences bu estate'te
+çalışma iznine sahiptir.
+
+Ayrıca estate herkese açık değilse,
+güvenilir bir Experience'e katılan
+sakinler estate'e girebilir ve
+Experience içinde kaldıkları sürece
+orada kalabilirler.
+	</panel.string>
+	<panel.string name="allowed_estate_text">
+		Yalnızca Grid-Wide olmayan
+Experiences izin listesine eklenebilir.
+
+İzin verilen Experiences bu estate'te
+çalışma iznine sahiptir.
+	</panel.string>
+	<panel.string name="blocked_estate_text">
+		Yalnızca Grid-Wide Experiences
+engellenebilir.
+
+Engellenen Experiences bu estate'te
+çalışmayabilir.
+	</panel.string>
+	<panel.string name="estate_caption">Bu sekmedeki ayar değişiklikleri estate'teki tüm bölgeleri etkiler.</panel.string>
+	<panel.string name="allowed_parcel_text">
+		Yalnızca Grid-Wide olmayan
+Experiences izin listesine eklenebilir.
+
+İzin verilen Experiences, estate
+tarafından engellenmediyse bu parselde
+çalışabilir.
+	</panel.string>
+	<panel.string name="blocked_parcel_text">
+		Yalnızca Grid-Wide Experiences
+engellenebilir.
+
+Engellenen Experiences bu parselde
+çalışmaz.
+	</panel.string>
+	<panel.string name="parcel_caption" />
+	<text name="experiences_help_text" />
+	<layout_stack>
+		<layout_panel name="trusted_layout_panel">
+			<panel name="panel_trusted" />
+			<text name="trusted_text_help" />
+		</layout_panel>
+		<layout_panel>
+			<panel name="panel_allowed" />
+			<text name="allowed_text_help" />
+		</layout_panel>
+		<layout_panel>
+			<panel name="panel_blocked" />
+			<text name="blocked_text_help" />
+		</layout_panel>
+	</layout_stack>
+</panel>

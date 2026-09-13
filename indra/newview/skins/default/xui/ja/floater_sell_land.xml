@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="sell land" title="土地を売却">
+	<texture_picker name="info_image" />
+	<text name="info_parcel_label">パーセル:</text>
+	<text name="info_parcel">PARCEL NAME</text>
+	<text name="info_size_label">サイズ:</text>
+	<text name="info_size">[AREA] 平方メートル</text>
+	<text name="info_action">このパーセルを売却するには:</text>
+	<icon name="step_price" />
+	<text name="price_label">価格を設定:</text>
+	<text name="price_text">この土地に適切な価格を選んでください。</text>
+	<text name="price_ld">[CURRENCY]</text>
+	<line_editor name="price" />
+	<text name="price_per_m">（1平方メートルあたり [CURRENCY][PER_METER]）</text>
+	<icon name="step_sell_to" />
+	<text name="sell_to_label">売却先:</text>
+	<text name="sell_to_text">誰にでも売るか、特定の購入者に売るかを選んでください。</text>
+	<combo_box name="sell_to">
+		<combo_item name="--selectone--">-- 選択してください --</combo_item>
+		<combo_item name="Anyone">誰でも</combo_item>
+		<combo_item name="Specificuser:">特定のユーザー:</combo_item>
+	</combo_box>
+	<line_editor name="sell_to_agent" />
+	<button name="sell_to_select_agent" label="選択..." />
+	<icon name="step_sell_objects" />
+	<text name="sell_objects_label">土地と一緒にオブジェクトも売却しますか？</text>
+	<text name="sell_objects_text">パーセル上の土地所有者の譲渡可能なオブジェクトは所有者が変わります。</text>
+	<radio_group name="sell_objects">
+		<radio_item name="none" />
+		<radio_item name="no">いいえ、オブジェクトの所有権を保持</radio_item>
+		<radio_item name="yes">はい、土地と一緒にオブジェクトを売却</radio_item>
+	</radio_group>
+	<button name="show_objects" label="オブジェクトを表示" />
+	<text name="nag_message_label">注意: すべての売却は取り消しできません。</text>
+	<button name="sell_btn" label="土地を売却中に設定" />
+	<button name="cancel_btn" label="キャンセル" />
+</floater>

@@ -1,0 +1,363 @@
+name: Build
+
+# Builds the Windows 64-bit viewer with the same configuration used for
+# official releases (Release + OpenAL + NVAPI + LTO) so that every pull
+# request is verified to compile, then packages it exactly like
+# `build.bat package` (portable ZIP + NSIS installer).
+#
+# Code signing (doc/code_signing.md): on tag builds (v*) and on manual runs
+# with `sign` enabled, the viewer executables and the installer are signed
+# through SignPath.io with a SignPath Foundation certificate. Signing only
+# happens when the SIGNPATH_API_TOKEN secret exists, so forks and pull
+# requests simply produce unsigned packages. Every signing request needs a
+# manual approval in SignPath; the workflow waits for it.
+#
+# On tag builds the packages are published as a GitHub Release.
+
+on:
+  workflow_dispatch:
+    inputs:
+      use_lto:
+        description: "Enable link-time optimisation (slower build, matches release)"
+        type: boolean
+        default: true
+      channel_type:
+        description: "Viewer channel type"
+        type: choice
+        options: [Test, Beta, Release]
+        default: Test
+      sign:
+        description: "Code-sign executables and installer with SignPath (needs the SignPath secrets)"
+        type: boolean
+        default: false
+  pull_request:
+  push:
+    branches: ["main", "release/*", "project/*"]
+    tags: ["v*"]
+
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  # Lets the SignPath action read the workflow artifacts it signs.
+  actions: read
+
+jobs:
+  build-windows:
+    name: Windows x64 (Release)
+    # windows-2022 ships Visual Studio 2022 (AUTOBUILD_VSVER=170), the same
+    # toolchain used for official builds.
+    runs-on: windows-2022
+    # Build + up to two SignPath approvals (each waits at most 2 hours).
+    timeout-minutes: 360
+    env:
+      AUTOBUILD_ADDRSIZE: "64"
+      AUTOBUILD_VSVER: "170"
+      AUTOBUILD_WIN_CMAKE_GEN: "Visual Studio 17 2022"
+      AUTOBUILD_BUILD_ID: ${{ github.run_number }}
+      AUTOBUILD_INSTALLABLE_CACHE: ${{ github.workspace }}\.cache\autobuild
+      # Tag builds are release-channel builds (override with the repository
+      # variable RELEASE_CHANNEL_TYPE, e.g. "Beta"). Manual runs pick the
+      # channel type; everything else is a private "Test" build so that it
+      # never looks like a release.
+      VIEWER_CHANNEL_TYPE: ${{ startsWith(github.ref, 'refs/tags/v') && (vars.RELEASE_CHANNEL_TYPE || 'Release') || inputs.channel_type || 'Test' }}
+      # Sign on tags or on request, but only when the SignPath secrets exist.
+      SIGN: ${{ (startsWith(github.ref, 'refs/tags/v') || inputs.sign == true) && secrets.SIGNPATH_API_TOKEN != '' }}
+      SIGNPATH_PROJECT_SLUG: ${{ vars.SIGNPATH_PROJECT_SLUG || 'allyn-viewer' }}
+      SIGNPATH_SIGNING_POLICY_SLUG: ${{ vars.SIGNPATH_SIGNING_POLICY_SLUG || 'release-signing' }}
+      PYTHONUTF8: "1"
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      channel_type: ${{ env.VIEWER_CHANNEL_TYPE }}
+      signed: ${{ env.SIGN }}
+      packages_artifact: ${{ steps.packages.outputs.name }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # Full history so `git rev-list --count HEAD` yields the build number.
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install autobuild and llsd
+        run: pip install -r requirements.txt
+
+      - name: Cache autobuild packages
+        uses: actions/cache@v4
+        with:
+          path: .cache\autobuild
+          key: ${{ runner.os }}-64-${{ hashFiles('autobuild.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-64-
+
+      - name: Tool versions
+        shell: cmd
+        run: |
+          python --version
+          pip --version
+          autobuild --version
+          cmake --version
+          git --version
+          echo Channel type: %VIEWER_CHANNEL_TYPE%
+          echo Code signing: %SIGN%
+
+      - name: Build number from Git history
+        id: revision
+        shell: bash
+        run: echo "revision=$(git rev-list --count HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Configure (autobuild configure)
+        shell: cmd
+        env:
+          revision: ${{ steps.revision.outputs.revision }}
+          USE_LTO: ${{ (github.event_name == 'workflow_dispatch' && inputs.use_lto == false) && 'OFF' || 'ON' }}
+        run: |
+          autobuild configure -A 64 -i %AUTOBUILD_BUILD_ID% -c Release -- -DUSE_OPENAL:BOOL=ON -DUSE_NVAPI=ON -DUSE_LTO=%USE_LTO% -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DPACKAGE:BOOL=OFF
+
+      - name: Build (autobuild build)
+        shell: cmd
+        env:
+          revision: ${{ steps.revision.outputs.revision }}
+        run: |
+          autobuild build --no-configure -A 64 -i %AUTOBUILD_BUILD_ID% -c Release
+
+      - name: Verify viewer executable
+        shell: pwsh
+        run: |
+          $exe = "build-vc-64\newview\Release\allyn-viewer-bin.exe"
+          if (-not (Test-Path $exe)) {
+            Write-Error "allyn-viewer-bin.exe was not produced"
+            exit 1
+          }
+          Get-Item $exe | Select-Object FullName, Length, LastWriteTime
+          Get-Content build-vc-64\newview\viewer_version.txt
+
+      - name: Viewer version
+        id: version
+        shell: bash
+        run: echo "version=$(tr -d '[:space:]' < build-vc-64/newview/viewer_version.txt)" >> "$GITHUB_OUTPUT"
+
+      # ------------------------------------------------------------------
+      # Code signing, request 1: the executables built from this repository.
+      # They are signed *before* packaging so that both the portable ZIP and
+      # the installer ship the signed copies. Upstream binaries (OpenAL, CEF,
+      # ...) are not ours and must not be signed with this certificate.
+      # ------------------------------------------------------------------
+      - name: Collect unsigned executables
+        if: env.SIGN == 'true'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force signing\unsigned | Out-Null
+          Copy-Item build-vc-64\newview\Release\allyn-viewer-bin.exe signing\unsigned\
+          Copy-Item build-vc-64\llplugin\slplugin\Release\SLPlugin.exe signing\unsigned\
+          Get-ChildItem signing\unsigned
+
+      - name: Upload unsigned executables
+        if: env.SIGN == 'true'
+        id: upload-unsigned-binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: unsigned-binaries-${{ github.run_id }}-${{ github.run_attempt }}
+          path: signing/unsigned/*.exe
+          retention-days: 1
+          if-no-files-found: error
+
+      - name: Sign executables (SignPath)
+        if: env.SIGN == 'true'
+        uses: signpath/github-action-submit-signing-request@v2
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ secrets.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: ${{ env.SIGNPATH_PROJECT_SLUG }}
+          signing-policy-slug: ${{ env.SIGNPATH_SIGNING_POLICY_SLUG }}
+          artifact-configuration-slug: ${{ vars.SIGNPATH_BINARIES_CONFIG_SLUG || 'binaries' }}
+          github-artifact-id: ${{ steps.upload-unsigned-binaries.outputs.artifact-id }}
+          wait-for-completion: true
+          wait-for-completion-timeout-in-seconds: 7200
+          output-artifact-directory: signing/signed
+          parameters: |
+            version: "${{ steps.version.outputs.version }}"
+
+      - name: Replace build outputs with the signed executables
+        if: env.SIGN == 'true'
+        shell: pwsh
+        run: |
+          $map = @{
+            'allyn-viewer-bin.exe' = 'build-vc-64\newview\Release\allyn-viewer-bin.exe'
+            'SLPlugin.exe'         = 'build-vc-64\llplugin\slplugin\Release\SLPlugin.exe'
+          }
+          foreach ($name in $map.Keys) {
+            $signed = Join-Path 'signing\signed' $name
+            if (-not (Test-Path $signed)) { Write-Error "Signed $name not returned by SignPath"; exit 1 }
+            $sig = Get-AuthenticodeSignature $signed
+            if ($sig.Status -eq 'NotSigned') { Write-Error "$name came back unsigned"; exit 1 }
+            Write-Host ("{0}: {1} - {2}" -f $name, $sig.Status, $sig.SignerCertificate.Subject)
+            Copy-Item -Force $signed $map[$name]
+          }
+
+      # ------------------------------------------------------------------
+      # Packaging: same viewer_manifest.py invocation as `build.bat package`.
+      # ------------------------------------------------------------------
+      - name: Install NSIS and its plugins (StdUtils, INetC)
+        shell: pwsh
+        run: |
+          $nsis = @("${env:ProgramFiles(x86)}\NSIS\makensis.exe", "$env:ProgramFiles\NSIS\makensis.exe") | Where-Object { Test-Path $_ } | Select-Object -First 1
+          if (-not $nsis) {
+            Write-Host "NSIS not found on the runner - installing with Chocolatey"
+            choco install nsis -y --no-progress
+          }
+          powershell -NoProfile -ExecutionPolicy Bypass -File scripts\setup-nsis-plugins.ps1
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Package (portable ZIP + NSIS installer)
+        shell: cmd
+        run: |
+          set "ROOT=%GITHUB_WORKSPACE%"
+          set "PKG=%ROOT%\build-vc-64\newview\Release"
+          del /q "%PKG%\*_x86_64_Setup.exe" "%PKG%\*_x86_64.zip" >nul 2>&1
+          python "%ROOT%\indra\newview\viewer_manifest.py" --arch=x86_64 --artwork= --branding_id=allyn-viewer --build="%ROOT%\build-vc-64\newview" --buildtype=Release "--channel=Allyn Viewer %VIEWER_CHANNEL_TYPE%" --versionfile="%ROOT%\build-vc-64\newview\viewer_version.txt" --configuration="%PKG%" --dest="%PKG%" --grid=agni --source="%ROOT%\indra\newview" --touch="%PKG%\touched.bat"
+          if errorlevel 1 exit /b 1
+          if not exist "%ROOT%\build-vc-64\dist" mkdir "%ROOT%\build-vc-64\dist"
+          move /Y "%PKG%\*_x86_64.zip" "%ROOT%\build-vc-64\dist\" || exit /b 1
+          move /Y "%PKG%\*_x86_64_Setup.exe" "%ROOT%\build-vc-64\dist\" || exit /b 1
+          dir "%ROOT%\build-vc-64\dist"
+
+      # ------------------------------------------------------------------
+      # Code signing, request 2: the NSIS installer (a PE file that embeds
+      # the already signed executables).
+      # ------------------------------------------------------------------
+      - name: Upload unsigned installer
+        if: env.SIGN == 'true'
+        id: upload-unsigned-installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: unsigned-installer-${{ github.run_id }}-${{ github.run_attempt }}
+          path: build-vc-64/dist/*_Setup.exe
+          retention-days: 1
+          if-no-files-found: error
+
+      - name: Sign installer (SignPath)
+        if: env.SIGN == 'true'
+        uses: signpath/github-action-submit-signing-request@v2
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ secrets.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: ${{ env.SIGNPATH_PROJECT_SLUG }}
+          signing-policy-slug: ${{ env.SIGNPATH_SIGNING_POLICY_SLUG }}
+          artifact-configuration-slug: ${{ vars.SIGNPATH_INSTALLER_CONFIG_SLUG || 'installer' }}
+          github-artifact-id: ${{ steps.upload-unsigned-installer.outputs.artifact-id }}
+          wait-for-completion: true
+          wait-for-completion-timeout-in-seconds: 7200
+          output-artifact-directory: signing/signed-installer
+          parameters: |
+            version: "${{ steps.version.outputs.version }}"
+
+      - name: Replace installer with the signed copy
+        if: env.SIGN == 'true'
+        shell: pwsh
+        run: |
+          $signed = Get-ChildItem signing\signed-installer -Filter *_Setup.exe -Recurse | Select-Object -First 1
+          if (-not $signed) { Write-Error "Signed installer not returned by SignPath"; exit 1 }
+          $sig = Get-AuthenticodeSignature $signed.FullName
+          if ($sig.Status -eq 'NotSigned') { Write-Error "Installer came back unsigned"; exit 1 }
+          Write-Host ("{0}: {1} - {2}" -f $signed.Name, $sig.Status, $sig.SignerCertificate.Subject)
+          Copy-Item -Force $signed.FullName build-vc-64\dist\
+
+      - name: Verify packages
+        shell: pwsh
+        run: |
+          $files = Get-ChildItem build-vc-64\dist
+          if (-not ($files | Where-Object Name -like '*_x86_64.zip'))       { Write-Error "portable ZIP missing"; exit 1 }
+          if (-not ($files | Where-Object Name -like '*_x86_64_Setup.exe')) { Write-Error "installer missing"; exit 1 }
+          foreach ($f in $files) {
+            $status = if ($f.Extension -eq '.exe') { (Get-AuthenticodeSignature $f.FullName).Status } else { '-' }
+            Write-Host ("{0,-60} {1,12:N0} bytes  signature: {2}" -f $f.Name, $f.Length, $status)
+          }
+
+      - name: Packages artifact name
+        id: packages
+        shell: bash
+        run: echo "name=AllynViewer-packages-${{ steps.version.outputs.version }}-${{ github.sha }}" >> "$GITHUB_OUTPUT"
+
+      - name: Upload packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.packages.outputs.name }}
+          retention-days: 30
+          if-no-files-found: error
+          path: build-vc-64/dist/*
+
+      - name: Upload symbols
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: AllynViewer-windows64-symbols-${{ github.sha }}
+          retention-days: 14
+          if-no-files-found: ignore
+          path: |
+            build-vc-64/newview/Release/*.pdb
+            build-vc-64/newview/Release/*.map
+
+  release:
+    name: GitHub Release
+    needs: build-windows
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download packages
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build-windows.outputs.packages_artifact }}
+          path: dist
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+          VERSION: ${{ needs.build-windows.outputs.version }}
+          CHANNEL_TYPE: ${{ needs.build-windows.outputs.channel_type }}
+          SIGNED: ${{ needs.build-windows.outputs.signed }}
+        run: |
+          set -euo pipefail
+          ls -l dist
+          title="Allyn Viewer $VERSION"
+          [ "$CHANNEL_TYPE" = "Release" ] || title="$title $CHANNEL_TYPE"
+
+          notes=$(mktemp)
+          if [ -f RELEASE_NOTES.md ]; then
+            cat RELEASE_NOTES.md > "$notes"
+          else
+            gh api "repos/$GITHUB_REPOSITORY/releases/generate-notes" -f tag_name="$TAG" -q .body > "$notes"
+          fi
+          {
+            printf '\n\n## Code signing policy\n\n'
+            if [ "$SIGNED" = "true" ]; then
+              printf 'Free code signing provided by [SignPath.io](https://signpath.io), certificate by [SignPath Foundation](https://signpath.org). '
+              printf 'The installer and the viewer executables in this release were built by [GitHub Actions](%s) from the tagged source code and signed by SignPath. ' "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            else
+              printf 'The packages in this release are **not** code-signed (the build ran without the SignPath secrets). Windows SmartScreen may warn about an unknown publisher: choose *More info* -> *Run anyway*. '
+            fi
+            printf 'Full policy: see the "Code signing policy" section of the [README](%s/blob/%s/README.md#code-signing-policy).\n' "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" "$TAG"
+          } >> "$notes"
+
+          flags=()
+          [ "$CHANNEL_TYPE" = "Release" ] || flags+=(--prerelease)
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG exists - replacing assets"
+            gh release upload "$TAG" dist/* --clobber
+          else
+            echo "Creating release $TAG"
+            gh release create "$TAG" dist/* --verify-tag --title "$title" --notes-file "$notes" "${flags[@]}"
+          fi

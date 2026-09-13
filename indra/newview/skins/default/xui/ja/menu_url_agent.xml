@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<context_menu name="Url Popup" label="ユーザー">
+	<menu_item_call name="send_im" label="送信 IM..." />
+	<menu name="Actions" label="アクション">
+		<menu_item_call name="Profile" label="プロフィール" />
+		<menu_item_call name="Web Profile" label="Webプロフィール" />
+		<menu_item_call name="Pay" label="支払い" />
+		<menu_item_call name="Call" label="通話" />
+		<menu_item_call name="Add Friend" label="フレンドを追加" />
+		<menu_item_call name="Remove Friend" label="フレンドを削除" />
+		<menu_item_call name="Invite To Group" label="グループに招待" />
+		<menu_item_call name="Follow" label="フォロー" />
+		<menu_item_call name="Move To" label="そこに移動" />
+		<menu_item_call name="Offer Teleport" label="テレポートを申し出る" />
+		<menu_item_call name="Teleport To" label="そこにテレポート" />
+		<menu_item_call name="Request Teleport" label="テレポートをリクエスト" />
+		<menu_item_call name="Find on Map" label="マップで探す" />
+		<menu_item_call name="Share" label="共有" />
+		<menu_item_call name="Chat History" label="チャット履歴" />
+		<menu_item_call name="Track/Untrack" label="追跡／解除" />
+		<menu_item_call name="Focus" label="フォーカス" />
+	</menu>
+	<menu_item_call name="url_copy_label" label="名前をクリップボードにコピー" />
+	<menu_item_call name="url_copy" label="SLURLをクリップボードにコピー" />
+	<menu_item_call name="key_copy" label="キーをクリップボードにコピー" />
+	<menu_item_call name="Select All" label="すべて選択" />
+	<menu name="Moderation" label="モデレーション">
+		<menu_item_call name="Mute" label="ミュート" />
+		<menu_item_call name="Unmute" label="ミュート解除" />
+		<menu_item_call name="Ban From Group" label="グループからバン" />
+		<menu_item_call name="Report Abuse" label="通報" />
+		<menu_item_call name="Freeze" label="フリーズ" />
+		<menu_item_call name="Eject/Ban from Parcel" label="パーセルから排出／バン" />
+		<menu_item_call name="Eject from estate" label="エステートから排出" />
+		<menu_item_call name="Eject and ban from estate" label="エステートから排出してバン" />
+	</menu>
+</context_menu>

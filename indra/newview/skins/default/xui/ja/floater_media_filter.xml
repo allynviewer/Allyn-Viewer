@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floatermediafilter" title="メディアフィルター">
+	<text name="info1">太字のドメインは永続リストに含まれます（ホワイトリストまたはブラックリスト済み）。</text>
+	<text name="info2">斜体のドメインはセッションリストに含まれます（一時的に許可または拒否されています）。</text>
+	<scroll_list name="whitelist_list">
+		<column name="whitelist_col" label="許可されたドメインまたはサーバーオブジェクト" />
+	</scroll_list>
+	<scroll_list name="blacklist_list">
+		<column name="blacklist_col" label="ブロックされたドメインまたはサーバーオブジェクト" />
+	</scroll_list>
+	<button name="add_whitelist" label="追加..." tool_tip="サーバーをホワイトリストに追加" />
+	<button name="remove_whitelist" label="削除" tool_tip="選択したサーバーをホワイトリストから削除" />
+	<button name="clear_lists" label="リストをクリア" tool_tip="すべてのリストをクリア" />
+	<button name="show_ips" label="IPを表示" tool_tip="各ドメイン名に関連するIPを表示します（DNS参照のため、リスト更新中はビューアが一時停止します）" />
+	<button name="add_blacklist" label="追加..." tool_tip="サーバーをブラックリストに追加" />
+	<button name="remove_blacklist" label="削除" tool_tip="選択したサーバーをブラックリストから削除" />
+	<text name="add_text">新しいドメイン:</text>
+	<check_box name="match_ip" label="一致するIPを追加/削除" tool_tip="追加または削除されたドメイン名に関連するIPを追加または削除" />
+	<line_editor name="input_domain" tool_tip="新しいURL、ドメイン名、IP、またはスクリプト付きオブジェクトのHTTPサーバーパスを入力" />
+	<button name="commit_domain" label="追加" tool_tip="リストに追加" />
+</floater>

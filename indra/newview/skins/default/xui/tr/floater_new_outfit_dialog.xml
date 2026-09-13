@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="modal container" title="Yeni Kıyafet Yap">
+	<button name="Save" label="Kaydet" label_selected="Kaydet"/>
+	<button name="Cancel" label="İptal" label_selected="İptal"/>
+	<check_box name="checkbox_shape" label="Şekil"/>
+	<check_box name="checkbox_skin" label="Cilt"/>
+	<check_box name="checkbox_hair" label="Saç"/>
+	<check_box name="checkbox_eyes" label="Gözler"/>
+	<text name="Options:">Seçenekler:</text>
+	<check_box name="checkbox_use_outfits" label="Viewer 2 kıyafet klasörlerini kullanın"/>
+	<check_box name="checkbox_use_links" label="Kopyalanmayan, üzerinde değişiklik yapılmayan veya birden fazla kez giyilen öğeler için bağlantıları kullanın"/>
+	<check_box name="checkbox_legacy_copy_changes" label="Eklerde yapılan değişiklikleri kopyalayın" tool_tip="Kıyafeti oluşturmadan hemen önce bunları çıkararak, eklentilerde yapılan değişiklikleri, giyildiklerinden veya en son oturum açtığınızdan beri saklar. Genel olarak bu işaretlenmelidir; kötü değişiklikleri geri almak için yeni bir kıyafet yapmak gibi ne yaptığınızı biliyorsanız, işaretini kaldırmanız gerekir."/>
+	<check_box name="checkbox_shirt" label="Gömlek"/>
+	<check_box name="checkbox_pants" label="Pantolon"/>
+	<check_box name="checkbox_shoes" label="Ayakkabı"/>
+	<check_box name="checkbox_socks" label="Çorap"/>
+	<check_box name="checkbox_jacket" label="Ceket"/>
+	<check_box name="checkbox_gloves" label="Eldiven"/>
+	<check_box name="checkbox_undershirt" label="Fanila"/>
+	<check_box name="checkbox_underpants" label="külot"/>
+	<check_box name="checkbox_skirt" label="Etek"/>
+	<check_box name="checkbox_tattoo" label="Dövme"/>
+	<check_box name="checkbox_alpha" label="Alfa"/>
+	<check_box name="checkbox_physics" label="Fizik"/>
+	<check_box name="checkbox_universal" label="Universal"/>
+	<check_box name="checkbox_Chest" label="Göğüs"/>
+	<check_box name="checkbox_Skull" label="Kafatası"/>
+	<check_box name="checkbox_Left Shoulder" label="Sol Omuz"/>
+	<check_box name="checkbox_Right Shoulder" label="Sağ Omuz"/>
+	<check_box name="checkbox_Left Hand" label="Sol El"/>
+	<check_box name="checkbox_Right Hand" label="Sağ El"/>
+	<check_box name="checkbox_Left Foot" label="Sol Ayak"/>
+	<check_box name="checkbox_Right Foot" label="Sağ Ayak"/>
+	<check_box name="checkbox_Spine" label="Omurga"/>
+	<check_box name="checkbox_Pelvis" label="Pelvis"/>
+	<check_box name="checkbox_Mouth" label="Ağız"/>
+	<check_box name="checkbox_Chin" label="Çene"/>
+	<check_box name="checkbox_Left Ear" label="Sol Kulak"/>
+	<check_box name="checkbox_Right Ear" label="Sağ Kulak"/>
+	<check_box name="checkbox_Left Eyeball" label="Sol Göz Küresi"/>
+	<check_box name="checkbox_Right Eyeball" label="Sağ Göz Küresi"/>
+	<check_box name="checkbox_Nose" label="Burun"/>
+	<check_box name="checkbox_R Upper Arm" label="R Üst Kol"/>
+	<check_box name="checkbox_R Forearm" label="R Önkol"/>
+	<check_box name="checkbox_L Upper Arm" label="L Üst Kol"/>
+	<check_box name="checkbox_L Forearm" label="L Önkol"/>
+	<check_box name="checkbox_Right Hip" label="Sağ Kalça"/>
+	<check_box name="checkbox_R Upper Leg" label="R Üst Bacak"/>
+	<check_box name="checkbox_R Lower Leg" label="R Alt Bacak"/>
+	<check_box name="checkbox_Left Hip" label="Sol Kalça"/>
+	<check_box name="checkbox_L Upper Leg" label="L Üst Bacak"/>
+	<check_box name="checkbox_L Lower Leg" label="L Alt Bacak"/>
+	<check_box name="checkbox_Stomach" label="Mide"/>
+	<check_box name="checkbox_Left Pec" label="Sol Göğüs"/>
+	<check_box name="checkbox_Right Pec" label="Sağ Göğüs"/>
+	<check_box name="checkbox_Neck" label="Boyun"/>
+	<check_box name="checkbox_Avatar Center" label="Kök"/>
+	<check_box name="checkbox_Center 2" label="Merkez 2"/>
+	<check_box name="checkbox_Top Right" label="Sağ Üst"/>
+	<check_box name="checkbox_Top" label="Üst"/>
+	<check_box name="checkbox_Top Left" label="Sol Üst"/>
+	<check_box name="checkbox_Center" label="Merkez"/>
+	<check_box name="checkbox_Bottom Left" label="Sol Alt"/>
+	<check_box name="checkbox_Bottom" label="Alt"/>
+	<check_box name="checkbox_Bottom Right" label="Sağ Alt"/>
+	<text name="Outfits are folders that contain clothing and body parts. Drag an outfit folder onto your avatar to put it on.   &quot;Make New Outfit&quot; makes a new folder and saves copies of the items you are now wearing into it.">
+		Kıyafetler giysi ve vücut parçaları içeren klasörlerdir.
+Giydirmek için bir kıyafet klasörünü avatarınızın üzerine sürükleyin.
+
+"Yeni Kıyafet Yap" yeni bir klasör oluşturur ve şu anda giydiğiniz öğelerin kopyalarını oraya kaydeder.
+	</text>
+	<text name="Folder name:">Klasör adı:</text>
+	<text name="Items to include in outfit:">Kıyafette bulunması gereken öğeler:</text>
+	<button name="Check All" label="Tümünü işaretle"/>
+	<button name="Uncheck All" label="Tümünü kaldır"/>
+	<text name="Body Parts:">Gövde Parçaları:</text>
+	<text name="Clothes:">Giysiler:</text>
+	<text name="Attachments:">Ekler:</text>
+	<line_editor name="name ed">Yeni Kıyafet</line_editor>
+</floater>

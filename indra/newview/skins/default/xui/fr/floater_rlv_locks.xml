@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="rlvLocks" title="Verrous RLV actifs">
+	<scroll_list name="lock_list">
+		<column name="lock_type" label="Type de verrou"/>
+		<column name="lock_addrem" label="Ajout / Retrait"/>
+		<column name="lock_target" label="Cible du verrou"/>
+		<column name="lock_origin" label="Détenu par"/>
+	</scroll_list>
+</floater>

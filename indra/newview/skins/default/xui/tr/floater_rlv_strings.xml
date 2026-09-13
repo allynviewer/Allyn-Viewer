@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="rlva_strings" title="RLVa Dizeler">
+	<combo_box name="string_list" />
+	<text_editor name="string_descr" />
+	<text_editor name="string_value" />
+	<button name="default_btn" label="Varsayılana sıfırla" />
+</floater>

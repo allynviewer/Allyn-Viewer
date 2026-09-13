@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="goup titles" title="Названия групп">
+	<scroll_list name="titles_list">
+		<column name="title" label="Заголовок" />
+		<column name="group_name" label="Группа" />
+		<column name="group_id" />
+	</scroll_list>
+	<button name="activate" label="Активировать" tool_tip="Активировать выбранный заголовок группы" />
+</floater>

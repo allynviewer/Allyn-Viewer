@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="im_floater" title="(desconhecido)">
+	<string name="ringing">Entrando no chat de voz...</string>
+	<string name="connected">Conectado. Clique em Encerrar chamada para desligar.</string>
+	<string name="hang_up">Saiu do chat de voz</string>
+	<string name="voice_icon">icn_voice-groupfocus.tga</string>
+	<string name="title_string">IM com [NAME]</string>
+	<string name="typing_start_string">[NAME] está digitando...</string>
+	<string name="session_start_string">Conectando com [NAME]...</string>
+	<string name="default_text_label">Clique para enviar uma mensagem</string>
+	<string name="moderated_chat_label">(Moderado: vozes desligadas por padrão)</string>
+	<string name="muted_text_label">Seu chat de texto foi desativado por um moderador do grupo.</string>
+	<flyout_button name="instant_message_flyout" label="Info. do grupo" width="110">
+		<flyout_button_item name="history_btn" label="Histórico"/>
+	</flyout_button>
+	<button name="ding_btn" label="Som"/>
+	<check_box name="Support Check" label="#" tool_tip="Desmarque para não enviar o número da build"/>
+	<check_box name="im_translate_check" tool_tip="Marque para ativar a tradução"/>
+	<button name="im_translate_btn" label="Tradução" tool_tip="Configurar idiomas deste grupo"/>
+	<button name="start_call_btn" label="Entrar na chamada" width="140"/>
+	<button name="end_call_btn" label="Encerrar chamada" width="140"/>
+	<button name="toggle_active_speakers_btn" label="&lt; &lt;" label_selected="&gt; &gt;" tool_tip="Mostrar ou ocultar a lista de participantes desta conversa."/>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<button name="send_btn" label="Enviar"/>
+		</layout_panel>
+	</layout_stack>
+	<string name="live_help_dialog">*** Bem-vindo à solicitação de ajuda ***
+Confira primeiro as páginas de ajuda pressionando F1 ou acessando a Base de Conhecimento em http://secondlife.com/knowledgebase/
+Se a resposta não estiver lá, digite sua pergunta e aguarde um pouco até que um ajudante disponível responda.
+-=-=- O tempo de resposta varia, especialmente nos horários de pico -=-=-</string>
+</floater>

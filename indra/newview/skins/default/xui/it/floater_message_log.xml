@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Message Log" title="Registro messaggi">
+	<scroll_list name="net_list">
+		<column name="text" label="testo"/>
+		<column name="icon0" label="icon0"/>
+		<column name="icon1" label="icon1"/>
+	</scroll_list>
+	<scroll_list name="message_log">
+		<column name="sequence" label="sequence"/>
+		<column name="type" label="tipo"/>
+		<column name="direction" label="direzione"/>
+		<column name="net" label="net"/>
+		<column name="name" label="nome"/>
+		<column name="summary" label="riepilogo"/>
+	</scroll_list>
+</floater>

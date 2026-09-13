@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Model Preview" title="Загрузить модель">
+	<string name="status_idle" />
+	<string name="status_parse_error">Ошибка: проблема с анализом Dae — подробности см. в журнале.</string>
+	<string name="status_bind_shape_orientation">Внимание: матрица формы привязки не имеет стандартной ориентации X-вперед.</string>
+	<string name="status_material_mismatch">Ошибка: Материал модели не является подмножеством эталонной модели.</string>
+	<string name="status_reading_file">Загрузка...</string>
+	<string name="status_generating_meshes">Создание сеток...</string>
+	<string name="status_vertex_number_overflow">Ошибка: число вершин больше 65534, операция прервана!</string>
+	<string name="bad_element">Ошибка: элемент недействителен.</string>
+	<string name="high">Высокий</string>
+	<string name="medium">Середина</string>
+	<string name="low">Низкий</string>
+	<string name="lowest">Самый низкий</string>
+	<string name="mesh_status_good">Отправьте это!</string>
+	<string name="mesh_status_na">N/A</string>
+	<string name="mesh_status_none">Никто</string>
+	<string name="mesh_status_submesh_mismatch">Уровни детализации имеют разное количество текстурируемых граней.</string>
+	<string name="mesh_status_mesh_mismatch">Уровни детализации имеют разное количество экземпляров сетки.</string>
+	<string name="mesh_status_too_many_vertices">Уровень детализации имеет слишком много вершин.</string>
+	<string name="mesh_status_missing_lod">Отсутствует необходимый уровень детализации.</string>
+	<string name="mesh_status_invalid_material_list">Материалы LOD не являются подмножеством эталонной модели.</string>
+	<string name="phys_status_vertex_limit_exceeded">Некоторые физические оболочки превышают ограничения вершин.</string>
+	<string name="layer_all">Все</string>
+	<string name="decomposing">Анализ...</string>
+	<string name="simplifying">Упрощение...</string>
+	<string name="tbd">TBD</string>
+	<panel name="left_panel">
+		<panel name="model_name_representation_panel">
+			<text name="name_label">Название модели:</text>
+			<text name="model_category_label">Данная модель представляет...</text>
+			<line_editor name="description_form" />
+			<combo_box name="model_category_combo">
+				<combo_item name="Choose one">Выберите один...</combo_item>
+				<combo_item name="Avatar shape">Форма аватара</combo_item>
+				<combo_item name="Avatar attachment">Вложение аватара</combo_item>
+				<combo_item name="Moving object (vehicle, animal)">Движущийся объект (автомобиль, животное)</combo_item>
+				<combo_item name="Building Component">Компонент здания</combo_item>
+				<combo_item name="Large, non moving etc">Большой, неподвижный и т. д.</combo_item>
+				<combo_item name="Smaller, non-moving etc">Меньший, неподвижный и т. д.</combo_item>
+				<combo_item name="Not really any of these">На самом деле ничего из этого</combo_item>
+			</combo_box>
+		</panel>
+		<tab_container name="import_tab">
+			<panel name="lod_panel" label="Уровень детализации" title="Уровень детализации">
+				<view_border name="lod_tab_border" />
+				<text name="source">Источник</text>
+				<text name="triangles">Треугольники</text>
+				<text name="vertices">Вершины</text>
+				<text name="high_label">Высокий</text>
+				<combo_box name="lod_source_high">
+					<combo_item name="Load from file">Загрузить из файла</combo_item>
+					<combo_item name="Generate">Генерировать</combo_item>
+				</combo_box>
+				<line_editor name="lod_file_high" />
+				<button name="lod_browse_high" label="Просматривать..." />
+				<combo_box name="lod_mode_high">
+					<combo_item name="Triangle Limit">Предел треугольника</combo_item>
+					<combo_item name="Error Threshold">Порог ошибки</combo_item>
+				</combo_box>
+				<spinner name="lod_triangle_limit_high" />
+				<spinner name="lod_error_threshold_high" />
+				<text name="high_triangles" />
+				<text name="high_vertices" />
+				<text name="high_status" />
+				<icon name="status_icon_high" />
+				<text name="medium_label">Середина</text>
+				<combo_box name="lod_source_medium">
+					<combo_item name="Load from file">Загрузить из файла</combo_item>
+					<combo_item name="Generate">Генерировать</combo_item>
+					<combo_item name="Use LoD above">Используйте LoD выше</combo_item>
+				</combo_box>
+				<line_editor name="lod_file_medium" />
+				<button name="lod_browse_medium" label="Просматривать..." />
+				<combo_box name="lod_mode_medium">
+					<combo_item name="Triangle Limit">Предел треугольника</combo_item>
+					<combo_item name="Error Threshold">Порог ошибки</combo_item>
+				</combo_box>
+				<spinner name="lod_triangle_limit_medium" />
+				<spinner name="lod_error_threshold_medium" />
+				<text name="medium_triangles" />
+				<text name="medium_vertices" />
+				<text name="medium_status" />
+				<icon name="status_icon_medium" />
+				<text name="low_label">Низкий</text>
+				<combo_box name="lod_source_low">
+					<combo_item name="Load from file">Загрузить из файла</combo_item>
+					<combo_item name="Generate">Генерировать</combo_item>
+					<combo_item name="Use LoD above">Используйте LoD выше</combo_item>
+				</combo_box>
+				<line_editor name="lod_file_low" />
+				<button name="lod_browse_low" label="Просматривать..." />
+				<combo_box name="lod_mode_low">
+					<combo_item name="Triangle Limit">Предел треугольника</combo_item>
+					<combo_item name="Error Threshold">Порог ошибки</combo_item>
+				</combo_box>
+				<spinner name="lod_triangle_limit_low" />
+				<spinner name="lod_error_threshold_low" />
+				<text name="low_triangles" />
+				<text name="low_vertices" />
+				<text name="low_status" />
+				<icon name="status_icon_low" />
+				<text name="lowest_label">Самый низкий</text>
+				<combo_box name="lod_source_lowest">
+					<combo_item name="Load from file">Загрузить из файла</combo_item>
+					<combo_item name="Generate">Генерировать</combo_item>
+					<combo_item name="Use LoD above">Используйте LoD выше</combo_item>
+				</combo_box>
+				<line_editor name="lod_file_lowest" />
+				<button name="lod_browse_lowest" label="Просматривать..." />
+				<combo_box name="lod_mode_lowest">
+					<combo_item name="Triangle Limit">Предел треугольника</combo_item>
+					<combo_item name="Error Threshold">Порог ошибки</combo_item>
+				</combo_box>
+				<spinner name="lod_triangle_limit_lowest" />
+				<spinner name="lod_error_threshold_lowest" />
+				<text name="lowest_triangles" />
+				<text name="lowest_vertices" />
+				<text name="lowest_status" />
+				<icon name="status_icon_lowest" />
+				<icon name="lod_status_message_icon" />
+				<text name="lod_status_message_text" />
+				<view_border name="lod_tab_border" />
+				<check_box name="gen_normals" label="Генерация нормалей" />
+				<text name="crease_label">Угол сгиба:</text>
+				<spinner name="crease_angle" />
+			</panel>
+			<panel name="physics_panel" label="Физика" title="Физика">
+				<view_border name="physics_tab_border" />
+				<panel name="physics geometry">
+					<text name="first_step_name">Шаг 1: Уровень детализации</text>
+					<combo_box name="physics_lod_combo" tool_tip="LOD для использования в физической форме">
+						<combo_item name="choose_one">Выберите один...</combo_item>
+						<combo_item name="physics_high">Высокий</combo_item>
+						<combo_item name="physics_medium">Середина</combo_item>
+						<combo_item name="physics_low">Низкий</combo_item>
+						<combo_item name="physics_lowest">Самый низкий</combo_item>
+						<combo_item name="load_from_file">Из файла</combo_item>
+					</combo_box>
+					<line_editor name="physics_file" />
+					<button name="physics_browse" label="Просматривать..." />
+				</panel>
+				<view_border name="physics_tab_border" />
+				<panel name="physics analysis">
+					<text name="method_label">Шаг 2: Анализируйте</text>
+					<text name="analysis_method_label">Метод:</text>
+					<text name="quality_label">Качество:</text>
+					<text name="smooth_method_label">Гладкий:</text>
+					<combo_box name="Method" />
+					<combo_box name="Decompose Quality" />
+					<combo_box name="Cosine%" />
+					<check_box name="Close Holes (Slow)" label="Закрыть отверстия" />
+					<button name="Decompose" label="Анализировать" />
+					<button name="decompose_cancel" label="Отмена" />
+				</panel>
+				<view_border name="physics_tab_border2" />
+				<panel name="physics simplification">
+					<text name="second_step_label">Шаг 3: Упростите</text>
+					<text name="simp_method_header">Метод:</text>
+					<text name="pass_method_header">Проходит:</text>
+					<text name="Detail Scale label">Детальный масштаб:</text>
+					<text name="Retain%_label">Удерживать:</text>
+					<combo_box name="Simplify Method" />
+					<combo_box name="Combine Quality" />
+					<spinner name="Detail Scale" />
+					<spinner name="Retain%" />
+					<button name="Simplify" label="Упрощать" />
+					<button name="simplify_cancel" label="Отмена" />
+				</panel>
+				<view_border name="physics_tab_border3" />
+				<panel name="physics info">
+					<text name="results_text">Результаты:</text>
+					<text name="physics_triangles">Треугольники: [TRIANGLES],</text>
+					<text name="physics_points">Вершины: [POINTS],</text>
+					<text name="physics_hulls">Корпуса: [HULLS]</text>
+				</panel>
+			</panel>
+			<panel name="modifiers_panel" label="Варианты загрузки" title="Варианты загрузки">
+				<view_border name="modifiers_tab_border" />
+				<text name="scale_label">Масштаб (1 = без масштабирования):</text>
+				<spinner name="import_scale" />
+				<text name="dimensions_label">Размеры:</text>
+				<text name="import_dimensions">[X] X [Y] X [Z]</text>
+				<check_box name="upload_textures" label="Включить текстуры" />
+				<view_border name="modifiers_tab_border2" />
+				<text name="include_label">Только для моделей аватаров:</text>
+				<check_box name="upload_skin" label="Учитывайте вес кожи" />
+				<text name="pelvis_offset_label">Смещение по оси Z (поднять или опустить аватар):</text>
+				<spinner name="pelvis_offset" />
+				<check_box name="upload_joints" label="Включить совместные позиции" />
+			</panel>
+		</tab_container>
+		<panel name="weights_and_warning_panel">
+			<button name="calculate_btn" label="Рассчитать вес и стоимость" tool_tip="Рассчитать вес и стоимость" />
+			<button name="cancel_btn" label="Отмена" />
+			<button name="ok_btn" label="Загрузить" tool_tip="Загрузите в симулятор" />
+			<button name="reset_btn" label="Очистить настройки и сбросить форму" />
+			<text name="upload_fee">Плата за загрузку: [CURRENCY] [FEE]</text>
+			<text name="prim_weight">Воздействие на землю: [EQ]</text>
+			<text name="download_weight">Скачать: [ST]</text>
+			<text name="physics_weight">Физика: [PH]</text>
+			<text name="server_weight">Сервер: [SIM]</text>
+			<text name="price_breakdown">Распределение цен: Потоковая передача: [CURRENCY] [STREAMING] Физика: [CURRENCY] [PHYSICS] Экземпляры: [CURRENCY] [INSTANCES] Текстуры: [CURRENCY] [TEXTURES] Модель: [CURRENCY] [MODEL]</text>
+			<text name="warning_title">ПРИМЕЧАНИЕ:</text>
+			<text name="warning_message">У вас нет прав на загрузку сетчатых моделей.</text>
+			<text name="validate_url">Нажмите здесь, чтобы узнать, как пройти сертификацию.</text>
+			<text name="status">[STATUS]</text>
+		</panel>
+	</panel>
+	<text name="lod_label">Предварительный просмотр:</text>
+	<panel name="preview_panel" />
+	<panel name="right_panel">
+		<combo_box name="preview_lod_combo" tool_tip="LOD для просмотра в предварительном рендере">
+			<combo_item name="high">Высокий</combo_item>
+			<combo_item name="medium">Середина</combo_item>
+			<combo_item name="low">Низкий</combo_item>
+			<combo_item name="lowest">Самый низкий</combo_item>
+		</combo_box>
+		<text name="label_display">Отображать...</text>
+		<check_box name="show_edges" label="Края" />
+		<check_box name="show_physics" label="Физика" />
+		<check_box name="show_textures" label="Текстуры" />
+		<check_box name="show_skin_weight" label="Вес скина" />
+		<check_box name="show_joint_positions" label="Суставы" />
+		<text name="physics_explode_label">Распространение предварительного просмотра:</text>
+		<slider name="physics_explode" />
+	</panel>
+</floater>

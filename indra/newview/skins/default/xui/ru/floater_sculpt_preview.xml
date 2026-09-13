@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Image Preview">
+	<text name="preview_label">Предварительный просмотр изображения как:</text>
+	<combo_box name="clothing_type_combo" label="Тип одежды">
+		<combo_item name="Image">Изображение</combo_item>
+		<combo_item name="Hair">Волосы</combo_item>
+		<combo_item name="FemaleHead">Женская голова</combo_item>
+		<combo_item name="FemaleUpperBody">Женская верхняя часть тела</combo_item>
+		<combo_item name="FemaleLowerBody">Женская нижняя часть тела</combo_item>
+		<combo_item name="MaleHead">Мужская голова</combo_item>
+		<combo_item name="MaleUpperBody">Мужская верхняя часть тела</combo_item>
+		<combo_item name="MaleLowerBody">Мужская нижняя часть тела</combo_item>
+		<combo_item name="Skirt">Юбка</combo_item>
+		<combo_item name="SculptedPrim">Скульптурная Прим</combo_item>
+	</combo_box>
+</floater>

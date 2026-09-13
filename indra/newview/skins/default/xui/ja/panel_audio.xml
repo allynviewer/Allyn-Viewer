@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Media panel" label="オーディオ &amp; 動画">
+	<slider name="System Volume" label="マスター" />
+	<button name="mute_audio" />
+	<slider name="Music Volume" label="音楽" />
+	<button name="mute_music" />
+	<slider name="Media Volume" label="Media" />
+	<button name="mute_media" />
+	<slider name="Voice Volume" label="ボイス" />
+	<button name="mute_voice" />
+	<slider name="SFX Volume" label="サウンド" />
+	<button name="mute_sfx" />
+	<slider name="Wind Volume" label="環境光" />
+	<button name="mute_wind" />
+	<slider name="UI Volume" label="UI" />
+	<button name="mute_ui" />
+	<button name="nearby_media" label="Nearby メディア" />
+</panel>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="ascvan" label="Gösteriş">
+	<tab_container name="Ascent Vanity" label="Gösteriş">
+		<panel name="General" label="Ana Sayfa">
+			<scroll_container name="vanity_main_scroll">
+				<panel name="vanity_main_inner">
+					<check_box name="use_account_settings_check" label="Uygun olduğu durumlarda, Vanity ayarlarını hesap başına kaydedin." tool_tip="Ayarları hesap başına kaydederek alt öğelerin daha kolay özelleştirilmesini sağlar." />
+					<check_box name="disable_tp_screen_check" label="Teleport ilerleme ekranlarını gizle" tool_tip="İşaretlenirse izleyici teleport ilerleme ekranını gizleyerek anlık mesajları okumaya devam etmenize olanak tanır." />
+					<check_box name="tp_sound_check" label="Bölgeler arasında ışınlanırken Teleport sesini çal" tool_tip="İzleyici teleport sırasında wooshing TP sesini çalacaktır." />
+					<check_box name="disable_logout_screen_check" label="Oturum Açma/Oturum Kapatma ilerleme ekranlarını gizle" tool_tip="İşaretlenirse görüntüleyici oturum açma/oturum kapatma ilerleme ekranını gizleyecektir." />
+					<check_box name="disable_chat_animation" label="Sohbet, fısıltı ve bağırma animasyonlarını devre dışı bırakın" tool_tip="Sohbet animasyonlarını kendi avatarınızdan kaldırın. Etki herkes tarafından görülebilir" />
+					<check_box name="add_not_replace" label="Değiştirmek yerine eklentileri ve giyilebilir cihazları ekleyin" tool_tip="Giyilebilir cihazlar veya nesneler seçiliyken envantere çift tıkladığınızda veya enter tuşuna bastığınızda, o anda hedef varış noktasında bulunan giyilebilir cihaz veya nesneyi değiştirmek yerine, bunlar kıyafetinize eklenecektir." />
+					<check_box name="customize_anim" label="Görünüm Moduna girerken canlandırın" />
+					<check_box name="turn_around" label="Geriye doğru yürürken arkanızı dönün" tool_tip="Bazı AO'lar bu engelli olsa bile sizi geri çevirebilir." />
+					<check_box name="announce_snapshots" label="Birisi fotoğraf çektiğinde duyuru yapın" tool_tip="Anlık fotoğraf çektiğini gizleyen kişilere duyuru yapılmayacaktır." />
+					<check_box name="announce_stream_metadata" label="Ayarlandığında yerel sohbette müzik akışının meta verilerini duyurun" tool_tip="Yeni bir şarkı çıktığında, yerel sohbette parça hakkında mevcut bilgileri içeren bir mesaj görüntülenecektir." />
+					<check_box name="script_errors_steal_focus" label="Hatalar nedeniyle derlenemediğinde komut dosyalarının odağı çalmasına izin verin" />
+					<check_box name="connect_to_neighbors" label="Komşu bölgelere bağlanın" />
+					<check_box name="region_restart_minimized" label="Bölge yeniden başlatma bildirimini otomatik olarak simge durumuna küçült" tool_tip="SIM sahipleri ve ayrılmadan önce eşyalarını toplaması gereken kişiler için kullanışlıdır" />
+					<text name="UISndRestartText">Bölgeler yeniden başlatıldığında çalınan ses:</text>
+					<line_editor name="UISndRestart" tool_tip="Çalınacak ses olmaması için boş" />
+					<spinner name="Inactive Transparency" label="Etkin Olmayan Şeffaflık" tool_tip="Bir kayan nokta odağı kaybettiğinde bu, opaklığının ne kadar değişeceğini kontrol eder." />
+					<spinner name="Active Transparency" label="Aktif Şeffaflık" tool_tip="Bir kayan nokta odakta olduğunda bu, onun opaklığının ne kadar değişeceğini kontrol eder." />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="TagsColors" label="Etiketler/Renkler">
+			<scroll_container name="vanity_tags_scroll">
+				<panel name="vanity_tags_inner">
+					<check_box name="show_my_tag_check" label="Yayın İstemcisi Etiketi:" tool_tip="Başkalarının [SHORT_APP_NAME]'dan hoşlandığınızı görüp görmeyeceğini seçin." />
+					<combo_box name="tag_spoofing_combobox" tool_tip="Yayınlanacak istemci etiketi (Ve sonraki renk). Özel Etiket/Renk tarafından yerel olarak geçersiz kılındı.">
+						<combo_item name="Allyn">Allyn</combo_item>
+					</combo_box>
+					<check_box name="show_self_tag_check" label="Müşteri etiketini kendine göster" tool_tip="Bunu etkinleştirdiğinizde müşteri etiketiniz yerel olarak avatar adınızda gösterilir." />
+					<check_box name="show_self_tag_color_check" label="İstemci etiketi rengini kendine göster" tool_tip="Bunu etkinleştirmek, avatar adınızın rengini müşteri etiketi renginize veya özel ayar renginize ayarlayın." />
+					<check_box name="show_friend_tag_check" label="Arkadaş istemci etiketlerini (Arkadaş) olarak görüntüle" tool_tip="Bunu etkinleştirmek arkadaşlarınızın müşteri etiketlerini (Arkadaş) olarak değiştirir." />
+					<check_box name="display_client_new_line_check" label="Müşteri etiketini yeni bir satırda görüntüle" tool_tip="Bunu etkinleştirmek müşteri etiketini yeni bir satırda gösterecektir." />
+					<check_box name="customize_own_tag_check" label="Özel bir renk ve etiket kullanın (Yalnızca yerel)" tool_tip="Bunu etkinleştirmek, özel istemcinizle ve etiket renginizle görünecek şekilde kendi ad etiketinizi ayarlamanıza olanak tanır. Bu sadece kendinize görünür." />
+					<text name="custom_tag_label_text">Etiket:</text>
+					<line_editor name="custom_tag_label_box" tool_tip="Müşteri etiketinizi değiştirmek istediğiniz özel dize (Yalnızca Yerel)" />
+					<text name="custom_tag_color_text">Color:</text>
+					<color_swatch name="custom_tag_color_swatch" tool_tip="İstemci renginizi değiştirmek istediğiniz özel renk (Yalnızca yerel)" />
+					<check_box name="show_other_tag_check" label="Başkaları için müşteri etiketini görüntüle" tool_tip="Bunu etkinleştirmek, diğer kullanıcıların avatar adlarında müşteri etiketi adlarını gösterecektir." />
+					<check_box name="show_client_tag_color_check" label="Diğerleri için istemci etiketi rengini görüntüle" tool_tip="Bunu etkinleştirmek, diğerlerinin avatar adı rengini müşterilerinin rengine ayarlar." />
+					<check_box name="show_idle_time_check" label="Boşta Kalma Süresini Göster" tool_tip="Bunu etkinleştirmek, avatarın boşta kaldığı süreyi gösterecektir." />
+					<check_box name="update_tags_check" label="İstemci tanımlarındaki güncellemeler için web sitesini otomatik olarak kontrol edin" tool_tip="Bunun etkinleştirilmesi, [SHORT_APP_NAME] öğesinin gerektiğinde yeni tanımlar indirmesine olanak tanır." />
+					<button name="update_clientdefs" label="Manuel Güncelleme" />
+					<text name="effects_color_textbox">Efektlerim İçin Renk:</text>
+					<color_swatch name="effect_color_swatch" label="Efektler" />
+					<check_box name="use_status_check" label="Kullanıcı durumu renklerini kullanın (aşağıdaki Arkadaş, Linden vb.)" tool_tip="Bunu etkinleştirdiğinizde, belirli kriterleri karşılayan kişiler (Linden'ler, Site sahipleri, arkadaşlar, sessize alınan kişiler) aşağıda belirlediğiniz renkle gösterilir." />
+					<text name="friends_color_textbox">Renk (Radar, Etiket, Mini Harita):</text>
+					<color_swatch name="friend_color_swatch" label="Arkadaşlar" tool_tip="Arkadaşların Rengi" />
+					<color_swatch name="estate_owner_color_swatch" label="Emlak" tool_tip="Site Yöneticilerinin Rengi" />
+					<color_swatch name="linden_color_swatch" label="Lindens" tool_tip="Ihlamurun Rengi" />
+					<color_swatch name="muted_color_swatch" label="Sessiz" tool_tip="Sessiz Rengi" />
+					<color_swatch name="others_color_swatch" label="Diğerleri" tool_tip="Mini harita ve dünya haritasındaki herkesin rengi" />
+					<color_swatch name="custom_color_swatch" label="Mini" tool_tip="Yalnızca mini haritada seçilen kullanıcıların rengi" />
+					<text name="chat_color_text">Sohbet için renkleri kullanın:</text>
+					<check_box name="color_friend_check" tool_tip="Renkli Arkadaş Sohbeti" />
+					<check_box name="color_estate_owner_check" tool_tip="Color Site Yöneticileri Sohbeti" />
+					<check_box name="color_linden_check" tool_tip="Renkli Ihlamur Sohbeti" />
+					<check_box name="color_muted_check" tool_tip="Renkli Sessiz Sohbet" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="Body Dynamics" label="Vücut Dinamiği">
+			<text name="av_mod_textbox">Avatar Ofset Değiştiricileri</text>
+			<spinner name="X Modifier" label="X Değiştirici" tool_tip="Bunu, avatar sınırlayıcı kutunuzu bir dereceye kadar değiştirmek için kullanın. Bu, yörüngedeki araçları deforme etmek veya şeklinizi değiştirmeden sizi yukarı veya aşağı kaldırmak için kullanılabilir." />
+			<spinner name="Y Modifier" label="Y Değiştirici" tool_tip="Bunu, avatar sınırlayıcı kutunuzu bir dereceye kadar değiştirmek için kullanın. Bu, yörüngedeki araçları deforme etmek veya şeklinizi değiştirmeden sizi yukarı veya aşağı kaldırmak için kullanılabilir." />
+			<spinner name="Z Modifier" label="Z Değiştirici" tool_tip="Bunu, avatar sınırlayıcı kutunuzu bir dereceye kadar değiştirmek için kullanın. Bu, yörüngedeki araçları deforme etmek veya şeklinizi değiştirmeden sizi yukarı veya aşağı kaldırmak için kullanılabilir." />
+		</panel>
+	</tab_container>
+</panel>

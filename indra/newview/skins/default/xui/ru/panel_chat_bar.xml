@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="chat_bar">
+	<button name="History" label="Локальный чат" tool_tip="Нажмите здесь, чтобы увидеть, что было сказано" />
+	<line_editor name="Chat Editor" label="Нажмите здесь, чтобы пообщаться." tool_tip="Нажмите Enter, чтобы сказать, Shift-Enter, чтобы прошептать, Ctrl-Enter, чтобы крикнуть." />
+	<flyout_button name="Say" label="Сказать" tool_tip="(Входить)">
+		<flyout_button_item name="shout_item">Кричать</flyout_button_item>
+		<flyout_button_item name="say_item">Сказать</flyout_button_item>
+		<flyout_button_item name="whisper_item">Шепот</flyout_button_item>
+	</flyout_button>
+	<combo_box name="Gesture" label="Жесты" />
+	<string name="gesture_label">Жесты</string>
+</panel>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="ai_translate_notice"
+	title="Aviso — Tradução por IA"
+	can_close="true" can_minimize="false" can_resize="true"
+	width="640" height="560" min_width="480" min_height="360">
+	<text_editor name="notice_text"
+		left="16" right="-16" top="-32" bottom="52"
+		follows="left|top|right|bottom"
+		font="SansSerifSmall"
+		word_wrap="true"
+		enabled="false"
+		hide_border="false"
+		max_length="65536"
+		bg_readonly_color="transparent"/>
+	<button name="cancel_btn" label="CANCELAR" label_selected="CANCELAR"
+		left="16" bottom="12" width="120" height="28"
+		follows="left|bottom"/>
+	<button name="accept_btn" label="LI E ACEITO" label_selected="LI E ACEITO"
+		right="-16" bottom="12" width="220" height="28"
+		follows="right|bottom"
+		enabled="false"/>
+	<string name="notice_body">Antes de ativar a tradução por IA, leia atentamente este aviso.
+
+1. Funcionamento do recurso
+
+A tradução por IA utiliza serviços de inteligência artificial que podem ser fornecidos, hospedados ou operados por terceiros. O Allyn Viewer atua como interface para disponibilizar esse recurso e não controla necessariamente os modelos, sistemas, servidores, algoritmos ou processos internos utilizados pelo provedor de IA.
+
+As traduções são geradas automaticamente e podem apresentar erros, omissões, interpretações incorretas, perda de contexto, resultados inesperados ou conteúdo inadequado. Nenhuma tradução gerada por IA é garantida como sendo precisa, completa ou adequada para uma finalidade específica.
+
+2. Serviços de terceiros
+
+O funcionamento do recurso pode depender da disponibilidade e das condições de serviços externos. Esses serviços podem sofrer alterações, interrupções, limitações, manutenção, indisponibilidade ou encerramento sem que o Allyn Viewer tenha controle sobre essas circunstâncias.
+
+O Allyn Viewer não garante a disponibilidade, continuidade, precisão, desempenho ou tempo de resposta de serviços de IA fornecidos por terceiros.
+
+3. Custos e cobranças
+
+Alguns serviços de IA podem possuir limites de utilização, planos gratuitos ou pagos, tarifas, cobranças por utilização, créditos, assinaturas ou outras condições comerciais.
+
+Quando aplicável, qualquer custo decorrente da utilização de um serviço de IA será determinado pelo respectivo provedor e será de responsabilidade do usuário conforme as condições do serviço utilizado.
+
+O Allyn Viewer não define nem controla preços, tarifas, planos, limites, créditos, métodos de cobrança ou alterações comerciais realizadas por provedores de serviços de IA.
+
+O usuário é responsável por verificar previamente as condições comerciais do serviço utilizado.
+
+4. Processamento e transmissão de dados
+
+Para realizar uma tradução, textos ou outros dados necessários ao funcionamento do recurso poderão ser enviados para serviços de terceiros.
+
+Dependendo da configuração e do provedor utilizado, esses dados poderão ser processados, armazenados ou transferidos para servidores localizados em outros países.
+
+O usuário deve consultar as políticas de privacidade e os termos de uso do respectivo provedor antes de utilizar o serviço.
+
+5. Informações pessoais e confidenciais
+
+Não recomendamos o envio de senhas, credenciais de acesso, informações financeiras, documentos pessoais, informações altamente confidenciais ou outros dados sensíveis por meio da tradução por IA.
+
+O usuário deve avaliar se possui autorização adequada para enviar determinado conteúdo a um serviço externo.
+
+6. Transferência internacional de dados
+
+Quando o uso do recurso envolver transferência internacional de dados pessoais, o tratamento deverá observar os mecanismos e requisitos previstos pela legislação aplicável.
+
+No Brasil, quando a LGPD for aplicável, as transferências internacionais deverão observar os requisitos previstos na LGPD e na regulamentação da Autoridade Nacional de Proteção de Dados, incluindo os mecanismos legalmente admitidos para transferência internacional de dados.
+
+7. Privacidade
+
+O tratamento de dados pessoais relacionado à tradução por IA deverá observar a política de privacidade aplicável ao Allyn Viewer e, quando houver serviços de terceiros envolvidos, as respectivas políticas e condições desses provedores.
+
+As informações sobre finalidade, categorias de dados, compartilhamento, retenção, transferência internacional, direitos dos titulares e formas de contato deverão estar disponíveis na política de privacidade correspondente.
+
+8. Segurança
+
+O Allyn Viewer deverá adotar medidas de segurança razoáveis e compatíveis com o recurso oferecido, mas nenhum sistema de transmissão ou processamento de dados pode garantir segurança absoluta.
+
+O usuário reconhece que serviços externos podem possuir suas próprias medidas, políticas e procedimentos de segurança.
+
+9. Alterações nos serviços de IA
+
+Provedores de IA podem alterar modelos, funcionalidades, preços, limites, políticas, termos de uso, requisitos técnicos, disponibilidade ou outras características de seus serviços.
+
+Essas alterações podem afetar o funcionamento da tradução por IA no Allyn Viewer.
+
+10. Conteúdo gerado
+
+O conteúdo produzido pela IA é resultado de processamento automatizado e não representa necessariamente uma declaração, opinião ou posicionamento do Allyn Viewer.
+
+O usuário é responsável por avaliar a tradução antes de utilizá-la para finalidades que dependam de precisão.
+
+11. Responsabilidade por serviços de terceiros
+
+O Allyn Viewer não controla os serviços externos utilizados para realizar o processamento de IA e não pode garantir que esses serviços permanecerão disponíveis ou funcionarão de determinada maneira.
+
+Na medida permitida pela legislação aplicável, o Allyn Viewer não será responsável por falhas, indisponibilidade, atrasos, alterações, erros ou limitações exclusivamente decorrentes de serviços de terceiros.
+
+Isso não pretende excluir ou limitar responsabilidades que não possam ser excluídas ou limitadas pela legislação aplicável.
+
+12. Legislação aplicável
+
+A utilização do recurso está sujeita às leis e regulamentações aplicáveis ao usuário, ao Allyn Viewer e aos respectivos provedores de serviços.
+
+Quando diferentes legislações forem aplicáveis, nenhuma disposição deste aviso pretende afastar direitos ou obrigações que sejam obrigatórios pela legislação aplicável.
+
+13. Transparência sobre inteligência artificial
+
+O usuário é informado de que a tradução é realizada, total ou parcialmente, por sistemas de inteligência artificial.
+
+Quando exigido pela legislação aplicável, serão fornecidas informações adicionais sobre a utilização de inteligência artificial e sobre o tratamento dos dados relacionados ao recurso.
+
+14. Aceitação
+
+Ao selecionar "Ativar tradução por IA", o usuário confirma que teve acesso a este aviso, compreendeu que o recurso utiliza serviços de inteligência artificial de terceiros e está ciente de suas possíveis limitações, custos, condições, processamento de dados e dependência de serviços externos.
+
+A utilização do recurso também está sujeita aos termos de uso e à política de privacidade aplicáveis ao Allyn Viewer.
+
+Este aviso não substitui aconselhamento jurídico e não exclui, limita ou modifica direitos, garantias ou responsabilidades que não possam ser excluídos, limitados ou modificados pela legislação aplicável.</string>
+</floater>

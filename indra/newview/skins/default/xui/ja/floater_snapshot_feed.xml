@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_snapshot_profile" title="プロフィールフィードに投稿">
+	<text_editor name="caption">メッセージを入力してください。</text_editor>
+	<check_box name="add_location_cb" label="場所を含める" />
+	<button name="cancel_btn" label="キャンセル" />
+	<button name="post_btn" label="投稿" />
+	<string name="default_message">上の「スナップショット」リンクをクリックすると、大きな元画像を見られます。</string>
+	<string name="upload_message">"アップロード中..."</string>
+</floater>

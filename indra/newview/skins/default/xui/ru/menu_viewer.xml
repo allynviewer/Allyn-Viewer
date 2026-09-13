@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu_bar name="Main Menu">
+	<menu name="File" label="Файл">
+		<menu_item_call name="Upload Image" label="Загрузить изображение ([UPLOADFEE])..." />
+		<menu_item_call name="Upload Sound" label="Загрузить звук ([UPLOADFEE])..." />
+		<menu_item_call name="Upload Animation" label="Загрузить анимацию ([UPLOADFEE])..." />
+		<menu_item_call name="Upload Mesh" label="Загрузить меш..." />
+		<menu_item_call name="Bulk Upload" label="Массовая загрузка (за файл)..." />
+		<menu_item_call name="Import" label="Импортировать объект XML" />
+		<menu_item_call name="Import2" label="Импорт с текстурами" />
+		<menu_item_call name="Change Local Textures" label="Сменить локальные текстуры" />
+		<menu_item_separator name="separator" label="-----------" />
+		<menu_item_call name="perm prefs" label="Права по умолчанию..." />
+		<menu_item_separator name="separator" label="-----------" />
+		<menu_item_call name="Minimize All Windows" label="Свернуть все окна" />
+		<menu_item_call name="Close Window" label="Закрыть окно" />
+		<menu_item_call name="Close All Windows" label="Закрыть все окна" />
+		<menu_item_separator name="separator2" label="-----------" />
+		<menu_item_call name="Save Preview As..." label="Сохранить превью как..." />
+		<menu_item_separator name="separator3" label="-----------" />
+		<menu_item_call name="Take Snapshot" label="Сделать снимок" />
+		<menu_item_call name="Snapshot to Disk" label="Снимок на диск" />
+		<menu_item_separator name="separator4" label="-----------" />
+		<menu_item_call name="Quit" label="Выход" />
+	</menu>
+	<menu name="Edit" label="Правка">
+		<menu_item_call name="Undo" label="Отменить" />
+		<menu_item_call name="Redo" label="Повторить" />
+		<menu_item_separator name="separator" label="-----------" />
+		<menu_item_call name="Cut" label="Вырезать" />
+		<menu_item_call name="Copy" label="Копировать" />
+		<menu_item_call name="Paste" label="Вставить" />
+		<menu_item_call name="Delete" label="Удалить" />
+		<menu_item_separator name="separator2" label="-----------" />
+		<menu_item_call name="Search..." label="Поиск..." />
+		<menu_item_separator name="separator3" label="-----------" />
+		<menu_item_call name="Select All" label="Выделить всё" />
+		<menu_item_call name="Deselect" label="Снять выделение" />
+		<menu_item_separator name="separator4" label="-----------" />
+		<menu_item_call name="Duplicate" label="Дублировать" />
+		<menu_item_separator name="separator5" label="-----------" />
+		<menu name="Attach Object" label="Прикрепить объект" />
+		<menu name="Detach Object" label="Отсоединить объект" />
+		<menu name="Take Off Clothing" label="Снять одежду">
+			<menu_item_call name="Shirt" label="Рубашка" />
+			<menu_item_call name="Pants" label="Брюки" />
+			<menu_item_call name="Shoes" label="Обувь" />
+			<menu_item_call name="Socks" label="Носки" />
+			<menu_item_call name="Jacket" label="Куртка" />
+			<menu_item_call name="Gloves" label="Перчатки" />
+			<menu_item_call name="Menu Undershirt" label="Майка" />
+			<menu_item_call name="Menu Underpants" label="Трусы" />
+			<menu_item_call name="Skirt" label="Юбка" />
+			<menu_item_call name="Tattoo" label="Тату" />
+			<menu_item_separator name="separator51" label="-----------" />
+			<menu_item_call name="Alpha" label="Альфа" />
+			<menu_item_call name="Physics" label="Физика" />
+			<menu_item_separator name="separator51" label="-----------" />
+			<menu_item_call name="All Clothes" label="Вся одежда" />
+		</menu>
+		<menu_item_separator name="separator6" label="-----------" />
+		<menu_item_call name="Gestures..." label="Жесты..." />
+		<menu_item_call name="Profile..." label="Профиль..." />
+		<menu_item_call name="Appearance..." label="Внешность..." />
+		<menu_item_call name="Make Outfit..." label="Создать наряд..." />
+		<menu_item_call name="Display Name..." label="Отображаемое имя..." />
+		<menu_item_separator name="separator7" label="-----------" />
+		<menu_item_check name="Friends..." label="Друзья..." />
+		<menu_item_call name="Groups..." label="Группы..." />
+		<menu_item_separator name="separator8" label="-----------" />
+		<menu_item_call name="Preferences..." label="Настройки..." />
+	</menu>
+	<menu name="View" label="Вид">
+		<tearoff_menu name="~~~~~~~~~~~" label="~~~~~~~~~~~" />
+		<menu_item_call name="Mouselook" label="Мауслук" />
+		<menu_item_check name="Build" label="Строить" />
+		<menu_item_check name="Joystick Flycam" label="Полёт камеры с джойстика" />
+		<menu_item_call name="Reset View" label="Сбросить вид" />
+		<menu_item_check name="Motion Resets Camera" label="Движение сбрасывает камеру" />
+		<menu_item_call name="Reset Camera Preset Angle" label="Сбросить угол камеры" />
+		<menu_item_call name="Look at Last Chatter" label="Смотреть на последнего собеседника" />
+		<menu_item_separator name="separator" label="-----------" />
+		<menu_item_check name="Toolbar" label="Панель" />
+		<menu_item_check name="Navigation Bar" label="Панель навигации" />
+		<menu_item_call name="toolbar_prefs" label="Кнопки панели" />
+		<menu_item_check name="Chat History" label="Локальный чат" />
+		<menu_item_check name="Instant Message" label="IM" />
+		<menu_item_check name="Inventory" label="Инвентарь" />
+		<menu_item_check name="Active Speakers" label="Кто говорит" />
+		<menu_item_check name="Mute List" label="Список заглушенных" />
+		<menu_item_check name="Teleport History" label="История телепортов" />
+		<menu_item_separator name="separator2" label="-----------" />
+		<menu_item_check name="Camera Controls" label="Управление камерой" />
+		<menu_item_check name="Movement Controls" label="Управление движением" />
+		<menu_item_check name="World Map" label="Карта мира" />
+		<menu_item_check name="Mini-Map" label="Мини-карта" />
+		<menu_item_check name="Radar" label="Радар" />
+		<menu_item_separator name="separator3" label="-----------" />
+		<menu_item_check name="Statistics Bar" label="Панель статистики" />
+		<menu_item_separator name="separator100" label="-----------" />
+		<menu_item_check name="Area Search" label="Поиск рядом" />
+		<menu_item_check name="Property Lines" label="Границы участков" />
+		<menu_item_check name="Banlines" label="Линии бана" />
+		<menu_item_check name="Land Owners" label="Владельцы земли" />
+		<menu_item_separator name="separator4" label="-----------" />
+		<menu name="Hover Tips" label="Подсказки">
+			<menu_item_check name="Show Tips" label="Показывать подсказки" />
+			<menu_item_separator name="separator" label="-----------" />
+			<menu_item_check name="Land Tips" label="О земле" />
+			<menu_item_check name="Tips On All Objects" label="Подсказки для всех объектов" />
+		</menu>
+		<menu_item_check name="Highlight Transparent" label="Подсветить прозрачное" />
+		<menu_item_check name="beacons" label="Маяки" />
+		<menu_item_check name="Hide Particles" label="Скрыть частицы" />
+		<menu_item_check name="Show HUD Attachments" label="Показать HUD" />
+		<menu_item_separator name="separator5" label="-----------" />
+		<menu_item_call name="Zoom In" label="Приблизить" />
+		<menu_item_call name="Zoom Default" label="Масштаб 100%" />
+		<menu_item_call name="Zoom Out" label="Отдалить" />
+		<menu_item_separator name="separator6" label="-----------" />
+		<menu_item_call name="Toggle Fullscreen" label="Полный экран" />
+		<menu_item_call name="Set UI Size to Default" label="Размер интерфейса по умолчанию" />
+	</menu>
+	<menu name="World" label="Мир">
+		<menu_item_check name="Chat" label="Чат" />
+		<menu_item_check name="Always Run" label="Всегда бежать" />
+		<menu_item_call name="Sit on Ground" label="Сесть на землю" />
+		<menu_item_check name="Fly" label="Летать" />
+		<menu_item_separator name="separator" label="-----------" />
+		<menu_item_call name="Create Landmark Here" label="Создать ландмарк здесь" />
+		<menu_item_call name="Set Home to Here" label="Сделать это место домом" />
+		<menu_item_separator name="separator2" label="-----------" />
+		<menu_item_call name="Teleport Home" label="Телепорт домой" />
+		<menu_item_separator name="separator3" label="-----------" />
+		<menu name="Status" label="Статус">
+			<menu_item_call name="Fake Away Status" label="Притвориться отошедшим" />
+			<menu_item_call name="Set Away" label="Отошёл" />
+			<menu_item_call name="Set Busy" label="Занят" />
+			<menu name="Autoresponse" label="Автоответ">
+				<menu_item_check name="Repeat" label="Повторять" />
+				<menu_item_check name="Only send when away" label="Только когда отошёл" />
+				<menu_item_check name="General" label="Общие" />
+				<menu_item_check name="Friends Only" label="• Только друзьям" />
+				<menu_item_check name="Non-Friends" label="Не друзьям" />
+				<menu_item_check name="Muted" label="Заглушенным" />
+			</menu>
+			<menu_item_check name="Sit when away" label="Садиться, когда отошёл" />
+		</menu>
+		<menu_item_call name="Stop Animating My Avatar" label="Остановить анимации аватара" />
+		<menu_item_call name="Release Keys" label="Отпустить клавиши" />
+		<menu_item_call name="insert_agent" />
+		<menu_item_separator name="separator4" label="-----------" />
+		<menu_item_call name="Account History..." label="История аккаунта...">
+			<on_click name="AccountHistory_url" />
+		</menu_item_call>
+		<menu_item_call name="Manage My Account..." label="Мой аккаунт...">
+			<on_click name="ManageMyAccount_url" />
+		</menu_item_call>
+		<menu_item_call name="Marketplace" label="Marketplace" />
+		<menu_item_check name="MarketplaceListings" label="Объявления на Marketplace..." />
+		<menu_item_call name="Buy and Sell L$..." label="Купить [CURRENCY]..." />
+		<menu_item_separator name="separator5" label="-----------" />
+		<menu_item_check name="My Outfits" label="Мои наряды" />
+		<menu_item_check name="Favorites" label="Избранное" />
+		<menu_item_check name="Received Items" label="Полученные предметы" />
+		<menu_item_check name="Avatar Picker" label="Аватары по умолчанию" />
+		<menu_item_check name="Destinations" label="Направления" />
+		<menu_item_check name="Experiences..." label="Опыты..." />
+		<menu_item_separator name="separator5" label="-----------" />
+		<menu_item_call name="My Land..." label="Моя земля..." />
+		<menu_item_call name="About Land..." label="О земле..." />
+		<menu_item_call name="Buy Land..." label="Купить землю..." />
+		<menu_item_call name="Region/Estate..." label="Регион/Эстейт..." />
+		<menu_item_call name="insert_world" />
+		<menu_item_separator name="separator6" label="-----------" />
+		<menu name="Environment Settings" label="Окружение">
+			<menu_item_check name="Sunrise" label="Рассвет" />
+			<menu_item_check name="Noon" label="Полдень" />
+			<menu_item_check name="Sunset" label="Закат" />
+			<menu_item_check name="Midnight" label="Полночь" />
+			<menu_item_check name="Revert to Region Default" label="Как в регионе" />
+			<menu_item_separator name="separator" label="-----------" />
+			<menu_item_call name="Environment Editor" label="Редактор окружения" />
+			<menu_item_call name="Day Cycle Editor" label="Редактор суток" />
+			<menu_item_call name="Post-Processing Effects" label="Эффекты постобработки" />
+		</menu>
+	</menu>
+	<menu name="Tools" label="Инструменты">
+		<menu name="Select Tool" label="Инструмент">
+			<menu_item_call name="Focus" label="Фокус" />
+			<menu_item_call name="Move" label="Переместить" />
+			<menu_item_call name="Edit" label="Править" />
+			<menu_item_call name="Create" label="Создать" />
+			<menu_item_call name="Land" label="Земля" />
+		</menu>
+		<menu_item_separator name="separator" label="-----------" />
+		<menu_item_check name="Select Only My Objects" label="Только мои объекты" />
+		<menu_item_check name="Select Only Movable Objects" label="Только подвижные объекты" />
+		<menu_item_check name="Select By Surrounding" label="Выделять охватом" />
+		<menu_item_check name="Show Selection Outlines" label="Контур выделения" />
+		<menu_item_check name="Show Hidden Selection" label="Показать скрытое выделение" />
+		<menu_item_check name="Show Light Radius for Selection" label="Радиус света выделения" />
+		<menu_item_check name="Show Selection Beam" label="Луч выделения" />
+		<menu_item_call name="insert_tools" />
+		<menu_item_separator name="separator2" label="-----------" />
+		<menu_item_check name="Snap to Grid" label="Привязка к сетке" />
+		<menu_item_call name="Snap Object XY to Grid" label="Привязать объект по XY к сетке" />
+		<menu_item_call name="Use Selection for Grid" label="Сетка по выделению" />
+		<menu_item_call name="Grid Options..." label="Параметры сетки..." />
+		<menu_item_separator name="separator3" label="-----------" />
+		<menu_item_check name="Edit Linked Parts" label="Связанные части" />
+		<menu name="Select Linked Parts" label="Выбрать связанные части">
+			<menu_item_call name="Select Next Part" label="Следующая часть" />
+			<menu_item_call name="Select Previous Part" label="Предыдущая часть" />
+			<menu_item_call name="Include Next Part" label="Добавить следующую часть" />
+			<menu_item_call name="Include Previous Part" label="Добавить предыдущую часть" />
+		</menu>
+		<menu_item_call name="Link" label="Связать" />
+		<menu_item_call name="Unlink" label="Разъединить" />
+		<menu_item_separator name="separator4" label="-----------" />
+		<menu_item_call name="Focus on Selection" label="Фокус на выделении" />
+		<menu_item_call name="Zoom to Selection" label="Приблизить к выделению" />
+		<menu_item_call name="Menu Object Take" label="Взять объект">
+			<on_enable name="EnableBuyOrTake" />
+		</menu_item_call>
+		<menu_item_call name="Take Copy" label="Взять копию" />
+		<menu_item_call name="Return..." label="Вернуть объект..." />
+		<menu_item_call name="Save Object Back to Object Contents" label="Сохранить объект обратно в содержимое" />
+		<menu_item_call name="Admin Delete" label="Удалить (админ)" />
+		<menu_item_separator name="separator6" label="-----------" />
+		<menu_item_call name="Show Script Warning/Error Window" label="Окно ошибок скриптов" />
+		<menu name="Recompile Scripts in Selection" label="Перекомпилировать скрипты">
+			<menu_item_call name="Mono" label="Mono" />
+			<menu_item_call name="LSL" label="LSL" />
+		</menu>
+		<menu_item_call name="Reset Scripts in Selection" label="Сбросить скрипты" />
+		<menu_item_call name="Set Scripts to Running in Selection" label="Запустить скрипты" />
+		<menu_item_call name="Set Scripts to Not Running in Selection" label="Остановить скрипты" />
+		<menu_item_call name="Remove Scripts in Selection" label="Удалить скрипты в выделении" />
+		<menu_item_call name="Count Scripts in Selection" label="Посчитать скрипты" />
+		<menu name="Pathfinding" label="Навигация">
+			<menu_item_check name="pathfinding_linksets_menu_item" label="Наборы ссылок..." />
+			<menu_item_check name="pathfinding_characters_menu_item" label="Персонажи..." />
+			<menu_item_call name="pathfinding_rebake_navmesh_item" label="Перезапечь навмеш региона" />
+		</menu>
+	</menu>
+	<menu name="Help" label="Справка">
+		<menu_item_call name="Tutorial" label="Обучение" />
+		<menu_item_separator name="separator" label="-----------" />
+		<menu_item_call name="Official Linden Blog..." label="Официальный блог Linden...">
+			<on_click name="OfficialLindenBlog_url" />
+		</menu_item_call>
+		<menu_item_call name="Grid Status..." label="Статус грида..." />
+		<menu_item_separator name="separator2" label="-----------" />
+		<menu_item_call name="Scripting Portal..." label="Портал скриптов...">
+			<on_click name="ScriptingPortal_url" />
+		</menu_item_call>
+		<menu_item_separator name="separator3" />
+		<menu_item_call name="Report Abuse..." label="Сообщить о нарушении..." />
+		<menu_item_call name="Bumps, Pushes &amp; Hits..." label="Толчки, удары и столкновения..." />
+		<menu_item_separator name="separator7" />
+		<menu name="Bug Reporting" label="Сообщения об ошибках">
+			<menu_item_call name="Public Issue Tracker..." label="Трекер ошибок...">
+				<on_click name="PublicIssueTracker_url" />
+			</menu_item_call>
+			<menu_item_call name="Publc Issue Tracker Help..." label="Справка по трекеру...">
+				<on_click name="PublicIssueTrackerHelp_url" />
+			</menu_item_call>
+			<menu_item_call name="Allyn Issue Tracker..." label="Трекер [SHORT_APP_NAME]...">
+				<on_click name="SinguIssueTracker_url" />
+			</menu_item_call>
+			<menu_item_separator name="separator7" />
+			<menu_item_call name="Bug Reporting 101..." label="Как сообщать об ошибках...">
+				<on_click name="BugReporting101_url" />
+			</menu_item_call>
+			<menu_item_call name="Security Issues..." label="Проблемы безопасности...">
+				<on_click name="SecurityIssues_url" />
+			</menu_item_call>
+			<menu_item_call name="QA Wiki..." label="QA Wiki...">
+				<on_click name="QAWiki_url" />
+			</menu_item_call>
+			<menu_item_separator name="separator9" />
+			<menu_item_call name="Report Bug..." label="Сообщить об ошибке...">
+				<on_click name="ReportBug_url" />
+			</menu_item_call>
+			<menu_item_call name="Report [SHORT_APP_NAME] Bug..." label="Ошибка [SHORT_APP_NAME]...">
+				<on_click name="ReportSinguBug_url" />
+			</menu_item_call>
+			<menu_item_call name="Request New Feature..." label="Предложить функцию...">
+				<on_click name="RequestFeature_url" />
+			</menu_item_call>
+		</menu>
+		<menu_item_call name="viewer group" label="Группа [SHORT_APP_NAME]" />
+		<menu_item_call name="About Second Life..." label="О [SHORT_APP_NAME]..." />
+	</menu>
+	<menu name="Allyn" label="[SHORT_APP_NAME]">
+		<menu_item_call name="Close All Dialogs" label="Закрыть все диалоги" />
+		<menu_item_separator name="separators1" />
+		<menu_item_call name="Fake Away Status" label="Притвориться отошедшим" />
+		<menu_item_call name="Force Ground Sit" label="Сесть на землю" />
+		<menu_item_separator name="separators2" />
+		<menu_item_call name="Animation Override ..." label="Переопределение анимации..." />
+		<menu_item_check name="Pose Stand" label="Стойка" />
+		<menu_item_check name="Nimble" label="Ловкость" />
+		<menu_item_call name="Resync Animations" label="Синхронизировать анимации" />
+		<menu_item_separator name="separators3" />
+		<menu_item_check name="Region Tracker" label="Трекер региона" />
+		<menu_item_check name="Object Area Search" label="Поиск объектов рядом" />
+		<menu_item_check name="Sound Explorer" label="Проводник звуков" />
+		<menu_item_check name="Asset Blacklist" label="Чёрный список ассетов" />
+		<menu_item_check name="Media Filter" label="Фильтр медиа" />
+		<menu_item_check name="Streaming Audio Display" label="Потоковое аудио" />
+		<menu_item_check name="Region Debug Console" label="Консоль отладки региона" />
+		<menu_item_separator name="separators3" />
+		<menu_item_call name="Rebake" label="Перезапечь" />
+	</menu>
+</menu_bar>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Media panel" label="オーディオと動画">
+	<scroll_container name="audio_scroll">
+		<panel name="audio_scroll_inner">
+			<text name="muting_text">音量</text>
+			<icon name="section_vol_rule" />
+			<panel name="Volume Panel" label="音量" />
+			<text name="Media Filtering">メディアフィルタ</text>
+			<icon name="section_filter_rule" />
+			<radio_group name="filter_group">
+				<radio_item name="0">オフ</radio_item>
+				<radio_item name="1">ブラックリストのみ</radio_item>
+				<radio_item name="2">確認する</radio_item>
+			</radio_group>
+			<text name="streaming_prefs_text">ストリーミング</text>
+			<icon name="section_stream_rule" />
+			<check_box name="streaming_music" label="利用可能なときにストリーミング音楽を再生（帯域を多く使います）" />
+			<check_box name="streaming_video" label="利用可能なときにストリーミングメディアを再生（帯域を多く使います）" />
+			<check_box name="auto_prim_streaming_video" label="プリムメディアを自動再生" />
+			<check_box name="auto_streaming_video" label="パーセルメディアを自動再生" />
+			<check_box name="mute_when_minimized" label="ウィンドウ最小化時にオーディオをミュート" />
+			<text name="audio_prefs_text">オーディオ設定</text>
+			<icon name="section_audio_rule" />
+			<slider name="Doppler Effect" label="ドップラー効果" />
+			<slider name="Rolloff Factor" label="減衰係数（デフォルト）" />
+			<slider name="Underwater Rolloff Factor" label="減衰係数（水中）" />
+			<spinner name="currency_change_threshold" label="[CURRENCY]変化のしきい値:" />
+			<spinner name="Health Change Threshold" label="体力変化のしきい値" />
+		</panel>
+	</scroll_container>
+</panel>

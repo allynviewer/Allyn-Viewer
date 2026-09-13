@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview_texture">
+	<text name="desc txt">Açıklama:</text>
+	<line_editor name="desc" />
+	<text name="uuid txt">UUID:</text>
+	<line_editor name="uuid" />
+	<text name="uploader txt">Yükleyen:</text>
+	<line_editor name="uploader" />
+	<button name="openprofile" label="Profil" />
+	<text name="uploadtime txt">Yüklendiği tarih:</text>
+	<line_editor name="uploadtime" />
+	<text name="alphanote">Yükleniyor...</text>
+	<string name="No Alpha">No Alpha</string>
+	<string name="Has Alpha">Has Alpha</string>
+	<button name="Keep" label="Tut" />
+	<button name="Discard" label="At" />
+	<button name="Copy To Inventory" label="Envantere Kopyala" />
+	<text name="dimensions">Boyutlar: [WIDTH] x [HEIGHT]</text>
+	<text name="aspect_ratio">Önizleme En Boy Oranı</text>
+	<combo_box name="combo_aspect_ratio" tool_tip="Sabit en boy oranında önizleme">
+		<combo_item name="Unconstrained">Kısıtlanmamış</combo_item>
+		<combo_item name="1:1" tool_tip="Grup Nişanı veya 1. Yaşam Profili">1:1</combo_item>
+		<combo_item name="4:3" tool_tip="2. Hayat Profili">4:3</combo_item>
+		<combo_item name="10:7" tool_tip="İlanlar ve arama listeleri, önemli noktalar">10:7</combo_item>
+		<combo_item name="3:2" tool_tip="Arazi hakkında">3:2</combo_item>
+		<combo_item name="16:10">16:10</combo_item>
+		<combo_item name="16:9" tool_tip="Profil Seçimleri">16:9</combo_item>
+		<combo_item name="2:1">2:1</combo_item>
+	</combo_box>
+	<string name="Unknown">Bilinmiyor</string>
+</floater>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Allgemein" name="general_panel">
+	<scroll_container name="general_scroll">
+		<panel name="general_scroll_inner">
+			<text name="start_location_textbox">STARTPOSITION</text>
+			<radio_group name="default_start_location">
+				<radio_item name="home" tool_tip="Standard: mein Zuhause.">Mein Heim</radio_item>
+				<radio_item name="last" tool_tip="Standard: letzter Standort.">Letzter Standort</radio_item>
+			</radio_group>
+			<check_box label="Startposition auf Anmeldebildschirm" name="show_location_checkbox" />
+			<text name="show_names_textbox">NAMEN</text>
+			<combo_box name="fade_out_combobox">
+				<combo_item name="Never">Nie</combo_item>
+				<combo_item name="Show Temporarily">Vorübergehend</combo_item>
+				<combo_item name="Always">Immer</combo_item>
+			</combo_box>
+			<combo_box name="namesystem_combobox">
+				<combo_item name="Old Names">Alte Namen</combo_item>
+				<combo_item name="Display Names (with Username)">Anzeigenamen (mit Benutzername)</combo_item>
+				<combo_item name="Display Names only">Nur Anzeigenamen</combo_item>
+				<combo_item name="Old Names (with Display Names)">Alte Namen (Anzeige)</combo_item>
+			</combo_box>
+			<check_box label="Resident anzeigen" name="show_resident_checkbox" />
+			<check_box label="Kleine Avatarnamen" name="small_avatar_names_checkbox" />
+			<check_box label="Namen hier ausblenden" name="show_my_name_checkbox" />
+			<text name="group_titles_textbox">GRUPPENTITEL</text>
+			<check_box label="Alle Titel ausblenden" name="show_all_title_checkbox" />
+			<check_box label="Eigenen Titel ausblenden" name="show_my_title_checkbox" />
+			<text name="UI Size:">UI-GRÖSSE</text>
+			<check_box label="Auflösungsunabh. Skalierung" name="ui_auto_scale" />
+			<check_box label="Abwesend bei Inaktivität" name="away_when_idle_checkbox" />
+			<spinner label="Nach:" name="afk_timeout_spinner" />
+			<text name="seconds_textbox">Sekunden</text>
+			<check_box label="Bei L$-Wechsel benachrichtigen" name="notify_money_change_checkbox" />
+			<check_box label="ohne die Ecke zu überladen" name="no_transaction_clutter_checkbox" tool_tip="Benachrichtigungen kurz unten rechts einblenden, damit sie auffallen ohne zu stören." />
+			<text name="maturity_desired_label">Freigabe:</text>
+			<text name="maturity_desired_prompt">Inhalte mit Freigabe:</text>
+			<combo_box name="maturity_desired_combobox">
+				<combo_item name="Desired_Adult">PG, Mature und Adult</combo_item>
+				<combo_item name="Desired_Mature">PG und Mature</combo_item>
+				<combo_item name="Desired_PG">Nur PG</combo_item>
+			</combo_box>
+			<text name="maturity_desired_textbox">Nur PG</text>
+			<text name="crash_report_textbox">Absturzberichte:</text>
+			<combo_box name="crash_behavior_combobox">
+				<combo_item name="Neversend">Nie senden</combo_item>
+				<combo_item name="Alwayssend">Immer senden</combo_item>
+			</combo_box>
+			<text name="language_textbox">Sprache:</text>
+			<text name="language_textbox2">(Neustart nötig)</text>
+			<string name="region_name_prompt">&lt;Region eingeben&gt;</string>
+			<combo_box name="language_combobox">
+				<combo_item name="System Default Language">Systemstandard</combo_item>
+				<combo_item name="English">English</combo_item>
+				<combo_item name="Spanish">Español</combo_item>
+				<combo_item name="Portugese">Português</combo_item>
+				<combo_item name="French">Français</combo_item>
+				<combo_item name="Deutsch(German)">Deutsch</combo_item>
+				<combo_item name="Italian">Italiano</combo_item>
+				<combo_item name="Turkish">Türkçe</combo_item>
+				<combo_item name="Russian">Русский</combo_item>
+				<combo_item name="Japanese">日本語</combo_item>
+			</combo_box>
+			<check_box label="Sprache mit Objekten teilen" name="language_is_public" tool_tip="Teilt Objekten in der Welt Ihre bevorzugte Sprache mit." />
+			<button label="Alles zurücksetzen" name="clear_settings" />
+		</panel>
+	</scroll_container>
+</panel>

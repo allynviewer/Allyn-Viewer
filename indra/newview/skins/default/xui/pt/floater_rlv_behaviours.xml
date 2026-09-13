@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="rlv_behaviours" title="Restrições RLV ativas">
+	<tab_container name="behaviour_tab">
+		<panel name="behaviour_panel" label="Restrições">
+			<scroll_list name="behaviour_list">
+				<column name="behaviour" label="Restrição"/>
+				<column name="issuer" label="Nome do objeto"/>
+			</scroll_list>
+		</panel>
+		<panel name="exception_panel" label="Exceções">
+			<scroll_list name="exception_list">
+				<column name="behaviour" label="Restrição"/>
+				<column name="option" label="Opção"/>
+				<column name="issuer" label="Nome do objeto"/>
+			</scroll_list>
+		</panel>
+	</tab_container>
+	<button name="copy_btn" label="Copiar"/>
+</floater>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="navigation_bar">
+	<button name="back_btn" tool_tip="Önceki konuma geri git"/>
+	<button name="forward_btn" tool_tip="Bir konum ileri git"/>
+	<button name="home_btn" tool_tip="Ana konumuma ışınla"/>
+	<button name="About_Land" label="Arazi" tool_tip="Arazi bilgisi penceresini açar"/>
+	<button name="PersonalLighting" label="Aydınlatma" tool_tip="Kişisel aydınlatma penceresini açar" width="90"/>
+	<combo_box name="location_combo" label="Konum"
+	     tool_tip="Mevcut konum. Bölge veya SLURL yazıp Enter'a basarak ışınlanın."/>
+	<button name="add_landmark_btn" tool_tip="Burada yer imi oluştur"/>
+	<line_editor name="search_editor" label="Ara" tool_tip="Ara"/>
+	<button name="search_btn" tool_tip="Ara"/>
+</panel>

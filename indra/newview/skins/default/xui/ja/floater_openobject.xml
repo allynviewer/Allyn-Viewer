@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="objectcontents" title="オブジェクト 内容">
+	<panel name="object_contents" />
+	<text name="object_name">[DESC]:</text>
+	<button name="copy_to_inventory_button" label="へ インベントリをコピー" />
+	<button name="copy_and_wear_button" label="と 装着をコピー" />
+</floater>

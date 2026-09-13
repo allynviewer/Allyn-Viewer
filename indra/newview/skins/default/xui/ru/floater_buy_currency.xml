@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="buy currency" title="Купить валюту">
+	<text name="info_buying">Покупка валюты:</text>
+	<text name="info_cannot_buy">Сейчас невозможно купить:</text>
+	<text name="info_need_more">Вам нужно больше валюты:</text>
+	<icon name="step_error" />
+	<text name="error_message">Что-то не так.</text>
+	<button name="error_web" label="Перейти на сайт" />
+	<icon name="step_1" />
+	<text name="contacting">Обращение в обменный пункт...</text>
+	<text name="buy_action_unknown">Купить [CURRENCY] на бирже валюты</text>
+	<text name="buy_action">[NAME] [CURRENCY] [PRICE]</text>
+	<text name="currency_action">Купить [CURRENCY]</text>
+	<line_editor name="currency_amt" />
+	<text name="currency_est">в течение ок. [REALCURRENCY] [USD]</text>
+	<text name="getting_data">Получение данных...</text>
+	<text name="balance_label">В настоящее время у вас есть</text>
+	<text name="balance_amount">[CURRENCY] [AMT]</text>
+	<text name="buying_label">Вы покупаете</text>
+	<text name="buying_amount">[CURRENCY] [AMT]</text>
+	<text name="total_label">Ваш баланс будет</text>
+	<text name="total_amount">[CURRENCY] [AMT]</text>
+	<text name="purchase_warning_repurchase">
+		Подтверждение этой покупки означает только покупку валюты.
+Вам нужно будет повторить операцию еще раз.
+	</text>
+	<text name="purchase_warning_notenough">
+		Вы покупаете недостаточно валюты
+Увеличьте сумму покупки.
+	</text>
+	<button name="cancel_btn" label="Отмена" />
+	<button name="buy_btn" label="Покупка" />
+	<string name="buy_currency">Купите [CURRENCY] [LINDENS] примерно за 1 год. [REALCURRENCY] [USD]</string>
+</floater>

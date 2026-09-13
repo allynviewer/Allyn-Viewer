@@ -1,0 +1,381 @@
+/**
+ * @file llpanelmediasettingsgeneral.cpp
+ * @brief LLPanelMediaSettingsGeneral class implementation
+ *
+ * $LicenseInfo:firstyear=2009&license=viewerlgpl$
+ * Second Life Viewer Source Code
+ * Copyright (C) 2010, Linden Research, Inc.
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation;
+ * version 2.1 of the License only.
+ * 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * 
+ * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
+ * $/LicenseInfo$
+ */
+#include "llviewerprecompiledheaders.h"
+#include "llpanelmediasettingsgeneral.h"
+#include "llcombobox.h"
+#include "llcheckboxctrl.h"
+#include "llnotificationsutil.h"
+#include "llspinctrl.h"
+#include "lluictrlfactory.h"
+#include "llagent.h"
+#include "llviewerwindow.h"
+#include "llviewermedia.h"
+#include "llsdutil.h"
+#include "llselectmgr.h"
+#include "llbutton.h"
+#include "lltexturectrl.h"
+#include "llurl.h"
+#include "llwindow.h"
+#include "llmediaentry.h"
+#include "llmediactrl.h"
+#include "llpanelcontents.h"
+#include "llpermissions.h"
+#include "llpluginclassmedia.h"
+#include "llfloatermediasettings.h"
+#include "llfloatertools.h"
+#include "lltrans.h"
+#include "lltextbox.h"
+#include "llpanelmediasettingssecurity.h"
+const char *CHECKERBOARD_DATA_URL = "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%%22 height=%22100%%22 %3E%3Cdefs%3E%3Cpattern id=%22checker%22 patternUnits=%22userSpaceOnUse%22 x=%220%22 y=%220%22 width=%22128%22 height=%22128%22 viewBox=%220 0 128 128%22 %3E%3Crect x=%220%22 y=%220%22 width=%2264%22 height=%2264%22 fill=%22#ddddff%22 /%3E%3Crect x=%2264%22 y=%2264%22 width=%2264%22 height=%2264%22 fill=%22#ddddff%22 /%3E%3C/pattern%3E%3C/defs%3E%3Crect x=%220%22 y=%220%22 width=%22100%%22 height=%22100%%22 fill=%22url(#checker)%22 /%3E%3C/svg%3E";
+LLPanelMediaSettingsGeneral::LLPanelMediaSettingsGeneral() :
+	mAutoLoop( NULL ),
+	mFirstClick( NULL ),
+	mAutoZoom( NULL ),
+	mAutoPlay( NULL ),
+	mAutoScale( NULL ),
+	mWidthPixels( NULL ),
+	mHeightPixels( NULL ),
+	mHomeURL( NULL ),
+	mCurrentURL( NULL ),
+	mParent( NULL ),
+	mMediaEditable(false)
+{
+	LLUICtrlFactory::getInstance()->buildPanel(this,"panel_media_settings_general.xml");
+}
+BOOL LLPanelMediaSettingsGeneral::postBuild()
+{
+	mAutoLoop = getChild< LLCheckBoxCtrl >( LLMediaEntry::AUTO_LOOP_KEY );
+	mAutoPlay = getChild< LLCheckBoxCtrl >( LLMediaEntry::AUTO_PLAY_KEY );
+	mAutoScale = getChild< LLCheckBoxCtrl >( LLMediaEntry::AUTO_SCALE_KEY );
+	mAutoZoom = getChild< LLCheckBoxCtrl >( LLMediaEntry::AUTO_ZOOM_KEY );
+	mCurrentURL = getChild< LLTextBox >( LLMediaEntry::CURRENT_URL_KEY );
+	mFirstClick = getChild< LLCheckBoxCtrl >( LLMediaEntry::FIRST_CLICK_INTERACT_KEY );
+	mHeightPixels = getChild< LLSpinCtrl >( LLMediaEntry::HEIGHT_PIXELS_KEY );
+	mHomeURL = getChild< LLLineEditor >( LLMediaEntry::HOME_URL_KEY );
+	mWidthPixels = getChild< LLSpinCtrl >( LLMediaEntry::WIDTH_PIXELS_KEY );
+	mPreviewMedia = getChild<LLMediaCtrl>("preview_media");
+	mFailWhiteListText = getChild<LLTextBox>( "home_fails_whitelist_label" );
+	childSetCommitCallback( LLMediaEntry::HOME_URL_KEY, onCommitHomeURL, this);
+	childSetCommitCallback( "current_url_reset_btn",onBtnResetCurrentUrl, this);
+	updateMediaPreview();
+	return true;
+}
+LLPanelMediaSettingsGeneral::~LLPanelMediaSettingsGeneral()
+{
+}
+void LLPanelMediaSettingsGeneral::draw()
+{
+	LLPanel::draw();
+	checkHomeUrlPassesWhitelist();
+	if ( mAutoScale->getValue().asBoolean() == false )
+	{
+		getChildView( LLMediaEntry::WIDTH_PIXELS_KEY )->setEnabled( true );
+		getChildView( LLMediaEntry::HEIGHT_PIXELS_KEY )->setEnabled( true );
+	}
+	else
+	{
+		getChildView( LLMediaEntry::WIDTH_PIXELS_KEY )->setEnabled( false );
+		getChildView( LLMediaEntry::HEIGHT_PIXELS_KEY )->setEnabled( false );
+	};
+	bool reset_button_is_active = true;
+	if( mPreviewMedia )
+	{
+		LLPluginClassMedia* media_plugin = mPreviewMedia->getMediaPlugin();
+		if( media_plugin )
+		{
+			media_plugin->setVolume( 0 );
+			bool show_time_controls = media_plugin->pluginSupportsMediaTime();
+			if ( show_time_controls )
+			{
+				getChildView( LLMediaEntry::CURRENT_URL_KEY )->setEnabled( false );
+				reset_button_is_active = false;
+				getChildView("current_url_label")->setEnabled(false );
+				getChildView( LLMediaEntry::AUTO_LOOP_KEY )->setEnabled( true );
+			}
+			else
+			{
+				getChildView( LLMediaEntry::CURRENT_URL_KEY )->setEnabled( true );
+				reset_button_is_active = true;
+				getChildView("current_url_label")->setEnabled(true );
+				getChildView( LLMediaEntry::AUTO_LOOP_KEY )->setEnabled( false );
+			};
+		};
+	};
+	updateCurrentUrl();
+	LLPermissions perm;
+	bool user_can_press_reset = mMediaEditable;
+	if ( reset_button_is_active )
+	{
+		if ( user_can_press_reset )
+		{
+			getChildView("current_url_reset_btn")->setEnabled(true );
+		}
+		else
+		{
+			getChildView("current_url_reset_btn")->setEnabled(false );
+		};
+	}
+	else
+	{
+		getChildView("current_url_reset_btn")->setEnabled(false );
+	};
+}
+void LLPanelMediaSettingsGeneral::clearValues( void* userdata, bool editable)
+{
+	LLPanelMediaSettingsGeneral *self =(LLPanelMediaSettingsGeneral *)userdata;
+	self->mAutoLoop->clear();
+	self->mAutoPlay->clear();
+	self->mAutoScale->clear();
+	self->mAutoZoom ->clear();
+	self->mCurrentURL->setValue("");
+	self->mFirstClick->clear();
+	self->mHeightPixels->clear();
+	self->mHomeURL->clear();
+	self->mWidthPixels->clear();
+	self->mAutoLoop ->setEnabled(editable);
+	self->mAutoPlay ->setEnabled(editable);
+	self->mAutoScale ->setEnabled(editable);
+	self->mAutoZoom  ->setEnabled(editable);
+	self->mCurrentURL ->setEnabled(editable);
+	self->mFirstClick ->setEnabled(editable);
+	self->mHeightPixels ->setEnabled(editable);
+	self->mHomeURL ->setEnabled(editable);
+	self->mWidthPixels ->setEnabled(editable);
+	self->updateMediaPreview();
+}
+bool LLPanelMediaSettingsGeneral::isMultiple()
+{
+	if ( LLFloaterMediaSettings::getInstance()->mIdenticalHasMediaInfo )
+	{
+		if(LLFloaterMediaSettings::getInstance()->mMultipleMedia)
+		{
+			return true;
+		}
+	}
+	else
+	{
+		if(LLFloaterMediaSettings::getInstance()->mMultipleValidMedia)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+void LLPanelMediaSettingsGeneral::initValues( void* userdata, const LLSD& _media_settings, bool editable)
+{
+	LLPanelMediaSettingsGeneral *self =(LLPanelMediaSettingsGeneral *)userdata;
+	self->mMediaEditable = editable;
+	LLSD media_settings = _media_settings;
+	if ( LLPanelMediaSettingsGeneral::isMultiple() )
+	{
+		media_settings[LLMediaEntry::CURRENT_URL_KEY] = LLTrans::getString("Multiple Media");
+		media_settings[LLMediaEntry::HOME_URL_KEY] = LLTrans::getString("Multiple Media");
+	}
+	std::string base_key( "" );
+	std::string tentative_key( "" );
+	struct
+	{
+		std::string key_name;
+		LLUICtrl* ctrl_ptr;
+		std::string ctrl_type;
+	} data_set [] =
+	{
+        { LLMediaEntry::AUTO_LOOP_KEY,				self->mAutoLoop,		"LLCheckBoxCtrl" },
+		{ LLMediaEntry::AUTO_PLAY_KEY,				self->mAutoPlay,		"LLCheckBoxCtrl" },
+		{ LLMediaEntry::AUTO_SCALE_KEY,				self->mAutoScale,		"LLCheckBoxCtrl" },
+		{ LLMediaEntry::AUTO_ZOOM_KEY,				self->mAutoZoom,		"LLCheckBoxCtrl" },
+		{ LLMediaEntry::CURRENT_URL_KEY,			self->mCurrentURL,		"LLTextBox" },
+		{ LLMediaEntry::HEIGHT_PIXELS_KEY,			self->mHeightPixels,	"LLSpinCtrl" },
+		{ LLMediaEntry::HOME_URL_KEY,				self->mHomeURL,			"LLLineEditor" },
+		{ LLMediaEntry::FIRST_CLICK_INTERACT_KEY,	self->mFirstClick,		"LLCheckBoxCtrl" },
+		{ LLMediaEntry::WIDTH_PIXELS_KEY,			self->mWidthPixels,		"LLSpinCtrl" },
+		{ "", NULL , "" }
+	};
+	for( int i = 0; data_set[ i ].key_name.length() > 0; ++i )
+	{
+		base_key = std::string( data_set[ i ].key_name );
+		tentative_key = base_key + std::string( LLPanelContents::TENTATIVE_SUFFIX );
+		if ( media_settings[ base_key ].isDefined() )
+		{
+			if ( data_set[ i ].ctrl_type == "LLLineEditor" )
+			{
+				static_cast< LLLineEditor* >( data_set[ i ].ctrl_ptr )->
+					setText( media_settings[ base_key ].asString() );
+			}
+			else
+			if ( data_set[ i ].ctrl_type == "LLCheckBoxCtrl" )
+				static_cast< LLCheckBoxCtrl* >( data_set[ i ].ctrl_ptr )->
+					setValue( media_settings[ base_key ].asBoolean() );
+			else
+			if ( data_set[ i ].ctrl_type == "LLComboBox" )
+				static_cast< LLComboBox* >( data_set[ i ].ctrl_ptr )->
+					setCurrentByIndex( media_settings[ base_key ].asInteger() );
+			else
+			if ( data_set[ i ].ctrl_type == "LLSpinCtrl" )
+				static_cast< LLSpinCtrl* >( data_set[ i ].ctrl_ptr )->
+					setValue( media_settings[ base_key ].asInteger() );
+			data_set[ i ].ctrl_ptr->setEnabled(self->mMediaEditable);
+			data_set[ i ].ctrl_ptr->setTentative( media_settings[ tentative_key ].asBoolean() );
+		};
+	};
+	self->updateMediaPreview();
+}
+void LLPanelMediaSettingsGeneral::updateMediaPreview()
+{
+	if ( mHomeURL->getValue().asString().length() > 0 )
+	{
+		if(mPreviewMedia->getCurrentNavUrl() != mHomeURL->getValue().asString())
+		{
+			mPreviewMedia->navigateTo( mHomeURL->getValue().asString() );
+		}
+	}
+	else
+	{
+		if(mPreviewMedia->getCurrentNavUrl() != CHECKERBOARD_DATA_URL)
+		{
+			mPreviewMedia->navigateTo( CHECKERBOARD_DATA_URL );
+		}
+	};
+}
+void LLPanelMediaSettingsGeneral::onClose(bool app_quitting)
+{
+	if(mPreviewMedia)
+	{
+		mPreviewMedia->unloadMediaSource();
+	}
+}
+void LLPanelMediaSettingsGeneral::checkHomeUrlPassesWhitelist()
+{
+	if ( mParent->getPanelSecurity() == 0 )
+		return;
+	std::string home_url = getHomeUrl();
+	if ( home_url.empty() || mParent->getPanelSecurity()->urlPassesWhiteList( home_url ) )
+	{
+		mFailWhiteListText->setVisible( false );
+	}
+	else
+	{
+		mFailWhiteListText->setVisible( true );
+	};
+}
+void LLPanelMediaSettingsGeneral::onCommitHomeURL( LLUICtrl* ctrl, void *userdata )
+{
+	LLPanelMediaSettingsGeneral* self =(LLPanelMediaSettingsGeneral *)userdata;
+	self->checkHomeUrlPassesWhitelist();
+	self->updateMediaPreview();
+}
+void LLPanelMediaSettingsGeneral::onBtnResetCurrentUrl(LLUICtrl* ctrl, void *userdata)
+{
+	LLPanelMediaSettingsGeneral* self =(LLPanelMediaSettingsGeneral *)userdata;
+	self->navigateHomeSelectedFace(false);
+}
+void LLPanelMediaSettingsGeneral::preApply()
+{
+	mHomeURL->onCommit();
+}
+void LLPanelMediaSettingsGeneral::getValues( LLSD &fill_me_in, bool include_tentative )
+{
+	if (include_tentative || !mAutoLoop->getTentative()) fill_me_in[LLMediaEntry::AUTO_LOOP_KEY] = (LLSD::Boolean)mAutoLoop->getValue();
+	if (include_tentative || !mAutoPlay->getTentative()) fill_me_in[LLMediaEntry::AUTO_PLAY_KEY] = (LLSD::Boolean)mAutoPlay->getValue();
+	if (include_tentative || !mAutoScale->getTentative()) fill_me_in[LLMediaEntry::AUTO_SCALE_KEY] = (LLSD::Boolean)mAutoScale->getValue();
+	if (include_tentative || !mAutoZoom->getTentative()) fill_me_in[LLMediaEntry::AUTO_ZOOM_KEY] = (LLSD::Boolean)mAutoZoom->getValue();
+	if (include_tentative || !mHeightPixels->getTentative()) fill_me_in[LLMediaEntry::HEIGHT_PIXELS_KEY] = (LLSD::Integer)mHeightPixels->getValue();
+	if ((include_tentative || !mHomeURL->getTentative())
+		&& LLTrans::getString("Multiple Media") != mHomeURL->getValue())
+			fill_me_in[LLMediaEntry::HOME_URL_KEY] = (LLSD::String)mHomeURL->getValue();
+	if (include_tentative || !mFirstClick->getTentative()) fill_me_in[LLMediaEntry::FIRST_CLICK_INTERACT_KEY] = (LLSD::Boolean)mFirstClick->getValue();
+	if (include_tentative || !mWidthPixels->getTentative()) fill_me_in[LLMediaEntry::WIDTH_PIXELS_KEY] = (LLSD::Integer)mWidthPixels->getValue();
+}
+void LLPanelMediaSettingsGeneral::postApply()
+{
+	navigateHomeSelectedFace(true);
+}
+void LLPanelMediaSettingsGeneral::setParent( LLFloaterMediaSettings* parent )
+{
+	mParent = parent;
+};
+bool LLPanelMediaSettingsGeneral::navigateHomeSelectedFace(bool only_if_current_is_empty)
+{
+	struct functor_navigate_media : public LLSelectedTEGetFunctor< bool>
+	{
+		functor_navigate_media(bool flag) : only_if_current_is_empty(flag) {}
+		bool get( LLViewerObject* object, S32 face )
+		{
+			if ( object && object->getTE(face) && object->permModify() )
+			{
+				const LLMediaEntry *media_data = object->getTE(face)->getMediaData();
+				if ( media_data )
+				{
+					if (!only_if_current_is_empty || (media_data->getCurrentURL().empty() && media_data->getAutoPlay()))
+					{
+						viewer_media_t media_impl =
+							LLViewerMedia::getMediaImplFromTextureID(object->getTE(face)->getMediaData()->getMediaID());
+						if(media_impl)
+						{
+							media_impl->navigateHome();
+							return true;
+						}
+					}
+				}
+			}
+			return false;
+		};
+		bool only_if_current_is_empty;
+	} functor_navigate_media(only_if_current_is_empty);
+	bool all_face_media_navigated = false;
+	LLObjectSelectionHandle selected_objects =LLSelectMgr::getInstance()->getSelection();
+	(void)selected_objects->getSelectedTEValue( &functor_navigate_media, all_face_media_navigated );
+	return all_face_media_navigated;
+}
+const std::string LLPanelMediaSettingsGeneral::getHomeUrl()
+{
+	return mHomeURL->getValue().asString();
+}
+void LLPanelMediaSettingsGeneral::updateCurrentUrl()
+{
+	const LLMediaEntry default_media_data;
+	std::string value_str = default_media_data.getCurrentURL();
+	struct functor_getter_current_url : public LLSelectedTEGetFunctor< std::string >
+	{
+		functor_getter_current_url(const LLMediaEntry& entry): mMediaEntry(entry) {}
+		std::string get( LLViewerObject* object, S32 face )
+		{
+			if ( object )
+				if ( object->getTE(face) )
+					if ( object->getTE(face)->getMediaData() )
+						return object->getTE(face)->getMediaData()->getCurrentURL();
+			return mMediaEntry.getCurrentURL();
+		};
+		const LLMediaEntry &  mMediaEntry;
+	} func_current_url(default_media_data);
+	bool identical = LLSelectMgr::getInstance()->getSelection()->getSelectedTEValue( &func_current_url, value_str );
+	mCurrentURL->setText(value_str);
+	mCurrentURL->setTentative(identical);
+	if ( LLPanelMediaSettingsGeneral::isMultiple() )
+	{
+		mCurrentURL->setText(LLTrans::getString("Multiple Media"));
+	}
+}

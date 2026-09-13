@@ -1,0 +1,39 @@
+root = true
+
+[*]
+charset = utf-8
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Viewer C++ sources inherited from Singularity/Linden Lab use tabs.
+# Match the file you are editing; these are only the defaults for new files.
+[*.{cpp,h,inl,c,mm,m}]
+indent_style = tab
+indent_size = 4
+
+[*.{py,cmake,txt}]
+indent_style = space
+indent_size = 4
+
+[CMakeLists.txt]
+indent_style = space
+indent_size = 2
+
+[*.{xml,xui}]
+indent_style = space
+indent_size = 2
+
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+[*.{md,markdown}]
+trim_trailing_whitespace = false
+
+[*.{bat,cmd}]
+end_of_line = crlf
+indent_style = space
+indent_size = 2
+
+[Makefile]
+indent_style = tab

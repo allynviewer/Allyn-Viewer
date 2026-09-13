@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater label="(sconosciuto)" name="im_floater" title="(sconosciuto)">
+	<string name="ringing">Chiamata in corso...</string>
+	<string name="answering">Connessione...</string>
+	<string name="connected">Connesso. Clicca « Riaggancia » per chiudere la chiamata.</string>
+	<string name="hang_up">Chiamata conclusa</string>
+	<string name="inventory_item_offered">Oggetto dell'inventario offerto</string>
+	<string name="voice_icon">icn_voice-pvtfocus.tga</string>
+	<string name="title_string">IM con [NAME]</string>
+	<string name="typing_start_string">[NAME] sta scrivendo...</string>
+	<string name="session_start_string">Avvio della sessione con [NAME], attendi.</string>
+	<string name="default_text_label">Clicca qui per scrivere un messaggio</string>
+	<string name="unavailable_text_label">La chat di testo non è disponibile in questa chiamata.</string>
+	<flyout_button name="instant_message_flyout" label="Profilo">
+		<flyout_button_item name="request_teleport_item" label="Richiedi Teleport"/>
+		<flyout_button_item name="group_invite_item" label="Invita in un gruppo"/>
+		<flyout_button_item name="copy_slurl_item" label="Copia SLURL"/>
+		<flyout_button_item name="conference" label="Aggiungi alla conferenza"/>
+		<flyout_button_item name="report" label="Denuncia"/>
+	</flyout_button>
+	<string name="find on map" value="Trova sulla mappa"/>
+	<string name="ding on" value="Suono per i nuovi messaggi (attivo)"/>
+	<string name="ding off" value="Suono per i nuovi messaggi (disattivo)"/>
+	<string name="rp mode on" value="Modalità RP (attiva)"/>
+	<string name="rp mode off" value="Modalità RP (disattiva)"/>
+	<string name="add friend" value="Aggiungi amico"/>
+	<string name="remove friend" value="Rimuovi amico"/>
+	<string name="mute" value="Silenzia"/>
+	<string name="unmute" value="Riattiva"/>
+	<string name="focus" value="Focus"/>
+	<button name="tp_btn" label="TP"/>
+	<button name="pay_btn" label="Paga"/>
+	<button name="history_btn" label="Cronologia"/>
+	<button label="Chiama" name="start_call_btn"/>
+	<button label="Riaggancia" name="end_call_btn"/>
+	<check_box name="im_translate_check" tool_tip="Spunta per attivare la traduzione"/>
+	<button name="im_translate_btn" label="Traduzione" tool_tip="Configura le lingue di questa conversazione"/>
+	<panel name="speaker_controls">
+		<volume_slider name="speaker_volume"/>
+		<button label="" name="mute_btn" tool_tip="Silenzia il voice di questo residente"/>
+	</panel>
+	<text_editor name="im_history"/>
+	<line_editor label="Clicca qui per scrivere un messaggio" name="chat_editor"/>
+	<button label="Invia" name="send_btn"/>
+	<string name="live_help_dialog">*** Benvenuto nella richiesta di aiuto ***
+Prima dai un'occhiata alle pagine di aiuto (F1) o alla Knowledge Base: http://secondlife.com/knowledgebase/
+Se non trovi la risposta, scrivi la domanda e attendi un attimo: un assistente risponderà appena può.
+-=-=- I tempi variano, soprattutto nelle ore di punta -=-=-</string>
+</floater>

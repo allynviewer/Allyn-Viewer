@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="device_settings_panel">
+	<string name="default_text">По умолчанию</string>
+	<string name="name_no_device">Нет устройства</string>
+	<string name="name_default_system_device">Системное устройство по умолчанию</string>
+	<text name="Input">Вход (микрофон):</text>
+	<combo_box name="voice_input_device" />
+	<locate name="bar0" />
+	<locate name="bar1" />
+	<locate name="bar2" />
+	<locate name="bar3" />
+	<locate name="bar4" />
+	<text name="My volume label">Входной уровень:</text>
+	<volume_slider name="mic_volume_slider" tool_tip="Изменение уровня входного сигнала микрофона" />
+	<text name="wait_text">пожалуйста, подождите</text>
+	<text name="Output">Выход (динамики):</text>
+	<combo_box name="voice_output_device" />
+	<text_editor name="mic_test_label">Говорите в микрофон. Зелёные полоски показывают уровень; в колонках должен быть слышен ваш голос.</text_editor>
+</panel>

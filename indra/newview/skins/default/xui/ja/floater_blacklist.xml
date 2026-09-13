@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_blacklist" title="アセットのブラックリスト">
+	<button name="add_btn" label="追加..." />
+	<button name="remove_btn" label="削除" />
+	<combo_box name="asset_combo" label="アセットタイプ" />
+	<line_editor name="id_edit" label="アセット UUID をここに入力。" />
+	<line_editor name="name_edit" label="名前を入力" />
+	<scroll_list name="file_list">
+		<column name="asset_id" label="アセット ID" />
+		<column name="entry_name" label="名前" />
+		<column name="entry_type" label="タイプ" />
+		<column name="entry_agent" label="登録者" />
+		<column name="entry_date" label="日付" />
+	</scroll_list>
+	<button name="save_btn" label="XMLを保存" />
+	<button name="load_btn" label="XMLを読み込み" />
+	<button name="clear_btn" label="クリア" />
+	<button name="copy_uuid_btn" label="UUIDをコピー" />
+</floater>

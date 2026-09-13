@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<teleport_messages>
+	<message_set name="errors">
+		<message name="invalid_tport">
+			Teleport isteğin işlenirken sorun çıktı. Teleport etmeden önce çıkıp tekrar giriş yapman gerekebilir. Bu mesaj sürmeye devam ederse Teknik Destek SSS'sine bak: www.secondlife.com/support
+		</message>
+		<message name="invalid_region_handoff">
+			Bölge geçişin işlenirken sorun çıktı. Bölgeler arasında geçmeden önce çıkıp tekrar giriş yapman gerekebilir. Bu mesaj sürmeye devam ederse Teknik Destek SSS'sine bak: www.secondlife.com/support
+		</message>
+		<message name="blocked_tport">
+			Teleport şu an engelli. Biraz sonra tekrar dene. Hâlâ olmuyorsa çıkıp tekrar giriş yap.
+		</message>
+		<message name="nolandmark_tport">Yer işaretinin hedefi bulunamadı.</message>
+		<message name="timeout_tport">
+			Teleport bağlantısı tamamlanamadı. Biraz sonra tekrar dene.
+		</message>
+		<message name="noaccess_tport">Bu teleport hedefine erişimin yok.</message>
+		<message name="missing_attach_tport">
+			Eklerin henüz gelmedi. Birkaç saniye bekle veya teleport etmeden önce çıkıp tekrar giriş yap.
+		</message>
+		<message name="too_many_uploads_tport">
+			Bu bölgedeki varlık kuyruğu tıkanık; teleport isteğin zamanında tamamlanamaz. Birkaç dakika sonra dene veya daha sakin bir yere git.
+		</message>
+		<message name="expired_tport">
+			Teleport isteğin zamanında tamamlanamadı. Birkaç dakika sonra tekrar dene.
+		</message>
+		<message name="expired_region_handoff">
+			Bölge geçişin zamanında tamamlanamadı. Birkaç dakika sonra tekrar dene.
+		</message>
+		<message name="no_host">
+			Teleport hedefi bulunamadı. Hedef geçici olarak kapalı olabilir veya artık yok. Birkaç dakika sonra tekrar dene.
+		</message>
+		<message name="no_inventory_host">Envanter sistemi şu an kullanılamıyor.</message>
+	</message_set>
+	<message_set name="progress">
+		<message name="sending_dest">Hedefe gönderiliyor.</message>
+		<message name="redirecting">Başka bir konuma yönlendiriliyorsun.</message>
+		<message name="relaying">Hedefe aktarılıyor.</message>
+		<message name="sending_home">Ev konumu isteniyor.</message>
+		<message name="sending_landmark">Yer işareti konumu isteniyor.</message>
+		<message name="completing">Teleport tamamlanıyor.</message>
+		<message name="resolving">Hedef çözümleniyor.</message>
+		<message name="contacting">Yeni bölgeyle bağlantı kuruluyor.</message>
+		<message name="arriving">Varılıyor...</message>
+		<message name="requesting">Teleport isteniyor...</message>
+	</message_set>
+</teleport_messages>

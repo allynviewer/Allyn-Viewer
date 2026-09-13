@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="network" label="Ağ">
+	<scroll_container name="network_scroll">
+		<panel name="network_scroll_inner">
+			<text name="section_bw">BANDWIDTH</text>
+			<icon name="section_bw_rule" />
+			<text name="text_box">Maksimum Bant Genişliği:</text>
+			<slider name="max_bandwidth" />
+			<text name="text_box2">kbps</text>
+			<text name="text_box3">Doku Bant Genişliği:</text>
+			<slider name="tex_bandwidth" />
+			<text name="text_box4">kbps</text>
+			<text name="use_http_for">HTTP'yi şunlar için kullanın:</text>
+			<check_box name="http_textures" label="Dokular" />
+			<check_box name="http_inventory" label="Envanter" />
+			<text name="section_cache">DISK CACHE</text>
+			<icon name="section_cache_rule" />
+			<text name="cache_size_label_l">Disk Önbellek Boyutu:</text>
+			<slider name="cache_size" />
+			<text name="text_box5">MB</text>
+			<button name="clear_cache" label="Önbelleği Temizle" />
+			<text name="cache_location_label">Disk Önbellek Konumu:</text>
+			<line_editor name="cache_location" />
+			<button name="set_cache" label="Ayarla" />
+			<button name="reset_cache" label="Sıfırla" />
+			<text name="connection_section">CONNECTION</text>
+			<icon name="section_conn_rule" />
+			<check_box name="connection_port_enabled" label="Özel Bağlantı Noktası Bağlantısı" />
+			<spinner name="connection_port" label="Bağlantı Noktası Numarası:" />
+			<text name="socks5_auth_label">Http Proxy'si:</text>
+			<icon name="section_proxy_rule" />
+			<radio_group name="socks5_http_proxy_type">
+				<radio_item name="None" tool_tip="Http Proxy'si yok">Yok</radio_item>
+				<radio_item name="Socks" tool_tip="Http Proxy için Socks'ı kullanın">Çorap</radio_item>
+				<radio_item name="Web" tool_tip="Http Proxy için web proxy'yi kullanın">Web</radio_item>
+			</radio_group>
+			<check_box name="socks5_proxy_enabled" label="SOCKS 5 Proxy'yi Etkinleştir" />
+			<text name="socks5_host_label">Çorap 5 Sunucu:</text>
+			<line_editor name="socks5_proxy_host" tool_tip="Kullanmak istediğiniz SOCKS5 proxy'sinin adı veya IP adresi" />
+			<spinner name="socks5_proxy_port" label="Bağlantı Noktası Numarası:" />
+			<text name="socks5_auth_label2">Socks5 Kimlik Doğrulaması:</text>
+			<radio_group name="socks5_auth">
+				<radio_item name="None" tool_tip="Kimlik doğrulama yok">Yok</radio_item>
+				<radio_item name="UserPass" tool_tip="Kullanıcı adı / Şifre kimlik doğrulaması">Kullanıcı Adı/Şifre</radio_item>
+			</radio_group>
+			<text name="socks5_username_label">Kullanıcı adı:</text>
+			<line_editor name="socks5_proxy_username" tool_tip="Socks5 proxy'si için kullanıcı adı" />
+			<text name="socks5_password_label">Şifre:</text>
+			<line_editor name="socks5_proxy_password" tool_tip="Socks5 proxy'sinin şifresi" />
+		</panel>
+	</scroll_container>
+</panel>

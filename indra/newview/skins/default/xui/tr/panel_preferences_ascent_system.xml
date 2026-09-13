@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="ascsys" label="Sistem">
+	<tab_container name="Ascent System" label="Sistem">
+		<panel name="User Interface" label="General">
+			<scroll_container name="sys_ui_scroll">
+				<panel name="sys_ui_inner">
+					<text name="double_click_text" />
+					<check_box name="double_click_teleport_check" label="teleport" tool_tip="Bir nesneye/kişiye çift tıklamak sizi o konuma ışınlayacaktır." />
+					<check_box name="double_click_autopilot_check" label="otopilot" tool_tip="Bir şeye çift tıklamak o konuma yürümenizi sağlayacaktır." />
+					<check_box name="center_after_teleport_check" label="Teleport sonrası kamerayı sıfırla" tool_tip="Yerel teleport sonrası kamerayı arkanıza ortalar." />
+					<check_box name="offset_teleport_check" label="TP hedefini temsilci yüksekliğinin yarısı kadar dengeleme" tool_tip="Ayaklarınız hedeflediğiniz noktaya değecek şekilde TP'yi hedeflemeye çalışır." />
+					<check_box name="clear_beacon_after_tp" label="Teleport sonrası kırmızı hedefi temizle" />
+					<check_box name="fly_after_tp" label="Teleport sonrası her zaman uç" tool_tip="Teleport sonrası otomatik uçarak büyük yüksekliklerden düşmelerden kaçının." />
+					<check_box name="continue_flying" label="Ayaktayken uçmaya devam edin" tool_tip="Uçma durumunuzu oturduğunuz zamankiyle aynı tutar, böylece ayağa kalktığınızda uçmaya devam edersiniz veya uçmazsınız. Kuşlar, periler veya sandalyelerinden dramatik bir sıçrama yapmak isteyenler için kullanışlıdır." />
+					<check_box name="preview_anim_in_world_check" label="Animasyonları yüklemeden önce bir maket yerine avatarda önizleyin" tool_tip="Animasyon yükleme penceresi, önizleme sırasında avatarınızdaki animasyonları oynatır." />
+					<check_box name="save_scripts_as_mono_check" label="Komut dosyalarını envantere LSL2 yerine Mono komut dosyaları olarak kaydedin" tool_tip="Komut dosyaları kaydederken otomatik olarak Mono'da derlenecektir - Genellikle yalnızca bir nesneye yerleştirildiğinde mümkündür." />
+					<check_box name="always_rez_in_group_check" label="Kullanılabilir olduğunda nesneleri her zaman arazi grubu olarak yeniden adlandırın" tool_tip="Aktif etiketiniz ne olursa olsun, rezzed edilen nesnenin sahip olduğu aynı gruba sahip Rez nesneleri." />
+					<check_box name="always_build_check" label="Derlemeyi her zaman etkin olarak göster" tool_tip="Oluştur menüsünü yanıltıcı olmaya gerek kalmadan kullanmanıza olanak tanır. Aslında orada inşa edebileceğiniz anlamına gelmeyebilir." />
+					<check_box name="always_fly_check" label="Fly'a her zaman izin ver" tool_tip="İzin verilmemesi gereken yerlere uçmanıza olanak tanır. Riski size ait olmak üzere kullanın - Yapabiliyor olmanız, kullanmanız gerektiği anlamına gelmez." />
+					<check_box name="disable_camera_zoom_check" label="Kameranın minimum mesafesini devre dışı bırak" tool_tip="Kameranın nesnelere gerçekten yaklaşmasını sağlar." />
+					<check_box name="power_user_check" label="Yetkili Kullanıcı işlevselliğini etkinleştirin" tool_tip="Normal kullanım için fazla tehlikeli sayılan özellikleri ekler. Bu özellikler, kötüye kullanıldığında hasara yol açabilir veya kötü şeyler yapabilir - Çoğunlukla kendinize veya eşyalarınıza. Eminseniz aşağıdaki onay kutusunu da etkinleştirin." />
+					<check_box name="power_user_confirm_check" label="Yetkili Kullanıcı işlevselliğini onaylayın" tool_tip="Yetkili Kullanıcı aktivasyonunu onaylar. Riski size ait olmak üzere bunu açın ve etkinleştirdiği tüm özellikleri sorumlu bir şekilde kullanın. [SHORT_APP_NAME] geliştiriciler kırdığınız hiçbir şeyin yerini almaz. Bu güçlerin kurbanı olacak her şeyin yedek kopyasına sahip olmanızı öneririz. Çoğu onay kutusunun aksine, bunun etkinleştirilmesi için Uygula veya Tamam'a tıklamanız gerekir." />
+					<check_box name="fetch_inventory_on_login_check" label="Giriş yaptıktan sonra envanteri arka planda otomatik olarak getir" tool_tip="Envanter, oturum açtığınızda önceden yüklenecektir, böylece ilk arama yaparken yüklenmesini beklemeniz gerekmez." />
+					<check_box name="enable_wind" label="Rüzgar Efektlerini Etkinleştir" />
+					<check_box name="enable_clouds" label="Bulutları Etkinleştir" />
+					<check_box name="enable_classic_clouds" label="Klasik Bulutları Etkinleştir" />
+					<check_box name="speed_rez_check" label="Çekme mesafesi adımıyla hız değiştirmeyi etkinleştirin" tool_tip="Etkinleştirildiğinde, bu, çekme mesafenizi kademeli olarak artıracak ve bu da daha yakın nesnelerin/insanların önce uzaklaşmasını sağlayacaktır." />
+					<spinner name="speed_rez_interval" label="Mesafe adım aralığını çizin:" />
+					<text name="speed_rez_seconds">saniye</text>
+					<check_box name="use_context_menus" label="Pasta menüleri yerine bağlam menülerini kullanın" />
+					<check_box name="use_web_profiles" label="Eski v1 profilleri yerine web profillerini kullanın" tool_tip="Belirli ızgaralarda mevcut olmayabilir" />
+					<check_box name="use_web_search" label="Eski v1 araması yerine web tabanlı aramayı kullanın" tool_tip="Belirli ızgaralarda mevcut olmayabilir" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="Command Line" label="Komut Satırı">
+			<scroll_container name="sys_cmd_scroll">
+				<panel name="sys_cmd_inner">
+					<check_box name="chat_cmd_toggle" label="Sohbet çubuğunun komut satırı olarak kullanılmasını etkinleştirin" />
+					<text name="cmd_line_text_2">Sim içinde teleport (kullanım: cmd x y z)</text>
+					<line_editor name="AscentCmdLinePos" />
+					<text name="cmd_line_text_3">Yere teleport (kullanım: cmd)</text>
+					<line_editor name="AscentCmdLineGround" />
+					<text name="cmd_line_text_4">Yüksekliğe teleport (kullanım: cmd z)</text>
+					<line_editor name="AscentCmdLineHeight" />
+					<text name="cmd_line_text_5">Eve teleport et (kullanım: cmd)</text>
+					<line_editor name="AscentCmdLineTeleportHome" />
+					<text name="cmd_line_text_6">Bir platform oluşturun (kullanım: cmd 0 - 30)</text>
+					<line_editor name="AscentCmdLineRezPlatform" />
+					<slider name="AscentPlatformSize" label="Varsayılan genişlik:" tool_tip="Platformun ne kadar büyük olmasını istiyorsunuz?" />
+					<text name="cmd_line_text_8">Hesap. ifadeler (kullanım: cmd 2 + 2)</text>
+					<line_editor name="AscentCmdLineCalc" />
+					<text name="cmd_line_text_15">Sohbet geçmişini temizleyin (kullanım: cmd)</text>
+					<line_editor name="AscentCmdLineClearChat" tool_tip="Sohbet spam göndericilerinden kaynaklanan gecikme etkilerini önlemek için Sohbet Geçmişini temizler." />
+					<text name="cmd_line_text_16">URL'yi/slurl'u aç (kullanım: cmd slurl)</text>
+					<line_editor name="SinguCmdLineURL" />
+					<text name="hover_txt">Animasyonları Yeniden Eşitle (kullanım: cmd)</text>
+					<line_editor name="AlchemyChatCommandResyncAnim" />
+					<view_border name="CmdDivisor" />
+					<text name="cmd_line_text_9">Çizim Mesafesini Değiştir (kullanım: cmd metre)</text>
+					<line_editor name="AscentCmdLineDrawDistance" />
+					<text name="cmd_line_text_10">Kam konumuna teleport (kullanım: cmd)</text>
+					<line_editor name="AscentCmdTeleportToCam" />
+					<text name="cmd_line_text_11">Anahtardan avatar adını alın (kullanım: cmd key)</text>
+					<line_editor name="AscentCmdLineKeyToName" />
+					<text name="cmd_line_text_12">Avatara teleport teklif et (kullanım: cmd key)</text>
+					<line_editor name="AscentCmdLineOfferTp" />
+					<text name="cmd_line_text_7">Sim x'e teleport (kullanım: cmd simname)</text>
+					<line_editor name="AscentCmdLineMapTo" />
+					<check_box name="map_to_keep_pos" label="Sim'ler arasında aynı konumu kullanın" />
+					<text name="cmd_line_text_13">Avatara ışınlan (kullanım: cmd adı)</text>
+					<line_editor name="AscentCmdLineTP2" tool_tip="Bu komutun sözdizimi kısmi adlara izin verir ve büyük/küçük harfe duyarlı değildir. Radar açıkken kullanıldığında daha iyi sonuçlar elde edilir." />
+					<text name="cmd_line_text_14">Sahte Uzakta Durumunu Değiştir (kullanım: cmd)</text>
+					<line_editor name="SinguCmdLineAway" />
+					<text name="cmd_line_text_15">Bölge mesajı gönder (kullanım: cmd msj)</text>
+					<line_editor name="SinguCmdLineRegionSay" tool_tip="Yalnızca izin verilen bölgelerde düzgün çalışır (yalnızca Emlak Yöneticileri), normal sohbet kanallarına geri döner" />
+					<text name="hover_txt">Vurgulu Yükseklik (kullanım: cmd yüksekliği)</text>
+					<line_editor name="AlchemyChatCommandHoverHeight" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="Security" label="Güvenlik ve Gizlilik">
+			<scroll_container name="sys_sec_scroll">
+				<panel name="sys_sec_inner">
+					<check_box name="broadcast_viewer_effects" label="Yayın Görüntüleyici Efektleri (noktayı ve bakışı etkilemez)" />
+					<check_box name="disable_point_at_and_beams_check" label="Noktayı ve Işınlamayı Devre Dışı Bırak" tool_tip="Bir nesneyi seçerken düzenleme ışınınızı işaret etmeyin veya göstermeyin." />
+					<check_box name="private_look_at_check" label="Nesnelere ve/veya avatarlara Bakmayın" tool_tip="Baş dönüşlerini ve bakış işaretlerini devre dışı bırakarak avatarınızın doğrudan ileriye bakmasını sağlar (aksi şekilde yazılmadığı sürece)." />
+					<check_box name="LookAtHideOwn" label="Bana LookAt işaretimi gösterme" tool_tip="Bana kendi kamera artı işaretlerimi gösterme" />
+					<check_box name="show_look_at_check" label="LookAt işaretlerini göster" tool_tip="İnsanların nereye baktığını gösterir." />
+					<combo_box name="lookat_namesystem_combobox" tool_tip="LookAt işaretçilerinde adları görüntüleme stili">
+						<combo_item name="No Names">İsim Yok</combo_item>
+						<combo_item name="Old Names">Eski İsimler</combo_item>
+						<combo_item name="Display Names (with Username)">Görünen Adlar (Kullanıcı Adıyla birlikte)</combo_item>
+						<combo_item name="Display Names only">Yalnızca Görünen Adlar</combo_item>
+						<combo_item name="Old Names (with Display Names)">Eski İsimler (Ekranlı)</combo_item>
+					</combo_box>
+					<check_box name="lineslookat" label="İşarete bakıştan avatara kadar bir çizgi göster" tool_tip="Kameranın odak noktasını avatara bağlayan bir çizgi görün. Nerede olduklarını bulmakta fayda var." />
+					<check_box name="announce_bumps" label="İnsanlar size çarptığında sohbette duyuru yapın" />
+					<check_box name="AlchemySitOnAway" label="AFK'ya gittiğinizde oturun" />
+					<check_box name="detach_bridge" label="LSL Köprüyü otomatik olarak ayır" tool_tip="LSL Bridge of Phoenix veya Firestorm görüntüleyicisini otomatik olarak ayırın." />
+					<check_box name="render_muted" label="Sessizleştirilmiş avatarları oluştur" />
+					<check_box name="quiet_snapshots_check" label="Diske Sessiz Anlık Görüntüler" tool_tip="Bilgisayarınıza fotoğraf çektiğinizde kamera sesi çıkarmaz ve herkesi uyarmaz." />
+					<check_box name="revoke_perms_on_stand_up_check" label="Ayağa kalktığınızda, avatarınızın üzerinde oturduğu nesnenin izinlerini iptal edin" tool_tip="Nesneler genellikle, başka bir kullanıcı tarafından sıfırlanana veya izin verilene kadar Kontrolü Ele Alma ve Animasyonu Tetikleme izinlerini korur. Bunu etkinleştirmek, bu izinleri derhal iptal etmenizi sağlayacaktır." />
+					<check_box name="disable_click_sit_check" label="Nesnelerde tıkla ve otur özelliğini devre dışı bırak" tool_tip="Bazı kederli araçlar sizi oturmanızı sağlayacak bir nesneye tıklamaya zorlamaya veya kandırmaya dayanır ve nesneye diğer şeylerin yanı sıra animasyonları tetiklemesi için otomatik izinler verir. Bu, llSitTarget'ı devre dışı bırakacaktır - Bu, poz toplarında ve mobilyalarda 'Otur'u seçmeniz gerekeceği anlamına gelir." />
+					<check_box name="disable_click_sit_own_check" label="sahip değilsin" tool_tip="Sahip olmadığınız nesnelere oturmak için tıklamayı devre dışı bırakır (Grup kontrolüyle kullanılırsa yalnızca bir tanesi gerekir)" />
+					<check_box name="totalscriptjumps" label="Toplam script sayısı değişikliklerini görüntüle:" tool_tip="Sağda seçtiğiniz eşiğe bağlı olarak bölgenizdeki script sayısı değişikliklerini görüntüler." />
+					<spinner name="ScriptJumpCount" tool_tip="Script sayısı sıçrama eşiği [Default: 100]" />
+					<check_box name="RestrainedLove" label="Kısıtlanmış Aşk API Desteği (RLVa)" tool_tip="Uyumlu nesneler giyiyorsanız komut dosyalarının izleyici üzerinde daha fazla kontrol sahibi olmasını sağlar." />
+					<check_box name="SinguReplaceLinks" label="Hakaretleri ve biçimlendirilmiş bağlantıları etiketlerle değiştirin" tool_tip="Kopyalayarak gerçekte nereye gittiklerini görmek için sağ tıklayabilirsiniz ancak bu, bağlantıların ilk bakışta yanıltıcı olmasına izin verir." />
+					<text name="EmergencyTeleportDesc">Bölge yeniden başlamadan önce otomatik teleport için aşağıya bir yer işareti koy</text>
+					<spinner name="EmergencyTeleportSeconds" label="Teleport denemelerine başlamak için yeniden başlatmadan birkaç saniye önce" />
+					<drop_target name="emergency_teleport_landmark_drop" />
+					<text name="EmergencyTeleportBackupDesc">Yukarıdaki doluysa otomatik teleport için yedek bir yer işareti koy</text>
+					<drop_target name="emergency_teleport_landmark_backup_drop" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="Building" label="Bina">
+			<scroll_container name="sys_build_scroll">
+				<panel name="sys_build_inner">
+					<text name="text_box6">PİVOT NOKTASI</text>
+					<spinner name="X pos" label="X konumu" />
+					<spinner name="Y pos" label="Y konumu" />
+					<spinner name="Z pos" label="Z konumu" />
+					<check_box name="EmPivotPercToggle" label="Değerler yüzdedir" tool_tip="Varsayılan ayarlar Yüzdelerdir ve her eksen 50'ye ayarlıdır" />
+					<text name="Dimensions">BOYUTLAR</text>
+					<spinner name="X size" label="X boyutu" />
+					<spinner name="Y size" label="Y boyutu" />
+					<spinner name="Z size" label="Z boyutu" />
+					<text name="Material">Material:</text>
+					<combo_box name="material">
+						<combo_item name="Stone">Taş</combo_item>
+						<combo_item name="Metal">Metal</combo_item>
+						<combo_item name="Glass">Cam</combo_item>
+						<combo_item name="Wood">Ahşap</combo_item>
+						<combo_item name="Flesh">Et</combo_item>
+						<combo_item name="Plastic">Plastik</combo_item>
+						<combo_item name="Rubber">Kauçuk</combo_item>
+					</combo_box>
+					<text name="text_box7">SONRAKİ SAHİBİN İZİNLERİ</text>
+					<text name="text_box8">Nesneler</text>
+					<check_box name="next_owner_copy" label="Kopyala" tool_tip="Sonraki sahip, eserlerin kopyalarını çıkarabilir" />
+					<check_box name="next_owner_modify" label="Değiştir" tool_tip="Sonraki sahip, eserleri düzenleyebilir" />
+					<check_box name="next_owner_transfer" label="Aktarım" tool_tip="Sonraki sahip kreasyonları verebilir (veya satabilir)" />
+					<text name="text_box9">Scripts</text>
+					<check_box name="script_next_owner_copy" label="Kopyala" tool_tip="Sonraki sahip komut dosyalarının kopyalarını çıkarabilir" />
+					<check_box name="script_next_owner_modify" label="Değiştir" tool_tip="Sonraki sahip komut dosyalarını düzenleyebilir" />
+					<check_box name="script_next_owner_transfer" label="Aktarım" tool_tip="Sonraki sahip komut dosyalarını verebilir (veya satabilir)" />
+					<check_box name="EmPhantomToggle" label="Hayalet" />
+					<check_box name="EmPhysicalToggle" label="Fiziksel" />
+					<check_box name="EmTemporaryToggle" label="Geçici" />
+					<texture_picker name="texture control" label="     Doku" tool_tip="Bir doku seçmek için tıklayın" />
+					<color_swatch name="colorswatch" label="Renk" tool_tip="Renk Seçiciyi açmak için tıklayın" />
+					<spinner name="alpha" label="Alfa" />
+					<spinner name="glow" label="Parıltı" />
+					<check_box name="EmFBToggle" label="Tam Parlak" />
+					<text name="shine">Parıltı</text>
+					<combo_box name="combobox shininess" tool_tip="Nesnenin parlaklık miktarını ayarlayın">
+						<combo_item name="None">Yok</combo_item>
+						<combo_item name="Low">Düşük</combo_item>
+						<combo_item name="Medium">Orta</combo_item>
+						<combo_item name="High">Yüksek</combo_item>
+					</combo_box>
+					<check_box name="EmeraldBuildPrefsEmbedItem" label="Bir öğeyi yeni nesnelere yerleştirme" />
+					<drop_target name="build_item_add_disp_rect" />
+					<check_box name="EmBuildPrefsRenderHighlight_toggle" label="Seçili primleri vurgula" />
+					<check_box name="EmBuildPrefsActualRoot_toggle" label="Kök prim pozisyonundaki eksen oku" tool_tip="Varsayılan davranış, ekseni bir bağlantı kümesinin kütle merkezinde göstermektir. Etkinleştirilirse eksen bunun yerine bağlantı kümesinin kök priminde gösterilecektir." />
+				</panel>
+			</scroll_container>
+		</panel>
+	</tab_container>
+</panel>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Media settings for controls" label="Настроить">
+	<text name="controls_label">Элементы управления:</text>
+	<combo_box name="controls">
+		<combo_item name="Standard">Стандартный</combo_item>
+		<combo_item name="Mini">Mini</combo_item>
+	</combo_box>
+	<text name="owner_label">Владелец</text>
+	<check_box name="perms_owner_interact" label="Разрешить навигацию и интерактивность" />
+	<check_box name="perms_owner_control" label="Показать панель управления" />
+	<text name="group_label">Группа:</text>
+	<name_box name="perms_group_name" />
+	<check_box name="perms_group_interact" label="Разрешить навигацию и интерактивность" />
+	<check_box name="perms_group_control" label="Показать панель управления" />
+	<text name="anyone_label">Любой</text>
+	<check_box name="perms_anyone_interact" label="Разрешить навигацию и интерактивность" />
+	<check_box name="perms_anyone_control" label="Показать панель управления" />
+</panel>

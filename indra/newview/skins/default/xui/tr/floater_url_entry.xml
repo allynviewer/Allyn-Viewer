@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="url_entry">
+	<text name="media_label">Medya URL'si:</text>
+	<combo_box name="media_entry" />
+	<button name="ok_btn" label="OK" />
+	<button name="cancel_btn" label="İptal" />
+	<button name="clear_btn" label="Temizle" />
+	<text name="loading_label">Yükleniyor...</text>
+</floater>

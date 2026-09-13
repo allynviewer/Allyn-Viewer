@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<context_menu name="Url Popup" label="Nesne">
+	<menu name="URL Actions" label="URL Eylemleri">
+		<menu_item_call name="show_object" label="Nesne Profili..." />
+		<menu_item_call name="block_object" label="Engelle..." />
+		<menu_item_call name="unblock_object" label="Engellemeyi kaldır" />
+		<menu_item_call name="show_on_map" label="Haritada Göster" />
+		<menu_item_call name="teleport_to_object" label="Nesne URL Konumuna Teleport" />
+	</menu>
+	<menu name="Object" label="Nesne">
+		<menu_item_call name="Cam To" label="Kameraya" />
+		<menu_item_call name="Follow" label="Takip et" />
+		<menu_item_call name="Move To" label="Şuraya Taşı" />
+		<menu_item_call name="Teleport To (current location)" label="Şuraya Işınla (mevcut konum)" />
+		<menu_item_call name="Sit On" label="Otur" />
+		<menu_item_call name="Pay" label="Ödeme" />
+		<menu_item_call name="Touch" label="Dokunma" />
+		<menu_item_call name="Edit" label="Düzenle" />
+		<menu_item_call name="Add to Selection" label="Seçime Ekle" />
+		<menu_item_call name="Derender" label="Derender" />
+	</menu>
+	<menu name="Copy" label="Kopyala">
+		<menu_item_call name="url_copy_label" label="İsim" />
+		<menu_item_call name="url_copy" label="SLURL" />
+		<menu_item_call name="key_copy" label="Anahtar" />
+	</menu>
+	<menu_item_call name="Select All" label="Tümünü Seç" />
+</context_menu>

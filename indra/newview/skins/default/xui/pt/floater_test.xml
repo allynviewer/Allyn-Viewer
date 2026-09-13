@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="test" title="Teste de UI">
+	<tab_container name="test_tab">
+		<panel name="first_tab_panel" label="Controles">
+			<text name="section_buttons">BOTÕES</text>
+			<button name="can't click" label="Sem clique" tool_tip="Botão desativado"/>
+			<button name="can click" label="Clicável" tool_tip="Botão ativado"/>
+			<button name="unicode_btn" label="Unicode" tool_tip="Botão com rótulo Unicode"/>
+			<button name="image_btn" tool_tip="Botão com imagem"/>
+			<text name="section_options">OPÇÕES</text>
+			<check_box name="simple_check" label="Caixa simples"/>
+			<check_box name="unicode_check" label="Caixa Unicode"/>
+			<combo_box name="combo" tool_tip="Combo de exemplo">
+				<combo_item name="top_item">deve ir para o topo</combo_item>
+				<combo_item name="first_item">primeiro item</combo_item>
+				<combo_item name="second_item">segundo item</combo_item>
+				<combo_item name="disabled_item">item desativado</combo_item>
+			</combo_box>
+			<text name="section_radio">RÁDIO</text>
+			<radio_group name="radio_group">
+				<radio_item name="Radio1">Rádio 1</radio_item>
+				<radio_item name="Radio2">Rádio 2</radio_item>
+				<radio_item name="Radio3">Rádio 3</radio_item>
+			</radio_group>
+			<text_editor name="widgets_help">
+Esta janela testa os controles comuns da UI.
+
+Cliques, caixas, combo e rádio são registrados no console do viewer.
+			</text_editor>
+			<text name="section_line">EDITOR DE LINHA</text>
+			<line_editor name="test_line">Digite texto unicode aqui</line_editor>
+			<text name="section_slider">SLIDER</text>
+			<text name="section_names">LISTA DE NOMES</text>
+			<name_list name="test_name_list">
+				<column name="name" label="Nome"/>
+			</name_list>
+		</panel>
+		<panel name="second_tab_panel" label="Listas">
+			<text name="lists_help">Lista de exemplo dos controles. Clique numa linha para registrar a seleção.</text>
+			<button name="Simple Button" label="Botão simples"/>
+			<scroll_list name="test_scroll_list">
+				<column name="widget" label="Controle"/>
+				<column name="notes" label="Notas"/>
+			</scroll_list>
+		</panel>
+		<panel name="text_tab_panel" label="Texto">
+			<text name="simple_text">Texto sans-serif (opaco ao mouse — clique)</text>
+			<text name="simple2_text" tool_tip="Eu sou uma dica">Texto monoespaçado com dica (não opaco ao mouse)</text>
+			<text name="unicode_text" tool_tip="Isto deve ser texto Unicode">Arquivo</text>
+			<text_editor name="test_text_editor">
+Este é um editor de texto com várias linhas.
+
+Ele acompanha o tamanho da janela para a Test UI usar toda a área interna.
+
+Digite aqui para testar teclado, rolagem e quebra de linha.
+			</text_editor>
+		</panel>
+	</tab_container>
+</floater>

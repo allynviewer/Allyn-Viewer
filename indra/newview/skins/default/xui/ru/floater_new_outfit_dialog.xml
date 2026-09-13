@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="modal container" title="Создать наряд">
+	<button name="Save" label="Сохранить" label_selected="Сохранить"/>
+	<button name="Cancel" label="Отмена" label_selected="Отмена"/>
+	<check_box name="checkbox_shape" label="Форма"/>
+	<check_box name="checkbox_skin" label="Кожа"/>
+	<check_box name="checkbox_hair" label="Волосы"/>
+	<check_box name="checkbox_eyes" label="Глаза"/>
+	<text name="Options:">Параметры:</text>
+	<check_box name="checkbox_use_outfits" label="Папки нарядов как в Viewer 2"/>
+	<check_box name="checkbox_use_links" label="Ссылки на предметы без копирования, без изменения или уже надетые несколько раз"/>
+	<check_box name="checkbox_legacy_copy_changes" label="Сохранить изменения во вложениях" tool_tip="Сохраняет правки вложений с момента надевания или последнего входа: перед созданием наряда вложения снимаются. Обычно лучше оставить включённым. Снимите флажок, если нарочно создаёте наряд, чтобы отменить неудачные правки."/>
+	<check_box name="checkbox_shirt" label="Рубашка"/>
+	<check_box name="checkbox_pants" label="Брюки"/>
+	<check_box name="checkbox_shoes" label="Обувь"/>
+	<check_box name="checkbox_socks" label="Носки"/>
+	<check_box name="checkbox_jacket" label="Куртка"/>
+	<check_box name="checkbox_gloves" label="Перчатки"/>
+	<check_box name="checkbox_undershirt" label="Майка"/>
+	<check_box name="checkbox_underpants" label="Трусы"/>
+	<check_box name="checkbox_skirt" label="Юбка"/>
+	<check_box name="checkbox_tattoo" label="Тату"/>
+	<check_box name="checkbox_alpha" label="Альфа"/>
+	<check_box name="checkbox_physics" label="Физика"/>
+	<check_box name="checkbox_universal" label="Универсальное"/>
+	<check_box name="checkbox_Chest" label="Грудь"/>
+	<check_box name="checkbox_Skull" label="Череп"/>
+	<check_box name="checkbox_Left Shoulder" label="Левое плечо"/>
+	<check_box name="checkbox_Right Shoulder" label="Правое плечо"/>
+	<check_box name="checkbox_Left Hand" label="Левая кисть"/>
+	<check_box name="checkbox_Right Hand" label="Правая кисть"/>
+	<check_box name="checkbox_Left Foot" label="Левая стопа"/>
+	<check_box name="checkbox_Right Foot" label="Правая стопа"/>
+	<check_box name="checkbox_Spine" label="Позвоночник"/>
+	<check_box name="checkbox_Pelvis" label="Таз"/>
+	<check_box name="checkbox_Mouth" label="Рот"/>
+	<check_box name="checkbox_Chin" label="Подбородок"/>
+	<check_box name="checkbox_Left Ear" label="Левое ухо"/>
+	<check_box name="checkbox_Right Ear" label="Правое ухо"/>
+	<check_box name="checkbox_Left Eyeball" label="Левый глаз"/>
+	<check_box name="checkbox_Right Eyeball" label="Правый глаз"/>
+	<check_box name="checkbox_Nose" label="Нос"/>
+	<check_box name="checkbox_R Upper Arm" label="Правое плечо (верх)"/>
+	<check_box name="checkbox_R Forearm" label="Правое предплечье"/>
+	<check_box name="checkbox_L Upper Arm" label="Левое плечо (верх)"/>
+	<check_box name="checkbox_L Forearm" label="Левое предплечье"/>
+	<check_box name="checkbox_Right Hip" label="Правое бедро"/>
+	<check_box name="checkbox_R Upper Leg" label="Правое бедро (верх)"/>
+	<check_box name="checkbox_R Lower Leg" label="Правая голень"/>
+	<check_box name="checkbox_Left Hip" label="Левое бедро"/>
+	<check_box name="checkbox_L Upper Leg" label="Левое бедро (верх)"/>
+	<check_box name="checkbox_L Lower Leg" label="Левая голень"/>
+	<check_box name="checkbox_Stomach" label="Живот"/>
+	<check_box name="checkbox_Left Pec" label="Левая грудная"/>
+	<check_box name="checkbox_Right Pec" label="Правая грудная"/>
+	<check_box name="checkbox_Neck" label="Шея"/>
+	<check_box name="checkbox_Avatar Center" label="Корень"/>
+	<check_box name="checkbox_Center 2" label="Центр 2"/>
+	<check_box name="checkbox_Top Right" label="Сверху справа"/>
+	<check_box name="checkbox_Top" label="Сверху"/>
+	<check_box name="checkbox_Top Left" label="Сверху слева"/>
+	<check_box name="checkbox_Center" label="Центр"/>
+	<check_box name="checkbox_Bottom Left" label="Снизу слева"/>
+	<check_box name="checkbox_Bottom" label="Снизу"/>
+	<check_box name="checkbox_Bottom Right" label="Снизу справа"/>
+	<text name="Outfits are folders that contain clothing and body parts. Drag an outfit folder onto your avatar to put it on.   &quot;Make New Outfit&quot; makes a new folder and saves copies of the items you are now wearing into it.">
+		Наряд — это папка с одеждой и частями тела.
+Перетащите папку наряда на аватар, чтобы надеть.
+
+«Создать наряд» делает новую папку и кладёт туда копии того, что на вас сейчас надето.
+	</text>
+	<text name="Folder name:">Имя папки:</text>
+	<text name="Items to include in outfit:">Что включить в наряд:</text>
+	<button name="Check All" label="Отметить всё"/>
+	<button name="Uncheck All" label="Снять все"/>
+	<text name="Body Parts:">Части тела:</text>
+	<text name="Clothes:">Одежда:</text>
+	<text name="Attachments:">Вложения:</text>
+	<line_editor name="name ed">Новый наряд</line_editor>
+</floater>

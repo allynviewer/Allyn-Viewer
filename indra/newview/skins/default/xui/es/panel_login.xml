@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="panel_login">
+	<string name="online_users_title">USUARIOS EN LÍNEA</string>
+	<string name="online_allyn_label">ALLYN VIEWER</string>
+	<string name="online_sl_label">SECOND LIFE</string>
+	<panel name="login_form_bg">
+		<scroll_container name="login_form_scroll">
+			<panel name="login_form_inner">
+				<panel name="online_users_panel">
+					<text name="online_users_title">USUARIOS EN LÍNEA</text>
+				</panel>
+				<text name="login_title">ALLYN VIEWER</text>
+				<text name="login_subtitle">Inicia sesión para continuar</text>
+				<text name="name_label">Usuario</text>
+				<text name="password_text">Contraseña</text>
+				<panel name="location_panel">
+					<text name="start_location_text">Ubicación inicial</text>
+					<combo_box name="start_location_combo">
+						<combo_item name="MyHome">Mi casa</combo_item>
+						<combo_item name="MyLastLocation">Última ubicación</combo_item>
+						<combo_item name="Typeregionname">&lt;región&gt;</combo_item>
+					</combo_box>
+				</panel>
+				<button label="Entrar" label_selected="Entrar" name="connect_btn"/>
+				<check_box label="Recordar usuario" name="remember_name_check"/>
+				<button name="remove_login" tool_tip="Borrar este inicio de sesión guardado"/>
+				<check_box label="Guardar contraseña" name="remember_check"/>
+				<text name="create_new_account_text">Crear cuenta</text>
+				<text name="forgot_password_text">¿Olvidaste el usuario o la contraseña?</text>
+				<panel name="grids_panel">
+					<text name="grids_combo_text">Grid o URI de inicio de sesión:</text>
+					<combo_box name="grids_combo" tool_tip="Nombre del grid o URI de inicio de sesión"/>
+					<button name="grids_btn" label="Gestor de grids"/>
+				</panel>
+			</panel>
+		</scroll_container>
+	</panel>
+</panel>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings version = "101">
+
+<TitleBarFocusColor value="139, 92, 246, 36" />
+<FloaterFocusBorderColor value="139, 92, 246, 140" />
+<FloaterUnfocusBorderColor value="40, 45, 80, 140" />
+<FocusBackgroundColor value="10, 11, 28, 248" />
+<DefaultBackgroundColor value="8, 9, 22, 242" />
+<ColorDropShadow value="0, 0, 0, 190" />
+<DefaultHighlightDark value="18, 20, 43, 255" />
+<DefaultHighlightLight value="70, 75, 120, 255" />
+<DefaultShadowDark value="8, 9, 22, 255" />
+<DefaultShadowLight value="0, 0, 0, 255" />
+
+<LabelDisabledColor value="110, 116, 150, 140" />
+<LabelSelectedColor value="167, 139, 250, 255" />
+<LabelSelectedDisabledColor value="130, 120, 170, 160" />
+<LabelTextColor value="236, 238, 248, 255" />
+
+<LoginProgressBarBgColor value="24, 26, 52, 255" />
+<LoginProgressBarFgColor value="139, 92, 246, 255" />
+<LoginProgressBoxBorderColor value="99, 102, 241, 160" />
+<LoginProgressBoxCenterColor value="10, 11, 30, 230" />
+<LoginProgressBoxShadowColor value="0, 0, 0, 140" />
+<LoginProgressBoxTextColor value="255, 255, 255, 255"/>
+
+<ButtonLabelColor value="230, 232, 245, 255" />
+<ButtonLabelSelectedColor value="255, 255, 255, 255" />
+<ButtonLabelDisabledColor value="110, 116, 150, 160" />
+<ButtonLabelSelectedDisabledColor value="110, 116, 150, 160" />
+<ButtonSelectedBgColor value="99, 102, 241, 255" />
+<ButtonSelectedColor value="255, 255, 255, 255" />
+<ButtonUnselectedBgColor value="24, 26, 52, 255" />
+<ButtonUnselectedFgColor value="230, 232, 245, 255" />
+<ButtonBorderColor value="70, 75, 120, 180" />
+<ButtonFlashBgColor value="139, 92, 246, 80" />
+<ButtonColor value="255, 255, 255, 255" />
+<ButtonImageColor value="255, 255, 255, 255" />
+
+<SliderDisabledThumbColor value="60, 64, 90, 255" />
+<SliderThumbCenterColor value="255, 255, 255, 255" />
+<SliderThumbOutlineColor value="192, 132, 252, 230" />
+<SliderTrackColor value="42, 46, 82, 220" />
+
+<TextBgFocusColor value="16, 18, 42, 255" />
+<TextBgReadOnlyColor value="14, 16, 36, 230" />
+<TextBgWriteableColor value="16, 18, 40, 245" />
+<TextCursorColor value="167, 139, 250, 255" />
+<TextFgColor value="245, 246, 255, 255" />
+<TextFgReadOnlyColor value="176, 180, 210, 200" />
+<TextFgTentativeColor value="140, 146, 180, 180" />
+<TextEmbeddedItemReadOnlyColor value="167, 139, 250, 200" />
+<TextEmbeddedItemColor value="139, 92, 246, 255" />
+<TextDefaultColor value="245, 246, 255, 255"/>
+<TextLinkColor value="129, 140, 248, 255"/>
+<TextLinkHoverColor value="196, 181, 253, 255"/>
+
+<ScrollBgReadOnlyColor value="12, 14, 32, 220" />
+<ScrollBgWriteableColor value="12, 14, 32, 220" />
+<ScrollBGStripeColor value="99, 102, 241, 22" />
+<ScrollDisabledColor value="10, 11, 30, 220" />
+<ScrollSelectedBGColor value="99, 102, 241, 160" />
+<ScrollSelectedFGColor value="255, 255, 255, 255" />
+<ScrollUnselectedColor value="220, 224, 240, 230" />
+<ScrollHighlightedColor value="139, 92, 246, 50" />
+<ScrollbarThumbColor value="168, 85, 247, 210" />
+<ScrollbarTrackColor value="16, 18, 40, 80" />
+<DefaultListText value="236, 238, 248, 255"/>
+
+<MenuBarBgColor value="10, 11, 30, 255" />
+<MenuBarGodBgColor value="20, 70, 50, 255" />
+<MenuNonProductionGodBgColor value="20, 90, 55, 255" />
+<MenuNonProductionBgColor value="90, 30, 50, 255" />
+<MenuDefaultBgColor value="10, 11, 30, 255" />
+<MenuItemDisabledColor value="110, 116, 150, 140" />
+<MenuItemEnabledColor value="236, 238, 248, 255" />
+<MenuItemHighlightBgColor value="99, 102, 241, 180" />
+<MenuItemHighlightFgColor value="255, 255, 255, 255" />
+<MenuPopupBgColor value="14, 16, 38, 250" />
+
+<PieMenuBgColor value="14, 16, 38, 210" />
+<PieMenuLineColor value="70, 75, 120, 160" />
+<PieMenuSelectedColor value="99, 102, 241, 160" />
+
+<ToolTipBgColor value="18, 20, 43, 245" />
+<ToolTipBorderColor value="99, 102, 241, 200" />
+<ToolTipTextColor value="245, 246, 255, 255" />
+
+<NotifyBoxColor value="18, 20, 43, 250" />
+<NotifyTextColor value="236, 238, 248, 255" />
+<NotifyCautionBoxColor value="196, 140, 70, 255" />
+<NotifyCautionWarnColor value="255, 255, 255, 255" />
+<GroupNotifyBoxColor value="18, 20, 43, 250" />
+<GroupNotifyHeaderBGColor value="99, 102, 241, 50" />
+<GroupNotifyTextColor value="236, 238, 248, 255" />
+
+<ChatHistoryBgColor value="8, 9, 24, 190" />
+<ChatHistoryTextColor value="236, 238, 248, 255" />
+<IMHistoryBgColor value="12, 14, 34, 210" />
+<IMHistoryTextColor value="236, 238, 248, 255" />
+
+<SilhouetteParentColor value="139, 92, 246, 255" />
+<SilhouetteChildColor value="99, 102, 241, 255" />
+<HighlightParentColor value="167, 139, 250, 220" />
+<HighlightChildColor value="129, 140, 248, 220" />
+<HighlightInspectColor value="220, 160, 80, 255" />
+
+<GridFocusPointColor value="167, 139, 250, 180" />
+<GridlineColor value="99, 102, 241, 160" />
+<GridlineBGColor value="40, 44, 80, 120" />
+<GridlineShadowColor value="0, 0, 0, 100" />
+
+<PropertyColorAvail value="0, 0, 0, 0" />
+<PropertyColorGroup value="99, 180, 220, 120" />
+<PropertyColorOther value="200, 80, 90, 120" />
+<PropertyColorSelf value="80, 180, 130, 120" />
+<PropertyColorForSale value="220, 160, 80, 120" />
+<PropertyColorAuction value="139, 92, 246, 120" />
+
+<IconEnabledColor value="230, 232, 245, 255"/>
+<IconDisabledColor value="110, 116, 150, 180"/>
+
+<MapAvatar value="80, 180, 130, 255" />
+<MapFriend value="220, 170, 80, 255" />
+<MapLinden value="99, 140, 241, 255" />
+<MapEstateOwner value="220, 140, 70, 255" />
+<MapMuted value="110, 116, 150, 220" />
+
+<RadarAvatar value="236, 238, 248, 255" />
+<RadarFriend value="80, 180, 130, 255" />
+<RadarLinden value="99, 140, 241, 255" />
+<RadarEstateOwner value="220, 140, 70, 255" />
+<RadarMuted value="110, 116, 150, 255" />
+<RadarTextChatRange value="200, 90, 100, 200"/>
+<RadarTextShoutRange value="220, 170, 80, 200"/>
+<RadarTextDrawDist value="80, 180, 130, 200"/>
+<RadarTextYoung value="200, 80, 100, 255"/>
+
+<SpeakersInactive value="60, 64, 90, 255"/>
+<SpeakersGhost value="200, 80, 100, 255"/>
+
+<NetMapBackgroundColor value="8, 9, 24, 190" />
+<NetMapYouOwnAboveWater value="129, 140, 248, 255" />
+<NetMapYouOwnBelowWater value="80, 110, 200, 255" />
+<NetMapGroupOwnAboveWater value="167, 139, 250, 255" />
+<NetMapGroupOwnBelowWater value="110, 80, 180, 255" />
+<NetMapOtherOwnAboveWater value="40, 44, 70, 255" />
+<NetMapOtherOwnBelowWater value="24, 26, 48, 255" />
+<NetMapThisRegion value="236, 238, 248, 255" />
+<NetMapLiveRegion value="176, 180, 210, 255" />
+<NetMapDeadRegion value="200, 100, 110, 255" />
+<NetMapFrustum value="139, 92, 246, 70" />
+<NetMapFrustumRotating value="99, 102, 241, 100" />
+
+<HelpBgColor value="18, 20, 43, 255" />
+<HelpFgColor value="236, 238, 248, 255" />
+<HelpScrollTrackColor value="16, 18, 40, 80" />
+<HelpScrollThumbColor value="168, 85, 247, 210" />
+<HelpScrollHighlightColor value="192, 132, 252, 180" />
+<HelpScrollShadowColor value="0, 0, 0, 255" />
+
+<AvatarNameColor value="196, 181, 253, 255" />
+<FocusColor value="139, 92, 246, 90" />
+<FloaterButtonImageColor value="228, 232, 248, 240" />
+<ButtonCautionImageColor value="220, 140, 80, 255" />
+<MapAutopilotColor value="220, 160, 80, 255" />
+<ContextSilhouetteColor value="139, 92, 246, 255" />
+<ScriptBgReadOnlyColor value="10, 11, 30, 255" />
+<ParcelTextColor value="176, 180, 210, 255" />
+<ParcelHoverColor value="255, 255, 255, 255" />
+<TimeTextColor value="236, 238, 248, 255" />
+<BalanceTextColor value="80, 200, 150, 255" />
+<HealthTextColor value="236, 238, 248, 255" />
+<GroupOverTierColor value="200, 90, 90, 255" />
+<FilterBackgroundColor value="8, 9, 24, 255" />
+<FilterTextColor value="167, 139, 250, 230" />
+<InventoryItemSuffixColor value="140, 146, 180, 255" />
+<InventorySearchStatusColor value="167, 139, 250, 220" />
+<ComboBoxBg value="16, 18, 40, 255"/>
+<ConsoleBackground value="6, 7, 18, 255" />
+<FolderViewLoadingMessageTextColor value="167, 139, 250, 220"/>
+<InventoryBackgroundColor value="10, 11, 30, 180"/>
+<SHMediaTickerOscillatorColor value="139, 92, 246, 160"/>
+
+<AlertBoxColor value="18, 20, 43, 250" />
+<AlertTextColor value="220, 224, 240, 255" />
+<AlertCautionBoxColor value="196, 140, 70, 255" />
+<AlertCautionTextColor value="255, 255, 255, 255" />
+
+<MultiSliderDisabledThumbColor value="60, 64, 90, 255"/>
+<MultiSliderThumbCenterColor value="236, 238, 255, 255"/>
+<MultiSliderThumbOutlineColor value="139, 92, 246, 220"/>
+<MultiSliderTrackColor value="16, 18, 40, 255"/>
+<MultiSliderThumbCenterSelectedColor value="99, 102, 241, 255"/>
+<MultiSliderTriangleColor value="220, 160, 80, 255"/>
+
+<MeshImportTableNormalColor value="236, 238, 248, 255"/>
+<MeshImportTableHighlightColor value="129, 140, 248, 255"/>
+
+<PathfindingErrorColor value="220, 90, 90, 255" />
+<PathfindingWarningColor value="220, 170, 70, 255" />
+<PathfindingGoodColor value="80, 190, 130, 255" />
+<PathfindingDefaultBeaconColor value="200, 80, 90, 200" />
+<PathfindingDefaultBeaconTextColor value="255, 255, 255, 255" />
+<PathfindingLinksetBeaconColor value="99, 102, 241, 200" />
+<PathfindingCharacterBeaconColor value="200, 80, 90, 200" />
+
+<LSLFunctionColor value="167, 139, 250, 255" />
+
+<LoginDividerColor value="70, 75, 120, 255" />
+<LoginFormBgColor value="10, 11, 30, 255" />
+<LoginFormCardColor value="18, 20, 43, 250" />
+<LoginFormBorderColor value="55, 60, 100, 180" />
+<LoginFieldBorderColor value="70, 75, 120, 200" />
+<LoginLabelColor value="186, 190, 214, 255" />
+<LoginAccentColor value="167, 139, 250, 255" />
+<LoginLinkColor value="129, 140, 248, 255" />
+
+<SearchableControlHighlightBgColor value="139, 92, 246, 70" />
+<SearchableControlHighlightFontColor value="255, 214, 80, 255" />
+
+</settings>

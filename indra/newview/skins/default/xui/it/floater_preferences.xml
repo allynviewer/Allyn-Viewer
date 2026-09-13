@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Preferences" title="Preferenze">
+	<button label="OK" label_selected="OK" name="OK"/>
+	<button label="Annulla" label_selected="Annulla" name="Cancel"/>
+	<button label="Applica" label_selected="Applica" name="Apply"/>
+	<button label="Info" label_selected="Info" name="About..."/>
+	<button label="Aiuto" label_selected="Aiuto" name="Help"/>
+	<tab_container name="pref core"/>
+	<filter_editor name="search_prefs_edit" label="Filtra impostazioni"
+	     tool_tip="Digita un termine di ricerca. Le opzioni corrispondenti verranno evidenziate e le schede senza risultati verranno nascoste."/>
+</floater>

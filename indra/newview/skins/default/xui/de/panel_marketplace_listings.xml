@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Marketplace Panel">
+	<panel name="tool_panel">
+		<button name="sort_btn" tool_tip="Ansichts-/Sortieroptionen"/>
+		<button name="add_btn" tool_tip="Neuen Angebotsordner erstellen"/>
+		<button name="audit_btn" label="Auf Fehler prüfen" tool_tip="Ihre Marktplatz-Angebote prüfen"/>
+	</panel>
+	<panel name="tab_container_panel">
+		<filter_editor name="filter_editor" label="Marktplatz-Angebote filtern"/>
+		<tab_container name="marketplace_filter_tabs">
+			<inventory_panel name="All Items" label="Alle"/>
+			<inventory_panel name="Active Items" label="Aktiv"/>
+			<inventory_panel name="Inactive Items" label="Inaktiv"/>
+			<inventory_panel name="Unassociated Items" label="Nicht verknüpft"/>
+		</tab_container>
+	</panel>
+	<panel name="marketplace_drop_zone">
+		<text name="marketplace_drop_zone_text">Ordner hierher ziehen, um neue Angebote zu erstellen</text>
+	</panel>
+</panel>

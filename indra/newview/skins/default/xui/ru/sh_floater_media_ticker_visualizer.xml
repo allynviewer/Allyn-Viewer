@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="mediaticker">
+	<icon name="ticker_background" />
+	<icon name="ticker_background" />
+	<locate name="visualizer_box" />
+	<icon name="visualizer_grid" />
+	<text name="artist_label">Художник:</text>
+	<text name="artist_text" />
+	<text name="title_label">Заголовок:</text>
+	<text name="title_text" />
+	<string name="paused">(не играю)</string>
+	<string name="loading">(загрузка...)</string>
+</floater>

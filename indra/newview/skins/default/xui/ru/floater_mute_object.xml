@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="mute by name" title="Отключить звук объекта по имени">
+	<text name="message">
+		Отключение звука по имени влияет только на чат объекта и обмен мгновенными сообщениями, но не на звуки.
+Вы должны точно ввести имя объекта.
+	</text>
+	<line_editor name="object_name">Имя объекта</line_editor>
+	<button name="OK" label="Хорошо" />
+	<button name="Cancel" label="Отмена" />
+</floater>

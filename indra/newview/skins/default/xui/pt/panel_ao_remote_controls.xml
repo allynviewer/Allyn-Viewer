@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="ao_controls">
+	<button name="ao_btn" label="AO off" label_selected="AO on" tool_tip="Liga/desliga o AO"/>
+	<button name="popup_btn" tool_tip="Mais opções"/>
+</panel>

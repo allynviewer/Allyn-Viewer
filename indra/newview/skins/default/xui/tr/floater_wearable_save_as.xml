@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="modal container">
+	<button name="Save" label="Kaydet" />
+	<button name="Cancel" label="İptal" />
+	<text name="Save item as:">Öğeyi şu şekilde kaydet:</text>
+	<line_editor name="name ed">Yeni [DESC]</line_editor>
+</floater>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Post-Process Floater" title="ポストプロセス設定">
+	<tab_container name="Post-Process Tabs">
+		<panel name="ColorFilterPanel" label="カラーフィルター">
+			<check_box name="enable_color_filter" label="有効化"/>
+			<text name="ColorFilterGammaText">ガンマ</text>
+			<text name="ColorFilterBrightnessText">明るさ</text>
+			<text name="ColorFilterSaturationText">彩度</text>
+			<text name="ColorFilterContrastText">コントラスト</text>
+			<text name="ColorFilterBaseText">コントラストの基準色</text>
+			<slider name="contrast_base[0]" label="R"/>
+			<slider name="contrast_base[1]" label="G"/>
+			<slider name="contrast_base[2]" label="B"/>
+			<slider name="contrast_base[3]" label="I"/>
+		</panel>
+		<panel name="GaussBlurPanel" label="ガウスぼかし">
+			<check_box name="enable_gauss_blur" label="有効化"/>
+			<text name="GaussBlurPassesText">適用パス数</text>
+		</panel>
+		<panel name="NightVisionPanel" label="ナイトビジョン">
+			<check_box name="enable_night_vision" label="有効化"/>
+			<text name="NightVisionBrightMultText">光の増幅倍率</text>
+			<text name="NightVisionNoiseSizeText">ノイズサイズ</text>
+			<text name="NightVisionNoiseStrengthText">ノイズ強度</text>
+		</panel>
+		<panel name="PosterizePanel" label="ポスタライズ">
+			<check_box name="enable_posterize" label="有効化"/>
+			<text name="PosterLayersText">レイヤー数</text>
+		</panel>
+		<panel name="MotionBlurPanel" label="モーションブラー">
+			<check_box name="enable_motionblur" label="有効化"/>
+			<text name="MotionBlurText">モーションブラー強度</text>
+		</panel>
+		<panel name="VignettePanel" label="ビネット">
+			<check_box name="enable_vignette" label="有効化"/>
+			<text name="VignetteStrengthText">強度</text>
+			<text name="VignetteRadiusText">半径</text>
+			<text name="VignetteDarknessText">暗さ</text>
+			<text name="VignetteDesaturateText">彩度低下の強さ</text>
+			<text name="VignetteChormaticAberrationText">色収差</text>
+		</panel>
+		<panel name="Extras" label="その他">
+			<text name="PPSavedEffectsText">保存済みエフェクト</text>
+			<combo_box name="PPEffectsCombo"/>
+			<line_editor name="PPEffectNameEditor" label="エフェクト名"/>
+			<button name="PPLoadEffect" label="読み込む" label_selected="読み込む"/>
+			<button name="PPSaveEffect" label="保存" label_selected="保存"/>
+			<text name="PPSaveAsText">名前を付けて保存</text>
+			<text name="PPExtrasHelpText">保存済みのプリセットを読み込むか、新しい名前を入力して現在の設定を保存します。</text>
+		</panel>
+	</tab_container>
+</floater>

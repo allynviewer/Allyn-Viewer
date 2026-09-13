@@ -1,0 +1,53 @@
+<llsd>
+	<map>
+		<key>default-level</key>    <string>INFO</string>
+		<key>print-location</key>   <boolean>false</boolean>
+		<key>settings</key>
+			<array>
+				<map>
+					<key>level</key><string>INFO</string>
+					<key>functions</key>
+						<array>
+						</array>
+					<key>classes</key>
+						<array>
+						</array>
+					<key>files</key>
+						<array>
+						</array>
+					<key>tags</key>
+						<array>
+							<string>AppInit</string>
+							<string>SystemInfo</string>
+							<string>TextureCache</string>
+							<string>AppCache</string>
+							<string>Window</string>
+							<string>RenderInit</string>
+						</array>
+				</map>
+				<map>
+					<key>level</key><string>DEBUG</string>
+					<key>functions</key>
+						<array>
+						</array>
+					<key>classes</key>
+						<array>
+						</array>
+					<key>files</key>
+						<array>
+						</array>
+					<key>tags</key>
+						<array>
+							<string>Openjpeg</string>
+						<string>Plugin</string>
+						<string>Plugin child</string>
+
+						<string>PluginRaw child</string>
+
+
+
+						</array>
+				</map>
+			</array>
+	</map>
+</llsd>

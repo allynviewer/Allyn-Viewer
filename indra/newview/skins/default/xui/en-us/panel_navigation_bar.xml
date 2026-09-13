@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel background_opaque="true" background_visible="true"
+     bg_opaque_color="0.25 0.25 0.25 1.0" bottom="0" enabled="true"
+     follows="top|left|right" height="29" left="0" mouse_opaque="true"
+     name="navigation_bar" width="1000">
+	<button bottom="1" enabled="true" follows="left|bottom" font="SansSerifSmall"
+	     height="27" image_overlay="go-previous.png" label="" left="4"
+	     mouse_opaque="true" name="back_btn" scale_image="true"
+	     tool_tip="Go back to previous location" width="22" />
+	<button bottom="1" enabled="true" follows="left|bottom" font="SansSerifSmall"
+	     height="27" image_overlay="go-next.png" label="" left="28"
+	     mouse_opaque="true" name="forward_btn" scale_image="true"
+	     tool_tip="Go forward one location" width="22" />
+	<button bottom="1" enabled="true" follows="left|bottom" font="SansSerifSmall"
+	     height="27" image_overlay="go-home.png" label="" left="52"
+	     mouse_opaque="true" name="home_btn" scale_image="true"
+	     tool_tip="Teleport to home location" width="22" />
+	<button bottom="1" enabled="true" follows="left|bottom" font="SansSerifSmall"
+	     height="27" label="Land" left="80" mouse_opaque="true" name="About_Land"
+	     scale_image="true" tool_tip="Opens Land Information window"
+	     use_ellipses="true" width="60" />
+	<button bottom="1" enabled="true" follows="left|bottom" font="SansSerifSmall"
+	     height="27" label="Lighting" left="144" mouse_opaque="true"
+	     name="PersonalLighting" scale_image="true"
+	     tool_tip="Opens the Personal Lighting window" use_ellipses="true"
+	     width="90" />
+	<combo_box allow_text_entry="true" bottom="1" follows="left|right|bottom"
+	     height="27" label="Location" left="240" max_chars="254"
+	     mouse_opaque="true" name="location_combo" right="-278" valign="center"
+	     text_color="1 1 1 1" text_tentative_color="1 1 1 1"
+	     tool_tip="Current location. Type a region or SLURL and press Enter to teleport." />
+	<button bottom="1" enabled="true" follows="right|bottom" font="SansSerifSmall"
+	     height="27" label="+" left="-272" mouse_opaque="true"
+	     name="add_landmark_btn" tool_tip="Create a landmark here" width="22" />
+	<line_editor bevel_style="none" border_style="line" border_thickness="0"
+	     border_drop_shadow_visible="false" bottom="1"
+	     bg_writeable_color="1 1 1 1" bg_readonly_color="1 1 1 1"
+	     text_color="1 1 1 1" text_tentative_color="1 1 1 1"
+	     cursor_color="1 1 1 1"
+	     commit_on_focus_lost="false" enabled="true" follows="right|bottom"
+	     font="SansSerifSmall" height="27" image="button_enabled_32x128.tga"
+	     label="Search" left="-247" max_length="254" mouse_opaque="true"
+	     name="search_editor" select_all_on_focus_received="false" valign="center"
+	     select_on_focus="false" tool_tip="Search" width="226"
+	     spell_check="true"/>
+	<button bottom="7" enabled="true" follows="right|bottom" font="SansSerifSmall"
+	     height="16" image_unselected="status_search_btn.png"
+	     image_selected="status_search_btn_pressed.png"
+	     image_disabled_selected="status_search_btn_pressed.png"
+	     image_disabled="status_search_btn.png" label="" left="-20"
+	     mouse_opaque="true" name="search_btn" tool_tip="Search" width="16"
+	     scale_image="false"/>
+</panel>

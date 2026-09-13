@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="perm prefs" title="Permessi di creazione predefiniti">
+	<panel label="Permessi" name="permissions">
+		<text name="NextOwnerLabel">Prossimo possessore:</text>
+		<text name="NextOwnerCopyLabel">Copia</text>
+		<text name="NextOwnerModifyLabel">Modifica</text>
+		<text name="NextOwnerTransferLabel">Trasferisci</text>
+		<text name="ShareWithGroupLabel">Condividi con il gruppo</text>
+		<text name="AnyoneCopyLabel">Permetti a chiunque di copiare</text>
+		<text name="ExportationLabel">Permetti l'esportazione</text>
+		<text name="ObjectsLabel" tool_tip="Imposta i permessi predefiniti quando vengono creati gli oggetti">Oggetti</text>
+		<text name="UploadsLabel" tool_tip="Imposta i permessi predefiniti per gli elementi caricati">Caricamenti</text>
+		<text name="ScriptsLabel" tool_tip="Imposta i permessi predefiniti quando vengono creati gli script">Script</text>
+		<text name="NotecardsLabel" tool_tip="Imposta i permessi predefiniti quando vengono create le notecard">Notecard</text>
+		<text name="GesturesLabel" tool_tip="Imposta i permessi predefiniti quando vengono creati i gesti">Gesti</text>
+		<text name="WearablesLabel" tool_tip="Imposta i permessi predefiniti quando vengono creati abiti o parti del corpo">Abiti</text>
+	</panel>
+	<button label="OK" label_selected="OK" name="ok"/>
+	<button label="Annulla" label_selected="Annulla" name="cancel"/>
+</floater>

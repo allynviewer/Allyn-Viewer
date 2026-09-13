@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="directory" title="検索">
+	<tab_container name="Directory Tabs">
+		<panel name="people_panel" label="人">
+			<string name="searching_text">検索中...</string>
+			<string name="not_found_text">見つかりませんでした。</string>
+			<text name="find">検索:</text>
+			<line_editor name="name" />
+			<button name="Search" label="検索" />
+			<scroll_list name="results">
+				<column name="icon" />
+				<column name="type" />
+				<column name="name" label="名前" />
+			</scroll_list>
+			<text name="result_text" />
+			<button name="Next &gt;" label="次 &gt;" />
+			<button name="&lt; Prev" label="&lt; 前" />
+		</panel>
+		<panel name="groups_panel" label="グループ">
+			<string name="searching_text">検索中...</string>
+			<string name="not_found_text">見つかりませんでした。</string>
+			<button name="Next &gt;" label="次 &gt;" />
+			<button name="&lt; Prev" label="&lt; 前" />
+			<text name="find">検索:</text>
+			<line_editor name="name" />
+			<button name="Search" label="検索" left="286" />
+			<check_box name="incpg" label="一般コンテンツ" width="140" />
+			<check_box name="incmature" label="センシティブコンテンツ" left_delta="150" width="180" />
+			<check_box name="incadult" label="成人向けコンテンツ" left_delta="190" width="170" />
+			<check_box name="filter_gaming" label="ゲームを非表示" />
+			<scroll_list name="results">
+				<column name="icon" />
+				<column name="type" />
+				<column name="name" label="名前" />
+				<column name="members" label="メンバー" />
+				<column name="score" />
+			</scroll_list>
+			<text name="result_text" />
+		</panel>
+		<panel name="places_panel" label="場所">
+			<string name="searching_text">検索中...</string>
+			<string name="not_found_text">見つかりませんでした。</string>
+			<text name="find">検索:</text>
+			<line_editor name="name" />
+			<check_box name="incpg" label="一般コンテンツ" />
+			<check_box name="incmature" label="センシティブコンテンツ" />
+			<check_box name="incadult" label="成人向けコンテンツ" />
+			<check_box name="filter_gaming" label="ゲームを非表示" />
+			<combo_box name="Category" width="155">
+				<combo_item name="AnyCategory">すべてのカテゴリ</combo_item>
+				<combo_item name="LindenLocation">公式ロケーション</combo_item>
+				<combo_item name="Arts&amp;Culture">芸術と文化</combo_item>
+				<combo_item name="Business">ビジネス</combo_item>
+				<combo_item name="Educational">教育</combo_item>
+				<combo_item name="Gaming">ゲーム</combo_item>
+				<combo_item name="Hangout">たまり場</combo_item>
+				<combo_item name="NewcomerFriendly">初心者歓迎</combo_item>
+				<combo_item name="Parks&amp;Nature">公園と自然</combo_item>
+				<combo_item name="Residential">住宅</combo_item>
+				<combo_item name="Shopping">ショッピング</combo_item>
+				<combo_item name="Other">その他</combo_item>
+				<combo_item name="Rental">レンタル</combo_item>
+			</combo_box>
+			<combo_box name="Category_Adult">
+				<combo_item name="AnyCategory">すべてのカテゴリ</combo_item>
+				<combo_item name="LindenLocation">リンデンロケーション</combo_item>
+				<combo_item name="Adult">アダルト</combo_item>
+				<combo_item name="Arts&amp;Culture">芸術と文化</combo_item>
+				<combo_item name="Business">ビジネス</combo_item>
+				<combo_item name="Educational">教育</combo_item>
+				<combo_item name="Gaming">ゲーム</combo_item>
+				<combo_item name="Hangout">たまり場</combo_item>
+				<combo_item name="NewcomerFriendly">初心者歓迎</combo_item>
+				<combo_item name="Parks&amp;Nature">公園と自然</combo_item>
+				<combo_item name="Residential">住宅</combo_item>
+				<combo_item name="Shopping">ショッピング</combo_item>
+				<combo_item name="Other">その他</combo_item>
+				<combo_item name="Rental">レンタル</combo_item>
+			</combo_box>
+			<button name="Search" label="検索" />
+			<scroll_list name="results">
+				<column name="icon" />
+				<column name="type" />
+				<column name="name" label="名前" />
+				<column name="dwell" label="交通" />
+			</scroll_list>
+			<text name="result_text" />
+			<button name="Next &gt;" label="次 &gt;" />
+			<button name="&lt; Prev" label="&lt; 前" />
+		</panel>
+		<panel name="events_panel" label="イベント">
+			<string name="searching_text">検索中...</string>
+			<string name="not_found_text">見つかりませんでした。</string>
+			<text name="text2">検索:</text>
+			<line_editor name="name" />
+			<radio_group name="date_mode">
+				<radio_item name="current">開催中と今後</radio_item>
+				<radio_item name="date">日付</radio_item>
+			</radio_group>
+			<button name="&lt;&lt;" label="&lt;&lt;" tool_tip="1日前へ" />
+			<text name="date_text">6/6</text>
+			<button name="&gt;&gt;" label="&gt;&gt;" tool_tip="1日後へ" />
+			<button name="Today" label="今日" tool_tip="今日のイベントを表示" />
+			<text name="text">カテゴリ:</text>
+			<combo_box name="category combo">
+				<combo_item name="All">すべてのカテゴリ</combo_item>
+				<combo_item name="Discussion">ディスカッション</combo_item>
+				<combo_item name="Sports">スポーツ</combo_item>
+				<combo_item name="LiveMusic">ライブ音楽</combo_item>
+				<combo_item name="Commercial">商業</combo_item>
+				<combo_item name="Nightlife/Entertainment">ナイトライフ／エンターテインメント</combo_item>
+				<combo_item name="Games/Contests">ゲーム／コンテスト</combo_item>
+				<combo_item name="Pageants">コンテスト</combo_item>
+				<combo_item name="Education">教育</combo_item>
+				<combo_item name="ArtsandCulture">芸術と文化</combo_item>
+				<combo_item name="Charity/SupportGroups">慈善／サポートグループ</combo_item>
+				<combo_item name="Miscellaneous">その他</combo_item>
+			</combo_box>
+			<check_box name="incpg" label="一般コンテンツ" />
+			<check_box name="incmature" label="センシティブコンテンツ" />
+			<check_box name="incadult" label="成人向けコンテンツ" />
+			<check_box name="filter_gaming" label="ゲームを非表示" />
+			<button name="Search" label="検索" />
+			<button name="Delete" label="削除" />
+			<scroll_list name="results">
+				<column name="icon" />
+				<column name="type" />
+				<column name="name" label="名前" />
+				<column name="date" label="時間 (PT)" />
+				<column name="event_id" />
+				<column name="time" label="時間" />
+			</scroll_list>
+			<text name="result_text" />
+			<button name="Next &gt;" label="次 &gt;" />
+			<button name="&lt; Prev" label="&lt; 前" />
+		</panel>
+		<panel name="land_sales_panel" label="土地販売">
+			<string name="searching_text">検索中...</string>
+			<string name="not_found_text">見つかりませんでした。</string>
+			<string name="land_help_text">土地はワールド内通貨（[CURRENCY]）で直接購入するか、オークションで[CURRENCY]または[REALCURRENCY]で入札できます。直接購入する場合は土地を訪れて、タイトルバーの場所名をクリックしてください。</string>
+			<text name="find">検索:</text>
+			<check_box name="incpg" label="一般コンテンツ" />
+			<check_box name="incmature" label="センシティブコンテンツ" />
+			<check_box name="incadult" label="成人向けコンテンツ" />
+			<check_box name="filter_gaming" label="ゲームを非表示" />
+			<combo_box name="type">
+				<combo_item name="AllTypes">すべての種類</combo_item>
+				<combo_item name="Auction">オークション</combo_item>
+				<combo_item name="MainlandSales">売地 - メインランド</combo_item>
+				<combo_item name="EstateSales">売地 - エステート</combo_item>
+			</combo_box>
+			<check_box name="pricecheck" label="価格 ≤" />
+			<text name="pricecheck_symbol">[CURRENCY]</text>
+			<check_box name="areacheck" label="面積 ≥" />
+			<text name="areacheck_symbol">m²</text>
+			<line_editor name="priceedit" />
+			<line_editor name="areaedit" />
+			<button name="Search" label="検索" />
+			<scroll_list name="results">
+				<column name="icon" />
+				<column name="type" />
+				<column name="name" label="名前" />
+				<column name="landtype" label="種類" />
+				<column name="price" label="[CURRENCY]価格" />
+				<column name="area" label="面積" />
+				<column name="per_meter" label="[CURRENCY]/m²" />
+			</scroll_list>
+			<text name="result_text" />
+			<button name="Next &gt;" label="次 &gt;" />
+			<button name="&lt; Prev" label="&lt; 前" />
+		</panel>
+		<panel name="classified_panel" label="クラシファイド">
+			<string name="searching_text">検索中...</string>
+			<string name="not_found_text">見つかりませんでした。</string>
+			<text name="find">検索:</text>
+			<line_editor name="name" />
+			<check_box name="incpg" label="一般コンテンツ" />
+			<check_box name="incmature" label="センシティブコンテンツ" />
+			<check_box name="incadult" label="成人向けコンテンツ" />
+			<check_box name="filter_gaming" label="ゲームを非表示" />
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">すべてのカテゴリ</combo_item>
+				<combo_item name="Shopping">ショッピング</combo_item>
+				<combo_item name="LandRental">土地レンタル</combo_item>
+				<combo_item name="PropertyRental">物件レンタル</combo_item>
+				<combo_item name="SpecialAttraction">特別なアトラクション</combo_item>
+				<combo_item name="NewProducts">新製品</combo_item>
+				<combo_item name="Employment">求人</combo_item>
+				<combo_item name="Wanted">募集</combo_item>
+				<combo_item name="Service">サービス</combo_item>
+				<combo_item name="Personal">パーソナル</combo_item>
+			</combo_box>
+			<button name="Browse" label="参照" />
+			<button name="Search" label="検索" />
+			<button name="Delete" label="削除" />
+			<scroll_list name="results">
+				<column name="icon" />
+				<column name="type" />
+				<column name="name" label="名前" />
+				<column name="price" label="価格" />
+			</scroll_list>
+			<text name="result_text" />
+			<button name="Next &gt;" label="次 &gt;" />
+			<button name="&lt; Prev" label="&lt; 前" />
+		</panel>
+</tab_container>
+	<panel name="classified_details_panel" />
+	<panel name="Panel Avatar" />
+	<panel name="event_details_panel" />
+	<panel name="group_details_panel_holder">
+		<panel name="group_details_panel" />
+	</panel>
+	<panel name="place_details_panel" />
+	<panel name="place_details_small_panel" />
+</floater>

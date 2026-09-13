@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="rlv_behaviours" title="アクティブなRLV制限">
+	<tab_container name="behaviour_tab">
+		<panel name="behaviour_panel" label="制限">
+			<scroll_list name="behaviour_list">
+				<column name="behaviour" label="制限" />
+				<column name="issuer" label="オブジェクト 名前" />
+			</scroll_list>
+		</panel>
+		<panel name="exception_panel" label="例外">
+			<scroll_list name="exception_list">
+				<column name="behaviour" label="制限" />
+				<column name="option" label="オプション" />
+				<column name="issuer" label="オブジェクト 名前" />
+			</scroll_list>
+		</panel>
+	</tab_container>
+	<button name="copy_btn" label="へ Clipboardをコピー" />
+</floater>

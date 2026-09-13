@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Chat vocale" name="chat">
+	<string value="Consenti a più istanze di usare la voce simultaneamente (richiede riavvio)" name="multivoice_label"/>
+	<text_editor name="voice_chat_description">
+		La modalità 'Premi per parlare' ti permette di controllare quando la voce viene trasmessa. Quando attivi il modo 'interruttore on/off', premendo e rilasciando il pulsante impostato, si apre e chiude il microfono. Altrimenti il microfono è attivo solo quando l'interruttore è tenuto premuto.
+	</text_editor>
+	<text name="privacy_heading">
+		Opzioni di privacy
+	</text>
+	<text_editor name="device_settings_text" width="465">
+		NOTA: eseguire la configurazione della periferica disconnette temporaneamente dal canale voice chat, ma le modifiche apportate saranno applicate immediatamente.
+	</text_editor>
+	<scroll_container name="voice_scroll">
+		<panel name="voice_scroll_inner">
+			<text_editor name="voice_unavailable">
+		voice chat non disponibile
+	</text_editor>
+			<check_box label="Abilita voice chat" name="enable_voice_check" />
+			<check_box label="Consenti a più istanze di usare la voce simultaneamente (richiede riavvio)" name="enable_multivoice_check" />
+			<radio_group name="ear_location">
+				<radio_item name="0">
+			Ascolta voice chat dalla posizione della telecamera.
+		</radio_item>
+				<radio_item name="1">
+			Ascolta voice chat dalla posizione dell'avatar.
+		</radio_item>
+				<radio_item name="3">
+			Ascolta la chat vocale equamente da tutti.
+		</radio_item>
+			</radio_group>
+			<text name="push_to_talk_heading">
+		Premi per parlare
+	</text>
+			<check_box label="Usa il 'Premi per parlare' in modalità &quot;interruttore on/off&quot;" name="push_to_talk_toggle_check" tool_tip="Quando abilitato, premi il pulsante push-to-talk per attivare o disattivare il microfono. Quando disabilitato, il microfono è spento a meno che il pulsante non venga tenuto premuto." />
+			<text name="push_to_talk_label">
+		Modifica modalità 'Premi per parlare':
+	</text>
+			<line_editor name="modifier_combo" width="300" />
+			<button label="Imposta Tasto" name="set_voice_hotkey_button" />
+			<button label="Pulsante centrale del mouse" name="set_voice_middlemouse_button" width="180" />
+			<check_box label="Abilita animazione sincronizzazione labbra" name="enable_lip_sync_check" />
+			<check_box label="Accetta solamente chiamate vocali da persone nella lista degli amici" name="voice_call_friends_only_check" />
+			<check_box label="Spegni il microfono quando termini una chiamata IM" name="auto_disengage_mic_check" />
+			<check_box label="Cancellazione eco" name="echo_cancellation_check" />
+			<check_box label="Controllo automatico del guadagno" name="agc_check" />
+			<text name="noise_suppression_label">Soppressione rumore:</text>
+			<combo_box name="noise_suppression_combo" width="200">
+				<combo_item name="0" value="0">Disabilitato</combo_item>
+				<combo_item name="1" value="1">Basso</combo_item>
+				<combo_item name="2" value="2">Moderato</combo_item>
+				<combo_item name="3" value="3">Alto</combo_item>
+				<combo_item name="4" value="4">Molto alto</combo_item>
+			</combo_box>
+			<button label="Configurazione periferica" name="device_settings_btn" width="165" tool_tip="Apre le impostazioni del dispositivo. La chat vocale viene temporaneamente sospesa mentre questa finestra è aperta." />
+		</panel>
+	</scroll_container>
+</panel>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="worldmap" title="ワールドマップ">
+	<panel name="right_controls">
+	<text name="you_label">自分</text>
+	<text name="home_label">ホーム</text>
+	<text name="auction_label">競売</text>
+	<text name="land_for_sale_label">売地</text>
+	<button name="Go Home" label="ホームへ" label_selected="ホームへ" tool_tip="ホームへテレポートします" />
+	<check_box name="people_chk" label="レジデント" />
+	<check_box name="infohub_chk" label="インフォハブ" />
+	<check_box name="telehubchk" label="テレハブ" />
+	<check_box name="land_for_sale_chk" label="売地" />
+	<text name="events_label">イベント:</text>
+	<check_box name="event_chk" label="PG" />
+	<check_box name="events_mature_chk" label="マチュア" />
+	<check_box name="events_adult_chk" label="アダルト" />
+	<combo_box name="friend combo" label="オンラインのフレンド" tool_tip="マップに表示するフレンド">
+		<combo_item name="none_selected">オンラインのフレンド</combo_item>
+	</combo_box>
+	<combo_box name="landmark combo" label="ランドマーク" tool_tip="マップに表示するランドマーク">
+		<combo_item name="none_selected">ランドマーク</combo_item>
+	</combo_box>
+	<search_editor name="location" label="リージョン名で検索" tool_tip="リージョン名を入力" />
+	<button name="DoSearch" label="検索" tool_tip="リージョンを検索" />
+	<text name="search_label">検索結果:</text>
+	<text name="location_label">場所:</text>
+	<spinner name="spin x" tool_tip="マップに表示する場所のX座標" />
+	<spinner name="spin y" tool_tip="マップに表示する場所のY座標" />
+	<spinner name="spin z" tool_tip="マップに表示する場所のZ座標" />
+	<button name="Teleport" label="テレポート" tool_tip="選択した場所へテレポートします" />
+	<button name="Show Destination" label="目的地を表示" tool_tip="選択した場所をマップの中央にします" />
+	<button name="Clear" label="クリア" tool_tip="追跡を停止します" />
+	<button name="Show My Location" label="自分の場所を表示" tool_tip="自分のアバターの場所をマップの中央にします" />
+	<button name="copy_slurl" label="SLURLをコピー" tool_tip="現在地をWebで使えるSLURLとしてコピーします。" />
+	<button name="track_region" label="リージョンを追跡" tool_tip="リージョンをリージョントラッカーに追加します" />
+	<slider name="zoom slider" label="ズーム" />
+	</panel>
+</floater>

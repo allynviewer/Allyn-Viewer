@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="ascsys" label="Av. Sohbet">
+	<tab_container name="Ascent Chat" label="Gelişmiş Sohbet">
+		<panel name="Chat/IM" label="Sohbet/Anlık Mesajlaşma">
+			<scroll_container name="advchat_im_scroll">
+				<panel name="advchat_im_inner">
+					<text name="objects_link_text_box">EYS</text>
+					<icon name="section_im_rule" />
+					<check_box name="quickstart_im_check" label="Gelen anlık mesajları duyurun" tool_tip="Birisi size anlık ileti yazmaya başladığında bir anlık ileti penceresi açar. Bu size birisinin enter tuşuna basmadan önce size mesaj gönderdiği konusunda bilgi verir." />
+					<check_box name="hide_typing_check" label="Anlık iletilerde '[name] yazıyor...' göndermeyin" tool_tip="IM ortakları siz yanıt verirken '______ yazıyor...' ifadesini görmez." />
+					<check_box name="InstantMessagesFriendsOnly" label="Yalnızca Arkadaşlardan gelen anlık iletileri kabul et" />
+					<check_box name="allow_mu_pose_check" label="MU poz yöntemine izin ver." tool_tip="İfadeleri gerçekleştirmek için hem /me hem de : kullanımına izin verir." />
+					<check_box name="close_ooc_check" label="OOC yorumlarını otomatik kapat." tool_tip="'((' veya tam tersi) ile başlayan herhangi bir mesaja otomatik olarak '))' eklenecektir." />
+					<text name="objects_link_text_box2">SOHBET</text>
+					<icon name="section_chat_rule" />
+					<check_box name="play_typing_sound_check" label="Yerel sohbet için yazma sesini çalın" tool_tip="Sohbet tipi sesi susturarak performans gibi etkinliklerin daha sessiz olmasını sağlar." />
+					<check_box name="hide_notifications_in_chat_check" label="Sohbette bildirimleri yankılamayın/günlüğe kaydetmeyin" />
+					<check_box name="append_group_name_check" label="Grup adını sohbette göster" tool_tip="Anlık ileti grup sohbetinden geliyorsa grubun adı da görüntülenecektir." />
+					<check_box name="display_name_change" label="Görünen ad değişikliklerini göster" tool_tip="İşaretlendiğinde, birinin görünen adı değiştiğinde sohbette bir bildirim görünecektir." />
+					<check_box name="use_typing_bubbles" label="Tepegöz yazma göstergesi baloncuklarını kullanma" />
+					<text name="objects_link_text_box3">Aşağıdakiler için sohbet geçmişinde sohbet nesnesi adlarındaki bağlantıları göster:</text>
+					<radio_group name="objects_link" tool_tip="Konuşan nesnenin sahibini size gösterecek bir bağlantıyı etkinleştirir.">
+						<radio_item name="no_object">Nesne yok</radio_item>
+						<radio_item name="others_objects">Başkalarının nesneleri</radio_item>
+						<radio_item name="anyones_objects">Herhangi birinin nesneleri</radio_item>
+					</radio_group>
+					<text name="time_format_text_box">Zaman formatı:</text>
+					<combo_box name="time_format_combobox" tool_tip="Saatleri 12-23 veya 12:00-23:00 formatında gösterin.">
+						<combo_item name="24hours">24 saatlik format</combo_item>
+						<combo_item name="12hours">12 saatlik saat</combo_item>
+					</combo_box>
+					<check_box name="seconds_in_chat_and_ims_check" label="Sohbet/anlık mesaj zaman damgalarındaki saniyeler" />
+					<text name="date_format_text_box">Tarih formatı:</text>
+					<combo_box name="date_format_combobox">
+						<combo_item name="year_first">YYYY-MM-DD</combo_item>
+						<combo_item name="year_first_slashes">YYYY/MM/DD</combo_item>
+						<combo_item name="day_first">DD/MM/YYYY</combo_item>
+						<combo_item name="month_first">MM/DD/YYYY</combo_item>
+					</combo_box>
+					<check_box name="seconds_in_log" label="Günlük zaman damgalarındaki saniye" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="ChatUI" label="Sohbet arayüzü">
+			<scroll_container name="advchat_ui_scroll">
+				<panel name="advchat_ui_inner">
+					<check_box name="use_vertical_ims_check" label="Dikey IM'leri kullanın (Yeniden başlatma gerektirir)" />
+					<check_box name="chats_torn_off" label="Yeni anlık iletileri ayrı kayan öğelerde açın" />
+					<check_box name="chat_steal_focus" label="Yeni anlık iletilere odaklanın" />
+					<check_box name="show_local_chat_floater_bar" label="Yırtık yerel sohbet kayan öğesinde sohbet çubuğunu göster" />
+					<check_box name="horiz_butt" label="Kontak şamandırası için yatay düğmeleri kullanın (Yeniden başlatılması gerekiyor)" tool_tip="Etkinleştirildiğinde, Arkadaşlar ve Gruplar panellerindeki düğmeler sağda dikey olarak düzenlenmek yerine altta, yatay olarak düzenlenecektir." />
+					<text name="namesystems_text_box">İSİM BİÇİMİ</text>
+					<icon name="section_names_rule" />
+					<text name="chat_tabs_namesystem_text_box">Sohbet Sekmeleri:</text>
+					<combo_box name="chat_tabs_namesystem_combobox">
+						<combo_item name="Old Names">Eski İsimler</combo_item>
+						<combo_item name="Display Names (with Username)">Görünen Adlar (Kullanıcı Adıyla birlikte)</combo_item>
+						<combo_item name="Display Names only">Yalnızca Görünen Adlar</combo_item>
+						<combo_item name="Old Names (with Display Names)">Eski İsimler (Ekranlı)</combo_item>
+					</combo_box>
+					<text name="friends_namesystem_text_box">Arkadaşlar:</text>
+					<combo_box name="friends_namesystem_combobox">
+						<combo_item name="Old Names">Eski İsimler</combo_item>
+						<combo_item name="Display Names (with Username)">Görünen Adlar (Kullanıcı Adıyla birlikte)</combo_item>
+						<combo_item name="Display Names only">Yalnızca Görünen Adlar</combo_item>
+						<combo_item name="Old Names (with Display Names)">Eski İsimler (Ekranlı)</combo_item>
+					</combo_box>
+					<text name="group_members_namesystem_text_box">Grup Üyeleri:</text>
+					<combo_box name="group_members_namesystem_combobox">
+						<combo_item name="Old Names">Eski İsimler</combo_item>
+						<combo_item name="Display Names (with Username)">Görünen Adlar (Kullanıcı Adıyla birlikte)</combo_item>
+						<combo_item name="Display Names only">Yalnızca Görünen Adlar</combo_item>
+						<combo_item name="Old Names (with Display Names)">Eski İsimler (Ekranlı)</combo_item>
+					</combo_box>
+					<text name="land_management_namesystem_text_box">Arazi Yönetimi:</text>
+					<combo_box name="land_management_namesystem_combobox">
+						<combo_item name="Old Names">Eski İsimler</combo_item>
+						<combo_item name="Display Names (with Username)">Görünen Adlar (Kullanıcı Adıyla birlikte)</combo_item>
+						<combo_item name="Display Names only">Yalnızca Görünen Adlar</combo_item>
+						<combo_item name="Old Names (with Display Names)">Eski İsimler (Ekranlı)</combo_item>
+					</combo_box>
+					<text name="profile_namesystem_text_box">Profiller:</text>
+					<combo_box name="profile_namesystem_combobox">
+						<combo_item name="Old Names">Eski İsimler</combo_item>
+						<combo_item name="Display Names (with Username)">Görünen Adlar (Kullanıcı Adıyla birlikte)</combo_item>
+						<combo_item name="Display Names only">Yalnızca Görünen Adlar</combo_item>
+						<combo_item name="Old Names (with Display Names)">Eski İsimler (Ekranlı)</combo_item>
+					</combo_box>
+					<text name="radar_namesystem_text_box">Radar:</text>
+					<combo_box name="radar_namesystem_combobox">
+						<combo_item name="Old Names">Eski İsimler</combo_item>
+						<combo_item name="Display Names (with Username)">Görünen Adlar (Kullanıcı Adıyla birlikte)</combo_item>
+						<combo_item name="Display Names only">Yalnızca Görünen Adlar</combo_item>
+						<combo_item name="Old Names (with Display Names)">Eski İsimler (Ekranlı)</combo_item>
+					</combo_box>
+					<text name="speaker_namesystem_text_box">Konuşmacılar:</text>
+					<combo_box name="speaker_namesystem_combobox">
+						<combo_item name="Old Names">Eski İsimler</combo_item>
+						<combo_item name="Display Names (with Username)">Görünen Adlar (Kullanıcı Adıyla birlikte)</combo_item>
+						<combo_item name="Display Names only">Yalnızca Görünen Adlar</combo_item>
+						<combo_item name="Old Names (with Display Names)">Eski İsimler (Ekranlı)</combo_item>
+					</combo_box>
+					<check_box name="im_concise_butt" label="Anlık iletilerin adıyla aynı satırdaki düğmeler (Yeni anlık iletileri etkiler)" />
+					<check_box name="group_concise_butt" label="Grup sohbeti ad satırındaki düğmeler (Yeni grup sohbetlerini etkiler)" />
+					<check_box name="conf_concise_butt" label="Konferans başlık satırındaki düğmeler (Yeni konferansları etkiler)" />
+					<check_box name="legacy_log_launch" label="Günlük düğmesi harici metin düzenleyiciyi açar" />
+					<check_box name="only_comm" label="Ayrılmış arkadaş listesini açan iletişim kısayoluna izin verme" />
+					<check_box name="scroll_to_end_on_focus" label="Tekrar odaklanıldığında sohbetlerin sonuna otomatik kaydırma" />
+					<check_box name="italicize_actions" label="Eylem mesajlarını italik yap (/me)" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="Autoresponse" label="Otomatik yanıt">
+			<text name="Autoresponse Info">
+				Otomatik yanıt, izleyicinin size mesaj gönderen kişilere özel bir mesajla yanıt vermesini sağlar.
+Otomatik yanıtlarınızı geliştirmek için aşağıdaki joker karakterler mevcuttur: Kullanıcının eski adı için #n,
+Görünen ad için #d, konumunuza SLURL için #r, dakika cinsinden boşta kalma süreniz için #i.
+			</text>
+			<check_box name="AscentInstantMessageResponseRepeat" label="Otomatik yanıtı etkinleştirdiğiniz bir mesajı her aldığınızda otomatik yanıt verin" />
+			<check_box name="AutoresponseOnlyIfAway" label="Otomatik yanıtları yalnızca uzaktayken gönder" />
+			<tab_container name="Autoresponses">
+				<panel name="Basic" label="Temel">
+					<check_box name="AutoresponseAnyone" label="Etkinleştir" tool_tip="Aşağıdaki kutudaki mesajı sessize almadığınız kişilere gönderin." />
+					<check_box name="AutoresponseAnyoneFriendsOnly" label="sadece arkadaşlar için" tool_tip="Bu yanıtı tanımadığınız kişilere göndermekten kaçınır" />
+					<check_box name="AutoresponseAnyoneItem" label="Öğeyi gönder" />
+					<check_box name="AutoresponseAnyoneShow" label="Bunun gönderildiğini göster" />
+					<text_editor name="AutoresponseAnyoneMessage" />
+					<drop_target name="AutoresponseAnyoneItemID" tool_tip="Yukarıdaki yanıtla birlikte gönderilmesini sağlamak için buraya bir öğe bırakın." />
+				</panel>
+				<panel name="Nonfriends" label="Arkadaş olmayanlar">
+					<check_box name="AutoresponseNonFriends" label="Etkinleştir" tool_tip="Aşağıdaki kutudaki mesajı arkadaşınız olmayan kişilere gönderin" />
+					<check_box name="AutoresponseNonFriendsItem" label="Öğeyi gönder" />
+					<check_box name="AutoresponseNonFriendsShow" label="Bunun gönderildiğini göster" />
+					<text_editor name="AutoresponseNonFriendsMessage" />
+					<drop_target name="AutoresponseNonFriendsItemID" tool_tip="Yukarıdaki yanıtla birlikte gönderilmesini sağlamak için buraya bir öğe bırakın." />
+				</panel>
+				<panel name="Muted" label="Sessiz">
+					<check_box name="AutoresponseMuted" label="Etkinleştir" tool_tip="Sessize aldığınız kişilere aşağıdaki kutudaki mesajı gönderin." />
+					<check_box name="AutoresponseMutedItem" label="Öğeyi gönder" />
+					<check_box name="AutoresponseMutedShow" label="Bunun gönderildiğini göster" />
+					<text_editor name="AutoresponseMutedMessage" />
+					<drop_target name="AutoresponseMutedItemID" tool_tip="Yukarıdaki yanıtla birlikte gönderilmesini sağlamak için buraya bir öğe bırakın." />
+				</panel>
+				<panel name="Busy Mode" label="Meşgul Modu" tool_tip="Meşgul olduğunuzda mesaj atan kişilere aşağıdaki kutudaki mesajı gönderin.">
+					<check_box name="BusyModeResponseItem" label="Öğeyi gönder" />
+					<check_box name="BusyModeResponseShow" label="Bunun gönderildiğini göster" />
+					<text_editor name="BusyModeResponse" />
+					<drop_target name="BusyModeResponseItemID" tool_tip="Yukarıdaki yanıtla birlikte gönderilmesini sağlamak için buraya bir öğe bırakın." />
+				</panel>
+			</tab_container>
+		</panel>
+		<panel name="Spam" label="Spam">
+			<scroll_container name="advchat_spam_scroll">
+				<panel name="advchat_spam_inner">
+					<check_box name="enable_as" label="Antispam'i Etkinleştir" />
+					<button name="reset_antispam" label="Antispam kuyruklarını sıfırla" />
+					<check_box name="spammsg_checkbox" label="Mesaj türüne özel spam kuyruğu yok" />
+					<spinner name="antispamtime" label="Antispam süresi (saniye):" tool_tip="Daha düşük daha az hassastır" />
+					<spinner name="antispamamount" label="Antispam miktarı:" tool_tip="Daha yüksek daha az hassastır" />
+					<spinner name="antispamsoundmulti" label="Ses çalmaları için miktar çarpanı:" tool_tip="Daha yüksek daha az hassastır" />
+					<spinner name="antispamsoundpreloadmulti" label="Ses ön yüklemeleri için miktar çarpanı:" tool_tip="Daha yüksek daha az hassastır" />
+					<spinner name="antispamnewlines" label="İnstablock mesajına yazılacak yeni satır sayısı:" tool_tip="Daha yüksek daha az hassastır" />
+					<check_box name="Notify On Spam" label="Spam engellendiğinde bildirim gönder" tool_tip="Etkinleştirildiğinde, gerçek spam engellendiğinde sağ alt köşe sahte spam kaynağı haline gelebilir." />
+					<check_box name="antispam_checkbox" label="-Tüm- iletişim kutularını devre dışı bırak (oturum açma sırasında sıfırlanır)" />
+					<text name="Block All Dialogs From">Tüm İletişim Kutularını Engelle</text>
+					<check_box name="Alerts" label="Uyarılar" />
+					<check_box name="Friendship Offers" label="Arkadaşlık Teklifleri" />
+					<check_box name="Group Invites" label="Tüm Grup Davetleri" />
+					<check_box name="Group Fee Invites" label="Grup Ücreti Davetiyeleri" />
+					<check_box name="Item Offers" label="Ürün Teklifleri" />
+					<check_box name="Scripts" label="Scripts" />
+					<check_box name="Teleport Offers" label="Teleport Teklifleri" />
+					<check_box name="Group Notices" label="Grup Bildirimleri" />
+					<check_box name="Teleport Requests" label="Teleport İstekleri" />
+					<check_box name="LM Offers" label="LM Teklifleri" />
+					<text name="Except those from:">Aşağıdakiler hariç:</text>
+					<check_box name="My objects" label="Nesnelerim" />
+					<check_box name="My friends" label="Arkadaşlarım" />
+					<check_box name="Enable Gesture Sounds" label="Hareket Seslerini Etkinleştir" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="TextOptions" label="Metin Seçenekleri">
+			<scroll_container name="advchat_text_scroll">
+				<panel name="advchat_text_inner">
+					<check_box name="SpellDisplay" label="Yanlış yazılan kelimeleri kırmızıyla göster" />
+					<text name="EmSpell_txt1">Mevcut dil (sözlük):</text>
+					<combo_box name="SpellBase" />
+					<text name="EmSpell_txt3">İndirilen diller (sözlükler):</text>
+					<combo_box name="EmSpell_Avail" />
+					<button name="EmSpell_Add" label="Yükle" />
+					<button name="EmSpell_GetMore" label="Daha Fazlasını İndir..." tool_tip="Çevrimiçi olarak daha fazla sözlük edinin" />
+					<text name="EmSpell_txt2">Ek özel diller (sözlükler):</text>
+					<combo_box name="EmSpell_Installed" />
+					<button name="EmSpell_Remove" label="Kaldır" />
+					<button name="EmSpell_EditCustom" label="Özel sözlüğü düzenle" />
+					<text name="EmSpell_txt4">
+						Yazım denetimini kullanmak için yanlış yazılan bir kelimeyi sağ tıklayın
+(kırmızı veya başka türlü) ve yerine geçecek olanı seçin
+					</text>
+					<button name="autoreplace" label="Otomatik Değiştirme Ayarlari" />
+					<view_border name="CmdDivisor" />
+					<check_box name="KeywordsOn" label="Herhangi biri terimleri içeriyorsa mesajları vurgulayın" />
+					<text name="keyword_txt1">(virgülle ayrılmış)</text>
+					<line_editor name="KeywordsList" />
+					<text name="EmKeyw">İçinde bulunur:</text>
+					<check_box name="KeywordsInChat" label="Yerel Sohbet Göstericisi" />
+					<check_box name="KeywordsInIM" label="Anlık Mesaj Kayan Noktası" />
+					<check_box name="KeywordsChangeColor" label="Mesajı bu renkte vurgulayın:" />
+					<color_swatch name="KeywordsColor" tool_tip="Renk Seçiciyi açmak için tıklayın" />
+					<check_box name="KeywordsPlaySound" label="Şu sesli uyarıyı çal: (UUID)" />
+					<line_editor name="KeywordsSound" />
+				</panel>
+			</scroll_container>
+		</panel>
+	</tab_container>
+</panel>

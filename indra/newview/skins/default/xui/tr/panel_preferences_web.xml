@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="web" label="Web">
+	<radio_group name="use_external_browser">
+		<radio_item name="external" tool_tip="Yardım, web bağlantıları vb. için varsayılan sistem web tarayıcısını kullanın. Tam ekran çalıştırılıyorsa önerilmez.">Harici web tarayıcısını kullanın (Firefox, Safari, Internet Explorer)</radio_item>
+		<radio_item name="internal" tool_tip="Yardım, web bağlantıları vb. için yerleşik web tarayıcısını kullanın. Bu tarayıcı [SHORT_APP_NAME] içinde yeni bir pencere olarak açılır.">Sakin web tarayıcısını kullanın</radio_item>
+	</radio_group>
+	<text name="cache_size_label_l">Tarayıcı önbelleği:</text>
+	<button name="clear_cache" label="Şimdi Temizle" />
+	<text name="cookie_label">Cookies:</text>
+	<check_box name="cookies_enabled" label="Sitelerden gelen çerezleri kabul et" />
+	<text name="proxy_label">Web Proxy'si:</text>
+	<check_box name="web_proxy_enabled" label="Web Proxy'sini Etkinleştir" />
+	<text name="proxy_text_label">Adres:</text>
+	<line_editor name="web_proxy_editor" tool_tip="Kullanmak istediğiniz proxy'nin adı veya IP adresi" />
+	<spinner name="web_proxy_port" label="Bağlantı Noktası Numarası:" />
+</panel>

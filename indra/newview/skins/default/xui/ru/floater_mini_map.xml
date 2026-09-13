@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="minimap">
+	<panel name="mini_mapview" label="Мини-карта" tool_tip="(Дважды щелкните, чтобы открыть карту, щелкните, удерживая клавишу SHIFT, и перетащите для панорамирования)" />
+</floater>

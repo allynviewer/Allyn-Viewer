@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="gesture_preview">
+	<string name="step_anim" />
+	<string name="step_sound" />
+	<string name="step_chat" />
+	<string name="step_wait" />
+	<string name="stop_txt">Durdur</string>
+	<string name="preview_txt">Önizleme</string>
+	<string name="none_text">-- Yok --</string>
+	<text name="desc_label">Açıklama:</text>
+	<line_editor name="desc" />
+	<text name="trigger_label">Tetikleyici:</text>
+	<line_editor name="trigger_editor" />
+	<text name="replace_text" tool_tip="Tetikleyici kelime(ler)i bu kelimelerle değiştirin. Örneğin, 'merhaba' tetikleyicisini 'nasıl' ile değiştirin, 'Merhaba demek istedim' sohbetini 'Merhaba demek istedim'e dönüştürecek ve aynı zamanda hareketi oynatacaktır!">Şununla değiştirin:</text>
+	<line_editor name="replace_editor" tool_tip="Tetikleyici kelime(ler)i bu kelimelerle değiştirin. Örneğin, &quot;merhaba&quot; tetikleyicisinin &quot;naber&quot; ile değiştirilmesi, &quot;merhaba demek istedim&quot; sohbetini &quot;nasıl&quot; demek istedim&quot;e dönüştürecek ve aynı zamanda hareketi oynatacaktır" />
+	<text name="key_label">Kısayol Tuşu:</text>
+	<combo_box name="modifier_combo" label="Yok" />
+	<combo_box name="key_combo" label="Yok" />
+	<text name="library_label">Kütüphane:</text>
+	<text name="steps_label">Adımlar:</text>
+	<scroll_list name="library_list">
+		<row name="action_animation" />
+		<row name="action_sound" />
+		<row name="action_chat" />
+		<row name="action_wait" />
+	</scroll_list>
+	<button name="add_btn" label="Ekle &gt;&gt;" />
+	<button name="up_btn" label="Yukarı Taşı" />
+	<button name="down_btn" label="Aşağı Taşı" />
+	<button name="delete_btn" label="Kaldır" />
+	<scroll_list name="step_list" />
+	<text name="help_label">
+		Tüm adımlar aynı anda gerçekleşir, 
+bekleme adımları eklemediğiniz sürece.
+	</text>
+	<text name="options_text" />
+	<combo_box name="animation_list" />
+	<combo_box name="sound_list" />
+	<line_editor name="chat_editor" />
+	<radio_group name="animation_trigger_type">
+		<radio_item name="start">Başlat</radio_item>
+		<radio_item name="stop">Durdur</radio_item>
+	</radio_group>
+	<check_box name="wait_anim_check" label="animasyonlar bitene kadar" />
+	<check_box name="wait_time_check" label="saniye cinsinden zaman" />
+	<line_editor name="wait_time_editor" />
+	<check_box name="active_check" label="Aktif" tool_tip="Aktif hareketler, tetikleyici ifadelerle sohbet edilerek veya kısayol tuşlarına basılarak tetiklenebilir.  Anahtar bir bağlayıcı çatışma olduğunda jestler genellikle etkisiz hale gelir." />
+	<flyout_button name="preview_btn" label="Önizleme">
+		<flyout_button_item name="Local" label="Local Preview" />
+	</flyout_button>
+	<button name="save_btn" label="Kaydet" />
+</floater>

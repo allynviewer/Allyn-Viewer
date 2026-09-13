@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="groups" title="グループ">
+	<text name="groupdesc">a グループ:を選択</text>
+	<scroll_list name="group list">
+		<column name="name" />
+	</scroll_list>
+	<button name="OK" label="OK" />
+	<button name="Cancel" label="キャンセル" />
+</floater>

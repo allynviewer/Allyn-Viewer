@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="panel_experiences_search" label="Поиск">
+	<string name="not_found">'[TEXT]' не найден</string>
+	<string name="no_results">Нет результатов</string>
+	<string name="searching">Идет поиск...</string>
+	<string name="loading">Загрузка...</string>
+	<string name="maturity_icon_general">"map_event.tga"</string>
+	<string name="maturity_icon_moderate">"map_event_mature.tga"</string>
+	<string name="maturity_icon_adult">"map_event_adult.tga"</string>
+	<panel name="search_panel">
+		<text name="search_text">Введите часть имени:</text>
+		<line_editor name="edit" />
+		<button name="find" label="Идти" />
+		<text name="content_text">Максимальный рейтинг контента:</text>
+		<combo_box name="maturity" label="зрелый">
+			<combo_box.item name="Adult" label="Взрослый" />
+			<combo_box.item name="Mature" label="зрелый" />
+			<combo_box.item name="PG" label="PG" />
+		</combo_box>
+		<scroll_list name="search_results">
+			<columns name="maturity" />
+			<columns name="experience_name" label="Имя" />
+			<columns name="owner" label="Владелец" />
+		</scroll_list>
+		<button name="ok_btn" label="ОК" />
+		<button name="cancel_btn" label="Отмена" />
+		<button name="profile_btn" label="Посмотреть профиль" />
+		<button name="left_btn" />
+		<button name="right_btn" />
+	</panel>
+</panel>

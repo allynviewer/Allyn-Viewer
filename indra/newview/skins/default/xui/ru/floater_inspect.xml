@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="inspect" title="Осмотр объектов">
+	<scroll_list name="object_list" tool_tip="Выберите объект в списке, чтобы подсветить его в мире.">
+		<column name="object_name" label="Объект" />
+		<column name="owner_name" label="Владелец" />
+		<column name="last_owner_name" label="Последний владелец" />
+		<column name="creator_name" label="Создатель" />
+		<column name="face_num" label="Грани" />
+		<column name="vertex_num" label="Вершины" />
+		<column name="script_num" label="Скрипты" />
+		<column name="inv_num" label="Инв." />
+		<column name="creation_date" label="Дата создания" />
+	</scroll_list>
+	<button name="button owner" label="Профиль владельца..." tool_tip="Открыть профиль владельца выделенного объекта" />
+	<button name="button last owner" label="Профиль посл. владельца..." tool_tip="Открыть профиль последнего владельца выделенного объекта" />
+	<button name="button creator" label="Профиль создателя..." tool_tip="Открыть профиль создателя выделенного объекта" />
+</floater>

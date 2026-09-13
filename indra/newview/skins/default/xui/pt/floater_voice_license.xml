@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="modal container">
+	<button name="Continue" label="Continuar" label_selected="Continuar"/>
+	<button name="Cancel" label="Cancelar" label_selected="Cancelar"/>
+	<check_box name="agree_chk" label="Concordo com os termos da Política de Uso Aceitável da Vivox"/>
+	<text name="license_heading">Leia atentamente a licença a seguir. Para usar a voz, você deve aceitar o contrato de licença.</text>
+	<text_editor name="license_text">LICENSE_TEXT</text_editor>
+	<string name="real_url">https://www.vivox.com/policies/acceptable_use.html</string>
+	<string name="fallback_html">https://raw.githubusercontent.com/allynviewer/allynviewer/main/docs/vivox_aup.html</string>
+</floater>

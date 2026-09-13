@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Covenant" title="Завет">
+	<text name="covenant_timestamp_text" />
+	<text name="region_name_lbl">Область:</text>
+	<text name="region_name_text">(неизвестный)</text>
+	<text name="estate_name_lbl">Имущество:</text>
+	<text name="estate_name_text">(неизвестный)</text>
+	<text name="estate_owner_lbl">Владелец эстейта:</text>
+	<text name="estate_owner_text">(неизвестный)</text>
+	<text name="resellable_clause">Купленная земля в этом регионе может быть перепродана, а может и не быть.</text>
+	<text name="changeable_clause">Купленная земля в этом регионе может быть объединена или разделена, а может и не быть объединена.</text>
+	<text_editor name="covenant_editor" />
+	<string name="can_resell">Купленная земля в этом регионе может быть перепродана.</string>
+	<string name="can_not_resell">Купленная земля в этом регионе не подлежит перепродаже.</string>
+	<string name="can_change">Купленные земли в этом регионе могут быть объединены или разделены.</string>
+	<string name="can_not_change">Купленная земля в этом регионе не может быть объединена или разделена.</string>
+</panel>

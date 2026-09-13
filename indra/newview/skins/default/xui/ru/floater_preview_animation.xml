@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview_anim">
+	<line_editor name="desc" />
+	<text name="desc txt">Описание:</text>
+	<button name="Anim play btn" label="Играть в мире" tool_tip="Воспроизведите эту анимацию, чтобы другие могли ее увидеть." />
+	<button name="Anim audition btn" label="Играйте локально" tool_tip="Воспроизведите эту анимацию так, чтобы ее могли видеть только вы." />
+</floater>

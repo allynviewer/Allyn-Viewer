@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="chat" label="テキストチャット">
+	<scroll_container name="chat_scroll">
+		<panel name="chat_scroll_inner">
+			<text name="text_box">チャットの文字サイズ</text>
+			<icon name="section_font_rule" />
+			<radio_group name="chat_font_size">
+				<radio_item name="radio">小</radio_item>
+				<radio_item name="radio2">中</radio_item>
+				<radio_item name="radio3">大</radio_item>
+			</radio_group>
+			<text name="text_box2">チャットの色</text>
+			<icon name="section_color_rule" />
+			<color_swatch name="user" label="自分" />
+			<color_swatch name="agent" label="他人" />
+			<color_swatch name="im" label="IM" />
+			<color_swatch name="system" label="システム" />
+			<color_swatch name="script_error" label="エラー" />
+			<color_swatch name="objects" label="オブジェクト" />
+			<color_swatch name="owner" label="所有者" />
+			<color_swatch name="background" label="吹き出し" />
+			<color_swatch name="links" label="URL" />
+			<text name="text_box3">チャットコンソール</text>
+			<icon name="section_console_rule" />
+			<spinner name="fade_chat_time" label="チャットを消すまでの時間" />
+			<text name="text_box4">（秒）</text>
+			<spinner name="max_chat_count" />
+			<text name="text_box5">（行数）</text>
+			<spinner name="chat_bottom_offset" label="下端の余白" tool_tip="チャットコンソールとビューア下端の間のピクセル数です。" />
+			<slider name="console_opacity" label="不透明度" />
+			<check_box name="chat_full_width_check" label="画面の全幅を使う（再起動が必要）" />
+			<text name="text_box6">チャットのオプション</text>
+			<icon name="section_opt_rule" />
+			<check_box name="close_chat_on_return_check" label="Enter でチャットバーを閉じる" />
+			<check_box name="arrow_keys_move_avatar_check" label="チャット中も矢印キーでアバターを移動する" />
+			<check_box name="letter_keys_start_local_chat" label="文字キーでローカルチャットの入力を始める" />
+			<check_box name="show_timestamps_check" label="ローカルチャットに時刻を表示する" />
+			<check_box name="script_errors_as_chat" label="スクリプトのエラーと警告を通常のチャットとして表示する" />
+			<check_box name="play_typing_animation" label="チャット中に入力アニメーションを再生する" />
+			<text name="text_box7">吹き出しチャット</text>
+			<icon name="section_bubble_rule" />
+			<check_box name="bubble_text_chat" label="吹き出しチャットを表示する" />
+			<slider name="bubble_chat_opacity" label="不透明度" />
+		</panel>
+	</scroll_container>
+</panel>

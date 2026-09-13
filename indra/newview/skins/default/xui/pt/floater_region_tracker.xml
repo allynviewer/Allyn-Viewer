@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="region_tracker" title="Region tracker">
+	<button name="refresh"/>
+	<button name="remove"/>
+	<button name="open_map"/>
+	<scroll_list name="region_list" tool_tip="Clique duas vezes em uma entrada para abri-la no mapa-múndi.">
+		<scroll_list.columns name="region_label" label="Rótulo"/>
+		<scroll_list.columns name="region_name" label="Região"/>
+		<scroll_list.columns name="region_agent_count" label="Contagem"/>
+	</scroll_list>
+</floater>

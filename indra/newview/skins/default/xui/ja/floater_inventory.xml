@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Inventory" title="インベントリ">
+	<filter_editor name="inventory search editor" label="検索キーワードを入力" />
+	<button name="collapse_btn" tool_tip="すべて折りたたむ" />
+	<button name="Inventory.ExpandAll" tool_tip="すべて展開" />
+	<button name="Inventory.ResetAll" tool_tip="インベントリをリセット: フィルターを解除し、フォルダをすべて折りたたみます。" />
+	<text name="group_titles_textbox">種類:</text>
+	<string name="filter_type_all">すべての種類</string>
+	<string name="filter_type_animation">アニメーション</string>
+	<string name="filter_type_callingcard">コーリングカード</string>
+	<string name="filter_type_wearable">衣類／体のパーツ</string>
+	<string name="filter_type_gesture">ジェスチャー</string>
+	<string name="filter_type_landmark">ランドマーク</string>
+	<string name="filter_type_notecard">ノートカード</string>
+	<string name="filter_type_object">オブジェクト</string>
+	<string name="filter_type_script">スクリプト</string>
+	<string name="filter_type_sound">サウンド</string>
+	<string name="filter_type_texture">テクスチャ</string>
+	<string name="filter_type_snapshot">スナップショット</string>
+	<string name="filter_type_custom">カスタム...</string>
+	<combo_box name="Quick Filter" tool_tip="種類で絞り込む">
+		<combo_item name="filter_type_all">すべての種類</combo_item>
+		<combo_item name="filter_type_animation">アニメーション</combo_item>
+		<combo_item name="filter_type_callingcard">コーリングカード</combo_item>
+		<combo_item name="filter_type_wearable">衣類／体のパーツ</combo_item>
+		<combo_item name="filter_type_gesture">ジェスチャー</combo_item>
+		<combo_item name="filter_type_landmark">ランドマーク</combo_item>
+		<combo_item name="filter_type_notecard">ノートカード</combo_item>
+		<combo_item name="filter_type_object">オブジェクト</combo_item>
+		<combo_item name="filter_type_script">スクリプト</combo_item>
+		<combo_item name="filter_type_sound">サウンド</combo_item>
+		<combo_item name="filter_type_texture">テクスチャ</combo_item>
+		<combo_item name="filter_type_snapshot">スナップショット</combo_item>
+		<combo_item name="filter_type_custom">カスタム...</combo_item>
+	</combo_box>
+	<tab_container name="inventory filter tabs">
+		<inventory_panel name="All Items" label="すべてのアイテム" />
+		<inventory_panel name="Recent Items" label="最近のアイテム" />
+		<inventory_panel name="Worn Items" label="装着中" />
+	</tab_container>
+	<menu_bar name="Inventory Menu">
+		<menu name="File" label="ファイル">
+			<menu_item_call name="Open" label="開く" />
+			<menu_item_separator name="separator" />
+			<menu_item_call name="New Window" label="新しいウィンドウ" />
+			<menu_item_separator name="separator2" />
+			<menu_item_call name="Show Filters" label="フィルターを表示" />
+			<menu_item_call name="Reset Current" label="フィルターをリセット" />
+			<menu_item_call name="Close All Folders" label="すべてのフォルダを閉じる" />
+			<menu_item_separator name="separator3" />
+			<menu_item_call name="Empty Trash" label="ゴミ箱を空にする" />
+			<menu_item_call name="Refresh Inventory" label="インベントリを更新" />
+			<menu_item_call name="Update Outfit" label="衣装を更新" />
+		</menu>
+		<menu name="Create" label="作成">
+			<menu_item_call name="New Folder" label="新しいフォルダ" />
+			<menu_item_call name="New Script" label="新しいスクリプト" />
+			<menu_item_call name="New Note" label="新しいノートカード" />
+			<menu_item_call name="New Gesture" label="新しいジェスチャー" />
+			<menu name="New Clothes" label="新しい衣類">
+				<menu_item_call name="New Shirt" label="新しいシャツ" />
+				<menu_item_call name="New Pants" label="新しいパンツ" />
+				<menu_item_call name="New Shoes" label="新しい靴" />
+				<menu_item_call name="New Socks" label="新しい靴下" />
+				<menu_item_call name="New Jacket" label="新しいジャケット" />
+				<menu_item_call name="New Skirt" label="新しいスカート" />
+				<menu_item_call name="New Gloves" label="新しい手袋" />
+				<menu_item_call name="New Undershirt" label="新しい下着（上）" />
+				<menu_item_call name="New Underpants" label="新しい下着（下）" />
+				<menu_item_call name="New Tattoo" label="新しいタトゥー" />
+				<menu_item_call name="New Alpha" label="新しいアルファ" />
+				<menu_item_call name="New Universal" label="新しいユニバーサル" />
+				<menu_item_call name="New Physics" label="新しい物理" />
+			</menu>
+			<menu name="New Body Parts" label="新しい体のパーツ">
+				<menu_item_call name="New Shape" label="新しいシェイプ" />
+				<menu_item_call name="New Skin" label="新しいスキン" />
+				<menu_item_call name="New Hair" label="新しい髪" />
+				<menu_item_call name="New Eyes" label="新しい目" />
+			</menu>
+			<menu_item_call name="New Outfit" label="新しい衣装" />
+		</menu>
+		<menu name="Sort" label="並べ替え">
+			<menu_item_check name="By Name" label="名前順" />
+			<menu_item_check name="By Date" label="日付順" />
+			<menu_item_separator name="separator" />
+			<menu_item_check name="Folders Always By Name" label="フォルダは常に名前順" />
+			<menu_item_check name="System Folders To Top" label="システムフォルダを先頭に" />
+		</menu>
+		<menu name="Search" label="検索">
+			<menu_item_check name="Item name" label="アイテム名" />
+			<menu_item_check name="Item description" label="説明" />
+			<menu_item_check name="Item creatorr" label="作成者" />
+		</menu>
+	</menu_bar>
+</floater>

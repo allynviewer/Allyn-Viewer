@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="modal container" title="新しい衣装を作成">
+	<button name="Save" label="保存" label_selected="保存"/>
+	<button name="Cancel" label="キャンセル" label_selected="キャンセル"/>
+	<check_box name="checkbox_shape" label="シェイプ"/>
+	<check_box name="checkbox_skin" label="スキン"/>
+	<check_box name="checkbox_hair" label="髪"/>
+	<check_box name="checkbox_eyes" label="目"/>
+	<text name="Options:">オプション:</text>
+	<check_box name="checkbox_use_outfits" label="Viewer 2の衣装フォルダを使用"/>
+	<check_box name="checkbox_use_links" label="コピー不可・変更不可・複数装着のアイテムにリンクを使用"/>
+	<check_box name="checkbox_legacy_copy_changes" label="アタッチメントへの変更をコピー" tool_tip="装着時または前回ログイン以降のアタッチメント変更を、衣装作成直前に外すことで保持します。通常はオンにしてください。悪い変更を取り消す衣装を作る場合はオフにしてください。"/>
+	<check_box name="checkbox_shirt" label="シャツ"/>
+	<check_box name="checkbox_pants" label="パンツ"/>
+	<check_box name="checkbox_shoes" label="靴"/>
+	<check_box name="checkbox_socks" label="靴下"/>
+	<check_box name="checkbox_jacket" label="ジャケット"/>
+	<check_box name="checkbox_gloves" label="手袋"/>
+	<check_box name="checkbox_undershirt" label="下着（上）"/>
+	<check_box name="checkbox_underpants" label="下着（下）"/>
+	<check_box name="checkbox_skirt" label="スカート"/>
+	<check_box name="checkbox_tattoo" label="タトゥー"/>
+	<check_box name="checkbox_alpha" label="アルファ"/>
+	<check_box name="checkbox_physics" label="物理"/>
+	<check_box name="checkbox_universal" label="ユニバーサル"/>
+	<check_box name="checkbox_Chest" label="胸"/>
+	<check_box name="checkbox_Skull" label="頭蓋骨"/>
+	<check_box name="checkbox_Left Shoulder" label="左肩"/>
+	<check_box name="checkbox_Right Shoulder" label="右肩"/>
+	<check_box name="checkbox_Left Hand" label="左手"/>
+	<check_box name="checkbox_Right Hand" label="右手"/>
+	<check_box name="checkbox_Left Foot" label="左足"/>
+	<check_box name="checkbox_Right Foot" label="右足"/>
+	<check_box name="checkbox_Spine" label="背骨"/>
+	<check_box name="checkbox_Pelvis" label="骨盤"/>
+	<check_box name="checkbox_Mouth" label="口"/>
+	<check_box name="checkbox_Chin" label="あご"/>
+	<check_box name="checkbox_Left Ear" label="左耳"/>
+	<check_box name="checkbox_Right Ear" label="右耳"/>
+	<check_box name="checkbox_Left Eyeball" label="左眼球"/>
+	<check_box name="checkbox_Right Eyeball" label="右眼球"/>
+	<check_box name="checkbox_Nose" label="鼻"/>
+	<check_box name="checkbox_R Upper Arm" label="右上腕"/>
+	<check_box name="checkbox_R Forearm" label="右前腕"/>
+	<check_box name="checkbox_L Upper Arm" label="左上腕"/>
+	<check_box name="checkbox_L Forearm" label="左前腕"/>
+	<check_box name="checkbox_Right Hip" label="右腰"/>
+	<check_box name="checkbox_R Upper Leg" label="右太もも"/>
+	<check_box name="checkbox_R Lower Leg" label="右すね"/>
+	<check_box name="checkbox_Left Hip" label="左腰"/>
+	<check_box name="checkbox_L Upper Leg" label="左太もも"/>
+	<check_box name="checkbox_L Lower Leg" label="左すね"/>
+	<check_box name="checkbox_Stomach" label="腹"/>
+	<check_box name="checkbox_Left Pec" label="左胸"/>
+	<check_box name="checkbox_Right Pec" label="右胸"/>
+	<check_box name="checkbox_Neck" label="首"/>
+	<check_box name="checkbox_Avatar Center" label="ルート"/>
+	<check_box name="checkbox_Center 2" label="中央2"/>
+	<check_box name="checkbox_Top Right" label="右上"/>
+	<check_box name="checkbox_Top" label="上"/>
+	<check_box name="checkbox_Top Left" label="左上"/>
+	<check_box name="checkbox_Center" label="中央"/>
+	<check_box name="checkbox_Bottom Left" label="左下"/>
+	<check_box name="checkbox_Bottom" label="下"/>
+	<check_box name="checkbox_Bottom Right" label="右下"/>
+	<text name="Outfits are folders that contain clothing and body parts. Drag an outfit folder onto your avatar to put it on.   &quot;Make New Outfit&quot; makes a new folder and saves copies of the items you are now wearing into it.">
+		衣装は、衣類と体のパーツが入ったフォルダです。
+衣装フォルダをアバターにドラッグすると装着できます。
+
+「新しい衣装を作成」は新しいフォルダを作り、今着ているアイテムのコピーを保存します。
+	</text>
+	<text name="Folder name:">フォルダ名:</text>
+	<text name="Items to include in outfit:">衣装に含めるアイテム:</text>
+	<button name="Check All" label="すべて選択"/>
+	<button name="Uncheck All" label="すべて解除"/>
+	<text name="Body Parts:">体のパーツ:</text>
+	<text name="Clothes:">衣類:</text>
+	<text name="Attachments:">アタッチメント:</text>
+	<line_editor name="name ed">新しい衣装</line_editor>
+</floater>

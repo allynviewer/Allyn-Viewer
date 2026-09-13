@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Environment Editor Floater" title="環境 Editor">
+	<text name="EnvTimeText">Time の 日</text>
+	<text name="EnvTimeText2">12:00 PM</text>
+	<icon name="EnvDayCycle" />
+	<slider name="EnvTimeSlider" />
+	<text name="EnvCloudText">雲 Cover</text>
+	<slider name="EnvCloudSlider" />
+	<text name="EnvWaterColorText">水 色</text>
+	<color_swatch name="EnvWaterColor" tool_tip="へ 開く 色 Pickerをクリック" />
+	<text name="EnvWaterFogText">水 霧</text>
+	<slider name="EnvWaterFogSlider" />
+	<button name="EnvUseEstateTimeButton" label="使用 エステート Time" />
+	<button name="EnvAdvancedSkyButton" label="高度な空" />
+	<button name="EnvAdvancedWaterButton" label="高度な水" />
+	<button name="EnvSettingsHelpButton" label="?" />
+</floater>

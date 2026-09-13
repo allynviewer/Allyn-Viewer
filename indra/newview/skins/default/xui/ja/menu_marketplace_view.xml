@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="menu_marketplace_sort">
+	<menu_item_check name="sort_by_name" label="名前で並べ替え" />
+	<menu_item_check name="sort_by_recent" label="新しい順に並べ替え" />
+	<menu_item_check name="sort_by_stock_amount" label="在庫数で並べ替え（少ない順）" />
+	<menu_item_check name="show_only_listing_folders" label="掲載フォルダのみ表示" />
+</menu>

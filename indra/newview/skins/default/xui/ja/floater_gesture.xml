@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="gestures" title="アクティブなジェスチャー">
+	<text name="help_label">ジェスチャーをダブルクリックすると、アニメーションとサウンドが再生されます。</text>
+	<scroll_list name="gesture_list">
+		<column name="trigger" label="トリガー" />
+		<column name="shortcut" label="キー" />
+		<column name="key" />
+		<column name="name" label="名前" />
+	</scroll_list>
+	<button name="new_gesture_btn" label="新規" />
+	<button name="edit_btn" label="編集" />
+	<button name="play_btn" label="再生" />
+	<button name="stop_btn" label="停止" />
+</floater>

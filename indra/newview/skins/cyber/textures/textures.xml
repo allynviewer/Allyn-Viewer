@@ -1,0 +1,83 @@
+<textures version="101">
+  <texture name="SliderThumb_Off" file_name="icn_slide-thumb_dark.png"/>
+  <texture name="SliderTrack_Horiz" file_name="icn_slide-groove_dark.png" scale.left="4" scale.top="6" scale.right="28" scale.bottom="2"/>
+  <texture name="SliderTrack_Horiz_Highlight" file_name="icn_slide-highlight.png" scale.left="4" scale.top="6" scale.right="28" scale.bottom="2"/>
+  <texture name="startup_logo.j2c" file_name="startup_logo.png" preload="true"/>
+  <texture name="allyn_login_logo.png" file_name="allyn_login_logo.png" preload="true"/>
+
+  <texture name="button_enabled_32x128.tga" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16"/>
+  <texture name="button_enabled_selected_32x128.tga" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16"/>
+  <texture name="button_disabled_32x128.tga" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16"/>
+  <texture name="button_primary_32x128.png" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16"/>
+  <texture name="button_primary_pressed_32x128.png" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16"/>
+
+  <texture name="toolbar_btn_enabled.tga" file_name="button_primary_32x128.png" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16"/>
+  <texture name="toolbar_btn_selected.tga" file_name="button_primary_pressed_32x128.png" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16"/>
+  <texture name="toolbar_btn_disabled.tga" file_name="button_disabled_32x128.tga" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16"/>
+  <texture name="btn_chatbar.tga" file_name="button_primary_32x128.png" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16"/>
+  <texture name="btn_chatbar_selected.tga" file_name="button_primary_pressed_32x128.png" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16"/>
+  <texture name="flyout_btn_left.tga" file_name="button_primary_32x128.png" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16"/>
+  <texture name="flyout_btn_left_selected.tga" file_name="button_primary_pressed_32x128.png" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16"/>
+  <texture name="flyout_btn_left_disabled.tga" file_name="button_disabled_32x128.tga" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16"/>
+  <texture name="flyout_btn_right.tga" file_name="button_primary_32x128.png" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16"/>
+  <texture name="flyout_btn_right_selected.tga" file_name="button_primary_pressed_32x128.png" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16"/>
+  <texture name="flyout_btn_right_disabled.tga" file_name="button_disabled_32x128.tga" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16"/>
+
+  <texture name="Rounded_Square" file_name="rounded_square.tga" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16"/>
+  <texture name="sm_rounded_corners_simple.tga" scale.left="6" scale.top="6" scale.bottom="6" scale.right="6"/>
+  <texture name="icn_textfield_enabled.tga" scale.left="6" scale.top="6" scale.bottom="6" scale.right="6"/>
+  <texture name="icn_rounded-text-field.tga" file_name="icn_textfield_enabled.tga" scale.left="6" scale.top="6" scale.bottom="6" scale.right="6"/>
+  <texture name="icn_scrollbar_thumb.tga" scale.left="4" scale.top="8" scale.right="12" scale.bottom="8"/>
+
+  <texture name="tab_left.tga" file_name="tab_left.png" scale.left="16" scale.top="14" scale.right="176" scale.bottom="14"/>
+  <texture name="tab_left_hover.tga" file_name="tab_left_hover.png" scale.left="16" scale.top="14" scale.right="176" scale.bottom="14"/>
+  <texture name="tab_left_selected.tga" file_name="tab_left_selected.png" scale.left="16" scale.top="14" scale.right="176" scale.bottom="14"/>
+  <texture name="tab_left_selected_hover.tga" file_name="tab_left_selected_hover.png" scale.left="16" scale.top="14" scale.right="176" scale.bottom="14"/>
+  <texture name="tab_bottom_blue.tga" file_name="tab_bottom_blue.png" scale.left="12" scale.top="8" scale.right="116" scale.bottom="8"/>
+  <texture name="tab_bottom_selected_blue.tga" file_name="tab_bottom_selected_blue.png" scale.left="12" scale.top="8" scale.right="116" scale.bottom="8"/>
+  <texture name="tab_top_blue.tga" file_name="tab_top_blue.png" scale.left="12" scale.top="8" scale.right="116" scale.bottom="8"/>
+  <texture name="tab_top_selected_blue.tga" file_name="tab_top_selected_blue.png" scale.left="12" scale.top="8" scale.right="116" scale.bottom="8"/>
+  <texture name="pref_section_rule.tga" file_name="pref_section_rule.png" scale.left="8" scale.top="1" scale.right="248" scale.bottom="1"/>
+
+  <texture name="UIImgBtnCloseActiveUUID" file_name="closebox.png"/>
+  <texture name="UIImgBtnCloseInactiveUUID" file_name="close_inactive_blue.png"/>
+  <texture name="UIImgBtnClosePressedUUID" file_name="close_in_blue.png"/>
+  <texture name="UIImgBtnMinimizeActiveUUID" file_name="minimize.png"/>
+  <texture name="UIImgBtnMinimizeInactiveUUID" file_name="minimize_inactive.png"/>
+  <texture name="UIImgBtnMinimizePressedUUID" file_name="minimize_pressed.png"/>
+  <texture name="UIImgBtnRestoreActiveUUID" file_name="restore.png"/>
+  <texture name="UIImgBtnRestoreInactiveUUID" file_name="restore_inactive.png"/>
+  <texture name="UIImgBtnRestorePressedUUID" file_name="restore_pressed.png"/>
+  <texture name="UIImgBtnTearOffActiveUUID" file_name="tearoffbox.png"/>
+  <texture name="UIImgBtnTearOffInactiveUUID" file_name="tearoffbox.png"/>
+  <texture name="UIImgBtnTearOffPressedUUID" file_name="tearoff_pressed.png"/>
+
+  <texture name="UIImgCheckboxActiveSelectedUUID" file_name="checkbox_enabled_true.png"/>
+  <texture name="UIImgCheckboxActiveUUID" file_name="checkbox_enabled_false.png"/>
+  <texture name="UIImgCheckboxInactiveSelectedUUID" file_name="checkbox_disabled_true.png"/>
+  <texture name="UIImgCheckboxInactiveUUID" file_name="checkbox_disabled_false.png"/>
+  <texture name="UIImgRadioActiveSelectedUUID" file_name="radio_active_true.png"/>
+  <texture name="UIImgRadioActiveUUID" file_name="radio_active_false.png"/>
+  <texture name="UIImgRadioInactiveSelectedUUID" file_name="radio_inactive_true.png"/>
+  <texture name="UIImgRadioInactiveUUID" file_name="radio_inactive_false.png"/>
+
+  <texture name="pref_nav_general.tga" file_name="pref_nav_general.png"/>
+  <texture name="pref_nav_input.tga" file_name="pref_nav_input.png"/>
+  <texture name="pref_nav_network.tga" file_name="pref_nav_network.png"/>
+  <texture name="pref_nav_web.tga" file_name="pref_nav_web.png"/>
+  <texture name="pref_nav_graphics.tga" file_name="pref_nav_graphics.png"/>
+  <texture name="pref_nav_audio.tga" file_name="pref_nav_audio.png"/>
+  <texture name="pref_nav_chat.tga" file_name="pref_nav_chat.png"/>
+  <texture name="pref_nav_voice.tga" file_name="pref_nav_voice.png"/>
+  <texture name="pref_nav_im.tga" file_name="pref_nav_im.png"/>
+  <texture name="pref_nav_notify.tga" file_name="pref_nav_notify.png"/>
+  <texture name="pref_nav_skins.tga" file_name="pref_nav_skins.png"/>
+  <texture name="pref_nav_grids.tga" file_name="pref_nav_grids.png"/>
+  <texture name="pref_nav_advchat.tga" file_name="pref_nav_advchat.png"/>
+  <texture name="pref_nav_system.tga" file_name="pref_nav_system.png"/>
+  <texture name="pref_nav_vanity.tga" file_name="pref_nav_vanity.png"/>
+  <texture name="pref_nav_translate.tga" file_name="pref_nav_translate.png"/>
+  <texture name="pref_nav_about.tga" file_name="pref_nav_about.png"/>
+  <texture name="pref_nav_help.tga" file_name="pref_nav_help.png"/>
+  <texture name="pref_title_gear.png" file_name="pref_title_gear.png"/>
+</textures>

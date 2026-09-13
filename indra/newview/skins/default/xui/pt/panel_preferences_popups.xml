@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Pop-ups" name="popups" title="Pop-ups">
+	<check_box label="Aceitar automaticamente ofertas de itens" name="accept_new_inventory"/>
+	<check_box label="Visualizar itens visualizáveis após aceitar" name="show_new_inventory"/>
+	<check_box label="Mostrar objetos recebidos recentemente no inventário" name="show_in_inventory"/>
+	<text name="show_label">Sempre mostrar:</text>
+	<scroll_list multi_select="true" name="enabled_popups"/>
+	<button label="Ativar todas" name="reset_dialogs_btn" tool_tip="Ativar todas as pop-ups opcionais e avisos de primeiro uso."/>
+	<button label="" image_overlay="arrow_up.tga" name="enable_popup"/>
+	<button label="Desativar avisos de primeiro uso..." name="skip_frst_btn" tool_tip="Desativar todas as notificações de primeiro uso."/>
+	<button label="" image_overlay="arrow_down.tga" name="disable_popup"/>
+	<button label="Desativar todas" name="skip_dialogs_btn" tool_tip="Desativar todas as pop-ups opcionais e avisos de primeiro uso."/>
+	<text name="dont_show_label">Nunca mostrar:</text>
+	<scroll_list multi_select="true" name="disabled_popups"/>
+</panel>

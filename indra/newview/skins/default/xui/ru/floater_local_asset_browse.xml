@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="local_bitmap_browser_floater" title="Локальный браузер растровых изображений">
+	<button name="add_btn" label="Добавить" />
+	<button name="del_btn" label="Удалить" />
+	<button name="upload_btn" label="Загрузить" />
+	<button name="more_btn" label="Более" />
+	<button name="less_btn" label="Меньше" />
+	<scroll_list name="bitmap_list">
+		<column name="bitmap_name" label="Имя" />
+		<column name="bitmap_uuid" label="UUID" />
+	</scroll_list>
+	<line_editor name="path_text" />
+	<text name="path_caption_text">Локальный путь:</text>
+	<line_editor name="uuid_text" />
+	<text name="uuid_caption_text">Локальный UUID:</text>
+	<texture_picker name="texture_view" label="Текстура" />
+	<check_box name="keep_updating_checkbox" label="Продолжайте обновлять" tool_tip="Включите или отключите периодические проверки, было ли обновлено исходное растровое изображение на вашем жестком диске." />
+	<combo_box name="type_combobox">
+		<combo_item name="type_texture">Текстура</combo_item>
+		<combo_item name="type_sculptie">Sculptmap</combo_item>
+		<combo_item name="type_layer">Одежда</combo_item>
+	</combo_box>
+	<text name="time_caption_text">Время:</text>
+	<text name="time_text">(дата здесь)</text>
+	<text name="link_caption_text">Связь:</text>
+	<text name="link_text">(статус ссылки)</text>
+	<text name="name_caption_text">Имя:</text>
+	<line_editor name="name_text" />
+</floater>

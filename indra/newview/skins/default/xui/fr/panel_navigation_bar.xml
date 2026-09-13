@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="navigation_bar">
+	<button name="back_btn" tool_tip="Revenir à l'emplacement précédent"/>
+	<button name="forward_btn" tool_tip="Aller à l'emplacement suivant"/>
+	<button name="home_btn" tool_tip="Me téléporter jusqu'à mon domicile"/>
+	<button name="About_Land" label="Terrain" tool_tip="Affiche les informations du terrain" width="60"/>
+	<button name="PersonalLighting" label="Éclairage" tool_tip="Ouvre la fenêtre d'éclairage personnel" width="90"/>
+	<combo_box name="location_combo" label="Emplacement"
+	     tool_tip="Emplacement actuel. Saisissez une région ou une SLURL et appuyez sur Entrée pour vous téléporter."/>
+	<button name="add_landmark_btn" tool_tip="Créer un repère ici"/>
+	<line_editor name="search_editor" label="Rechercher" tool_tip="Rechercher"/>
+	<button name="search_btn" tool_tip="Rechercher"/>
+</panel>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="teleporthistory" title="テレポート履歴">
+	<scroll_list name="places_list">
+		<column name="parcel" label="パーセル" />
+		<column name="region" label="リージョン" />
+		<column name="position" label="位置" />
+		<column name="visited" label="訪問済み" />
+		<column name="slurl" />
+		<column name="simstring" />
+	</scroll_list>
+	<button name="teleport" label="テレポート" tool_tip="選択した場所へテレポートします" />
+	<button name="show_on_map" label="マップで表示" tool_tip="選択した場所をマップの中央にします" />
+	<button name="copy_slurl" label="SLURLをクリップボードにコピー" tool_tip="選択した場所をSLURLとしてコピーします" />
+</floater>

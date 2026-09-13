@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="false" height="612" label="Popups" left="0" name="popups" title="Popups" width="648">
+  <check_box bottom="-24" left="20" follows="top" height="16" label="Automatically accept item offers" name="accept_new_inventory"/>
+  <check_box bottom="-48" left="20" follows="top" height="16" label="View previewable items after accepting" name="show_new_inventory"/>
+  <check_box bottom="-72" left="20" follows="top" height="16" label="Show newly accepted objects in inventory" name="show_in_inventory"/>
+  <text bottom="-104" follows="top" font="SansSerifSmall" height="12" left="20" name="show_label" text_color="LabelSelectedColor">ALWAYS SHOW</text>
+  <icon bottom="-110" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_show_rule" width="588"/>
+  <scroll_list bottom="-300" follows="top" left="20" multi_select="true" height="180" name="enabled_popups" width="588"/>
+  <button bottom="-332" follows="top" height="24" label="Enable all" left="20" name="reset_dialogs_btn" tool_tip="Enable all of the optional popups and 'first time use' notifications." width="140"/>
+  <button bottom="-332" follows="top" height="24" label="" image_overlay="arrow_up.tga" left="172" name="enable_popup" width="36"/>
+  <button bottom="-332" follows="top" height="24" label="" image_overlay="arrow_down.tga" left="216" name="disable_popup" width="36"/>
+  <button bottom="-332" follows="top" height="24" label="Disable all" left="264" name="skip_dialogs_btn" tool_tip="Disable all of the optional popups and 'first time use' notifications." width="160"/>
+  <button bottom="-364" follows="top" height="24" label="Disable first time popups..." left="20" name="skip_frst_btn" tool_tip="Disable all of the first time use notifications." width="320"/>
+  <text bottom="-396" follows="top" font="SansSerifSmall" height="12" left="20" name="dont_show_label" text_color="LabelSelectedColor">NEVER SHOW</text>
+  <icon bottom="-402" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_hide_rule" width="588"/>
+  <scroll_list bottom="-592" follows="top" left="20" multi_select="true" height="180" name="disabled_popups" width="588"/>
+</panel>

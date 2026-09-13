@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="price_for_listing" title="Опубликовать рекламное объявление">
+	<text name="explanation_text">
+		Ваше объявление будет показываться в течение одной недели с даты публикации.
+
+Позиция в тематических объявлениях зависит от того, сколько вы заплатите.
+Самые дорогие объявления поднимаются в начало списка и выше в результатах поиска.
+	</text>
+	<text name="price_text">Цена за объявление ([CURRENCY]):</text>
+	<line_editor name="price_edit" />
+	<button name="cancel_btn" label="Отмена" />
+	<button name="set_price_btn" label="Установить цену" />
+</floater>

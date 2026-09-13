@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<context_menu name="Url Popup" label="SLURL">
+	<menu_item_call name="run_slapp" label="走行 この コマンド" />
+	<menu_item_call name="url_copy" label="SLURLをクリップボードにコピー" />
+	<menu_item_call name="Select All" label="すべて選択" />
+</context_menu>

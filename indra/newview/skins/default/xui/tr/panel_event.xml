@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Event" title="Etkinlik">
+	<text name="event_name_label">İsim:</text>
+	<text name="event_name">(yok)</text>
+	<text name="event_category_label">Tür:</text>
+	<text name="event_category">(yok)</text>
+	<text name="event_mature_label">Yetişkin İçeriği:</text>
+	<text name="event_mature_yes">Evet</text>
+	<text name="event_mature_no">No</text>
+	<text name="event_date_label">Tarih:</text>
+	<text name="event_date">(yok)</text>
+	<text name="event_duration_label">Etkinlik Süresi:</text>
+	<text name="event_duration">(yok)</text>
+	<text name="event_runby_label">Çalıştıran:</text>
+	<name_box name="event_runby">(yok)</name_box>
+	<text name="event_location_label">Konum:</text>
+	<text name="event_location">(yok)</text>
+	<text name="event_cover_label">Teminat Ücreti:</text>
+	<text name="event_cover">(yok)</text>
+	<text name="event_desc_label">Açıklama:</text>
+	<text_editor name="event_desc" />
+	<button name="teleport_btn" label="Teleport" />
+	<button name="map_btn" label="Haritada Göster" />
+	<button name="notify_btn" label="Bildir" />
+	<button name="create_event_btn" label="Etkinlik Oluştur..." />
+	<string name="none">hiçbiri</string>
+	<string name="notify">Bildir</string>
+	<string name="dont_notify">Bildirme</string>
+</panel>

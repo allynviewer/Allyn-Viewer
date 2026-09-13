@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="menu_marketplace_sort">
+	<menu_item_check name="sort_by_name" label="Ada göre sırala" />
+	<menu_item_check name="sort_by_recent" label="En yeniye göre sırala" />
+	<menu_item_check name="sort_by_stock_amount" label="Stok miktarına göre sırala (düşükten yükseğe)" />
+	<menu_item_check name="show_only_listing_folders" label="Yalnızca listeleme klasörlerini göster" />
+</menu>

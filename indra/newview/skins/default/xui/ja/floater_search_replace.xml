@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="script search" title="検索／置換">
+	<check_box name="case_text" label="大文字小文字を区別しない" />
+	<button name="search_btn" label="検索" />
+	<button name="replace_btn" label="置換" />
+	<button name="replace_all_btn" label="すべて置換" />
+	<text name="search_label">検索</text>
+	<text name="replace_label">置換</text>
+	<line_editor name="search_text" />
+	<line_editor name="replace_text" />
+</floater>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="groups" title="Группы">
+	<text name="groupdesc">Выберите группу:</text>
+	<scroll_list name="group list">
+		<column name="name" />
+	</scroll_list>
+	<button name="OK" label="ОК" />
+	<button name="Cancel" label="Отмена" />
+</floater>

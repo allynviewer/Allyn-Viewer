@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview_sound">
+	<line_editor name="desc" />
+	<text name="desc txt">説明:</text>
+	<button name="Sound audition btn" label="自分だけ再生" tool_tip="自分だけに聞こえるようにこのサウンドを再生します。" />
+	<button name="Sound play btn" label="ワールドで再生" tool_tip="他の人にも聞こえるようにこのサウンドを再生します。" />
+	<string name="Sound: ">サウンド:</string>
+</floater>

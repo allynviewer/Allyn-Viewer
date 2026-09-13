@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="area search" title="Cerca oggetti nelle vicinanze">
+	<text name="name_label">Cerca per nome:</text>
+	<text name="desc_label">Cerca per descrizione:</text>
+	<text name="owner_label">Cerca per proprietario:</text>
+	<text name="group_label">Cerca per gruppo:</text>
+	<scroll_list name="result_list">
+		<column name="Name" label="Nome" tool_tip="Doppio clic per mostrare un segnalatore di posizione"/>
+		<column name="Description" label="Descrizione" tool_tip="Doppio clic per mostrare un segnalatore di posizione"/>
+		<column name="Owner" label="Proprietario" tool_tip="Doppio clic per mostrare un segnalatore di posizione"/>
+		<column name="Group" label="Gruppo" tool_tip="Doppio clic per mostrare un segnalatore di posizione"/>
+	</scroll_list>
+	<button name="TP" label="TP"/>
+	<button name="Look" label="Guarda"/>
+	<text name="counter">In elenco/In attesa/Totale</text>
+</floater>

@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel bottom="-591" follows="left|top|right|bottom" height="591" left="0" name="Panel Avatar" width="550">
+	<tab_container bottom="28" follows="left|top|right|bottom" height="563" left="0" mouse_opaque="false" name="tab"
+	     tab_min_width="48" tab_max_width="200" tab_position="top" width="550">
+		<panel border="true" follows="left|top|right|bottom" height="539"
+		     label="2nd Life" left="1" mouse_opaque="true" name="2nd Life" width="538">
+			<string name="CaptionTextAcctInfo">
+[ACCTTYPE]
+[PAYMENTINFO]
+[AGEVERIFICATION]
+			</string>
+
+			<text bg_visible="false" border_visible="false" bottom="-24" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="right" height="16"
+			     left="4" mouse_opaque="true" name="Name:" v_pad="0" width="56">
+				Name:
+			</text>
+			<name_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-24"
+			     enabled="false" follows="left|top|right" font="SansSerifSmall" height="18"
+			     is_unicode="false" left="64" max_length="254" mouse_opaque="false" name="dnname"
+			     right="-178" name_system="ProfileNameSystem" click_for_profile="false"/>
+			<flyout_button bottom="-24" follows="right|top" height="18" label="Copy:" right="-104"
+			     font="SansSerifSmall" tool_tip="Copy key to clipboard, press the arrow for other copy options"
+			     name="copy_flyout" width="70">
+				<flyout_button_item label="Copy SLURL" name="copy_slurl_item" value="1"/>
+			</flyout_button>
+			<text bg_visible="false" border_visible="false" bottom="-24" drop_shadow_visible="true"
+			     follows="right|top" font="SansSerifSmall" h_pad="0" halign="left" height="18"
+			     right="-4" mouse_opaque="true" name="online_yes" v_pad="0" width="96">
+				Currently Online
+			</text>
+
+			<text bg_visible="false" border_visible="false" bottom="-46" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="right" height="16"
+			     left="4" mouse_opaque="true" name="Key:" v_pad="0" width="56">
+				Key:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-46"
+			     enabled="false" follows="left|top|right" font="SansSerifSmall" height="18"
+			     is_unicode="false" left="64" max_length="36" mouse_opaque="false" name="avatar_key"
+			     right="-110"/>
+			<button bottom="-46" follows="right|top" height="18" width="100" right="-4" name="web_profile" label="Web Profile">
+				<button.commit_callback function="Profile.Web"/>
+			</button>
+
+			<text bg_visible="false" border_visible="false" bottom="-68" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="right" height="16"
+			     left="4" mouse_opaque="true" name="Photo:" v_pad="0" width="56">
+				Photo:
+			</text>
+			<texture_picker allow_no_texture="true" bottom="-212" can_apply_immediately="false"
+			     default_image_name="None" follows="left|top" height="144" label=""
+			     left="64" mouse_opaque="true" name="img"
+			     tool_tip="Click to choose a picture" width="144"/>
+
+			<text bg_visible="false" border_visible="false" bottom="-68" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="16"
+			     left="234" mouse_opaque="true" name="label" v_pad="0" width="136">
+				Born:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-86"
+			     enabled="true" follows="left|top|right" font="SansSerifSmall" height="18"
+			     is_unicode="false" left="234" max_length="254" mouse_opaque="false" name="born"
+			     right="-8"/>
+			<text bg_visible="false" border_visible="false" bottom="-106" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="16"
+			     left="234" mouse_opaque="true" name="label2" v_pad="0" width="136">
+				Account:
+			</text>
+			<view_border bevel_style="in" bottom="-156" follows="left|top|right" height="48" left="234"
+			     mouse_opaque="false" name="acct_border" right="-8"/>
+			<text bg_visible="false" border_visible="true" bottom="-156" drop_shadow_visible="true"
+			     follows="left|top|right" font="SansSerifSmall" height="48" left="234"
+			     mouse_opaque="true" name="acct" right="-8"/>
+			<text bg_visible="false" border_visible="false" bottom="-176" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="16"
+			     left="234" mouse_opaque="true" name="partner_label"
+			     tool_tip="Second Life partner. For more info on how to set, see www.secondlife.com/partner"
+			     v_pad="0" width="135">
+				Partner:
+			</text>
+			<button bottom="-176" follows="right|top" font="SansSerif" halign="center"
+			     height="18" label="?" label_selected="?" right="-8"
+			     mouse_opaque="true" name="partner_help" width="18"/>
+			<name_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-196"
+			     enabled="true" follows="left|top|right" font="SansSerifSmall" height="18"
+			     left="234" max_length="1024" mouse_opaque="true" name="partner_edit"
+			     right="-8"/>
+
+			<text bg_visible="false" border_visible="false" bottom="-220" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="right" height="16"
+			     left="4" mouse_opaque="true" name="About:" v_pad="0" width="56">
+				About:
+			</text>
+			<text bg_visible="false" border_visible="false" bottom="-236" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="right" height="16"
+			     left="0" mouse_opaque="true" name="(500 chars)" v_pad="0" width="60">
+				(500 chars)
+			</text>
+			<text_editor bottom="178" embedded_items="false" enabled="true"
+			     follows="left|top|right|bottom" font="SansSerifSmall" height="125"
+			     left="64" max_length="511" mouse_opaque="true" hide_scrollbar="false"
+			     name="about" right="-8" word_wrap="true" spell_check="true"/>
+
+			<text bg_visible="false" border_visible="false" bottom="158" drop_shadow_visible="true"
+			     follows="left|bottom" font="SansSerifSmall" h_pad="0" halign="right" height="16"
+			     left="4" mouse_opaque="true" name="Groups:" v_pad="0" width="56">
+				Groups:
+			</text>
+			<button bottom="136" follows="left|bottom" font="SansSerif" halign="center" height="20"
+			     label="+" label_selected="+" left="40" mouse_opaque="true"
+			     name="GroupInvite_Button" tool_tip="Invite to Group" width="20"/>
+			<scroll_list background_visible="true" bottom="76" column_padding="5" draw_border="true"
+			     follows="left|bottom|right" height="80" left="64" mouse_opaque="false"
+			     multi_select="false" name="groups" right="-8" menu_num="1"/>
+			<string name="None">None</string>
+
+			<text bg_visible="false" border_visible="false" bottom="54" drop_shadow_visible="true"
+			     follows="left|bottom" font="SansSerifSmall" h_pad="0" halign="right" height="16"
+			     left="4" mouse_opaque="true" name="Give item:" v_pad="0" width="56">
+				Share:
+			</text>
+			<drop_target bottom="52" height="20" left="64" right="-8" follows="left|bottom|right"
+			     fill_parent="false" show_reset="false" mouse_opaque="true" name="drop_target_rect"
+			     label="Drop inventory item here."
+			     tool_tip="Drop inventory items here to give them to this person."/>
+			<check_box bottom="54" follows="left|bottom" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Show in search" left="64" mouse_opaque="true"
+			     name="allow_publish"
+			     tool_tip="Publish extra profile information such as description and image in Search."
+			     width="160"/>
+			<button bottom="52" follows="left|bottom" font="SansSerif" halign="center" height="16"
+			     label="?" label_selected="?" left="230" mouse_opaque="true" name="?"
+			     width="20"/>
+
+			<button bottom="28" follows="left|bottom" font="SansSerif" halign="center" height="20"
+			     label="Find on Map" label_selected="Find on Map" left="8" mouse_opaque="true"
+			     name="Find on Map" width="148"/>
+			<button bottom="28" follows="left|bottom" font="SansSerif" halign="center" height="20"
+			     label="Offer Teleport" label_selected="Offer Teleport"
+			     left="160" mouse_opaque="true" name="Offer Teleport..." width="148"/>
+			<button bottom="28" follows="left|bottom|right" font="SansSerif" halign="center" height="20"
+			     label="Add Friend" label_selected="Add Friend" left="312"
+			     mouse_opaque="true" name="Add Friend..." right="-8"/>
+
+			<button bottom="6" follows="left|bottom" font="SansSerif" halign="center" height="20"
+			     label="Pay" label_selected="Pay" left="8" mouse_opaque="true" name="Pay..."
+			     width="148"/>
+			<button bottom="6" follows="left|bottom" font="SansSerif" halign="center" height="20"
+			     label="Instant Message" label_selected="Instant Message"
+			     left="160" mouse_opaque="true" name="Instant Message..."
+			     tool_tip="Instant Message (IM)" width="148"/>
+			<button bottom="6" follows="left|bottom|right" font="SansSerifSmall" halign="center" height="20"
+			     label="Block" label_selected="Unblock" toggle="true"
+			     left="312" mouse_opaque="true" name="Mute" right="-48"/>
+			<button bottom="6" follows="right|bottom" font="SansSerif" halign="center" height="20"
+			     label="Log" name="Log" right="-8" width="36"/>
+		</panel>
+
+		<panel border="true" follows="left|top|right|bottom" height="539"
+		       label="Web" left="1" mouse_opaque="true" name="WebProfile" width="538">
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-22"
+			     enabled="false" follows="left|top|right" font="SansSerifSmall" height="18"
+			     is_unicode="false" left="8" max_length="254" mouse_opaque="true" name="url_edit"
+			     right="-8"/>
+			<flyout_button bottom="-46" follows="left|top" font="SansSerifSmall" halign="center"
+			     height="20" label="Load" label_selected="Load" left="8"
+			     mouse_opaque="true" name="load" enabled="false"
+			     tool_tip="Load this profile page with embedded web browser." width="80">
+				<flyout_button_item value="open" name="open_item">In external browser</flyout_button_item>
+				<flyout_button_item value="home" name="home_item">Home URL</flyout_button_item>
+			</flyout_button>
+			<button bottom="-46" follows="left|top" font="SansSerif" halign="center"
+			     height="20" label="?" label_selected="?" left="92"
+			     mouse_opaque="true" name="web_profile_help" width="20"/>
+			<check_box bottom="-46" follows="right|top" font="SansSerifSmall" height="20"
+			     initial_value="false" label="Automatically load web profiles"
+			     right="-8" mouse_opaque="true" name="auto_load" control_name="AutoLoadWebProfiles"
+			     tool_tip="Automatically load ALL profile webpages without asking first."
+			     width="250"/>
+			<web_browser border_visible="true" bottom="8" follows="top|left|right|bottom" height="400"
+			     left="8" name="profile_html" start_url=""
+			     trusted_content="true"
+			     right="-8"/>
+			<text bottom="8" follows="bottom|left|right" left="12" name="status_text" right="-12"
+			     height="16"/>
+		</panel>
+
+		<panel border="true" follows="left|top|right|bottom" height="539"
+		     label="Interests" left="1" mouse_opaque="true" name="Interests" width="538">
+			<text bg_visible="false" border_visible="false" bottom="-28" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="right" height="16"
+			     left="8" mouse_opaque="true" name="I Want To:" v_pad="0" width="80">
+				I Want To:
+			</text>
+			<check_box bottom="-28" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Build" left="96" mouse_opaque="true"
+			     name="chk0" width="140"/>
+			<check_box bottom="-28" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Explore" left="250" mouse_opaque="true"
+			     name="chk1" width="140"/>
+			<check_box bottom="-50" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Meet" left="96" mouse_opaque="true"
+			     name="chk2" width="140"/>
+			<check_box bottom="-50" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Be Hired" left="250" mouse_opaque="true"
+			     name="chk6" width="140"/>
+			<check_box bottom="-72" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Group" left="96" mouse_opaque="true"
+			     name="chk3" width="140"/>
+			<check_box bottom="-72" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Buy" left="250" mouse_opaque="true"
+			     name="chk4" width="140"/>
+			<check_box bottom="-94" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Sell" left="96" mouse_opaque="true"
+			     name="chk5" width="140"/>
+			<check_box bottom="-94" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Hire" left="250" mouse_opaque="true"
+			     name="chk7" width="140"/>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-118"
+			     enabled="true" follows="left|top|right" font="SansSerifSmall" height="18"
+			     is_unicode="false" left="96" max_length="254" mouse_opaque="true" name="want_to_edit"
+			     right="-12" spell_check="true"/>
+			<text bg_visible="false" border_visible="false" bottom="-148" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="right" height="16"
+			     left="8" mouse_opaque="true" name="Skills:" v_pad="0" width="80">
+				Skills:
+			</text>
+			<check_box bottom="-148" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Textures" left="96" mouse_opaque="true"
+			     name="schk0" width="140"/>
+			<check_box bottom="-148" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Architecture" left="250"
+			     mouse_opaque="true" name="schk1" width="160"/>
+			<check_box bottom="-170" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Event Planning" left="96"
+			     mouse_opaque="true" name="schk2" width="140"/>
+			<check_box bottom="-170" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Modeling" left="250"
+			     mouse_opaque="true" name="schk3" width="140"/>
+			<check_box bottom="-192" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Scripting" left="96" mouse_opaque="true"
+			     name="schk4" width="140"/>
+			<check_box bottom="-192" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Custom Characters" left="250"
+			     mouse_opaque="true" name="schk5" width="180"/>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-216"
+			     enabled="true" follows="left|top|right" font="SansSerifSmall" height="18"
+			     is_unicode="false" left="96" max_length="254" mouse_opaque="true" name="skills_edit"
+			     right="-12" spell_check="true"/>
+			<text bg_visible="false" border_visible="false" bottom="-246" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="right" height="16"
+			     left="8" mouse_opaque="true" name="Languages:" v_pad="0" width="80">
+				Languages:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-246"
+			     enabled="true" follows="left|top|right" font="SansSerifSmall" height="18"
+			     is_unicode="false" left="96" max_length="254" mouse_opaque="true" name="languages_edit"
+			     right="-12"/>
+		</panel>
+
+		<panel border="true" follows="left|top|right|bottom" height="539"
+		     label="Picks" left="1" mouse_opaque="true" name="Picks" width="538">
+			<text bg_visible="false" border_visible="false" bottom="-22" drop_shadow_visible="true"
+			     follows="left|top|right" font="SansSerifSmall" h_pad="0" halign="center" height="16"
+			     left="8" mouse_opaque="true"
+			     name="Tell everyone about your favorite places in Second Life." v_pad="0"
+			     right="-8">
+				Tell everyone about your favorite places in Second Life.
+			</text>
+			<button bottom="-46" follows="left|top" font="SansSerif" halign="center"
+			     height="20" label="New..." label_selected="New..." left="8"
+			     mouse_opaque="true" name="New..." width="80"/>
+			<button bottom="-46" follows="left|top" font="SansSerif" halign="center" height="20"
+			     label="Delete..." label_selected="Delete..." left="92"
+			     mouse_opaque="true" name="Delete..." width="80"/>
+			<button bottom="-46" follows="left|top" font="SansSerif" halign="center" height="20"
+			     label="Import..." label_selected="Import..." left="176"
+			     mouse_opaque="true" name="Import..." width="80"/>
+			<button bottom="-46" follows="left|top" font="SansSerif" halign="center" height="20"
+			     label="Export..." label_selected="Export..." left="260"
+			     mouse_opaque="true" name="Export..." width="80"/>
+			<tab_container bottom="4" top="-52" follows="left|top|right|bottom" height="400" left="0" mouse_opaque="false"
+			     name="picks tab" tab_position="left" tab_width="150" tab_min_width="150" tab_max_width="150" right="-1"/>
+			<text bg_visible="false" border_visible="false" bottom="-80" drop_shadow_visible="true"
+			     follows="left|top|right" font="SansSerif" h_pad="0" halign="center" height="20"
+			     left="154" mouse_opaque="false" name="loading_text" v_pad="0" right="-4">
+				Loading...
+			</text>
+		</panel>
+
+		<panel border="true" follows="left|top|right|bottom" height="539"
+		     label="Classified" left="1" mouse_opaque="true" name="Classified"
+		     width="538">
+			<text bg_visible="false" border_visible="false" bottom="-22" drop_shadow_visible="true"
+			     follows="left|top|right" font="SansSerifSmall" h_pad="0" halign="center" height="16"
+			     left="8" mouse_opaque="true"
+			     name="Place an ad in Second Life&apos;s classified listings." v_pad="0"
+			     right="-8">
+				Place an ad in Second Life&apos;s classified listings.
+			</text>
+			<button bottom="-46" follows="left|top" font="SansSerif" halign="center"
+			     height="20" label="New..." label_selected="New..." left="8"
+			     mouse_opaque="true" name="New..." width="80"/>
+			<button bottom="-46" follows="left|top" font="SansSerif" halign="center" height="20"
+			     label="Delete..." label_selected="Delete..." left="92"
+			     mouse_opaque="true" name="Delete..." width="80"/>
+			<tab_container bottom="4" top="-52" follows="left|top|right|bottom" height="400" left="0" mouse_opaque="false"
+			     name="classified tab" tab_position="left" tab_width="150" tab_min_width="150" tab_max_width="150" right="-1"/>
+			<text bg_visible="false" border_visible="false" bottom="-80" drop_shadow_visible="true"
+			     follows="left|top|right" font="SansSerif" h_pad="0" halign="center" height="20"
+			     left="160" mouse_opaque="false" name="loading_text" v_pad="0" right="-8">
+				Loading...
+			</text>
+		</panel>
+
+		<panel border="true" follows="left|top|right|bottom" height="539"
+		     label="1st Life" left="1" mouse_opaque="true" name="1st Life" width="538">
+			<text bg_visible="false" border_visible="false" bottom="-24" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="16"
+			     left="8" mouse_opaque="true" name="Photo:" v_pad="0" width="80">
+				Photo:
+			</text>
+			<texture_picker allow_no_texture="true" bottom="-228" can_apply_immediately="false"
+			     default_image_name="None" follows="left|top" height="200" label=""
+			     left="8" mouse_opaque="true" name="img"
+			     tool_tip="Click to choose a picture" width="200"/>
+			<button bottom="-52" follows="left|top" font="SansSerif" halign="center"
+			     height="24" label="" left="184" width="24"
+			     image_selected="tool_zoom.tga"
+			     image_unselected="tool_zoom.tga"
+			     image_hover_selected="tool_zoom_active.tga"
+			     image_hover_unselected="tool_zoom_active.tga"
+			     mouse_opaque="true"
+			     name="flbigimg"/>
+			<text bg_visible="false" border_visible="false" bottom="-24" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="16"
+			     left="220" mouse_opaque="true" name="Info:" v_pad="0" width="80">
+				Info:
+			</text>
+			<text bg_visible="false" border_visible="false" bottom="-40" drop_shadow_visible="true"
+			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="16"
+			     left="220" mouse_opaque="true" name="(250 chars)" v_pad="0" width="80">
+				(250 chars)
+			</text>
+			<text_editor bottom="8" embedded_items="false"
+			     enabled="true" follows="left|top|right|bottom" font="SansSerifSmall" height="216"
+			     is_unicode="false" left="8" max_length="254" mouse_opaque="false"
+			     name="about" right="-8" word_wrap="true" spell_check="true"/>
+		</panel>
+
+		<panel border="true" follows="left|top|right|bottom" height="539"
+		     label="My Notes" left="1" mouse_opaque="true" name="My Notes" width="538">
+			<string name="Loading">
+				Loading...
+			</string>
+			<text bg_visible="false" border_visible="false" bottom="-36" drop_shadow_visible="true"
+			     follows="left|top|right" font="SansSerifSmall" h_pad="0" halign="left" height="28"
+			     left="8" mouse_opaque="true" name="label" v_pad="0" right="-8">
+				Use this space to record your notes about this person. Only you can see these notes.
+			</text>
+			<text_editor bottom="8" embedded_items="false" enabled="true" follows="left|top|right|bottom"
+			     font="SansSerif" height="400" is_unicode="false" left="8"
+			     max_length="1023" mouse_opaque="true" name="notes edit" right="-8"
+			     word_wrap="true" spell_check="true"/>
+		</panel>
+	</tab_container>
+
+	<button bottom="6" follows="right|bottom" font="SansSerif" halign="center" height="20"
+	     label="OK" label_selected="OK" right="-112" mouse_opaque="true" name="OK" width="100"/>
+	<button bottom="6" follows="right|bottom" font="SansSerif" halign="center" height="20"
+	     label="Cancel" label_selected="Cancel" right="-8" mouse_opaque="true" name="Cancel"
+	     width="100"/>
+	<button bottom="6" font="SansSerif" halign="center" height="20" label="Kick"
+	     label_selected="Kick" left="4" mouse_opaque="true" name="Kick" width="72" follows="left|bottom"/>
+	<button bottom="30" font="SansSerif" halign="center" height="20" label="Freeze"
+	     label_selected="Freeze" left="4" mouse_opaque="true" name="Freeze"
+	     tool_tip="Stop this resident&apos;s movement and chat." width="72" follows="left|bottom"/>
+	<button bottom="54" font="SansSerif" halign="center" height="20"
+	     label="Unfreeze" label_selected="Unfreeze" left="4" mouse_opaque="true"
+	     name="Unfreeze" tool_tip="Thaw resident" width="72" follows="left|bottom"/>
+	<button bottom="78" font="SansSerif" halign="center" height="20" label="CSR"
+	     label_selected="CSR" left="4" mouse_opaque="true" name="csr_btn"
+	     tool_tip="Open customer service tool for this resident" width="72" follows="left|bottom"/>
+
+	<string name="ShowOnMapNonFriend">
+		Show location on the map.
+Disabled because you have not
+formed a friendship with them.
+	</string>
+	<string name="ShowOnMapFriendOffline">
+		Show location on the map.
+    Disabled because they are not online.
+	</string>
+	<string name="ShowOnMapFriendOnline">
+		Show location on the map.
+	</string>
+	<string name="TeleportGod">
+		Force a teleport to your location.
+	</string>
+	<string name="TeleportPrelude">
+		Offer a teleport to your location.
+Disabled until you leave Orientation Island.
+	</string>
+	<string name="TeleportNormal">
+		Offer a teleport to your location.
+	</string>
+	<string name="Loading">
+		Loading...
+	</string>
+</panel>

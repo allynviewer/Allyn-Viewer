@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="radar" title="Radar">
+	<string name="Title">Radar</string>
+	<string name="TitleOneAvatar">Radar (1 avatar)</string>
+	<string name="TitleWithCount">Radar ([COUNT] avatares)</string>
+	<filter_editor name="filter_input" label="Filtrar por nome..." tool_tip="Filtrar avatares por nome de usuário ou display name"/>
+	<scroll_list name="avatar_list" tool_tip="Shift ou Ctrl para selecionar vários">
+		<column name="marked" label="Marca" tool_tip="Avatares marcados"/>
+		<column name="avatar_name" label="Nome" tool_tip="Shift ou Ctrl para selecionar vários"/>
+		<column name="distance" label="Dist." tool_tip="Distância (vermelho = chat, amarelo = grito, verde = visão)"/>
+		<column name="position" label="Pos." tool_tip="Posição neste sim"/>
+		<column name="altitude" label="Alt." tool_tip="Altitude"/>
+		<column name="activity" label="Ativ." tool_tip="Atividade"/>
+		<column name="voice" tool_tip="Status de voz"/>
+		<column name="notes" tool_tip="Notas no perfil"/>
+		<column name="age" label="Idade" tool_tip="Idade da conta"/>
+		<column name="time" label="Tempo" tool_tip="Tempo neste sim"/>
+		<column name="client" label="Cliente" tool_tip="Viewer"/>
+	</scroll_list>
+	<tab_container name="actions_tab_container">
+		<panel name="actions_tab" label="Avatar">
+			<button name="profile_btn" label="Perfil" tool_tip="Abrir o perfil"/>
+			<button name="track_btn" label="Rastrear" tool_tip="Rastrear ou parar de rastrear este avatar"/>
+			<button name="get_key_btn" label="Copiar chave" tool_tip="Copiar a chave do avatar"/>
+			<button name="im_btn" label="IM" tool_tip="Abrir IM (Shift+Enter)"/>
+			<button name="offer_btn" label="Oferecer TP" tool_tip="Oferecer teleporte"/>
+			<button name="teleport_btn" label="TP para" tool_tip="Teleportar até o avatar (Ctrl+Enter)"/>
+			<button name="mark_btn" label="Marcar" tool_tip="Marcar ou desmarcar este avatar na lista"/>
+			<button name="prev_marked_btn" label="Marca ant." tool_tip="Focar o marcado anterior"/>
+			<button name="next_marked_btn" label="Próx. marca" tool_tip="Focar o próximo marcado"/>
+			<button name="focus_btn" label="Focar" tool_tip="Focar a câmera neste avatar (Enter)"/>
+			<button name="prev_in_list_btn" label="Anterior" tool_tip="Focar o anterior da lista"/>
+			<button name="next_in_list_btn" label="Próximo" tool_tip="Focar o próximo da lista"/>
+		</panel>
+		<panel name="alerts_tab" label="Alertas">
+			<check_box name="radar_alerts" label="Alertas no chat" tool_tip="Avisar no chat quando avatares entram e saem"/>
+			<check_box name="alerts_sim" label="Entrando/saindo do sim" tool_tip="Avisar avatares que entram ou saem do sim"/>
+			<check_box name="alerts_draw" label="Distância de visão" tool_tip="Avisar avatares que entram ou saem da distância de visão"/>
+			<check_box name="alerts_chat" label="Alcance de grito" tool_tip="Avisar avatares que entram ou saem do alcance de grito"/>
+			<check_box name="alerts_chat" label="Alcance de chat" tool_tip="Avisar avatares que entram ou saem do alcance de chat"/>
+		</panel>
+		<panel name="land_tab" label="Moderação">
+			<button name="mute_btn" label="Silenciar" tool_tip="Silenciar ou reativar este avatar (nomes silenciados ficam em vermelho)."/>
+			<button name="freeze_btn" label="Congelar" tool_tip="Congelar o avatar para que ele não se mova"/>
+			<button name="ar_btn" label="AR" tool_tip="Denunciar este avatar"/>
+			<button name="eject_btn" label="Ejetar" tool_tip="Ejetar da parcela"/>
+			<button name="estate_eject_btn" label="Ejetar da propriedade" tool_tip="Ejetar este avatar da propriedade"/>
+			<button name="estate_ban_btn" label="Banir da propriedade" tool_tip="Ejetar e banir este avatar da propriedade"/>
+		</panel>
+		<panel name="options_tab" label="Opções">
+			<check_box name="update_enabled_cb" label="Atualizar" tool_tip="Atualizar a lista de avatares"/>
+			<check_box name="keep_open" label="Avisar com a janela fechada" tool_tip="Continuar avisando mesmo com o radar fechado"/>
+			<check_box name="radar_chat_keys" label="Chaves no HUD" tool_tip="Enviar chaves para scripts LSL"/>
+			<button name="send_keys_btn" label="Enviar chaves" tool_tip="Enviar as chaves agora"/>
+		</panel>
+		<panel name="extras_tab" label="Extras">
+			<check_box name="agealert" label="Alerta de idade" tool_tip="Ativar alerta de idade da conta"/>
+			<spinner name="AgeAlertDays" label="Idade mín." tool_tip="Dias mínimos no grid"/>
+			<text name="hide_columns">Ocultar:</text>
+			<check_box name="hide_mark" label="Marca"/>
+			<check_box name="hide_pos" label="Pos." tool_tip="Posição"/>
+			<check_box name="hide_alt" label="Alt." tool_tip="Altitude"/>
+			<check_box name="hide_act" label="Ativ." tool_tip="Atividade"/>
+			<check_box name="hide_voice" label="Voz" tool_tip="Status de voz"/>
+			<check_box name="hide_notes" label="Notas" tool_tip="Notas"/>
+			<check_box name="hide_age" label="Idade"/>
+			<check_box name="hide_time" label="Tempo"/>
+			<check_box name="hide_client" label="Cliente"/>
+		</panel>
+	</tab_container>
+	<string name="Out Of Range">Fora de alcance</string>
+	<string name="Moving">Andando</string>
+	<string name="Playing a gesture">Usando gesto</string>
+	<string name="Playing a sound">Tocando som</string>
+	<string name="Rezzing objects">Rezzando objetos</string>
+	<string name="Creating particles">Criando partículas</string>
+	<string name="Just arrived">Acabou de chegar</string>
+	<string name="Typing">Digitando</string>
+</floater>

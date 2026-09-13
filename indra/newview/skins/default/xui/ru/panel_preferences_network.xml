@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="network" label="Сеть">
+	<scroll_container name="network_scroll">
+		<panel name="network_scroll_inner">
+			<text name="section_bw">BANDWIDTH</text>
+			<icon name="section_bw_rule" />
+			<text name="text_box">Максимальная пропускная способность:</text>
+			<slider name="max_bandwidth" />
+			<text name="text_box2">кбит/с</text>
+			<text name="text_box3">Пропускная способность текстуры:</text>
+			<slider name="tex_bandwidth" />
+			<text name="text_box4">кбит/с</text>
+			<text name="use_http_for">Используйте HTTP для:</text>
+			<check_box name="http_textures" label="Текстуры" />
+			<check_box name="http_inventory" label="Инвентарь" />
+			<text name="section_cache">DISK CACHE</text>
+			<icon name="section_cache_rule" />
+			<text name="cache_size_label_l">Размер кэша диска:</text>
+			<slider name="cache_size" />
+			<text name="text_box5">MB</text>
+			<button name="clear_cache" label="Очистить кэш" />
+			<text name="cache_location_label">Расположение кэша диска:</text>
+			<line_editor name="cache_location" />
+			<button name="set_cache" label="Задать" />
+			<button name="reset_cache" label="Перезагрузить" />
+			<text name="connection_section">CONNECTION</text>
+			<icon name="section_conn_rule" />
+			<check_box name="connection_port_enabled" label="Пользовательское подключение порта" />
+			<spinner name="connection_port" label="Номер порта:" />
+			<text name="socks5_auth_label">HTTP-прокси:</text>
+			<icon name="section_proxy_rule" />
+			<radio_group name="socks5_http_proxy_type">
+				<radio_item name="None" tool_tip="Нет HTTP-прокси">Никто</radio_item>
+				<radio_item name="Socks" tool_tip="Используйте Socks для HTTP-прокси">Носки</radio_item>
+				<radio_item name="Web" tool_tip="Используйте веб-прокси для Http-прокси">Web</radio_item>
+			</radio_group>
+			<check_box name="socks5_proxy_enabled" label="Включить прокси SOCKS 5" />
+			<text name="socks5_host_label">Носки 5 Ведущий:</text>
+			<line_editor name="socks5_proxy_host" tool_tip="Имя или IP-адрес прокси-сервера SOCKS5, который вы хотите использовать." />
+			<spinner name="socks5_proxy_port" label="Номер порта:" />
+			<text name="socks5_auth_label2">Аутентификация Socks5:</text>
+			<radio_group name="socks5_auth">
+				<radio_item name="None" tool_tip="Нет аутентификации">Никто</radio_item>
+				<radio_item name="UserPass" tool_tip="Аутентификация имени пользователя/пароля">Имя пользователя/пароль</radio_item>
+			</radio_group>
+			<text name="socks5_username_label">Имя пользователя:</text>
+			<line_editor name="socks5_proxy_username" tool_tip="Имя пользователя для прокси Socks5" />
+			<text name="socks5_password_label">Пароль:</text>
+			<line_editor name="socks5_proxy_password" tool_tip="Пароль для прокси Socks5" />
+		</panel>
+	</scroll_container>
+</panel>

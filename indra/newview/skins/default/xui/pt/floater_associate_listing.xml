@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="associate listing" title="Associar anúncio">
+	<text name="message">ID do anúncio:</text>
+	<line_editor name="listing_id">Digite o número do ID aqui</line_editor>
+	<button name="OK" label="OK"/>
+	<button name="Cancel" label="Cancelar"/>
+</floater>

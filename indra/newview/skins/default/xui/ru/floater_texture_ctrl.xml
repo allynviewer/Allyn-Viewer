@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="texture picker" title="Выбор: Текстура">
+	<string name="choose_picture">Нажмите, чтобы выбрать картинку</string>
+	<text name="Multiple">Несколько</text>
+	<text name="unknown">Размеры: [DIMENSIONS]</text>
+	<button name="Default" label="По умолчанию" />
+	<button name="Alpha" label="Альфа" />
+	<button name="Blank" label="Пустой" />
+	<button name="Invisible" label="Невидимая" />
+	<button name="None" label="Нет" />
+	<check_box name="show_folders_check" label="Показать папки" />
+	<check_box name="apply_immediate_check" label="Применять сразу" />
+	<button name="Pipette" />
+	<button name="Cancel" label="Отмена" />
+	<button name="Select" label="Выбрать" />
+	<line_editor name="texture_uuid" />
+	<button name="ApplyUUID" label="Применить UUID" />
+	<string name="pick title">Выбрать:</string>
+	<tab_container name="actions_tab_container">
+		<panel name="server_tab" label="Инвентарь">
+			<filter_editor name="inventory search editor" label="Введите здесь для поиска" />
+			<inventory_panel name="inventory panel" />
+		</panel>
+		<panel name="local_tab" label="Локальные">
+			<text name="select_local">Выберите текстуру на своем компьютере, чтобы просмотреть ее в мире.</text>
+			<button name="Add" label="Добавить" />
+			<button name="Remove" label="Удалить" />
+			<button name="Browser" label="Свойства..." />
+			<scroll_list name="local_name_list">
+				<column name="unit_name" label="Имя" />
+				<column name="unit_id_HIDDEN" label="ID" />
+			</scroll_list>
+		</panel>
+		<panel name="bake" label="Запекание">
+			<scroll_list name="l_bake_use_texture_combo_box" tool_tip="Выберите текстуру запекания">
+				<scroll_list.column name="type" label="Тип" />
+				<scroll_list.row name="BAKED_HEAD">
+					<columns name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_UPPER">
+					<column name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_LOWER">
+					<column name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_EYES">
+					<column name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_SKIRT">
+					<column name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_HAIR">
+					<column name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_LEFTARM">
+					<column name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_LEFTLEG">
+					<column name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_AUX1">
+					<column name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_AUX2">
+					<column name="type" />
+				</scroll_list.row>
+				<scroll_list.row name="BAKED_AUX3">
+					<column name="type" />
+				</scroll_list.row>
+			</scroll_list>
+		</panel>
+	</tab_container>
+</floater>

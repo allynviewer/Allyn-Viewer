@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<context_menu name="Object Owner Submenu">
+	<menu_item_call name="send_im" label="Enviar IM..."/>
+	<menu name="Actions" label="Ações">
+		<menu_item_call name="Profile" label="Perfil"/>
+		<menu_item_call name="Web Profile" label="Perfil na web"/>
+		<menu_item_call name="Pay" label="Pagar"/>
+		<menu_item_call name="Call" label="Ligar"/>
+		<menu_item_call name="Add Friend" label="Adicionar amigo"/>
+		<menu_item_call name="Remove Friend" label="Remover amigo"/>
+		<menu_item_call name="Invite To Group" label="Convite"/>
+		<menu_item_call name="Follow" label="Seguir"/>
+		<menu_item_call name="Move To" label="Mover para"/>
+		<menu_item_call name="Offer Teleport" label="Oferecer TP"/>
+		<menu_item_call name="Teleport To" label="TP para"/>
+		<menu_item_call name="Request Teleport" label="Pedir TP"/>
+		<menu_item_call name="Find on Map" label="Encontrar no mapa"/>
+		<menu_item_call name="Share" label="Compartilhar"/>
+		<menu_item_call name="Chat History" label="Histórico de chat"/>
+		<menu_item_call name="Track/Untrack" label="Rastrear/parar"/>
+		<menu_item_call name="Focus" label="Focar"/>
+	</menu>
+	<menu name="Copy">
+		<menu_item_call name="copy_name" label="Nome"/>
+		<menu_item_call name="url_copy" label="SLURL"/>
+		<menu_item_call name="key_copy" label="Chave"/>
+	</menu>
+	<menu name="Moderation" label="Moderação">
+		<menu_item_call name="Mute" label="Silenciar"/>
+		<menu_item_call name="Unmute" label="Reativar"/>
+		<menu_item_call name="Ban From Group" label="Banir do grupo"/>
+		<menu_item_call name="Report Abuse" label="Denunciar abuso"/>
+		<menu_item_call name="Freeze" label="Congelar"/>
+		<menu_item_call name="Eject/Ban from Parcel" label="Ejetar/banir da parcela"/>
+		<menu_item_call name="Eject from estate" label="Ejetar da propriedade"/>
+		<menu_item_call name="Eject and ban from estate" label="Ejetar e banir da propriedade"/>
+	</menu>
+</context_menu>

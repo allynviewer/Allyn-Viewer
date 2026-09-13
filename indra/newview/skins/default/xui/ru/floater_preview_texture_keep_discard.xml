@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview_texture">
+	<text name="desc txt">Описание:</text>
+	<line_editor name="desc" />
+	<button name="Keep" label="Держать" />
+	<button name="Discard" label="Отказаться" />
+	<text name="dimensions">Размеры: [WIDTH] x [HEIGHT]</text>
+</floater>

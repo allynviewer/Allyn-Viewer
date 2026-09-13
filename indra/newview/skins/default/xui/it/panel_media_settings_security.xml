@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Media Settings Security" label="Sicurezza">
+	<check_box name="whitelist_enable" label="Consenti l'accesso solo ai modelli URL specificati"/>
+	<text name="home_url_fails_some_items_in_whitelist">Le voci rispetto alle quali la home page fallisce sono contrassegnate:</text>
+	<button name="whitelist_add" label="Aggiungi"/>
+	<button name="whitelist_del" label="Cancella"/>
+	<text name="home_url_fails_whitelist">Avviso: la home page specificata nella scheda Generale non supera questa whitelist. È stata disattivata finché non viene aggiunta una voce valida.</text>
+</panel>

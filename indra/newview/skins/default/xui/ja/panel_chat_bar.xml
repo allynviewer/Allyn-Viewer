@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="chat_bar">
+	<button name="History" label="ローカルチャット" tool_tip="クリックすると発言内容を確認できます" />
+	<line_editor name="Chat Editor" label="ここをクリックしてチャット。" tool_tip="Enterで発言、Shift+Enterでささやき、Ctrl+Enterでシャウト。" />
+	<flyout_button name="Say" label="発言" tool_tip="（Enter）">
+		<flyout_button_item name="shout_item">シャウト</flyout_button_item>
+		<flyout_button_item name="say_item">発言</flyout_button_item>
+		<flyout_button_item name="whisper_item">ささやき</flyout_button_item>
+	</flyout_button>
+	<combo_box name="Gesture" label="ジェスチャー" />
+	<string name="gesture_label">ジェスチャー</string>
+</panel>

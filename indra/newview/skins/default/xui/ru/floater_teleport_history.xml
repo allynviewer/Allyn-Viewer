@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="teleporthistory" title="История телепорта">
+	<scroll_list name="places_list">
+		<column name="parcel" label="Парцел" />
+		<column name="region" label="Область" />
+		<column name="position" label="Позиция" />
+		<column name="visited" label="Посетил" />
+		<column name="slurl" />
+		<column name="simstring" />
+	</scroll_list>
+	<button name="teleport" label="Телепортироваться" tool_tip="Телепортироваться в выбранное место" />
+	<button name="show_on_map" label="Показать на карте" tool_tip="Центрировать карту в выбранном месте." />
+	<button name="copy_slurl" label="Скопировать SLURL в буфер обмена" tool_tip="Скопируйте выбранное местоположение как SLURL." />
+</floater>

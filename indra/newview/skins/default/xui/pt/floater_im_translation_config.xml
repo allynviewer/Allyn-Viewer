@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="im_translation_config" title="Tradução">
+	<text name="src_label">De:</text>
+	<combo_box name="source_lang" tool_tip="Idioma em que você escreve (ISO)"/>
+	<text name="dst_label">Para:</text>
+	<combo_box name="target_lang" tool_tip="Idioma das mensagens dos outros"/>
+	<check_box name="incoming_check" label="Traduzir recebidas" tool_tip="Traduz mensagens que você recebe nesta conversa"/>
+	<check_box name="outgoing_check" label="Traduzir envio" tool_tip="Traduz mensagens que você envia nesta conversa"/>
+	<text name="hint">De = você. Para = os outros. A caixa Tradução no IM liga/desliga. Recebidas/envio valem só nesta conversa e são salvos ao reiniciar.</text>
+	<button name="ok_btn" label="OK"/>
+	<button name="cancel_btn" label="Cancelar"/>
+</floater>

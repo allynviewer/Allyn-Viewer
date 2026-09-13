@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Attachment Pie">
+	<menu_item_call name="Profile..." label="プロフィール..." />
+	<menu_item_call name="Drop" label="ドロップ" />
+	<menu_item_call name="Attachment Object Touch" label="タッチ">
+		<on_enable name="EnableTouch" />
+	</menu_item_call>
+	<menu_item_call name="Stand Up" label="起立" />
+	<menu_item_call name="Detach" label="外す" />
+	<pie_menu name="Tools" label="ツール">
+		<pie_menu name="ScriptsMenu" label="スクリプト">
+			<menu_item_call name="CompileMono" label="Monoにする" />
+			<menu_item_call name="CompileLSL" label="LSLにする" />
+			<menu_item_call name="Reset Scripts" label="リセット" />
+			<menu_item_call name="Object Set Scripts to Running" label="開始" />
+			<menu_item_call name="Object Set Scripts to Not Running" label="停止" />
+			<menu_item_call name="Remove Scripts From Selection" label="削除" />
+			<menu_item_call name="ScriptCount" label="数" />
+			<menu_item_call name="Script Info" label="スクリプト情報" />
+		</pie_menu>
+		<menu_item_call name="Object Inspect" label="検査" />
+		<menu_item_call name="Data" label="データ" />
+		<menu_item_call name="Derender" label="非表示" />
+		<menu_item_call name="Reload Textures" label="再読み込み" />
+		<pie_menu name="Avatar Tools" label="アバター">
+			<menu_item_call name="Reload Textures" label="再読み込み" />
+			<menu_item_call name="Reset Skeleton" label="スケルトンをリセット" />
+			<menu_item_call name="Reset Skeleton And Animations" label="アニメをリセット" />
+			<menu_item_call name="Anims..." label="アニメ..." />
+			<menu_item_call name="ScriptCount" label="スクリプト数" />
+			<menu_item_call name="Script Info" label="スクリプト情報" />
+			<menu_item_call name="CopyUUID" label="UUIDをコピー" />
+			<menu_item_call name="Save OBJ..." label="OBJを保存..." />
+		</pie_menu>
+		<menu_item_call name="Save OBJ..." label="OBJを保存..." />
+		<menu_item_call name="Save DAE..." label="DAEを保存..." />
+	</pie_menu>
+	<menu_item_call name="Appearance..." label="外見..." />
+	<menu_item_call name="Edit..." label="編集..." />
+</pie_menu>

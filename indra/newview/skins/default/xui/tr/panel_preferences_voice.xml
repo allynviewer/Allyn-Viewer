@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="chat" label="Sesli Sohbet">
+	<string name="multivoice_label" value="Birden fazla örneğin aynı anda ses kullanmasına izin ver (yeniden başlatma gerekir)"/>
+	<scroll_container name="voice_scroll">
+		<panel name="voice_scroll_inner">
+			<text name="voice_unavailable">Sesli Sohbet Mevcut Değil</text>
+			<check_box name="enable_voice_check" label="Sesli sohbeti etkinleştir" />
+			<check_box name="enable_multivoice_check" />
+			<radio_group name="ear_location">
+				<radio_item name="0">Sesli Sohbeti kamera konumundan duyun.</radio_item>
+				<radio_item name="1">Sesli Sohbeti avatar konumundan duyun.</radio_item>
+				<radio_item name="3">Sesli Sohbeti herkesten eşit şekilde duyun.</radio_item>
+			</radio_group>
+			<text name="push_to_talk_heading">KONUŞMAK İÇİN BASIN</text>
+			<icon name="section_ptt_rule" />
+			<check_box name="push_to_talk_toggle_check" label="Geçiş modunda Bas-Konuş'u kullanma" tool_tip="Etkinleştirildiğinde, mikrofonunuzu açıp kapatmak için bas-konuş tetiğine basın. Devre dışı bırakıldığında, tetik basılı tutulmadığı sürece mikrofon kapalıdır." />
+			<text name="push_to_talk_label">Bas-Konuş tetikleyicisi:</text>
+			<line_editor name="modifier_combo" />
+			<button name="set_voice_hotkey_button" label="Anahtarı Ayarla" />
+			<button name="set_voice_middlemouse_button" label="Orta Fare Düğmesi" />
+			<check_box name="enable_lip_sync_check" label="Dudak senkronizasyonu animasyonunu etkinleştir" />
+			<check_box name="voice_call_friends_only_check" label="Yalnızca Arkadaşlarım listesindeki kişilerden gelen sesli aramaları kabul et" />
+			<check_box name="auto_disengage_mic_check" label="Sohbet aramalarını sonlandırırken mikrofonu kapatın" />
+			<check_box name="echo_cancellation_check" label="Yankı iptali" />
+			<check_box name="agc_check" label="Otomatik kazanç kontrolü" />
+			<text name="noise_suppression_label">Gürültü bastırma:</text>
+			<combo_box name="noise_suppression_combo">
+				<combo_item name="0">Devre dışı</combo_item>
+				<combo_item name="1">Düşük</combo_item>
+				<combo_item name="2">Orta</combo_item>
+				<combo_item name="3">Yüksek</combo_item>
+				<combo_item name="4">Çok Yüksek</combo_item>
+			</combo_box>
+			<button name="device_settings_btn" label="Cihaz Ayarları" tool_tip="Cihaz ayarlarını açar. Bu pencere açıkken sesli sohbet geçici olarak askıya alınır." />
+		</panel>
+	</scroll_container>
+</panel>

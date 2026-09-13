@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Media Settings General" label="Genel">
+	<text name="home_label">Ana Sayfa:</text>
+	<text name="home_fails_whitelist_label">(Bu sayfa belirtilen beyaz listeyi geçemiyor)</text>
+	<line_editor name="home_url" tool_tip="Bu medya kaynağının ana sayfası" />
+	<web_browser name="preview_media" />
+	<text name="preview_label">Önizleme</text>
+	<text name="current_url_label">Mevcut Sayfa:</text>
+	<text name="current_url" tool_tip="Bu medya kaynağının geçerli sayfası" />
+	<button name="current_url_reset_btn" label="Sıfırla" />
+	<check_box name="auto_loop" label="Otomatik Döngü" />
+	<check_box name="first_click_interact" label="İlk Tıklama Etkileşimleri" />
+	<check_box name="auto_zoom" label="Otomatik Yakınlaştırma" />
+	<check_box name="auto_play" label="Otomatik Oynat Medya" />
+	<text name="media_setting_note">Not: Site sakinleri bu ayarı geçersiz kılabilir</text>
+	<check_box name="auto_scale" label="Medyayı Nesnenin Yüzünde Otomatik Ölçeklendir" />
+	<text name="size_label">Boyut:</text>
+	<spinner name="width_pixels" />
+	<text name="X_label">X</text>
+	<spinner name="height_pixels" />
+</panel>

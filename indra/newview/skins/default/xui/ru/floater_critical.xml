@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="modal container">
+	<button name="Continue" label="Продолжать" />
+	<button name="Cancel" label="Отмена" />
+	<text name="tos_heading">Пожалуйста, внимательно прочитайте следующее сообщение.</text>
+	<text_editor name="tos_text">TOS_TEXT</text_editor>
+</floater>

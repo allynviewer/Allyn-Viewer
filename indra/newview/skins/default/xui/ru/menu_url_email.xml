@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<context_menu name="Email Popup" label="Email">
+	<menu_item_call name="email_open_external" label="Написать письмо во внешней программе" />
+	<menu_item_call name="email_copy" label="Копировать адрес" />
+	<menu_item_call name="Select All" label="Выделить всё" />
+</context_menu>

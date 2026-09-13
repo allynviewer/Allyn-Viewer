@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="land holdings floater" title="Arsam">
+	<scroll_list name="parcel list">
+		<column name="name" label="Parsel Adı" />
+		<column name="location" label="Bölge" />
+		<column name="type" label="Tür" />
+		<column name="area" label="Alan" />
+		<column name="hidden" />
+	</scroll_list>
+	<button name="Teleport" label="Teleport" tool_tip="Bu arazinin merkezine teleport et." />
+	<button name="Show on Map" label="Haritada Göster" tool_tip="Bu araziyi dünya haritasında gösterin." />
+	<text name="contrib_label">Gruplarınıza katkılar:</text>
+	<scroll_list name="grant list">
+		<column name="group" label="Grup" />
+		<column name="area" label="Alan" />
+	</scroll_list>
+	<text name="allowed_label">Mevcut ödeme planında izin verilen arazi varlıkları:</text>
+	<text name="allowed_text">[AREA] metrekare</text>
+	<text name="current_label">Mevcut arazi varlıkları:</text>
+	<text name="current_text">[AREA] metrekare</text>
+	<text name="available_label">Arazi alımlarında kullanılabilir:</text>
+	<text name="available_text">[AREA] metrekare</text>
+	<string name="area_string">[AREA] metrekare</string>
+</floater>

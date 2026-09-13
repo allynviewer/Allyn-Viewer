@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="move floater">
+	<string name="rotate_tooltip">Rotate カメラ Around Focus</string>
+	<string name="zoom_tooltip">Zoom カメラ Towards Focus</string>
+	<string name="move_tooltip">カメラ 上 と 下, 左 と 右を移動</string>
+</floater>

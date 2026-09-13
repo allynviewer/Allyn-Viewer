@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="im_floater" label="（不明）" title="（不明）">
+	<string name="ringing">ボイスチャットに参加中...</string>
+	<string name="connected">接続済み。通話を終了するには「通話終了」をクリック</string>
+	<string name="hang_up">ボイスチャットを退出しました</string>
+	<string name="voice_icon">icn_voice-groupfocus.tga</string>
+	<string name="title_string">[NAME]とのインスタントメッセージ</string>
+	<string name="typing_start_string">[NAME]が入力中...</string>
+	<string name="session_start_string">[NAME]とのセッションを開始しています。お待ちください。</string>
+	<string name="default_text_label">クリックしてインスタントメッセージを送信</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<flyout_button name="instant_message_flyout" label="履歴">
+				<flyout_button_item name="conference" label="会議に追加" />
+			</flyout_button>
+			<button name="ding_btn" label="チーン" />
+			<check_box name="im_translate_check" tool_tip="チェックして翻訳を有効にする" />
+			<button name="im_translate_btn" label="翻訳" tool_tip="この会議の言語を設定" />
+			<button name="start_call_btn" label="通話" />
+			<button name="end_call_btn" label="通話終了" />
+			<button name="toggle_active_speakers_btn" label="&lt; &lt;" tool_tip="このIMの参加者リストを表示または非表示にします。" />
+			<text_editor name="im_history" />
+			<line_editor name="chat_editor" label="クリックしてインスタントメッセージ" />
+			<button name="send_btn" label="送信" />
+		</layout_panel>
+		<layout_panel name="active_speakers_panel" />
+	</layout_stack>
+	<string name="live_help_dialog">
+		*** ヘルプリクエストへようこそ ***
+まず F1 キーで SL ヘルプページを確認するか、ナレッジベース http://secondlife.com/knowledgebase/ にアクセスしてください。
+答えが見つからない場合は、質問を入力して開始してください。対応可能なヘルパーが応答するまで少々お待ちください。
+-=-=- 応答時間は変動します。特にピーク時はご注意ください -=-=-
+	</string>
+</floater>

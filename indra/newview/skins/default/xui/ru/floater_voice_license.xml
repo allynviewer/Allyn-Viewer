@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="modal container">
+	<button name="Continue" label="Продолжать" />
+	<button name="Cancel" label="Отмена" />
+	<check_box name="agree_chk" label="Я согласен с условиями Политики приемлемого использования Vivox" />
+	<text name="license_heading">
+		Пожалуйста, внимательно прочтите следующую лицензию. 
+Чтобы использовать голосовую связь, необходимо принять лицензионное соглашение.
+	</text>
+	<text_editor name="license_text">LICENSE_TEXT</text_editor>
+	<web_browser name="license_html" />
+	<string name="real_url" />
+	<string name="fallback_html" />
+</floater>

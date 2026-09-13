@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Panel Avatar">
+	<tab_container name="tab">
+		<panel name="2nd Life" label="セカンドライフ">
+			<string name="CaptionTextAcctInfo">
+				[ACCTTYPE]
+[PAYMENTINFO]
+[AGEVERIFICATION]
+			</string>
+			<text name="Name:">名前:</text>
+			<flyout_button name="copy_flyout" label="コピー:" tool_tip="キーをクリップボードにコピーします。矢印で他のコピーオプションを選べます">
+				<flyout_button_item name="copy_slurl_item" label="SLURLをコピー"/>
+			</flyout_button>
+			<text name="online_yes">オンライン</text>
+			<text name="Key:">キー:</text>
+			<button name="web_profile" label="Webプロフィール"/>
+			<text name="Photo:">写真:</text>
+			<texture_picker name="img" tool_tip="クリックして画像を選択"/>
+			<text name="label">誕生日:</text>
+			<text name="label2">アカウント:</text>
+			<text name="partner_label" tool_tip="Second Lifeのパートナーです。設定方法は www.secondlife.com/partner を参照してください">パートナー:</text>
+			<button name="partner_help" label="?"/>
+			<text name="About:">自己紹介:</text>
+			<text name="(500 chars)">（500文字）</text>
+			<text name="Groups:">グループ:</text>
+			<button name="GroupInvite_Button" label="+" label_selected="+" tool_tip="グループに招待"/>
+			<string name="None">なし</string>
+			<text name="Give item:">共有:</text>
+			<drop_target name="drop_target_rect" label="インベントリアイテムをここにドロップ。" tool_tip="ここにドロップすると、この人にアイテムを渡せます。"/>
+			<check_box name="allow_publish" label="検索に表示" tool_tip="説明や画像などの追加プロフィール情報を検索に公開します。"/>
+			<button name="?" label="?"/>
+			<button name="Find on Map" label="マップ"/>
+			<button name="Offer Teleport..." label="TPを提供"/>
+			<button name="Add Friend..." label="フレンド追加"/>
+			<button name="Pay..." label="支払う"/>
+			<button name="Instant Message..." label="IM" tool_tip="インスタントメッセージ（IM）"/>
+			<button name="Mute" label="ブロック" label_selected="解除"/>
+			<button name="Log" label="ログ"/>
+		</panel>
+		<panel name="WebProfile" label="Web">
+			<flyout_button name="load" label="読み込み" tool_tip="内蔵Webブラウザでこのプロフィールページを読み込みます。">
+				<flyout_button_item name="open_item">外部ブラウザで開く</flyout_button_item>
+				<flyout_button_item name="home_item">ホームURL</flyout_button_item>
+			</flyout_button>
+			<button name="web_profile_help" label="?"/>
+			<check_box name="auto_load" label="Webプロフィールを自動読み込み" tool_tip="確認せずにすべてのプロフィールWebページを自動で読み込みます。"/>
+		</panel>
+		<panel name="Interests" label="興味">
+			<text name="I Want To:">したいこと:</text>
+			<check_box name="chk0" label="ビルド"/>
+			<check_box name="chk1" label="探索"/>
+			<check_box name="chk2" label="交流"/>
+			<check_box name="chk6" label="雇われたい"/>
+			<check_box name="chk3" label="グループ"/>
+			<check_box name="chk4" label="購入"/>
+			<check_box name="chk5" label="販売"/>
+			<check_box name="chk7" label="雇用"/>
+			<text name="Skills:">スキル:</text>
+			<check_box name="schk0" label="テクスチャ"/>
+			<check_box name="schk1" label="建築"/>
+			<check_box name="schk2" label="イベント企画"/>
+			<check_box name="schk3" label="モデリング"/>
+			<check_box name="schk4" label="スクリプティング"/>
+			<check_box name="schk5" label="カスタムキャラクター"/>
+			<text name="Languages:">言語:</text>
+		</panel>
+		<panel name="Picks" label="ピック">
+			<text name="Tell everyone about your favorite places in Second Life.">Second Lifeのお気に入りの場所をみんなに伝えましょう。</text>
+			<button name="New..." label="新規..."/>
+			<button name="Delete..." label="削除..."/>
+			<button name="Import..." label="インポート..."/>
+			<button name="Export..." label="エクスポート..."/>
+			<text name="loading_text">読み込み中...</text>
+		</panel>
+		<panel name="Classified" label="クラシファイド">
+			<text name="Place an ad in Second Life&apos;s classified listings.">Second Lifeのクラシファイドに広告を掲載します。</text>
+			<button name="New..." label="新規..."/>
+			<button name="Delete..." label="削除..."/>
+			<text name="loading_text">読み込み中...</text>
+		</panel>
+		<panel name="1st Life" label="ファーストライフ">
+			<text name="Photo:">写真:</text>
+			<texture_picker name="img" tool_tip="クリックして画像を選択"/>
+			<text name="Info:">情報:</text>
+			<text name="(250 chars)">（250文字）</text>
+		</panel>
+		<panel name="My Notes" label="自分のメモ">
+			<string name="Loading">読み込み中...</string>
+			<text name="label">この人についてのメモを残すスペースです。これらのメモは自分だけが見られます。</text>
+		</panel>
+	</tab_container>
+	<button name="OK" label="OK"/>
+	<button name="Cancel" label="キャンセル"/>
+	<button name="Kick" label="キック"/>
+	<button name="Freeze" label="フリーズ" tool_tip="このレジデントの移動とチャットを止めます。"/>
+	<button name="Unfreeze" label="フリーズ解除" tool_tip="レジデントの凍結を解除"/>
+	<button name="csr_btn" label="CSR" tool_tip="このレジデントのカスタマーサービスツールを開く"/>
+	<string name="ShowOnMapNonFriend">マップに位置を表示します。フレンドではないため無効です。</string>
+	<string name="ShowOnMapFriendOffline">マップに位置を表示します。オンラインではないため無効です。</string>
+	<string name="ShowOnMapFriendOnline">マップに位置を表示します。</string>
+	<string name="TeleportGod">自分の場所へ強制テレポートします。</string>
+	<string name="TeleportPrelude">自分の場所へのテレポートを提供します。オリエンテーション島を出るまで無効です。</string>
+	<string name="TeleportNormal">自分の場所へのテレポートを提供します。</string>
+	<string name="Loading">読み込み中...</string>
+</panel>

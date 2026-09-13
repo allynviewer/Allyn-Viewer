@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Display Name" title="GÖRÜNEN ADI DEĞİŞTİR">
+	<text name="lockout_text">Sonraki olası değişiklik: [TIME].</text>
+	<text name="set_name_label">Yeni Görünen Ad:</text>
+	<line_editor name="display_name_editor" />
+	<text name="name_confirm_label">Onaylamak için yeni adınızı tekrar yazın:</text>
+	<line_editor name="display_name_confirm" />
+	<button name="save_btn" label="Kaydet" tool_tip="Yeni Görünen Adınızı kaydedin" />
+	<button name="reset_btn" label="Sıfırla" tool_tip="Görünen Adı Kullanıcı Adıyla aynı yapın" />
+	<button name="cancel_btn" label="İptal" tool_tip="Bu İletişim Kutusunu iptal edin ve kapatın" />
+	<text name="name_confirm_label2">Avatarınıza verdiğiniz isme Görünen Adınız denir.</text>
+	<text name="name_confirm_label3">Haftada bir kez değiştirebilirsiniz.</text>
+</floater>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="Popup">
+	<menu_item_call name="Marketplace Create Listing" label="掲載を作成" />
+	<menu_item_call name="Marketplace Associate Listing" label="掲載を関連付ける" />
+	<menu_item_call name="Marketplace Get Listing" label="掲載を取得（更新）" />
+	<menu_item_call name="Marketplace Check Listing" label="エラーを確認" />
+	<menu_item_call name="Marketplace Edit Listing" label="掲載を編集" />
+	<menu_item_call name="Marketplace List" label="出品する" />
+	<menu_item_call name="Marketplace Unlist" label="出品を解除" />
+	<menu_item_call name="Marketplace Activate" label="有効化" />
+	<menu_item_call name="Marketplace Deactivate" label="無効化" />
+	<menu_item_call name="Marketplace Copy ID" label="掲載IDをコピー" />
+	<menu_item_separator name="Marketplace Listings Separator" />
+	<menu_item_call name="Task Buy" label="購入" />
+	<menu_item_call name="Task Open" label="開く" />
+	<menu_item_call name="Task Play" label="再生" />
+	<menu_item_call name="Task Properties" label="プロパティ" />
+	<menu_item_call name="Task Rename" label="名前の変更" />
+	<menu_item_call name="Task Remove" label="削除" />
+	<menu_item_call name="Task Reset" label="リセット" />
+	<menu_item_call name="Task Set Not Running" label="実行を停止" />
+	<menu_item_call name="Task Set Running" label="実行する" />
+	<menu_item_call name="Empty Trash" label="ゴミ箱を空にする" />
+	<menu_item_call name="Empty Lost And Found" label="落とし物を空にする" />
+	<menu_item_call name="Open Folder In New Window" label="新しいウィンドウで開く" />
+	<menu_item_call name="Copy Folder UUID" label="フォルダUUIDをコピー" />
+	<menu_item_call name="New Folder" label="新しいフォルダ" />
+	<menu_item_call name="New Script" label="新しいスクリプト" />
+	<menu_item_call name="New Note" label="新しいノートカード" />
+	<menu_item_call name="New Gesture" label="新しいジェスチャー" />
+	<menu name="New Clothes" label="新しい衣類">
+		<menu_item_call name="New Shirt" label="新しいシャツ" />
+		<menu_item_call name="New Pants" label="新しいパンツ" />
+		<menu_item_call name="New Shoes" label="新しい靴" />
+		<menu_item_call name="New Socks" label="新しい靴下" />
+		<menu_item_call name="New Jacket" label="新しいジャケット" />
+		<menu_item_call name="New Skirt" label="新しいスカート" />
+		<menu_item_call name="New Gloves" label="新しい手袋" />
+		<menu_item_call name="New Undershirt" label="新しい下着（上）" />
+		<menu_item_call name="New Underpants" label="新しい下着（下）" />
+		<menu_item_call name="New Tattoo" label="新しいタトゥー" />
+		<menu_item_call name="New Alpha" label="新しいアルファ" />
+		<menu_item_call name="New Universal" label="新しいユニバーサル" />
+		<menu_item_call name="New Physics" label="新しい物理" />
+	</menu>
+	<menu name="New Body Parts" label="新しい体のパーツ">
+		<menu_item_call name="New Shape" label="新しいシェイプ" />
+		<menu_item_call name="New Skin" label="新しいスキン" />
+		<menu_item_call name="New Hair" label="新しいヘア" />
+		<menu_item_call name="New Eyes" label="新しい目" />
+	</menu>
+	<menu_item_call name="Landmark Open" label="テレポート" />
+	<menu_item_call name="Animation Open" label="開く" />
+	<menu_item_call name="Sound Open" label="開く" />
+	<menu_item_call name="Find Original" label="オリジナルを探す" />
+	<menu_item_call name="Purge Item" label="アイテムを完全削除" />
+	<menu_item_call name="Restore Item" label="アイテムを復元" />
+	<menu name="Open With...">
+		<menu_item_call name="Hex Open" label="16進エディタ" />
+		<menu_item_call name="Open Text" label="テキストエディタ" />
+		<menu_item_call name="Rez" label="オブジェクトをリズ" />
+	</menu>
+	<menu_item_call name="Open" label="開く" />
+	<menu_item_call name="Properties" label="プロパティ" />
+	<menu_item_call name="Rename" label="名前の変更" />
+	<menu_item_call name="Copy Asset UUID" label="アセットUUIDをコピー" />
+	<menu_item_call name="Acquire Asset ID" label="アセットIDを取得" />
+	<menu_item_separator name="Copy Separator" />
+	<menu_item_call name="Cut" label="切り取り" />
+	<menu_item_call name="Copy" label="コピー" />
+	<menu_item_call name="Paste" label="貼り付け" />
+	<menu_item_call name="Paste As Copy" label="コピーとして貼り付け" />
+	<menu_item_call name="Paste As Link" label="リンクとして貼り付け" />
+	<menu_item_call name="Restore to Last Position" label="ワールドに復元" />
+	<menu_item_separator name="Paste Separator" />
+	<menu_item_call name="Remove Link" label="リンクを削除" />
+	<menu_item_call name="Delete" label="削除" />
+	<menu_item_call name="Move to Lost And Found" label="落とし物へ移動" />
+	<menu_item_call name="Delete System Folder" label="システムフォルダを削除" />
+	<menu_item_separator name="Folder Wearables Separator" />
+	<menu_item_call name="Wear Items" label="アイテムを装着" />
+	<menu_item_call name="Add To Outfit" label="アイテムを追加" />
+	<menu_item_call name="Replace Outfit" label="衣装を置き換え" />
+	<menu_item_separator name="Replace Remove Separator" />
+	<menu_item_call name="Remove From Outfit" label="衣装から外す" />
+	<menu_item_separator name="Outfit Separator" />
+	<menu_item_separator name="Calling Card Separator" />
+	<menu_item_call name="Conference Chat Folder" label="会議チャットを開始" />
+	<menu_item_separator name="Sound Separator" />
+	<menu_item_call name="Sound Play" label="再生" />
+	<menu_item_separator name="Landmark Separator" />
+	<menu_item_call name="Teleport To Landmark" label="ランドマークについて" />
+	<menu_item_call name="Show On Map" label="マップに表示" />
+	<menu_item_separator name="Animation Separator" />
+	<menu_item_call name="Animation Play" label="ワールドで再生" />
+	<menu_item_call name="Animation Audition" label="ローカルで再生" />
+	<menu_item_separator name="Send Instant Message Separator" />
+	<menu_item_call name="Web Profile" label="Webプロフィール" />
+	<menu_item_call name="Send Instant Message" label="IMを送信" />
+	<menu_item_call name="Offer Teleport..." label="テレポートを提供..." />
+	<menu_item_call name="Request Teleport..." label="テレポートをリクエスト..." />
+	<menu_item_call name="Conference Chat" label="会議チャットを開始" />
+	<menu_item_separator name="Gesture Separator" />
+	<menu_item_call name="Activate" label="有効化" />
+	<menu_item_call name="Deactivate" label="無効化" />
+	<menu_item_separator name="Texture Separator" />
+	<menu_item_call name="Save As" label="名前を付けて保存" />
+	<menu_item_separator name="Wearable And Object Separator" />
+	<menu_item_call name="Wearable And Object Wear" label="装着" />
+	<menu_item_call name="Wearable Add" label="装着に追加" />
+	<menu_item_call name="Wearable Move Forward" label="▲ 前へ移動" />
+	<menu_item_call name="Wearable Move Back" label="▼ 後ろへ移動" />
+	<menu name="Attach To" label="装着先" />
+	<menu name="Attach To HUD" label="HUDに装着" />
+	<menu_item_call name="Detach From Yourself" label="自分から外す" />
+	<menu_item_call name="Wearable Edit" label="編集" />
+	<menu_item_call name="Take Off" label="脱ぐ" />
+	<menu_item_separator name="Marketplace Separator" />
+	<menu_item_call name="Marketplace Copy" label="マーケットプレイス掲載へコピー" />
+	<menu_item_call name="Marketplace Move" label="マーケットプレイス掲載へ移動" />
+	<menu_item_call name="Share" label="共有" />
+	<menu_item_call name="--no options--" label="-- オプションなし --" />
+</menu>

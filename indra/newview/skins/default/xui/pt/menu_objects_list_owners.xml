@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="Object Owner Submenu">
+	<menu_item_call name="Profile" label="Perfil"/>
+	<menu name="Actions" label="Ações">
+		<menu_item_call name="Web Profile" label="Perfil na web"/>
+		<menu_item_call name="Pay" label="Pagar"/>
+		<menu_item_call name="Instant Message" label="IM"/>
+		<menu_item_call name="Conference Chat" label="Chat em conferência"/>
+		<menu_item_call name="Call" label="Ligar"/>
+		<menu_item_call name="Conference Call" label="Chamada em conferência"/>
+		<menu_item_call name="Add Friend" label="Adicionar amigo"/>
+		<menu_item_call name="Remove Friend" label="Remover amigo"/>
+		<menu_item_call name="Invite To Group" label="Convidar para grupo"/>
+		<menu_item_call name="Follow" label="Seguir"/>
+		<menu_item_call name="Move To" label="Mover para"/>
+		<menu_item_call name="Offer Teleport" label="Oferecer TP"/>
+		<menu_item_call name="Teleport To" label="Teleportar para"/>
+		<menu_item_call name="Request Teleport" label="Pedir TP"/>
+		<menu_item_call name="Find on Map" label="Localizar no mapa"/>
+		<menu_item_call name="Share" label="Compartilhar"/>
+		<menu_item_call name="Chat History" label="Histórico de chat"/>
+		<menu_item_call name="Track/Untrack" label="Rastrear/parar"/>
+	</menu>
+	<menu name="Copy" label="Copiar">
+		<menu_item_call name="Copy Key" label="Chave"/>
+		<menu_item_call name="Copy Name" label="Nome"/>
+		<menu_item_call name="Copy SLURL" label="SLURL"/>
+	</menu>
+	<menu_item_call name="Focus" label="Focar"/>
+	<menu name="Moderation" label="Moderação">
+		<menu_item_call name="Mute" label="Silenciar"/>
+		<menu_item_call name="Unmute" label="Reativar"/>
+		<menu_item_call name="Ban From Group" label="Banir do grupo"/>
+		<menu_item_call name="Report Abuse" label="Denunciar abuso"/>
+		<menu_item_call name="Freeze" label="Congelar"/>
+		<menu_item_call name="Eject/Ban from Parcel" label="Ejetar/banir da parcela"/>
+		<menu_item_call name="Eject from estate" label="Ejetar da propriedade"/>
+		<menu_item_call name="Eject and ban from estate" label="Ejetar e banir da propriedade"/>
+	</menu>
+</menu>

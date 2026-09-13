@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<llsd>
+	<map>
+		<key>strings</key>
+		<map>
+			<key>hidden_generic</key>
+			<map>
+				<key>value</key>
+				<string>(oculto)</string>
+			</map>
+			<key>hidden_parcel</key>
+			<map>
+				<key>value</key>
+				<string>(parcela oculta)</string>
+			</map>
+			<key>hidden_region</key>
+			<map>
+				<key>value</key>
+				<string>(região oculta)</string>
+			</map>
+			<key>blocked_recvim</key>
+			<map>
+				<key>value</key>
+				<string>*** IM bloqueada pelo seu viewer</string>
+				<key>description</key>
+				<string>Aparece no lugar da mensagem original quando uma IM recebida é bloqueada</string>
+				<key>label</key>
+				<string>IM recebida bloqueada (local)</string>
+				<key>customizable</key>
+			</map>
+			<key>blocked_sendim</key>
+			<map>
+				<key>value</key>
+				<string>*** IM bloqueada pelo viewer do remetente</string>
+				<key>description</key>
+				<string>Mostrada (e enviada à outra pessoa) quando uma IM enviada é bloqueada</string>
+				<key>label</key>
+				<string>IM enviada bloqueada (local + remoto)</string>
+				<key>customizable</key>
+			</map>
+			<key>blocked_generic</key>
+			<map>
+				<key>value</key>
+				<string>Não é possível fazer isso por causa das restrições de RLV</string>
+			</map>
+			<key>blocked_permattach</key>
+			<map>
+				<key>value</key>
+				<string>Não foi possível anexar '[OBJECT]' por causa das restrições de RLV</string>
+			</map>
+			<key>blocked_permteleport</key>
+			<map>
+				<key>value</key>
+				<string>[OBJECT] não pôde teleportar você por causa das restrições de RLV</string>
+			</map>
+			<key>blocked_startim</key>
+			<map>
+				<key>value</key>
+				<string>Não foi possível iniciar IM com [RECIPIENT] por causa das restrições de RLV</string>
+			</map>
+			<key>blocked_startconf</key>
+			<map>
+				<key>value</key>
+				<string>Não foi possível iniciar conferência com [RECIPIENT] por causa das restrições de RLV</string>
+			</map>
+			<key>blocked_teleport</key>
+			<map>
+				<key>value</key>
+				<string>Não foi possível teleportar por causa das restrições de RLV</string>
+			</map>
+			<key>blocked_viewxxx</key>
+			<map>
+				<key>value</key>
+				<string>Não foi possível abrir [TYPE] por causa das restrições de RLV</string>
+			</map>
+			<key>blocked_wireframe</key>
+			<map>
+				<key>value</key>
+				<string>Não foi possível ativar o modo wireframe por causa das restrições de RLV</string>
+			</map>
+			<key>blocked_recvim_remote</key>
+			<map>
+				<key>value</key>
+				<string>Este residente está impedido de ler suas mensagens instantâneas no momento. Tente de novo mais tarde.</string>
+				<key>description</key>
+				<string>Enviada à outra pessoa quando a IM dela foi bloqueada</string>
+				<key>label</key>
+				<string>IM recebida bloqueada (remoto)</string>
+				<key>customizable</key>
+			</map>
+			<key>blocked_tplurerequest_remote</key>
+			<map>
+				<key>value</key>
+				<string>Este residente está impedido de aceitar no momento. Tente de novo mais tarde.</string>
+				<key>description</key>
+				<string>Enviada à outra pessoa quando o convite ou pedido de TP foi bloqueado</string>
+				<key>label</key>
+				<string>Convite/pedido de TP bloqueado (remoto)</string>
+				<key>customizable</key>
+			</map>
+		</map>
+		<key>anonyms</key>
+		<array>
+			<string>Um residente</string>
+			<string>Este residente</string>
+			<string>Aquele residente</string>
+			<string>Uma pessoa</string>
+			<string>Esta pessoa</string>
+			<string>Aquela pessoa</string>
+			<string>Alguém</string>
+			<string>Esta pessoa</string>
+			<string>Aquela pessoa</string>
+			<string>Um desconhecido</string>
+			<string>Este desconhecido</string>
+			<string>Aquele desconhecido</string>
+			<string>Um ser</string>
+			<string>Este ser</string>
+			<string>Aquele ser</string>
+			<string>Um agente</string>
+			<string>Este agente</string>
+			<string>Aquele agente</string>
+			<string>Uma alma</string>
+			<string>Esta alma</string>
+			<string>Aquela alma</string>
+			<string>Alguém</string>
+			<string>Algumas pessoas</string>
+			<string>Alguém</string>
+			<string>Uma pessoa misteriosa</string>
+			<string>Um ser desconhecido</string>
+			<string>Alguém não identificado</string>
+			<string>Uma pessoa desconhecida</string>
+		</array>
+	</map>
+</llsd>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Comunicação" name="im">
+	<text name="text_box">Minha situação online:</text>
+	<check_box label="Só amigos e grupos me veem online" name="online_visibility"/>
+	<text name="text_box2">Opções de IM:</text>
+	<string name="log_in_to_change">Entre para alterar</string>
+	<string name="email_unverified_tooltip">Confirme seu e-mail para encaminhar IMs. Isso é feito no site do grid.</string>
+	<check_box label="Enviar IM para o e-mail ([EMAIL])" name="send_im_to_email"/>
+	<check_box label="Incluir IMs no console do chat" name="include_im_in_chat_console"/>
+	<check_box label="Mostrar hora nas IMs" name="show_timestamps_check"/>
+	<check_box label="Avisar quando um amigo entrar" name="friends_online_notify_checkbox"/>
+	<text name="conference_block_text">Conferências recebidas:</text>
+	<radio_group name="block_conferences_radio" width="204">
+		<radio_item name="accept" value="0">Aceitar</radio_item>
+		<radio_item name="friends only" value="2">Só amigos</radio_item>
+		<radio_item name="block" value="1">Bloquear</radio_item>
+	</radio_group>
+	<text name="text_box3" width="134">Resposta no modo Ocupado:</text>
+	<text name="text_box4">Opções de registro:</text>
+	<check_box label="Salvar um registro das IMs neste computador" name="log_instant_messages"/>
+	<check_box label="Mostrar a hora nas IMs salvas" name="log_instant_messages_timestamp"/>
+	<check_box label="Mostrar o fim da última conversa de IM" name="log_show_history"/>
+	<check_box label="Salvar um registro do chat local neste computador" name="log_chat"/>
+	<check_box label="Mostrar a hora no registro do chat local" name="log_chat_timestamp"/>
+	<check_box label="Incluir IMs recebidas no registro do chat local" name="log_chat_IM"/>
+	<check_box label="Incluir data e hora" name="log_date_timestamp"/>
+	<check_box label="Acrescentar a data ao nome do arquivo de log" name="logfile_name_datestamp"/>
+	<button label="Alterar pasta" label_selected="Alterar pasta" name="log_path_button" width="120"/>
+	<line_editor left="278" name="log_path_string" right="-20"/>
+</panel>

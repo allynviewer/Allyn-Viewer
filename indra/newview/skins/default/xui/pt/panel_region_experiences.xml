@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Experiences">
+	<panel.string name="trusted_estate_text">Qualquer Experience pode ser Confiável. Experiences confiáveis têm permissão para executar neste estate. Além disso, se o estate não permitir acesso público, residentes que participam de qualquer Experience confiável podem entrar no estate e permanecer enquanto estiverem na Experience.</panel.string>
+	<panel.string name="allowed_estate_text">Só Experiences locais podem ser Permitidas. Experiences permitidas têm permissão para executar neste estate.</panel.string>
+	<panel.string name="blocked_estate_text">Só grid-wide Experiences podem ser Bloqueadas. Experiences bloqueadas não podem executar neste estate.</panel.string>
+	<panel.string name="estate_caption">As alterações nas configurações desta aba afetarão todas as regiões do estate.</panel.string>
+	<panel.string name="allowed_parcel_text">Só Experiences locais podem ser Permitidas. Experiences permitidas têm permissão para executar nesta parcela se não estiverem Bloqueadas pelo estate.</panel.string>
+	<panel.string name="blocked_parcel_text">Só grid-wide Experiences podem ser Bloqueadas. Experiences bloqueadas não podem executar nesta parcela.</panel.string>
+</panel>

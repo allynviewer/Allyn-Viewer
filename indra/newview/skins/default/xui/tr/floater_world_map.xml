@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="worldmap" title="Dünya Haritası">
+	<panel name="right_controls">
+	<text name="you_label">Sen</text>
+	<text name="home_label">Ev</text>
+	<text name="auction_label">Mezat</text>
+	<text name="land_for_sale_label">Satılık arazi</text>
+	<button name="Go Home" label="Eve git" label_selected="Eve git" tool_tip="Evine ışınlan" />
+	<check_box name="people_chk" label="Sakin" />
+	<check_box name="infohub_chk" label="Bilgi merkezi" />
+	<check_box name="telehubchk" label="Telehub" />
+	<check_box name="land_for_sale_chk" label="Satılık arazi" />
+	<text name="events_label">Etkinlikler:</text>
+	<check_box name="event_chk" label="PG" />
+	<check_box name="events_mature_chk" label="Olgun" />
+	<check_box name="events_adult_chk" label="Yetişkin" />
+	<combo_box name="friend combo" label="Çevrimiçi arkadaşlar" tool_tip="Haritada gösterilecek arkadaş">
+		<combo_item name="none_selected">Çevrimiçi arkadaşlar</combo_item>
+	</combo_box>
+	<combo_box name="landmark combo" label="Yer imleri" tool_tip="Haritada gösterilecek yer imi">
+		<combo_item name="none_selected">Yer imleri</combo_item>
+	</combo_box>
+	<search_editor name="location" label="Bölge adına göre ara" tool_tip="Bir bölgenin adını yazın" />
+	<button name="DoSearch" label="Ara" tool_tip="Bölge ara" />
+	<text name="search_label">Arama sonuçları:</text>
+	<text name="location_label">Konum:</text>
+	<spinner name="spin x" tool_tip="Haritada gösterilecek konumun X koordinatı" />
+	<spinner name="spin y" tool_tip="Haritada gösterilecek konumun Y koordinatı" />
+	<spinner name="spin z" tool_tip="Haritada gösterilecek konumun Z koordinatı" />
+	<button name="Teleport" label="Işınlan" tool_tip="Seçilen konuma ışınlan" />
+	<button name="Show Destination" label="Hedefi göster" tool_tip="Haritayı seçilen konuma ortala" />
+	<button name="Clear" label="Temizle" tool_tip="İzlemeyi durdur" />
+	<button name="Show My Location" label="Konumumu göster" tool_tip="Haritayı avatarınızın konumuna ortala" />
+	<button name="copy_slurl" label="SLURL kopyala" tool_tip="Geçerli konumu web'de kullanılmak üzere SLURL olarak kopyalar." />
+	<button name="track_region" label="Bölgeyi izle" tool_tip="Bölgeyi bölge izleyiciye ekle" />
+	<slider name="zoom slider" label="Yakınlaştır" />
+	</panel>
+</floater>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="script panel">
+	<text_editor name="Script Editor">読み込み中...</text_editor>
+	<button name="Edit_btn" label="編集..." />
+	<button name="Save_btn" label="保存" />
+	<scroll_list name="lsl errors" />
+	<combo_box name="Insert..." label="挿入..." />
+	<text name="line_col" />
+	<menu_bar name="script_menu">
+		<menu name="File">
+			<menu_item_call name="Save" label="保存" />
+			<menu_item_call name="Revert All Changes" label="すべての変更を元に戻す" />
+		</menu>
+		<menu name="Edit" label="編集">
+			<menu_item_call name="Undo" label="元に戻す" />
+			<menu_item_call name="Redo" label="やり直し" />
+			<menu_item_call name="Cut" label="切り取り" />
+			<menu_item_call name="Copy" label="コピー" />
+			<menu_item_call name="Paste" label="貼り付け" />
+			<menu_item_call name="Select All" label="すべて選択" />
+			<menu_item_call name="Deselect" label="選択解除" />
+			<menu_item_call name="Search / Replace..." label="検索 / 置換..." />
+		</menu>
+		<menu name="Help">
+			<menu_item_call name="Help..." label="ヘルプ..." />
+			<menu_item_call name="LSL Wiki Help..." label="LSL Wiki ヘルプ..." />
+		</menu>
+	</menu_bar>
+	<string name="loading">読み込み中...</string>
+	<string name="can_not_view">このスクリプトを表示する権限がありません。</string>
+	<string name="public_objects_can_not_run">公開オブジェクトではスクリプトを実行できません</string>
+	<string name="script_running">実行中</string>
+</panel>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Inventory Finder" title="envanter_recent_items">
+	<icon name="icon_animation" />
+	<check_box name="check_animation" label="Animasyon" />
+	<icon name="icon_calling_card" />
+	<check_box name="check_calling_card" label="Arama Kartları" />
+	<icon name="icon_clothing" />
+	<check_box name="check_clothing" label="Giyim" />
+	<icon name="icon_gesture" />
+	<check_box name="check_gesture" label="Jestler" />
+	<icon name="icon_landmark" />
+	<check_box name="check_landmark" label="Landmark'lar" />
+	<icon name="icon_notecard" />
+	<check_box name="check_notecard" label="Notecard'lar" />
+	<icon name="icon_object" />
+	<check_box name="check_object" label="Nesneler" />
+	<icon name="icon_script" />
+	<check_box name="check_script" label="Scriptler" />
+	<icon name="icon_sound" />
+	<check_box name="check_sound" label="Sesler" />
+	<icon name="icon_texture" />
+	<check_box name="check_texture" label="Dokular" />
+	<icon name="icon_snapshot" />
+	<check_box name="check_snapshot" label="Anlık görüntüler" />
+	<button name="All" label="Hepsi" />
+	<button name="None" label="Yok" />
+	<text name="links">Bağlantılar:</text>
+	<radio_group name="radio_links">
+		<radio_item name="Any">Herhangi biri</radio_item>
+		<radio_item name="Only">Yalnızca</radio_item>
+		<radio_item name="None">Yok</radio_item>
+	</radio_group>
+	<check_box name="check_show_empty" label="Klasörleri her zaman göster" />
+	<check_box name="check_since_logoff" label="Oturum kapatıldığından beri" />
+	<text name="- OR -">- VEYA -</text>
+	<spinner name="spin_hours_ago" label="Saatler Önce" />
+	<spinner name="spin_days_ago" label="Günler Önce" />
+	<button name="Close" label="Kapat" />
+</floater>

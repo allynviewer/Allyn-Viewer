@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Collada Export" title="Коллада Экспорт">
+	<string name="texture_progress">Экспорт Collada: сохранение текстур (осталось [COUNT])</string>
+	<text name="file name">Имя файла:</text>
+	<line_editor name="file name editor" />
+	<button name="browse button" label="Просматривать" />
+	<button name="export button" label="Экспорт" />
+	<panel name="object info panel">
+		<text name="Object info">Информация об объекте</text>
+		<text name="Object Name">Имя: [NAME]</text>
+		<text name="Exportable Prims">Экспортируемые примы: [COUNT]/[TOTAL]</text>
+		<text name="Exportable Textures">Экспортируемые текстуры: [COUNT]/[TOTAL]</text>
+	</panel>
+	<panel name="options panel">
+		<text name="Options">Параметры</text>
+		<check_box name="texture export check" label="Экспортировать текстуры" />
+		<combo_box name="texture type combo">
+			<combo_item name="tga">TGA</combo_item>
+			<combo_item name="png">PNG</combo_item>
+			<combo_item name="j2c">J2C</combo_item>
+			<combo_item name="bmp">BMP</combo_item>
+			<combo_item name="jpg">JPG</combo_item>
+		</combo_box>
+		<check_box name="consolidate check" label="Объединить лица" tool_tip="Экспортировать грани, имеющие одинаковую текстуру" />
+		<check_box name="skip transparent check" label="Пропустить прозрачные текстуры" />
+		<check_box name="texture params check" label="Применить параметры текстуры" />
+	</panel>
+	<scroll_container name="textures container" />
+</floater>

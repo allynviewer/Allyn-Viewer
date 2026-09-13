@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="whitelist_entry" title="BEYAZ LİSTE GİRİŞİ">
+	<text name="media_label">İzin verilen alanlar listesine eklenecek bir URL veya URL modeli girin</text>
+	<line_editor name="whitelist_entry" tool_tip="Beyaz Listeye bir URL veya URL modeli girin" />
+	<button name="ok_btn" label="OK" />
+	<button name="cancel_btn" label="İptal" />
+</floater>

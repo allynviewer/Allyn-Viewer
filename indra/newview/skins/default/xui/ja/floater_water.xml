@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Water Floater" title="高度な水エディター">
+	<text name="KeyFramePresetsText">プリセット:</text>
+	<button name="WaterNewPreset" label="新規" label_selected="新規"/>
+	<button name="WaterSavePreset" label="保存" label_selected="保存"/>
+	<button name="WaterDeletePreset" label="削除" label_selected="削除"/>
+	<tab_container name="Water Tabs">
+		<panel name="Settings" label="設定">
+			<text name="BHText">水の霧の色</text>
+			<button name="WaterFogColorHelp" label="?"/>
+			<color_swatch name="WaterFogColor" tool_tip="クリックしてカラーピッカーを開く"/>
+			<text name="WaterFogDensText">霧密度の指数</text>
+			<button name="WaterFogDensityHelp" label="?"/>
+			<text name="WaterUnderWaterFogModText">水中霧の補正</text>
+			<button name="WaterUnderWaterFogModHelp" label="?"/>
+			<text name="BDensText">反射ウェーブレット倍率</text>
+			<button name="WaterNormalScaleHelp" label="?"/>
+			<text name="BHText2">1</text>
+			<text name="BHText3">2</text>
+			<text name="BHText4">3</text>
+			<text name="HDText">フレネルスケール</text>
+			<button name="WaterFresnelScaleHelp" label="?"/>
+			<text name="FresnelOffsetText">フレネルオフセット</text>
+			<button name="WaterFresnelOffsetHelp" label="?"/>
+			<text name="DensMultText">水面より上の屈折倍率</text>
+			<button name="WaterScaleAboveHelp" label="?"/>
+			<text name="WaterScaleBelowText">水面より下の屈折倍率</text>
+			<button name="WaterScaleBelowHelp" label="?"/>
+			<text name="MaxAltText">ぼかし倍率</text>
+			<button name="WaterBlurMultiplierHelp" label="?"/>
+		</panel>
+		<panel name="Waves" label="画像">
+			<text name="BHText">大きな波の方向</text>
+			<button name="WaterWave1Help" label="?"/>
+			<text name="WaterWave1DirXText">X</text>
+			<text name="WaterWave1DirYText">Y</text>
+			<text name="BHText2">小さな波の方向</text>
+			<button name="WaterWave2Help" label="?"/>
+			<text name="WaterWave2DirXText">X</text>
+			<text name="WaterWave2DirYText">Y</text>
+			<text name="BHText3">法線マップ</text>
+			<button name="WaterNormalMapHelp" label="?"/>
+		</panel>
+	</tab_container>
+	<string name="WLDefaultWaterNames">Default:Glassy:Pond:Murky:Second Plague:SNAKE!!!:Valdez</string>
+</floater>

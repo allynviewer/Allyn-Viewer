@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="mediaticker">
+	<icon name="ticker_background" />
+	<icon name="ticker_background" />
+	<text name="artist_label">Sanatçı:</text>
+	<text name="artist_text" />
+	<text name="title_label">Başlık:</text>
+	<text name="title_text" />
+	<string name="paused">(oynamıyorum)</string>
+	<string name="loading">(yükleniyor...)</string>
+</floater>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floaterland" title="土地について">
+	<tab_container name="landtab">
+		<panel name="land_general_panel" label="一般">
+			<text name="Name:">名前:</text>
+			<line_editor name="Name" />
+			<text name="Description:">説明:</text>
+			<text_editor name="Description" />
+			<text name="LandType">タイプ:</text>
+			<text name="LandTypeText">Mainland / Homestead</text>
+			<text name="ContentRating">レーティング:</text>
+			<text name="ContentRatingText">アダルト</text>
+			<text name="Owner:">所有者:</text>
+			<name_box name="OwnerText">Leyla Linden</name_box>
+			<text name="Group:">グループ:</text>
+			<name_box name="GroupText" />
+			<button name="Set..." label="設定..." />
+			<check_box name="check deed" label="グループへの譲渡を許可" tool_tip="グループ役員はこの土地をグループに譲渡でき、グループの土地割当で維持されます。" />
+			<button name="Deed..." label="譲渡..." tool_tip="選択したグループの役員である場合のみ、土地を譲渡できます。" />
+			<check_box name="check contrib" label="所有者が土地割当を提供して譲渡" tool_tip="土地をグループに譲渡するとき、元の所有者が維持に必要な土地割当を提供します。" />
+			<text name="For Sale:">売却中:</text>
+			<text name="Not for sale.">非売品</text>
+			<text name="For Sale: Price L$[PRICE].">価格: [CURRENCY][PRICE]（[CURRENCY][PRICE_PER_SQM]/㎡）</text>
+			<text name="SalePending" />
+			<button name="Sell Land..." label="土地を売却..." />
+			<text name="For sale to">売却先: [BUYER]</text>
+			<text name="Sell with landowners objects in parcel.">オブジェクトを含めて売却</text>
+			<text name="Selling with no objects in parcel.">オブジェクトは売却に含まれません</text>
+			<button name="Cancel Land Sale" label="売却を取り消す" />
+			<text name="Claimed:">取得日:</text>
+			<text name="DateClaimText">Tue Aug 15 13:47:25 2006</text>
+			<text name="PriceLabel">面積:</text>
+			<text name="PriceText">4048 平方メートル</text>
+			<text name="Traffic:">トラフィック:</text>
+			<text name="DwellText" />
+			<button name="Buy Land..." label="土地を購入..." />
+			<button name="Scripts..." label="スクリプト情報" />
+			<button name="Buy For Group..." label="グループ用に購入..." />
+			<button name="Buy Pass..." label="パスを購入..." tool_tip="パスはこの土地への一時的なアクセスを付与します。" />
+			<button name="Abandon Land..." label="土地を放棄..." />
+			<button name="Reclaim Land..." label="土地を回収..." />
+			<button name="Linden Sale..." label="リンデン売却..." tool_tip="土地の所有、コンテンツの設定が必要で、すでにオークション中であってはなりません。" />
+			<string name="new users only">新規ユーザーのみ</string>
+			<string name="anyone">誰でも</string>
+			<string name="area_text">面積</string>
+			<string name="area_size_text">[AREA]㎡</string>
+			<string name="auction_id_text">オークション ID: [ID]</string>
+			<string name="need_tier_to_modify">この土地を改造するには、購入を承認する必要があります。</string>
+			<string name="group_owned_text">（グループ所有）</string>
+			<string name="public_text">（公開）</string>
+			<string name="none_text">（なし）</string>
+			<string name="sale_pending_text">（売却保留中）</string>
+			<string name="no_selection_text">パーセルが選択されていません。ワールドメニュー &gt; 土地について を開くか、別のパーセルを選んで詳細を表示してください。</string>
+		</panel>
+		<panel name="land_covenant_panel" label="コベナント">
+			<text name="estate_section_lbl">エステート:</text>
+			<text name="estate_name_lbl">名前:</text>
+			<text name="estate_name_text">メインランド</text>
+			<text name="estate_owner_lbl">所有者:</text>
+			<name_box name="estate_owner_text">（なし）</name_box>
+			<text_editor name="covenant_editor">このエステートにはコベナントがありません。</text_editor>
+			<text name="covenant_timestamp_text">最終更新: Wed Dec 31 16:00:00 1969</text>
+			<text name="region_section_lbl">リージョン:</text>
+			<text name="region_name_lbl">名前:</text>
+			<text name="region_name_text">leyla</text>
+			<text name="region_landtype_lbl">タイプ:</text>
+			<text name="region_landtype_text">Mainland / Homestead</text>
+			<text name="region_maturity_lbl">レーティング:</text>
+			<text name="region_maturity_text">アダルト</text>
+			<text name="resellable_lbl">再販:</text>
+			<text name="resellable_clause">このリージョンの土地は再販できません。</text>
+			<text name="changeable_lbl">細分化:</text>
+			<text name="changeable_clause">このリージョンの土地は結合・分割できません。</text>
+			<string name="can_resell">このリージョンで購入した土地は再販できます。</string>
+			<string name="can_not_resell">このリージョンで購入した土地は再販できません。</string>
+			<string name="can_change">このリージョンで購入した土地は結合・分割できます。</string>
+			<string name="can_not_change">このリージョンで購入した土地は結合・分割できません。</string>
+		</panel>
+		<panel name="land_objects_panel" label="オブジェクト">
+			<text name="parcel_object_bonus">リージョンのオブジェクトボーナス係数: [BONUS]</text>
+			<text name="Simulator primitive usage:">シミュレーターのプリム使用量:</text>
+			<text name="objects_available">[COUNT] / [MAX]（残り [AVAILABLE]）</text>
+			<string name="objects_available_text">[COUNT] / [MAX]（残り [AVAILABLE]）</string>
+			<string name="objects_deleted_text">[COUNT] / [MAX]（[DELETED] が削除されます）</string>
+			<text name="Primitives parcel supports:">このパーセルが支えられるプリム:</text>
+			<text name="object_contrib_text">[COUNT]</text>
+			<text name="Primitives on parcel:">パーセル上のプリム:</text>
+			<text name="total_objects_text">[COUNT]</text>
+			<text name="Owned by parcel owner:">パーセル所有者のもの:</text>
+			<text name="owner_objects_text">[COUNT]</text>
+			<button name="ShowOwner" label="表示" />
+			<button name="ReturnOwner..." label="返却..." tool_tip="オブジェクトを所有者へ返却します。" />
+			<text name="Set to group:">グループ設定:</text>
+			<text name="group_objects_text">[COUNT]</text>
+			<button name="ShowGroup" label="表示" />
+			<button name="ReturnGroup..." label="返却..." tool_tip="オブジェクトを所有者へ返却します。" />
+			<text name="Owned by others:">他の人のもの:</text>
+			<text name="other_objects_text">[COUNT]</text>
+			<button name="ShowOther" label="表示" />
+			<button name="ReturnOther..." label="返却..." tool_tip="オブジェクトを所有者へ返却します。" />
+			<text name="Selected / sat upon:">選択中 / 着席中:</text>
+			<text name="selected_objects_text">[COUNT]</text>
+			<text name="Autoreturn">他人のオブジェクトの自動返却（分、0 でオフ）:</text>
+			<line_editor name="clean other time" />
+			<text name="Object Owners:">オブジェクトの所有者:</text>
+			<button name="Refresh List" label="リストを更新" />
+			<button name="Return objects..." label="オブジェクトを返却..." />
+			<name_list name="owner list">
+				<column name="type" label="タイプ" />
+				<column name="online_status" />
+				<column name="name" label="名前" />
+				<column name="count" label="数" />
+				<column name="mostrecent" label="最新" />
+			</name_list>
+		</panel>
+		<panel name="land_options_panel" label="オプション">
+			<text name="allow_label">他のレジデントに次を許可:</text>
+			<check_box name="edit land check" label="地形を編集" tool_tip="オンにすると誰でも土地をテラフォームできます。自分の土地はいつでも編集できるので、通常はオフのままが安全です。" />
+			<check_box name="check landmark" label="ランドマークを作成" />
+			<check_box name="check fly" label="飛行" tool_tip="オンにすると、レジデントがこの土地の上で飛行できます。オフでも、他の土地から飛んできて上空を通過することはできます。" />
+			<text name="allow_label2">オブジェクトの作成:</text>
+			<check_box name="edit objects check" label="すべてのレジデント" />
+			<check_box name="edit group objects check" label="グループ" />
+			<text name="allow_label3">オブジェクトの進入:</text>
+			<check_box name="all object entry check" label="すべてのレジデント" />
+			<check_box name="group object entry check" label="グループ" />
+			<text name="allow_label4">スクリプトの実行:</text>
+			<check_box name="check other scripts" label="すべてのレジデント" />
+			<check_box name="check group scripts" label="グループ" />
+			<text name="land_options_label">土地のオプション:</text>
+			<check_box name="check safe" label="安全（ダメージなし）" tool_tip="オンにすると土地を安全にし、ダメージ戦闘を無効にします。オフにするとダメージ戦闘が有効になります。" />
+			<check_box name="PushRestrictCheck" label="プッシュ禁止" tool_tip="スクリプトによる押し出しを防ぎます。土地での迷惑行為を減らしたいときに便利です。" />
+			<check_box name="ShowDirectoryCheck" label="検索に掲載する（表示 [DIRECTORYFEE]）" tool_tip="このパーセルを検索結果に表示します" />
+			<string name="search_enabled_tooltip">このパーセルを検索結果に表示します</string>
+			<string name="search_disabled_small_tooltip">このパーセルの面積が 128㎡ 以下のため、このオプションは使えません。検索に掲載できるのは大きなパーセルだけです。</string>
+			<string name="search_disabled_permissions_tooltip">このパーセルのオプションを変更する権限がないため、この項目は使えません。</string>
+			<combo_box name="land category with adult">
+				<combo_item name="AnyCategory">すべてのカテゴリ</combo_item>
+				<combo_item name="LindenLocation">リンデンの場所</combo_item>
+				<combo_item name="Adult">アダルト</combo_item>
+				<combo_item name="Arts&amp;Culture">芸術・文化</combo_item>
+				<combo_item name="Business">ビジネス</combo_item>
+				<combo_item name="Educational">教育</combo_item>
+				<combo_item name="Gaming">ゲーム</combo_item>
+				<combo_item name="Hangout">たまり場</combo_item>
+				<combo_item name="NewcomerFriendly">初心者歓迎</combo_item>
+				<combo_item name="Parks&amp;Nature">公園・自然</combo_item>
+				<combo_item name="Residential">住宅</combo_item>
+				<combo_item name="Shopping">ショッピング</combo_item>
+				<combo_item name="Other">その他</combo_item>
+				<combo_item name="Rental">レンタル</combo_item>
+			</combo_box>
+			<combo_box name="land category">
+				<combo_item name="AnyCategory">すべてのカテゴリ</combo_item>
+				<combo_item name="LindenLocation">リンデンの場所</combo_item>
+				<combo_item name="Arts&amp;Culture">芸術・文化</combo_item>
+				<combo_item name="Business">ビジネス</combo_item>
+				<combo_item name="Educational">教育</combo_item>
+				<combo_item name="Gaming">ゲーム</combo_item>
+				<combo_item name="Hangout">たまり場</combo_item>
+				<combo_item name="NewcomerFriendly">初心者歓迎</combo_item>
+				<combo_item name="Parks&amp;Nature">公園・自然</combo_item>
+				<combo_item name="Residential">住宅</combo_item>
+				<combo_item name="Shopping">ショッピング</combo_item>
+				<combo_item name="Other">その他</combo_item>
+				<combo_item name="Rental">レンタル</combo_item>
+			</combo_box>
+			<button name="?" label="?" />
+			<check_box name="MatureCheck" label="マチュアコンテンツ" />
+			<check_box name="GamingCheck" label="このパーセルはゲームに使用されています" />
+			<string name="mature_check_mature">マチュアコンテンツ</string>
+			<string name="mature_check_adult">アダルトコンテンツ</string>
+			<string name="mature_check_mature_tooltip">パーセルの情報またはコンテンツがマチュアと見なされます。</string>
+			<string name="mature_check_adult_tooltip">パーセルの情報またはコンテンツがアダルトと見なされます。</string>
+			<text name="allow_label5">他のパーセルのレジデントに次を許可:</text>
+			<check_box name="SeeAvatarsCheck" label="このパーセル上のレジデントを見てチャットする" tool_tip="他のパーセルのレジデントが、このパーセルのレジデントを見てチャットでき、こちらからも見えてチャットできます。" />
+			<text name="Snapshot:">スナップショット:</text>
+			<texture_picker name="snapshot_ctrl" tool_tip="クリックして画像を選びます" />
+			<text name="landing_point">着陸地点: [LANDING]</text>
+			<string name="landing_point_none">（なし）</string>
+			<button name="Set" label="設定" tool_tip="訪問者が到着する着陸地点を、このパーセル内の自分のアバター位置に設定します。" />
+			<button name="Clear" label="クリア" tool_tip="着陸地点を解除します。" />
+			<text name="Teleport Routing: ">テレポートの経路:</text>
+			<combo_box name="landing type" tool_tip="土地へのテレポートの扱いを選びます。">
+				<combo_item name="Blocked">ブロック</combo_item>
+				<combo_item name="LandingPoint">着陸地点</combo_item>
+				<combo_item name="Anywhere">どこでも</combo_item>
+			</combo_box>
+			<string name="push_restrict_text">プッシュ禁止</string>
+			<string name="push_restrict_region_text">プッシュ禁止（リージョンによる上書き）</string>
+		</panel>
+		<panel name="land_media_panel" label="メディア">
+			<text name="with media:">タイプ:</text>
+			<combo_box name="media type" tool_tip="URL が動画、ウェブページ、その他のメディアのどれかを指定します" />
+			<text name="mime_type" />
+			<text name="at URL:">ホーム URL:</text>
+			<line_editor name="media_url" />
+			<button name="set_media_url" label="設定..." />
+			<text name="at URL2:">現在の URL:</text>
+			<text name="current_url" />
+			<button name="reset_media_url" label="リセット..." />
+			<text name="media_reset" tool_tip="パーセルが既定の URL に戻るまでの時間（0 で戻さない）">ホーム URL に戻るまで:</text>
+			<spinner name="media_reset_time" tool_tip="パーセルが既定の URL に戻るまでの時間（0 で戻さない）" />
+			<text name="minutes">分</text>
+			<text name="Description:">説明:</text>
+			<line_editor name="url_description" tool_tip="再生 / 読み込みボタンの横に表示する文字" />
+			<text name="Media texture:">テクスチャ:</text>
+			<texture_picker name="media texture" tool_tip="クリックしてテクスチャを選びます" />
+			<text name="replace_texture_help">このテクスチャを使っているオブジェクトは、再生矢印をクリックすると動画またはウェブページを表示します。サムネイルをクリックすると別のテクスチャを選べます。</text>
+			<text name="Options:">オプション:</text>
+			<check_box name="media_loop" label="ループ" tool_tip="メディアを繰り返し再生します。終わると最初から再開します。" />
+			<check_box name="media_auto_scale" label="自動スケール" tool_tip="このパーセルのコンテンツを自動で拡大縮小します。やや遅く画質も落ちることがありますが、他のテクスチャ調整は不要です。" />
+			<text name="media_size" tool_tip="ウェブメディアの描画サイズ。0 で既定値。">メディアサイズ:</text>
+			<spinner name="media_size_width" tool_tip="ウェブメディアの幅。0 で既定値。" />
+			<spinner name="media_size_height" tool_tip="ウェブメディアの高さ。0 で既定値。" />
+			<text name="pixels">ピクセル</text>
+		</panel>
+		<panel name="land_audio_panel" label="オーディオ">
+			<text name="MusicURL:">音楽 URL:</text>
+			<line_editor name="music_url" />
+			<text name="Sound:">サウンド:</text>
+			<check_box name="check_sound_local" label="ジェスチャーとオブジェクトの音をこのパーセルに制限する" />
+			<button name="?" label="?" />
+			<text name="Avatar Sounds:">アバターの音:</text>
+			<check_box name="all av sound check" label="全員" />
+			<check_box name="group av sound check" label="グループ" />
+			<text name="Voice:">ボイス:</text>
+			<radio_group name="parcel_voice_channel">
+				<radio_item name="Estate" tool_tip="エステートのボイスチャンネルを使います。">エステートチャンネル</radio_item>
+				<radio_item name="Parcel" tool_tip="ボイスをこのパーセルに制限します。">パーセルチャンネル</radio_item>
+				<radio_item name="Disabled" tool_tip="このパーセルのボイスを無効にします。">無効</radio_item>
+			</radio_group>
+		</panel>
+		<panel name="land_access_panel" label="アクセス">
+			<text name="Limit access to this parcel to:">このパーセルへのアクセス</text>
+			<check_box name="public_access" label="公開アクセスを許可" />
+			<text name="Only Allow">次のアクセスをブロック:</text>
+			<check_box name="limit_payment" label="Linden Lab に支払い情報を登録していないレジデント" tool_tip="身元未確認のレジデントをバンします。" />
+			<check_box name="limit_age_verified" label="年齢確認済みの成人ではないレジデント" tool_tip="年齢を確認していないレジデントをバンします。詳しくは support.secondlife.com をご覧ください。" />
+			<string name="estate_override">これらのオプションの一部はエステート側で設定されています</string>
+			<string name="minutes">分</string>
+			<string name="1_minute">1分</string>
+			<string name="1_second">1秒</string>
+			<string name="seconds">秒</string>
+			<string name="remaining">残り</string>
+			<string name="Always">常に</string>
+			<check_box name="GroupCheck" label="グループアクセスを許可: [GROUP]" tool_tip="一般タブでグループを設定してください。" />
+			<check_box name="PassCheck" label="パスを販売:" tool_tip="このパーセルへの一時的なアクセスを許可します" />
+			<combo_box name="pass_combo">
+				<combo_item name="Anyone">誰でも</combo_item>
+				<combo_item name="Group">グループ</combo_item>
+			</combo_box>
+			<spinner name="PriceSpin" label="価格（[CURRENCY]）:" />
+			<spinner name="HoursSpin" label="アクセス時間:" />
+			<text name="AllowedText" label="常に許可">許可済み（[COUNT]、最大 [MAX]）</text>
+			<name_list name="AccessList" tool_tip="（掲載 [LISTED]、最大 [MAX]）">
+				<column name="name" label="名前" />
+				<column name="duration" label="期間" />
+			</name_list>
+			<button name="add_allowed" label="追加..." />
+			<button name="remove_allowed" label="削除" />
+			<text name="BanCheck">バン済み（[COUNT]、最大 [MAX]）</text>
+			<name_list name="BannedList" tool_tip="（掲載 [LISTED]、最大 [MAX]）">
+				<column name="name" label="名前" />
+				<column name="duration" label="期間" />
+			</name_list>
+			<button name="add_banned" label="追加..." />
+			<button name="remove_banned" label="削除" />
+		</panel>
+	</tab_container>
+</floater>

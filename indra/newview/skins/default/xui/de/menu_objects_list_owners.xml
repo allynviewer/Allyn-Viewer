@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="Object Owner Submenu">
+	<menu_item_call name="Profile" label="Profil"/>
+	<menu name="Actions" label="Aktionen">
+		<menu_item_call name="Web Profile" label="Web-Profil"/>
+		<menu_item_call name="Pay" label="Bezahlen"/>
+		<menu_item_call name="Instant Message" label="Nachricht senden"/>
+		<menu_item_call name="Conference Chat" label="Konferenz-Chat"/>
+		<menu_item_call name="Call" label="Anrufen"/>
+		<menu_item_call name="Conference Call" label="Konferenzgespräch"/>
+		<menu_item_call name="Add Friend" label="Freund hinzufügen"/>
+		<menu_item_call name="Remove Friend" label="Freund entfernen"/>
+		<menu_item_call name="Invite To Group" label="Gruppeneinladung schicken"/>
+		<menu_item_call name="Follow" label="Folgen"/>
+		<menu_item_call name="Move To" label="Bewegen zu"/>
+		<menu_item_call name="Offer Teleport" label="TP anbieten"/>
+		<menu_item_call name="Teleport To" label="TP zu"/>
+		<menu_item_call name="Teleport anfordern" label="Teleport anfordern"/>
+		<menu_item_call name="Find on Map" label="Auf Karte finden"/>
+		<menu_item_call name="Share" label="Teilen"/>
+		<menu_item_call name="Chat History" label="Chat-Verlauf"/>
+		<menu_item_call name="Track/Untrack" label="Verfolgen/Nicht verfolgen"/>
+	</menu>
+	<menu name="Copy" label="Kopieren">
+		<menu_item_call name="Copy Key" label="Schlüssel"/>
+		<menu_item_call name="Copy Name" label="Name"/>
+		<menu_item_call name="Copy SLURL" label="SLURL"/>
+	</menu>
+	<menu_item_call name="Focus" label="Fokus"/>
+	<menu name="Moderation" label="Moderation">
+		<menu_item_call name="Mute" label="Stummschalten"/>
+		<menu_item_call name="Unmute" label="Stummschaltung aufheben"/>
+		<menu_item_call name="Ban From Group" label="Aus Gruppe verbannen"/>
+		<menu_item_call name="Report Abuse" label="Missbrauch melden"/>
+		<menu_item_call name="Freeze" label="Einfrieren"/>
+		<menu_item_call name="Eject/Ban from Parcel" label="Von Parzelle werfen/verbannen"/>
+		<menu_item_call name="Eject from estate" label="Aus Estate werfen"/>
+		<menu_item_call name="Eject and ban from estate" label="Aus Estate werfen und verbannen"/>
+	</menu>
+</menu>

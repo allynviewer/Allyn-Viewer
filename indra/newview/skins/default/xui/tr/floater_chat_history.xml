@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="chat floater" title="Yerel Sohbet">
+	<string name="ringing">Dünya içi Sesli Sohbete bağlanılıyor...</string>
+	<string name="connected">Bağlı</string>
+	<string name="unavailable">Ses mevcut konumunuzda kullanılamıyor</string>
+	<string name="hang_up">Dünya içi Sesli Sohbet bağlantısı kesildi</string>
+	<string name="voice_icon">icn_voice-localchat.tga</string>
+	<string name="IM_logging_string">-- Günlüğe Kaydetme Etkin --</string>
+	<string name="IM_end_log_string">-- Günlüğün Sonu --</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<layout_stack name="im_contents_stack">
+				<layout_panel name="history_panel">
+					<combo_box name="Gesture" label="Jestler">
+						<combo_item name="Gestures">Jestler</combo_item>
+					</combo_box>
+					<check_box name="show mutes" label="Sessiz Metni Göster" />
+					<button name="chat_history_open" label="Geçmişi Aç" tool_tip="Sohbet geçmişini harici düzenleyicide açmak için burayı tıklayın." />
+					<button name="toggle_active_speakers_btn" label="&lt; &lt;" tool_tip="Bu IM oturumundaki aktif katılımcıların listesini göstermek için burayı tıklayın." />
+					<text_editor name="Chat History Editor" />
+					<text_editor name="Chat History Editor with mute" />
+				</layout_panel>
+				<layout_panel name="chat_layout_panel">
+					<panel name="chat_panel">
+						<string name="gesture_label">Jestler</string>
+						<line_editor name="Chat Editor" label="Sohbet etmek için buraya tıklayın." />
+						<flyout_button name="Say" label="Söyle" tool_tip="(Girin)">
+							<flyout_button_item name="shout_item">Bağır</flyout_button_item>
+							<flyout_button_item name="say_item">Söyle</flyout_button_item>
+							<flyout_button_item name="whisper_item">Fısıltı</flyout_button_item>
+						</flyout_button>
+					</panel>
+				</layout_panel>
+			</layout_stack>
+		</layout_panel>
+		<layout_panel name="active_speakers_panel" />
+	</layout_stack>
+</floater>

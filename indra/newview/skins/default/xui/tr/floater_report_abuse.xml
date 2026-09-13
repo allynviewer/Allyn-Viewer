@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_report_abuse" title="Kötüye Kullanımı Bildir">
+	<string name="Screenshot">Ekran görüntüsü</string>
+	<string name="Ridiculous1" />
+	<string name="Ridiculous2" />
+	<string name="Ridiculous3" />
+	<texture_picker name="screenshot" />
+	<check_box name="screen_check" label="Ekran görüntüsünü ekle" />
+	<text name="reporter_title">Bildiren:</text>
+	<name_box name="reporter_field">Loremipsum Dolorsitamut</name_box>
+	<text name="sim_title">Bölge:</text>
+	<text name="sim_field">Bölge Adı</text>
+	<text name="pos_title">Pozisyon:</text>
+	<text name="pos_field">{128.1, 128.1, 15.4}</text>
+	<text name="select_object_label">Düğmeyi ve ardından nesneyi tıklayın:</text>
+	<button name="pick_btn" tool_tip="Nesne Seçici - Bu raporun konusu olarak bir nesneyi tanımlayın" />
+	<text name="object_name_label">İsim:</text>
+	<text name="object_name">Consetetur Sadipscing</text>
+	<text name="owner_name_label">Sahibi:</text>
+	<name_box name="owner_name">Hendrerit Vulputate</name_box>
+	<combo_box name="category_combo" tool_tip="Kategori -- bu raporu en iyi tanımlayan kategoriyi seçin">
+		<combo_box.item name="Select_category" label="Kategori seç" />
+		<combo_box.item name="Age__Age_play" label="Age &gt; Age play" />
+		<combo_box.item name="Assault__Safe_area" label="Assault &gt; Shooting, pushing, or shoving another Resident in a Safe Area" />
+		<combo_box.item name="Disclosure__Real_world_information" label="Disclosure &gt; Real world information" />
+		<combo_box.item name="Disturbing_the_peace__Excessive_scripted_objects" label="Disturbing the peace &gt; Excessive scripted objects" />
+		<combo_box.item name="Disturbing_the_peace__Object_littering" label="Disturbing the peace &gt; Object littering" />
+		<combo_box.item name="Disturbing_the_peace__Repetitive_spam" label="Disturbing the peace &gt; Repetitive spam" />
+		<combo_box.item name="Fraud__US$" label="Fraud &gt; L$ or USD $" />
+		<combo_box.item name="Ridiculous3" label="Freud &gt; User has taken an interest in their mother" />
+		<combo_box.item name="Harassment__Solicting_inciting_others_to_violate_ToS" label="Harassment &gt; Targeted behavior intended to disrupt" />
+		<combo_box.item name="Ridiculous1" label="Harassment &gt; User keeps licking finger and touching me" />
+		<combo_box.item name="Indecency__Broadly_offensive_content_or_conduct" label="Indecency &gt; Broadly offensive content or conduct" />
+		<combo_box.item name="Indecency__Inappropriate_avatar_name" label="Indecency &gt; Inappropriate avatar name" />
+		<combo_box.item name="Indecency__Mature_content_in_PG_region" label="Indecency &gt; Inappropriate content or conduct for Region Rating" />
+		<combo_box.item name="Intolerance" label="Intolerance" />
+		<combo_box.item name="Land__Encroachment__Objects_textures" label="Land &gt; Encroachment &gt; Objects or textures" />
+		<combo_box.item name="Ridiculous2" label="Land &gt; Encroachment &gt; User won't stay on their side of the car" />
+		<combo_box.item name="Wagering_gambling" label="Skill Gaming Policy Violation" />
+		<combo_box.item name="Other" label="Diğer" />
+	</combo_box>
+	<text name="abuser_name_title">İstismarcının adı:</text>
+	<line_editor name="abuser_name_edit" />
+	<button name="select_abuser" label="Sakin Seçin" tool_tip="Listeden istismarcının adını seçin" />
+	<check_box name="omit_abuser_name" label="İstismarcının adını bilmiyorum" tool_tip="İstismarcının adını sağlayamıyorsanız bunu işaretleyin" />
+	<text name="abuser_name_title2">İstismarın Yeri:</text>
+	<line_editor name="abuse_location_edit" />
+	<text name="sum_title">Özet:</text>
+	<line_editor name="summary_edit" />
+	<text name="dscr_title">Ayrıntılar:</text>
+	<text name="bug_aviso">
+		Lütfen mümkün olduğunca spesifik olun: tarih, yer,
+Kötüye kullanımın niteliği, ilgili sohbet/IM metni vb.
+* Eksik raporlar araştırılmayacaktır
+	</text>
+	<text_editor name="details_edit" />
+	<text name="incomplete_title">Not: Eksik raporlar incelemeye alınmayacaktır.</text>
+	<button name="cancel_btn" label="İptal" />
+	<button name="send_btn" label="Kötüye Kullanımı Bildir" />
+</floater>

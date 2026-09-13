@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="active_speakers_panel">
+	<string name="moderator_label">(Moderatör)</string>
+	<layout_stack name="panels">
+		<layout_panel name="moderation_mode_panel">
+			<combo_box name="moderation_mode">
+				<combo_item name="OpenVoice">Sesler varsayılan olarak açık</combo_item>
+				<combo_item name="ModeratedVoice">Sesler varsayılan olarak kapalı</combo_item>
+			</combo_box>
+		</layout_panel>
+		<layout_panel name="moderate_chat_panel">
+			<name_list name="speakers_list">
+				<column name="icon_speaking_status" />
+				<column name="speaker_name" label="İsim" />
+				<column name="speaking_status" />
+			</name_list>
+			<panel name="speaker_controls">
+				<button name="profile_btn" />
+				<text name="resident_name">Rumplstiltskin Califragilistic</text>
+				<slider name="speaker_volume" />
+				<button name="mute_btn" tool_tip="Bu sakinin sesini kapat" />
+				<check_box name="mute_text_btn" label="Metni Sessize Al" />
+			</panel>
+		</layout_panel>
+		<layout_panel name="moderator_controls">
+			<text name="moderator_controls_label">Moderatör Kontrolleri:</text>
+			<check_box name="moderator_allow_voice">Sesli sohbete izin ver</check_box>
+			<check_box name="moderator_allow_text">Metin sohbetine izin ver</check_box>
+		</layout_panel>
+	</layout_stack>
+</panel>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Event" title="イベント">
+	<text name="event_name_label">名前:</text>
+	<text name="event_name">（なし）</text>
+	<text name="event_category_label">タイプ:</text>
+	<text name="event_category">（なし）</text>
+	<text name="event_mature_label">Matureコンテンツ:</text>
+	<text name="event_mature_yes">はい</text>
+	<text name="event_mature_no">いいえ</text>
+	<text name="event_date_label">日付:</text>
+	<text name="event_date">（なし）</text>
+	<text name="event_duration_label">イベントの長さ:</text>
+	<text name="event_duration">（なし）</text>
+	<text name="event_runby_label">主催:</text>
+	<name_box name="event_runby">（なし）</name_box>
+	<text name="event_location_label">場所:</text>
+	<text name="event_location">（なし）</text>
+	<text name="event_cover_label">入場料:</text>
+	<text name="event_cover">（なし）</text>
+	<text name="event_desc_label">説明:</text>
+	<text_editor name="event_desc" />
+	<button name="teleport_btn" label="テレポート" />
+	<button name="map_btn" label="マップで表示" />
+	<button name="notify_btn" label="通知" />
+	<button name="create_event_btn" label="イベントを作成..." />
+	<string name="none">なし</string>
+	<string name="notify">通知</string>
+	<string name="dont_notify">通知しない</string>
+</panel>

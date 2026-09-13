@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Access">
+	<tab_container name="tabs">
+		<panel name="estate_managers_panel" label="Grundbesitz-Verwalter">
+			<text name="estate_manager_label">Grundbesitz-Verwalter:</text>
+			<button name="estate_manager_help" label="" tool_tip="Hilfe"/>
+			<name_list name="estate_manager_name_list">
+				<column name="name" label="Name"/>
+			</name_list>
+			<button name="add_estate_manager_btn" label="Hinzufügen..."/>
+			<button name="remove_estate_manager_btn" label="Entfernen..."/>
+		</panel>
+		<panel name="allowed_panel" label="Erlaubt">
+			<text name="allow_resident_label">Erlaubte Einwohner:</text>
+			<button name="allow_resident_help" label="" tool_tip="Hilfe"/>
+			<panel name="allowed_search_panel">
+				<filter_editor name="allowed_search_input" label="Erlaubte Agenten suchen"/>
+			</panel>
+			<name_list name="allowed_avatar_name_list">
+				<column name="name" label="Name"/>
+			</name_list>
+			<button name="add_allowed_avatar_btn" label="Hinzufügen..."/>
+			<button name="remove_allowed_avatar_btn" label="Entfernen..."/>
+			<button name="copy_allowed_list_btn" label="Alle kopieren"/>
+		</panel>
+		<panel name="allowed_groups_panel" label="Erlaubte Gruppen">
+			<text name="allow_group_label">Erlaubte Gruppen:</text>
+			<button name="allow_group_help" label="" tool_tip="Hilfe"/>
+			<panel name="allowed_group_search_panel">
+				<filter_editor name="allowed_group_search_input" label="Erlaubte Gruppen suchen"/>
+			</panel>
+			<name_list name="allowed_group_name_list">
+				<column name="name" label="Name"/>
+			</name_list>
+			<button name="add_allowed_group_btn" label="Hinzufügen..."/>
+			<button name="remove_allowed_group_btn" label="Entfernen..."/>
+			<button name="copy_allowed_group_list_btn" label="Alle kopieren"/>
+		</panel>
+		<panel name="banned_panel" label="Gesperrt">
+			<text name="ban_resident_label">Gesperrte Einwohner:</text>
+			<button name="ban_resident_help" label="" tool_tip="Hilfe"/>
+			<panel name="banned_search_panel">
+				<filter_editor name="banned_search_input" label="Gesperrte Agenten suchen"/>
+			</panel>
+			<name_list name="banned_avatar_name_list">
+				<column name="name" label="Name"/>
+				<column name="last_login_date" label="Letzter Login"/>
+				<column name="ban_date" label="Sperrdatum"/>
+				<column name="bannedby" label="Gesperrt von"/>
+			</name_list>
+			<button name="add_banned_avatar_btn" label="Hinzufügen..."/>
+			<button name="remove_banned_avatar_btn" label="Entfernen..."/>
+			<button name="copy_banned_list_btn" label="Alle kopieren"/>
+		</panel>
+	</tab_container>
+</panel>

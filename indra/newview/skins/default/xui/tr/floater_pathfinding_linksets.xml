@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_pathfinding_linksets" title="Yol bulma bağlantı kümeleri">
+	<string name="messaging_initial" />
+	<string name="messaging_get_inprogress">Yol bulma bağlantı kümeleri sorgulanıyor...</string>
+	<string name="messaging_get_error">Yol bulma bağlantı kümeleri sorgulanırken hata algılandı.</string>
+	<string name="messaging_set_inprogress">Seçili yol bulma bağlantı kümeleri değiştiriliyor...</string>
+	<string name="messaging_set_error">Seçili yol bulma bağlantı kümeleri değiştirilirken hata algılandı.</string>
+	<string name="messaging_complete_none_found">Yol bulma bağlantı seti yok.</string>
+	<string name="messaging_complete_available">[NUM_TOTAL] arasından seçilen [NUM_SELECTED] bağlantı kümeleri.</string>
+	<string name="messaging_not_enabled">Bu bölge yol bulma için etkinleştirilmedi.</string>
+	<string name="linkset_terrain_name">[Terrain]</string>
+	<string name="linkset_terrain_description">--</string>
+	<string name="linkset_terrain_owner">--</string>
+	<string name="linkset_terrain_scripted">--</string>
+	<string name="linkset_terrain_land_impact">--</string>
+	<string name="linkset_terrain_dist_from_you">--</string>
+	<string name="linkset_owner_loading">[Loading]</string>
+	<string name="linkset_owner_unknown">[Unknown]</string>
+	<string name="linkset_owner_group">[group]</string>
+	<string name="linkset_is_scripted">Evet</string>
+	<string name="linkset_is_not_scripted">Hayır</string>
+	<string name="linkset_is_unknown_scripted">Bilinmiyor</string>
+	<string name="linkset_use_walkable">Yürünebilir</string>
+	<string name="linkset_use_static_obstacle">Statik engel</string>
+	<string name="linkset_use_dynamic_obstacle">Hareketli engel</string>
+	<string name="linkset_use_material_volume">Malzeme hacmi</string>
+	<string name="linkset_use_exclusion_volume">Hariç tutma hacmi</string>
+	<string name="linkset_use_dynamic_phantom">Hareketli fantom</string>
+	<string name="linkset_is_terrain">[unmodifiable]</string>
+	<string name="linkset_is_restricted_state">[restricted]</string>
+	<string name="linkset_is_non_volume_state">[concave]</string>
+	<string name="linkset_is_restricted_non_volume_state">[restricted,concave]</string>
+	<string name="linkset_choose_use">Bağlantı kümesi kullanımını seçin...</string>
+	<panel name="pathfinding_linksets_main">
+		<text name="linksets_filter_label">Şuna göre filtrele:</text>
+		<text name="linksets_name_label">İsim</text>
+		<line_editor name="filter_by_name" />
+		<text name="linksets_desc_label">Açıklama</text>
+		<line_editor name="filter_by_description" />
+		<combo_box name="filter_by_linkset_use">
+			<combo_item name="filter_by_linkset_use_none">Bağlantı kümesi kullanımına göre filtrele...</combo_item>
+			<combo_item name="filter_by_linkset_use_walkable">Yürünebilir</combo_item>
+			<combo_item name="filter_by_linkset_use_static_obstacle">Statik engel</combo_item>
+			<combo_item name="filter_by_linkset_use_dynamic_obstacle">Hareketli engel</combo_item>
+			<combo_item name="filter_by_linkset_use_material_volume">Malzeme hacmi</combo_item>
+			<combo_item name="filter_by_linkset_use_exclusion_volume">Hariç tutma hacmi</combo_item>
+			<combo_item name="filter_by_linkset_use_dynamic_phantom">Hareketli fantom</combo_item>
+		</combo_box>
+		<button name="apply_filters" label="Uygula" />
+		<button name="clear_filters" label="Temizle" />
+		<scroll_list name="objects_scroll_list">
+			<column name="name" label="Ad (kök primi)" />
+			<column name="description" label="Açıklama (kök primi)" />
+			<column name="owner" label="Sahip" />
+			<column name="scripted" label="Scriptli" />
+			<column name="land_impact" label="Etki" />
+			<column name="dist_from_you" label="Mesafe" />
+			<column name="linkset_use" label="Bağlantı seti kullanımı" />
+			<column name="a_percent" label="A%" />
+			<column name="b_percent" label="B%" />
+			<column name="c_percent" label="C%" />
+			<column name="d_percent" label="D%" />
+		</scroll_list>
+		<text name="messaging_status">Bağlantı kümeleri:</text>
+		<button name="refresh_objects_list" label="Listeyi yenile" />
+		<button name="select_all_objects" label="Tümünü seç" />
+		<button name="select_none_objects" label="Hiçbirini seçme" />
+	</panel>
+	<view_border name="horiz_separator" />
+	<panel name="pathfinding_linksets_actions">
+		<text name="linksets_actions_label">Seçilen bağlantı kümeleri üzerindeki eylemler (Bir bağlantı kümesi dünyadan kaldırılırsa nitelikleri kaybolabilir):</text>
+		<check_box name="show_beacon" label="İşareti göster" />
+		<button name="take_objects" label="Al" />
+		<button name="take_copy_objects" label="Kopyasını al" />
+		<button name="teleport_me_to_object" label="Beni ona ışınla" />
+		<button name="return_objects" label="İade et" />
+		<button name="delete_objects" label="Sil" />
+	</panel>
+	<view_border name="horiz_separator" />
+	<panel name="pathfinding_linksets_attributes">
+		<text name="linksets_attributes_label">Seçilen bağlantı kümelerinin niteliklerini düzenleyin ve değişiklikleri uygulamak için düğmeye basın</text>
+		<combo_box name="edit_linkset_use" />
+		<text name="walkability_coefficients_label">Yürünebilirlik:</text>
+		<text name="edit_a_label">A</text>
+		<line_editor name="edit_a_value" tool_tip="A tipi karakterler için yürünebilirlik. Örnek karakter tipi insansıdır." />
+		<text name="edit_b_label">B</text>
+		<line_editor name="edit_b_value" tool_tip="B tipi karakterler için yürünebilirlik. Örnek karakter tipi yaratıktır." />
+		<text name="edit_c_label">C</text>
+		<line_editor name="edit_c_value" tool_tip="C tipi karakterler için yürünebilirlik. Örnek karakter tipi mekaniktir." />
+		<text name="edit_d_label">D</text>
+		<line_editor name="edit_d_value" tool_tip="D tipi karakterler için yürünebilirlik. Örnek karakter tipi diğerdir." />
+		<button name="apply_edit_values" label="Değişiklikleri uygula" />
+		<text name="suggested_use_a_label">(İnsansı)</text>
+		<text name="suggested_use_b_label">(Yaratık)</text>
+		<text name="suggested_use_c_label">(Mekanik)</text>
+		<text name="suggested_use_d_label">(Diğer)</text>
+	</panel>
+</floater>

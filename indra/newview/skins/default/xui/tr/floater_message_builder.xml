@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Message Builder" title="Mesaj Oluşturucu">
+	<scroll_list name="net_list">
+		<column name="text" label="metin" />
+		<column name="state" label="eyalet" />
+	</scroll_list>
+	<combo_box name="untrusted_message_combo" tool_tip="Güven yok" />
+	<combo_box name="trusted_message_combo" tool_tip="Güven" />
+	<text_editor name="message_edit" />
+	<button name="send_btn" label="Gönder" tool_tip="Gönder (Ctrl+Enter)" />
+</floater>

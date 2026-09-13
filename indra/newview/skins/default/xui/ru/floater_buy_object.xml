@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="contents" title="Купить копию объекта">
+	<scroll_list name="object_list">
+		<column name="icon" />
+		<column name="text" />
+	</scroll_list>
+	<text name="contents_text">и его содержимое:</text>
+	<scroll_list name="item_list">
+		<column name="icon" />
+		<column name="text" />
+	</scroll_list>
+	<text name="buy_text">Купить за [CURRENCY] [AMOUNT] у [NAME]?</text>
+	<button name="cancel_btn" label="Отмена" />
+	<button name="buy_btn" label="Купить" />
+	<string name="title_buy_text">Купить</string>
+	<string name="title_buy_copy_text">Купить копию</string>
+	<string name="no_copy_text">(без копии)</string>
+	<string name="no_modify_text">(без изменений)</string>
+	<string name="no_transfer_text">(без перевода)</string>
+</floater>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="script search" title="Cerca negli script">
+	<check_box name="case_text" label="Non distingue maiuscole/minuscole"/>
+	<button name="search_btn" label="Cerca" label_selected="Cerca"/>
+	<button name="replace_btn" label="Sostituisci" label_selected="Sostituisci"/>
+	<button name="replace_all_btn" label="Sostituisci tutto" label_selected="Sostituisci tutto"/>
+	<text name="txt">Cerca</text>
+	<text name="txt2">Sostituisci</text>
+</floater>

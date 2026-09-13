@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Access" label="Доступ">
+	<tab_container name="tabs">
+		<panel name="estate_managers_panel" label="Менеджеры по недвижимости">
+			<text name="estate_manager_label">Управляющие недвижимостью:</text>
+			<button name="estate_manager_help" label=""  tool_tip="Справка"/>
+			<name_list name="estate_manager_name_list">
+				<column name="name" label="Имя" />
+			</name_list>
+			<button name="add_estate_manager_btn" label="Добавить..." />
+			<button name="remove_estate_manager_btn" label="Удалить..." />
+		</panel>
+		<panel name="allowed_panel" label="Допустимый">
+			<text name="allow_resident_label">Разрешенные резиденты:</text>
+			<button name="allow_resident_help" label=""  tool_tip="Справка"/>
+			<panel name="allowed_search_panel" label="top_panel">
+				<filter_editor name="allowed_search_input" label="Поиск разрешенных агентов" />
+			</panel>
+			<name_list name="allowed_avatar_name_list">
+				<column name="name" label="Имя" />
+			</name_list>
+			<button name="add_allowed_avatar_btn" label="Добавить..." />
+			<button name="remove_allowed_avatar_btn" label="Удалить..." />
+			<button name="copy_allowed_list_btn" label="Копировать все" />
+		</panel>
+		<panel name="allowed_groups_panel" label="Разрешенные группы">
+			<text name="allow_group_label">Разрешенные группы:</text>
+			<button name="allow_group_help" label=""  tool_tip="Справка"/>
+			<panel name="allowed_group_search_panel" label="top_panel">
+				<filter_editor name="allowed_group_search_input" label="Поиск разрешенных групп" />
+			</panel>
+			<name_list name="allowed_group_name_list">
+				<column name="name" label="Имя" />
+			</name_list>
+			<button name="add_allowed_group_btn" label="Добавить..." />
+			<button name="remove_allowed_group_btn" label="Удалить..." />
+			<button name="copy_allowed_group_list_btn" label="Копировать все" />
+		</panel>
+		<panel name="banned_panel" label="Запрещено">
+			<text name="ban_resident_label">Запрещенные резиденты:</text>
+			<button name="ban_resident_help" label=""  tool_tip="Справка"/>
+			<panel name="banned_search_panel" label="top_panel">
+				<filter_editor name="banned_search_input" label="Поиск запрещенных агентов" />
+			</panel>
+			<name_list name="banned_avatar_name_list">
+				<column name="name" label="Имя" />
+				<column name="last_login_date" label="Последний вход" />
+				<column name="ban_date" label="Дата запрета" />
+				<column name="bannedby" label="Запрещено" />
+			</name_list>
+			<button name="add_banned_avatar_btn" label="Добавить..." />
+			<button name="remove_banned_avatar_btn" label="Удалить..." />
+			<button name="copy_banned_list_btn" label="Копировать все" />
+		</panel>
+	</tab_container>
+</panel>

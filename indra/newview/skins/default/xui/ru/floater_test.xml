@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="test" title="Тест UI">
+	<tab_container name="test_tab">
+		<panel name="first_tab_panel" label="Элементы">
+			<text name="section_buttons">КНОПКИ</text>
+			<button name="can't click" label="Без клика" tool_tip="Отключённая кнопка"/>
+			<button name="can click" label="Можно нажать" tool_tip="Включённая кнопка"/>
+			<button name="unicode_btn" label="Unicode" tool_tip="Кнопка с меткой Unicode"/>
+			<button name="image_btn" tool_tip="Кнопка с изображением"/>
+			<text name="section_options">ПАРАМЕТРЫ</text>
+			<check_box name="simple_check" label="Простой флажок"/>
+			<check_box name="unicode_check" label="Флажок Unicode"/>
+			<combo_box name="combo" tool_tip="Пример списка">
+				<combo_item name="top_item">должно быть сверху</combo_item>
+				<combo_item name="first_item">первый пункт</combo_item>
+				<combo_item name="second_item">второй пункт</combo_item>
+				<combo_item name="disabled_item">отключённый пункт</combo_item>
+			</combo_box>
+			<text name="section_radio">ПЕРЕКЛЮЧАТЕЛЬ</text>
+			<radio_group name="radio_group">
+				<radio_item name="Radio1">Вариант 1</radio_item>
+				<radio_item name="Radio2">Вариант 2</radio_item>
+				<radio_item name="Radio3">Вариант 3</radio_item>
+			</radio_group>
+			<text_editor name="widgets_help">
+Это окно проверяет обычные элементы UI.
+
+Клики, флажки, список и переключатели пишутся в консоль вьюера.
+			</text_editor>
+			<text name="section_line">СТРОКОВЫЙ РЕДАКТОР</text>
+			<line_editor name="test_line">Введите текст unicode здесь</line_editor>
+			<text name="section_slider">ПОЛЗУНОК</text>
+			<text name="section_names">СПИСОК ИМЁН</text>
+			<name_list name="test_name_list">
+				<column name="name" label="Имя"/>
+			</name_list>
+		</panel>
+		<panel name="second_tab_panel" label="Списки">
+			<text name="lists_help">Пример списка элементов UI. Нажмите строку, чтобы записать выбор.</text>
+			<button name="Simple Button" label="Простая кнопка"/>
+			<scroll_list name="test_scroll_list">
+				<column name="widget" label="Элемент"/>
+				<column name="notes" label="Заметки"/>
+			</scroll_list>
+		</panel>
+		<panel name="text_tab_panel" label="Текст">
+			<text name="simple_text">Текст sans-serif (непрозрачен для мыши — нажмите)</text>
+			<text name="simple2_text" tool_tip="Я подсказка">Моноширинный текст с подсказкой (прозрачен для мыши)</text>
+			<text name="unicode_text" tool_tip="Это должен быть текст Unicode">Файл</text>
+			<text_editor name="test_text_editor">
+Это многострочный текстовый редактор.
+
+Он растягивается вместе с окном, чтобы Test UI занимал всю внутреннюю область.
+
+Печатайте здесь, чтобы проверить клавиатуру, прокрутку и перенос строк.
+			</text_editor>
+		</panel>
+	</tab_container>
+</floater>

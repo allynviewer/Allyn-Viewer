@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="voting_tab" label="提案">
+	<string name="help_text">グループ提案は、グループの意向や意見を把握するのに使えます。権限があれば、提案の作成、開いている提案への投票、過去の提案の閲覧ができます。</string>
+	<panel name="open_proposals_container" />
+	<panel name="voting_history_container" />
+	<button name="help_button" label="?" />
+	<text name="proposal_header">開いているグループ提案</text>
+	<text name="proposal_instructions">投票したい提案をダブルクリックするか、「提案を作成」で新しい提案を作成します</text>
+	<text name="proposal_lbl">提案の説明</text>
+	<text name="proposal_voting_lbl">提案　投票終了　投票済み？</text>
+	<scroll_list name="proposals" />
+	<button name="btn_proposal" label="提案を作成" />
+	<button name="btn_view_proposal_item" label="提案を表示" />
+	<text_editor name="proposal_text" />
+	<button name="btn_view_proposal_list" label="リストを表示" />
+	<text name="quorum_lbl">定足数:</text>
+	<spinner name="quorum" tool_tip="選挙結果を有効にするために必要な投票メンバー数" />
+	<text name="quorum_text">[MEMBERS]人中が投票する必要があります。</text>
+	<text name="duration_lbl">期間:</text>
+	<spinner name="duration" tool_tip="選挙の期間（日数）" />
+	<text name="duration_text">日</text>
+	<text name="majority_lbl" />
+	<radio_group name="majority" tool_tip="可決に必要な総投票の過半数。">
+		<radio_item>単純過半数</radio_item>
+		<radio_item>3分の2多数</radio_item>
+		<radio_item>満場一致</radio_item>
+	</radio_group>
+	<text name="start_lbl">投票開始:</text>
+	<text name="start_date" />
+	<text name="end_lbl">投票終了:</text>
+	<text name="end_date" />
+	<button name="btn_submit" label="提案を送信" />
+	<button name="btn_cancel" label="キャンセル" />
+	<button name="btn_yes" label="はい" />
+	<button name="btn_no" label="いいえ" />
+	<button name="btn_abstain" label="棄権" />
+	<text name="txt">グループ投票履歴</text>
+	<text name="instructions">過去の投票をダブルクリックするか、選んで「項目を表示」すると結果を見られます。</text>
+	<text name="history_list_lbl">過去の投票　投票終了</text>
+	<scroll_list name="history_list" />
+	<button name="btn_view_history_item" label="項目を表示" />
+	<text name="vote_text_lbl">投票結果:</text>
+	<text_editor name="vote_text" />
+	<button name="btn_view_history_list" label="リストを表示" />
+	<string name="proposals_header_view_txt">開いているグループ提案</string>
+	<string name="proposals_header_view_inst">投票したい提案をダブルクリックするか、「提案を作成」で新しい提案を作成します。</string>
+	<string name="proposals_header_create_txt">提案を作成</string>
+	<string name="proposals_header_create_inst">新しい提案の説明を入力します。可決に必要な定足数、期間、多数決を変更できます。</string>
+	<string name="proposals_header_vote_txt">提案の投票</string>
+	<string name="proposals_header_vote_inst">「はい」または「いいえ」で投票するか、この提案を棄権できます。</string>
+	<string name="proposals_header_voted_inst">投票済み: [VOTE]</string>
+	<string name="empty_proposal_txt">作成しようとしている提案が空です。作成する前に内容を入力してください。</string>
+	<string name="proposals_submit_yes_txt">提案に「はい」を送信中...</string>
+	<string name="proposals_submit_no_txt">提案に「いいえ」を送信中...</string>
+	<string name="proposals_submit_abstain_txt">提案に棄権を送信中...</string>
+	<string name="proposals_submit_new_txt">新しい提案を送信中...</string>
+	<string name="vote_recorded">投票を受け付けました。</string>
+	<string name="vote_previously_recorded">すでに投票済みです。選挙中に投票できるのは1回だけです。</string>
+</panel>

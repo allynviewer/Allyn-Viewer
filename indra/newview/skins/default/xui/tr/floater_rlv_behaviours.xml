@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="rlv_behaviours" title="Etkin RLV Kısıtlamalar">
+	<tab_container name="behaviour_tab">
+		<panel name="behaviour_panel" label="Kısıtlamalar">
+			<scroll_list name="behaviour_list">
+				<column name="behaviour" label="Kısıtlama" />
+				<column name="issuer" label="Nesne Adı" />
+			</scroll_list>
+		</panel>
+		<panel name="exception_panel" label="İstisnalar">
+			<scroll_list name="exception_list">
+				<column name="behaviour" label="Kısıtlama" />
+				<column name="option" label="Seçenek" />
+				<column name="issuer" label="Nesne Adı" />
+			</scroll_list>
+		</panel>
+	</tab_container>
+	<button name="copy_btn" label="Panoya kopyala" />
+</floater>

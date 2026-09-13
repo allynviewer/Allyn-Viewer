@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<context_menu name="Url Popup" label="オブジェクト">
+	<menu name="URL Actions" label="URL アクション">
+		<menu_item_call name="show_object" label="オブジェクトのプロフィール..." />
+		<menu_item_call name="block_object" label="ブロック..." />
+		<menu_item_call name="unblock_object" label="ブロック解除" />
+		<menu_item_call name="show_on_map" label="マップで表示" />
+		<menu_item_call name="teleport_to_object" label="オブジェクトの場所へテレポート" />
+	</menu>
+	<menu name="Object" label="オブジェクト">
+		<menu_item_call name="Cam To" label="カメラを向ける" />
+		<menu_item_call name="Follow" label="フォロー" />
+		<menu_item_call name="Move To" label="そこに移動" />
+		<menu_item_call name="Teleport To (current location)" label="現在地へテレポート" />
+		<menu_item_call name="Sit On" label="座る" />
+		<menu_item_call name="Pay" label="支払い" />
+		<menu_item_call name="Touch" label="タッチ" />
+		<menu_item_call name="Edit" label="編集" />
+		<menu_item_call name="Add to Selection" label="選択に追加" />
+		<menu_item_call name="Derender" label="非表示" />
+	</menu>
+	<menu name="Copy" label="コピー">
+		<menu_item_call name="url_copy_label" label="名前" />
+		<menu_item_call name="url_copy" label="SLURL" />
+		<menu_item_call name="key_copy" label="キー" />
+	</menu>
+	<menu_item_call name="Select All" label="すべて選択" />
+</context_menu>

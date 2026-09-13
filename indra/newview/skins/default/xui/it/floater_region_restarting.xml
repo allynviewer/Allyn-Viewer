@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="region_restarting" title="Regione in riavvio">
+	<string name="RegionName">La regione in cui ti trovi ora ([NAME]) sta per riavviarsi. Se resti qui, verrai disconnesso.</string>
+	<string name="RestartSeconds">Secondi al riavvio: [SECONDS]</string>
+	<panel name="layout_panel_1">
+		<text name="region_name">La regione in cui ti trovi ora (-The longest region name-) sta per riavviarsi. Se resti qui, verrai disconnesso.</text>
+		<text name="restart_seconds">Secondi al riavvio: 32767</text>
+	</panel>
+</floater>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="WindLight floater" title="Gelişmiş Gökyüzü Düzenleyici">
+	<text name="KeyFramePresetsText">Gökyüzü ön ayarları:</text>
+	<button name="WLNewPreset" label="Yeni" label_selected="Yeni" />
+	<button name="WLSavePreset" label="Kaydet" label_selected="Kaydet" />
+	<button name="WLDeletePreset" label="Sil" label_selected="Sil" />
+	<button name="WLDayCycleMenuButton" label="Gün döngüsü" label_selected="Gün döngüsü" />
+	<tab_container name="WindLight Tabs">
+		<panel name="Atmosphere" label="Atmosfer">
+			<text name="BHText">Mavi ufuk</text>
+			<text name="BDensText">Ufuk pusu</text>
+			<text name="BDensText2">Mavi yoğunluğu</text>
+			<text name="HDText">Pus yoğunluğu</text>
+			<text name="DensMultText">Yoğunluk çarpanı</text>
+			<text name="WLDistanceMultText">Mesafe çarpanı</text>
+			<text name="MaxAltText">Maksimum rakım</text>
+		</panel>
+		<panel name="Lighting" label="Aydınlatma">
+			<text name="SLCText">Güneş/ay rengi</text>
+			<text name="TODText">Güneş/ay konumu</text>
+			<text name="WLAmbientText">Ortam</text>
+			<text name="WLEastAngleText">Doğu açısı</text>
+			<text name="SunGlowText">Güneş parıltısı</text>
+			<slider name="WLGlowB" label="Odak" />
+			<slider name="WLGlowR" label="Boyut" />
+			<text name="SceneGammaText">Sahne gaması</text>
+			<text name="WLStarText">Yıldız parlaklığı</text>
+		</panel>
+		<panel name="Clouds" label="Bulutlar">
+			<text name="WLCloudColorText">Bulut rengi</text>
+			<text name="WLCloudColorText2">Bulut XY/yoğunluğu</text>
+			<text name="WLCloudCoverageText">Bulut kapsamı</text>
+			<text name="WLCloudScaleText">Bulut ölçeği</text>
+			<text name="WLCloudDetailText">Bulut ayrıntısı (XY/yoğunluk)</text>
+			<text name="WLCloudScrollXText">Bulut kaydırma X</text>
+			<check_box name="WLCloudLockX" label="Kilitle" />
+			<text name="WLCloudScrollYText">Bulut kaydırma Y</text>
+			<check_box name="WLCloudLockY" label="Kilitle" />
+			<check_box name="DrawClassicClouds" label="Klasik bulutları çiz" />
+			<text name="cloud_settings_title">Doku</text>
+			<combo_box name="cloud_settings_preset_combo">
+				<combo_box.item name="altocumulus_cloud" label="Altocumulus" />
+				<combo_box.item name="cumulonimbus_cloud" label="Cumulonimbus" />
+				<combo_box.item name="default_cloud" label="Varsayılan" />
+				<combo_box.item name="layered_cloud" label="Katmanlı" />
+			</combo_box>
+		</panel>
+	</tab_container>
+</floater>

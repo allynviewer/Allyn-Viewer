@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="toolbar">
+	<string name="Redock Windows">ウィンドウを再ドック</string>
+	<string name="ToolbarButtons">ツールバーボタン</string>
+	<string name="IMs">[COUNT] IM</string>
+	<string name="IM">1 IM</string>
+	<layout_stack name="toolbar_stack">
+		<layout_panel name="panel1" />
+		<layout_panel name="panel2">
+			<button name="chat_btn" tool_tip="チャットバーを表示（Enter）" />
+		</layout_panel>
+		<layout_panel name="panel3" />
+		<layout_panel name="panel4">
+			<flyout_button name="communicate_btn" label="コミュニケーション" tool_tip="フレンドやグループとやり取りします（Ctrl-T）" />
+		</layout_panel>
+		<layout_panel name="panel5" />
+		<layout_panel name="panelim">
+			<button name="communicate_im_btn" label="コミュニケーション" tool_tip="フレンドやグループとやり取りします（Ctrl-T）" />
+		</layout_panel>
+		<layout_panel name="panelfriends">
+			<button name="friends_btn" label="フレンド" tool_tip="フレンドリストを開く（Ctrl-Shift-F）" />
+		</layout_panel>
+		<layout_panel name="panelgroups">
+			<button name="groups_btn" label="グループ" tool_tip="グループリストを開く（Ctrl-Shift-G）" />
+		</layout_panel>
+		<layout_panel name="panelgrouptitles">
+			<button name="group_titles_btn" label="グループタイトル" />
+		</layout_panel>
+		<layout_panel name="panelchathistory">
+			<button name="chat_history_btn" label="ローカルチャット" tool_tip="ローカルチャットを開く（Ctrl-H）" />
+		</layout_panel>
+		<layout_panel name="panelactivespeakers">
+			<button name="active_speakers_btn" label="アクティブスピーカー" />
+		</layout_panel>
+		<layout_panel name="panelmutelist">
+			<button name="mute_list_btn" label="ミュートリスト" />
+		</layout_panel>
+		<layout_panel name="panelassetblacklist">
+			<button name="assetblack_list_btn" label="アセットブラックリスト" />
+		</layout_panel>
+		<layout_panel name="panelvoiceeffect">
+			<button name="voice_effects_btn" label="ボイスFX" />
+		</layout_panel>
+		<layout_panel name="panelgestures">
+			<button name="gestures_btn" label="ジェスチャー" tool_tip="Ctrl-G" />
+		</layout_panel>
+		<layout_panel name="panelbeacons">
+			<button name="beacons_btn" label="ビーコン" />
+		</layout_panel>
+		<layout_panel name="panel6">
+			<button name="radar_list_btn" label="レーダー" tool_tip="近くのアバター一覧を表示（Ctrl-Shift-A）" />
+		</layout_panel>
+		<layout_panel name="panelregiontracker">
+			<button name="region_tracker_btn" label="リージョントラッカー" tool_tip="各種リージョン状態を追跡" />
+		</layout_panel>
+		<layout_panel name="panelcameracontrols">
+			<button name="camera_controls_btn" label="カメラ操作" />
+		</layout_panel>
+		<layout_panel name="panelmessagelog">
+			<button name="movement_controls_btn" label="移動操作" />
+		</layout_panel>
+		<layout_panel name="panelmouselook">
+			<button name="mouselook_btn" label="マウスルック" />
+		</layout_panel>
+		<layout_panel name="panel7">
+			<button name="fly_btn" label="飛行" tool_tip="飛行を開始（FまたはHome）。E/CまたはPgUp/PgDnで上下に飛びます。" />
+		</layout_panel>
+		<layout_panel name="panelsit">
+			<button name="sit_btn" label="座る" />
+		</layout_panel>
+		<layout_panel name="panelrun">
+			<button name="run_btn" label="走る" tool_tip="走行モードをオン（Ctrl-R）" />
+		</layout_panel>
+		<layout_panel name="panelvelocity">
+			<button name="run_btn" label="速度" />
+		</layout_panel>
+		<layout_panel name="panelmeanevents">
+			<button name="bumps_btn" label="バンプ" />
+		</layout_panel>
+		<layout_panel name="panelmediaticker">
+			<button name="media_ticker_btn" label="ストリーム表示" />
+		</layout_panel>
+		<layout_panel name="panelmediafilter">
+			<button name="media_filter_btn" label="メディアフィルター" />
+		</layout_panel>
+		<layout_panel name="panel8">
+			<button name="snapshot_btn" label="スナップショット" tool_tip="スクリーンショットをディスクまたはインベントリに保存（Ctrl-Shift-Sでウィンドウ、Ctrl-`(~)でウィンドウなし）" />
+		</layout_panel>
+		<layout_panel name="panelappearance">
+			<button name="appearance_btn" label="外見" />
+		</layout_panel>
+		<layout_panel name="panelexperiences">
+			<button name="experiences_btn" label="エクスペリエンス" />
+		</layout_panel>
+		<layout_panel name="panel9">
+			<button name="directory_btn" label="検索" tool_tip="場所、イベント、人などを検索（Ctrl-F）" />
+		</layout_panel>
+		<layout_panel name="panelweb">
+			<button name="web_browser_btn" label="Webブラウザ" />
+		</layout_panel>
+		<layout_panel name="panelao">
+			<button name="ao_btn" label="AO設定" tool_tip="アニメーションオーバーライダーの設定を開く"/>
+		</layout_panel>
+		<layout_panel name="paneldebugsettings">
+			<button name="debug_settings_btn" label="デバッグ設定" />
+		</layout_panel>
+		<layout_panel name="paneldebugavatar">
+			<button name="debug_avatar_btn" label="デバッグアバター" />
+		</layout_panel>
+		<layout_panel name="panelanimsexplorer">
+			<button name="anims_explorer_btn" label="アニメエクスプローラー" />
+		</layout_panel>
+		<layout_panel name="panelsoundexplorer">
+			<button name="sound_explorer_btn" label="サウンドエクスプローラー" />
+		</layout_panel>
+		<layout_panel name="panelareasearch">
+			<button name="areasearch_btn" label="エリア検索" />
+		</layout_panel>
+		<layout_panel name="panelinspect">
+			<button name="inspect_btn" label="検査" />
+		</layout_panel>
+		<layout_panel name="panelpathingchars">
+			<button name="pathing_characters_btn" label="キャラクター" />
+		</layout_panel>
+		<layout_panel name="panelpathinglinksets">
+			<button name="pathing_linksets_btn" label="リンクセット" />
+		</layout_panel>
+		<layout_panel name="panel10">
+			<button name="build_btn" label="ビルド" tool_tip="新しいオブジェクトを作成（B）" />
+		</layout_panel>
+		<layout_panel name="panelgridoptions">
+			<button name="grid_options_btn" label="グリッドオプション" />
+		</layout_panel>
+		<layout_panel name="panellocalassets">
+			<button name="local_textures_btn" label="ローカルテクスチャ" />
+		</layout_panel>
+		<layout_panel name="panelpermprefs">
+			<button name="perm_prefs_btn" label="アップロード権限" />
+		</layout_panel>
+		<layout_panel name="panelscripterrors">
+			<button name="script_errors_btn" label="スクリプトエラー" />
+		</layout_panel>
+		<layout_panel name="panelenvsettings">
+			<button name="env_editor_btn" label="環境エディタ" />
+		</layout_panel>
+		<layout_panel name="paneldaycycle">
+			<button name="day_cycle_editor_btn" label="日周期エディタ" />
+		</layout_panel>
+		<layout_panel name="panelwindlight">
+			<button name="windlight_btn" label="Windlight" />
+		</layout_panel>
+		<layout_panel name="panelwatersettings">
+			<button name="water_editor_btn" label="水エディタ" />
+		</layout_panel>
+		<layout_panel name="panelpostprocess">
+			<button name="post_process_btn" label="ポストプロセスFX" />
+		</layout_panel>
+		<layout_panel name="panelbuycurrency">
+			<button name="buy_currency_btn" label="[CURRENCY]を購入" />
+		</layout_panel>
+		<layout_panel name="panelbuyland">
+			<button name="buy_land_btn" label="土地を購入" />
+		</layout_panel>
+		<layout_panel name="panelmyland">
+			<button name="my_land_btn" label="自分の土地" />
+		</layout_panel>
+		<layout_panel name="panelaboutland">
+			<button name="about_land_btn" label="土地について" />
+		</layout_panel>
+		<layout_panel name="panelscriptinfo">
+			<button name="script_info_btn" label="スクリプト情報" />
+		</layout_panel>
+		<layout_panel name="panelaboutregion">
+			<button name="about_region_btn" label="リージョン／エステート" />
+		</layout_panel>
+		<layout_panel name="panelgodtools">
+			<button name="god_tools_btn" label="ゴッドツール" />
+		</layout_panel>
+		<layout_panel name="panelteleporthistory">
+			<button name="teleport_history_btn" label="TP履歴" />
+		</layout_panel>
+		<layout_panel name="paneldestinations">
+			<button name="destinations_btn" label="目的地" />
+		</layout_panel>
+		<layout_panel name="panel11">
+			<button name="map_btn" label="マップ" tool_tip="ワールドマップ（Ctrl-M）" />
+		</layout_panel>
+		<layout_panel name="panel12">
+			<button name="radar_btn" label="ミニマップ" tool_tip="周囲のマップ（Ctrl-Shift-M）" />
+		</layout_panel>
+		<layout_panel name="panelrlvrestrictions">
+			<button name="rlv_restrictions_btn" label="制限" />
+		</layout_panel>
+		<layout_panel name="panelrlvlocks">
+			<button name="rlv_locks_btn" label="RLVaロック" />
+		</layout_panel>
+		<layout_panel name="panelrlvstrings">
+			<button name="rlv_strings_btn" label="RLVa文字列" />
+		</layout_panel>
+		<layout_panel name="panelmemleak">
+			<button name="memleak_btn" label="メモリリーク" tool_tip="何をしているか分かっている人向けです。" />
+		</layout_panel>
+		<layout_panel name="panelmessagelog">
+			<button name="message_log_btn" label="メッセージログ" />
+		</layout_panel>
+		<layout_panel name="panelstats">
+			<button name="stats_btn" label="統計" />
+		</layout_panel>
+		<layout_panel name="panelnotificationsconsole">
+			<button name="notifications_console_btn" label="通知コンソール" />
+		</layout_panel>
+		<layout_panel name="paneldebugconsole">
+			<button name="debug_console_btn" label="デバッグコンソール" />
+		</layout_panel>
+		<layout_panel name="panelregiondebug">
+			<button name="region_console_btn" label="リージョンコンソール" />
+		</layout_panel>
+		<layout_panel name="panelfasttimers">
+			<button name="fast_timers_btn" label="高速タイマー" />
+		</layout_panel>
+		<layout_panel name="panelframeconsole">
+			<button name="frame_console_btn" label="フレームコンソール" />
+		</layout_panel>
+		<layout_panel name="panelhttpconsole">
+			<button name="http_console_btn" label="HTTPコンソール" />
+		</layout_panel>
+		<layout_panel name="paneltextureconsole">
+			<button name="texture_console_btn" label="テクスチャコンソール" />
+		</layout_panel>
+		<layout_panel name="paneltexturecategoryconsole">
+			<button name="texture_category_console_btn" label="テクスチャカテゴリコンソール" />
+		</layout_panel>
+		<layout_panel name="paneltexturesizeconsole">
+			<button name="texture_size_console_btn" label="テクスチャサイズコンソール" />
+		</layout_panel>
+		<layout_panel name="panelavatar">
+			<button name="avatar_btn" label="デフォルトアバター" />
+		</layout_panel>
+		<layout_panel name="paneloutfit">
+			<button name="make_outfit_btn" label="衣装を作成" />
+		</layout_panel>
+		<layout_panel name="paneloutfits">
+			<button name="outfits_btn" label="衣装" />
+		</layout_panel>
+		<layout_panel name="panelfavs">
+			<button name="favs_btn" label="お気に入り" />
+		</layout_panel>
+		<layout_panel name="panel13">
+			<button name="inventory_btn" label="インベントリ" tool_tip="自分のアイテム（Ctrl-I）" />
+		</layout_panel>
+		<layout_panel name="panelreceiveditems">
+			<button name="received_items_btn" label="受信したアイテム" />
+		</layout_panel>
+		<layout_panel name="panelmarketplacelistings">
+			<button name="marketplace_listings_btn" label="マーケット掲載" />
+		</layout_panel>
+		<layout_panel name="panelmarketplace">
+			<button name="marketplace_btn" label="マーケットプレイス" />
+		</layout_panel>
+		<layout_panel name="panelpreferences">
+			<button name="preferences_btn" label="環境設定" tool_tip="Ctrl-P" />
+		</layout_panel>
+		<layout_panel name="paneljoystick">
+			<button name="joystick_btn" label="ジョイスティック" />
+			<button name="enable_joystick" tool_tip="ジョイスティック操作のオン／オフ" />
+		</layout_panel>
+		<layout_panel name="panelautoreplace">
+			<button name="auto_replace_btn" label="自動置換" />
+			<button name="enable_autoreplace" tool_tip="自動置換のオン／オフ" />
+		</layout_panel>
+		<layout_panel name="paneldisplayname">
+			<button name="display_name_btn" label="表示名" />
+		</layout_panel>
+		<layout_panel name="paneltest">
+			<button name="floater_test_btn" label="フローターテスト" />
+		</layout_panel>
+		<layout_panel name="paneleditui">
+			<button name="edit_ui_btn" label="UIを編集" />
+		</layout_panel>
+		<layout_panel name="panelfonttest">
+			<button name="font_test_btn" label="フォントテスト" />
+		</layout_panel>
+		<layout_panel name="panelreportabuse">
+			<button name="abuse_btn" label="通報" />
+		</layout_panel>
+		<layout_panel name="panelhelptutorial">
+			<button name="tutorial_btn" label="チュートリアル" />
+		</layout_panel>
+		<layout_panel name="panelabout">
+			<button name="about_btn" label="[SHORT_APP_NAME]について" />
+		</layout_panel>
+		<layout_panel name="panelquit">
+			<button name="quit_btn" label="終了" />
+		</layout_panel>
+		<layout_panel name="paneltoolbarprefs">
+			<button name="change_buttons_btn" label="ボタンを変更" />
+		</layout_panel>
+	</layout_stack>
+</panel>

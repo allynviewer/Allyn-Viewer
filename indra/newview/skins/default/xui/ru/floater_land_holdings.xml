@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="land holdings floater" title="Моя Земля">
+	<scroll_list name="parcel list">
+		<column name="name" label="Имя парцела" />
+		<column name="location" label="Область" />
+		<column name="type" label="Тип" />
+		<column name="area" label="Область" />
+		<column name="hidden" />
+	</scroll_list>
+	<button name="Teleport" label="Телепортироваться" tool_tip="Телепортируйтесь в центр этой земли." />
+	<button name="Show on Map" label="Показать на карте" tool_tip="Покажите эту землю на карте мира." />
+	<text name="contrib_label">Вклады в ваши группы:</text>
+	<scroll_list name="grant list">
+		<column name="group" label="Группа" />
+		<column name="area" label="Область" />
+	</scroll_list>
+	<text name="allowed_label">Разрешенные земельные владения при текущем плане платежей:</text>
+	<text name="allowed_text">[AREA] кв. метров</text>
+	<text name="current_label">Текущие земельные владения:</text>
+	<text name="current_text">[AREA] кв. метров</text>
+	<text name="available_label">Возможна покупка земли:</text>
+	<text name="available_text">[AREA] кв. метров</text>
+	<string name="area_string">[AREA] кв. метров</string>
+</floater>

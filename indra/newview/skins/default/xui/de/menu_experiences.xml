@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="Avatar Menu">
+	<menu_item_call name="Profile" label="Profil"/>
+	<menu_item_call name="Allow" label="Erlauben"/>
+	<menu_item_call name="Forget" label="Vergessen"/>
+	<menu_item_call name="Block" label="Blockieren"/>
+	<menu_item_call name="Report" label="Melden"/>
+	<menu_item_call name="url_copy" label="SLURL kopieren"/>
+	<menu_item_call name="key_copy" label="Schlüssel kopieren"/>
+	<menu_item_call name="name_copy" label="Name kopieren"/>
+</menu>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Give Money">
+	<button name="fastpay 1" label="[CURRENCY]1" />
+	<button name="fastpay 5" label="[CURRENCY]5" />
+	<button name="fastpay 10" label="[CURRENCY]10" />
+	<button name="fastpay 20" label="[CURRENCY]20" />
+	<button name="pay btn" label="支払い" />
+	<button name="cancel btn" label="キャンセル" />
+	<text name="payee_label">Pay レジデント:</text>
+	<text name="payee_name">[NAME]</text>
+	<text name="fastpay text">即時支払い:</text>
+	<text name="message text">メッセージ:</text>
+	<line_editor name="message" />
+	<text name="amount text">量:</text>
+	<line_editor name="amount" />
+</floater>

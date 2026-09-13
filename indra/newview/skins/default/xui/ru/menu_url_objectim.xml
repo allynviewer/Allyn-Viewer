@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<context_menu name="Url Popup" label="Объект">
+	<menu name="URL Actions" label="Действия с URL">
+		<menu_item_call name="show_object" label="Профиль объекта..." />
+		<menu_item_call name="block_object" label="Заблокировать..." />
+		<menu_item_call name="unblock_object" label="Разблокировать" />
+		<menu_item_call name="show_on_map" label="Показать на карте" />
+		<menu_item_call name="teleport_to_object" label="Телепорт к объекту" />
+	</menu>
+	<menu name="Object" label="Объект">
+		<menu_item_call name="Cam To" label="Камера к" />
+		<menu_item_call name="Follow" label="Следовать" />
+		<menu_item_call name="Move To" label="Подойти" />
+		<menu_item_call name="Teleport To (current location)" label="Телепорт к (текущее место)" />
+		<menu_item_call name="Sit On" label="Сесть" />
+		<menu_item_call name="Pay" label="Оплатить" />
+		<menu_item_call name="Touch" label="Коснуться" />
+		<menu_item_call name="Edit" label="Редактировать" />
+		<menu_item_call name="Add to Selection" label="Добавить к выделению" />
+		<menu_item_call name="Derender" label="Скрыть" />
+	</menu>
+	<menu name="Copy" label="Копировать">
+		<menu_item_call name="url_copy_label" label="Имя" />
+		<menu_item_call name="url_copy" label="SLURL" />
+		<menu_item_call name="key_copy" label="Ключ" />
+	</menu>
+	<menu_item_call name="Select All" label="Выделить всё" />
+</context_menu>

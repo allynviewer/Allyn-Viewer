@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Kommunikation" name="im">
+	<text name="text_box">Mein Onlinestatus:</text>
+	<check_box label="Nur Freunden und Gruppen meinen Online-Status mitteilen" name="online_visibility"/>
+	<text name="text_box2">IM-Optionen:</text>
+	<string name="log_in_to_change">Zum Ändern anmelden</string>
+	<check_box label="IM an E-Mail senden ([EMAIL])" name="send_im_to_email"/>
+	<string name="email_unverified_tooltip">Bitte bestätigen Sie Ihre E-Mail-Adresse, um IM an E-Mail zu aktivieren. Dies können Sie auf der Website des Grids tun.</string>
+	<check_box label="IM in Chat-Konsole anzeigen" name="include_im_in_chat_console"/>
+	<check_box label="Zeitstempel in IM anzeigen" name="show_timestamps_check"/>
+ <check_box label="Online-Freundbenachrichtigungen anzeigen" name="friends_online_notify_checkbox"/>
+ <text bottom_delta="-15" follows="top|left" left_delta="4" name="conference_block_text">Eingehende Konferenzen:</text>
+ <radio_group follows="top|left" bottom_delta="-6" left_delta="120" height="16" width="204" draw_border="true" control_name="LiruBlockConferences" name="block_conferences_radio">
+ <radio_item bottom_delta="0" name="accept" width="30" value="0">Akzeptieren</radio_item>
+ <radio_item bottom_delta="0" left_delta="30" name="friends only" width="44" value="2">Nur Freunde</radio_item>
+ <radio_item bottom_delta="0" left_delta="44" name="block" width="30" value="1">Blockieren</radio_item>
+ </radio_group>
+	<text name="text_box4">Protokolloptionen:</text>
+	<check_box label="IM-Verlauf auf meinem Computer speichern" name="log_instant_messages"/>
+	<check_box label="Zeitstempel in IM-Verlauf anzeigen" name="log_instant_messages_timestamp"/>
+	<check_box label="Ende des letzten IM-Gesprächs anzeigen" name="log_show_history"/>
+	<check_box label="Verlauf des lokalen Chats auf meinem Computer speichern" name="log_chat"/>
+	<check_box label="Zeitstempel im Verlauf des lokalen Chats anzeigen" name="log_chat_timestamp"/>
+	<check_box label="Eingehende IM in Chat-Verlauf anzeigen" name="log_chat_IM"/>
+	<check_box label="Datum mit Zeitstempeln hinzufügen" name="log_date_timestamp"/>
+	<check_box label="Datum an Logdateinamen anhängen" name="logfile_name_datestamp"/>
+	<button bottom="-353" follows="right|bottom" height="20" label="Pfad ändern" label_selected="Pfad ändern" left="70" name="log_path_button" width="90" />
+	<line_editor border_drop_shadow_visible="false" border_visible="false" bottom="-386" drop_shadow_visible="true" follows="top|left|right" height="19" left="148"	max_length="254" mouse_opaque="false" name="log_path_string" right="-20" />
+</panel>

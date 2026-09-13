@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater label="(unbekannt)" name="im_floater" title="(unbekannt)">
+	<string name="answering">Verbindung wird hergestellt...</string>
+	<string name="ringing">Anruf...</string>
+	<string name="connected">Verbunden. Klicken Sie auf „Auflegen“, um zu trennen.</string>
+	<string name="hang_up">Anruf beendet</string>
+	<string name="voice_icon">icn_voice-pvtfocus.tga</string>
+	<string name="title_string">IM mit [NAME]</string>
+	<string name="typing_start_string">[NAME] tippt...</string>
+	<string name="session_start_string">Sitzung mit [NAME] wird gestartet, bitte warten.</string>
+	<string name="default_text_label">Hier klicken, um eine Nachricht zu schreiben.</string>
+	<string name="unavailable_text_label">Für diesen Anruf ist kein Text-Chat verfügbar.</string>
+	<string name="inventory_item_offered">Inventarobjekt angeboten</string>
+	<flyout_button label="Profil" name="instant_message_flyout">
+		<flyout_button_item label="Profil" name="profile_item"/>
+		<flyout_button_item label="Verlauf" name="history_btn"/>
+		<flyout_button_item label="Teleport anbieten" name="profile_tele_btn"/>
+		<flyout_button_item label="Teleport anfordern" name="request_teleport_item"/>
+		<flyout_button_item label="Bezahlen" name="pay_item"/>
+		<flyout_button_item label="Zur Gruppe einladen" name="group_invite_item"/>
+		<flyout_button_item label="SLURL kopieren" name="copy_slurl_item"/>
+		<flyout_button_item label="Zur Konferenz hinzufügen" name="conference"/>
+		<flyout_button_item label="Missbrauch melden" name="report"/>
+	</flyout_button>
+	<string name="find on map" value="Auf der Karte finden"/>
+	<string name="ding on" value="Ton bei neuen Nachrichten (An)"/>
+	<string name="ding off" value="Ton bei neuen Nachrichten (Aus)"/>
+	<string name="rp mode on" value="RP-Modus (An)"/>
+	<string name="rp mode off" value="RP-Modus (Aus)"/>
+	<string name="add friend" value="Freund hinzufügen"/>
+	<string name="remove friend" value="Freund entfernen"/>
+	<string name="mute" value="Stummschalten"/>
+	<string name="unmute" value="Stummschaltung aufheben"/>
+	<string name="focus" value="Fokus"/>
+	<button label="Anrufen" name="start_call_btn"/>
+	<button label="Auflegen" name="end_call_btn"/>
+	<check_box name="im_translate_check" tool_tip="Aktivieren Sie die Übersetzung"/>
+	<button name="im_translate_btn" label="Übersetzung" tool_tip="Sprachen für dieses Gespräch festlegen"/>
+	<panel name="speaker_controls">
+		<button name="mute_btn" tool_tip="Voice stummschalten"/>
+	</panel>
+	<line_editor label="Hier klicken, um eine Nachricht zu schreiben" name="chat_editor"/>
+	<button label="Senden" name="send_btn"/>
+	<string name="live_help_dialog">*** Willkommen bei der Hilfeanfrage ***
+Bitte schauen Sie zuerst in die SL-Hilfeseiten (F1) oder in die Knowledge Base unter http://secondlife.com/knowledgebase/
+Wenn Sie dort keine Antwort finden, schreiben Sie Ihre Frage. Ein Helfer antwortet, sobald jemand frei ist.
+-=-=- Die Wartezeit schwankt – besonders zu Stoßzeiten. -=-=-</string>
+</floater>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="whitelist_entry" title="ホワイトリスト項目">
+	<text name="media_label">許可するドメインのリストに追加する URL または URL パターンを入力してください</text>
+	<line_editor name="whitelist_entry" tool_tip="ホワイトリストに追加する URL または URL パターンを入力" />
+	<button name="ok_btn" label="OK" />
+	<button name="cancel_btn" label="キャンセル" />
+</floater>

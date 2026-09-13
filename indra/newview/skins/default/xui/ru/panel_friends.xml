@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="friends">
+	<string name="Multiple">Несколько друзей...</string>
+	<scroll_list name="friend_list" tool_tip="Удерживайте Shift или Control, нажимая, чтобы выбрать нескольких друзей.">
+		<column name="icon_online_status" tool_tip="Онлайн-статус" />
+		<column name="friend_name" label="Имя" tool_tip="Имя" />
+		<column name="icon_visible_online" tool_tip="Друг может видеть, когда вы онлайн" />
+		<column name="icon_visible_map" tool_tip="Друг может найти вас на карте" />
+		<column name="icon_edit_mine" tool_tip="Друг может редактировать, удалять или брать объекты" />
+		<column name="icon_visible_online_theirs" tool_tip="Вы можете видеть, когда они онлайн (только обновления при входе в систему)" />
+		<column name="icon_visible_map_theirs" tool_tip="Вы можете найти их на карте" />
+		<column name="icon_edit_theirs" tool_tip="Вы можете редактировать объекты этого друга" />
+		<column name="friend_last_update_generation" />
+	</scroll_list>
+	<filter_editor name="buddy_search_lineedit" label="Поиск контактов" tool_tip="Имя друга, которого вы хотите найти" />
+	<button name="expand_collapse_btn" tool_tip="Развернуть/Свернуть дополнительную информацию" />
+	<button name="im_btn" label="Чат / звонок" tool_tip="Открыть сеанс обмена мгновенными сообщениями" />
+	<button name="profile_btn" label="Профиль" tool_tip="Показать изображение, группы и другую информацию" />
+	<button name="offer_teleport_btn" label="Предложить ТП..." tool_tip="Предложите этому другу телепортироваться к вашему текущему местоположению." />
+	<button name="pay_btn" label="Оплатить..." tool_tip="Отдайте этому другу внутриигровые деньги ([CURRENCY])" />
+	<button name="remove_btn" label="Удалить..." tool_tip="Удалить этого человека из списка друзей" />
+	<button name="add_btn" label="Добавить..." tool_tip="Предложите дружбу жителю" />
+	<text name="friends">Онлайн:</text>
+	<text name="f_num" />
+	<text name="sel">Выбрано:</text>
+	<text name="s_num" />
+</panel>

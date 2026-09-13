@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="voting_tab" label="Предложения">
+	<string name="help_text">
+		Групповые предложения можно использовать, чтобы почувствовать
+о том, что группа хочет сделать или как
+группа чувствует что-то. Если у вас есть 
+соответствующие полномочия, вы можете создавать предложения,
+голосуйте за открытые предложения и просматривайте старые предложения.
+	</string>
+	<panel name="open_proposals_container" />
+	<panel name="voting_history_container" />
+	<button name="help_button" label="?" />
+	<text name="proposal_header">Предложения открытой группы</text>
+	<text name="proposal_instructions">Дважды щелкните предложение, за которое вы хотите проголосовать, или нажмите «Создать предложение», чтобы создать новое предложение.</text>
+	<text name="proposal_lbl">Описание предложения</text>
+	<text name="proposal_voting_lbl">Голосование по предложениям завершено. Проголосовано?</text>
+	<scroll_list name="proposals" />
+	<button name="btn_proposal" label="Создать предложение" />
+	<button name="btn_view_proposal_item" label="Посмотреть предложение" />
+	<text_editor name="proposal_text" />
+	<button name="btn_view_proposal_list" label="Посмотреть список" />
+	<text name="quorum_lbl">Кворум:</text>
+	<spinner name="quorum" tool_tip="Число членов с правом голоса, необходимое для того, чтобы результаты выборов были обязательными." />
+	<text name="quorum_text">из [MEMBERS] участников должны проголосовать.</text>
+	<text name="duration_lbl">Продолжительность:</text>
+	<spinner name="duration" tool_tip="# дней продлятся выборы." />
+	<text name="duration_text">дни</text>
+	<text name="majority_lbl" />
+	<radio_group name="majority" tool_tip="Для победы необходимо большинство голосов.">
+		<radio_item>Simple Majority</radio_item>
+		<radio_item>2/3 Majority</radio_item>
+		<radio_item>Unanimous</radio_item>
+	</radio_group>
+	<text name="start_lbl">Начало голосования:</text>
+	<text name="start_date" />
+	<text name="end_lbl">Голосование завершено:</text>
+	<text name="end_date" />
+	<button name="btn_submit" label="Отправить предложение" />
+	<button name="btn_cancel" label="Отмена" />
+	<button name="btn_yes" label="Да" />
+	<button name="btn_no" label="Нет" />
+	<button name="btn_abstain" label="Воздержаться" />
+	<text name="txt">История группового голосования</text>
+	<text name="instructions">Дважды щелкните прошлый голос или выберите его и нажмите «Просмотреть элемент», чтобы просмотреть результаты.</text>
+	<text name="history_list_lbl">Прошлое голосование Голосование завершено</text>
+	<scroll_list name="history_list" />
+	<button name="btn_view_history_item" label="Просмотреть элемент" />
+	<text name="vote_text_lbl">Результаты голосования:</text>
+	<text_editor name="vote_text" />
+	<button name="btn_view_history_list" label="Посмотреть список" />
+	<string name="proposals_header_view_txt">Предложения открытой группы</string>
+	<string name="proposals_header_view_inst">
+		Дважды щелкните предложение, за которое вы хотите проголосовать, или нажмите
+Создать предложение, чтобы создать новое предложение.
+	</string>
+	<string name="proposals_header_create_txt">Создать предложение</string>
+	<string name="proposals_header_create_inst">
+		Введите Описание предложения для нового предложения. Вы можете изменить
+Кворум, продолжительность и большинство, необходимые для принятия предложения.
+	</string>
+	<string name="proposals_header_vote_txt">Предложение Голосование</string>
+	<string name="proposals_header_vote_inst">
+		Нажмите кнопку «Да» или «Нет», чтобы проголосовать за предложение.
+или выберите «Воздержаться» при голосовании по этому предложению.
+	</string>
+	<string name="proposals_header_voted_inst">Вы проголосовали: [VOTE]</string>
+	<string name="empty_proposal_txt">Предложение, которое вы пытаетесь создать, пусто.  Пожалуйста, заполните предложение перед его созданием.</string>
+	<string name="proposals_submit_yes_txt">Отправка ответа "Да" на предложение...</string>
+	<string name="proposals_submit_no_txt">Отправка «нет» предложению...</string>
+	<string name="proposals_submit_abstain_txt">Отправка воздержания от предложения...</string>
+	<string name="proposals_submit_new_txt">Отправка нового предложения...</string>
+	<string name="vote_recorded">Ваш голос получен.</string>
+	<string name="vote_previously_recorded">Вы ранее голосовали.  Во время выборов разрешено голосовать только один раз.</string>
+</panel>

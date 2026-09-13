@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="General" label="Bölge">
+	<text name="region_text_lbl">Bölge:</text>
+	<text name="region_text">bilinmiyor</text>
+	<text name="version_channel_text_lbl">Sürüm:</text>
+	<text name="version_channel_text">bilinmiyor</text>
+	<text name="region_type_lbl">Tür:</text>
+	<text name="region_type">bilinmiyor</text>
+	<check_box name="block_terraform_check" label="Terraform'u Engelle" />
+	<button name="terraform_help" label=""  tool_tip="Yardım"/>
+	<check_box name="block_fly_check" label="Blok Sineği" />
+	<button name="fly_help" label=""  tool_tip="Yardım"/>
+	<check_box name="block_fly_over_check" label="Blok Parselin Üzerinden Geçiş" tool_tip="Bir paketin üzerinden uçmayı önlemek için erişim kontrollerini yukarı doğru genişletin" />
+	<check_box name="allow_damage_check" label="Hasara İzin Ver" />
+	<button name="damage_help" label=""  tool_tip="Yardım"/>
+	<check_box name="restrict_pushobject" label="İtmeyi Kısıtla" />
+	<button name="restrict_pushobject_help" label=""  tool_tip="Yardım"/>
+	<check_box name="allow_land_resell_check" label="Arazi Satışına İzin Ver" />
+	<button name="land_resell_help" label=""  tool_tip="Yardım"/>
+	<check_box name="allow_parcel_changes_check" label="Arazi Birleştirmesine/Bölmesine İzin Ver" />
+	<button name="parcel_changes_help" label=""  tool_tip="Yardım"/>
+	<check_box name="block_parcel_search_check" label="Aramada Arsa Gösterisini Engelle" tool_tip="İnsanların bu bölgeyi ve parsellerini arama sonuçlarında görmesine izin verin" />
+	<button name="parcel_search_help" label=""  tool_tip="Yardım"/>
+	<spinner name="agent_limit_spin" label="Temsilci Sınırı" />
+	<button name="agent_limit_help" label=""  tool_tip="Yardım"/>
+	<spinner name="object_bonus_spin" label="Nesne Bonusu" />
+	<button name="object_bonus_help" label=""  tool_tip="Yardım"/>
+	<text name="access_text" label="Vade">Değerlendirme:</text>
+	<combo_box name="access_combo" label="Olgun">
+		<combo_item name="Adult">Yetişkin</combo_item>
+		<combo_item name="Mature">Olgun</combo_item>
+		<combo_item name="PG">PG</combo_item>
+	</combo_box>
+	<button name="access_help" label=""  tool_tip="Yardım"/>
+	<check_box name="use_estate_sun_check" label="Estate Sun'ı kullanın" />
+	<button name="use_estate_sun_help" label=""  tool_tip="Yardım"/>
+	<check_box name="fixed_sun_check" label="Sabit Güneş" />
+	<button name="fixed_sun_help" label=""  tool_tip="Yardım"/>
+	<icon name="daycycle" />
+	<slider name="sun_hour_slider" label="Aşama" />
+	<button name="apply_btn" label="Uygula" />
+	<button name="kick_btn" label="Bir Kullanıcı Ana Sayfaya Işınlansın..." />
+	<button name="kick_all_btn" label="Tüm Kullanıcıları Ana Sayfaya Işınlayın..." />
+	<button name="im_btn" label="Bölgeye Mesaj Gönder..." />
+	<button name="manage_telehub_btn" label="Telehub'ı yönet..." />
+</panel>

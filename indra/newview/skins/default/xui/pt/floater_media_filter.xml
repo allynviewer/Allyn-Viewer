@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floatermediafilter" title="Filtro de mídia">
+	<text name="info1">Domínios em negrito estão na lista persistente (ou seja, estão na lista de permitidos ou na lista negra).</text>
+	<text name="info2">Domínios em itálico estão na lista da sessão (ou seja, são permitidos ou negados temporariamente).</text>
+	<scroll_list name="whitelist_list">
+		<column name="whitelist_col" label="Domínios ou objetos de servidor permitidos"/>
+	</scroll_list>
+	<scroll_list name="blacklist_list">
+		<column name="blacklist_col" label="Domínios ou objetos de servidor bloqueados"/>
+	</scroll_list>
+	<button name="add_whitelist" label="Adicionar..." tool_tip="Adicionar um servidor à lista de permitidos"/>
+	<button name="remove_whitelist" label="Remover" tool_tip="Remover o servidor selecionado da lista de permitidos"/>
+	<button name="clear_lists" label="Limpar listas" tool_tip="Limpar todas as listas"/>
+	<button name="show_ips" label="Mostrar IPs" tool_tip="Mostrar o IP associado a cada nome de domínio (faz o viewer pausar enquanto a lista é atualizada, por causa das consultas DNS)"/>
+	<button name="add_blacklist" label="Adicionar..." tool_tip="Adicionar um servidor à lista negra"/>
+	<button name="remove_blacklist" label="Remover" tool_tip="Remover o servidor selecionado da lista negra"/>
+	<text name="add_text">Novo domínio:</text>
+	<check_box name="match_ip" label="Adicionar/remover IP correspondente" tool_tip="Adicionar ou remover qualquer IP associado ao nome de domínio adicionado ou removido"/>
+	<line_editor name="input_domain" tool_tip="Digite aqui a nova URL, nome de domínio, IP ou caminho do servidor HTTP do objeto scriptado"/>
+	<button name="commit_domain" label="Adicionar" tool_tip="Adicionar à lista"/>
+</floater>

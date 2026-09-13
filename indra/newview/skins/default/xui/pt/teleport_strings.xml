@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<teleport_messages>
+	<message_set name="errors">
+		<message name="invalid_tport">
+			Houve um problema ao processar o teleporte. Tente de novo. Se o erro continuar, veja o suporte técnico em:
+www.secondlife.com/support
+		</message>
+		<message name="invalid_region_handoff">
+			Houve um problema ao atravessar regiões. Tente de novo. Se o erro continuar, veja o suporte técnico em:
+www.secondlife.com/support
+		</message>
+		<message name="blocked_tport">
+			Os teleportes estão bloqueados no momento. Tente de novo em instantes. Se continuar, saia e entre de novo.
+		</message>
+		<message name="nolandmark_tport">
+			Não foi possível localizar o landmark de destino.
+		</message>
+		<message name="timeout_tport">
+			Não foi possível concluir o teleporte. Tente de novo em instantes.
+		</message>
+		<message name="noaccess_tport">
+			Você não tem acesso ao destino deste teleporte.
+		</message>
+		<message name="missing_attach_tport">
+			Seus anexos ainda não chegaram. Espere um pouco ou saia e entre de novo antes de tentar teleportar outra vez.
+		</message>
+		<message name="too_many_uploads_tport">
+			Há tanta gente chegando nesta região que o teleporte não vai completar a tempo. Tente de novo em alguns minutos ou vá para um lugar menos cheio.
+		</message>
+		<message name="expired_tport">
+			O sistema não conseguiu concluir o teleporte a tempo. Tente de novo em alguns minutos.
+		</message>
+		<message name="expired_region_handoff">
+			O sistema não conseguiu concluir a travessia de região a tempo. Tente de novo em alguns minutos.
+		</message>
+		<message name="no_host">
+			Não foi possível encontrar o destino do teleporte. Ele pode estar indisponível ou não existir mais. Tente de novo em alguns minutos.
+		</message>
+		<message name="no_inventory_host">
+			O sistema de inventário está indisponível no momento.
+		</message>
+	</message_set>
+	<message_set name="progress">
+		<message name="sending_dest">
+			Enviando para o destino.
+		</message>
+		<message name="redirecting">
+			Redirecionando para outro lugar.
+		</message>
+		<message name="relaying">
+			Transferindo para o destino.
+		</message>
+		<message name="sending_home">
+			Pedindo a posição da casa.
+		</message>
+		<message name="sending_landmark">
+			Pedindo a posição do landmark.
+		</message>
+		<message name="completing">
+			Concluindo o teleporte.
+		</message>
+		<message name="resolving">
+			Identificando o destino.
+		</message>
+		<message name="contacting">
+			Contatando a nova região.
+		</message>
+		<message name="arriving">
+			Chegando...
+		</message>
+		<message name="requesting">
+			Solicitando teleporte...
+		</message>
+	</message_set>
+</teleport_messages>

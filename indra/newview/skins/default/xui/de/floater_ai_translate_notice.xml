@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="ai_translate_notice"
+	title="Hinweis — KI-Übersetzung"
+	can_close="true" can_minimize="false" can_resize="true"
+	width="640" height="560" min_width="480" min_height="360">
+	<text_editor name="notice_text"
+		left="16" right="-16" top="-32" bottom="52"
+		follows="left|top|right|bottom"
+		font="SansSerifSmall"
+		word_wrap="true"
+		enabled="false"
+		hide_border="false"
+		max_length="65536"
+		bg_readonly_color="transparent"/>
+	<button name="cancel_btn" label="ABBRECHEN" label_selected="ABBRECHEN"
+		left="16" bottom="12" width="120" height="28"
+		follows="left|bottom"/>
+	<button name="accept_btn" label="GELESEN UND AKZEPTIERT" label_selected="GELESEN UND AKZEPTIERT"
+		right="-16" bottom="12" width="240" height="28"
+		follows="right|bottom"
+		enabled="false"/>
+	<string name="notice_body">Bitte lies diesen Hinweis sorgfältig, bevor du die KI-Übersetzung aktivierst.
+
+1. Funktionsweise
+
+Die KI-Übersetzung nutzt Dienste künstlicher Intelligenz, die von Dritten bereitgestellt, gehostet oder betrieben werden können. Der Allyn Viewer dient als Oberfläche für dieses Feature und kontrolliert nicht unbedingt die Modelle, Systeme, Server, Algorithmen oder internen Prozesse des KI-Anbieters.
+
+Übersetzungen werden automatisch erzeugt und können Fehler, Auslassungen, falsche Deutungen, Kontextverlust, unerwartete Ergebnisse oder unangemessene Inhalte enthalten. Keine KI-Übersetzung ist als genau, vollständig oder für einen bestimmten Zweck geeignet garantiert.
+
+2. Dienste Dritter
+
+Die Funktion kann von Verfügbarkeit und Bedingungen externer Dienste abhängen. Diese Dienste können ohne Kontrolle durch den Allyn Viewer geändert, unterbrochen, eingeschränkt, gewartet, ausfallen oder eingestellt werden.
+
+Der Allyn Viewer garantiert nicht Verfügbarkeit, Kontinuität, Genauigkeit, Leistung oder Antwortzeit von KI-Diensten Dritter.
+
+3. Kosten und Gebühren
+
+Einige KI-Dienste können Nutzungslimits, kostenlose oder kostenpflichtige Pläne, Tarife, Nutzungsgebühren, Credits, Abos oder andere kommerzielle Bedingungen haben.
+
+Soweit zutreffend, bestimmt der jeweilige Anbieter alle Kosten; sie liegen in der Verantwortung der Nutzerin oder des Nutzers gemäß den Bedingungen des genutzten Dienstes.
+
+Der Allyn Viewer legt Preise, Tarife, Pläne, Limits, Credits, Abrechnungsmethoden oder kommerzielle Änderungen von KI-Anbietern weder fest noch kontrolliert er sie.
+
+Die Nutzerin oder der Nutzer ist dafür verantwortlich, die kommerziellen Bedingungen des Dienstes vor der Nutzung zu prüfen.
+
+4. Verarbeitung und Übermittlung von Daten
+
+Für eine Übersetzung können Texte oder andere für die Funktion erforderliche Daten an Dienste Dritter gesendet werden.
+
+Je nach Konfiguration und Anbieter können diese Daten verarbeitet, gespeichert oder auf Server in anderen Ländern übertragen werden.
+
+Bitte lies Datenschutzrichtlinie und Nutzungsbedingungen des jeweiligen Anbieters, bevor du den Dienst nutzt.
+
+5. Persönliche und vertrauliche Informationen
+
+Wir empfehlen nicht, Passwörter, Zugangsdaten, Finanzinformationen, persönliche Dokumente, hochvertrauliche Informationen oder andere sensible Daten über die KI-Übersetzung zu senden.
+
+Prüfe, ob du berechtigt bist, bestimmte Inhalte an einen externen Dienst zu senden.
+
+6. Internationale Datenübermittlung
+
+Wenn die Nutzung eine internationale Übermittlung personenbezogener Daten umfasst, muss die Verarbeitung den Mechanismen und Anforderungen des geltenden Rechts folgen.
+
+In Brasilien, soweit die LGPD gilt, müssen internationale Übermittlungen der LGPD und den Regelungen der nationalen Datenschutzbehörde entsprechen, einschließlich der gesetzlich zulässigen Mechanismen.
+
+7. Datenschutz
+
+Die Verarbeitung personenbezogener Daten im Zusammenhang mit der KI-Übersetzung muss der für den Allyn Viewer geltenden Datenschutzrichtlinie folgen und, soweit Dienste Dritter beteiligt sind, deren Richtlinien und Bedingungen.
+
+Angaben zu Zweck, Datenkategorien, Weitergabe, Speicherung, internationaler Übermittlung, Rechten der Betroffenen und Kontaktwegen sollten in der jeweiligen Datenschutzrichtlinie verfügbar sein.
+
+8. Sicherheit
+
+Der Allyn Viewer soll angemessene Sicherheitsmaßnahmen treffen, die zum angebotenen Feature passen; kein System zur Übertragung oder Verarbeitung von Daten kann absolute Sicherheit garantieren.
+
+Die Nutzerin oder der Nutzer erkennt an, dass externe Dienste eigene Sicherheitsmaßnahmen, Richtlinien und Verfahren haben können.
+
+9. Änderungen an KI-Diensten
+
+KI-Anbieter können Modelle, Funktionen, Preise, Limits, Richtlinien, Nutzungsbedingungen, technische Anforderungen, Verfügbarkeit oder andere Eigenschaften ihrer Dienste ändern.
+
+Solche Änderungen können die KI-Übersetzung im Allyn Viewer beeinflussen.
+
+10. Erzeugte Inhalte
+
+Von der KI erzeugte Inhalte sind das Ergebnis automatisierter Verarbeitung und stellen nicht unbedingt eine Aussage, Meinung oder Position des Allyn Viewer dar.
+
+Die Nutzerin oder der Nutzer ist dafür verantwortlich, eine Übersetzung zu prüfen, bevor sie für Zwecke genutzt wird, die Genauigkeit erfordern.
+
+11. Haftung für Dienste Dritter
+
+Der Allyn Viewer kontrolliert die zur KI-Verarbeitung genutzten externen Dienste nicht und kann nicht garantieren, dass sie verfügbar bleiben oder auf bestimmte Weise funktionieren.
+
+Soweit das geltende Recht es zulässt, haftet der Allyn Viewer nicht für Ausfälle, Nichtverfügbarkeit, Verzögerungen, Änderungen, Fehler oder Einschränkungen, die ausschließlich von Diensten Dritter herrühren.
+
+Damit sollen keine Haftungen ausgeschlossen oder beschränkt werden, die nach geltendem Recht nicht ausgeschlossen oder beschränkt werden dürfen.
+
+12. Anwendbares Recht
+
+Die Nutzung unterliegt den für die Nutzerin oder den Nutzer, den Allyn Viewer und die jeweiligen Diensteanbieter geltenden Gesetzen und Vorschriften.
+
+Soweit unterschiedliche Rechte gelten, soll keine Bestimmung dieses Hinweises zwingende Rechte oder Pflichten nach geltendem Recht aufheben.
+
+13. Transparenz zur künstlichen Intelligenz
+
+Dir wird mitgeteilt, dass die Übersetzung ganz oder teilweise durch Systeme künstlicher Intelligenz erfolgt.
+
+Soweit das geltende Recht es verlangt, werden zusätzliche Informationen zur Nutzung künstlicher Intelligenz und zur Verarbeitung der damit verbundenen Daten bereitgestellt.
+
+14. Annahme
+
+Mit der Auswahl von „KI-Übersetzung aktivieren“ bestätigst du, dass du diesen Hinweis erhalten hast, verstehst, dass das Feature KI-Dienste Dritter nutzt, und dir möglicher Einschränkungen, Kosten, Bedingungen, Datenverarbeitung und Abhängigkeit von externen Diensten bewusst bist.
+
+Die Nutzung unterliegt außerdem den Nutzungsbedingungen und der Datenschutzrichtlinie des Allyn Viewer.
+
+Dieser Hinweis ersetzt keine Rechtsberatung und schließt keine Rechte, Garantien oder Haftungen aus, beschränkt oder ändert sie, soweit das nach geltendem Recht unzulässig ist.</string>
+</floater>

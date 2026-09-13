@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="nearby_media">
+	<string name="media_item_count_format">(%ld медиа-элементов)</string>
+	<string name="empty_item_text" />
+	<string name="parcel_media_name">Потоковые медиа парцела</string>
+	<string name="parcel_audio_name">Потоковое аудио</string>
+	<string name="playing_suffix">(играет)</string>
+	<panel name="minimized_controls">
+		<button name="all_nearby_media_disable_btn" label="Остановить все" tool_tip="Выключите все медиафайлы поблизости" />
+		<button name="all_nearby_media_enable_btn" label="Начать все" tool_tip="Включите все медиафайлы поблизости." />
+		<button name="open_prefs_btn" label="Настройки" tool_tip="Поднимите настройки СМИ" />
+		<button name="more_btn" label="&gt;&gt;" tool_tip="Расширенное управление" />
+	</panel>
+	<panel name="nearby_media_panel">
+		<text name="show_text">Показывать:</text>
+		<combo_box name="show_combo">
+			<combo_item name="All" label="Все">Все</combo_item>
+			<combo_item name="WithinParcel" label="В этой парцеле">В этой парцеле</combo_item>
+			<combo_item name="OutsideParcel" label="За пределами этого парцела">За пределами этого парцела</combo_item>
+			<combo_item name="OnOthers" label="О других аватарах">О других аватарах</combo_item>
+		</combo_box>
+		<scroll_list name="media_list">
+			<column name="media_checkbox_ctrl" />
+			<column name="media_proximity" label="Близость" />
+			<column name="media_visibility" label="Видимый" />
+			<column name="media_class" label="Сорт" />
+			<column name="media_name" label="Имя" />
+			<column name="media_debug" label="Отлаживать" />
+		</scroll_list>
+		<panel name="media_controls_panel">
+			<layout_stack name="media_controls">
+				<layout_panel name="stop">
+					<button name="stop_btn" tool_tip="Остановить выбранный носитель" />
+				</layout_panel>
+				<layout_panel name="play">
+					<button name="play_btn" tool_tip="Воспроизвести выбранные медиафайлы" />
+				</layout_panel>
+				<layout_panel name="pause">
+					<button name="pause_btn" tool_tip="Приостановить выбранный медиафайл" />
+				</layout_panel>
+				<layout_panel name="volume_slider_ctrl">
+					<slider_bar name="volume_slider" tool_tip="Громкость звука для выбранных носителей" />
+				</layout_panel>
+				<layout_panel name="mute">
+					<button name="mute_btn" tool_tip="Отключить звук на выбранных носителях" />
+				</layout_panel>
+				<layout_panel name="zoom">
+					<button name="zoom_btn" tool_tip="Увеличение масштаба выбранных медиафайлов" />
+				</layout_panel>
+				<layout_panel name="unzoom">
+					<button name="unzoom_btn" tool_tip="Увеличьте масштаб выбранного медиафайла" />
+				</layout_panel>
+				<layout_panel name="right_bookend" />
+			</layout_stack>
+		</panel>
+	</panel>
+</panel>

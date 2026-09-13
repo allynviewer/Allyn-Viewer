@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="region_debug_console" title="Bölge Hata Ayıklama">
+	<text_editor name="region_debug_console_output" />
+	<line_editor name="region_debug_console_input" />
+</floater>

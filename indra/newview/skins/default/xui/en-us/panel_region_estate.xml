@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel
+ border="true"
+ follows="left|right|top|bottom"
+ help_topic="panel_region_estate_tab"
+ label="Estate"
+ layout="topleft"
+ left="0"
+ name="Estate"
+ bottom="0"
+ height="548"
+ width="690">
+    <text
+     type="string"
+     length="1"
+     follows="left|top|right"
+     font="SansSerifSmall"
+     height="32"
+     layout="topleft"
+     left="12"
+     name="estate_help_text"
+     bottom="-40"
+     width="666"
+     word_wrap="true">
+        Changes to settings on this tab will affect all regions in the estate.
+    </text>
+    <text
+     type="string"
+     length="1"
+     follows="left|top"
+     font="SansSerif"
+     height="20"
+     layout="topleft"
+     left="12"
+     name="estate_text"
+     bottom="-68"
+     halign="right"
+     width="90">
+        Estate:
+    </text>
+    <text
+     type="string"
+     length="1"
+     follows="left|top"
+     font="SansSerif"
+     height="20"
+     layout="topleft"
+     left="108"
+     name="estate_name"
+     bottom="-68"
+     width="220">
+        (unknown)
+    </text>
+    <text
+     type="string"
+     length="1"
+     follows="left|top"
+     font="SansSerif"
+     height="20"
+     layout="topleft"
+     left="340"
+     name="owner_text"
+     bottom="-68"
+     halign="right"
+     width="120">
+        Estate owner:
+    </text>
+    <name_box
+     type="string"
+     length="1"
+     follows="left|top|right"
+     font="SansSerif"
+     height="20"
+     layout="topleft"
+     left="468"
+     name="estate_owner"
+     bottom="-68"
+     width="210"
+     use_ellipses="true">
+        (unknown)
+    </name_box>
+
+    <view_border
+     bevel_style="none"
+     follows="top|left"
+     height="300"
+     layout="topleft"
+     left="12"
+     bottom="-380"
+     width="330" />
+    <view_border
+     bevel_style="none"
+     follows="top|left|right"
+     height="300"
+     layout="topleft"
+     left="354"
+     bottom="-380"
+     width="324" />
+
+    <check_box
+     follows="left|top"
+     height="22"
+     label="Allow Public Access"
+     layout="topleft"
+     left="24"
+     name="externally_visible_check"
+     bottom="-108"
+     width="250" />
+    <button
+     bottom="-108"
+     follows="left|top"
+     font="SansSerifSmall"
+     height="22"
+     width="22"
+     label=""
+     tool_tip="Help"
+     image_overlay="icn_region_help.png"
+     image_overlay_alignment="center"
+     name="externally_visible_help"
+     left="316" />
+
+    <check_box
+     follows="left|top"
+     height="22"
+     label="Allow Voice Chat"
+     layout="topleft"
+     left="24"
+     name="voice_chat_check"
+     bottom="-144"
+     width="250" />
+    <button
+     bottom="-144"
+     follows="left|top"
+     font="SansSerifSmall"
+     height="22"
+     width="22"
+     label=""
+     tool_tip="Help"
+     image_overlay="icn_region_help.png"
+     image_overlay_alignment="center"
+     name="voice_chat_help"
+     left="316" />
+
+    <check_box
+     follows="left|top"
+     height="22"
+     label="Allow Direct Teleport"
+     layout="topleft"
+     left="24"
+     name="allow_direct_teleport"
+     bottom="-180"
+     width="250" />
+    <button
+     bottom="-180"
+     follows="left|top"
+     font="SansSerifSmall"
+     height="22"
+     width="22"
+     label=""
+     tool_tip="Help"
+     image_overlay="icn_region_help.png"
+     image_overlay_alignment="center"
+     name="allow_direct_teleport_help"
+     left="316" />
+
+    <text
+     type="string"
+     length="1"
+     follows="top|left"
+     font="SansSerifSmall"
+     height="20"
+     layout="topleft"
+     left="24"
+     name="Only Allow"
+     bottom="-228"
+     width="300">
+        Allow access only to Residents who:
+    </text>
+    <check_box
+     follows="top|left"
+     font="SansSerifSmall"
+     height="20"
+     label="Have payment information on file"
+     layout="topleft"
+     left="24"
+     name="limit_payment"
+     tool_tip="Residents must have payment information on file to access this estate."
+     bottom="-260"
+     width="300" />
+    <check_box
+     follows="top|left"
+     font="SansSerifSmall"
+     height="20"
+     label="Are age 18 or older"
+     layout="topleft"
+     left="24"
+     name="limit_age_verified"
+     tool_tip="Residents must be age 18 or older to access this estate. See support.secondlife.com for more information."
+     bottom="-292"
+     width="300" />
+
+    <check_box
+     follows="left|top"
+     height="22"
+     label="Use Global Time"
+     layout="topleft"
+     left="366"
+     name="use_global_time_check"
+     bottom="-108"
+     width="250" />
+    <button
+     bottom="-108"
+     follows="left|top"
+     font="SansSerifSmall"
+     height="22"
+     width="22"
+     label=""
+     tool_tip="Help"
+     image_overlay="icn_region_help.png"
+     image_overlay_alignment="center"
+     name="use_global_time_help"
+     left="644" />
+    <check_box
+     follows="left|top"
+     height="22"
+     label="Fixed Sun"
+     layout="topleft"
+     left="366"
+     name="fixed_sun_check"
+     bottom="-144"
+     width="250" />
+    <button
+     bottom="-144"
+     follows="left|top"
+     font="SansSerifSmall"
+     height="22"
+     width="22"
+     label=""
+     tool_tip="Help"
+     image_overlay="icn_region_help.png"
+     image_overlay_alignment="center"
+     name="fixed_sun_help"
+     left="644" />
+    <icon
+     bottom="-196"
+     follows="left|top"
+     height="24"
+     image_name="icn_region_daycycle.png"
+     left="366"
+     name="daycycle"
+     width="240"/>
+    <slider
+     bottom="-240"
+     follows="left|top"
+     height="22"
+     increment="0.001"
+     label="Phase"
+     left="366"
+     max_val="30"
+     min_val="6"
+     name="sun_hour_slider"
+     show_text="false"
+     width="300" />
+
+    <button
+     enabled="false"
+     follows="left|top"
+     height="28"
+     label="Apply"
+     layout="topleft"
+     name="apply_btn"
+     image_overlay="icn_region_apply.png"
+     image_overlay_alignment="left"
+     pad_left="6"
+     font="SansSerifSmall"
+     bottom="-430"
+     left="270"
+     width="150" />
+
+    <button
+     follows="left|top"
+     height="28"
+     label="Send Message To Estate..."
+     layout="topleft"
+     left="12"
+     name="message_estate_btn"
+     image_overlay="icn_region_message.png"
+     image_overlay_alignment="left"
+     pad_left="6"
+     font="SansSerifSmall"
+     bottom="-528"
+     width="328" />
+    <button
+     follows="left|top"
+     height="28"
+     label="Kick Resident from Estate..."
+     layout="topleft"
+     left="350"
+     name="kick_user_from_estate_btn"
+     image_overlay="icn_region_kick.png"
+     image_overlay_alignment="left"
+     pad_left="6"
+     font="SansSerifSmall"
+     bottom="-528"
+     width="328" />
+</panel>

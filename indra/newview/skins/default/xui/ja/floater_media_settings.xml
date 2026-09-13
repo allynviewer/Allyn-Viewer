@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="media_settings" title="メディア 設定">
+	<button name="OK" label="OK" />
+	<button name="Cancel" label="キャンセル" />
+	<button name="Apply" label="適用" />
+	<tab_container name="tab_container" />
+</floater>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview_sound">
+	<line_editor name="desc" />
+	<text name="desc txt">Описание:</text>
+	<button name="Sound audition btn" label="Играйте локально" tool_tip="Воспроизведите этот звук так, чтобы его могли слышать только вы." />
+	<button name="Sound play btn" label="Играть в мире" tool_tip="Воспроизведите этот звук, чтобы другие могли его услышать." />
+	<string name="Sound: ">Звук:</string>
+</floater>

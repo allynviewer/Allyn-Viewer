@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Snapshot" title="スナップショットプレビュー">
+	<text name="file_size_label">ファイルサイズ: [SIZE] KB</text>
+	<text name="type_label">保存先</text>
+	<combo_box name="snapshot_type_radio">
+		<combo_item name="feed">プロフィールフィードに投稿</combo_item>
+		<combo_item name="postcard">メールで送信</combo_item>
+		<combo_item name="texture">インベントリに保存</combo_item>
+		<combo_item name="local">ハードディスクに保存</combo_item>
+	</combo_box>
+	<button name="new_snapshot_btn" label="更新" />
+	<button name="freeze_time_btn" label="フリーズ" tool_tip="全画面プレビューを表示します。時間が止まったようにカメラを動かして、同じ場面の複数ショットを撮れます。ESCで取り消し！" />
+	<button name="feed_btn" label="アップロード" />
+	<button name="send_btn" label="送信" />
+	<button name="upload_btn" label="アップロード（[UPLOADFEE]）" />
+	<flyout_button name="save_btn" label="保存" tool_tip="画像をファイルに保存">
+		<flyout_button_item name="save_item">保存</flyout_button_item>
+		<flyout_button_item name="saveas_item">名前を付けて保存...</flyout_button_item>
+	</flyout_button>
+	<button name="discard_btn" label="キャンセル" />
+	<button name="more_btn" label="もっと &gt;&gt;" tool_tip="詳細オプション" />
+	<button name="less_btn" label="&lt;&lt; 少なく" tool_tip="詳細オプション" />
+	<text name="type_label2">保存先の解像度</text>
+	<text name="format_label">フォーマット</text>
+	<combo_box name="feed_size_combo" label="解像度">
+		<combo_item name="CurrentWindow">現在のウィンドウ</combo_item>
+		<combo_item name="500x500">500x500 (1:1)</combo_item>
+		<combo_item name="500x375">500x375 (4:3)</combo_item>
+		<combo_item name="500x350">500x350 (10:7)</combo_item>
+		<combo_item name="500x313">500x313 (16:10)</combo_item>
+		<combo_item name="500x281">500x281 (16:9)</combo_item>
+		<combo_item name="500x250">500x250 (2:1)</combo_item>
+		<combo_item name="Custom">カスタム</combo_item>
+	</combo_box>
+	<combo_box name="postcard_size_combo" label="解像度">
+		<combo_item name="CurrentWindow">現在のウィンドウ</combo_item>
+		<combo_item name="640x480">640x480</combo_item>
+		<combo_item name="700x525">700x525</combo_item>
+		<combo_item name="800x600">800x600</combo_item>
+		<combo_item name="1024x768">1024x768</combo_item>
+		<combo_item name="Custom">カスタム</combo_item>
+	</combo_box>
+	<combo_box name="texture_size_combo" label="解像度">
+		<combo_item name="CurrentWindow">現在のウィンドウ</combo_item>
+		<combo_item name="512x512">512x512 (1:1)</combo_item>
+		<combo_item name="256x256">256x256 (1:1)</combo_item>
+		<combo_item name="128x128">128x128 (1:1)</combo_item>
+		<combo_item name="512x256">512x256 (2:1)</combo_item>
+		<combo_item name="256x128">256x128 (2:1)</combo_item>
+		<combo_item name="256x512">256x512 (1:2)</combo_item>
+		<combo_item name="128x256">128x256 (1:2)</combo_item>
+		<combo_item name="512x128">512x128 (4:1)</combo_item>
+		<combo_item name="128x512">128x512 (1:4)</combo_item>
+		<combo_item name="Custom">カスタム</combo_item>
+	</combo_box>
+	<combo_box name="local_size_combo" label="解像度">
+		<combo_item name="CurrentWindow">現在のウィンドウ</combo_item>
+		<combo_item name="320x240">320x240</combo_item>
+		<combo_item name="640x480">640x480</combo_item>
+		<combo_item name="800x600">800x600</combo_item>
+		<combo_item name="1024x768">1024x768</combo_item>
+		<combo_item name="1280x960">1280x960</combo_item>
+		<combo_item name="1280x1024">1280x1024</combo_item>
+		<combo_item name="1600x1200">1600x1200</combo_item>
+		<combo_item name="1680x1050">1680x1050</combo_item>
+		<combo_item name="Custom">カスタム</combo_item>
+	</combo_box>
+	<combo_box name="local_format_combo" label="フォーマット">
+		<combo_item name="PNG">PNG</combo_item>
+		<combo_item name="JPEG">JPEG</combo_item>
+		<combo_item name="BMP">BMP</combo_item>
+	</combo_box>
+	<spinner name="snapshot_width" label="幅" />
+	<spinner name="snapshot_height" label="高さ" />
+	<slider name="image_quality_slider" label="画質" />
+	<check_box name="keep_aspect" label="アスペクト比を維持" tool_tip="注: 解像度をカスタム以外にするか、アスペクトをデフォルトにすると、互換性がないためこのチェックは外れます。" />
+	<text name="type_label3" />
+	<combo_box name="feed_aspect_combo" label="アスペクト">
+		<combo_item name="Default">デフォルト</combo_item>
+		<combo_item name="Custom">カスタム</combo_item>
+	</combo_box>
+	<combo_box name="postcard_aspect_combo" label="アスペクト">
+		<combo_item name="Default">デフォルト</combo_item>
+		<combo_item name="Custom">カスタム</combo_item>
+	</combo_box>
+	<combo_box name="texture_aspect_combo" label="アスペクト">
+		<combo_item name="CurrentWindow">現在のウィンドウ</combo_item>
+		<combo_item name="1:1">1:1</combo_item>
+		<combo_item name="4:3">4:3（プロフィール）</combo_item>
+		<combo_item name="10:7">10:7</combo_item>
+		<combo_item name="3:2">3:2</combo_item>
+		<combo_item name="16:10">16:10</combo_item>
+		<combo_item name="16:9">16:9</combo_item>
+		<combo_item name="2:1">2:1</combo_item>
+		<combo_item name="Custom">カスタム</combo_item>
+	</combo_box>
+	<combo_box name="local_aspect_combo" label="アスペクト">
+		<combo_item name="Default">デフォルト</combo_item>
+		<combo_item name="CurrentWindow">現在のウィンドウ</combo_item>
+		<combo_item name="1:1">1:1</combo_item>
+		<combo_item name="4:3">4:3（プロフィール）</combo_item>
+		<combo_item name="10:7">10:7</combo_item>
+		<combo_item name="3:2">3:2</combo_item>
+		<combo_item name="16:10">16:10</combo_item>
+		<combo_item name="16:9">16:9</combo_item>
+		<combo_item name="2:1">2:1</combo_item>
+		<combo_item name="Custom">カスタム</combo_item>
+	</combo_box>
+	<spinner name="aspect_ratio" />
+	<text name="aspect_one_label">:1</text>
+	<text name="layer_type_label">キャプチャ:</text>
+	<combo_box name="layer_types" label="画像レイヤー">
+		<combo_item name="Colors">色</combo_item>
+		<combo_item name="Depth">深度</combo_item>
+	</combo_box>
+	<check_box name="ui_check" label="スナップショットにインターフェースを含める" tool_tip="解像度を現在のウィンドウサイズに固定します。" />
+	<check_box name="hud_check" label="スナップショットにHUDオブジェクトを含める" tool_tip="解像度を現在のウィンドウサイズに固定します。" />
+	<check_box name="keep_open_check" label="保存後も開いたままにする" />
+	<check_box name="freeze_time_check" label="フリーズタイムモードで開く" tool_tip="スナップショットウィンドウを素早く開き、カメラを配置して静止シーンの複数ショットを撮影できます。" />
+	<check_box name="auto_snapshot_check" label="自動更新" tool_tip="フリーズタイムと併用すると便利です。カメラ操作を止めるたびに新しい全画面プレビューを作成します。" />
+	<check_box name="temp_check" label="一時画像（無料）" tool_tip="アセットを一時的にします。無料ですが、短時間で消えます。（SLグリッドでは動作しない場合があります）" />
+	<string name="unknown">不明</string>
+	<string name="targetAR">保存先のアスペクト比</string>
+	<string name="sourceAR">解像度と保存先のアスペクト比</string>
+</floater>

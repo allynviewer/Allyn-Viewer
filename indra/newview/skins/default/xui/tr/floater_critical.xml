@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="modal container">
+	<button name="Continue" label="Devam et" />
+	<button name="Cancel" label="İptal" />
+	<text name="tos_heading">Lütfen aşağıdaki mesajı dikkatlice okuyunuz.</text>
+	<text_editor name="tos_text">TOS_TEXT</text_editor>
+</floater>

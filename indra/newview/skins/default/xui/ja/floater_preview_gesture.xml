@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="gesture_preview">
+	<string name="step_anim" />
+	<string name="step_sound" />
+	<string name="step_chat" />
+	<string name="step_wait" />
+	<string name="stop_txt">停止</string>
+	<string name="preview_txt">プレビュー</string>
+	<string name="none_text">-- なし --</string>
+	<text name="desc_label">説明:</text>
+	<line_editor name="desc" />
+	<text name="trigger_label">トリガー:</text>
+	<line_editor name="trigger_editor" />
+	<text name="replace_text" tool_tip="トリガー語をこれらの言葉に置き換えます。例: トリガーが hello、置換が howdy だと、チャットの「I wanted to say hello」は「I wanted to say howdy」になり、ジェスチャーも再生されます。">置換:</text>
+	<line_editor name="replace_editor" tool_tip="トリガー語をこれらの言葉に置き換えます。例: トリガーが hello、置換が howdy だと、チャットの「I wanted to say hello」は「I wanted to say howdy」になり、ジェスチャーも再生されます。" />
+	<text name="key_label">ショートカットキー:</text>
+	<combo_box name="modifier_combo" label="なし" />
+	<combo_box name="key_combo" label="なし" />
+	<text name="library_label">ライブラリ:</text>
+	<text name="steps_label">ステップ:</text>
+	<scroll_list name="library_list">
+		<row name="action_animation" />
+		<row name="action_sound" />
+		<row name="action_chat" />
+		<row name="action_wait" />
+	</scroll_list>
+	<button name="add_btn" label="追加 &gt;&gt;" />
+	<button name="up_btn" label="上を移動" />
+	<button name="down_btn" label="下を移動" />
+	<button name="delete_btn" label="削除" />
+	<scroll_list name="step_list" />
+	<text name="help_label">待機ステップを追加しない限り、すべてのステップは同時に実行されます。</text>
+	<text name="options_text" />
+	<combo_box name="animation_list" />
+	<combo_box name="sound_list" />
+	<line_editor name="chat_editor" />
+	<radio_group name="animation_trigger_type">
+		<radio_item name="start">開始</radio_item>
+		<radio_item name="stop">停止</radio_item>
+	</radio_group>
+	<check_box name="wait_anim_check" label="アニメーションが終わるまで" />
+	<check_box name="wait_time_check" label="秒数" />
+	<line_editor name="wait_time_editor" />
+	<check_box name="active_check" label="アクティブ" tool_tip="アクティブなジェスチャーは、トリガーフレーズをチャットするかホットキーを押すことで実行できます。キー割り当ての競合があると、通常は非アクティブになります。" />
+	<flyout_button name="preview_btn" label="プレビュー">
+		<flyout_button_item name="Local" label="自分だけプレビュー" />
+	</flyout_button>
+	<button name="save_btn" label="保存" />
+</floater>

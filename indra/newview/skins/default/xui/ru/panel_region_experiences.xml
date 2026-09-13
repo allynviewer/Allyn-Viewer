@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Experiences" label="Опыты">
+	<panel.string name="trusted_estate_text">
+		Любой экспириенс можно сделать доверенным.
+
+Доверенные экспириенсы имеют право
+работать в этом эстейте.
+
+Кроме того, если эстейт не
+разрешает публичный доступ, резиденты,
+участвующие в любом
+доверенном экспириенсе, могут войти
+и оставаться, пока они в экспириенсе.
+	</panel.string>
+	<panel.string name="allowed_estate_text">
+		Разрешать можно только экспириенсы,
+которые не Grid-Wide.
+
+Разрешённые экспириенсы имеют право
+работать в этом эстейте.
+	</panel.string>
+	<panel.string name="blocked_estate_text">
+		Блокировать можно только
+экспириенсы Grid-Wide.
+
+Заблокированные экспириенсы не смогут
+работать в этом эстейте.
+	</panel.string>
+	<panel.string name="estate_caption">Изменения настроек на этой вкладке коснутся всех регионов эстейта.</panel.string>
+	<panel.string name="allowed_parcel_text">
+		Разрешать можно только экспириенсы,
+которые не Grid-Wide.
+
+Разрешённые экспириенсы имеют право
+работать на этом участке,
+если эстейт их не блокирует.
+	</panel.string>
+	<panel.string name="blocked_parcel_text">
+		Блокировать можно только
+экспириенсы Grid-Wide.
+
+Заблокированные экспириенсы не смогут
+работать на этом участке.
+	</panel.string>
+	<panel.string name="parcel_caption" />
+	<text name="experiences_help_text" />
+	<layout_stack>
+		<layout_panel name="trusted_layout_panel">
+			<panel name="panel_trusted" />
+			<text name="trusted_text_help" />
+		</layout_panel>
+		<layout_panel>
+			<panel name="panel_allowed" />
+			<text name="allowed_text_help" />
+		</layout_panel>
+		<layout_panel>
+			<panel name="panel_blocked" />
+			<text name="blocked_text_help" />
+		</layout_panel>
+	</layout_stack>
+</panel>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="popups" label="ポップアップ" title="ポップアップ">
+	<check_box name="accept_new_inventory" label="アイテムの提供を自動で承諾" />
+	<check_box name="show_new_inventory" label="承諾後にプレビューできるアイテムを表示" />
+	<check_box name="show_in_inventory" label="新しく承諾したオブジェクトをインベントリに表示" />
+	<text name="show_label">常に表示</text>
+	<icon name="section_show_rule" />
+	<scroll_list name="enabled_popups" />
+	<button name="reset_dialogs_btn" label="すべて有効にする" tool_tip="任意のポップアップと「初回使用」通知をすべて有効にします。" />
+	<button name="enable_popup" />
+	<button name="disable_popup" />
+	<button name="skip_dialogs_btn" label="すべて無効にする" tool_tip="任意のポップアップと「初回使用」通知をすべて無効にします。" />
+	<button name="skip_frst_btn" label="初回ポップアップを無効にする..." tool_tip="初回使用の通知をすべて無効にします。" />
+	<text name="dont_show_label">表示しない</text>
+	<icon name="section_hide_rule" />
+	<scroll_list name="disabled_popups" />
+</panel>

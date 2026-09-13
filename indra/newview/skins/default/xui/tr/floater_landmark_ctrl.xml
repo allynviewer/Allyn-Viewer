@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="landmarkpicker" title="Düzenle: Yer işaretleri">
+	<check_box name="show_folders_check" label="Klasörleri Göster" />
+	<filter_editor name="inventory search editor" />
+	<inventory_panel name="inventory panel" />
+	<button name="New" label="Yeni" />
+	<button name="Rename" label="Yeniden adlandır" />
+	<button name="NewFolder" label="Yeni Klasör" />
+	<button name="Edit" label="Düzenle" />
+	<button name="Delete" label="Sil" />
+	<button name="Close" label="Kapat" />
+</floater>

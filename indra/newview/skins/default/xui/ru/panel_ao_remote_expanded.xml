@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="ao_remote">
+	<panel name="panel_bg_tab" />
+	<button name="ao_swim_btn" label="Принудительное плавание" tool_tip="Анимации полета будут заменены на плавающие." />
+	<button name="ao_sit_btn" label="Сидит" />
+	<panel name="panel_ao_controls" />
+</panel>

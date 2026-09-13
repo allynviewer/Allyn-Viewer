@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Self Pie">
+	<menu_item_call name="Profile..." label="Profil..." />
+	<menu_item_call name="Groups..." label="Gruplar..." />
+	<pie_menu name="Take Off" label="Kalkış">
+		<pie_menu name="Clothes" label="Giysiler">
+			<menu_item_call name="Shirt" label="Gömlek" />
+			<menu_item_call name="Pants" label="Pantolon" />
+			<menu_item_call name="Shoes" label="Ayakkabı" />
+			<menu_item_call name="Socks" label="Çorap" />
+			<menu_item_call name="Jacket" label="Ceket" />
+			<menu_item_call name="Gloves" label="Eldiven" />
+			<pie_menu name="More" label="Daha Fazla">
+				<menu_item_call name="Self Undershirt" label="Fanila" />
+				<menu_item_call name="All Clothes" label="Tüm Giysiler" />
+				<menu_item_call name="Self Tattoo" label="Dövme" />
+				<menu_item_call name="Self Alpha" label="Alfa" />
+				<menu_item_call name="Self Underpants" label="külot" />
+				<menu_item_call name="Self Physics" label="Fizik" />
+			</pie_menu>
+			<menu_item_call name="Skirt" label="Etek" />
+		</pie_menu>
+		<pie_menu name="Object Detach HUD" label="HUD" />
+		<pie_menu name="Object Detach" label="Ayır" />
+		<pie_menu name="Object Detach More" label="Daha Fazla Ayır" />
+		<menu_item_call name="Detach All" label="Tümünü Ayır" />
+	</pie_menu>
+	<menu_item_call name="Stand Up Self" label="Ayağa kalk" />
+	<menu_item_call name="Gestures..." label="Jestler..." />
+	<pie_menu name="Tools" label="Araçlar">
+		<menu_item_call name="Reload Textures" label="Yeniden yükle" />
+		<menu_item_call name="Reset Skeleton" label="Skel'i sıfırla" />
+		<menu_item_call name="Reset Skeleton And Animations" label="Animasyonları Sıfırla" />
+		<menu_item_call name="Anims..." label="Animasyonlar..." />
+		<menu_item_call name="ScriptCount" label="S. Sayısı" />
+		<menu_item_call name="Script Info" label="Script bilgisi" />
+		<menu_item_call name="CopyUUID" label="UUID'yi kopyala" />
+		<menu_item_call name="Save OBJ..." label="OBJ'yi kaydet..." />
+	</pie_menu>
+	<menu_item_call name="Appearance..." label="Görünüm..." />
+</pie_menu>

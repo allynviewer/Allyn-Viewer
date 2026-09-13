@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Skins panel" label="Скины">
+	<text name="Skin_txt1">ВЫБРАННАЯ КОЖА</text>
+	<icon name="section_skin_rule" />
+	<combo_box name="custom_skin_combo" />
+	<text name="Skin_txt2">Основной автор</text>
+	<view_border name="custom_box1" />
+	<text name="custom_skin_author">автор скина</text>
+	<text name="Skin_txt3">Дополнительные авторы</text>
+	<view_border name="custom_box2" />
+	<text name="custom_skin_ad_authors" />
+	<text name="Skin_txt4">Папка скинов</text>
+	<view_border name="custom_box3" />
+	<text name="custom_skin_folder">папка скина</text>
+	<button name="custom_skin_preview" tool_tip="Предварительный просмотр скина" />
+	<text name="Skin_txt5">Дополнительная информация</text>
+	<text_editor name="custom_skin_info" />
+</panel>

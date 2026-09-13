@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Media settings for controls" label="カスタマイズ">
+	<text name="controls_label">コントロール:</text>
+	<combo_box name="controls">
+		<combo_item name="Standard">標準</combo_item>
+		<combo_item name="Mini">Mini</combo_item>
+	</combo_box>
+	<text name="owner_label">所有者</text>
+	<check_box name="perms_owner_interact" label="ナビゲーションと対話を許可" />
+	<check_box name="perms_owner_control" label="コントロール Barを表示" />
+	<text name="group_label">グループ:</text>
+	<name_box name="perms_group_name" />
+	<check_box name="perms_group_interact" label="ナビゲーションと対話を許可" />
+	<check_box name="perms_group_control" label="コントロール Barを表示" />
+	<text name="anyone_label">誰でも</text>
+	<check_box name="perms_anyone_interact" label="ナビゲーションと対話を許可" />
+	<check_box name="perms_anyone_control" label="コントロール Barを表示" />
+</panel>

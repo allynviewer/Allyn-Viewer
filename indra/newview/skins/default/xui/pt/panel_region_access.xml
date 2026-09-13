@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Access">
+	<tab_container name="tabs">
+		<panel name="estate_managers_panel" label="Gerentes do estate">
+			<text name="estate_manager_label">Gerentes do estate:</text>
+			<button name="estate_manager_help" label="" tool_tip="Ajuda"/>
+			<name_list name="estate_manager_name_list">
+				<column name="name" label="Nome"/>
+			</name_list>
+			<button name="add_estate_manager_btn" label="Adicionar..."/>
+			<button name="remove_estate_manager_btn" label="Remover..."/>
+		</panel>
+		<panel name="allowed_panel" label="Permitidos">
+			<text name="allow_resident_label">Residentes permitidos:</text>
+			<button name="allow_resident_help" label="" tool_tip="Ajuda"/>
+			<panel name="allowed_search_panel" label="top_panel">
+				<filter_editor name="allowed_search_input" label="Pesquisar agentes permitidos"/>
+			</panel>
+			<name_list name="allowed_avatar_name_list">
+				<column name="name" label="Nome"/>
+			</name_list>
+			<button name="add_allowed_avatar_btn" label="Adicionar..."/>
+			<button name="remove_allowed_avatar_btn" label="Remover..."/>
+			<button name="copy_allowed_list_btn" label="Copiar todos"/>
+		</panel>
+		<panel name="allowed_groups_panel" label="Grupos permitidos">
+			<text name="allow_group_label">Grupos permitidos:</text>
+			<button name="allow_group_help" label="" tool_tip="Ajuda"/>
+			<panel name="allowed_group_search_panel" label="top_panel">
+				<filter_editor name="allowed_group_search_input" label="Pesquisar grupos permitidos"/>
+			</panel>
+			<name_list name="allowed_group_name_list">
+				<column name="name" label="Nome"/>
+			</name_list>
+			<button name="add_allowed_group_btn" label="Adicionar..."/>
+			<button name="remove_allowed_group_btn" label="Remover..."/>
+			<button name="copy_allowed_group_list_btn" label="Copiar todos"/>
+		</panel>
+		<panel name="banned_panel" label="Banidos">
+			<text name="ban_resident_label">Residentes banidos:</text>
+			<button name="ban_resident_help" label="" tool_tip="Ajuda"/>
+			<panel name="banned_search_panel" label="top_panel">
+				<filter_editor name="banned_search_input" label="Pesquisar agentes banidos"/>
+			</panel>
+			<name_list name="banned_avatar_name_list">
+				<column name="name" label="Nome"/>
+				<column name="last_login_date" label="Último login"/>
+				<column name="ban_date" label="Data do banimento"/>
+				<column name="bannedby" label="Banido por"/>
+			</name_list>
+			<button name="add_banned_avatar_btn" label="Adicionar..."/>
+			<button name="remove_banned_avatar_btn" label="Remover..."/>
+			<button name="copy_banned_list_btn" label="Copiar todos"/>
+		</panel>
+	</tab_container>
+</panel>

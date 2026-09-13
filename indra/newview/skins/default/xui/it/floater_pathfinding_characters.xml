@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_pathfinding_characters" title="Personaggi pathfinding">
+	<string name="messaging_get_inprogress">Richiesta personaggi pathfinding...</string>
+	<string name="messaging_get_error">Errore rilevato durante la richiesta dei personaggi pathfinding.</string>
+	<string name="messaging_complete_none_found">Nessun personaggio pathfinding.</string>
+	<string name="messaging_complete_available">[NUM_SELECTED] personaggi selezionati su [NUM_TOTAL].</string>
+	<string name="messaging_not_enabled">Questa regione non ha il pathfinding attivo.</string>
+	<string name="character_cpu_time">[CPU_TIME] µs</string>
+	<panel name="pathfinding_chars_main">
+		<scroll_list name="objects_scroll_list">
+			<column name="name" label="Nome"/>
+			<column name="description" label="Descrizione"/>
+			<column name="owner" label="Proprietario"/>
+			<column name="cpu_time" label="CPU"/>
+			<column name="altitude" label="Altitudine"/>
+		</scroll_list>
+		<text name="messaging_status">Personaggi:</text>
+		<button name="refresh_objects_list" label="Aggiorna elenco"/>
+		<button name="select_all_objects" label="Seleziona tutto"/>
+		<button name="select_none_objects" label="Seleziona nessuno"/>
+	</panel>
+	<panel name="pathfinding_chars_actions">
+		<text name="actions_label">Azioni sui personaggi selezionati:</text>
+		<check_box name="show_beacon" label="Mostra segnale"/>
+		<button name="take_objects" label="Prendi"/>
+		<button name="take_copy_objects" label="Prendine una copia"/>
+		<button name="teleport_me_to_object" label="Fammi teleport lì" tool_tip="Attivo solo quando è selezionato un personaggio."/>
+		<button name="return_objects" label="Restituisci"/>
+		<button name="delete_objects" label="Cancella"/>
+	</panel>
+</floater>

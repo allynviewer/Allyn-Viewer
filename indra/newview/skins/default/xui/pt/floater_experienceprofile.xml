@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater title="Perfil da Experience">
+	<floater.string name="empty_slurl">(nenhum)</floater.string>
+	<floater.string name="maturity_icon_general">map_event.tga</floater.string>
+	<floater.string name="maturity_icon_moderate">map_event_mature.tga</floater.string>
+	<floater.string name="maturity_icon_adult">map_event_adult.tga</floater.string>
+	<tab_container name="tab_container">
+		<panel name="panel_experience_info">
+			<scroll_container name="xp_scroll">
+				<panel name="scrolling_panel">
+					<layout_stack name="Experience_profile">
+						<layout_panel name="top panel">
+							<button name="edit_btn" label="Editar"/>
+						</layout_panel>
+						<layout_panel name="maturity panel">
+							<text name="ContentRating">Classificação:</text>
+						</layout_panel>
+						<layout_panel name="location panel">
+							<text name="Location">Localização:</text>
+						</layout_panel>
+						<layout_panel name="owner panel">
+							<text name="Owner">Dono:</text>
+						</layout_panel>
+						<layout_panel name="group_panel">
+							<text name="Group">Grupo:</text>
+						</layout_panel>
+						<layout_panel name="perm panel">
+							<button name="allow_btn" label="Permitir"/>
+							<button name="forget_btn" label="Esquecer"/>
+							<button name="block_btn" label="Bloquear"/>
+							<text name="privileged">Esta Experience está habilitada para todos os residentes.</text>
+							<button name="report_btn" label="Denunciar"/>
+						</layout_panel>
+					</layout_stack>
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="edit_panel_experience_info">
+			<scroll_container name="edit_xp_scroll">
+				<panel name="edit_scrolling_panel">
+					<button name="Group_btn" label="Definir grupo"/>
+					<text name="edit_ContentRating">Classificação:</text>
+					<combo_box name="edit_ContentRatingText" label="Moderado" tool_tip="Aumentar a classificação de maturidade de uma Experience redefinirá a permissão de todos os residentes que a permitiram.">
+						<combo_item name="Adult" label="Adulto"/>
+						<combo_item name="Mature" label="Moderado"/>
+						<combo_item name="PG" label="Geral"/>
+					</combo_box>
+					<text name="edit_Location">Localização:</text>
+					<button name="location_btn" label="Definir como atual"/>
+					<button name="clear_btn" label="Limpar localização"/>
+					<check_box name="edit_enable_btn" label="Habilitar Experience"/>
+					<check_box name="edit_private_btn" label="Ocultar na pesquisa"/>
+					<button name="cancel_btn" label="Voltar"/>
+					<button name="save_btn" label="Salvar"/>
+				</panel>
+			</scroll_container>
+		</panel>
+	</tab_container>
+</floater>

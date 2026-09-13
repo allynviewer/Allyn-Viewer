@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Access" label="アクセス">
+	<tab_container name="tabs">
+		<panel name="estate_managers_panel" label="エステート Managers">
+			<text name="estate_manager_label">エステート Managers:</text>
+			<button name="estate_manager_help" label=""  tool_tip="ヘルプ"/>
+			<name_list name="estate_manager_name_list">
+				<column name="name" label="名前" />
+			</name_list>
+			<button name="add_estate_manager_btn" label="追加..." />
+			<button name="remove_estate_manager_btn" label="削除..." />
+		</panel>
+		<panel name="allowed_panel" label="許可済み">
+			<text name="allow_resident_label">許可されたレジデント:</text>
+			<button name="allow_resident_help" label=""  tool_tip="ヘルプ"/>
+			<panel name="allowed_search_panel" label="top_panel">
+				<filter_editor name="allowed_search_input" label="許可済み agentsを検索" />
+			</panel>
+			<name_list name="allowed_avatar_name_list">
+				<column name="name" label="名前" />
+			</name_list>
+			<button name="add_allowed_avatar_btn" label="追加..." />
+			<button name="remove_allowed_avatar_btn" label="削除..." />
+			<button name="copy_allowed_list_btn" label="すべてをコピー" />
+		</panel>
+		<panel name="allowed_groups_panel" label="許可されたグループ">
+			<text name="allow_group_label">許可されたグループ:</text>
+			<button name="allow_group_help" label=""  tool_tip="ヘルプ"/>
+			<panel name="allowed_group_search_panel" label="top_panel">
+				<filter_editor name="allowed_group_search_input" label="許可済み グループを検索" />
+			</panel>
+			<name_list name="allowed_group_name_list">
+				<column name="name" label="名前" />
+			</name_list>
+			<button name="add_allowed_group_btn" label="追加..." />
+			<button name="remove_allowed_group_btn" label="削除..." />
+			<button name="copy_allowed_group_list_btn" label="すべてをコピー" />
+		</panel>
+		<panel name="banned_panel" label="バン済み">
+			<text name="ban_resident_label">バン済み レジデント:</text>
+			<button name="ban_resident_help" label=""  tool_tip="ヘルプ"/>
+			<panel name="banned_search_panel" label="top_panel">
+				<filter_editor name="banned_search_input" label="バン済み agentsを検索" />
+			</panel>
+			<name_list name="banned_avatar_name_list">
+				<column name="name" label="名前" />
+				<column name="last_login_date" label="最後 ログイン" />
+				<column name="ban_date" label="バン Date" />
+				<column name="bannedby" label="バン済み による" />
+			</name_list>
+			<button name="add_banned_avatar_btn" label="追加..." />
+			<button name="remove_banned_avatar_btn" label="削除..." />
+			<button name="copy_banned_list_btn" label="すべてをコピー" />
+		</panel>
+	</tab_container>
+</panel>

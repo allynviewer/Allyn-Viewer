@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview_texture">
+	<text name="desc txt">説明:</text>
+	<line_editor name="desc" />
+	<text name="uuid txt">UUID:</text>
+	<line_editor name="uuid" />
+	<text name="uploader txt">アップロード者:</text>
+	<line_editor name="uploader" />
+	<button name="openprofile" label="プロフィール" />
+	<text name="uploadtime txt">アップロード日時:</text>
+	<line_editor name="uploadtime" />
+	<text name="alphanote">読み込み中...</text>
+	<string name="No Alpha">アルファなし</string>
+	<string name="Has Alpha">アルファあり</string>
+	<button name="Keep" label="保持" />
+	<button name="Discard" label="破棄" />
+	<button name="Copy To Inventory" label="インベントリにコピー" />
+	<text name="dimensions">サイズ: [WIDTH]x[HEIGHT]</text>
+	<text name="aspect_ratio">プレビューのアスペクト比</text>
+	<combo_box name="combo_aspect_ratio" tool_tip="固定アスペクト比でプレビューします">
+		<combo_item name="Unconstrained">制約なし</combo_item>
+		<combo_item name="1:1" tool_tip="グループ記章またはファーストライフプロフィール">1:1</combo_item>
+		<combo_item name="4:3" tool_tip="2nd Life プロフィール">4:3</combo_item>
+		<combo_item name="10:7" tool_tip="クラシファイド、検索掲載、ランドマーク">10:7</combo_item>
+		<combo_item name="3:2" tool_tip="土地について">3:2</combo_item>
+		<combo_item name="16:10">16:10</combo_item>
+		<combo_item name="16:9" tool_tip="プロフィールのピック">16:9</combo_item>
+		<combo_item name="2:1">2:1</combo_item>
+	</combo_box>
+	<string name="Unknown">不明</string>
+</floater>

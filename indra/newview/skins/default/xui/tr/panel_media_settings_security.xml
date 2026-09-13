@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Media Settings Security" label="Güvenlik">
+	<check_box name="whitelist_enable" label="Yalnızca Belirtilen URL kalıplarına Erişime İzin Ver" />
+	<scroll_list name="whitelist" />
+	<icon name="Parcel_Exp_Color" />
+	<text name="home_url_fails_some_items_in_whitelist">Ana sayfanın başarısız olduğu girişler işaretlenir:</text>
+	<button name="whitelist_add" label="Ekle" />
+	<button name="whitelist_del" label="Sil" />
+	<text name="home_url_fails_whitelist">
+		Uyarı: Genel sekmesinde belirtilen ana sayfa başarısız oluyor 
+Bu beyaz listeyi geçin.  Geçerli bir giriş yapılana kadar devre dışı bırakıldı 
+eklendi.
+	</text>
+</panel>

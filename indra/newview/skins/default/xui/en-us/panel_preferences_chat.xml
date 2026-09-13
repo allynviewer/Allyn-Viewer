@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="false" height="612" label="Text Chat" left="0" name="chat" width="648">
+	<scroll_container bottom="-612" follows="all" height="612" left="0" name="chat_scroll" opaque="false" width="648">
+		<panel border="false" bottom="-780" follows="top|left" height="780" left="0" name="chat_scroll_inner" width="628">
+	<text bottom="-20" follows="top" font="SansSerifSmall" height="12" left="20" name="text_box" text_color="LabelSelectedColor">CHAT FONT SIZE</text>
+	<icon bottom="-26" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_font_rule" width="588"/>
+	<radio_group bottom="-58" draw_border="false" follows="top" height="24" left="20" name="chat_font_size" width="500">
+		<radio_item bottom="0" height="16" left="0" name="radio" width="120">Small</radio_item>
+		<radio_item bottom="0" height="16" left="140" name="radio2" width="120">Medium</radio_item>
+		<radio_item bottom="0" height="16" left="280" name="radio3" width="120">Large</radio_item>
+	</radio_group>
+
+	<text bottom="-96" follows="top" font="SansSerifSmall" height="12" left="20" name="text_box2" text_color="LabelSelectedColor">CHAT COLOR</text>
+	<icon bottom="-102" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_color_rule" width="588"/>
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-160" can_apply_immediately="true" color="1 1 1 1" control_name="UserChatColor" follows="top" height="47" label="You" left="20" name="user" width="44"/>
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-160" can_apply_immediately="true" color="1 1 1 1" control_name="AgentChatColor" follows="top" height="47" label="Others" left="84" name="agent" width="44"/>
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-160" can_apply_immediately="true" color="0.6 0.6 1 1" follows="top" height="47" label="IM" left="148" name="im" width="44"/>
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-160" can_apply_immediately="true" color="0.8 1 1 1" follows="top" height="47" label="System" left="212" name="system" width="44"/>
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-160" can_apply_immediately="true" color="0.82 0.82 0.99 1" control_name="ScriptErrorColor" enabled="true" follows="top" height="47" label="Errors" left="276" name="script_error" width="44"/>
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-220" can_apply_immediately="true" color="0.7 0.9 0.7 1" control_name="ObjectChatColor" follows="top" height="47" label="Objects" left="20" name="objects" width="44"/>
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-220" can_apply_immediately="true" color="0.7 0.9 0.7 1" follows="top" height="47" label="Owner" left="84" name="owner" width="44"/>
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-220" can_apply_immediately="true" color="0 0 0 1" follows="top" height="47" label="Bubble" left="148" name="background" width="44"/>
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-220" can_apply_immediately="true" color="0.6 0.6 1 1" follows="top" height="47" label="URLs" left="212" name="links" width="44"/>
+
+	<text bottom="-256" follows="top" font="SansSerifSmall" height="12" left="20" name="text_box3" text_color="LabelSelectedColor">CHAT CONSOLE</text>
+	<icon bottom="-262" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_console_rule" width="588"/>
+	<spinner bottom="-292" control_name="ChatPersistTime" decimal_digits="0" follows="top" height="16" increment="1" initial_val="10" label="Fade chat after" label_width="140" left="20" max_val="60" min_val="2" name="fade_chat_time" width="280"/>
+	<text bottom="-290" follows="top" height="12" left="312" name="text_box4">(seconds)</text>
+	<spinner bottom="-320" decimal_digits="0" follows="top" height="16" increment="1" initial_val="10" left="20" max_val="50" min_val="1" name="max_chat_count" width="80"/>
+	<text bottom="-318" follows="left|top" height="12" left="112" name="text_box5">(# lines)</text>
+	<spinner bottom="-348" decimal_digits="0" follows="top" height="16" increment="1" left="20" max_val="3000" min_val="0" width="280" control_name="ConsoleBottomOffset" name="chat_bottom_offset" label="Bottom offset" label_width="140" tool_tip="Offset in pixels between the chat console and the bottom of the viewer."/>
+	<slider bottom="-380" control_name="ConsoleBackgroundOpacity" follows="top" height="16" increment="0.05" initial_val="1" label="Opacity" label_width="140" left="20" max_val="1" min_val="0" name="console_opacity" value="0.4" width="400"/>
+	<check_box bottom="-408" control_name="ChatFullWidth" follows="top" height="16" initial_value="false" label="Use full screen width (Requires restart)" left="20" name="chat_full_width_check"/>
+
+	<text bottom="-444" follows="top" font="SansSerifSmall" height="12" left="20" name="text_box6" text_color="LabelSelectedColor">CHAT OPTIONS</text>
+	<icon bottom="-450" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_opt_rule" width="588"/>
+	<check_box bottom="-476" follows="top" height="16" initial_value="false" label="Close chat bar after hitting return" left="20" name="close_chat_on_return_check"/>
+	<check_box bottom="-500" follows="top" height="16" initial_value="false" label="Arrow keys always move avatar when chatting" left="20" name="arrow_keys_move_avatar_check"/>
+	<check_box bottom="-524" follows="top" height="16" control_name="LetterKeysFocusChatBar" label="Letter keys start typing into local chat" left="20" name="letter_keys_start_local_chat"/>
+	<check_box bottom="-548" follows="top" height="16" initial_value="false" label="Show timestamps in Local Chat" left="20" name="show_timestamps_check"/>
+	<check_box bottom="-572" control_name="ScriptErrorsAsChat" follows="top" height="16" initial_value="false" label="Show script errors and warnings as regular chat" left="20" name="script_errors_as_chat"/>
+	<check_box bottom="-596" control_name="PlayTypingAnim" follows="top" height="16" initial_value="true" label="Play typing animation when chatting" left="20" name="play_typing_animation"/>
+
+	<text bottom="-632" follows="top" font="SansSerifSmall" height="12" left="20" name="text_box7" text_color="LabelSelectedColor">BUBBLE CHAT</text>
+	<icon bottom="-638" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_bubble_rule" width="588"/>
+	<check_box bottom="-664" follows="top" control_name="UseChatBubbles" height="16" initial_value="false" label="Show chat bubbles" left="20" name="bubble_text_chat"/>
+	<slider bottom="-692" follows="top" can_edit_text="false" control_name="ChatBubbleOpacity" height="16" increment="0.05" initial_val="1" label="Opacity" label_width="140" left="20" max_val="1" min_val="0" name="bubble_chat_opacity" value="0.5" width="400"/>
+		</panel>
+	</scroll_container>
+</panel>

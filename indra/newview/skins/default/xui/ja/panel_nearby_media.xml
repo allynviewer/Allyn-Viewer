@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="nearby_media">
+	<string name="media_item_count_format">（%ld 個のメディア項目）</string>
+	<string name="empty_item_text" />
+	<string name="parcel_media_name">パーセルのストリーミングメディア</string>
+	<string name="parcel_audio_name">パーセルのストリーミングオーディオ</string>
+	<string name="playing_suffix">（再生中）</string>
+	<panel name="minimized_controls">
+		<button name="all_nearby_media_disable_btn" label="すべて停止" tool_tip="近くのメディアをすべてオフにします" />
+		<button name="all_nearby_media_enable_btn" label="すべて開始" tool_tip="近くのメディアをすべてオンにします" />
+		<button name="open_prefs_btn" label="設定" tool_tip="メディアの環境設定を開きます" />
+		<button name="more_btn" label="&gt;&gt;" tool_tip="詳細コントロール" />
+	</panel>
+	<panel name="nearby_media_panel">
+		<text name="show_text">表示:</text>
+		<combo_box name="show_combo">
+			<combo_item name="All" label="すべて">すべて</combo_item>
+			<combo_item name="WithinParcel" label="このパーセル内">このパーセル内</combo_item>
+			<combo_item name="OutsideParcel" label="このパーセルの外">このパーセルの外</combo_item>
+			<combo_item name="OnOthers" label="他のアバター上">他のアバター上</combo_item>
+		</combo_box>
+		<scroll_list name="media_list">
+			<column name="media_checkbox_ctrl" />
+			<column name="media_proximity" label="近接" />
+			<column name="media_visibility" label="表示" />
+			<column name="media_class" label="クラス" />
+			<column name="media_name" label="名前" />
+			<column name="media_debug" label="デバッグ" />
+		</scroll_list>
+		<panel name="media_controls_panel">
+			<layout_stack name="media_controls">
+				<layout_panel name="stop">
+					<button name="stop_btn" tool_tip="選択したメディアを停止" />
+				</layout_panel>
+				<layout_panel name="play">
+					<button name="play_btn" tool_tip="選択したメディアを再生" />
+				</layout_panel>
+				<layout_panel name="pause">
+					<button name="pause_btn" tool_tip="選択したメディアを一時停止" />
+				</layout_panel>
+				<layout_panel name="volume_slider_ctrl">
+					<slider_bar name="volume_slider" tool_tip="選択したメディアの音量" />
+				</layout_panel>
+				<layout_panel name="mute">
+					<button name="mute_btn" tool_tip="選択したメディアの音声をミュート" />
+				</layout_panel>
+				<layout_panel name="zoom">
+					<button name="zoom_btn" tool_tip="選択したメディアにズーム" />
+				</layout_panel>
+				<layout_panel name="unzoom">
+					<button name="unzoom_btn" tool_tip="選択したメディアのズームを解除" />
+				</layout_panel>
+				<layout_panel name="right_bookend" />
+			</layout_stack>
+		</panel>
+	</panel>
+</panel>

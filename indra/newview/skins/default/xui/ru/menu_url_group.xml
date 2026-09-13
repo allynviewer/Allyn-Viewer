@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<context_menu name="Url Popup" label="Группа">
+	<menu_item_call name="show_group" label="О группе" />
+	<menu_item_call name="im_group" label="Открыть групповой чат" />
+	<menu_item_call name="call_group" label="Позвонить группе" />
+	<menu_item_call name="activate_group" label="Активировать группу" />
+	<menu_item_call name="Chat History" label="История чата" />
+	<menu_item_call name="join_group" label="Вступить в группу" />
+	<menu_item_call name="leave_group" label="Покинуть группу" />
+	<menu_item_call name="url_copy_label" label="Копировать имя группы" />
+	<menu_item_call name="url_copy" label="Копировать SLURL" />
+	<menu_item_call name="key_copy" label="Копировать ключ" />
+	<menu_item_call name="Select All" label="Выделить всё" />
+</context_menu>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="object im info" title="Информация об объекте">
+	<text name="LabelItemNameTitle">Объект:</text>
+	<text name="ObjectName" />
+	<text name="LabelSlurlTitle">Расположение:</text>
+	<text name="Slurl" />
+	<text name="Unknown_Slurl">(Информация о местоположении недоступна)</text>
+	<text name="LabelOwnerNameTitle">Владелец:</text>
+	<name_box name="OwnerName" />
+	<text name="LabelObjectID">Ключ:</text>
+	<line_editor name="ObjectID" />
+	<button name="Mute" label="Отключить звук владельца" />
+	<string name="owner" />
+</floater>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Day Cycle Floater" title="Gün Döngüsü Düzenleyicisi">
+	<tab_container name="Day Cycle Tabs">
+		<panel name="Day Cycle" label="Gün Döngüsü">
+			<button name="WLDayCycleHelp" label="?"/>
+			<text name="WL12am">00:00</text>
+			<text name="WL3am">03:00</text>
+			<text name="WL6am">06:00</text>
+			<text name="WL9amHash">09:00</text>
+			<text name="WL12pmHash">12:00</text>
+			<text name="WL3pm">15:00</text>
+			<text name="WL6pm">18:00</text>
+			<text name="WL9pm">21:00</text>
+			<text name="WL12am2">24:00</text>
+			<button name="WLAddKey" label="Anahtar ekle" label_selected="Anahtar ekle"/>
+			<button name="WLDeleteKey" label="Anahtarı sil" label_selected="Anahtarı sil"/>
+			<text name="WLCurKeyFrameText">Anahtar kare ayarları:</text>
+			<text name="WLCurKeyTimeText">Anahtar zamanı:</text>
+			<spinner name="WLCurKeyHour" label="Saat"/>
+			<spinner name="WLCurKeyMin" label="Dk"/>
+			<text name="WLCurKeyTimeText2">Anahtar ön ayarı:</text>
+			<combo_box name="WLKeyPresets" label="Ön ayar"/>
+			<text name="DayCycleText">Yakalama:</text>
+			<combo_box name="WLSnapOptions" label="5 dk"/>
+			<text name="DayCycleText2">Döngü süresi:</text>
+			<spinner name="WLLengthOfDayHour" label="Saat"/>
+			<spinner name="WLLengthOfDayMin" label="Dk"/>
+			<spinner name="WLLengthOfDaySec" label="Sn"/>
+			<text name="DayCycleText3">Önizleme:</text>
+			<button name="WLAnimSky" label="Oynat" label_selected="Oynat"/>
+			<button name="WLStopAnimSky" label="Dur" label_selected="Dur"/>
+			<button name="WLUseLindenTime" label="Bölge saatini kullan" label_selected="Bölge saatine git"/>
+			<text name="KeyFramePresetsText">Ön ayarlar:</text>
+			<button name="DayCycleNewPreset" label="Yeni" label_selected="Yeni"/>
+			<button name="DayCycleSavePreset" label="Kaydet" label_selected="Kaydet"/>
+			<button name="DayCycleDeletePreset" label="Sil" label_selected="Sil"/>
+		</panel>
+	</tab_container>
+	<string name="DaycycleDefaultNames">Default:Happy%20Bivouac</string>
+</floater>

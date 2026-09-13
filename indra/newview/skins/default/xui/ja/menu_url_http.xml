@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<context_menu name="Url Popup" label="URL">
+	<menu_item_call name="url_open" label="Web Pageを開く" />
+	<menu_item_call name="url_open_internal" label="内 内部 ブラウザを開く" />
+	<menu_item_call name="url_open_external" label="内 外部 ブラウザを開く" />
+	<menu_item_call name="url_copy" label="URLをクリップボードにコピー" />
+	<menu_item_call name="Select All" label="すべて選択" />
+</context_menu>

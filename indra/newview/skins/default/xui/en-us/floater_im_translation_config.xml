@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-200" can_close="true" can_resize="false" height="190" left="100"
+	 min_height="190" min_width="360" name="im_translation_config"
+	 title="Chat translation" width="360">
+	<text bottom="-28" follows="left|top" height="16" left="12" name="src_label" width="160">Source language:</text>
+	<combo_box allow_text_entry="true" bottom="-48" follows="left|top" height="18" left="12" name="source_lang"
+			   tool_tip="Language you write in (ISO code). You can type freely." width="160"/>
+	<text bottom="-28" follows="left|top" height="16" left="188" name="dst_label" width="160">Target language:</text>
+	<combo_box allow_text_entry="true" bottom="-48" follows="left|top" height="18" left="188" name="target_lang"
+			   tool_tip="Language others speak (ISO code)." width="160"/>
+	<check_box bottom="-78" follows="left|top" height="16" label="Translate incoming" left="12" name="incoming_check"
+			   tool_tip="Translate messages you receive in this conversation" width="160"/>
+	<check_box bottom="-78" follows="left|top" height="16" label="Translate outgoing" left="188" name="outgoing_check"
+			   tool_tip="Translate messages you send in this conversation" width="160"/>
+	<text bottom="-118" follows="left|top" font="SansSerifSmall" height="40" left="12" name="hint" width="336" word_wrap="true">Source = you speak. Target = others speak. The Translation checkbox in the conversation turns translation on or off. Incoming/outgoing apply only to this chat and are saved across restarts.</text>
+	<button bottom="10" follows="right|bottom" height="22" label="OK" left="200" name="ok_btn" width="70"/>
+	<button bottom="10" follows="right|bottom" height="22" label="Cancel" left="278" name="cancel_btn" width="70"/>
+</floater>

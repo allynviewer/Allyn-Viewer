@@ -1,0 +1,83 @@
+/** 
+ * @file llviewervisualparam.h
+ * @brief viewer side visual params (with data file parsing)
+ *
+ * $LicenseInfo:firstyear=2001&license=viewerlgpl$
+ * Second Life Viewer Source Code
+ * Copyright (C) 2010, Linden Research, Inc.
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation;
+ * version 2.1 of the License only.
+ * 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * 
+ * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
+ * $/LicenseInfo$
+ */
+#ifndef LL_LLViewerVisualParam_H
+#define LL_LLViewerVisualParam_H
+#include "v3math.h"
+#include "llstring.h"
+#include "llvisualparam.h"
+class LLWearable;
+class LLViewerVisualParamInfo : public LLVisualParamInfo
+{
+	friend class LLViewerVisualParam;
+public:
+	LLViewerVisualParamInfo();
+	~LLViewerVisualParamInfo();
+	BOOL parseXml(LLXmlTreeNode* node);
+	void toStream(std::ostream &out);
+protected:
+	S32			mWearableType;
+	BOOL		mCrossWearable;
+	std::string	mEditGroup;
+	F32			mCamDist;
+	F32			mCamAngle;
+	F32			mCamElevation;
+	std::string	mCamTargetName;
+	F32			mEditGroupDisplayOrder;
+	BOOL		mShowSimple;
+	F32			mSimpleMin;
+	F32			mSimpleMax;
+};
+LL_ALIGN_PREFIX(16)
+class LLViewerVisualParam : public LLVisualParam
+{
+public:
+	LLViewerVisualParam();
+	virtual ~LLViewerVisualParam();
+	LLViewerVisualParamInfo 	*getInfo() const { return (LLViewerVisualParamInfo*)mInfo; };
+	BOOL						setInfo(LLViewerVisualParamInfo *info);
+	virtual LLViewerVisualParam* cloneParam(LLWearable* wearable) const = 0;
+	std::string		getDumpWearableTypeName(void) const;
+	virtual F32					getTotalDistortion() = 0;
+	virtual const LLVector4a&	getAvgDistortion() = 0;
+	virtual F32					getMaxDistortion() = 0;
+	virtual LLVector4a			getVertexDistortion(S32 index, LLPolyMesh *mesh) = 0;
+	virtual const LLVector4a*	getFirstDistortion(U32 *index, LLPolyMesh **mesh) = 0;
+	virtual const LLVector4a*	getNextDistortion(U32 *index, LLPolyMesh **mesh) = 0;
+	F32					getDisplayOrder() const		{ return getInfo()->mEditGroupDisplayOrder; }
+	S32					getWearableType() const		{ return getInfo()->mWearableType; }
+	const std::string&	getEditGroup() const		{ return getInfo()->mEditGroup; }
+	F32					getCameraDistance()	const	{ return getInfo()->mCamDist; }
+	F32					getCameraAngle() const		{ return getInfo()->mCamAngle; }
+	F32					getCameraElevation() const	{ return getInfo()->mCamElevation; }
+	const std::string&	getCameraTargetName() const { return getInfo()->mCamTargetName; }
+	BOOL				getShowSimple() const		{ return getInfo()->mShowSimple; }
+	F32					getSimpleMin() const		{ return getInfo()->mSimpleMin; }
+	F32					getSimpleMax() const		{ return getInfo()->mSimpleMax; }
+	BOOL				getCrossWearable() const 	{ return getInfo()->mCrossWearable; }
+protected:
+	LLViewerVisualParam(const LLViewerVisualParam& pOther);
+} LL_ALIGN_POSTFIX(16);
+#endif

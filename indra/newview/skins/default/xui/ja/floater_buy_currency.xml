@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="buy currency" title="通貨を購入">
+	<text name="info_buying">通貨を購入:</text>
+	<text name="info_cannot_buy">今は購入できません:</text>
+	<text name="info_need_more">通貨がさらに必要です:</text>
+	<icon name="step_error" />
+	<text name="error_message">何かが正しくありません。</text>
+	<button name="error_web" label="ウェブサイトへ" />
+	<icon name="step_1" />
+	<text name="contacting">通貨交換に接続中...</text>
+	<text name="buy_action_unknown">通貨交換で[CURRENCY]を購入</text>
+	<text name="buy_action">[NAME] [CURRENCY] [PRICE]</text>
+	<text name="currency_action">[CURRENCY]を購入</text>
+	<line_editor name="currency_amt" />
+	<text name="currency_est">約 [REALCURRENCY] [USD]</text>
+	<text name="getting_data">データ取得中...</text>
+	<text name="balance_label">現在の所持金</text>
+	<text name="balance_amount">[CURRENCY] [AMT]</text>
+	<text name="buying_label">購入する額</text>
+	<text name="buying_amount">[CURRENCY] [AMT]</text>
+	<text name="total_label">購入後の残高</text>
+	<text name="total_amount">[CURRENCY] [AMT]</text>
+	<text name="purchase_warning_repurchase">この購入を確定すると通貨だけが買えます。操作はもう一度やり直す必要があります。</text>
+	<text name="purchase_warning_notenough">購入額が足りません。購入量を増やしてください。</text>
+	<button name="cancel_btn" label="キャンセル" />
+	<button name="buy_btn" label="購入" />
+	<string name="buy_currency">約[REALCURRENCY] [USD]で[CURRENCY] [LINDENS]を購入</string>
+</floater>

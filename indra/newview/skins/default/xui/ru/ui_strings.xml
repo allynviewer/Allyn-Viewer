@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+	<string name="accel-mac-control">Ctrl-</string>
+	<string name="accel-mac-command">Cmd-</string>
+	<string name="accel-mac-option">Opt-</string>
+	<string name="accel-mac-shift">Shift-</string>
+	<string name="accel-win-control">Ctrl-</string>
+	<string name="accel-win-alt">Alt-</string>
+	<string name="accel-win-shift">Shift-</string>
+</strings>

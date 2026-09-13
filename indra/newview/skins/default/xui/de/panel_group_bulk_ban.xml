@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="bulk_ban_panel">
+	<panel.string name="loading">(wird geladen...)</panel.string>
+	<panel.string name="ban_selection_too_large">Gruppensperre nicht gesendet: zu viele Einwohner ausgewählt. Gruppensperren sind auf 100 pro Anfrage begrenzt.</panel.string>
+	<panel.string name="ban_not_permitted">Gruppensperre nicht gesendet: Sie verfügen nicht über die Fähigkeit „Bannliste verwalten“.</panel.string>
+	<panel.string name="ban_limit_fail">Gruppensperre nicht gesendet: Ihre Gruppe hat das Limit der zulässigen Sperreinträge erreicht.</panel.string>
+	<panel.string name="partial_ban">Einige Gruppensperren wurden nicht gesendet: [REASONS]</panel.string>
+	<panel.string name="ban_failed">Gruppensperren wurden nicht gesendet: [REASONS]</panel.string>
+	<panel.string name="residents_already_banned">- Folgende(r) Einwohner ist/sind bereits gesperrt: [RESIDENTS].</panel.string>
+	<panel.string name="ban_limit_reached">- Sperrlimit erreicht, folgende Agenten nicht gesperrt: [RESIDENTS].</panel.string>
+	<panel.string name="cant_ban_yourself">- Sie können sich nicht selbst aus einer Gruppe sperren.</panel.string>
+	<text name="help_text">Sie können mehrere Einwohner auswählen, um sie aus Ihrer Gruppe zu sperren. Klicken Sie auf „Einwohnerauswahl öffnen“, um zu beginnen.</text>
+	<button name="add_button" label="Einwohnerauswahl öffnen"/>
+	<name_list name="banned_agent_list" tool_tip="Halten Sie die Strg-Taste gedrückt und klicken Sie auf Einwohnernamen, um mehrere auszuwählen"/>
+	<button name="remove_button" label="Ausgewählte von der Liste entfernen" tool_tip="Entfernt die oben ausgewählten Einwohner von der Sperrliste"/>
+	<button name="ban_button" label="Einwohner sperren"/>
+	<button name="cancel_button" label="Abbrechen"/>
+	<string name="GroupBulkBan">Gruppensperre</string>
+</panel>

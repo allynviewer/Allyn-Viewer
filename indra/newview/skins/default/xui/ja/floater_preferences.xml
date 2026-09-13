@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Preferences" title="環境設定">
+	<button name="OK" label="OK" />
+	<button name="Cancel" label="キャンセル" />
+	<button name="Apply" label="適用" />
+	<button name="About..." label="概要" />
+	<button name="Help" label="ヘルプ" />
+	<tab_container name="pref core" />
+	<filter_editor name="search_prefs_edit" label="設定を検索"
+	     tool_tip="検索語を入力してください。一致する設定が強調表示され、該当しないタブは非表示になります。" />
+</floater>

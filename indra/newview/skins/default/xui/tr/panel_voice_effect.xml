@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="panel_voice_effect">
+	<string name="no_voice_effect">Ses Dönüşümü Kapalı</string>
+	<string name="preview_voice_effects">Ses Dönüştürmeyi Önizle</string>
+	<string name="get_voice_effects">Ses Dönüştürme'yi edinin ▶</string>
+	<combo_box name="voice_effect" tool_tip="Sesinizi değiştirmek için bir Ses Dönüşümü seçin">
+		<combo_item name="no_voice_effect" label="Ses Dönüşümü Kapalı" />
+	</combo_box>
+</panel>

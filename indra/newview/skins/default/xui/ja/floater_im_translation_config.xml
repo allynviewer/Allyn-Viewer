@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="im_translation_config" title="チャット翻訳">
+	<text name="src_label">翻訳元言語:</text>
+	<combo_box name="source_lang" tool_tip="自分が書く言語（ISOコード）。自由に入力できます。" />
+	<text name="dst_label">翻訳先言語:</text>
+	<combo_box name="target_lang" tool_tip="受信メッセージの翻訳先言語。" />
+	<check_box name="incoming_check" label="受信を翻訳" tool_tip="この会話で受信したメッセージを翻訳" />
+	<check_box name="outgoing_check" label="送信を翻訳" tool_tip="この会話で送信するメッセージを翻訳" />
+	<text name="hint">翻訳元＝自分が話す言語。翻訳先＝相手が話す言語。会話の「翻訳」チェックでオン／オフ。設定は保存されます。</text>
+	<button name="ok_btn" label="OK" />
+	<button name="cancel_btn" label="キャンセル" />
+</floater>

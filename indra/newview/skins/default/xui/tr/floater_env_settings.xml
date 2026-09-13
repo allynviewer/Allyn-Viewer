@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Environment Editor Floater" title="Ortam Düzenleyicisi">
+	<text name="EnvTimeText">Günün Saati</text>
+	<text name="EnvTimeText2">12:00 PM</text>
+	<icon name="EnvDayCycle" />
+	<slider name="EnvTimeSlider" />
+	<text name="EnvCloudText">Bulut Örtüsü</text>
+	<slider name="EnvCloudSlider" />
+	<text name="EnvWaterColorText">Su Rengi</text>
+	<color_swatch name="EnvWaterColor" tool_tip="Renk Seçiciyi açmak için tıklayın" />
+	<text name="EnvWaterFogText">Su Sisi</text>
+	<slider name="EnvWaterFogSlider" />
+	<button name="EnvUseEstateTimeButton" label="Emlak Süresini Kullan" />
+	<button name="EnvAdvancedSkyButton" label="Gelişmiş Gökyüzü" />
+	<button name="EnvAdvancedWaterButton" label="Gelişmiş Su" />
+	<button name="EnvSettingsHelpButton" label="?" />
+</floater>

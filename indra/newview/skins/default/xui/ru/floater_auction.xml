@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_auction" title="Начать продажу земли Linden">
+	<icon name="snapshot_icon" />
+	<text name="parcel_text" />
+	<check_box name="fence_check" label="Включить желтую селекцию" />
+	<button name="snapshot_btn" label="Снимок" />
+	<button name="ok_btn" label="ОК" />
+	<string name="already for sale">Вы не можете выставить на аукцион участки, которые уже выставлены на продажу.</string>
+</floater>

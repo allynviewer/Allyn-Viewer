@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_toolbar_prefs.xml" title="ツールバーに表示するボタンを選択">
+	<filter_editor name="filter_input" label="名前で絞り込む..." tool_tip="ボタン名を入力して一覧を絞り込みます" />
+	<check_box name="chat_btn" label="チャットバー切替" />
+	<check_box name="communicate_flyout" label="コミュニケーション（フライアウト）" />
+	<check_box name="communicate_btn" label="コミュニケーション" />
+	<check_box name="friends_btn" label="フレンド" />
+	<check_box name="groups_btn" label="グループ" />
+	<check_box name="group_titles_btn" label="グループタイトル" />
+	<check_box name="chat_history_btn" label="ローカルチャット" />
+	<check_box name="active_speakers_btn" label="アクティブスピーカー" />
+	<check_box name="mute_list_btn" label="ミュートリスト" />
+	<check_box name="black_list_btn" label="アセットブラックリスト" />
+	<check_box name="voice_effects_btn" label="ボイス FX" />
+	<check_box name="gestures_btn" label="ジェスチャー" />
+	<check_box name="beacons_btn" label="ビーコン" />
+	<check_box name="radar_list_btn" label="レーダー" />
+	<check_box name="region_tracker_btn" label="リージョントラッカー" />
+	<check_box name="camera_controls_btn" label="カメラ操作" />
+	<check_box name="movement_controls_btn" label="移動操作" />
+	<check_box name="look_btn" label="マウスルック" />
+	<check_box name="fly_btn" label="飛行" />
+	<check_box name="sit_btn" label="座る" />
+	<check_box name="run_btn" label="走る" />
+	<check_box name="velocity_btn" label="速度" />
+	<check_box name="bumps_btn" label="バンプ" />
+	<check_box name="media_ticker_btn" label="ストリーム表示" />
+	<check_box name="media_filter_btn" label="メディア フィルター" />
+	<check_box name="snapshot_btn" label="スナップショット" />
+	<check_box name="appearance_btn" label="外見" />
+	<check_box name="directory_btn" label="検索" />
+	<check_box name="web_browser_btn" label="Web ブラウザ" />
+	<check_box name="ao_btn" label="AO設定" />
+	<check_box name="debug_settings_btn" label="デバッグ設定" />
+	<check_box name="debug_avatar_btn" label="アバターをデバッグ" />
+	<check_box name="anims_explorer_btn" label="アニメエクスプローラー" />
+	<check_box name="sound_explorer_btn" label="サウンドエクスプローラー" />
+	<check_box name="areasearch_btn" label="エリア検索" />
+	<check_box name="inspect_btn" label="検査" />
+	<check_box name="pathing_characters_btn" label="キャラクター" />
+	<check_box name="pathing_linksets_btn" label="リンクセット" />
+	<check_box name="build_btn" label="ビルド" />
+	<check_box name="grid_options_btn" label="グリッドオプション" />
+	<check_box name="local_textures_btn" label="ローカルテクスチャ" />
+	<check_box name="perm_prefs_btn" label="アップロード権限" />
+	<check_box name="script_errors_btn" label="スクリプトエラー" />
+	<check_box name="env_editor_btn" label="環境エディタ" />
+	<check_box name="day_cycle_editor_btn" label="日周期エディタ" />
+	<check_box name="windlight_btn" label="Windlight" />
+	<check_box name="water_editor_btn" label="水エディタ" />
+	<check_box name="post_process_btn" label="ポストプロセスFX" />
+	<check_box name="buy_currency_btn" label="[CURRENCY]を購入" />
+	<check_box name="buy_land_btn" label="土地を購入" />
+	<check_box name="my_land_btn" label="自分の土地" />
+	<check_box name="about_land_btn" label="土地について" />
+	<check_box name="script_info_btn" label="スクリプト情報" />
+	<check_box name="about_region_btn" label="リージョン/エステート" />
+	<check_box name="god_tools_btn" label="ゴッドツール" />
+	<check_box name="teleport_history_btn" label="TP 履歴" />
+	<check_box name="map_btn" label="マップ" />
+	<check_box name="minimap_btn" label="ミニマップ" />
+	<check_box name="experiences_btn" label="エクスペリエンス" />
+	<check_box name="rlv_restrictions_btn" label="RLVa 制限" />
+	<check_box name="rlv_locks_btn" label="RLVa ロック" />
+	<check_box name="rlv_strings_btn" label="RLVa 文字列" />
+	<check_box name="memleak_btn" label="メモリリーク" />
+	<check_box name="message_log_btn" label="メッセージログ" />
+	<check_box name="stats_btn" label="統計" />
+	<check_box name="notifications_console_btn" label="通知コンソール" />
+	<check_box name="debug_console_btn" label="デバッグコンソール" />
+	<check_box name="region_console_btn" label="リージョンコンソール" />
+	<check_box name="fast_timers_btn" label="高速タイマー" />
+	<check_box name="frame_console_btn" label="フレームコンソール" />
+	<check_box name="http_console_btn" label="HTTP コンソール" />
+	<check_box name="texture_console_btn" label="テクスチャコンソール" />
+	<check_box name="texture_category_console_btn" label="テクスチャカテゴリコンソール" />
+	<check_box name="texture_size_console_btn" label="テクスチャサイズコンソール" />
+	<check_box name="default_avatars_btn" label="デフォルトアバター" />
+	<check_box name="make_outfit_btn" label="衣装を作成" />
+	<check_box name="outfits_btn" label="衣装" />
+	<check_box name="favs_btn" label="お気に入り" />
+	<check_box name="inventory_btn" label="インベントリ" />
+	<check_box name="received_items_btn" label="受け取った項目" />
+	<check_box name="marketplace_listings_btn" label="マーケットプレイス掲載" />
+	<check_box name="marketplace_btn" label="マーケットプレイス" />
+	<check_box name="preferences_btn" label="環境設定" />
+	<check_box name="joystick_btn" label="ジョイスティック設定" />
+	<check_box name="auto_replace_btn" label="自動置換" />
+	<check_box name="display_name_btn" label="表示名" />
+	<check_box name="floater_test_btn" label="フローターテスト" />
+	<check_box name="edit_ui_btn" label="UIを編集" />
+	<check_box name="font_test_btn" label="フォントテスト" />
+	<check_box name="abuse_btn" label="通報" />
+	<check_box name="tutorial_btn" label="チュートリアル" />
+	<check_box name="about_btn" label="[SHORT_APP_NAME] について" />
+	<check_box name="quit_btn" label="終了" />
+	<check_box name="change_buttons_btn" label="ボタンを変更" />
+</floater>

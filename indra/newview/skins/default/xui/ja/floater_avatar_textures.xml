@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="avatar_texture_debug" title="アバター テクスチャ">
+	<button name="Dump" label="Dump IDs へ Console" />
+	<texture_picker name="hair-baked" label="髪（ベイク済み）" />
+	<texture_picker name="hair_grain" label="髪" />
+	<texture_picker name="eyes-baked" label="目（ベイク済み）" />
+	<texture_picker name="eyes_iris" label="目" />
+	<texture_picker name="head-baked" label="頭（ベイク済み）" />
+	<texture_picker name="head_bodypaint" label="メイク" />
+	<texture_picker name="head_tattoo" label="Head タトゥー" />
+	<texture_picker name="upper_tattoo" label="Upper タトゥー" />
+	<texture_picker name="lower_tattoo" label="より低い タトゥー" />
+	<texture_picker name="upper-baked" label="上半身（ベイク済み）" />
+	<texture_picker name="upper_bodypaint" label="Upper スキン" />
+	<texture_picker name="upper_undershirt" label="下着" />
+	<texture_picker name="upper_shirt" label="シャツ" />
+	<texture_picker name="upper_jacket" label="Upper ジャケット" />
+	<texture_picker name="upper_gloves" label="手袋" />
+	<texture_picker name="lower-baked" label="より低い Baked" />
+	<texture_picker name="lower_bodypaint" label="Lower スキン" />
+	<texture_picker name="lower_underpants" label="下着" />
+	<texture_picker name="lower_pants" label="パンツ" />
+	<texture_picker name="lower_jacket" label="より低い ジャケット" />
+	<texture_picker name="lower_socks" label="靴下" />
+	<texture_picker name="skirt-baked" label="スカート Baked" />
+	<texture_picker name="skirt" label="スカート" />
+	<texture_picker name="lower_shoes" label="靴" />
+</floater>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="mediaticker">
+	<text name="artist_label">Artista:</text>
+	<text name="title_label">Titolo:</text>
+	<string name="paused">(non in riproduzione)</string>
+	<string name="loading">(caricamento...)</string>
+</floater>

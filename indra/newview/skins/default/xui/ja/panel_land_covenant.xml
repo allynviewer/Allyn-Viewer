@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Covenant" title="コベナント">
+	<text name="covenant_timestamp_text" />
+	<text name="region_name_lbl">リージョン:</text>
+	<text name="region_name_text">（不明）</text>
+	<text name="estate_name_lbl">エステート:</text>
+	<text name="estate_name_text">（不明）</text>
+	<text name="estate_owner_lbl">エステート所有者:</text>
+	<text name="estate_owner_text">（不明）</text>
+	<text name="resellable_clause">このリージョンで購入した土地は再販できる場合とできない場合があります。</text>
+	<text name="changeable_clause">このリージョンで購入した土地は結合または分割できる場合とできない場合があります。</text>
+	<text_editor name="covenant_editor" />
+	<string name="can_resell">このリージョンで購入した土地は再販できます。</string>
+	<string name="can_not_resell">このリージョンで購入した土地は再販できません。</string>
+	<string name="can_change">このリージョンで購入した土地は結合または分割できます。</string>
+	<string name="can_not_change">このリージョンで購入した土地は結合または分割できません。</string>
+</panel>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="modal container">
+	<button name="Save" label="Сохранить" />
+	<button name="Cancel" label="Отмена" />
+	<text name="Save item as:">Сохранить элемент как:</text>
+	<line_editor name="name ed">Новый [DESC]</line_editor>
+</floater>

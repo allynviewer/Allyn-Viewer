@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="script_experience" title="Erlebnis">
+	<button name="Expand Experience" label="Erlebnis"/>
+	<check_box name="enable_xp" label="Verwendet Erlebnis"/>
+	<layout_stack name="xp_details">
+		<layout_panel>
+			<combo_box name="Experiences..." label="Erlebnis wählen..."/>
+		</layout_panel>
+	</layout_stack>
+	<text name="No Experiences">Sie sind an keinem Erlebnis als Mitwirkender beteiligt.</text>
+</panel>

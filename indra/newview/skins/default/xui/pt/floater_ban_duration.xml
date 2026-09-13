@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="ban_duration" title="Duração">
+	<combo_box name="ban_duration_combo">
+		<combo_item name="permanent" label="Permanente"/>
+		<combo_item name="hours" label="Horas"/>
+		<combo_item name="days" label="Dias"/>
+		<combo_item name="weeks" label="Semanas"/>
+		<combo_item name="months" label="Meses"/>
+	</combo_box>
+	<button name="ok_btn" label="OK"/>
+	<button name="cancel_btn" label="Cancelar"/>
+</floater>

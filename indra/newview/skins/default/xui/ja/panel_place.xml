@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Place" title="場所">
+	<texture_picker name="snapshot_ctrl" />
+	<text name="name_label">名前:</text>
+	<text name="name_editor" />
+	<text name="description_label">説明:</text>
+	<text_editor name="desc_editor" />
+	<text name="information_label">情報:</text>
+	<text name="info_editor" />
+	<text name="location_label">場所:</text>
+	<text name="location_editor" />
+	<button name="teleport_btn" label="テレポート" />
+	<button name="map_btn" label="マップで表示" />
+	<button name="auction_btn" label="入札..." />
+	<string name="traffic_text">トラフィック: [TRAFFIC]</string>
+	<string name="area_text">面積: [AREA] m²</string>
+	<string name="forsale_text">売却中 [CURRENCY][PRICE]</string>
+	<string name="auction_text">オークション ID [ID]</string>
+	<string name="server_update_text">サーバーの更新なしでは場所情報を利用できません。</string>
+	<string name="server_error_text">この場所の情報は現在利用できません。後でもう一度お試しください。</string>
+	<string name="server_forbidden_text">アクセス制限のため、この場所の情報は利用できません。権限とパーセル所有者を確認してください。</string>
+	<string name="internal_timeout_text">ネットワークのタイムアウトのため、この場所の情報は利用できません。後でもう一度お試しください。</string>
+</panel>

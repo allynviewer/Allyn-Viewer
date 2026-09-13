@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="modal container">
+	<button name="Continue" label="Продолжать" />
+	<button name="Cancel" label="Отмена" />
+	<check_box name="agree_chk" label="Я согласен с Условиями обслуживания" />
+	<text name="tos_heading">
+		Пожалуйста, внимательно прочтите следующие Условия обслуживания. Чтобы продолжить вход в Second Life,
+вы должны принять соглашение.
+	</text>
+	<text_editor name="tos_text">TOS_TEXT</text_editor>
+	<web_browser name="tos_html" />
+	<string name="real_url" />
+</floater>

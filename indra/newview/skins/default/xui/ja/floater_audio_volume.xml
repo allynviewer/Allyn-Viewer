@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Volume" title="音量">
+	<panel name="Volume Panel" label="音量" />
+</floater>

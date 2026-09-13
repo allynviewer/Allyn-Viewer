@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Chat Avançado" name="ascsys">
+	<tab_container label="Chat Avançado" name="Ascent Chat">
+		<panel label="Chat/IM" name="Chat/IM">
+			<scroll_container name="advchat_im_scroll">
+				<panel name="advchat_im_inner">
+					<text name="objects_link_text_box">IMs:</text>
+					<check_box initial_value="false" control_name="AscentInstantMessageAnnounceIncoming" label="Anunciar IMs recebidas" tool_tip="Abre uma janela de IM quando alguém começa a digitar um MI para você. Isso avisa que alguém está lhe enviando um MI antes deles apertarem Enter." name="quickstart_im_check" />
+					<check_box control_name="AscentHideTypingNotification" initial_value="false" label="Não enviar 'está digitando...' em IMs" tool_tip="Parceiros de IM não verão '______ está digitando...' quando você estiver respondendo." name="hide_typing_check" />
+					<check_box control_name="InstantMessagesFriendsOnly" label="Aceitar IMs apenas de Amigos" name="InstantMessagesFriendsOnly" />
+					<check_box control_name="AscentAllowMUpose" initial_value="false" label="Permitir método MU pose." tool_tip="Permite o uso de /me e : para realizar emotes." name="allow_mu_pose_check" />
+					<check_box control_name="AscentAutoCloseOOC" label="Fechar comentários OOC automaticamente" tool_tip="Adicionará automaticamente '))' a qualquer mensagem começando com '((', ou vice-versa." name="close_ooc_check" />
+					<text name="objects_link_text_box2">Chat:</text>
+					<check_box control_name="PlayTypingSound" initial_value="true" label="Som de digitação no chat local" tool_tip="Silencia o som de digitação, tornando-o mais suave para coisas como apresentações." name="play_typing_sound_check" />
+					<check_box control_name="HideNotificationsInChat" initial_value="false" label="Não ecoar notificações no chat" name="hide_notifications_in_chat_check" />
+					<check_box control_name="OptionShowGroupNameInChatIM" initial_value="false" label="Mostrar nome do grupo no chat" tool_tip="O nome do grupo também será exibido se o MI for de um chat de grupo." name="append_group_name_check" />
+					<check_box control_name="ShowDisplayNameChanges" label="Mostrar mudanças de display name" tool_tip="Quando marcado, uma notificação aparecerá no chat sempre que o nome de exibição de alguém mudar." name="display_name_change" />
+					<check_box control_name="UseTypingBubbles" label="Balões de digitação acima da cabeça" name="use_typing_bubbles" />
+					<text name="objects_link_text_box3">Links nos nomes de objetos que falam no chat:</text>
+					<radio_group control_name="LinksForChattingObjects" tool_tip="Ativa um link para mostrar o proprietário do objeto falante." name="objects_link">
+						<radio_item name="no_object" value="0">Nenhum</radio_item>
+						<radio_item name="others_objects" value="1">Obj. de outros</radio_item>
+						<radio_item name="anyones_objects" value="2">Obj. qualquer</radio_item>
+					</radio_group>
+					<text name="time_format_text_box">Formato de hora:</text>
+					<combo_box tool_tip="Mostrar horas no formato 12-23 ou 12PM-11PM." name="time_format_combobox">
+						<combo_item name="24hours" value="default">Relógio 24 horas</combo_item>
+						<combo_item name="12hours" value="default">Relógio 12 horas</combo_item>
+					</combo_box>
+					<check_box control_name="SecondsInChatAndIMs" initial_value="false" label="Segundos em chat/IMs" name="seconds_in_chat_and_ims_check" />
+					<text name="date_format_text_box">Formato de data:</text>
+					<combo_box name="date_format_combobox">
+						<combo_item name="year_first" value="default">AAAA-MM-DD</combo_item>
+						<combo_item name="year_first_slashes" value="default">AAAA/MM/DD</combo_item>
+						<combo_item name="day_first" value="default">DD/MM/AAAA</combo_item>
+						<combo_item name="month_first" value="default">MM/DD/AAAA</combo_item>
+					</combo_box>
+					<check_box control_name="SecondsInLog" label="Segundos no Log" name="seconds_in_log" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel label="Interface de Chat" name="ChatUI">
+			<scroll_container name="advchat_ui_scroll">
+				<panel name="advchat_ui_inner">
+					<check_box initial_value="false" control_name="WoLfVerticalIMTabs" label="Usar IMs Verticais (Requer reinicialização)" name="use_vertical_ims_check" />
+					<check_box control_name="OtherChatsTornOff" label="Abrir novas IMs em flutuadores separados" name="chats_torn_off" />
+					<check_box control_name="PhoenixIMAnnounceStealFocus" label="Focar IMs novos" name="chat_steal_focus" />
+					<check_box control_name="ShowLocalChatFloaterBar" label="Mostrar barra de chat no flutuador de chat local destacado" name="show_local_chat_floater_bar" />
+					<check_box control_name="ContactsUseHorizontalButtons" label="Botões horizontais na janela de contatos (requer reiniciar)" tool_tip="Quando ativado, os botões dos painéis Amigos e Grupos ficarão na parte inferior, dispostos horizontalmente, em vez de verticalmente à direita." name="horiz_butt" />
+					<text name="namesystems_text_box">Formato para nomes em listas de/para:</text>
+					<text name="chat_tabs_namesystem_text_box">Abas de Chat:</text>
+					<combo_box control_name="IMNameSystem" name="chat_tabs_namesystem_combobox">
+						<combo_item name="Old Names" value="0">Nomes Antigos</combo_item>
+						<combo_item name="Display Names (with Username)" value="1">Nomes de Exibição (c/Nome de Usuário)</combo_item>
+						<combo_item name="Display Names only" value="2">Apenas Nomes de Exibição</combo_item>
+						<combo_item name="Old Names (with Display Names)" value="3">Nomes Antigos (c/Exibição)</combo_item>
+					</combo_box>
+					<text name="friends_namesystem_text_box">Amigos:</text>
+					<combo_box control_name="FriendNameSystem" name="friends_namesystem_combobox">
+						<combo_item name="Old Names" value="0">Nomes Antigos</combo_item>
+						<combo_item name="Display Names (with Username)" value="1">Nomes de Exibição (c/Nome de Usuário)</combo_item>
+						<combo_item name="Display Names only" value="2">Apenas Nomes de Exibição</combo_item>
+						<combo_item name="Old Names (with Display Names)" value="3">Nomes Antigos (c/Exibição)</combo_item>
+					</combo_box>
+					<text name="group_members_namesystem_text_box">Membros do Grupo:</text>
+					<combo_box control_name="GroupMembersNameSystem" name="group_members_namesystem_combobox">
+						<combo_item name="Old Names" value="0">Nomes Antigos</combo_item>
+						<combo_item name="Display Names (with Username)" value="1">Nomes de Exibição (c/Nome de Usuário)</combo_item>
+						<combo_item name="Display Names only" value="2">Apenas Nomes de Exibição</combo_item>
+						<combo_item name="Old Names (with Display Names)" value="3">Nomes Antigos (c/Exibição)</combo_item>
+					</combo_box>
+					<text name="land_management_namesystem_text_box">Gerenciamento de Terreno:</text>
+					<combo_box control_name="LandManagementNameSystem" name="land_management_namesystem_combobox">
+						<combo_item name="Old Names" value="0">Nomes Antigos</combo_item>
+						<combo_item name="Display Names (with Username)" value="1">Nomes de Exibição (c/Nome de Usuário)</combo_item>
+						<combo_item name="Display Names only" value="2">Apenas Nomes de Exibição</combo_item>
+						<combo_item name="Old Names (with Display Names)" value="3">Nomes Antigos (c/Exibição)</combo_item>
+					</combo_box>
+					<text name="profile_namesystem_text_box">Perfis:</text>
+					<combo_box control_name="ProfileNameSystem" name="profile_namesystem_combobox">
+						<combo_item name="Old Names" value="0">Nomes Antigos</combo_item>
+						<combo_item name="Display Names (with Username)" value="1">Nomes de Exibição (c/Nome de Usuário)</combo_item>
+						<combo_item name="Display Names only" value="2">Apenas Nomes de Exibição</combo_item>
+						<combo_item name="Old Names (with Display Names)" value="3">Nomes Antigos (c/Exibição)</combo_item>
+					</combo_box>
+					<text name="radar_namesystem_text_box">Radar:</text>
+					<combo_box control_name="RadarNameSystem" name="radar_namesystem_combobox">
+						<combo_item name="Old Names" value="0">Nomes Antigos</combo_item>
+						<combo_item name="Display Names (with Username)" value="1">Nomes de Exibição (c/Nome de Usuário)</combo_item>
+						<combo_item name="Display Names only" value="2">Apenas Nomes de Exibição</combo_item>
+						<combo_item name="Old Names (with Display Names)" value="3">Nomes Antigos (c/Exibição)</combo_item>
+					</combo_box>
+					<text name="speaker_namesystem_text_box">Palestrantes:</text>
+					<combo_box control_name="SpeakerNameSystem" name="speaker_namesystem_combobox">
+						<combo_item name="Old Names" value="0">Nomes Antigos</combo_item>
+						<combo_item name="Display Names (with Username)" value="1">Nomes de Exibição (c/Nome de Usuário)</combo_item>
+						<combo_item name="Display Names only" value="2">Apenas Nomes de Exibição</combo_item>
+						<combo_item name="Old Names (with Display Names)" value="3">Nomes Antigos (c/Exibição)</combo_item>
+					</combo_box>
+					<check_box control_name="UseConciseIMButtons" label="Botões na mesma linha do nome para IMs (Afeta novas IMs)" name="im_concise_butt" />
+					<check_box control_name="UseConciseGroupChatButtons" label="Botões na linha do nome do grupo (afeta novos chats)" name="group_concise_butt" />
+					<check_box control_name="UseConciseConferenceButtons" label="Botões no título da conferência (afeta novas conferências)" name="conf_concise_butt" />
+					<check_box control_name="LiruLegacyLogLaunch" label="Botão de log abre editor de texto externo" name="legacy_log_launch" />
+					<check_box initial_value="false" label="Atalho de comunicação não abre a lista de amigos destacada" control_name="CommunicateSpecificShortcut" name="only_comm" />
+					<check_box control_name="LiruLegacyScrollToEnd" label="Rolar chats até o final ao recuperarem o foco" name="scroll_to_end_on_focus" />
+					<check_box control_name="LiruItalicizeActions" label="Italizar mensagens de ação (/me)" name="italicize_actions" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel label="Resposta Automática" name="Autoresponse">
+			<text name="Autoresponse Info">
+A resposta automática envia um texto personalizado a quem lhe manda mensagem.
+Curingas disponíveis: #n nome legado do usuário, #d nome de exibição,
+#r SLURL da sua localização, #i seu tempo ocioso em minutos.
+ </text>
+			<check_box control_name="AscentInstantMessageResponseRepeat" name="AscentInstantMessageResponseRepeat" label="Auto-responder toda mensagem com resposta automática ativada" />
+			<check_box control_name="AutoresponseOnlyIfAway" name="AutoresponseOnlyIfAway" label="Enviar respostas automáticas apenas quando ausente" />
+			<tab_container name="Autoresponses">
+				<panel label="Básico" name="Basic">
+					<check_box control_name="AutoresponseAnyone" name="AutoresponseAnyone" label="Ativar" tool_tip="Enviar a mensagem na caixa abaixo para pessoas que você não silenciou." />
+					<check_box control_name="AutoresponseAnyoneFriendsOnly" name="AutoresponseAnyoneFriendsOnly" label="apenas para amigos" tool_tip="Evita enviar esta resposta para quem você não conhece" />
+					<check_box control_name="AutoresponseAnyoneItem" name="AutoresponseAnyoneItem" label="Enviar item" />
+					<check_box control_name="AutoresponseAnyoneShow" name="AutoresponseAnyoneShow" label="Mostrar que foi enviado" />
+					<text_editor font="SansSerifSmall" max_length="1100" control_name="AutoresponseAnyoneMessage" name="AutoresponseAnyoneMessage" word_wrap="true" spell_check="true" commit_on_focus_lost="true" hide_scrollbar="true" />
+					<drop_target control_name="AutoresponseAnyoneItemID" name="AutoresponseAnyoneItemID" tool_tip="Solte um item aqui para enviá-lo junto com a resposta acima." />
+				</panel>
+				<panel label="Não Amigos" name="Nonfriends">
+					<check_box control_name="AutoresponseNonFriends" name="AutoresponseNonFriends" label="Ativar" tool_tip="Enviar a mensagem na caixa abaixo para pessoas que não são seus amigos" />
+					<check_box control_name="AutoresponseNonFriendsItem" name="AutoresponseNonFriendsItem" label="Enviar item" />
+					<check_box control_name="AutoresponseNonFriendsShow" name="AutoresponseNonFriendsShow" label="Mostrar que foi enviado" />
+					<text_editor font="SansSerifSmall" max_length="1100" control_name="AutoresponseNonFriendsMessage" name="AutoresponseNonFriendsMessage" word_wrap="true" spell_check="true" commit_on_focus_lost="true" hide_scrollbar="true" />
+					<drop_target control_name="AutoresponseNonFriendsItemID" name="AutoresponseNonFriendsItemID" tool_tip="Solte um item aqui para enviá-lo junto com a resposta acima." />
+				</panel>
+				<panel label="Silenciado" name="Muted">
+					<check_box control_name="AutoresponseMuted" name="AutoresponseMuted" label="Ativar" tool_tip="Enviar a mensagem na caixa abaixo para pessoas que você silenciou." />
+					<check_box control_name="AutoresponseMutedItem" name="AutoresponseMutedItem" label="Enviar item" />
+					<check_box control_name="AutoresponseMutedShow" name="AutoresponseMutedShow" label="Mostrar que foi enviado" />
+					<text_editor font="SansSerifSmall" max_length="1100" control_name="AutoresponseMutedMessage" name="AutoresponseMutedMessage" word_wrap="true" spell_check="true" commit_on_focus_lost="true" hide_scrollbar="true" />
+					<drop_target control_name="AutoresponseMutedItemID" name="AutoresponseMutedItemID" tool_tip="Solte um item aqui para enviá-lo junto com a resposta acima." />
+				</panel>
+				<panel label="Modo Ocupado" name="Busy Mode" tool_tip="Enviar a mensagem na caixa abaixo para pessoas que enviam mensagem quando você está ocupado.">
+					<check_box control_name="BusyModeResponseItem" name="BusyModeResponseItem" label="Enviar item" />
+					<check_box control_name="BusyModeResponseShow" name="BusyModeResponseShow" label="Mostrar que foi enviado" />
+					<text_editor font="SansSerifSmall" max_length="1100" control_name="BusyModeResponse" name="BusyModeResponse" word_wrap="true" spell_check="true" commit_on_focus_lost="true" hide_scrollbar="true" />
+					<drop_target control_name="BusyModeResponseItemID" name="BusyModeResponseItemID" tool_tip="Solte um item aqui para enviá-lo junto com a resposta acima." />
+				</panel>
+			</tab_container>
+		</panel>
+		<panel label="Spam" name="Spam">
+			<scroll_container name="advchat_spam_scroll">
+				<panel name="advchat_spam_inner">
+					<check_box control_name="AntiSpamEnabled" label="Ativar Antispam" name="enable_as" />
+					<button label="Redefinir filas antispam" label_selected="Redefinir filas antispam" name="reset_antispam" />
+					<check_box enabled_control="AntiSpamEnabled" control_name="_NACL_AntiSpamGlobalQueue" label="Sem filas de spam específicas por tipo de mensagem" name="spammsg_checkbox" />
+					<spinner enabled_control="AntiSpamEnabled" control_name="_NACL_AntiSpamTime" decimal_digits="0" increment="1" min_val="1" max_val="60" label="Tempo antispam (segundos):" tool_tip="Menor = menos sensível" name="antispamtime" />
+					<spinner enabled_control="AntiSpamEnabled" control_name="_NACL_AntiSpamAmount" decimal_digits="0" increment="1" min_val="5" max_val="99999" label="Quantidade antispam:" tool_tip="Maior = menos sensível" name="antispamamount" />
+					<spinner enabled_control="AntiSpamEnabled" control_name="_NACL_AntiSpamSoundMulti" decimal_digits="0" increment="1" min_val="1" max_val="99999" label="Multiplicador de quantidade para reproduções de som:" tool_tip="Maior = menos sensível" name="antispamsoundmulti" />
+					<spinner enabled_control="AntiSpamEnabled" control_name="_NACL_AntiSpamSoundPreloadMulti" decimal_digits="0" increment="1" min_val="1" max_val="99999" label="Multiplicador de quantidade para pré-cargas de som:" tool_tip="Maior = menos sensível" name="antispamsoundpreloadmulti" />
+					<spinner enabled_control="AntiSpamEnabled" control_name="_NACL_AntiSpamNewlines" decimal_digits="0" increment="1" min_val="5" max_val="99999" label="Quebras de linha para bloquear a mensagem na hora:" tool_tip="Maior = menos sensível" name="antispamnewlines" />
+					<check_box enabled_control="AntiSpamEnabled" control_name="AntiSpamNotify" label="Notificar quando spam for bloqueado" name="Notify On Spam" tool_tip="Quando ativado, o canto inferior direito pode se tornar uma fonte de pseudo-spam sempre que spam real for bloqueado." />
+					<check_box control_name="_NACL_Antispam" label="Desativar -todos- os diálogos (reinicia no login)" name="antispam_checkbox" />
+					<text disabled_control="_NACL_Antispam" name="Block All Dialogs From">Bloquear Todos os Diálogos De</text>
+					<check_box disabled_control="_NACL_Antispam" control_name="AntiSpamAlerts" label="Alertas" name="Alerts" />
+					<check_box disabled_control="_NACL_Antispam" control_name="AntiSpamFriendshipOffers" label="Ofertas de Amizade" name="Friendship Offers" />
+					<check_box disabled_control="_NACL_Antispam" control_name="AntiSpamGroupInvites" label="Todos os Convites de Grupo" name="Group Invites" />
+					<check_box disabled_control="AntiSpamGroupInvites" control_name="AntiSpamGroupFeeInvites" label="Convites de Grupo com Taxa" name="Group Fee Invites" />
+					<check_box disabled_control="_NACL_Antispam" control_name="AntiSpamItemOffers" label="Ofertas de Item" name="Item Offers" />
+					<check_box disabled_control="_NACL_Antispam" control_name="AntiSpamScripts" label="Scripts" name="Scripts" />
+					<check_box disabled_control="_NACL_Antispam" control_name="AntiSpamTeleports" label="Ofertas de TP" name="Teleport Offers" />
+					<check_box disabled_control="_NACL_Antispam" control_name="AntiSpamGroupNotices" label="Notícias de Grupo" name="Group Notices" />
+					<check_box disabled_control="_NACL_Antispam" control_name="AntiSpamTeleportRequests" label="Pedidos de TP" name="Teleport Requests" />
+					<check_box disabled_control="_NACL_Antispam" invisibility_control="AntiSpamItemOffers" control_name="AntiSpamItemOffersLandmarks" label="Ofertas de LM" name="LM Offers" />
+					<text name="Except those from:">Exceto aqueles de:</text>
+					<check_box control_name="AntiSpamNotMine" label="Meus objetos" name="My objects" />
+					<check_box control_name="AntiSpamNotFriend" label="Meus amigos" name="My friends" />
+					<check_box control_name="EnableGestureSounds" label="Ativar Sons de Gesto" name="Enable Gesture Sounds" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel label="Opções de Texto" name="TextOptions">
+			<scroll_container name="advchat_text_scroll">
+				<panel name="advchat_text_inner">
+					<check_box label="Mostrar palavras com erro ortográfico em vermelho" name="SpellDisplay" control_name="SpellDisplay" />
+					<text name="EmSpell_txt1">Idioma atual (dicionário):</text>
+					<combo_box name="SpellBase" control_name="SpellBase" />
+					<text name="EmSpell_txt3">Idiomas baixados (dicionários):</text>
+					<combo_box name="EmSpell_Avail" control_name="EmSpell_Avail" />
+					<button label="Instalar" name="EmSpell_Add" tool_tip="" />
+					<button label="Baixar Mais..." name="EmSpell_GetMore" tool_tip="Obter mais dicionários disponíveis online" />
+					<text name="EmSpell_txt2">Idiomas personalizados adicionais (dicionários):</text>
+					<combo_box name="EmSpell_Installed" control_name="EmSpell_Installed" tool_tip="" />
+					<button label="Remover" name="EmSpell_Remove" tool_tip="" />
+					<button label="Editar dicionário personalizado" name="EmSpell_EditCustom" />
+					<text name="EmSpell_txt4">
+Para usar o corretor, clique com o botão direito na palavra errada
+(vermelha ou não) e selecione a substituição
+ </text>
+					<button label="Preferências de Autosubstituição" name="autoreplace" />
+					<view_border name="CmdDivisor" />
+					<check_box font="SansSerifSmall" label="Destacar mensagens se alguma delas contiver os termos" name="KeywordsOn" />
+					<text name="keyword_txt1">(separados por vírgulas)</text>
+					<line_editor max_length="500" name="KeywordsList" />
+					<text name="EmKeyw">For encontrado em:</text>
+					<check_box label="Flutuador de Chat Local" name="KeywordsInChat" />
+					<check_box label="Flutuador de Mensagem Instantânea" name="KeywordsInIM" />
+					<check_box label="Destacar a mensagem nesta cor:" name="KeywordsChangeColor" />
+					<color_swatch border_color="0.45098, 0.517647, 0.607843, 1" can_apply_immediately="true" color="1, 1, 1, 1" name="KeywordsColor" tool_tip="Clique para abrir o Seletor de Cores" />
+					<check_box label="Reproduzir este alerta sonoro: (UUID)" name="KeywordsPlaySound" />
+					<line_editor max_length="36" name="KeywordsSound" />
+				</panel>
+			</scroll_container>
+		</panel>
+	</tab_container>
+</panel>

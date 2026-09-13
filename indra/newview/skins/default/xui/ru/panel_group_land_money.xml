@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="land_money_tab" label="Земля и деньги">
+	<string name="help_text">Участки, принадлежащие группе, перечислены вместе с подробной информацией о вкладе. Предупреждение появляется до тех пор, пока общая сумма используемой земли не станет меньше или равна общей сумме вклада. Вкладки «Планирование», «Сведения» и «Продажи» предоставляют информацию о финансах группы.</string>
+	<button name="help_button" label="?" />
+	<string name="cant_view_group_land_text">У вас нет разрешения на просмотр земли, принадлежащей группе.</string>
+	<string name="epmty_view_group_land_text">Нет записей</string>
+	<string name="cant_view_group_accounting_text">У вас нет разрешения на просмотр учетной информации группы.</string>
+	<string name="loading_txt">Загрузка...</string>
+	<text name="group_land_heading">Земля, принадлежащая группе</text>
+	<scroll_list name="group_parcel_list">
+		<column name="name" label="Имя парцела" />
+		<column name="location" label="Область" />
+		<column name="type" label="Тип" />
+		<column name="area" label="Область" />
+		<column name="hidden" />
+	</scroll_list>
+	<button name="map_button" label="Показать на карте" />
+	<text name="total_contributed_land_label">Общий вклад:</text>
+	<text name="total_contributed_land_value">[AREA] кв. метров</text>
+	<text name="total_land_in_use_label">Общая площадь в использовании:</text>
+	<text name="total_land_in_use_value">[AREA] кв. метров</text>
+	<text name="land_available_label">Доступная земля:</text>
+	<text name="land_available_value">[AREA] кв. метров</text>
+	<text name="your_contribution_label">Ваш вклад:</text>
+	<line_editor name="your_contribution_line_editor" />
+	<string name="land_contrib_error">Невозможно установить взнос за землю.</string>
+	<text name="your_contribution_max_value">кв. метров ([AMOUNT] макс.)</text>
+	<icon name="group_over_limit_icon" />
+	<text name="group_over_limit_text">Члены группы должны вносить больше земельных кредитов для поддержки использования земли.</text>
+	<text name="group_money_heading">Группа [CURRENCY]</text>
+	<tab_container name="group_money_tab_container">
+		<panel name="group_money_planning_tab" label="Планирование">
+			<text_editor name="group_money_planning_text">Вычисление...</text_editor>
+		</panel>
+		<panel name="group_money_details_tab" label="Подробности">
+			<text_editor name="group_money_details_text">Вычисление...</text_editor>
+			<button name="earlier_details_button" label="&lt; Ранее" tool_tip="Вернитесь во времени" />
+			<button name="later_details_button" label="Позже &gt;" tool_tip="Идите вперед во времени" />
+		</panel>
+		<panel name="group_money_sales_tab" label="Продажи">
+			<text_editor name="group_money_sales_text">Вычисление...</text_editor>
+			<button name="earlier_sales_button" label="&lt; Ранее" tool_tip="Вернитесь во времени" />
+			<button name="later_sales_button" label="Позже &gt;" tool_tip="Идите вперед во времени" />
+		</panel>
+	</tab_container>
+</panel>

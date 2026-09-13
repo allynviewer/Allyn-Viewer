@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings version = "101">
+<SearchableControlHighlightBgColor value="139, 92, 246, 70" />
+<SearchableControlHighlightFontColor value="255, 214, 80, 255" />
+</settings>

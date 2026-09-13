@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="script search" title="Найти/Заменить">
+	<check_box name="case_text" label="Нечувствителен к регистру" />
+	<button name="search_btn" label="Поиск" />
+	<button name="replace_btn" label="Заменять" />
+	<button name="replace_all_btn" label="Заменить все" />
+	<text name="search_label">Поиск</text>
+	<text name="replace_label">Заменять</text>
+	<line_editor name="search_text" />
+	<line_editor name="replace_text" />
+</floater>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	name="test"
+	title="Test UI"
+	can_close="true"
+	can_drag_on_left="false"
+	can_minimize="true"
+	can_resize="true"
+	width="640"
+	height="500"
+	min_width="560"
+	min_height="400">
+
+	<tab_container
+		name="test_tab"
+		follows="left|top|right|bottom"
+		left="4"
+		right="-4"
+		top="-28"
+		bottom="4"
+		tab_position="top">
+
+		<panel
+			name="first_tab_panel"
+			label="Widgets"
+			border="true"
+			follows="left|top|right|bottom"
+			left="0"
+			bottom="0"
+			width="628"
+			height="440">
+
+			<text name="section_buttons" follows="left|top" font="SansSerifSmall"
+				text_color="LabelSelectedColor" left="10" bottom="-22" height="16" width="300">
+				BUTTONS
+			</text>
+			<button name="can't click" label="Can't click" tool_tip="Disabled button"
+				enabled="false" follows="left|top" font="SansSerifSmall"
+				left="10" bottom="-52" width="145" height="24"/>
+			<button name="can click" label="Can click" tool_tip="Enabled button"
+				follows="left|top" font="SansSerifSmall"
+				left="165" bottom="-52" width="145" height="24"/>
+			<button name="unicode_btn" label="Unicode" tool_tip="Unicode label button"
+				follows="left|top" font="SansSerifSmall"
+				left="10" bottom="-84" width="145" height="24"/>
+			<button name="image_btn" label="" tool_tip="Image button"
+				follows="left|top" scale_image="true"
+				image_unselected="tool_zoom.tga" image_selected="tool_zoom_active.tga"
+				image_hover_unselected="tool_zoom_active.tga" image_hover_selected="tool_zoom_active.tga"
+				left="165" bottom="-92" width="32" height="32"/>
+			<icon name="test_icon" follows="left|top"
+				image_name="object_cone.tga"
+				left="205" bottom="-92" width="32" height="32"/>
+
+			<text name="section_options" follows="left|top" font="SansSerifSmall"
+				text_color="LabelSelectedColor" left="10" bottom="-122" height="16" width="300">
+				OPTIONS
+			</text>
+			<check_box name="simple_check" label="Simple checkbox"
+				control_name="UIFloaterTestBool"
+				follows="left|top" font="SansSerifSmall"
+				left="10" bottom="-146" width="300" height="16"
+				initial_value="true" radio_style="false"/>
+			<check_box name="unicode_check" label="Unicode checkbox"
+				follows="left|top" font="SansSerifSmall"
+				left="10" bottom="-170" width="300" height="16"
+				initial_value="true" radio_style="false"/>
+			<combo_box name="combo" follows="left|top" font="SansSerifSmall"
+				left="10" bottom="-202" width="300" height="22"
+				tool_tip="Sample combo box">
+				<combo_item name="top_item" value="top">should go to the top</combo_item>
+				<combo_item name="first_item" value="first">first item</combo_item>
+				<combo_item name="second_item" value="second">second item</combo_item>
+				<combo_item name="disabled_item" value="disabled">disabled item</combo_item>
+			</combo_box>
+
+			<text name="section_radio" follows="left|top" font="SansSerifSmall"
+				text_color="LabelSelectedColor" left="10" bottom="-232" height="16" width="300">
+				RADIO
+			</text>
+			<radio_group name="radio_group" draw_border="true" follows="left|top"
+				left="10" bottom="-314" width="300" height="74">
+				<radio_item name="Radio1" bottom="-20" height="16" left="8" width="280">Radio 1</radio_item>
+				<radio_item name="Radio2" bottom="-40" height="16" left="8" width="280">Radio 2</radio_item>
+				<radio_item name="Radio3" bottom="-60" height="16" left="8" width="280">Radio 3</radio_item>
+			</radio_group>
+
+			<view_border name="test_view_border" bevel_style="in" follows="left|top|bottom"
+				left="10" bottom="10" top="-328" width="300"/>
+			<text_editor name="widgets_help" follows="left|top|bottom"
+				enabled="false" word_wrap="true" hide_scrollbar="true"
+				font="SansSerifSmall" left="16" bottom="16" top="-334" width="288"
+				max_length="512">
+This floater exercises common UI widgets.
+
+Clicks, checks, combo changes and radio changes are logged to the viewer console.
+			</text_editor>
+
+			<text name="section_line" follows="left|top|right" font="SansSerifSmall"
+				text_color="LabelSelectedColor" left="322" right="-10" bottom="-22" height="16">
+				LINE EDITOR
+			</text>
+			<line_editor name="test_line" follows="left|top|right"
+				left="322" right="-10" bottom="-52" height="22"
+				max_length="200" handle_edit_keys_directly="true"
+				font="SansSerif">Type unicode text here</line_editor>
+
+			<text name="section_slider" follows="left|top|right" font="SansSerifSmall"
+				text_color="LabelSelectedColor" left="322" right="-10" bottom="-82" height="16">
+				SLIDER
+			</text>
+			<slider name="test_slider" follows="left|top|right"
+				left="322" right="-10" bottom="-110" height="18"
+				min_val="0" max_val="100" increment="1" initial_val="50"
+				decimal_digits="0" show_text="true" can_edit_text="true"/>
+
+			<text name="section_names" follows="left|top|right" font="SansSerifSmall"
+				text_color="LabelSelectedColor" left="322" right="-10" bottom="-138" height="16">
+				NAME LIST
+			</text>
+			<name_list name="test_name_list"
+				follows="left|top|right|bottom"
+				left="322" right="-10" top="-148" bottom="10"
+				draw_border="true" draw_heading="true" draw_stripes="true"
+				background_visible="true" multi_select="false">
+				<column name="name" label="Name" dynamicwidth="true"/>
+			</name_list>
+		</panel>
+
+		<panel
+			name="second_tab_panel"
+			label="Lists"
+			border="true"
+			follows="left|top|right|bottom"
+			left="0"
+			bottom="0"
+			width="628"
+			height="440">
+
+			<text name="lists_help" follows="left|top|right" font="SansSerifSmall"
+				left="10" right="-176" bottom="-28" height="16">
+				Sample list of UI widgets. Click a row to log the selection.
+			</text>
+			<button name="Simple Button" label="Simple button"
+				follows="right|top" font="SansSerifSmall"
+				right="-10" bottom="-32" width="154" height="24"/>
+			<scroll_list name="test_scroll_list"
+				follows="left|top|right|bottom"
+				left="10" right="-10" top="-44" bottom="10"
+				draw_border="true" draw_heading="true" draw_stripes="true"
+				background_visible="true" multi_select="false">
+				<column name="widget" label="Widget" relwidth="0.32"/>
+				<column name="notes" label="Notes" relwidth="0.68"/>
+			</scroll_list>
+		</panel>
+
+		<panel
+			name="text_tab_panel"
+			label="Text"
+			border="true"
+			follows="left|top|right|bottom"
+			left="0"
+			bottom="0"
+			width="628"
+			height="440">
+
+			<text name="simple_text" follows="left|top|right" font="SansSerifSmall"
+				mouse_opaque="true" left="10" right="-10" bottom="-24" height="16">
+				Sans-serif text (mouse opaque — click me)
+			</text>
+			<text name="simple2_text" follows="left|top|right" font="Monospace"
+				mouse_opaque="false" tool_tip="I'm a tooltip"
+				left="10" right="-10" bottom="-44" height="16">
+				Monospace text with tooltip (not mouse opaque)
+			</text>
+			<text name="unicode_text" follows="left|top|right" font="SansSerif"
+				tool_tip="This should be Unicode text"
+				left="10" right="-10" bottom="-68" height="18">
+				File
+			</text>
+			<text_editor name="test_text_editor"
+				follows="left|top|right|bottom"
+				left="10" right="-10" top="-80" bottom="10"
+				word_wrap="true" font="SansSerifSmall" max_length="4096">
+This is a multi-line text editor.
+
+It stretches with the window so the Test UI floater keeps using the full client area.
+
+Type here to exercise keyboard input, scrolling and word wrap.
+			</text_editor>
+		</panel>
+	</tab_container>
+</floater>

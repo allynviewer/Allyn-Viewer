@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="groups">
+	<scroll_list name="group list">
+		<column name="name" label="Имя" tool_tip="Имя" />
+		<column name="is_listed_group" tool_tip="Группа видна в профиле." />
+		<column name="is_chattable_group" tool_tip="Получить групповой чат" />
+		<column name="is_notice_group" tool_tip="Получать групповые уведомления" />
+	</scroll_list>
+	<text name="groupdesc">Ваша активная группа отображается курсивом.</text>
+	<text name="groupcount">Вы принадлежите к [COUNT] группам (максимум [MAX], осталось [LEFT]).</text>
+	<button name="IM" label="чат/звонок" tool_tip="Открыть сеанс обмена мгновенными сообщениями" />
+	<button name="Info" label="Информация" />
+	<button name="Activate" label="Активировать" />
+	<button name="Leave" label="Оставлять" />
+	<button name="Create" label="Создавать..." />
+	<button name="Search..." label="Поиск..." />
+	<button name="Invite..." label="Приглашать..." />
+	<button name="Titles..." label="Титулы..." />
+	<filter_editor name="group_search_lineedit" label="Поиск группы" tool_tip="Имя группы для поиска"/>
+</panel>

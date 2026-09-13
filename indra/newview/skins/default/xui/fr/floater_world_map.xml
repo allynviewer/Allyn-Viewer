@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="worldmap" title="Carte du monde">
+	<panel name="right_controls">
+	<text name="you_label">
+		Vous
+	</text>
+	<text name="home_label">
+		Domicile
+	</text>
+	<text name="auction_label">
+		Enchères
+	</text>
+	<text name="land_for_sale_label">
+		À vendre
+	</text>
+	<button label="Chez moi" label_selected="Chez moi" name="Go Home" tool_tip="Vous téléporte à votre domicile"/>
+	<check_box label="Résident" name="people_chk"/>
+	<check_box label="Infohub" name="infohub_chk"/>
+	<check_box label="Téléhub" name="telehubchk"/>
+	<check_box label="À vendre" name="land_for_sale_chk"/>
+	<text name="events_label">
+		Événements :
+	</text>
+	<check_box label="Général" name="event_chk"/>
+	<check_box label="Modéré" name="events_mature_chk"/>
+	<check_box label="Adulte" name="events_adult_chk"/>
+	<combo_box label="Amis connectés" name="friend combo" tool_tip="Ami(e) à afficher sur la carte">
+		<combo_item name="none_selected">
+			Amis connectés
+		</combo_item>
+	</combo_box>
+	<combo_box label="Repères" name="landmark combo" tool_tip="Repère à afficher sur la carte">
+		<combo_item name="none_selected">
+			Repères
+		</combo_item>
+	</combo_box>
+	<search_editor label="Rechercher par nom de région" name="location" tool_tip="Saisissez le nom d'une région"/>
+	<button label="Chercher" name="DoSearch" tool_tip="Rechercher une région"/>
+	<text name="search_label">
+		Résultats de la recherche :
+	</text>
+	<text name="location_label">
+		Position :
+	</text>
+	<spinner name="spin x" tool_tip="Coordonnée X du lieu à afficher sur la carte"/>
+	<spinner name="spin y" tool_tip="Coordonnée Y du lieu à afficher sur la carte"/>
+	<spinner name="spin z" tool_tip="Coordonnée Z du lieu à afficher sur la carte"/>
+	<button label="Téléporter" label_selected="Téléporter" name="Teleport" tool_tip="Vous téléporte à l&apos;endroit sélectionné"/>
+	<button label="Voir destination" label_selected="Voir destination" name="Show Destination" tool_tip="Centre la carte sur l&apos;endroit sélectionné"/>
+	<button label="Effacer" label_selected="Effacer" name="Clear" tool_tip="Arrêter de suivre"/>
+	<button label="Ma position" label_selected="Ma position" name="Show My Location" tool_tip="Centre la carte sur la position de votre avatar"/>
+	<button label="Copier SLURL" name="copy_slurl" tool_tip="Copie l&apos;adresse SLURL de la position actuelle pour l&apos;utiliser sur le Web."/>
+	<button label="Suivre la région" name="track_region" tool_tip="Ajouter la région au suivi des régions"/>
+	<slider label="Zoom" name="zoom slider"/>
+	</panel>
+</floater>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="mediaticker">
+	<icon name="ticker_background" />
+	<icon name="ticker_background" />
+	<text name="artist_label">アーティスト:</text>
+	<text name="artist_text" />
+	<text name="title_label">タイトル:</text>
+	<text name="title_text" />
+	<string name="paused">（再生していません）</string>
+	<string name="loading">（読み込み中...）</string>
+</floater>

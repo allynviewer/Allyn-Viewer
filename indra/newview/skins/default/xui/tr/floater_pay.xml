@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Give Money">
+	<button name="fastpay 1" label="[CURRENCY]1" />
+	<button name="fastpay 5" label="[CURRENCY]5" />
+	<button name="fastpay 10" label="[CURRENCY]10" />
+	<button name="fastpay 20" label="[CURRENCY]20" />
+	<button name="pay btn" label="Ödeme" />
+	<button name="cancel btn" label="İptal" />
+	<text name="payee_label">Sakine ödeme yapın:</text>
+	<text name="payee_name">[NAME]</text>
+	<text name="fastpay text">Hızlı Ödeme:</text>
+	<text name="message text">Mesaj:</text>
+	<line_editor name="message" />
+	<text name="amount text">Tutar:</text>
+	<line_editor name="amount" />
+</floater>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_report_abuse" title="通報">
+	<string name="Screenshot">スクリーンショット</string>
+	<string name="Ridiculous1" />
+	<string name="Ridiculous2" />
+	<string name="Ridiculous3" />
+	<texture_picker name="screenshot" />
+	<check_box name="screen_check" label="スクリーンショットを含める" />
+	<text name="reporter_title">報告者:</text>
+	<name_box name="reporter_field">Loremipsum Dolorsitamut</name_box>
+	<text name="sim_title">リージョン:</text>
+	<text name="sim_field">リージョン名</text>
+	<text name="pos_title">位置:</text>
+	<text name="pos_field">{128.1, 128.1, 15.4}</text>
+	<text name="select_object_label">ボタンをクリックしてからオブジェクトをクリック:</text>
+	<button name="pick_btn" tool_tip="オブジェクト選択 — この通報の対象オブジェクトを指定します" />
+	<text name="object_name_label">名前:</text>
+	<text name="object_name">Consetetur Sadipscing</text>
+	<text name="owner_name_label">所有者:</text>
+	<name_box name="owner_name">Hendrerit Vulputate</name_box>
+	<combo_box name="category_combo" tool_tip="カテゴリ — この通報に最も近いものを選んでください">
+		<combo_box.item name="Select_category" label="カテゴリを選択" />
+		<combo_box.item name="Age__Age_play" label="年齢 &gt; エイジプレイ" />
+		<combo_box.item name="Assault__Safe_area" label="暴行 &gt; セーフエリアでの射撃、押し、突き" />
+		<combo_box.item name="Disclosure__Real_world_information" label="情報漏洩 &gt; 現実世界の情報" />
+		<combo_box.item name="Disturbing_the_peace__Excessive_scripted_objects" label="秩序妨害 &gt; 過度なスクリプトオブジェクト" />
+		<combo_box.item name="Disturbing_the_peace__Object_littering" label="秩序妨害 &gt; オブジェクトの放置" />
+		<combo_box.item name="Disturbing_the_peace__Repetitive_spam" label="秩序妨害 &gt; 繰り返しスパム" />
+		<combo_box.item name="Fraud__US$" label="詐欺 &gt; L$ または USD $" />
+		<combo_box.item name="Ridiculous3" label="フロイト &gt; 母親に関心があるユーザー" />
+		<combo_box.item name="Harassment__Solicting_inciting_others_to_violate_ToS" label="嫌がらせ &gt; 混乱を狙った標的行為" />
+		<combo_box.item name="Ridiculous1" label="嫌がらせ &gt; 指を舐めて触ってくる" />
+		<combo_box.item name="Indecency__Broadly_offensive_content_or_conduct" label="わいせつ &gt; 広く不快なコンテンツや行為" />
+		<combo_box.item name="Indecency__Inappropriate_avatar_name" label="わいせつ &gt; 不適切なアバター名" />
+		<combo_box.item name="Indecency__Mature_content_in_PG_region" label="わいせつ &gt; リージョンレーティングに不適切な内容や行為" />
+		<combo_box.item name="Intolerance" label="不寛容" />
+		<combo_box.item name="Land__Encroachment__Objects_textures" label="土地 &gt; 侵害 &gt; オブジェクトやテクスチャ" />
+		<combo_box.item name="Ridiculous2" label="土地 &gt; 侵害 &gt; 車の自分の側にいてくれない" />
+		<combo_box.item name="Wagering_gambling" label="スキルゲーミングポリシー違反" />
+		<combo_box.item name="Other" label="その他" />
+	</combo_box>
+	<text name="abuser_name_title">通報対象者名:</text>
+	<line_editor name="abuser_name_edit" />
+	<button name="select_abuser" label="レジデントを選択" tool_tip="リストから対象者の名前を選びます" />
+	<check_box name="omit_abuser_name" label="対象者の名前がわからない" tool_tip="対象者の名前を提供できない場合にチェックしてください" />
+	<text name="abuser_name_title2">通報の場所:</text>
+	<line_editor name="abuse_location_edit" />
+	<text name="sum_title">概要:</text>
+	<line_editor name="summary_edit" />
+	<text name="dscr_title">詳細:</text>
+	<text name="bug_aviso">できるだけ具体的に書いてください: 日付、場所、内容、関連するチャット/IMなど。* 不完全な通報は調査されません</text>
+	<text_editor name="details_edit" />
+	<text name="incomplete_title">注: 不完全な通報は調査されません。</text>
+	<button name="cancel_btn" label="キャンセル" />
+	<button name="send_btn" label="通報する" />
+</floater>

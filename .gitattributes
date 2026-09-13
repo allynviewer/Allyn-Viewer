@@ -1,0 +1,4 @@
+# Windows batch scripts must keep CRLF line endings regardless of core.autocrlf.
+# build-lang\*.cmd are UTF-8 (no BOM) message files loaded by build.bat.
+*.bat text eol=crlf
+*.cmd text eol=crlf

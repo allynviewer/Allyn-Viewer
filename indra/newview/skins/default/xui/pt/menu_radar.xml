@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="Radar Menu">
+	<menu name="Avatar" label="Avatar">
+		<menu_item_call name="Profile" label="Perfil"/>
+		<menu_item_call name="Web Profile" label="Perfil na web"/>
+		<menu_item_call name="Pay" label="Pagar"/>
+		<menu_item_call name="Instant Message" label="IM"/>
+		<menu_item_call name="Conference Chat" label="Chat em conferência"/>
+		<menu_item_call name="Call" label="Ligar"/>
+		<menu_item_call name="Conference Call" label="Chamada em conferência"/>
+		<menu_item_call name="Add Friend" label="Adicionar amigo"/>
+		<menu_item_call name="Remove Friend" label="Remover amigo"/>
+		<menu_item_call name="Invite To Group" label="Convidar para grupo"/>
+		<menu_item_call name="Follow" label="Seguir"/>
+		<menu_item_call name="Move To" label="Mover para"/>
+		<menu_item_call name="Offer Teleport" label="Oferecer TP"/>
+		<menu_item_call name="Teleport To" label="Teleportar para"/>
+		<menu_item_call name="Request Teleport" label="Pedir TP"/>
+		<menu_item_call name="Find on Map" label="Localizar no mapa"/>
+		<menu_item_call name="Share" label="Compartilhar"/>
+		<menu_item_call name="Chat History" label="Histórico de chat"/>
+		<menu_item_call name="Track/Untrack" label="Rastrear/parar"/>
+		<menu_item_call name="Copy Key" label="Copiar chave"/>
+		<menu_item_call name="Copy Names" label="Copiar nomes"/>
+		<menu_item_call name="Copy SLURL" label="Copiar SLURL"/>
+	</menu>
+	<menu name="Focusing" label="Foco">
+		<menu_item_call name="Focus" label="Focar"/>
+		<menu_item_call name="Focus Next" label="Focar próximo"/>
+		<menu_item_call name="Focus Previous" label="Focar anterior"/>
+		<menu_item_call name="Mark/Unmark" label="Marcar/desmarcar"/>
+		<menu_item_call name="Focus Next Marked" label="Focar próximo marcado"/>
+		<menu_item_call name="Focus Previous Marked" label="Focar marcado anterior"/>
+	</menu>
+	<menu name="Mark" label="Marcar">
+		<menu_item_call name="Red" label="Vermelho"/>
+		<menu_item_call name="Green" label="Verde"/>
+		<menu_item_call name="Blue" label="Azul"/>
+		<menu_item_call name="Yellow" label="Amarelo"/>
+		<menu_item_call name="Custom" label="Personalizado..."/>
+		<menu_item_call name="Unmark" label="Desmarcar"/>
+	</menu>
+	<menu name="Alerts" label="Alertas">
+		<menu_item_check name="Display alerts in chat" label="Alertas de avatar no chat"/>
+		<menu_item_check name="sim alerts" label="entrar/sair do sim"/>
+		<menu_item_check name="draw distance alerts" label="entrar/sair da distância de visão"/>
+		<menu_item_check name="shout range alerts" label="entrar/sair do alcance de grito"/>
+		<menu_item_check name="chat range alerts" label="entrar/sair do alcance de chat"/>
+		<menu_item_check name="chat range alerts" label="estiver abaixo do limite de idade"/>
+		<menu_item_check name="Include distance in alerts" label="Incluir distância nos alertas"/>
+		<menu_item_check name="Announce even when closed" label="Avisar mesmo com a janela fechada"/>
+		<menu_item_check name="Announce keys to HUD" label="Enviar chaves para o HUD"/>
+		<menu_item_call name="Announce keys now" label="Enviar chaves agora"/>
+	</menu>
+	<menu name="Moderation" label="Moderação">
+		<menu_item_call name="Mute/Unmute" label="Silenciar/reativar"/>
+		<menu_item_call name="Ban From Group" label="Banir do grupo"/>
+		<menu_item_call name="Report Abuse" label="Denunciar abuso"/>
+		<menu_item_call name="Freeze" label="Congelar"/>
+		<menu_item_call name="Eject/Ban from Parcel" label="Ejetar/banir da parcela"/>
+		<menu_item_call name="Eject from estate" label="Ejetar da propriedade"/>
+		<menu_item_call name="Eject and ban from estate" label="Ejetar e banir da propriedade"/>
+	</menu>
+	<menu name="Hide Columns" label="Ocultar colunas">
+		<menu_item_check name="Position" label="Posição"/>
+		<menu_item_check name="Altitude" label="Altitude"/>
+		<menu_item_check name="Activity" label="Atividade"/>
+		<menu_item_check name="Voice" label="Voz"/>
+		<menu_item_check name="Notes" label="Notas"/>
+		<menu_item_check name="Age" label="Idade"/>
+		<menu_item_check name="Time" label="Tempo"/>
+		<menu_item_check name="Client" label="Cliente"/>
+	</menu>
+	<menu_item_check name="Update List" label="Atualizar lista"/>
+</menu>

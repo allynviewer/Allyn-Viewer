@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_pathfinding_characters" title="Personagens de pathfinding">
+	<string name="messaging_get_inprogress">Consultando personagens de pathfinding...</string>
+	<string name="messaging_get_error">Erro detectado ao consultar personagens de pathfinding.</string>
+	<string name="messaging_complete_none_found">Nenhum personagem de pathfinding.</string>
+	<string name="messaging_complete_available">[NUM_SELECTED] personagens selecionados de [NUM_TOTAL].</string>
+	<string name="messaging_not_enabled">Esta região não está habilitada para pathfinding.</string>
+	<string name="character_cpu_time">[CPU_TIME] µs</string>
+	<string name="character_owner_loading">[Carregando]</string>
+	<string name="character_owner_unknown">[Desconhecido]</string>
+	<string name="character_owner_group">[grupo]</string>
+	<panel name="pathfinding_chars_main">
+		<scroll_list name="objects_scroll_list">
+			<column name="name" label="Nome"/>
+			<column name="description" label="Descrição"/>
+			<column name="owner" label="Dono"/>
+			<column name="cpu_time" label="CPU"/>
+			<column name="altitude" label="Altitude"/>
+		</scroll_list>
+		<text name="messaging_status">Personagens:</text>
+		<button name="refresh_objects_list" label="Atualizar lista"/>
+		<button name="select_all_objects" label="Selecionar todos"/>
+		<button name="select_none_objects" label="Selecionar nenhum"/>
+	</panel>
+	<panel name="pathfinding_chars_actions">
+		<text name="actions_label">Ações nos personagens selecionados:</text>
+		<check_box name="show_beacon" label="Mostrar farol"/>
+		<button name="take_objects" label="Pegar"/>
+		<button name="take_copy_objects" label="Pegar cópia"/>
+		<button name="teleport_me_to_object" label="Teleportar-me até ele" tool_tip="Habilitado somente quando um personagem está selecionado."/>
+		<button name="return_objects" label="Devolver"/>
+		<button name="delete_objects" label="Excluir"/>
+	</panel>
+</floater>

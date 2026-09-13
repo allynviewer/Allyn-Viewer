@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="MemLeak" title="メモリ Leaking Simulation">
+	<spinner name="leak_speed" label="Leaking Speed (bytes per フレーム):" />
+	<spinner name="max_leak" label="Max Leaked メモリ (MB):" />
+	<text name="total_leaked_label">現在 leaked メモリ:[SIZE]KB</text>
+	<text name="note_label_1">[NOTE1]</text>
+	<text name="note_label_2">[NOTE2]</text>
+	<button name="start_btn" label="開始" />
+	<button name="stop_btn" label="停止" />
+	<button name="release_btn" label="リリース" />
+	<button name="close_btn" label="閉じる" />
+</floater>

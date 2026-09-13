@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="master_volume">
+	<button name="volume" tool_tip="Ana Ses Kontrolü, ses ayarları için tıklayın" />
+	<volume_slider name="volume_slider" tool_tip="Bu kaydırıcıyı kullanarak ses seviyesini değiştirin" />
+	<button name="mute_master" />
+</panel>

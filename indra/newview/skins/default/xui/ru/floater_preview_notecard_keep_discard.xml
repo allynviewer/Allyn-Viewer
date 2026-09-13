@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview notecard" title="Примечание:">
+	<icon name="lock" />
+	<text name="desc txt">Описание:</text>
+	<line_editor name="desc" />
+	<menu_bar name="motecard_menu">
+		<menu name="Edit" label="Редактировать">
+			<menu_item_call name="Undo" label="Отменить" />
+			<menu_item_call name="Redo" label="Повторить" />
+			<menu_item_call name="Cut" label="Вырезать" />
+			<menu_item_call name="Copy" label="Копировать" />
+			<menu_item_call name="Paste" label="Вставить" />
+			<menu_item_call name="Select All" label="Выделить всё" />
+			<menu_item_call name="Deselect" label="Отменить выбор" />
+			<menu_item_call name="Search / Replace..." label="Найти/Заменить..." />
+		</menu>
+	</menu_bar>
+	<text_editor name="Notecard Editor">Загрузка...</text_editor>
+	<button name="Keep" label="Держать" />
+	<button name="Save" label="Сохранить" />
+	<button name="Discard" label="Отказаться" />
+	<string name="no_object">Не удалось найти объект, содержащий эту заметку.</string>
+	<string name="not_allowed">Вам не разрешено просматривать эту заметку.</string>
+</floater>

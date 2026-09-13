@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="test" title="UI testi">
+	<tab_container name="test_tab">
+		<panel name="first_tab_panel" label="Denetimler">
+			<text name="section_buttons">DÜĞMELER</text>
+			<button name="can't click" label="Tıklanamaz" tool_tip="Devre dışı düğme"/>
+			<button name="can click" label="Tıklanabilir" tool_tip="Etkin düğme"/>
+			<button name="unicode_btn" label="Unicode" tool_tip="Unicode etiketli düğme"/>
+			<button name="image_btn" tool_tip="Görsel düğme"/>
+			<text name="section_options">SEÇENEKLER</text>
+			<check_box name="simple_check" label="Basit onay kutusu"/>
+			<check_box name="unicode_check" label="Unicode onay kutusu"/>
+			<combo_box name="combo" tool_tip="Örnek açılır kutu">
+				<combo_item name="top_item">üste gitmeli</combo_item>
+				<combo_item name="first_item">birinci öğe</combo_item>
+				<combo_item name="second_item">ikinci öğe</combo_item>
+				<combo_item name="disabled_item">devre dışı öğe</combo_item>
+			</combo_box>
+			<text name="section_radio">RADYO</text>
+			<radio_group name="radio_group">
+				<radio_item name="Radio1">Radyo 1</radio_item>
+				<radio_item name="Radio2">Radyo 2</radio_item>
+				<radio_item name="Radio3">Radyo 3</radio_item>
+			</radio_group>
+			<text_editor name="widgets_help">
+Bu pencere yaygın UI denetimlerini dener.
+
+Tıklamalar, onay kutuları, combo ve radyo viewer konsoluna yazılır.
+			</text_editor>
+			<text name="section_line">SATIR DÜZENLEYİCİ</text>
+			<line_editor name="test_line">Buraya unicode metin yazın</line_editor>
+			<text name="section_slider">KAYDIRICI</text>
+			<text name="section_names">AD LİSTESİ</text>
+			<name_list name="test_name_list">
+				<column name="name" label="Ad"/>
+			</name_list>
+		</panel>
+		<panel name="second_tab_panel" label="Listeler">
+			<text name="lists_help">UI denetimlerinin örnek listesi. Seçimi kaydetmek için bir satıra tıklayın.</text>
+			<button name="Simple Button" label="Basit düğme"/>
+			<scroll_list name="test_scroll_list">
+				<column name="widget" label="Denetim"/>
+				<column name="notes" label="Notlar"/>
+			</scroll_list>
+		</panel>
+		<panel name="text_tab_panel" label="Metin">
+			<text name="simple_text">Sans-serif metin (fareye opak — tıklayın)</text>
+			<text name="simple2_text" tool_tip="Ben bir ipucuyum">İpuculu monospace metin (fareye opak değil)</text>
+			<text name="unicode_text" tool_tip="Bu Unicode metin olmalı">Dosya</text>
+			<text_editor name="test_text_editor">
+Bu çok satırlı bir metin düzenleyicidir.
+
+Pencereyle birlikte büyür, böylece Test UI iç alanı tamamen kullanır.
+
+Klavye, kaydırma ve satır kaydırma için buraya yazın.
+			</text_editor>
+		</panel>
+	</tab_container>
+</floater>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="master_volume">
+	<button name="volume" tool_tip="Главный регулятор громкости, нажмите для настройки громкости" />
+	<volume_slider name="volume_slider" tool_tip="Измените громкость с помощью этого ползунка" />
+	<button name="mute_master" />
+</panel>

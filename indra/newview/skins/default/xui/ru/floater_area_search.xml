@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="area search" title="Поиск объектов рядом">
+	<text name="name_label">Имя:</text>
+	<text name="desc_label">Описание:</text>
+	<filter_editor name="Name query chunk" />
+	<filter_editor name="Description query chunk" />
+	<text name="owner_label">Владелец:</text>
+	<text name="group_label">Группа:</text>
+	<filter_editor name="Owner query chunk" />
+	<filter_editor name="Group query chunk" />
+	<scroll_list name="result_list">
+		<column name="Name" label="Имя" tool_tip="Двойной щелчок отмечает позицию объекта" />
+		<column name="Description" label="Описание" tool_tip="Двойной щелчок отмечает позицию объекта" />
+		<column name="Owner" label="Владелец" tool_tip="Двойной щелчок отмечает позицию объекта" />
+		<column name="Group" label="Группа" tool_tip="Двойной щелчок отмечает позицию объекта" />
+	</scroll_list>
+	<button name="TP" label="TP" />
+	<button name="Look" label="Смотреть" />
+	<button name="Refresh" label="Обновить" />
+	<button name="Stop" label="Стоп" />
+	<text name="counter">В списке/ожидание/всего</text>
+</floater>

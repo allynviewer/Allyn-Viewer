@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Access" label="Erişim">
+	<tab_container name="tabs">
+		<panel name="estate_managers_panel" label="Site Yöneticileri">
+			<text name="estate_manager_label">Emlak Yöneticileri:</text>
+			<button name="estate_manager_help" label=""  tool_tip="Yardım"/>
+			<name_list name="estate_manager_name_list">
+				<column name="name" label="İsim" />
+			</name_list>
+			<button name="add_estate_manager_btn" label="Ekle..." />
+			<button name="remove_estate_manager_btn" label="Kaldır..." />
+		</panel>
+		<panel name="allowed_panel" label="İzin verildi">
+			<text name="allow_resident_label">İzin Verilen Sakinler:</text>
+			<button name="allow_resident_help" label=""  tool_tip="Yardım"/>
+			<panel name="allowed_search_panel" label="top_panel">
+				<filter_editor name="allowed_search_input" label="İzin verilen aracıları arayın" />
+			</panel>
+			<name_list name="allowed_avatar_name_list">
+				<column name="name" label="İsim" />
+			</name_list>
+			<button name="add_allowed_avatar_btn" label="Ekle..." />
+			<button name="remove_allowed_avatar_btn" label="Kaldır..." />
+			<button name="copy_allowed_list_btn" label="Tümünü Kopyala" />
+		</panel>
+		<panel name="allowed_groups_panel" label="İzin Verilen Gruplar">
+			<text name="allow_group_label">İzin Verilen Gruplar:</text>
+			<button name="allow_group_help" label=""  tool_tip="Yardım"/>
+			<panel name="allowed_group_search_panel" label="top_panel">
+				<filter_editor name="allowed_group_search_input" label="İzin verilen grupları arayın" />
+			</panel>
+			<name_list name="allowed_group_name_list">
+				<column name="name" label="İsim" />
+			</name_list>
+			<button name="add_allowed_group_btn" label="Ekle..." />
+			<button name="remove_allowed_group_btn" label="Kaldır..." />
+			<button name="copy_allowed_group_list_btn" label="Tümünü Kopyala" />
+		</panel>
+		<panel name="banned_panel" label="Yasaklandı">
+			<text name="ban_resident_label">Yasaklı Sakinler:</text>
+			<button name="ban_resident_help" label=""  tool_tip="Yardım"/>
+			<panel name="banned_search_panel" label="top_panel">
+				<filter_editor name="banned_search_input" label="Yasaklı aracıları ara" />
+			</panel>
+			<name_list name="banned_avatar_name_list">
+				<column name="name" label="İsim" />
+				<column name="last_login_date" label="Son Giriş" />
+				<column name="ban_date" label="Yasaklama Tarihi" />
+				<column name="bannedby" label="Tarafından yasaklandı" />
+			</name_list>
+			<button name="add_banned_avatar_btn" label="Ekle..." />
+			<button name="remove_banned_avatar_btn" label="Kaldır..." />
+			<button name="copy_banned_list_btn" label="Tümünü Kopyala" />
+		</panel>
+	</tab_container>
+</panel>

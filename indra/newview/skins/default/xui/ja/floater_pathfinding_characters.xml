@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_pathfinding_characters" title="パスファインディングキャラクター">
+	<string name="messaging_initial" />
+	<string name="messaging_get_inprogress">パスファインディングキャラクターを照会中...</string>
+	<string name="messaging_get_error">パスファインディングキャラクターの照会中にエラーが発生しました。</string>
+	<string name="messaging_set_inprogress" />
+	<string name="messaging_set_error" />
+	<string name="messaging_complete_none_found">パスファインディングキャラクターはありません。</string>
+	<string name="messaging_complete_available">[NUM_TOTAL]件中 [NUM_SELECTED]件のキャラクターを選択中。</string>
+	<string name="messaging_not_enabled">このリージョンではパスファインディングが有効になっていません。</string>
+	<string name="character_cpu_time">[CPU_TIME] µs</string>
+	<string name="character_owner_loading">[読み込み中]</string>
+	<string name="character_owner_unknown">[不明]</string>
+	<string name="character_owner_group">[グループ]</string>
+	<panel name="pathfinding_chars_main">
+		<scroll_list name="objects_scroll_list">
+			<column name="name" label="名前" />
+			<column name="description" label="説明" />
+			<column name="owner" label="所有者" />
+			<column name="cpu_time" label="CPU" />
+			<column name="altitude" label="高度" />
+		</scroll_list>
+		<text name="messaging_status">キャラクター:</text>
+		<button name="refresh_objects_list" label="リストを更新" />
+		<button name="select_all_objects" label="すべて選択" />
+		<button name="select_none_objects" label="選択解除" />
+	</panel>
+	<view_border name="horiz_separator" />
+	<panel name="pathfinding_chars_actions">
+		<text name="actions_label">選択したキャラクターに対するアクション:</text>
+		<check_box name="show_beacon" label="ビーコンを表示" />
+		<button name="take_objects" label="取得" />
+		<button name="take_copy_objects" label="コピーを取得" />
+		<button name="teleport_me_to_object" label="そこへテレポート" tool_tip="キャラクターを1つ選択したときだけ有効です。" />
+		<button name="return_objects" label="返却" />
+		<button name="delete_objects" label="削除" />
+	</panel>
+</floater>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="script ed float" title="LSL Wiki">
+	<check_box name="lock_check" label="İmleci takip et" />
+	<combo_box name="history_combo" label="Kilit" />
+	<button name="back_btn" label="Geri" />
+	<button name="fwd_btn" label="İleri" />
+	<web_browser name="lsl_guide_html" />
+</floater>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Image Preview">
+	<text name="name_label">名前:</text>
+	<line_editor name="name_form" />
+	<text name="description_label">説明:</text>
+	<line_editor name="description_form" />
+	<text name="preview_label">画像を次としてプレビュー:</text>
+	<combo_box name="clothing_type_combo" label="衣類タイプ">
+		<combo_item name="Image">画像</combo_item>
+		<combo_item name="Hair">髪</combo_item>
+		<combo_item name="FemaleHead">女性の頭</combo_item>
+		<combo_item name="FemaleUpperBody">女性の上半身</combo_item>
+		<combo_item name="FemaleLowerBody">女性の下半身</combo_item>
+		<combo_item name="MaleHead">男性の頭</combo_item>
+		<combo_item name="MaleUpperBody">男性の上半身</combo_item>
+		<combo_item name="MaleLowerBody">男性の下半身</combo_item>
+		<combo_item name="Skirt">スカート</combo_item>
+		<combo_item name="SculptedPrim">スカルプテッドプリム</combo_item>
+	</combo_box>
+	<text name="bad_image_text">画像を読み込めません。24ビットのTarga（.tga）として保存して試してください。</text>
+	<check_box name="lossless_check" label="ロスレス圧縮を使用" />
+	<check_box name="temp_check" label="一時的（無料）" tool_tip="アセットを一時的にします。無料ですが、短時間しか存在しません。" />
+	<button name="cancel_btn" label="キャンセル" />
+	<button name="ok_btn" label="アップロード（[UPLOADFEE]）" />
+</floater>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Name/Description">
+	<text name="name_label">Имя:</text>
+	<line_editor name="name_form" />
+	<text name="description_label">Описание:</text>
+	<line_editor name="description_form" />
+	<button name="cancel_btn" label="Отмена" />
+	<button name="ok_btn" label="Загрузить ([UPLOADFEE])" />
+</floater>

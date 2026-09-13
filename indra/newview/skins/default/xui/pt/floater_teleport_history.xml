@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="teleporthistory" title="Histórico de TP">
+	<scroll_list name="places_list">
+		<column name="parcel" label="Parcela"/>
+		<column name="region" label="Região"/>
+		<column name="position" label="Posição"/>
+		<column name="visited" label="Visitado"/>
+		<column name="slurl"/>
+		<column name="simstring"/>
+	</scroll_list>
+	<button name="teleport" label="Teleporte" tool_tip="TP para o local selecionado"/>
+	<button name="show_on_map" label="Mostrar no mapa" tool_tip="Centralizar o mapa no local selecionado."/>
+	<button name="copy_slurl" label="Copiar SLURL" tool_tip="Copiar o local selecionado como SLURL."/>
+</floater>

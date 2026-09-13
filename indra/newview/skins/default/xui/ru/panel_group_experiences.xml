@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="experiences_tab" label="Опыты">
+	<string name="help_text">Здесь перечислен опыт, связанный с группой, если таковой имеется.</string>
+	<button name="help_button" label="?" />
+	<text name="panel_header">Групповой опыт</text>
+</panel>

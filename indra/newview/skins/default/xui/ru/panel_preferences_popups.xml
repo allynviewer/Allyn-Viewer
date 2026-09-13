@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="popups" label="Всплывающие окна" title="Всплывающие окна">
+	<check_box name="accept_new_inventory" label="Автоматически принимать предложения товаров" />
+	<check_box name="show_new_inventory" label="Просмотр элементов, доступных для предварительного просмотра, после принятия" />
+	<check_box name="show_in_inventory" label="Показывать вновь принятые объекты в инвентаре" />
+	<text name="show_label">ВСЕГДА ПОКАЗЫВАТЬ</text>
+	<icon name="section_show_rule" />
+	<scroll_list name="enabled_popups" />
+	<button name="reset_dialogs_btn" label="Включить все" tool_tip="Включите все дополнительные всплывающие окна и уведомления о первом использовании." />
+	<button name="enable_popup" />
+	<button name="disable_popup" />
+	<button name="skip_dialogs_btn" label="Отключить все" tool_tip="Отключите все дополнительные всплывающие окна и уведомления о первом использовании." />
+	<button name="skip_frst_btn" label="Отключить всплывающие окна при первом появлении..." tool_tip="Отключите все уведомления о первом использовании." />
+	<text name="dont_show_label">НИКОГДА НЕ ПОКАЗЫВАТЬ</text>
+	<icon name="section_hide_rule" />
+	<scroll_list name="disabled_popups" />
+</panel>

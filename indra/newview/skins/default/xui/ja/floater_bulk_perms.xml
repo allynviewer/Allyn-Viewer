@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floaterbulkperms" title="内容の権限を一括変更">
+	<text name="applyto">コンテンツの種類</text>
+	<icon name="icon_animation" />
+	<check_box name="check_animation" label="アニメーション" />
+	<icon name="icon_bodypart" />
+	<check_box name="check_bodypart" label="ボディパーツ" />
+	<icon name="icon_clothing" />
+	<check_box name="check_clothing" label="衣類" />
+	<icon name="icon_gesture" />
+	<check_box name="check_gesture" label="ジェスチャー" />
+	<icon name="icon_landmark" />
+	<check_box name="check_landmark" label="ランドマーク" />
+	<icon name="icon_notecard" />
+	<check_box name="check_notecard" label="ノートカード" />
+	<icon name="icon_object" />
+	<check_box name="check_object" label="オブジェクト" />
+	<icon name="icon_script" />
+	<check_box name="check_script" label="スクリプト" />
+	<icon name="icon_sound" />
+	<check_box name="check_sound" label="サウンド" />
+	<icon name="icon_texture" />
+	<check_box name="check_texture" label="テクスチャ" />
+	<button name="check_all" label="すべて選択" />
+	<button name="check_none" label="すべて解除" />
+	<text name="newperms">新しい権限</text>
+	<check_box name="share_with_group" label="グループと共有" />
+	<check_box name="everyone_copy" label="誰でもコピー可能" />
+	<text name="NextOwnerLabel">次の所有者は:</text>
+	<check_box name="next_owner_modify" label="変更" />
+	<check_box name="next_owner_copy" label="コピー" />
+	<check_box name="next_owner_transfer" label="転売／譲渡" />
+	<scroll_list name="queue output" />
+	<button name="help" label="ヘルプ" />
+	<button name="apply" label="適用" />
+	<button name="close" label="閉じる" />
+	<string name="nothing_to_modify_text">選択に編集できる内容がありません。</string>
+	<string name="status_text">[NAME] の権限を設定中</string>
+	<string name="start_text">権限の変更を開始しています...</string>
+	<string name="done_text">権限の変更が完了しました。</string>
+</floater>

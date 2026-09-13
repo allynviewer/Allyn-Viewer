@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Pick" title="Destaque">
+	<button label="Definir local" name="set_location_btn"/>
+	<button label="Abrir foto" name="open_picture_btn"/>
+	<button label="Teleportar" name="pick_teleport_btn"/>
+	<button label="No mapa" name="pick_map_btn"/>
+</panel>

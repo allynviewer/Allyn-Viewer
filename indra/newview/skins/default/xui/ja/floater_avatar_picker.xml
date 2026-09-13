@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="avatarpicker" title="レジデントを選択">
+	<string name="not_found">'[TEXT]' が見つかりません</string>
+	<string name="no_one_near">近くに誰もいません</string>
+	<string name="no_results">結果なし</string>
+	<string name="searching">検索中...</string>
+	<string name="Select">選択</string>
+	<string name="Close">閉じる</string>
+	<tab_container name="ResidentChooserTabs">
+		<panel name="SearchPanel" label="検索">
+			<text name="InstructSearchResidentName">名前の一部を入力:</text>
+			<line_editor name="Edit" />
+			<button name="Find" label="検索" />
+			<scroll_list name="SearchResults" />
+		</panel>
+		<panel name="FriendsPanel" label="フレンド">
+			<text name="InstructSelectFriend">人を選択:</text>
+			<button name="RefreshFriends" label="リストを更新" />
+			<scroll_list name="Friends" />
+		</panel>
+		<panel name="NearMePanel" label="近く">
+			<text name="InstructSelectResident">近くのレジデントを選択:</text>
+			<button name="Refresh" label="リストを更新" />
+			<slider name="near_me_range" label="範囲" />
+			<text name="meters">メートル</text>
+			<scroll_list name="NearMe" />
+		</panel>
+		<panel name="KeyPanel" label="UUID">
+			<text name="InstructSelectResident">アバター または グループ UUID:</text>
+			<line_editor name="EditUUID" />
+		</panel>
+	</tab_container>
+	<button name="ok_btn" label="OK" />
+	<button name="cancel_btn" label="キャンセル" />
+</floater>

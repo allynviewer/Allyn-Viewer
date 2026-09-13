@@ -1,0 +1,7 @@
+# Python packages needed to build Allyn Viewer.
+# Install with:  pip install -r requirements.txt
+#
+# autobuild >= 3.9 is required: the Second Life 3p-* packages referenced in
+# autobuild.xml are distributed as .tar.zst archives.
+autobuild>=3.10.0
+llsd>=1.2.0

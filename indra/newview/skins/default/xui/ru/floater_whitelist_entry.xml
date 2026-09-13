@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="whitelist_entry" title="ЗАПИСЬ В БЕЛОМ СПИСКЕ">
+	<text name="media_label">Введите URL-адрес или шаблон URL-адреса, чтобы добавить его в список разрешенных доменов.</text>
+	<line_editor name="whitelist_entry" tool_tip="Введите URL-адрес или шаблон URL-адреса в белый список." />
+	<button name="ok_btn" label="ОК" />
+	<button name="cancel_btn" label="Отмена" />
+</floater>

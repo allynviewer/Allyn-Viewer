@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Marketplace Panel" label="マーケットプレイス">
+	<panel name="tool_panel">
+		<button name="sort_btn" tool_tip="表示／並べ替えオプション" />
+		<button name="add_btn" tool_tip="新しい掲載フォルダを作成" />
+		<button name="audit_btn" label="エラーを確認" tool_tip="マーケットプレイスの掲載を確認" />
+	</panel>
+	<panel name="tab_container_panel">
+		<filter_editor name="filter_editor" label="マーケットプレイスの掲載を絞り込み" />
+		<tab_container name="marketplace_filter_tabs">
+			<inventory_panel name="All Items" label="すべて" />
+			<inventory_panel name="Active Items" label="アクティブ" />
+			<inventory_panel name="Inactive Items" label="非アクティブ" />
+			<inventory_panel name="Unassociated Items" label="未関連" />
+		</tab_container>
+	</panel>
+	<panel name="marketplace_drop_zone">
+		<text name="marketplace_drop_zone_text">フォルダをここにドロップして新しい掲載を作成</text>
+	</panel>
+</panel>

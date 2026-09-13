@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="godtools floater" title="Инструменты Бога" width="600" height="450" min_width="600" min_height="450">
+	<tab_container name="GodTools Tabs">
+		<panel name="grid" label="Грид">
+			<button name="Kick all users" label="Выгнать всех пользователей" />
+			<button name="Flush This Region's Map Visibility Caches" label="Очистить кеши видимости карты этого региона" />
+		</panel>
+		<panel name="region" label="Область">
+			<text name="Sim Name:">Имя Сима:</text>
+			<line_editor name="region name" />
+			<check_box name="check prelude" label="Прелюдия" tool_tip="Установите это значение, чтобы сделать регион прелюдией." />
+			<check_box name="check fixed sun" label="Фиксированное Солнце" tool_tip="Исправьте положение солнца (как в разделе «Регион/Эстейт» &gt; «Рельеф»)." />
+			<check_box name="check reset home" label="Сброс домой при телепорте" tool_tip="Когда житель телепортируется, верните его дом в место назначения." />
+			<check_box name="check visible" label="Видимый" tool_tip="Установите это, чтобы сделать регион видимым для не-богов." />
+			<check_box name="check damage" label="Урон" tool_tip="Установите это, чтобы включить урон в этом регионе." />
+			<check_box name="block dwell" label="Блокировать отслеживание трафика" tool_tip="Установите этот параметр, чтобы регион не рассчитывал трафик." />
+			<check_box name="block terraform" label="Блок Терраформирования" tool_tip="Установите это, чтобы запретить людям терраформировать свою землю." />
+			<check_box name="is sandbox" label="Песочница" tool_tip="Переключите, является ли это регионом песочницы." />
+			<check_box name="is gaming" label="Игры" tool_tip="Переключите, является ли это игровым регионом." />
+			<check_box name="hide from search" label="Скрыть регион из поиска" tool_tip="Включите переключатель, доступен ли вообще поиск в этом регионе." />
+			<button name="Bake Terrain" label="Запечь местность" tool_tip="Сохраните текущую местность по умолчанию." />
+			<button name="Revert Terrain" label="Восстановить ландшафт" tool_tip="Замените текущий ландшафт на стандартный." />
+			<button name="Swap Terrain" label="Сменить местность" tool_tip="Замените текущий ландшафт на стандартный." />
+			<text name="estate id">Идентификатор недвижимости:</text>
+			<line_editor name="estate" />
+			<text name="parent id">Идентификатор родителя:</text>
+			<line_editor name="parentestate" tool_tip="Это родительское эстейт для этого региона." />
+			<text name="Grid Pos: ">Позиция грида:</text>
+			<line_editor name="gridposx" tool_tip="Это позиция X грида для этого региона." />
+			<line_editor name="gridposy" tool_tip="Это позиция Y грида для этого региона." />
+			<text name="Redirect to Grid: ">Перенаправление в грид:</text>
+			<line_editor name="redirectx" />
+			<line_editor name="redirecty" />
+			<spinner name="billable factor" />
+			<text name="billable factor text">Оплачиваемый коэффициент:</text>
+			<spinner name="land cost" />
+			<text name="land cost text">[CURRENCY] за кв. метр:</text>
+			<button name="Refresh" label="Обновить" tool_tip="Нажмите здесь, чтобы обновить приведенную выше информацию." />
+			<button name="Apply" label="Применить" tool_tip="Нажмите здесь, чтобы применить любые изменения, внесенные выше." />
+			<button name="Select Region" label="Выберите регион" tool_tip="Выделите весь регион с помощью инструмента «Земля»." />
+			<button name="Autosave now" label="Автосохранение сейчас" tool_tip="Сохраните сжатое состояние в каталог автосохранения." />
+		</panel>
+		<panel name="objects" label="Объекты">
+			<string name="no_target">(нет цели)</string>
+			<text name="Sim Name:">Имя Сима:</text>
+			<text name="region name">Welsh</text>
+			<check_box name="disable scripts" label="Отключить сценарии" tool_tip="Установите это, чтобы отключить все скрипты в этом регионе." />
+			<check_box name="disable collisions" label="Отключить столкновения" tool_tip="Установите этот параметр, чтобы отключить конфликты без агентов в этом регионе." />
+			<check_box name="disable physics" label="Отключить физику" tool_tip="Установите это, чтобы отключить всю физику в этом регионе." />
+			<button name="Apply" label="Применить" tool_tip="Нажмите здесь, чтобы применить любые изменения, внесенные выше." />
+			<button name="Set Target" label="Установить цель" tool_tip="Установите целевой аватар для удаления объекта." />
+			<text name="target_avatar_name">(нет цели)</text>
+			<button name="Delete Target's Scripted Objects On Others Land" label="Удалить заскриптованные объекты цели на чужой земле" tool_tip="Удалите все заскриптованные объекты, принадлежащие цели, на земле, не принадлежащей цели. (без копии) объекты будут возвращены." />
+			<button name="Delete Target's Scripted Objects On *Any* Land" label="Удалить заскриптованные объекты цели на *любой* земле" tool_tip="Удалите все объекты сценария, принадлежащие цели в этом регионе. (без копии) объекты будут возвращены." />
+			<button name="Delete *ALL* Of Target's Objects" label="Удалить *ВСЕ* объекты цели" tool_tip="Удалите все объекты, принадлежащие цели в этом регионе. (без копии) объекты будут возвращены." />
+			<button name="Get Top Colliders" label="Получите лучшие коллайдеры" tool_tip="Получает список объектов, испытывающих наиболее узкофазные обратные вызовы." />
+			<button name="Get Top Scripts" label="Получите лучшие сценарии" tool_tip="Получает список объектов, которые тратят больше всего времени на выполнение сценариев." />
+			<button name="Scripts digest" label="Дайджест скриптов" tool_tip="Получает список всех сценариев и количество вхождений каждого из них." />
+		</panel>
+		<panel name="request" label="Запрос">
+			<text name="Destination:">Место назначения:</text>
+			<combo_box name="destination">
+				<combo_item name="Selection">Выбор</combo_item>
+				<combo_item name="AgentRegion">Регион агента</combo_item>
+			</combo_box>
+			<text name="Request:">Запрос:</text>
+			<combo_box name="request">
+				<combo_item name="colliders&lt;steps&gt;">коллайдеры &lt;шаги&gt;</combo_item>
+				<combo_item name="scripts&lt;count&gt;,&lt;optionalpattern&gt;">скрипты &lt;количество&gt;,&lt;необязательный шаблон&gt;</combo_item>
+				<combo_item name="objects&lt;pattern&gt;">объекты &lt;шаблон&gt;</combo_item>
+				<combo_item name="rez&lt;asset_id&gt;">rez &lt;asset_id&gt;</combo_item>
+			</combo_box>
+			<text name="Parameter:">Параметр:</text>
+			<line_editor name="parameter" />
+			<button name="Make Request" label="Сделать запрос" />
+		</panel>
+	</tab_container>
+</floater>

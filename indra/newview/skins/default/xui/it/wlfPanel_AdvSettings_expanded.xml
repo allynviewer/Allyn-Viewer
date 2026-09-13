@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Adv_Settings">
+	<text name="Camera Preset:">Preset camera:</text>
+	<button name="Rear" tool_tip="Vista posteriore"/>
+	<button name="Front" tool_tip="Vista frontale"/>
+	<button name="Group" tool_tip="Vista laterale"/>
+	<slider name="DrawDistance" label="Dist. disegno:" tool_tip="Cambia la distanza di disegno"/>
+	<slider name="HoverHeightSlider" label="Alt. hover:"/>
+	<slider name="MaxParticleCount" label="Particelle:" tool_tip="Quantità di particelle da renderizzare"/>
+	<slider name="RenderAvatarMaxVisible" label="Max avatar:" tool_tip="Quanti avatar renderizzare completamente sullo schermo. Ridurlo migliora molto gli FPS in situazioni affollate. Richiede Avatar Impostors attivo. [Predefinito 35]"/>
+	<slider name="Object Detail" label="Dett. ogg.:" tool_tip="Controlla il livello di dettaglio delle primitive (moltiplicatore per l'area dello schermo corrente nel calcolo del livello di dettaglio [0.5-2.0 è stabile])"/>
+	<button name="PostProcessButton" tool_tip="Effetti post-processo"/>
+	<combo_box name="PostProcessPresetsCombo" tool_tip="Preset post-processo"/>
+	<button name="EnvAdvancedSkyButton" tool_tip="Cielo avanzato"/>
+	<combo_box name="WLSkyPresetsCombo" tool_tip="Preset WindLight per il tuo cielo."/>
+	<button name="EnvAdvancedWaterButton" tool_tip="Acqua avanzata"/>
+	<combo_box name="WLWaterPresetsCombo" tool_tip="Preset WindLight per la tua acqua."/>
+	<check_box name="use_estate_wl" label="Windlight regione" tool_tip="Usa le impostazioni Windlight della regione quando disponibili."/>
+	<check_box name="Crossfade" label="Dissolvenza incrociata?" tool_tip="Se deselezionato, le modifiche alle impostazioni Windlight del cielo si applicano subito, senza transizione/animazione."/>
+	<button name="expand" tool_tip="Nascondi il pannello impostazioni"/>
+</panel>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="chat" label="ボイスチャット">
+	<string name="multivoice_label" value="複数のインスタンスで同時にボイスを使えるようにする（再起動が必要）"/>
+	<scroll_container name="voice_scroll">
+		<panel name="voice_scroll_inner">
+			<text name="voice_unavailable">ボイスチャットは利用できません</text>
+			<check_box name="enable_voice_check" label="ボイスチャットを有効にする" />
+			<check_box name="enable_multivoice_check" />
+			<radio_group name="ear_location">
+				<radio_item name="0">カメラ位置からボイスチャットを聞く。</radio_item>
+				<radio_item name="1">アバター位置からボイスチャットを聞く。</radio_item>
+				<radio_item name="3">全員のボイスチャットを同じ音量で聞く。</radio_item>
+			</radio_group>
+			<text name="push_to_talk_heading">プッシュトゥトーク</text>
+			<icon name="section_ptt_rule" />
+			<check_box name="push_to_talk_toggle_check" label="プッシュトゥトークをトグルモードで使用" tool_tip="オンにすると、トリガーを押すたびにマイクのオン／オフが切り替わります。オフのときは、トリガーを押し続けている間だけマイクがオンになります。" />
+			<text name="push_to_talk_label">プッシュトゥトークのトリガー:</text>
+			<line_editor name="modifier_combo" />
+			<button name="set_voice_hotkey_button" label="キーを設定" />
+			<button name="set_voice_middlemouse_button" label="マウス中ボタン" />
+			<check_box name="enable_lip_sync_check" label="リップシンクアニメーションを有効にする" />
+			<check_box name="voice_call_friends_only_check" label="フレンドリストの相手からのボイス通話のみ受け付ける" />
+			<check_box name="auto_disengage_mic_check" label="IM通話終了時にマイクを切る" />
+			<check_box name="echo_cancellation_check" label="エコーキャンセル" />
+			<check_box name="agc_check" label="自動ゲインコントロール" />
+			<text name="noise_suppression_label">ノイズ抑制:</text>
+			<combo_box name="noise_suppression_combo">
+				<combo_item name="0">無効</combo_item>
+				<combo_item name="1">低</combo_item>
+				<combo_item name="2">中</combo_item>
+				<combo_item name="3">高</combo_item>
+				<combo_item name="4">非常に高い</combo_item>
+			</combo_box>
+			<button name="device_settings_btn" label="デバイス設定" tool_tip="デバイス設定を開きます。このウィンドウを開いている間、ボイスチャットは一時停止します。" />
+		</panel>
+	</scroll_container>
+</panel>

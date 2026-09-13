@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="im_floater" label="（不明）" title="（不明）">
+	<string name="ringing">ボイスチャットに参加中...</string>
+	<string name="connected">接続済み。「通話終了」をクリックすると切断します</string>
+	<string name="hang_up">ボイスチャットを退出しました</string>
+	<string name="voice_icon">icn_voice-groupfocus.tga</string>
+	<string name="title_string">[NAME]とのIM</string>
+	<string name="typing_start_string">[NAME]が入力中...</string>
+	<string name="session_start_string">[NAME]とのセッションを開始しています。しばらくお待ちください。</string>
+	<string name="default_text_label">クリックしてIMを送信</string>
+	<string name="moderated_chat_label">（モデレート: ボイスはデフォルトでオフ）</string>
+	<string name="muted_text_label">グループモデレーターにより、テキストチャットが無効になりました。</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<button name="group_info_btn" label="グループ情報" />
+			<button name="history_btn" label="履歴" />
+			<button name="ding_btn" label="通知音" />
+			<check_box name="Support Check" label="ビルドを送信" tool_tip="オフにするとビルド番号の送信を停止します" />
+			<check_box name="im_translate_check" tool_tip="チェックして翻訳を有効にする" />
+			<button name="im_translate_btn" label="翻訳" tool_tip="このグループの言語を設定" />
+			<button name="start_call_btn" label="通話に参加" />
+			<button name="end_call_btn" label="通話終了" />
+			<button name="toggle_active_speakers_btn" label="&lt; &lt;" tool_tip="クリックすると、このIMセッションの参加者リストを切り替えます。" />
+			<text_editor name="im_history" />
+			<line_editor name="chat_editor" />
+			<button name="send_btn" label="送信" />
+		</layout_panel>
+		<layout_panel name="active_speakers_panel" />
+	</layout_stack>
+	<string name="live_help_dialog">
+		*** ヘルプリクエストへようこそ ***
+まず F1 キーで SL ヘルプページを確認するか、ナレッジベース http://secondlife.com/knowledgebase/ にアクセスしてください。
+答えが見つからない場合は、質問を入力して開始してください。対応可能なヘルパーが応答するまで少々お待ちください。
+-=-=- 応答時間は変動します。特にピーク時はご注意ください -=-=-
+	</string>
+</floater>

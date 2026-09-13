@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="panel_experiences_search" label="Cerca">
+	<string name="not_found">'[TEXT]' non trovato</string>
+	<string name="no_results">Nessun risultato</string>
+	<string name="searching">Ricerca...</string>
+	<string name="loading">Caricamento...</string>
+	<string name="maturity_icon_general">&quot;map_event.tga&quot;</string>
+	<string name="maturity_icon_moderate">&quot;map_event_mature.tga&quot;</string>
+	<string name="maturity_icon_adult">&quot;map_event_adult.tga&quot;</string>
+	<panel name="search_panel">
+		<text name="search_text">Inserisci parte del nome:</text>
+		<button name="find" label="Vai"/>
+		<text name="content_text">Classificazione contenuto max:</text>
+		<combo_box name="maturity" label="Mature">
+			<combo_box.item name="Adult" label="Adult"/>
+			<combo_box.item name="Mature" label="Mature"/>
+			<combo_box.item name="PG" label="PG"/>
+		</combo_box>
+		<scroll_list name="search_results">
+			<columns name="experience_name" label="Nome"/>
+			<columns name="owner" label="Proprietario"/>
+		</scroll_list>
+		<button name="ok_btn" label="OK" label_selected="OK"/>
+		<button name="cancel_btn" label="Annulla"/>
+		<button name="profile_btn" label="Vedi profilo"/>
+	</panel>
+</panel>

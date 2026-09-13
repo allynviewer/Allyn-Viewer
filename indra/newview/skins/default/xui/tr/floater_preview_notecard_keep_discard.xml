@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview notecard" title="Not:">
+	<icon name="lock" />
+	<text name="desc txt">Açıklama:</text>
+	<line_editor name="desc" />
+	<menu_bar name="motecard_menu">
+		<menu name="Edit" label="Düzenle">
+			<menu_item_call name="Undo" label="Geri al" />
+			<menu_item_call name="Redo" label="Yinele" />
+			<menu_item_call name="Cut" label="Kes" />
+			<menu_item_call name="Copy" label="Kopyala" />
+			<menu_item_call name="Paste" label="Yapıştır" />
+			<menu_item_call name="Select All" label="Tümünü Seç" />
+			<menu_item_call name="Deselect" label="Seçimi kaldır" />
+			<menu_item_call name="Search / Replace..." label="Ara / Değiştir..." />
+		</menu>
+	</menu_bar>
+	<text_editor name="Notecard Editor">Yükleniyor...</text_editor>
+	<button name="Keep" label="Tut" />
+	<button name="Save" label="Kaydet" />
+	<button name="Discard" label="At" />
+	<string name="no_object">Bu notu içeren nesne bulunamadı.</string>
+	<string name="not_allowed">Bu notu görüntüleme izniniz yok.</string>
+</floater>

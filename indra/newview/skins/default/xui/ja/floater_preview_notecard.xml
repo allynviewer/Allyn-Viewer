@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview notecard" title="ノートカード:">
+	<button name="Get Items" label="アイテムを取得" />
+	<icon name="lock" />
+	<text name="desc txt">説明:</text>
+	<line_editor name="desc" />
+	<menu_bar name="motecard_menu">
+		<menu name="Edit" label="編集">
+			<menu_item_call name="Undo" label="元に戻す" />
+			<menu_item_call name="Redo" label="やり直し" />
+			<menu_item_call name="Cut" label="切り取り" />
+			<menu_item_call name="Copy" label="コピー" />
+			<menu_item_call name="Paste" label="貼り付け" />
+			<menu_item_call name="Select All" label="すべて選択" />
+			<menu_item_call name="Deselect" label="選択解除" />
+			<menu_item_call name="Search / Replace..." label="検索／置換..." />
+		</menu>
+	</menu_bar>
+	<text_editor name="Notecard Editor">読み込み中...</text_editor>
+	<button name="Save" label="保存" />
+	<string name="no_object">このノートカードを含むオブジェクトが見つかりません。</string>
+	<string name="not_allowed">このノートカードを表示する権限がありません。</string>
+</floater>

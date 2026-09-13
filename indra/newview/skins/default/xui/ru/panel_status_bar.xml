@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="status">
+	<text name="ParcelNameText" tool_tip="Название парцела, на котором вы находитесь. Нажмите «О земле».">Название парцела</text>
+	<text name="BalanceText" tool_tip="Баланс счета">Загрузка...</text>
+	<text name="UPCText" tool_tip="Загрузить кредиты">UPC - N/A -</text>
+	<button name="buycurrency" tool_tip="Купить валюту" />
+	<text name="TimeText" tool_tip="Текущее время (Тихоокеанский регион)">12:00 AM</text>
+	<string name="StatBarDaysOfWeek">Воскресенье:Понедельник:Вторник:Среда:Четверг:Пятница:Суббота</string>
+	<string name="StatBarMonthsOfYear">Январь:Февраль:Март:Апрель:Май:Июнь:Июль:Август:Сентябрь:Октябрь:Ноябрь:Декабрь</string>
+	<button name="scriptout" tool_tip="Предупреждения и ошибки скрипта" />
+	<button name="health" tool_tip="Здоровье" />
+	<text name="HealthText" tool_tip="Здоровье">100%</text>
+	<button name="no_fly" tool_tip="Летать запрещено" />
+	<button name="no_build" tool_tip="Строительство/передвижение запрещено" />
+	<button name="no_scripts" tool_tip="Скрипты не разрешены" />
+	<button name="restrictpush" tool_tip="Никаких нажатий" />
+	<button name="status_no_voice" tool_tip="Голос здесь недоступен" />
+	<button name="status_SeeAV" tool_tip="У Parcel есть конфиденциальность аватара" />
+	<button name="pf_dirty" tool_tip="Перемещающиеся объекты могут вести себя в этом регионе неправильно, пока регион не будет перезапечен." />
+	<button name="pf_disabled" tool_tip="Динамический поиск пути в этом регионе не включен." />
+	<button name="buyland" tool_tip="Купить эту парцел" />
+	<button name="menubar_search_bevel_bg" />
+	<line_editor name="search_editor" label="Поиск" tool_tip="Поиск" />
+	<button name="search_btn" tool_tip="Поиск" />
+	<text name="stat_btn" />
+	<string name="packet_loss_tooltip">Потеря пакетов</string>
+	<string name="bandwidth_tooltip">Пропускная способность</string>
+	<string name="Local">Местный</string>
+</panel>

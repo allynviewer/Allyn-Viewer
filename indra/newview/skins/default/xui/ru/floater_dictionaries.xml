@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="EmeraldIRC_dictionaries" title="Загрузите новые словари">
+	<text name="EmDics_txt">
+		Ниже приведен список дополнительных словарей, которые могут
+можно загрузить с веб-сайта зрителя.
+
+Пожалуйста, выберите словарь, который вы хотите иметь в наличии
+для установки, а затем нажмите кнопку загрузки.
+	</text>
+	<combo_box name="Emerald_combo_dics" />
+	<button name="Emerald_dic_download" label="Скачать" />
+</floater>

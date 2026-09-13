@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="test" title="UIテスト">
+	<tab_container name="test_tab">
+		<panel name="first_tab_panel" label="ウィジェット">
+			<text name="section_buttons">ボタン</text>
+			<button name="can't click" label="クリック不可" tool_tip="無効なボタン"/>
+			<button name="can click" label="クリック可" tool_tip="有効なボタン"/>
+			<button name="unicode_btn" label="Unicode" tool_tip="Unicodeラベルのボタン"/>
+			<button name="image_btn" tool_tip="画像ボタン"/>
+			<text name="section_options">オプション</text>
+			<check_box name="simple_check" label="シンプルなチェック"/>
+			<check_box name="unicode_check" label="Unicodeチェック"/>
+			<combo_box name="combo" tool_tip="サンプルのコンボボックス">
+				<combo_item name="top_item">先頭に表示</combo_item>
+				<combo_item name="first_item">最初の項目</combo_item>
+				<combo_item name="second_item">2番目の項目</combo_item>
+				<combo_item name="disabled_item">無効な項目</combo_item>
+			</combo_box>
+			<text name="section_radio">ラジオ</text>
+			<radio_group name="radio_group">
+				<radio_item name="Radio1">ラジオ 1</radio_item>
+				<radio_item name="Radio2">ラジオ 2</radio_item>
+				<radio_item name="Radio3">ラジオ 3</radio_item>
+			</radio_group>
+			<text_editor name="widgets_help">
+このウィンドウは一般的なUIウィジェットを確認します。
+
+クリック、チェック、コンボ、ラジオはビューアのコンソールに記録されます。
+			</text_editor>
+			<text name="section_line">行エディタ</text>
+			<line_editor name="test_line">ここにUnicodeテキストを入力</line_editor>
+			<text name="section_slider">スライダー</text>
+			<text name="section_names">名前リスト</text>
+			<name_list name="test_name_list">
+				<column name="name" label="名前"/>
+			</name_list>
+		</panel>
+		<panel name="second_tab_panel" label="リスト">
+			<text name="lists_help">UIウィジェットのサンプル一覧。行をクリックすると選択が記録されます。</text>
+			<button name="Simple Button" label="シンプルボタン"/>
+			<scroll_list name="test_scroll_list">
+				<column name="widget" label="ウィジェット"/>
+				<column name="notes" label="メモ"/>
+			</scroll_list>
+		</panel>
+		<panel name="text_tab_panel" label="テキスト">
+			<text name="simple_text">Sans-serifテキスト（マウス不透明 — クリック）</text>
+			<text name="simple2_text" tool_tip="ツールチップです">ツールチップ付きモノスペース（マウス非不透明）</text>
+			<text name="unicode_text" tool_tip="これはUnicodeテキストであるべきです">ファイル</text>
+			<text_editor name="test_text_editor">
+これは複数行のテキストエディタです。
+
+ウィンドウに合わせて伸縮し、Test UIが内部領域全体を使います。
+
+ここに入力してキーボード、スクロール、折り返しを確認してください。
+			</text_editor>
+		</panel>
+	</tab_container>
+</floater>

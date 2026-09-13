@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="General" name="general_panel">
+	<scroll_container name="general_scroll">
+		<panel name="general_scroll_inner">
+			<radio_group name="default_start_location" width="250">
+				<radio_item name="home" tool_tip="Entrar en Mi Base por defecto.">Mi Base</radio_item>
+				<radio_item name="last" tool_tip="Entrar en mi última ubicación por defecto.">Mi Última Ubicación</radio_item>
+			</radio_group>
+			<check_box label="Mostrar Ubicación Inicial en Inicio de Sesión" name="show_location_checkbox" />
+			<combo_box name="fade_out_combobox">
+				<combo_item name="Never">Nunca</combo_item>
+				<combo_item name="Show Temporarily">Temporal</combo_item>
+				<combo_item name="Always">Siempre</combo_item>
+			</combo_box>
+			<combo_box name="namesystem_combobox" width="166">
+				<combo_item name="Old Names">Antiguos</combo_item>
+				<combo_item name="Display Names (with Username)">Mostrados (c/usuario)</combo_item>
+				<combo_item name="Display Names only">Solo mostrados</combo_item>
+				<combo_item name="Old Names (with Display Names)">Antiguos (c/mostrados)</combo_item>
+			</combo_box>
+			<check_box label="Mostrar Resident" name="show_resident_checkbox" left_delta="164" />
+			<check_box label="Nombres pequeños" name="small_avatar_names_checkbox" />
+			<check_box label="Ocultar mi Nombre en mi Pantalla" name="show_my_name_checkbox" />
+			<text name="group_titles_textbox">TÍTULOS DE GRUPO</text>
+			<check_box label="Ocultar todos los títulos" name="show_all_title_checkbox" />
+			<check_box label="Ocultar mi título" name="show_my_title_checkbox" />
+			<text name="UI Size:">TAMAÑO UI</text>
+			<slider name="ui_scale_slider" />
+			<check_box label="Resolución independiente del tamaño" name="ui_auto_scale" />
+			<check_box label="Ausente si inactivo" name="away_when_idle_checkbox" />
+			<spinner label="Tras:" name="afk_timeout_spinner" label_width="71" left="236" />
+			<check_box label="Avisar cuando gasto o recibo dinero" name="notify_money_change_checkbox" />
+			<check_box bottom="-257" height="16" label="Sin Ventana Emergente" name="no_transaction_clutter_checkbox" tool_tip="Siguen existiendo las notificaciones, pero la ventana emergente en la esquina superior derecha aparecerá momentáneamente y desaparecerá, de esta manera la transacción de dinero llamará la atención pero no exigirá tu atención." />
+			<text name="maturity_desired_label">Calif.:</text>
+			<text name="maturity_desired_prompt">Quiero acceder a contenido</text>
+			<combo_box name="maturity_desired_combobox" width="145">
+				<combo_item name="Desired_Adult">PG, Moderado y Adulto</combo_item>
+				<combo_item name="Desired_Mature">PG y Moderado</combo_item>
+				<combo_item name="Desired_PG">Sólo PG</combo_item>
+			</combo_box>
+			<text name="maturity_desired_textbox">Sólo PG</text>
+			<text name="start_location_textbox">Ubicación Inicial:</text>
+			<text name="show_names_textbox">NOMBRES</text>
+			<text name="seconds_textbox" left="376">segundos</text>
+			<text name="crash_report_textbox">Fallos:</text>
+			<text name="language_textbox">Idioma:</text>
+			<text name="language_textbox2">(Reinicio)</text>
+			<combo_box name="language_combobox">
+				<combo_item name="System Default Language">Predeterminado</combo_item>
+				<combo_item name="English">English</combo_item>
+				<combo_item name="Deutsch(German)">Deutsch</combo_item>
+				<combo_item name="Spanish">Español</combo_item>
+				<combo_item name="French">Français</combo_item>
+				<combo_item name="Italian">Italiano</combo_item>
+				<combo_item name="Portugese">Português</combo_item>
+				<combo_item name="Turkish" value="tr">Türkçe</combo_item>
+				<combo_item name="Russian" value="ru">Русский</combo_item>
+				<combo_item name="Japanese" value="ja">日本語</combo_item>
+			</combo_box>
+			<string name="region_name_prompt">&lt;Nombre de región&gt;</string>
+			<combo_box name="crash_behavior_combobox">
+				<combo_item name="Askbeforesending">Preguntar antes</combo_item>
+				<combo_item name="Alwayssend">Enviar siempre</combo_item>
+				<combo_item name="Neversend">Nunca enviar</combo_item>
+			</combo_box>
+			<check_box label="Compartir idioma con los objetos" name="language_is_public" tool_tip="Esta opción le permite a los objetos conocer tu idioma seleccionado." />
+			<button label="Restablecer todo" name="clear_settings" />
+		</panel>
+	</scroll_container>
+</panel>

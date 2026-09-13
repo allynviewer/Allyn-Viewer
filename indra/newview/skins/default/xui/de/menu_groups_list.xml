@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="groups_menu">
+	<menu_item_call name="show_group" label="Profil anzeigen"/>
+	<menu_item_call name="im_group" label="Gruppenchat öffnen"/>
+	<menu_item_call name="call_group" label="Gruppe anrufen"/>
+	<menu_item_call name="activate_group" label="Gruppe aktivieren"/>
+	<menu_item_call name="Chat History" label="Chat-Verlauf"/>
+	<menu_item_call name="join_group" label="Gruppe beitreten"/>
+	<menu_item_call name="leave_group" label="Gruppe verlassen"/>
+	<menu_item_call name="copy_name" label="Name kopieren"/>
+	<menu_item_call name="copy_url" label="SLURL kopieren"/>
+	<menu_item_call name="copy_key" label="Schlüssel kopieren"/>
+</menu>

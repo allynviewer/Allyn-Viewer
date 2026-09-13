@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="popup">
+	<menu_item_call name="Zoom Close" label="Yakınlaştır" />
+	<menu_item_call name="Zoom Medium" label="Yakınlaştırma Ortamı" />
+	<menu_item_call name="Zoom Far" label="Uzak Yakınlaştır" />
+	<menu_item_check name="Center on Camera" label="Kamerayı Ortala" />
+	<menu_item_check name="Rotate Mini-Map" label="Mini Haritayı Döndür" />
+	<menu name="Minimap Show" label="Göster">
+		<menu_item_check name="Objects" label="Nesneler" />
+		<menu_item_check name="Property Lines" label="Mülkiyet Hatları" />
+		<menu_item_check name="Parcels for Sale" label="Satılık Parseller" />
+		<menu_item_check name="Radar Tracking Circles" label="Radar Takip Çevreleri" />
+	</menu>
+	<menu name="Chat Distance Rings" label="Sohbet Mesafe Halkaları">
+		<menu_item_check name="Show All" label="Tümünü Göster" />
+		<menu_item_check name="Show Whisper Ring" label="Fısıltı Zilini Göster" />
+		<menu_item_check name="Show Chat Ring" label="Sohbet Zilini Göster" />
+		<menu_item_check name="Show Shout Ring" label="Bağırma Halkasını Göster" />
+	</menu>
+	<menu_item_call name="Stop Tracking" label="Takibi Durdur" />
+	<menu name="Mark" label="işaret">
+		<menu_item_call name="Red" label="Kırmızı" />
+		<menu_item_call name="Green" label="Yeşil" />
+		<menu_item_call name="Blue" label="Mavi" />
+		<menu_item_call name="Yellow" label="Sarı" />
+		<menu_item_call name="Custom" label="Özel..." />
+	</menu>
+	<menu_item_call name="Unmark" label="İşareti kaldır" />
+	<menu name="avs_menu" label="Seçilen Avatarlar" />
+	<menu_item_check name="World Map Textures" label="Dünya Haritası Dokuları" />
+</menu>

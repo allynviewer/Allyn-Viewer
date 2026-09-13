@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="geminifloater" title="AO Ayarları">
+	<drop_target name="ao_notecard" label="Buraya bir ZHAO not kartı bırakın" tool_tip="Buraya bir ZHAO not kartı bırakın. Animasyonların not kartıyla aynı envanter klasöründe olması gerekir."/>
+	<button name="opencard" label="" tool_tip="Geçerli AO not kartını görüntüle"/>
+	<button name="reloadcard" label="" tool_tip="Animasyonları AO not kartından yeniden yükle"/>
+	<button name="newcard" label="" tool_tip="Envanterde yeni bir AO not kartı şablonu oluştur"/>
+	<check_box name="AOEnabled" label="Animasyon geçersiz kılmayı etkinleştir" tool_tip="Animasyon geçersiz kılıcıyı açar veya kapatır"/>
+	<check_box name="AOSwimEnabled" label="Yüzme geçersiz kılmayı etkinleştir" tool_tip="Su altındayken uçuş animasyonlarını yüzme ile değiştirir"/>
+	<check_box name="AOSitsEnabled" label="Oturuş geçersiz kılmayı etkinleştir" tool_tip="Oturma ve yere oturma animasyonlarını geçersiz kılar"/>
+	<text name="buttons_desc">Standlar:</text>
+	<combo_box name="stands" tool_tip="Geçerli stand animasyonu"/>
+	<button name="prevstand" label="" tool_tip="Önceki stand"/>
+	<button name="nextstand" label="" tool_tip="Sonraki stand"/>
+	<check_box name="AOStandRandomize" label="Stand sırasını rastgele seç" tool_tip="Standları sırayla değil rastgele değiştirir"/>
+	<check_box name="AONoStandsInMouselook" label="Mouselook'ta standları kapat" tool_tip="Mouselook sırasında stand animasyonlarını durdurur"/>
+	<check_box name="ao_remote_checkbox" label="AO toolbar'ını göster" tool_tip="Alt araç çubuğunda AO kumandasını gösterir"/>
+	<spinner name="standtime" label="Stand süresi:" tool_tip="Her standın saniye cinsinden süresi"/>
+	<button name="more_btn" label="Daha Fazla &gt;&gt;" label_selected="&lt;&lt; Daha Az" tool_tip="Varsayılan animasyon atamalarını göster veya gizle"/>
+	<tab_container name="tabcontainer" label="Varsayılan">
+		<panel name="tabdefaultanims" label="Varsayılan animler">
+			<text name="textdefaultwalk">Walk:</text>
+			<combo_box name="walks" tool_tip="Varsayılan yürüyüş animasyonu"/>
+			<text name="textdefaultrun">Run:</text>
+			<combo_box name="runs" tool_tip="Varsayılan koşu animasyonu"/>
+			<text name="textdefaultjump">Jump:</text>
+			<combo_box name="jumps" tool_tip="Varsayılan atlama animasyonu"/>
+			<text name="textdefaultsit">Sit:</text>
+			<combo_box name="sits" tool_tip="Varsayılan oturma animasyonu"/>
+			<text name="textdefaultgsit">Ground sit:</text>
+			<combo_box name="gsits" tool_tip="Varsayılan yere oturma animasyonu"/>
+			<text name="textdefaultcrouch">Crouch:</text>
+			<combo_box name="crouchs" tool_tip="Varsayılan çömelme animasyonu"/>
+			<text name="textdefaultcrouchwalk">Crouch walk:</text>
+			<combo_box name="cwalks" tool_tip="Varsayılan çömelerek yürüyüş animasyonu"/>
+			<text name="textdefaultfall">Fall:</text>
+			<combo_box name="falls" tool_tip="Varsayılan düşme animasyonu"/>
+			<text name="textdefaulthover">Hover:</text>
+			<combo_box name="hovers" tool_tip="Varsayılan hover animasyonu"/>
+			<text name="textdefaultfly">Fly:</text>
+			<combo_box name="flys" tool_tip="Varsayılan uçuş animasyonu"/>
+			<text name="textdefaultflyslow">Slow fly:</text>
+			<combo_box name="flyslows" tool_tip="Varsayılan yavaş uçuş animasyonu"/>
+			<text name="textdefaultflyup">Fly up:</text>
+			<combo_box name="flyups" tool_tip="Varsayılan yukarı uçuş animasyonu"/>
+			<text name="textdefaultflydown">Fly down:</text>
+			<combo_box name="flydowns" tool_tip="Varsayılan aşağı uçuş animasyonu"/>
+			<text name="textdefaultland">Land:</text>
+			<combo_box name="lands" tool_tip="Varsayılan iniş animasyonu"/>
+			<text name="textdefaultstandup">Stand up:</text>
+			<combo_box name="standups" tool_tip="Varsayılan ayağa kalkma animasyonu"/>
+			<text name="textdefaultprejump">Pre-jump:</text>
+			<combo_box name="prejumps" tool_tip="Varsayılan atlama öncesi animasyonu"/>
+			<text name="textdefaultfloat">Float:</text>
+			<combo_box name="floats" tool_tip="Varsayılan süzülme animasyonu"/>
+			<text name="textdefaultswim">Swim:</text>
+			<combo_box name="swims" tool_tip="Varsayılan yüzme animasyonu"/>
+			<text name="textdefaultswimup">Swim up:</text>
+			<combo_box name="swimups" tool_tip="Varsayılan yukarı yüzme animasyonu"/>
+			<text name="textdefaultswimdown">Swim down:</text>
+			<combo_box name="swimdowns" tool_tip="Varsayılan aşağı yüzme animasyonu"/>
+			<text name="textdefaulttyping">Typing:</text>
+			<combo_box name="typings" tool_tip="Varsayılan yazma animasyonu"/>
+		</panel>
+	</tab_container>
+</floater>

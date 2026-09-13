@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Image Preview">
+	<text name="preview_label">プレビュー 画像 as:</text>
+	<combo_box name="clothing_type_combo" label="Clothing タイプ">
+		<combo_item name="Image">画像</combo_item>
+		<combo_item name="Hair">髪</combo_item>
+		<combo_item name="FemaleHead">女性の頭</combo_item>
+		<combo_item name="FemaleUpperBody">女性の上半身</combo_item>
+		<combo_item name="FemaleLowerBody">Female より低い Body</combo_item>
+		<combo_item name="MaleHead">男性の頭</combo_item>
+		<combo_item name="MaleUpperBody">男性の上半身</combo_item>
+		<combo_item name="MaleLowerBody">Male より低い Body</combo_item>
+		<combo_item name="Skirt">スカート</combo_item>
+		<combo_item name="SculptedPrim">Sculpted プリム</combo_item>
+	</combo_box>
+</floater>

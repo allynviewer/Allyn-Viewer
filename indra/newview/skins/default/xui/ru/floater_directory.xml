@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="directory" title="Поиск">
+	<tab_container name="Directory Tabs">
+		<panel name="people_panel" label="Люди">
+			<string name="searching_text">Идет поиск...</string>
+			<string name="not_found_text">Ничего не найдено.</string>
+			<text name="find">Находить:</text>
+			<line_editor name="name" />
+			<button name="Search" label="Поиск" />
+			<scroll_list name="results">
+				<column name="icon" />
+				<column name="type" />
+				<column name="name" label="Имя" />
+			</scroll_list>
+			<text name="result_text" />
+			<button name="Next &gt;" label="Далее &gt;" />
+			<button name="&lt; Prev" label="&lt; Предыдущий" />
+		</panel>
+		<panel name="groups_panel" label="Группы">
+			<string name="searching_text">Идет поиск...</string>
+			<string name="not_found_text">Ничего не найдено.</string>
+			<button name="Next &gt;" label="Далее &gt;" />
+			<button name="&lt; Prev" label="&lt; Предыдущий" />
+			<text name="find">Находить:</text>
+			<line_editor name="name" />
+			<button name="Search" label="Поиск" left="286" />
+			<check_box name="incpg" label="Общий контент" width="140" />
+			<check_box name="incmature" label="Чувствительный контент" left_delta="150" width="190" />
+			<check_box name="incadult" label="Контент для взрослых" left_delta="200" width="180" />
+			<check_box name="filter_gaming" label="Скрыть игры" />
+			<scroll_list name="results">
+				<column name="icon" />
+				<column name="type" />
+				<column name="name" label="Имя" />
+				<column name="members" label="Члены" />
+				<column name="score" />
+			</scroll_list>
+			<text name="result_text" />
+		</panel>
+		<panel name="places_panel" label="Места">
+			<string name="searching_text">Идет поиск...</string>
+			<string name="not_found_text">Ничего не найдено.</string>
+			<text name="find">Находить:</text>
+			<line_editor name="name" />
+			<check_box name="incpg" label="Общий контент" />
+			<check_box name="incmature" label="Чувствительный контент" />
+			<check_box name="incadult" label="Контент для взрослых" />
+			<check_box name="filter_gaming" label="Скрыть игры" />
+			<combo_box name="Category" width="155">
+				<combo_item name="AnyCategory">Любая категория</combo_item>
+				<combo_item name="LindenLocation">Официальное местоположение</combo_item>
+				<combo_item name="Arts&amp;Culture">Искусство и культура</combo_item>
+				<combo_item name="Business">Бизнес</combo_item>
+				<combo_item name="Educational">Образовательный</combo_item>
+				<combo_item name="Gaming">Игры</combo_item>
+				<combo_item name="Hangout">Тусоваться</combo_item>
+				<combo_item name="NewcomerFriendly">Приветствие для новичков</combo_item>
+				<combo_item name="Parks&amp;Nature">Парки и природа</combo_item>
+				<combo_item name="Residential">Жилой</combo_item>
+				<combo_item name="Shopping">Шоппинг</combo_item>
+				<combo_item name="Other">Другой</combo_item>
+				<combo_item name="Rental">Аренда</combo_item>
+			</combo_box>
+			<combo_box name="Category_Adult">
+				<combo_item name="AnyCategory">Любая категория</combo_item>
+				<combo_item name="LindenLocation">Линден Локация</combo_item>
+				<combo_item name="Adult">Взрослый</combo_item>
+				<combo_item name="Arts&amp;Culture">Искусство и культура</combo_item>
+				<combo_item name="Business">Бизнес</combo_item>
+				<combo_item name="Educational">Образовательный</combo_item>
+				<combo_item name="Gaming">Игры</combo_item>
+				<combo_item name="Hangout">Тусоваться</combo_item>
+				<combo_item name="NewcomerFriendly">Приветствие для новичков</combo_item>
+				<combo_item name="Parks&amp;Nature">Парки и природа</combo_item>
+				<combo_item name="Residential">Жилой</combo_item>
+				<combo_item name="Shopping">Шоппинг</combo_item>
+				<combo_item name="Other">Другой</combo_item>
+				<combo_item name="Rental">Аренда</combo_item>
+			</combo_box>
+			<button name="Search" label="Поиск" />
+			<scroll_list name="results">
+				<column name="icon" />
+				<column name="type" />
+				<column name="name" label="Имя" />
+				<column name="dwell" label="Трафик" />
+			</scroll_list>
+			<text name="result_text" />
+			<button name="Next &gt;" label="Далее &gt;" />
+			<button name="&lt; Prev" label="&lt; Предыдущий" />
+		</panel>
+		<panel name="events_panel" label="События">
+			<string name="searching_text">Идет поиск...</string>
+			<string name="not_found_text">Ничего не найдено.</string>
+			<text name="text2">Находить:</text>
+			<line_editor name="name" />
+			<radio_group name="date_mode">
+				<radio_item name="current">В процессе и в ближайшее время</radio_item>
+				<radio_item name="date">Дата</radio_item>
+			</radio_group>
+			<button name="&lt;&lt;" label="&lt;&lt;" tool_tip="Вернуться на день назад" />
+			<text name="date_text">6/6</text>
+			<button name="&gt;&gt;" label="&gt;&gt;" tool_tip="Идти вперед на день" />
+			<button name="Today" label="Сегодня" tool_tip="Показать сегодняшние события" />
+			<text name="text">Категория:</text>
+			<combo_box name="category combo">
+				<combo_item name="All">Любая категория</combo_item>
+				<combo_item name="Discussion">Обсуждение</combo_item>
+				<combo_item name="Sports">Спорт</combo_item>
+				<combo_item name="LiveMusic">Живая музыка</combo_item>
+				<combo_item name="Commercial">Коммерческий</combo_item>
+				<combo_item name="Nightlife/Entertainment">Ночная жизнь/Развлечения</combo_item>
+				<combo_item name="Games/Contests">Игры/Конкурсы</combo_item>
+				<combo_item name="Pageants">Конкурсы</combo_item>
+				<combo_item name="Education">Образование</combo_item>
+				<combo_item name="ArtsandCulture">Искусство и культура</combo_item>
+				<combo_item name="Charity/SupportGroups">Благотворительность/группы поддержки</combo_item>
+				<combo_item name="Miscellaneous">Разнообразный</combo_item>
+			</combo_box>
+			<check_box name="incpg" label="Общий контент" />
+			<check_box name="incmature" label="Чувствительный контент" />
+			<check_box name="incadult" label="Контент для взрослых" />
+			<check_box name="filter_gaming" label="Скрыть игры" />
+			<button name="Search" label="Поиск" />
+			<button name="Delete" label="Удалить" />
+			<scroll_list name="results">
+				<column name="icon" />
+				<column name="type" />
+				<column name="name" label="Имя" />
+				<column name="date" label="Время (ПТ)" />
+				<column name="event_id" />
+				<column name="time" label="Время" />
+			</scroll_list>
+			<text name="result_text" />
+			<button name="Next &gt;" label="Далее &gt;" />
+			<button name="&lt; Prev" label="&lt; Предыдущий" />
+		</panel>
+		<panel name="land_sales_panel" label="Продажа земли">
+			<string name="searching_text">Идет поиск...</string>
+			<string name="not_found_text">Ничего не найдено.</string>
+			<string name="land_help_text">
+				Землю можно купить напрямую за мировые деньги ([CURRENCY]) или на аукционе за [CURRENCY] или [REALCURRENCY].
+Чтобы купить напрямую, посетите землю и нажмите на название места в строке заголовка.
+			</string>
+			<text name="find">Находить:</text>
+			<check_box name="incpg" label="Общий контент" />
+			<check_box name="incmature" label="Чувствительный контент" />
+			<check_box name="incadult" label="Контент для взрослых" />
+			<check_box name="filter_gaming" label="Скрыть игры" />
+			<combo_box name="type">
+				<combo_item name="AllTypes">Все типы</combo_item>
+				<combo_item name="Auction">Аукцион</combo_item>
+				<combo_item name="MainlandSales">Продажа - Материк</combo_item>
+				<combo_item name="EstateSales">Продажа - Недвижимость</combo_item>
+			</combo_box>
+			<check_box name="pricecheck" label="Цена ≤" />
+			<text name="pricecheck_symbol">[CURRENCY]</text>
+			<check_box name="areacheck" label="Площадь ≥" />
+			<text name="areacheck_symbol">m²</text>
+			<line_editor name="priceedit" />
+			<line_editor name="areaedit" />
+			<button name="Search" label="Поиск" />
+			<scroll_list name="results">
+				<column name="icon" />
+				<column name="type" />
+				<column name="name" label="Имя" />
+				<column name="landtype" label="Тип" />
+				<column name="price" label="[CURRENCY] Цена" />
+				<column name="area" label="Область" />
+				<column name="per_meter" label="[CURRENCY]/m²" />
+			</scroll_list>
+			<text name="result_text" />
+			<button name="Next &gt;" label="Далее &gt;" />
+			<button name="&lt; Prev" label="&lt; Предыдущий" />
+		</panel>
+		<panel name="classified_panel" label="Объявления">
+			<string name="searching_text">Идет поиск...</string>
+			<string name="not_found_text">Ничего не найдено.</string>
+			<text name="find">Находить:</text>
+			<line_editor name="name" />
+			<check_box name="incpg" label="Общий контент" />
+			<check_box name="incmature" label="Чувствительный контент" />
+			<check_box name="incadult" label="Контент для взрослых" />
+			<check_box name="filter_gaming" label="Скрыть игры" />
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">Любая категория</combo_item>
+				<combo_item name="Shopping">Шоппинг</combo_item>
+				<combo_item name="LandRental">Аренда земли</combo_item>
+				<combo_item name="PropertyRental">Аренда недвижимости</combo_item>
+				<combo_item name="SpecialAttraction">Особая достопримечательность</combo_item>
+				<combo_item name="NewProducts">Новые продукты</combo_item>
+				<combo_item name="Employment">Работа</combo_item>
+				<combo_item name="Wanted">В розыске</combo_item>
+				<combo_item name="Service">Услуга</combo_item>
+				<combo_item name="Personal">Personal</combo_item>
+			</combo_box>
+			<button name="Browse" label="Просматривать" />
+			<button name="Search" label="Поиск" />
+			<button name="Delete" label="Удалить" />
+			<scroll_list name="results">
+				<column name="icon" />
+				<column name="type" />
+				<column name="name" label="Имя" />
+				<column name="price" label="Цена" />
+			</scroll_list>
+			<text name="result_text" />
+			<button name="Next &gt;" label="Далее &gt;" />
+			<button name="&lt; Prev" label="&lt; Предыдущий" />
+		</panel>
+</tab_container>
+	<panel name="classified_details_panel" />
+	<panel name="Panel Avatar" />
+	<panel name="event_details_panel" />
+	<panel name="group_details_panel_holder">
+		<panel name="group_details_panel" />
+	</panel>
+	<panel name="place_details_panel" />
+	<panel name="place_details_small_panel" />
+</floater>

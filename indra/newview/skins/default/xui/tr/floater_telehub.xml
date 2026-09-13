@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="telehub" title="Telehub">
+	<text name="status_text_connected">Telehub [OBJECT] nesnesine bağlandı</text>
+	<text name="status_text_not_connected">Telehub bağlı değil.</text>
+	<text name="help_text_connected">Kaldırmak için Bağlantıyı Kes'e tıklayın.</text>
+	<text name="help_text_not_connected">Nesneyi seçin ve Telehub'a Bağlan'a tıklayın.</text>
+	<button name="connect_btn" label="Telehub'ı bağlayın" />
+	<button name="disconnect_btn" label="Bağlantıyı kes" />
+	<text name="spawn_points_text">Doğma Noktaları (konumlar, nesneler değil):</text>
+	<scroll_list name="spawn_points_list" />
+	<button name="add_spawn_point_btn" label="Doğma Ekle" />
+	<button name="remove_spawn_point_btn" label="Spawn kaldır" />
+	<text name="spawn_point_help">
+		Nesneyi seçin ve konumu belirtmek için Ekle'ye tıklayın.
+Daha sonra nesneyi taşıyabilir veya silebilirsiniz.
+Konumlar telehub merkezine göredir.
+Dünyadaki konumunu göstermek için listedeki öğeyi seçin.
+	</text>
+</floater>

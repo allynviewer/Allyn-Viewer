@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Give Money">
+	<text name="payee_group">Ödeme grubu:</text>
+	<text name="payee_resident">Sakine ödeme yapın:</text>
+	<text name="payee_name">[NAME]</text>
+	<text name="object_name_label">Nesne aracılığıyla:</text>
+	<text name="object_name_text" />
+	<text name="fastpay text">Hızlı Ödeme:</text>
+	<text name="amount text">Tutar:</text>
+	<button name="fastpay 1" label="[CURRENCY]1" />
+	<button name="fastpay 5" label="[CURRENCY]5" />
+	<button name="fastpay 10" label="[CURRENCY]10" />
+	<button name="fastpay 20" label="[CURRENCY]20" />
+	<button name="pay btn" label="Ödeme" />
+	<button name="cancel btn" label="İptal" />
+	<line_editor name="amount" />
+</floater>

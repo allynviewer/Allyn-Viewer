@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Joystick" title="Kumanda Kolu Yapılandırması">
+	<check_box name="enable_joystick">Joystick'i etkinleştirin:</check_box>
+	<text name="joystick_type" />
+	<string name="JoystickMonitor">Kumanda Kolu Monitörü</string>
+	<string name="Axis">Eksen [NUM]</string>
+	<string name="NoDevice">hiçbir cihaz algılanmadı</string>
+	<spinner name="JoystickAxis1" label="X Ekseni Haritalaması" />
+	<spinner name="JoystickAxis4" label="Saha Haritalaması" />
+	<spinner name="JoystickAxis6" label="Yakınlaştırma Haritalaması" />
+	<spinner name="JoystickAxis2" label="Y Ekseni Haritalaması" />
+	<spinner name="JoystickAxis5" label="Sapma Haritalaması" />
+	<spinner name="JoystickAxis0" label="Z Ekseni Haritalama" />
+	<spinner name="JoystickAxis3" label="Rulo Eşleme" />
+	<check_box name="ZoomDirect" label="Doğrudan Yakınlaştırma" />
+	<check_box name="Cursor3D" label="3D İmleç" />
+	<check_box name="AutoLeveling" label="Otomatik Seviye" />
+	<text name="Control Modes:">Kontrol Modları:</text>
+	<check_box name="JoystickAvatarEnabled">Avatar</check_box>
+	<check_box name="JoystickBuildEnabled">Yapı</check_box>
+	<check_box name="JoystickFlycamEnabled">Flycam</check_box>
+	<text name="XScale">X Ölçeği</text>
+	<spinner name="AvatarAxisScale1" />
+	<spinner name="BuildAxisScale1" />
+	<spinner name="FlycamAxisScale1" />
+	<text name="YScale">Y Ölçeği</text>
+	<spinner name="AvatarAxisScale2" />
+	<spinner name="BuildAxisScale2" />
+	<spinner name="FlycamAxisScale2" />
+	<text name="ZScale">Z Ölçeği</text>
+	<spinner name="AvatarAxisScale0" />
+	<spinner name="BuildAxisScale0" />
+	<spinner name="FlycamAxisScale0" />
+	<text name="PitchScale">Perde Ölçeği</text>
+	<spinner name="AvatarAxisScale4" />
+	<spinner name="BuildAxisScale4" />
+	<spinner name="FlycamAxisScale4" />
+	<text name="YawScale">Yaw Ölçeği</text>
+	<spinner name="AvatarAxisScale5" />
+	<spinner name="BuildAxisScale5" />
+	<spinner name="FlycamAxisScale5" />
+	<text name="RollScale">Rulo Ölçeği</text>
+	<spinner name="BuildAxisScale3" />
+	<spinner name="FlycamAxisScale3" />
+	<text name="XDeadZone">X Ölü Bölge</text>
+	<spinner name="AvatarAxisDeadZone1" />
+	<spinner name="BuildAxisDeadZone1" />
+	<spinner name="FlycamAxisDeadZone1" />
+	<text name="YDeadZone">Y Ölü Bölge</text>
+	<spinner name="AvatarAxisDeadZone2" />
+	<spinner name="BuildAxisDeadZone2" />
+	<spinner name="FlycamAxisDeadZone2" />
+	<text name="ZDeadZone">Z Ölü Bölge</text>
+	<spinner name="AvatarAxisDeadZone0" />
+	<spinner name="BuildAxisDeadZone0" />
+	<spinner name="FlycamAxisDeadZone0" />
+	<text name="PitchDeadZone">Pitch Dead Bölgesi</text>
+	<spinner name="AvatarAxisDeadZone4" />
+	<spinner name="BuildAxisDeadZone4" />
+	<spinner name="FlycamAxisDeadZone4" />
+	<text name="YawDeadZone">Yaw Ölü Bölgesi</text>
+	<spinner name="AvatarAxisDeadZone5" />
+	<spinner name="BuildAxisDeadZone5" />
+	<spinner name="FlycamAxisDeadZone5" />
+	<text name="RollDeadZone">Ölü Bölgeyi Döndür</text>
+	<spinner name="BuildAxisDeadZone3" />
+	<spinner name="FlycamAxisDeadZone3" />
+	<text name="Feathering">Tüylenme</text>
+	<spinner name="AvatarFeathering" />
+	<spinner name="BuildFeathering" />
+	<spinner name="FlycamFeathering" />
+	<text name="ZoomScale2">Yakınlaştırma Ölçeği</text>
+	<spinner name="FlycamAxisScale6" />
+	<text name="ZoomDeadZone">Ölü Bölgeyi Yakınlaştır</text>
+	<spinner name="FlycamAxisDeadZone6" />
+	<flyout_button name="Default" label="Varsayılanlara Ayarla">
+		<flyout_button_item name="Space Navigator" label="Space Navigator" />
+		<flyout_button_item name="OUYA" label="OUYA Denetleyici" />
+		<flyout_button_item name="XBOX" label="XBOX Denetleyicisi" />
+		<flyout_button_item name="DS3" label="DualShock 3" />
+	</flyout_button>
+	<button name="ok_btn" label="OK" />
+	<button name="cancel_btn" label="İptal" />
+</floater>

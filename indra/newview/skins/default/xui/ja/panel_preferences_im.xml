@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="im" label="コミュニケーション">
+	<text name="text_box">自分のオンライン状態:</text>
+	<check_box name="online_visibility" label="フレンドとグループだけにオンラインを知らせる" />
+	<text name="text_box2">IM のオプション:</text>
+	<string name="log_in_to_change">変更するにはログインしてください</string>
+	<string name="email_unverified_tooltip">IM をメールに転送するには、メールアドレスを確認してください。グリッドのウェブサイトで手続きできます。</string>
+	<check_box name="send_im_to_email" label="IM をメールに送信する（[EMAIL]）" />
+	<check_box name="include_im_in_chat_console" label="チャットコンソールに IM を含める" />
+	<check_box name="show_timestamps_check" label="IM に時刻を表示する" />
+	<check_box name="friends_online_notify_checkbox" label="フレンドのオンライン通知を表示する" />
+	<text name="conference_block_text">着信した会議:</text>
+	<radio_group name="block_conferences_radio">
+		<radio_item name="accept">承諾</radio_item>
+		<radio_item name="friends only">フレンドのみ</radio_item>
+		<radio_item name="block">ブロック</radio_item>
+	</radio_group>
+	<text name="text_box4">ログのオプション:</text>
+	<check_box name="log_instant_messages" label="IM のログをこのコンピュータに保存する" />
+	<check_box name="log_instant_messages_timestamp" label="IM ログに時刻を表示する" />
+	<check_box name="log_show_history" label="前回の IM 会話の末尾を表示する" />
+	<check_box name="log_chat" label="ローカルチャットのログをこのコンピュータに保存する" />
+	<check_box name="log_chat_timestamp" label="ローカルチャットのログに時刻を表示する" />
+	<check_box name="log_chat_IM" label="着信 IM をローカルチャットのログに含める" />
+	<check_box name="log_date_timestamp" label="時刻に日付も付ける" />
+	<check_box name="logfile_name_datestamp" label="ログファイル名に日付を付ける" />
+	<button name="log_path_button" label="保存先を変更" />
+	<line_editor name="log_path_string" />
+</panel>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="area search" title="Búsqueda de objetos en el área">
+	<text name="name_label">Buscar por nombre:</text>
+	<text name="desc_label">Buscar por descripción:</text>
+	<filter_editor name="Name query chunk" tool_tip=""/>
+	<filter_editor name="Description query chunk" tool_tip=""/>
+	<text name="owner_label">Buscar por propietario:</text>
+	<text name="group_label">Buscar por grupo:</text>
+	<filter_editor name="Owner query chunk" tool_tip=""/>
+	<filter_editor name="Group query chunk" tool_tip=""/>
+	<scroll_list name="result_list">
+		<column name="Name" label="Nombre" tool_tip="Haz doble clic en un resultado para marcar su posición"/>
+		<column name="Description" label="Descripción" tool_tip="Haz doble clic en un resultado para marcar su posición"/>
+		<column name="Owner" label="Propietario" tool_tip="Haz doble clic en un resultado para marcar su posición"/>
+		<column name="Group" label="Grupo" tool_tip="Haz doble clic en un resultado para marcar su posición"/>
+	</scroll_list>
+	<button name="TP" label="TP"/>
+	<button name="Look" label="Ver"/>
+	<text name="counter">En lista/Pendientes/Total</text>
+</floater>

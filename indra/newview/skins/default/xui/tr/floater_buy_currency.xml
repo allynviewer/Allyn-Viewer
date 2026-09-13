@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="buy currency" title="Döviz Al">
+	<text name="info_buying">Döviz Alımı:</text>
+	<text name="info_cannot_buy">Şu anda satın alamıyorum:</text>
+	<text name="info_need_more">Daha fazla para birimine ihtiyacınız var:</text>
+	<icon name="step_error" />
+	<text name="error_message">Bir şeyler doğru değil.</text>
+	<button name="error_web" label="Web sitesine git" />
+	<icon name="step_1" />
+	<text name="contacting">Döviz bozdurmayla bağlantı kuruluyor...</text>
+	<text name="buy_action_unknown">Döviz borsasında [CURRENCY] satın alın</text>
+	<text name="buy_action">[NAME] [CURRENCY] [PRICE]</text>
+	<text name="currency_action">[CURRENCY] satın al</text>
+	<line_editor name="currency_amt" />
+	<text name="currency_est">yaklaşık olarak [REALCURRENCY] [USD]</text>
+	<text name="getting_data">Veri alınıyor...</text>
+	<text name="balance_label">Şu anda sahip olduğunuz</text>
+	<text name="balance_amount">[CURRENCY] [AMT]</text>
+	<text name="buying_label">Satın alıyorsun</text>
+	<text name="buying_amount">[CURRENCY] [AMT]</text>
+	<text name="total_label">Bakiyeniz olacak</text>
+	<text name="total_amount">[CURRENCY] [AMT]</text>
+	<text name="purchase_warning_repurchase">
+		Bu satın alma işlemini onaylamak yalnızca para birimini satın alır.
+İşlemi tekrar denemeniz gerekecek.
+	</text>
+	<text name="purchase_warning_notenough">
+		Yeterli para birimi satın almıyorsunuz
+Satın alacağınız tutarı artırın.
+	</text>
+	<button name="cancel_btn" label="İptal" />
+	<button name="buy_btn" label="Satın alma" />
+	<string name="buy_currency">Yaklaşık olarak [CURRENCY] [LINDENS] satın alın. [REALCURRENCY] [USD]</string>
+</floater>

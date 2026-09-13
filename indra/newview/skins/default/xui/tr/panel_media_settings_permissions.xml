@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Media settings for controls" label="Özelleştir">
+	<text name="controls_label">Kontroller:</text>
+	<combo_box name="controls">
+		<combo_item name="Standard">Standart</combo_item>
+		<combo_item name="Mini">Mini</combo_item>
+	</combo_box>
+	<text name="owner_label">Sahip</text>
+	<check_box name="perms_owner_interact" label="Gezinmeye ve Etkileşime İzin Ver" />
+	<check_box name="perms_owner_control" label="Denetim Çubuğunu Göster" />
+	<text name="group_label">Grup:</text>
+	<name_box name="perms_group_name" />
+	<check_box name="perms_group_interact" label="Gezinmeye ve Etkileşime İzin Ver" />
+	<check_box name="perms_group_control" label="Denetim Çubuğunu Göster" />
+	<text name="anyone_label">Herkes</text>
+	<check_box name="perms_anyone_interact" label="Gezinmeye ve Etkileşime İzin Ver" />
+	<check_box name="perms_anyone_control" label="Denetim Çubuğunu Göster" />
+</panel>

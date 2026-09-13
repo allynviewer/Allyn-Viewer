@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Object Pie">
+	<menu_item_call name="Open" label="Открыть" />
+	<menu_item_call name="Create" label="Создать" />
+	<menu_item_call name="Object Touch" label="Коснуться">
+		<on_enable name="EnableTouch" />
+	</menu_item_call>
+	<menu_item_call name="Object Sit" label="Сесть">
+		<on_enable name="EnableSitOrStand" />
+	</menu_item_call>
+	<menu_item_call name="Pie Object Take" label="Взять">
+		<on_enable name="EnableBuyOrTake" />
+	</menu_item_call>
+	<menu_item_call name="Pay..." label="Оплатить..." />
+	<pie_menu name="More" label="Ещё">
+		<menu_item_call name="Delete" label="Удалить" />
+		<menu_item_call name="Wear" label="Надеть" />
+		<menu_item_call name="Take Copy" label="Взять копию" />
+		<pie_menu name="Object Attach HUD" label="Прикрепить к HUD" />
+		<pie_menu name="Object Attach" label="Прикрепить" />
+		<pie_menu name="Object Attach More" label="Ещё точки" />
+		<menu_item_call name="Return..." label="Вернуть..." />
+		<pie_menu name="Rate Menu" label="Ещё">
+			<pie_menu name="Export Menu" label="Экспорт">
+				<menu_item_call name="XML" label="XML" />
+				<menu_item_call name="Save OBJ..." label="OBJ..." />
+				<menu_item_call name="Save DAE..." label="DAE..." />
+			</pie_menu>
+			<pie_menu name="Rate Menu" label="Инструменты">
+				<menu_item_call name="Destroy" label="Уничтожить" />
+				<menu_item_call name="Explode" label="Взорвать" />
+				<menu_item_call name="Measure" label="Измерить" />
+				<menu_item_call name="Data" label="Данные" />
+				<menu_item_call name="Go To" label="Подойти" />
+				<menu_item_call name="Follow" label="Следовать" />
+				<menu_item_call name="Reload Textures" label="Перезагрузить" />
+			</pie_menu>
+			<menu_item_call name="Object Mute" label="Заглушить" />
+			<menu_item_call name="Object Inspect" label="Осмотреть" />
+			<menu_item_call name="Derender" label="Скрыть" />
+			<menu_item_call name="Report Abuse..." label="Жалоба..." />
+			<pie_menu name="PF Menu" label="Навигация">
+				<menu_item_call name="show_in_linksets" label="Показать в наборах ссылок" />
+				<menu_item_call name="show_in_characters" label="Показать в персонажах" />
+			</pie_menu>
+			<pie_menu name="ScriptsMenu" label="Скрипты">
+				<menu_item_call name="CompileMono" label="Компилировать в Mono" />
+				<menu_item_call name="CompileLSL" label="Компилировать в LSL" />
+				<menu_item_call name="Reset Scripts" label="Сбросить" />
+				<menu_item_call name="Object Set Scripts to Running" label="Запустить" />
+				<menu_item_call name="Object Set Scripts to Not Running" label="Остановить" />
+				<menu_item_call name="Remove Scripts From Selection" label="Удалить" />
+				<menu_item_call name="ScriptCount" label="Посчитать" />
+			</pie_menu>
+		</pie_menu>
+		<menu_item_call name="Buy..." label="Купить..." />
+	</pie_menu>
+	<menu_item_call name="Edit..." label="Править..." />
+</pie_menu>

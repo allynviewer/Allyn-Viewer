@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="settings_debug" title="Настройки отладки">
+	<filter_editor name="search_settings_input" tool_tip="Введите здесь интересующий вас поисковый запрос. Результаты будут отображаться для частичных полнотекстовых совпадений в названии параметра или комментарии." />
+	<scroll_list name="settings_scroll_list" />
+	<text_editor name="comment_text" />
+	<radio_group name="boolean_combo">
+		<radio_item name="TRUE">Да</radio_item>
+		<radio_item name="FALSE">Нет</radio_item>
+	</radio_group>
+	<color_swatch name="val_color_swatch" label="Цвет" />
+	<spinner name="val_spinner_1" label="x" />
+	<spinner name="val_spinner_2" label="x" />
+	<spinner name="val_spinner_3" label="x" />
+	<spinner name="val_spinner_4" label="x" />
+	<text_editor name="val_text" />
+	<button name="copy_btn" label="Копировать имя" tool_tip="Скопируйте имя этого параметра." />
+	<button name="default_btn" label="Сбросить настройки по умолчанию" />
+</floater>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater title="Profilo Experience">
+	<floater.string name="empty_slurl">(nessuno)</floater.string>
+	<tab_container name="tab_container">
+		<panel name="panel_experience_info">
+			<scroll_container name="xp_scroll">
+				<panel name="scrolling_panel">
+					<layout_stack name="Experience_profile">
+						<layout_panel name="top panel">
+							<button name="edit_btn" label="Modifica"/>
+						</layout_panel>
+						<layout_panel name="maturity panel">
+							<text name="ContentRating">Classificazione:</text>
+						</layout_panel>
+						<layout_panel name="location panel">
+							<text name="Location">Posizione:</text>
+						</layout_panel>
+						<layout_panel name="marketplace panel">
+							<text>Negozio Marketplace:</text>
+						</layout_panel>
+						<layout_panel name="owner panel">
+							<text name="Owner">Proprietario:</text>
+						</layout_panel>
+						<layout_panel name="group_panel">
+							<text name="Group">Gruppo:</text>
+						</layout_panel>
+						<layout_panel name="perm panel">
+							<button name="allow_btn" label="Consenti"/>
+							<button name="forget_btn" label="Dimentica"/>
+							<button name="block_btn" label="Blocca"/>
+							<text name="privileged">Questa Experience è attiva per tutti i residenti.</text>
+							<button name="report_btn" label="Denuncia"/>
+						</layout_panel>
+					</layout_stack>
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="edit_panel_experience_info">
+			<scroll_container name="edit_xp_scroll">
+				<panel name="edit_scrolling_panel">
+					<button name="Group_btn" label="Imposta gruppo"/>
+					<text name="edit_ContentRating">Classificazione:</text>
+					<combo_box name="edit_ContentRatingText" label="Moderate" tool_tip="Aumentare la classificazione di maturità di un'Experience reimposterà i permessi per tutti i residenti che l'hanno consentita.">
+						<combo_item name="Adult" label="Adult"/>
+						<combo_item name="Mature" label="Moderate"/>
+						<combo_item name="PG" label="Generale"/>
+					</combo_box>
+					<text name="edit_Location">Posizione:</text>
+					<button name="location_btn" label="Imposta all'attuale"/>
+					<button name="clear_btn" label="Cancella posizione"/>
+					<text>Negozio Marketplace:</text>
+					<check_box name="edit_enable_btn" label="Attiva Experience"/>
+					<check_box name="edit_private_btn" label="Nascondi nella ricerca"/>
+					<button name="cancel_btn" label="Indietro"/>
+					<button name="save_btn" label="Salva"/>
+				</panel>
+			</scroll_container>
+		</panel>
+	</tab_container>
+</floater>

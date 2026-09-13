@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Panel Avatar">
+	<tab_container name="tab">
+		<panel name="2nd Life" label="2-я жизнь">
+			<string name="CaptionTextAcctInfo">
+				[ACCTTYPE]
+[PAYMENTINFO]
+[AGEVERIFICATION]
+			</string>
+			<text name="Name:">Имя:</text>
+			<flyout_button name="copy_flyout" label="Копировать:" tool_tip="Скопировать ключ в буфер. Стрелка — другие варианты.">
+				<flyout_button_item name="copy_slurl_item" label="Копировать SLURL"/>
+			</flyout_button>
+			<text name="online_yes">В сети</text>
+			<text name="Key:">Ключ:</text>
+			<button name="web_profile" label="Веб-профиль"/>
+			<text name="Photo:">Фото:</text>
+			<texture_picker name="img" tool_tip="Нажмите, чтобы выбрать картинку"/>
+			<text name="label">Создан:</text>
+			<text name="label2">Аккаунт:</text>
+			<text name="partner_label" tool_tip="Партнёр Second Life. Как настроить: www.secondlife.com/partner">Партнёр:</text>
+			<button name="partner_help" label="?"/>
+			<text name="About:">О себе:</text>
+			<text name="(500 chars)">(500 символов)</text>
+			<text name="Groups:">Группы:</text>
+			<button name="GroupInvite_Button" label="+" label_selected="+" tool_tip="Пригласить в группу"/>
+			<string name="None">Нет</string>
+			<text name="Give item:">Поделиться:</text>
+			<drop_target name="drop_target_rect" label="Перетащите сюда предмет из инвентаря." tool_tip="Перетащите предметы из инвентаря, чтобы передать их этому резиденту."/>
+			<check_box name="allow_publish" label="Показывать в поиске" tool_tip="Публиковать описание и фото профиля в Поиске."/>
+			<button name="?" label="?"/>
+			<button name="Find on Map" label="На карте"/>
+			<button name="Offer Teleport..." label="Предложить ТП"/>
+			<button name="Add Friend..." label="В друзья"/>
+			<button name="Pay..." label="Оплатить"/>
+			<button name="Instant Message..." label="IM" tool_tip="Мгновенное сообщение (IM)"/>
+			<button name="Mute" label="Блок" label_selected="Снять"/>
+			<button name="Log" label="Журнал"/>
+		</panel>
+		<panel name="WebProfile" label="Веб">
+			<flyout_button name="load" label="Загрузить" tool_tip="Открыть эту страницу профиля во встроенном браузере.">
+				<flyout_button_item name="open_item">Во внешнем браузере</flyout_button_item>
+				<flyout_button_item name="home_item">Домашний URL</flyout_button_item>
+			</flyout_button>
+			<button name="web_profile_help" label="?"/>
+			<check_box name="auto_load" label="Автозагрузка веб-профилей" tool_tip="Загружать все веб-страницы профилей без подтверждения."/>
+		</panel>
+		<panel name="Interests" label="Интересы">
+			<text name="I Want To:">Я хочу:</text>
+			<check_box name="chk0" label="Строить"/>
+			<check_box name="chk1" label="Исследовать"/>
+			<check_box name="chk2" label="Знакомиться"/>
+			<check_box name="chk6" label="Наняться"/>
+			<check_box name="chk3" label="Группа"/>
+			<check_box name="chk4" label="Покупать"/>
+			<check_box name="chk5" label="Продавать"/>
+			<check_box name="chk7" label="Нанимать"/>
+			<text name="Skills:">Навыки:</text>
+			<check_box name="schk0" label="Текстуры"/>
+			<check_box name="schk1" label="Архитектура"/>
+			<check_box name="schk2" label="Мероприятия"/>
+			<check_box name="schk3" label="Моделирование"/>
+			<check_box name="schk4" label="Скрипты"/>
+			<check_box name="schk5" label="Персонажи"/>
+			<text name="Languages:">Языки:</text>
+		</panel>
+		<panel name="Picks" label="Избранные места">
+			<text name="Tell everyone about your favorite places in Second Life.">Расскажите о любимых местах в Second Life.</text>
+			<button name="New..." label="Новый..."/>
+			<button name="Delete..." label="Удалить..."/>
+			<button name="Import..." label="Импорт..."/>
+			<button name="Export..." label="Экспорт..."/>
+			<text name="loading_text">Загрузка...</text>
+		</panel>
+		<panel name="Classified" label="Объявления">
+			<text name="Place an ad in Second Life&apos;s classified listings.">Разместите объявление в каталоге Second Life.</text>
+			<button name="New..." label="Новый..."/>
+			<button name="Delete..." label="Удалить..."/>
+			<text name="loading_text">Загрузка...</text>
+		</panel>
+		<panel name="1st Life" label="1-я жизнь">
+			<text name="Photo:">Фото:</text>
+			<texture_picker name="img" tool_tip="Нажмите, чтобы выбрать картинку"/>
+			<text name="Info:">Информация:</text>
+			<text name="(250 chars)">(250 символов)</text>
+		</panel>
+		<panel name="My Notes" label="Мои заметки">
+			<string name="Loading">Загрузка...</string>
+			<text name="label">Здесь можно вести заметки об этом резиденте. Их видите только вы.</text>
+		</panel>
+	</tab_container>
+	<button name="OK" label="ОК"/>
+	<button name="Cancel" label="Отмена"/>
+	<button name="Kick" label="Кик"/>
+	<button name="Freeze" label="Заморозить" tool_tip="Остановить движение этого резидента и открыть чат."/>
+	<button name="Unfreeze" label="Разморозить" tool_tip="Снять заморозку с резидента"/>
+	<button name="csr_btn" label="CSR" tool_tip="Открыть инструмент поддержки для этого резидента"/>
+	<string name="ShowOnMapNonFriend">Показать на карте.
+Недоступно: вы не друзья.</string>
+	<string name="ShowOnMapFriendOffline">Показать на карте.
+Недоступно: резидент не в сети.</string>
+	<string name="ShowOnMapFriendOnline">Показать на карте.</string>
+	<string name="TeleportGod">Принудительно телепортировать к вам.</string>
+	<string name="TeleportPrelude">Предложить телепорт к вам.
+Недоступно, пока вы не покинете остров ориентации.</string>
+	<string name="TeleportNormal">Предложить телепорт к вам.</string>
+	<string name="Loading">Загрузка...</string>
+</panel>

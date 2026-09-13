@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="rclickmenu">
+	<menu_item_call name="Cut" label="Recortar"/>
+	<menu_item_call name="Copy" label="Copiar"/>
+	<menu_item_call name="Copy Raw" label="Copiar bruto"/>
+	<menu_item_call name="Paste" label="Colar"/>
+	<menu_item_call name="Delete" label="Excluir"/>
+	<menu_item_call name="Select All" label="Selecionar tudo"/>
+</menu>

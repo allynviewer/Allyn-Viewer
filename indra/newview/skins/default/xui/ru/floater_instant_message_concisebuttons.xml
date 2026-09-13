@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="im_floater" label="(неизвестно)" title="(неизвестно)">
+	<string name="answering">Подключение...</string>
+	<string name="ringing">Звонок...</string>
+	<string name="connected">Соединение установлено. Нажмите «Завершить», чтобы сбросить звонок.</string>
+	<string name="hang_up">Звонок завершён</string>
+	<string name="voice_icon">icn_voice-pvtfocus.tga</string>
+	<string name="title_string">IM с [NAME]</string>
+	<string name="typing_start_string">[NAME] печатает...</string>
+	<string name="session_start_string">Начинаем сеанс с [NAME], подождите.</string>
+	<string name="default_text_label">Нажмите, чтобы написать IM</string>
+	<string name="unavailable_text_label">В этом звонке текстовый чат недоступен.</string>
+	<string name="inventory_item_offered">Предложен предмет из инвентаря</string>
+	<flyout_button name="instant_message_flyout" label="Профиль">
+		<flyout_button_item name="profile_item" label="Профиль" />
+		<flyout_button_item name="history_btn" label="История" />
+		<flyout_button_item name="profile_tele_btn" label="Предложить телепорт" />
+		<flyout_button_item name="request_teleport_item" label="Запросить телепорт" />
+		<flyout_button_item name="pay_item" label="Оплатить" />
+		<flyout_button_item name="group_invite_item" label="Пригласить в группу" />
+		<flyout_button_item name="copy_slurl_item" label="Копировать SLURL" />
+		<flyout_button_item name="conference" label="Добавить в конференцию" />
+		<flyout_button_item name="report" label="Сообщить о нарушении" />
+	</flyout_button>
+	<string name="find on map" value="Найти на карте" />
+	<string name="ding on" value="Звук при новых сообщениях (вкл.)" />
+	<string name="ding off" value="Звук при новых сообщениях (выкл.)" />
+	<string name="rp mode on" value="Режим RP (вкл.)" />
+	<string name="rp mode off" value="Режим RP (выкл.)" />
+	<string name="add friend" value="Добавить в друзья" />
+	<string name="remove friend" value="Удалить из друзей" />
+	<string name="mute" value="Заглушить" />
+	<string name="unmute" value="Снять заглушение" />
+	<string name="focus" value="Фокус" />
+	<button name="start_call_btn" label="Звонок" />
+	<button name="end_call_btn" label="Завершить" />
+	<check_box name="im_translate_check" tool_tip="Отметьте, чтобы включить перевод" />
+	<button name="im_translate_btn" label="Перевод" tool_tip="Языки этой беседы" />
+	<panel name="speaker_controls">
+		<volume_slider name="speaker_volume" />
+		<button name="mute_btn" tool_tip="Заглушить голос" />
+	</panel>
+	<text_editor name="im_history" />
+	<line_editor name="chat_editor" label="Нажмите, чтобы написать IM" />
+	<button name="send_btn" label="Отправить" />
+	<string name="live_help_dialog">
+		*** Запрос помощи ***
+Сначала загляните в справку SL — нажмите F1 или откройте базу знаний: http://secondlife.com/knowledgebase/
+Если ответа там нет, напишите вопрос и подождите: доступные помощники ответят через несколько минут.
+-=-=- Время ответа зависит от нагрузки, особенно в часы пик -=-=-
+	</string>
+</floater>

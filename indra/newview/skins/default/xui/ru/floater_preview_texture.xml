@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview_texture">
+	<text name="desc txt">Описание:</text>
+	<line_editor name="desc" />
+	<text name="uuid txt">UUID:</text>
+	<line_editor name="uuid" />
+	<text name="uploader txt">Загружено:</text>
+	<line_editor name="uploader" />
+	<button name="openprofile" label="Профиль" />
+	<text name="uploadtime txt">Загружено:</text>
+	<line_editor name="uploadtime" />
+	<text name="alphanote">Загрузка...</text>
+	<string name="No Alpha">No Alpha</string>
+	<string name="Has Alpha">Has Alpha</string>
+	<button name="Keep" label="Держать" />
+	<button name="Discard" label="Отказаться" />
+	<button name="Copy To Inventory" label="Копировать в инвентарь" />
+	<text name="dimensions">Размеры: [WIDTH] x [HEIGHT]</text>
+	<text name="aspect_ratio">Предварительный просмотр соотношения сторон</text>
+	<combo_box name="combo_aspect_ratio" tool_tip="Предварительный просмотр с фиксированным соотношением сторон">
+		<combo_item name="Unconstrained">Без ограничений</combo_item>
+		<combo_item name="1:1" tool_tip="Знаки отличия группы или профиль первой жизни">1:1</combo_item>
+		<combo_item name="4:3" tool_tip="2-й жизненный профиль">4:3</combo_item>
+		<combo_item name="10:7" tool_tip="Объявления и поисковые объявления, достопримечательности">10:7</combo_item>
+		<combo_item name="3:2" tool_tip="О земле">3:2</combo_item>
+		<combo_item name="16:10">16:10</combo_item>
+		<combo_item name="16:9" tool_tip="Выбор профиля">16:9</combo_item>
+		<combo_item name="2:1">2:1</combo_item>
+	</combo_box>
+	<string name="Unknown">Неизвестный</string>
+</floater>

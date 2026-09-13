@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Traduzione" name="translation">
+ <tab_container label="Traduzione" name="translation_tabs">
+ <panel label="Generale" name="General">
+ <check_box label="Abilita traduzione IA" name="enable_check"/>
+ <text name="scope_label">Applica a:</text>
+ <combo_box name="scope_combo">
+ <combo_item name="im" value="im">Solo IM</combo_item>
+ <combo_item name="nearby" value="nearby">Solo chat locale</combo_item>
+ <combo_item name="both" value="both">Tutti</combo_item>
+ </combo_box>
+ <check_box label="Traduci in arrivo" name="incoming_check"/>
+ <check_box label="Traduci in partenza" name="outgoing_check"/>
+ <text name="src_label">Io parlo:</text>
+ <combo_box name="source_lang" tool_tip="Qualsiasi codice ISO (pt, en, ja, ru, zh...). Puoi scrivere un codice personalizzato.">
+ <combo_item name="pt" value="pt">Portoghese (pt)</combo_item>
+ <combo_item name="en" value="en">Inglese (en)</combo_item>
+ <combo_item name="es" value="es">Spagnolo (es)</combo_item>
+ <combo_item name="fr" value="fr">Francese (fr)</combo_item>
+ <combo_item name="de" value="de">Tedesco (de)</combo_item>
+ <combo_item name="it" value="it">Italiano (it)</combo_item>
+ <combo_item name="ru" value="ru">Russo (ru)</combo_item>
+ <combo_item name="ja" value="ja">Giapponese (ja)</combo_item>
+ <combo_item name="ko" value="ko">Coreano (ko)</combo_item>
+ <combo_item name="zh" value="zh">Cinese (zh)</combo_item>
+ <combo_item name="ar" value="ar">Arabo (ar)</combo_item>
+ <combo_item name="nl" value="nl">Olandese (nl)</combo_item>
+ <combo_item name="pl" value="pl">Polacco (pl)</combo_item>
+ <combo_item name="tr" value="tr">Turco (tr)</combo_item>
+ <combo_item name="hi" value="hi">Hindi (hi)</combo_item>
+ <combo_item name="th" value="th">Thai (th)</combo_item>
+ <combo_item name="vi" value="vi">Vietnamita (vi)</combo_item>
+ <combo_item name="uk" value="uk">Ucraino (uk)</combo_item>
+ </combo_box>
+ <text name="dst_label">Altri parlano:</text>
+ <combo_box name="target_lang" tool_tip="Qualsiasi codice ISO. Scrivi liberamente se la tua lingua non è elencata.">
+ <combo_item name="en" value="en">Inglese (en)</combo_item>
+ <combo_item name="pt" value="pt">Portoghese (pt)</combo_item>
+ <combo_item name="es" value="es">Spagnolo (es)</combo_item>
+ <combo_item name="fr" value="fr">Francese (fr)</combo_item>
+ <combo_item name="de" value="de">Tedesco (de)</combo_item>
+ <combo_item name="it" value="it">Italiano (it)</combo_item>
+ <combo_item name="ru" value="ru">Russo (ru)</combo_item>
+ <combo_item name="ja" value="ja">Giapponese (ja)</combo_item>
+ <combo_item name="ko" value="ko">Coreano (ko)</combo_item>
+ <combo_item name="zh" value="zh">Cinese (zh)</combo_item>
+ <combo_item name="ar" value="ar">Arabo (ar)</combo_item>
+ <combo_item name="nl" value="nl">Olandese (nl)</combo_item>
+ <combo_item name="pl" value="pl">Polacco (pl)</combo_item>
+ <combo_item name="tr" value="tr">Turco (tr)</combo_item>
+ <combo_item name="hi" value="hi">Hindi (hi)</combo_item>
+ <combo_item name="th" value="th">Thai (th)</combo_item>
+ <combo_item name="vi" value="vi">Vietnamita (vi)</combo_item>
+ <combo_item name="uk" value="uk">Ucraino (uk)</combo_item>
+ </combo_box>
+ <text name="in_disp_label">In arrivo:</text>
+ <combo_box name="incoming_display">
+ <combo_item name="translation_only" value="translation_only">Solo traduzione (nascondi originale)</combo_item>
+ <combo_item name="both" value="both">Originale e traduzione</combo_item>
+ </combo_box>
+ <text name="out_disp_label">In partenza:</text>
+ <combo_box name="outgoing_display">
+ <combo_item name="translation_only" value="translation_only">Solo traduzione (nascondi originale)</combo_item>
+ <combo_item name="both" value="both">Originale e traduzione</combo_item>
+ </combo_box>
+ <text name="in_color_label">Colore in arrivo:</text>
+ <color_swatch can_apply_immediately="false" control_name="AITranslateIncomingColor" name="incoming_color"/>
+ <text name="out_color_label">Colore in partenza:</text>
+ <color_swatch can_apply_immediately="false" control_name="AITranslateOutgoingColor" name="outgoing_color"/>
+ <text name="privacy_tip">Io parlo / Altri parlano = qualsiasi lingua (codice ISO: ja, ru, zh...).&#10;In partenza: tu→altri. In arrivo: altri→tu.&#10;[IA] solo in arrivo. Nessuna riga duplicata se il testo è già nella lingua di destinazione.</text>
+ </panel>
+ <panel label="Gruppi" name="Groups">
+ <check_box label="Traduci chat di gruppo" name="groups_enable"/>
+ <text name="group_mode_label">Gruppi:</text>
+ <combo_box name="group_mode">
+ <combo_item name="all" value="all">Tutti i gruppi</combo_item>
+ <combo_item name="selected" value="selected">Solo selezionati</combo_item>
+ </combo_box>
+ <scroll_list name="group_list" tool_tip="Ctrl+clic per selezionare più gruppi (modalità Selezionati)">
+ <column label="Gruppo" name="name"/>
+ </scroll_list>
+ <button label="Aggiorna lista gruppi" name="group_refresh_btn"/>
+ </panel>
+ <panel label="Fornitore" name="Provider">
+ <text name="provider_label">Fornitore:</text>
+ <combo_box name="provider_combo">
+ <combo_item name="openai" value="openai">OpenAI (ChatGPT)</combo_item>
+ <combo_item name="anthropic" value="anthropic">Anthropic (Claude)</combo_item>
+ <combo_item name="opencode_zen" value="opencode_zen">OpenCode Zen</combo_item>
+ <combo_item name="openrouter" value="openrouter">OpenRouter</combo_item>
+ <combo_item name="custom" value="custom">Personalizzato (compatibile OpenAI)</combo_item>
+ </combo_box>
+ <text name="key_label">Chiave:</text>
+ <line_editor control_name="AITranslateApiKey" max_length_chars="256" name="api_key"/>
+ <text name="url_label">URL base:</text>
+ <line_editor control_name="AITranslateBaseUrl" max_length_chars="512" name="base_url"/>
+ <text name="model_label">Modello:</text>
+ <line_editor control_name="AITranslateModel" max_length_chars="128" name="model"/>
+ <button label="Prova connessione" name="test_btn"/>
+ <text name="status_text">Non testato</text>
+ <text name="provider_tip">La chiave API è salvata nelle impostazioni locali (solo su questo PC).&#10;OpenCode Zen: chat/completions (es. mimo-v2.5-free).&#10;OpenRouter: https://openrouter.ai/api/v1 (es. minimax/minimax-m3:free).</text>
+ </panel>
+ </tab_container>
+</panel>

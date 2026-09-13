@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="local_bitmap_browser_floater" title="Yerel Bitmap Tarayıcı">
+	<button name="add_btn" label="Ekle" />
+	<button name="del_btn" label="Kaldır" />
+	<button name="upload_btn" label="Yükle" />
+	<button name="more_btn" label="Daha Fazla" />
+	<button name="less_btn" label="Daha az" />
+	<scroll_list name="bitmap_list">
+		<column name="bitmap_name" label="İsim" />
+		<column name="bitmap_uuid" label="UUID" />
+	</scroll_list>
+	<line_editor name="path_text" />
+	<text name="path_caption_text">Yerel yol:</text>
+	<line_editor name="uuid_text" />
+	<text name="uuid_caption_text">Yerel UUID:</text>
+	<texture_picker name="texture_view" label="Doku" />
+	<check_box name="keep_updating_checkbox" label="Güncellemeye devam et" tool_tip="Sabit sürücünüzdeki kaynak bit eşlemi güncellendiyse periyodik kontrolleri etkinleştirin veya devre dışı bırakın" />
+	<combo_box name="type_combobox">
+		<combo_item name="type_texture">Doku</combo_item>
+		<combo_item name="type_sculptie">Sculptmap</combo_item>
+		<combo_item name="type_layer">Giyim</combo_item>
+	</combo_box>
+	<text name="time_caption_text">Zaman:</text>
+	<text name="time_text">(tarih burada)</text>
+	<text name="link_caption_text">Bağlantı:</text>
+	<text name="link_text">(bağlantı durumu)</text>
+	<text name="name_caption_text">İsim:</text>
+	<line_editor name="name_text" />
+</floater>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="mute floater" title="Заглушённые резиденты и объекты">
+	<name_list name="mutes" tool_tip="Имена заглушённых объектов и аватаров">
+		<column name="icon" />
+		<column name="name" label="Имя" tool_tip="Имя" />
+	</name_list>
+	<button name="Mute resident..." label="Заглушить резидента..." tool_tip="Выберите резидента, которого нужно заглушить" />
+	<button name="Mute object by name..." label="Заглушить объект по имени..." />
+	<button name="Unmute" label="Снять заглушение" tool_tip="Убрать резидента или объект из списка заглушения" />
+</floater>

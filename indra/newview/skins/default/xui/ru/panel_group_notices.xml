@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="notices_tab" label="Уведомления">
+	<string name="help_text">
+		Уведомления — это быстрый способ обмена информацией 
+группу путем трансляции сообщения и доставки 
+опционально прикрепленный элемент. Уведомления попадают только
+членам группы в ролях предоставлена возможность 
+получать уведомления. Вы можете отключить уведомления на 
+вкладка «Общие».
+	</string>
+	<string name="no_notices_text">Никаких прошлых уведомлений нет.</string>
+	<button name="help_button" label="?" />
+	<text name="lbl">Архив уведомлений группы</text>
+	<text name="lbl2">
+		Уведомления хранятся 14 дней. Нажмите на уведомление ниже, которое вы хотите просмотреть.
+Нажмите кнопку «Обновить», чтобы проверить, были ли получены новые уведомления.
+Списки уведомлений ограничены 200 уведомлениями на группу в день.
+	</text>
+	<scroll_list name="notice_list">
+		<column name="icon" />
+		<column name="subject" label="Предмет" />
+		<column name="from" label="От" />
+		<column name="date" label="Дата" />
+		<column name="sort" />
+	</scroll_list>
+	<text name="notice_list_none_found">Ничего не найдено.</text>
+	<button name="create_new_notice" label="Создать новое уведомление" />
+	<button name="refresh_notices" label="Обновить" />
+	<panel name="panel_create_new_notice" label="Создать новое уведомление">
+		<text name="lbl">Создать уведомление</text>
+		<text name="lbl2">
+			Чтобы отправить уведомление, необходимо ввести тему. Вы можете добавить один
+предмет в уведомление, перетащив его из инвентаря сюда. 
+панель. Прикрепленные элементы должны быть допускающими копирование и передачу.
+и вы не можете отправить папку.
+		</text>
+		<text name="lbl3">Предмет:</text>
+		<line_editor name="create_subject" />
+		<text name="lbl4">Сообщение:</text>
+		<text_editor name="create_message" />
+		<text name="lbl5">Прикреплять:</text>
+		<line_editor name="create_inventory_name" />
+		<icon name="create_inv_icon" />
+		<button name="remove_attachment" label="Удалить вложение" />
+		<button name="send_notice" label="Отправить уведомление" />
+		<panel name="drop_target2" />
+		<icon name="drop_icon" />
+		<group_drop_target name="drop_target" tool_tip="Перетащите элемент инвентаря в окно сообщения, чтобы отправить его вместе с уведомлением. У вас должно быть разрешение на копирование и передачу объекта, чтобы отправить его вместе с уведомлением." />
+	</panel>
+	<panel name="panel_view_past_notice" label="Посмотреть предыдущее уведомление">
+		<text name="lbl">Архивированное уведомление</text>
+		<text name="lbl2">Чтобы отправить новое уведомление, нажмите кнопку «Создать новое уведомление» выше.</text>
+		<text name="lbl3">Предмет:</text>
+		<line_editor name="view_subject" />
+		<text name="lbl4">Сообщение:</text>
+		<text_editor name="view_message" />
+		<button name="open_attachment" label="Открыть вложение" />
+		<line_editor name="view_inventory_name" />
+		<icon name="view_inv_icon" />
+	</panel>
+</panel>

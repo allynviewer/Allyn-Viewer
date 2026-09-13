@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="script_limits_my_avatar_panel" label="自分の アバター">
+	<text name="script_memory">アバター スクリプト Usage</text>
+	<text name="memory_used" />
+	<text name="urls_used" />
+	<text name="loading_text">読み込み中...</text>
+	<scroll_list name="scripts_list">
+		<column name="name" label="オブジェクト" />
+		<column name="size" label="サイズ" tool_tip="サイズ 内 kilobytes" />
+		<column name="urls" label="URLs" />
+		<column name="location" label="場所" />
+	</scroll_list>
+	<button name="refresh_list_btn" label="リストを更新" />
+</panel>

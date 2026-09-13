@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="item properties" title="Envanter Öğesi Özellikleri">
+	<icon name="IconLocked" />
+	<text name="LabelItemNameTitle">İsim:</text>
+	<line_editor name="LabelItemName" />
+	<text name="LabelItemDescTitle">Açıklama:</text>
+	<line_editor name="LabelItemDesc" />
+	<text name="LabelCreatorTitle">Yaratıcı:</text>
+	<name_box name="LabelCreatorName">Nicole Linden</name_box>
+	<text name="LabelOwnerTitle">Sahibi:</text>
+	<name_box name="LabelOwnerName">Thrax Linden</name_box>
+	<text name="LabelLastOwnerTitle">Son Sahibi:</text>
+	<name_box name="LabelLastOwnerName">OnceUponA Linden</name_box>
+	<text name="LabelAcquiredTitle">Edinilen:</text>
+	<text name="LabelAcquiredDate">Çar Mayıs 24 12:50:46 2006</text>
+	<text name="LabelItemExperienceTitle">Deneyim:</text>
+	<name_box name="LabelItemExperience" />
+	<text name="OwnerLabel">Şunları yapabilirsiniz:</text>
+	<check_box name="CheckOwnerModify" label="Değiştir" />
+	<check_box name="CheckOwnerCopy" label="Kopyala" />
+	<check_box name="CheckOwnerTransfer" label="Aktarım" />
+	<check_box name="CheckOwnerExport" label="İhracat" />
+	<text name="BaseMaskDebug">B:</text>
+	<text name="OwnerMaskDebug">O:</text>
+	<text name="GroupMaskDebug">G:</text>
+	<text name="EveryoneMaskDebug">E:</text>
+	<text name="NextMaskDebug">N:</text>
+	<text name="GroupLabel">Grup üyeleri şunları yapabilir:</text>
+	<check_box name="CheckGroupMod" label="Değiştir" />
+	<check_box name="CheckGroupCopy" label="Kopyala" />
+	<check_box name="CheckGroupMove" label="Taşı" />
+	<text name="EveryoneLabel">Herkes şunları yapabilir:</text>
+	<check_box name="CheckEveryoneCopy" label="Kopyala" />
+	<check_box name="CheckEveryoneMove" label="Taşı" />
+	<check_box name="CheckExport" label="İhracat" />
+	<text name="NextOwnerLabel">Sonraki sahip şunları yapabilir:</text>
+	<check_box name="CheckNextOwnerModify" label="Değiştir" />
+	<check_box name="CheckNextOwnerCopy" label="Kopyala" />
+	<check_box name="CheckNextOwnerTransfer" label="Aktarım" />
+	<text name="SaleLabel">Öğeyi İşaretle:</text>
+	<check_box name="CheckPurchase" label="Satılık" />
+	<radio_group name="RadioSaleType">
+		<radio_item name="radio">Original</radio_item>
+		<radio_item name="radio2">Kopyala</radio_item>
+	</radio_group>
+	<text name="TextPrice">Fiyat: [CURRENCY]</text>
+	<line_editor name="Edit Cost" />
+	<floater.string name="loading_experience">(yükleniyor)</floater.string>
+	<string name="unknown">(bilinmiyor)</string>
+	<string name="public">(halka açık)</string>
+	<string name="you_can">Şunları yapabilirsiniz:</string>
+	<string name="owner_can">Sahibi şunları yapabilir:</string>
+</floater>

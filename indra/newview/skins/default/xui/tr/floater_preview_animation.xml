@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview_anim">
+	<line_editor name="desc" />
+	<text name="desc txt">Açıklama:</text>
+	<button name="Anim play btn" label="Dünyada Oyna" tool_tip="Başkalarının görebilmesi için bu animasyonu oynatın." />
+	<button name="Anim audition btn" label="Yerel Olarak Oyna" tool_tip="Bu animasyonu yalnızca sizin görebileceğiniz şekilde oynatın." />
+</floater>

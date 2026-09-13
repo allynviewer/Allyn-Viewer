@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<menu name="Avatar Menu">
+	<menu_item_call name="Profile" label="Profil"/>
+	<menu name="Avatar" label="Avatar">
+		<menu_item_call name="Web Profile" label="Profil Web"/>
+		<menu_item_call name="Pay" label="Payer"/>
+		<menu_item_call name="Instant Message" label="IM"/>
+		<menu_item_call name="Conference Chat" label="Chat de conférence"/>
+		<menu_item_call name="Call" label="Appeler"/>
+		<menu_item_call name="Conference Call" label="Appel de conférence"/>
+		<menu_item_call name="Add Friend" label="Devenir ami(e)s"/>
+		<menu_item_call name="Remove Friend" label="Supprimer cet ami"/>
+		<menu_item_call name="Invite To Group" label="Inviter dans le groupe"/>
+		<menu_item_call name="Follow" label="Suivre"/>
+		<menu_item_call name="Move To" label="Aller vers"/>
+		<menu_item_call name="Offer Teleport" label="Proposer une TP"/>
+		<menu_item_call name="Teleport To" label="Téléporter vers"/>
+		<menu_item_call name="Request Teleport" label="Demander une TP"/>
+		<menu_item_call name="Find on Map" label="Trouver sur la carte"/>
+		<menu_item_call name="Share" label="Partager"/>
+		<menu_item_call name="Chat History" label="Historique du chat"/>
+		<menu_item_call name="Track/Untrack" label="Suivre/Ne plus suivre"/>
+		<menu_item_call name="Copy Key" label="Copier la clé"/>
+		<menu_item_call name="Copy Name" label="Copier le nom"/>
+		<menu_item_call name="Copy SLURL" label="Copier la SLURL"/>
+	</menu>
+	<menu_item_call name="Focus" label="Focaliser"/>
+	<menu name="Moderation" label="Modération">
+		<menu_item_call name="Mute" label="Ignorer"/>
+		<menu_item_call name="Unmute" label="Ne plus ignorer"/>
+		<menu_item_call name="Ban From Group" label="Bannir du groupe"/>
+		<menu_item_call name="Report Abuse" label="Signaler un abus"/>
+		<menu_item_call name="Freeze" label="Geler"/>
+		<menu_item_call name="Eject/Ban from Parcel" label="Expulser/Bannir de la parcelle"/>
+		<menu_item_call name="Eject from estate" label="Expulser de l'estate"/>
+		<menu_item_call name="Eject and ban from estate" label="Expulser et bannir de l'estate"/>
+	</menu>
+</menu>

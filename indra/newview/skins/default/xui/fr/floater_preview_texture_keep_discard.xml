@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview_texture">
+	<text name="desc txt">Description :</text>
+	<button name="Keep" label="Garder" label_selected="Garder"/>
+	<button name="Discard" label="Jeter" label_selected="Jeter"/>
+	<text name="dimensions">Dimensions : [WIDTH] x [HEIGHT]</text>
+</floater>

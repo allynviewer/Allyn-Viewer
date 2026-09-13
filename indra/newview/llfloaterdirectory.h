@@ -1,0 +1,114 @@
+/** 
+ * @file llfloaterdirectory.h
+ * @brief The "Find" floater.  Should be llfloaterfind.
+ *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
+ * Copyright (c) 2002-2009, Linden Research, Inc.
+ * 
+ * Second Life Viewer Source Code
+ * The source code in this file ("Source Code") is provided by Linden Lab
+ * to you under the terms of the GNU General Public License, version 2.0
+ * ("GPL"), unless you have obtained a separate licensing agreement
+ * ("Other License"), formally executed by you and Linden Lab.  Terms of
+ * the GPL can be found in doc/GPL-license.txt in this distribution, or
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
+ * 
+ * There are special exceptions to the terms and conditions of the GPL as
+ * it is applied to this Source Code. View the full text of the exception
+ * in the file doc/FLOSS-exception.txt in this software distribution, or
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * 
+ * By copying, modifying or distributing this software, you acknowledge
+ * that you have read and understood your obligations described above,
+ * and agree to abide by those obligations.
+ * 
+ * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
+ * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
+ * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
+ */
+#ifndef LL_LLFLOATERDIRECTORY_H
+#define LL_LLFLOATERDIRECTORY_H
+#include "llfloatersearch.h"
+#include "lltabcontainer.h"
+class LLDirectoryCore;
+class LLPanelDirBrowser;
+class LLPanelDirAdvanced;
+class LLPanelDirClassified;
+class LLPanelDirEvents;
+class LLPanelDirFindAll;
+class LLPanelDirFindAllOld;
+class LLPanelDirGroups;
+class LLPanelDirLand;
+class LLPanelDirPeople;
+class LLPanelDirPlaces;
+class LLPanelAvatar;
+class LLPanelEvent;
+class LLPanelGroup;
+class LLPanelPlace;
+class LLPanelClassifiedInfo;
+class LLFloaterDirectory : public LLFloater
+{
+public:
+	LLFloaterDirectory(const std::string& name);
+	~LLFloaterDirectory();
+	void setVisible(BOOL visible);
+	static void requestClassifieds();
+	static void search(const LLFloaterSearch::SearchQuery& search);
+	static void showClassified(const LLUUID& classified_id);
+	static void showClassified(const std::string& search_text = "");
+	static void showEvents(S32 event_id);
+	static void showEvents(const std::string& search_text = "");
+	static void showLandForSale(const LLUUID& parcel_id);
+	static void showDestinations();
+	static void showGroups(const std::string& search_text = "");
+	static void showPeople(const std::string& search_text = "");
+	static void showPlaces(const std::string& search_text = "");
+	static void refreshGroup(const LLUUID& group_id);
+	static void hide(void*);
+	static void toggleEvents(void*);
+	static void toggleFind(void*);
+	static void onTabChanged( const LLSD& param );
+	void hideAllDetailPanels();
+private:
+	static void performQueryOn(const std::string& name, const std::string& search_text);
+	static void performQueryOn2(const std::string& name, const std::string& search_text);
+	static void start();
+	static void showPanel(const std::string& tabname);
+	void onClose(bool app_quitting);
+	void focusCurrentPanel();
+private:
+	LLPanelDirClassified* mClassifiedPanel;
+	LLPanelDirEvents* mEventsPanel;
+	LLPanelDirLand* mLandPanel;
+	static void* createClassified(void* userdata);
+	static void* createEvents(void* userdata);
+	static void* createPlaces(void* userdata);
+	static void* createLand(void* userdata);
+	static void* createPeople(void* userdata);
+	static void* createGroups(void* userdata);
+	static void* createClassifiedDetail(void* userdata);
+	static void* createAvatarDetail(void* userdata);
+	static void* createEventDetail(void* userdata);
+	static void* createGroupDetail(void* userdata);
+	static void* createGroupDetailHolder(void* userdata);
+	static void* createPlaceDetail(void* userdata);
+	static void* createPlaceDetailSmall(void* userdata);
+	static	void*	createPanelAvatar(void*	data);
+public:
+	LLPanelAvatar*		mPanelAvatarp;
+	LLPanelEvent*		mPanelEventp;
+	LLPanelGroup*		mPanelGroupp;
+	LLPanel*			mPanelGroupHolderp;
+	LLPanelPlace*		mPanelPlacep;
+	LLPanelPlace*		mPanelPlaceSmallp;
+	LLPanelClassifiedInfo*	mPanelClassifiedp;
+	static S32 sOldSearchCount;
+	static S32 sNewSearchCount;
+private:
+	bool mMinimizing;
+	static LLFloaterDirectory	*sInstance;
+};
+#endif

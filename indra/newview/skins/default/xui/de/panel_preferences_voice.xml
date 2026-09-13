@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel border="true" bottom="-409" height="408" label="Voice-Chat" left="102" name="chat" width="517">
+	<string value="Mehreren Instanzen die gleichzeitige Nutzung von Voice erlauben (Neustart erforderlich)" name="multivoice_label"/>
+	<scroll_container name="voice_scroll">
+		<panel name="voice_scroll_inner">
+			<text visibility_control="CmdLineDisableVoice" bottom_delta="-14" follows="left|top" left_delta="12" name="voice_unavailable">Voice-Chat ist nicht verfügbar</text>
+			<check_box control_name="local_enable" invisibility_control="CmdLineDisableVoice" bottom_delta="-6" follows="top" height="16" initial_value="false" label="Voice-Chat aktivieren" left="8" name="enable_voice_check" />
+			<check_box bottom_delta="-18" follows="top" height="16" name="enable_multivoice_check" />
+			<radio_group enabled_control="local_enable" bottom_delta="-66" draw_border="false" follows="top" height="60" left_delta="20" name="ear_location" width="364">
+				<radio_item bottom="-19" height="16" left="3" name="0">Voice-Chat von der Kameraposition hören.</radio_item>
+				<radio_item bottom="-35" height="16" name="1">Voice-Chat von der Avatarposition hören.</radio_item>
+				<radio_item bottom="-51" height="16" name="3">Voice-Chat von allen gleich lautstark hören.</radio_item>
+			</radio_group>
+			<text enabled_control="local_enable" bottom_delta="-20" follows="top" height="16" name="push_to_talk_heading">Zum Sprechen drücken</text>
+			<check_box enabled_control="local_enable" bottom_delta="-20" follows="top" height="16" initial_value="false" label="Push-to-Talk im Umschaltmodus verwenden" name="push_to_talk_toggle_check" tool_tip="Wenn aktiviert, schaltet der Push-to-Talk-Auslöser das Mikrofon ein und aus. Wenn deaktiviert, ist das Mikrofon aus, es sei denn, der Auslöser wird gedrückt gehalten." />
+			<text enabled_control="local_enable" bottom_delta="-20" follows="top" height="16" left_delta="4" name="push_to_talk_label">Push-to-Talk-Auslöser:</text>
+			<line_editor enabled_control="local_enable" bottom_delta="-20" follows="top" height="19" name="modifier_combo" width="280" />
+			<button enabled_control="local_enable" bottom_delta="-25" follows="top" height="20" label="Taste festlegen" name="set_voice_hotkey_button" width="115" />
+			<button enabled_control="local_enable" bottom_delta="0" follows="top" height="20" label="Mittlere Maustaste" left_delta="120" name="set_voice_middlemouse_button" width="160" />
+			<check_box enabled_control="local_enable" bottom_delta="-24" follows="top" height="16" initial_value="false" label="Lippensynchronisation aktivieren" left="28" name="enable_lip_sync_check" />
+			<check_box enabled_control="local_enable" bottom_delta="-20" follows="top" height="16" initial_value="false" label="Nur Anrufe von Personen auf meiner Freundesliste annehmen" name="voice_call_friends_only_check" />
+			<check_box enabled_control="local_enable" bottom_delta="-18" follows="top" height="16" initial_value="false" label="Mikrofon nach IM-Anrufen ausschalten" name="auto_disengage_mic_check" />
+			<check_box enabled_control="local_enable" control_name="VoiceEchoCancellation" bottom_delta="-20" follows="top" height="16" initial_value="true" label="Echounterdrückung" name="echo_cancellation_check" />
+			<check_box enabled_control="local_enable" control_name="VoiceAutomaticGainControl" bottom_delta="-18" follows="top" height="16" initial_value="true" label="Automatische Verstärkungsregelung" name="agc_check" />
+			<text enabled_control="local_enable" bottom_delta="-20" follows="top" height="16" name="noise_suppression_label">Geräuschunterdrückung:</text>
+			<combo_box enabled_control="local_enable" control_name="VoiceNoiseSuppressionLevel" bottom_delta="-20" follows="top" height="20" name="noise_suppression_combo" width="200">
+				<combo_item name="0" value="0">Deaktiviert</combo_item>
+				<combo_item name="1" value="1">Niedrig</combo_item>
+				<combo_item name="2" value="2">Mäßig</combo_item>
+				<combo_item name="3" value="3">Hoch</combo_item>
+				<combo_item name="4" value="4">Sehr hoch</combo_item>
+			</combo_box>
+			<button enabled_control="local_enable" bottom_delta="-40" follows="top" height="20" label="Geräteeinstellungen" mouse_opaque="true" name="device_settings_btn" width="155" tool_tip="Öffnet Geräteeinstellungen. Der Voice-Chat wird vorübergehend ausgesetzt, während dieses Fenster geöffnet ist." />
+		</panel>
+	</scroll_container>
+</panel>

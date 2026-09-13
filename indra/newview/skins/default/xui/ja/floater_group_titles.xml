@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="goup titles" title="グループ Titles">
+	<scroll_list name="titles_list">
+		<column name="title" label="タイトル" />
+		<column name="group_name" label="グループ" />
+		<column name="group_id" />
+	</scroll_list>
+	<button name="activate" label="有効化" tool_tip="選択したグループタイトルを有効化" />
+</floater>

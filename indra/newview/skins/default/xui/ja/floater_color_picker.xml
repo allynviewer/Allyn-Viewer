@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="ColorPicker" title="色の選択">
+	<text name="r_val_text">赤:</text>
+	<spinner name="rspin" />
+	<text name="g_val_text">緑:</text>
+	<spinner name="gspin" />
+	<text name="b_val_text">青:</text>
+	<spinner name="bspin" />
+	<text name="h_val_text">色相:</text>
+	<spinner name="hspin" />
+	<text name="s_val_text">彩度:</text>
+	<spinner name="sspin" />
+	<text name="l_val_text">輝度:</text>
+	<spinner name="lspin" />
+	<check_box name="apply_immediate" label="すぐに適用" />
+	<button name="color_pipette" />
+	<button name="cancel_btn" label="キャンセル" />
+	<button name="select_btn" label="選択" />
+	<text name="Hex Value:">Hex:</text>
+	<line_editor name="hexval" />
+	<text name="Current color:">現在の色:</text>
+	<text name="(Drag below to save.)">下にドラッグして保存。</text>
+</floater>

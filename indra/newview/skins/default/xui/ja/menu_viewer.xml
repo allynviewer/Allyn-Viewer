@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu_bar name="Main Menu">
+	<menu name="File" label="ファイル">
+		<menu_item_call name="Upload Image" label="画像をアップロード ([UPLOADFEE])..." />
+		<menu_item_call name="Upload Sound" label="サウンドをアップロード ([UPLOADFEE])..." />
+		<menu_item_call name="Upload Animation" label="アニメーションをアップロード ([UPLOADFEE])..." />
+		<menu_item_call name="Upload Mesh" label="メッシュをアップロード..." />
+		<menu_item_call name="Bulk Upload" label="一括アップロード（ファイルごと）..." />
+		<menu_item_call name="Import" label="オブジェクトXMLをインポート" />
+		<menu_item_call name="Import2" label="テクスチャ付きでインポート" />
+		<menu_item_call name="Change Local Textures" label="ローカルテクスチャを変更" />
+		<menu_item_separator name="separator" label="-----------" />
+		<menu_item_call name="perm prefs" label="デフォルト権限を設定..." />
+		<menu_item_separator name="separator" label="-----------" />
+		<menu_item_call name="Minimize All Windows" label="すべてのウィンドウを最小化" />
+		<menu_item_call name="Close Window" label="ウィンドウを閉じる" />
+		<menu_item_call name="Close All Windows" label="すべてのウィンドウを閉じる" />
+		<menu_item_separator name="separator2" label="-----------" />
+		<menu_item_call name="Save Preview As..." label="プレビューに名前を付けて保存..." />
+		<menu_item_separator name="separator3" label="-----------" />
+		<menu_item_call name="Take Snapshot" label="スナップショットを撮る" />
+		<menu_item_call name="Snapshot to Disk" label="スナップショットをディスクに保存" />
+		<menu_item_separator name="separator4" label="-----------" />
+		<menu_item_call name="Quit" label="終了" />
+	</menu>
+	<menu name="Edit" label="編集">
+		<menu_item_call name="Undo" label="元に戻す" />
+		<menu_item_call name="Redo" label="やり直し" />
+		<menu_item_separator name="separator" label="-----------" />
+		<menu_item_call name="Cut" label="切り取り" />
+		<menu_item_call name="Copy" label="コピー" />
+		<menu_item_call name="Paste" label="貼り付け" />
+		<menu_item_call name="Delete" label="削除" />
+		<menu_item_separator name="separator2" label="-----------" />
+		<menu_item_call name="Search..." label="検索..." />
+		<menu_item_separator name="separator3" label="-----------" />
+		<menu_item_call name="Select All" label="すべて選択" />
+		<menu_item_call name="Deselect" label="選択解除" />
+		<menu_item_separator name="separator4" label="-----------" />
+		<menu_item_call name="Duplicate" label="複製" />
+		<menu_item_separator name="separator5" label="-----------" />
+		<menu name="Attach Object" label="オブジェクトを装着" />
+		<menu name="Detach Object" label="オブジェクトを外す" />
+		<menu name="Take Off Clothing" label="衣類を脱ぐ">
+			<menu_item_call name="Shirt" label="シャツ" />
+			<menu_item_call name="Pants" label="パンツ" />
+			<menu_item_call name="Shoes" label="靴" />
+			<menu_item_call name="Socks" label="靴下" />
+			<menu_item_call name="Jacket" label="ジャケット" />
+			<menu_item_call name="Gloves" label="手袋" />
+			<menu_item_call name="Menu Undershirt" label="下着（上）" />
+			<menu_item_call name="Menu Underpants" label="下着（下）" />
+			<menu_item_call name="Skirt" label="スカート" />
+			<menu_item_call name="Tattoo" label="タトゥー" />
+			<menu_item_separator name="separator51" label="-----------" />
+			<menu_item_call name="Alpha" label="アルファ" />
+			<menu_item_call name="Physics" label="物理" />
+			<menu_item_separator name="separator51" label="-----------" />
+			<menu_item_call name="All Clothes" label="すべての衣類" />
+		</menu>
+		<menu_item_separator name="separator6" label="-----------" />
+		<menu_item_call name="Gestures..." label="ジェスチャー..." />
+		<menu_item_call name="Profile..." label="プロフィール..." />
+		<menu_item_call name="Appearance..." label="外見..." />
+		<menu_item_call name="Make Outfit..." label="衣装を作成..." />
+		<menu_item_call name="Display Name..." label="表示名..." />
+		<menu_item_separator name="separator7" label="-----------" />
+		<menu_item_check name="Friends..." label="フレンド..." />
+		<menu_item_call name="Groups..." label="グループ..." />
+		<menu_item_separator name="separator8" label="-----------" />
+		<menu_item_call name="Preferences..." label="環境設定..." />
+	</menu>
+	<menu name="View" label="表示">
+		<tearoff_menu name="~~~~~~~~~~~" label="~~~~~~~~~~~" />
+		<menu_item_call name="Mouselook" label="マウスルック" />
+		<menu_item_check name="Build" label="ビルド" />
+		<menu_item_check name="Joystick Flycam" label="ジョイスティックフライカム" />
+		<menu_item_call name="Reset View" label="表示をリセット" />
+		<menu_item_check name="Motion Resets Camera" label="移動でカメラをリセット" />
+		<menu_item_call name="Reset Camera Preset Angle" label="カメラプリセット角度を初期化" />
+		<menu_item_call name="Look at Last Chatter" label="最後の発言者を見る" />
+		<menu_item_separator name="separator" label="-----------" />
+		<menu_item_check name="Toolbar" label="ツールバー" />
+		<menu_item_check name="Navigation Bar" label="ナビゲーションバー" />
+		<menu_item_call name="toolbar_prefs" label="ツールバーのボタンを変更" />
+		<menu_item_check name="Chat History" label="ローカルチャット" />
+		<menu_item_check name="Instant Message" label="コミュニケーション" />
+		<menu_item_check name="Inventory" label="インベントリ" />
+		<menu_item_check name="Active Speakers" label="発言中" />
+		<menu_item_check name="Mute List" label="ミュートリスト" />
+		<menu_item_check name="Teleport History" label="テレポート履歴" />
+		<menu_item_separator name="separator2" label="-----------" />
+		<menu_item_check name="Camera Controls" label="カメラ操作" />
+		<menu_item_check name="Movement Controls" label="移動操作" />
+		<menu_item_check name="World Map" label="ワールドマップ" />
+		<menu_item_check name="Mini-Map" label="ミニマップ" />
+		<menu_item_check name="Radar" label="レーダー" />
+		<menu_item_separator name="separator3" label="-----------" />
+		<menu_item_check name="Statistics Bar" label="統計バー" />
+		<menu_item_separator name="separator100" label="-----------" />
+		<menu_item_check name="Area Search" label="エリア検索" />
+		<menu_item_check name="Property Lines" label="境界線" />
+		<menu_item_check name="Banlines" label="バンライン" />
+		<menu_item_check name="Land Owners" label="土地の所有者" />
+		<menu_item_separator name="separator4" label="-----------" />
+		<menu name="Hover Tips" label="ホバーヒント">
+			<menu_item_check name="Show Tips" label="ヒントを表示" />
+			<menu_item_separator name="separator" label="-----------" />
+			<menu_item_check name="Land Tips" label="土地のヒント" />
+			<menu_item_check name="Tips On All Objects" label="全オブジェクトのヒント" />
+		</menu>
+		<menu_item_check name="Highlight Transparent" label="透明部分を強調" />
+		<menu_item_check name="beacons" label="ビーコン" />
+		<menu_item_check name="Hide Particles" label="パーティクルを非表示" />
+		<menu_item_check name="Show HUD Attachments" label="HUDアタッチメントを表示" />
+		<menu_item_separator name="separator5" label="-----------" />
+		<menu_item_call name="Zoom In" label="ズームイン" />
+		<menu_item_call name="Zoom Default" label="ズームをリセット" />
+		<menu_item_call name="Zoom Out" label="ズームアウト" />
+		<menu_item_separator name="separator6" label="-----------" />
+		<menu_item_call name="Toggle Fullscreen" label="フルスクリーン切替" />
+		<menu_item_call name="Set UI Size to Default" label="UIサイズを初期値に戻す" />
+	</menu>
+	<menu name="World" label="ワールド">
+		<menu_item_check name="Chat" label="チャット" />
+		<menu_item_check name="Always Run" label="常に走る" />
+		<menu_item_call name="Sit on Ground" label="地面に座る" />
+		<menu_item_check name="Fly" label="飛行" />
+		<menu_item_separator name="separator" label="-----------" />
+		<menu_item_call name="Create Landmark Here" label="ここにランドマークを作成" />
+		<menu_item_call name="Set Home to Here" label="ここをホームに設定" />
+		<menu_item_separator name="separator2" label="-----------" />
+		<menu_item_call name="Teleport Home" label="ホームへテレポート" />
+		<menu_item_separator name="separator3" label="-----------" />
+		<menu name="Status" label="ステータス">
+			<menu_item_call name="Fake Away Status" label="離席中を偽装" />
+			<menu_item_call name="Set Away" label="離席中にする" />
+			<menu_item_call name="Set Busy" label="取り込み中にする" />
+			<menu name="Autoresponse" label="自動応答">
+				<menu_item_check name="Repeat" label="繰り返し" />
+				<menu_item_check name="Only send when away" label="離席中のみ送信" />
+				<menu_item_check name="General" label="一般" />
+				<menu_item_check name="Friends Only" label="•フレンドのみ" />
+				<menu_item_check name="Non-Friends" label="フレンド以外" />
+				<menu_item_check name="Muted" label="ミュート済み" />
+			</menu>
+			<menu_item_check name="Sit when away" label="離席中に座る" />
+		</menu>
+		<menu_item_call name="Stop Animating My Avatar" label="アバターのアニメーションを停止" />
+		<menu_item_call name="Release Keys" label="キーを解放" />
+		<menu_item_call name="insert_agent" />
+		<menu_item_separator name="separator4" label="-----------" />
+		<menu_item_call name="Account History..." label="アカウント履歴...">
+			<on_click name="AccountHistory_url" />
+		</menu_item_call>
+		<menu_item_call name="Manage My Account..." label="アカウントを管理...">
+			<on_click name="ManageMyAccount_url" />
+		</menu_item_call>
+		<menu_item_call name="Marketplace" label="マーケットプレイス" />
+		<menu_item_check name="MarketplaceListings" label="マーケットプレイス出品..." />
+		<menu_item_call name="Buy and Sell L$..." label="[CURRENCY]を購入..." />
+		<menu_item_separator name="separator5" label="-----------" />
+		<menu_item_check name="My Outfits" label="マイ衣装" />
+		<menu_item_check name="Favorites" label="お気に入り" />
+		<menu_item_check name="Received Items" label="受け取ったアイテム" />
+		<menu_item_check name="Avatar Picker" label="デフォルトアバター" />
+		<menu_item_check name="Destinations" label="目的地" />
+		<menu_item_check name="Experiences..." label="エクスペリエンス..." />
+		<menu_item_separator name="separator5" label="-----------" />
+		<menu_item_call name="My Land..." label="自分の土地..." />
+		<menu_item_call name="About Land..." label="土地について..." />
+		<menu_item_call name="Buy Land..." label="土地を購入..." />
+		<menu_item_call name="Region/Estate..." label="リージョン/エステート..." />
+		<menu_item_call name="insert_world" />
+		<menu_item_separator name="separator6" label="-----------" />
+		<menu name="Environment Settings" label="環境設定">
+			<menu_item_check name="Sunrise" label="日の出" />
+			<menu_item_check name="Noon" label="正午" />
+			<menu_item_check name="Sunset" label="日没" />
+			<menu_item_check name="Midnight" label="真夜中" />
+			<menu_item_check name="Revert to Region Default" label="リージョンの初期設定に戻す" />
+			<menu_item_separator name="separator" label="-----------" />
+			<menu_item_call name="Environment Editor" label="環境エディタ" />
+			<menu_item_call name="Day Cycle Editor" label="日周期エディタ" />
+			<menu_item_call name="Post-Processing Effects" label="ポストプロセス効果" />
+		</menu>
+	</menu>
+	<menu name="Tools" label="ツール">
+		<menu name="Select Tool" label="ツールを選択">
+			<menu_item_call name="Focus" label="フォーカス" />
+			<menu_item_call name="Move" label="移動" />
+			<menu_item_call name="Edit" label="編集" />
+			<menu_item_call name="Create" label="作成" />
+			<menu_item_call name="Land" label="土地" />
+		</menu>
+		<menu_item_separator name="separator" label="-----------" />
+		<menu_item_check name="Select Only My Objects" label="自分のオブジェクトのみ選択" />
+		<menu_item_check name="Select Only Movable Objects" label="移動可能なオブジェクトのみ選択" />
+		<menu_item_check name="Select By Surrounding" label="囲んで選択" />
+		<menu_item_check name="Show Selection Outlines" label="選択の輪郭を表示" />
+		<menu_item_check name="Show Hidden Selection" label="隠れた選択を表示" />
+		<menu_item_check name="Show Light Radius for Selection" label="選択の光源半径を表示" />
+		<menu_item_check name="Show Selection Beam" label="選択ビームを表示" />
+		<menu_item_call name="insert_tools" />
+		<menu_item_separator name="separator2" label="-----------" />
+		<menu_item_check name="Snap to Grid" label="グリッドにスナップ" />
+		<menu_item_call name="Snap Object XY to Grid" label="オブジェクトXYをグリッドにスナップ" />
+		<menu_item_call name="Use Selection for Grid" label="選択をグリッドに使う" />
+		<menu_item_call name="Grid Options..." label="グリッドオプション..." />
+		<menu_item_separator name="separator3" label="-----------" />
+		<menu_item_check name="Edit Linked Parts" label="リンク部品を編集" />
+		<menu name="Select Linked Parts" label="リンク部品を選択">
+			<menu_item_call name="Select Next Part" label="次の部品を選択" />
+			<menu_item_call name="Select Previous Part" label="前の部品を選択" />
+			<menu_item_call name="Include Next Part" label="次の部品を追加" />
+			<menu_item_call name="Include Previous Part" label="前の部品を追加" />
+		</menu>
+		<menu_item_call name="Link" label="リンク" />
+		<menu_item_call name="Unlink" label="リンク解除" />
+		<menu_item_separator name="separator4" label="-----------" />
+		<menu_item_call name="Focus on Selection" label="選択にフォーカス" />
+		<menu_item_call name="Zoom to Selection" label="選択にズーム" />
+		<menu_item_call name="Menu Object Take" label="オブジェクトを購入">
+			<on_enable name="EnableBuyOrTake" />
+		</menu_item_call>
+		<menu_item_call name="Take Copy" label="コピーを取る" />
+		<menu_item_call name="Return..." label="オブジェクトを返却" />
+		<menu_item_call name="Save Object Back to Object Contents" label="オブジェクトを中身に保存し直す" />
+		<menu_item_call name="Admin Delete" label="管理者削除" />
+		<menu_item_separator name="separator6" label="-----------" />
+		<menu_item_call name="Show Script Warning/Error Window" label="スクリプト警告/エラーを表示" />
+		<menu name="Recompile Scripts in Selection" label="選択内のスクリプトを再コンパイル">
+			<menu_item_call name="Mono" label="Mono" />
+			<menu_item_call name="LSL" label="LSL" />
+		</menu>
+		<menu_item_call name="Reset Scripts in Selection" label="選択内のスクリプトをリセット" />
+		<menu_item_call name="Set Scripts to Running in Selection" label="選択内のスクリプトを実行" />
+		<menu_item_call name="Set Scripts to Not Running in Selection" label="選択内のスクリプトを停止" />
+		<menu_item_call name="Remove Scripts in Selection" label="選択内のスクリプトを削除" />
+		<menu_item_call name="Count Scripts in Selection" label="選択内のスクリプト数" />
+		<menu name="Pathfinding" label="Pathfinding">
+			<menu_item_check name="pathfinding_linksets_menu_item" label="リンクセット..." />
+			<menu_item_check name="pathfinding_characters_menu_item" label="キャラクター..." />
+			<menu_item_call name="pathfinding_rebake_navmesh_item" label="リージョンをリベイク" />
+		</menu>
+	</menu>
+	<menu name="Help" label="ヘルプ">
+		<menu_item_call name="Tutorial" label="チュートリアル" />
+		<menu_item_separator name="separator" label="-----------" />
+		<menu_item_call name="Official Linden Blog..." label="Linden公式ブログ...">
+			<on_click name="OfficialLindenBlog_url" />
+		</menu_item_call>
+		<menu_item_call name="Grid Status..." label="グリッドステータス..." />
+		<menu_item_separator name="separator2" label="-----------" />
+		<menu_item_call name="Scripting Portal..." label="スクリプトポータル...">
+			<on_click name="ScriptingPortal_url" />
+		</menu_item_call>
+		<menu_item_separator name="separator3" />
+		<menu_item_call name="Report Abuse..." label="虐待を報告..." />
+		<menu_item_call name="Bumps, Pushes &amp;amp; Hits..." label="バンプ・プッシュ・ヒット..." />
+		<menu_item_separator name="separator7" />
+		<menu name="Bug Reporting" label="バグ報告">
+			<menu_item_call name="Public Issue Tracker..." label="公開Issue Tracker...">
+				<on_click name="PublicIssueTracker_url" />
+			</menu_item_call>
+			<menu_item_call name="Publc Issue Tracker Help..." label="Issue Trackerのヘルプ...">
+				<on_click name="PublicIssueTrackerHelp_url" />
+			</menu_item_call>
+			<menu_item_call name="Allyn Issue Tracker..." label="[SHORT_APP_NAME] Issue Tracker...">
+				<on_click name="SinguIssueTracker_url" />
+			</menu_item_call>
+			<menu_item_separator name="separator7" />
+			<menu_item_call name="Bug Reporting 101..." label="バグ報告入門...">
+				<on_click name="BugReporting101_url" />
+			</menu_item_call>
+			<menu_item_call name="Security Issues..." label="セキュリティ問題...">
+				<on_click name="SecurityIssues_url" />
+			</menu_item_call>
+			<menu_item_call name="QA Wiki..." label="QA Wiki...">
+				<on_click name="QAWiki_url" />
+			</menu_item_call>
+			<menu_item_separator name="separator9" />
+			<menu_item_call name="Report Bug..." label="バグを報告...">
+				<on_click name="ReportBug_url" />
+			</menu_item_call>
+			<menu_item_call name="Report [SHORT_APP_NAME] Bug..." label="[SHORT_APP_NAME]のバグを報告...">
+				<on_click name="ReportSinguBug_url" />
+			</menu_item_call>
+			<menu_item_call name="Request New Feature..." label="新機能をリクエスト...">
+				<on_click name="RequestFeature_url" />
+			</menu_item_call>
+		</menu>
+		<menu_item_call name="viewer group" label="[SHORT_APP_NAME]グループ" />
+		<menu_item_call name="About Second Life..." label="[SHORT_APP_NAME] について..." />
+	</menu>
+	<menu name="Allyn" label="Allyn Viewer">
+		<menu_item_call name="Close All Dialogs" label="すべてのダイアログを閉じる" />
+		<menu_item_separator name="separators1" />
+		<menu_item_call name="Fake Away Status" label="離席中を偽装" />
+		<menu_item_call name="Force Ground Sit" label="強制的に地面に座る" />
+		<menu_item_separator name="separators2" />
+		<menu_item_call name="Animation Override ..." label="アニメーションオーバーライド..." />
+		<menu_item_check name="Pose Stand" label="Pose Stand" />
+		<menu_item_check name="Nimble" label="素早い移動" />
+		<menu_item_call name="Resync Animations" label="アニメーションを再同期" />
+		<menu_item_separator name="separators3" />
+		<menu_item_check name="Region Tracker" label="リージョン追跡" />
+		<menu_item_check name="Object Area Search" label="オブジェクトエリア検索" />
+		<menu_item_check name="Sound Explorer" label="サウンドエクスプローラー" />
+		<menu_item_check name="Asset Blacklist" label="アセットブラックリスト" />
+		<menu_item_check name="Media Filter" label="メディアフィルター" />
+		<menu_item_check name="Streaming Audio Display" label="ストリーミング音声表示" />
+		<menu_item_check name="Region Debug Console" label="リージョンデバッグコンソール" />
+		<menu_item_separator name="separators3" />
+		<menu_item_call name="Rebake" label="リベイク" />
+	</menu>
+</menu_bar>

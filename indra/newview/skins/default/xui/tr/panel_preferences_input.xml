@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Input panel" label="Giriş ve Kamera">
+	<scroll_container name="input_scroll">
+		<panel name="input_scroll_inner">
+			<text name=" Mouselook Options:">FARE GÖRÜNÜMÜ SEÇENEKLERİ</text>
+			<icon name="mouselook_section_rule" />
+			<text name=" Mouse Sensitivity:">Fare Hassasiyeti:</text>
+			<slider_bar name="mouse_sensitivity" />
+			<check_box name="invert_mouse" label="Fareyi Ters Çevir" />
+			<check_box name="instant_zoom" label="Sağ tıklamayla yakınlaştırmayı pürüzsüz değil anlık yapın" />
+			<check_box name="AlchemyMouselookInstructions" label="Ekran konumu ve avatar sağlığı" />
+			<check_box name="AlchemyMouselookIFF" label="Hedeflenen avatarın adını artı işaretinin altında görüntüle" />
+			<check_box name="first_person_avatar_visible" label="Avatarı Mouselook'ta göster" />
+			<check_box name="UseRealisticMouselook" label="Mouselook'ta 'gerçekçi' Kamera davranışı kullanın" />
+			<text name="UI Hidden in mouselook:">Fare görünümünde gizli kullanıcı arayüzü:</text>
+			<check_box name="mouselook_hides_floaters" label="Yüzenler" />
+			<check_box name="mouselook_hides_notices" label="Bildirimler" />
+			<check_box name="mouselook_hides_menubar" label="Menü çubuğu" />
+			<check_box name="mouselook_hides_toolbar" label="Araç Çubuğu" />
+			<text name=" Movement Options:">HAREKET SEÇENEKLERİ</text>
+			<icon name="movement_section_rule" />
+			<check_box name="automatic_fly" label="Yukarı/aşağı basılı tutarak uçun/inin" />
+			<check_box name="crouch_toggle" label="Shift tuşunu basılı tutarak çömelme geçişine izin ver" />
+			<check_box name="azerty_keys" label="Qwerty düzeni yerine Azerty düzenini kullanın" />
+			<text name=" Camera Options:">KAMERA SEÇENEKLERİ</text>
+			<icon name="camera_section_rule" />
+			<text name="camera_fov_label">Kamera Görüş Açısı:</text>
+			<slider name="camera_fov" />
+			<text name="Camera Follow Distance:">Kamera Takip Mesafesi:</text>
+			<slider name="camera_offset_scale" />
+			<check_box name="scroll_keys" label="Kontrol ve/veya kaydırma basılı tutularak kaydırma, kamera konumunu ayarlar" />
+			<check_box name="edit_camera_movement" label="Otomatik Kamera Hareketini Düzenle" tool_tip="Düzenleme moduna girerken ve çıkarken otomatik kamera konumlandırmayı kullanın" />
+			<check_box name="appearance_camera_movement" label="Otomatik Görünüm Kamera Hareketi" tool_tip="Düzenleme modundayken otomatik kamera konumlandırmayı kullanın" />
+			<check_box name="unsit_on_camera_reset" label="Kamera Sıfırlamasında Avatarı Kaldır" tool_tip="Esc tuşuna bastığınızda kamera otomatik olarak ayağa kalkar ve kamera üçüncü kişi moduna geçer" />
+			<check_box name="DisableCameraConstraints" label="Kamera Kısıtlamalarını Devre Dışı Bırak" tool_tip="Duvarlara, nesnelere vb. çok yaklaştığınızda kameranın otomatik olarak yakınlaştırma yapmasını önleyin." />
+			<check_box name="Limit Select Distance" label="Sınır Seçme Mesafesi" tool_tip="Bir nesnenin seçilebileceği mesafeyi sınırlayın." />
+			<button name="joystick_setup_button" label="Oyun Çubuğu Kurulumu" />
+		</panel>
+	</scroll_container>
+</panel>

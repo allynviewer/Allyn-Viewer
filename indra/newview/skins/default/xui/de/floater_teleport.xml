@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="teleport_floater" title="Teleportieren">
+
+	<text name="teleport_text">Öffentlicher Regionscode:</text>
+
+
+	
+
+	<button name="teleport_btn" label="Teleportieren"/>
+	<button label="Abbrechen" name="cancel_btn"/>
+</floater>

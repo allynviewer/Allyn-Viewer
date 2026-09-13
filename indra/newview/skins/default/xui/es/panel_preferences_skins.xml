@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Apariencias" name="Skins panel">
+	<text name="Skin_txt1">
+		Apariencia Seleccionada
+	</text>
+	<combo_box name="custom_skin_combo" />
+	<text name="Skin_txt2">
+		Autor Principal
+	</text>
+	<view_border blevel_style="in" bottom_delta="-18" follows="top" height="16" name="custom_box1" width="260"/>
+	<text name="custom_skin_author">
+		Autor de la Apariencia
+	</text>
+	<text name="Skin_txt3">
+		Autores Adicionales
+	</text>
+	<view_border blevel_style="in" bottom_delta="-18" follows="top" height="16" name="custom_box2" width="260"/>
+	<text name="custom_skin_ad_authors">
+		Autores Adicionales de la Apariencia
+	</text>
+	<text name="Skin_txt4">
+		Carpeta de la Apariencia
+	</text>
+	<view_border blevel_style="in" bottom_delta="-18" follows="top" height="16" name="custom_box3" width="260"/>
+	<text name="custom_skin_folder">
+		Carpeta de la Apariencia
+	</text>
+	<button label="" name="custom_skin_preview" tool_tip="Vista Previa de la Piel"/>
+	<text name="Skin_txt5">
+		Información Adicional
+	</text>
+	<text_editor bottom_delta="-100" enabled="false" follows="top" height="100" left_delta="-135" max_length="511" name="custom_skin_info" width="350" word_wrap="true"/>
+</panel>

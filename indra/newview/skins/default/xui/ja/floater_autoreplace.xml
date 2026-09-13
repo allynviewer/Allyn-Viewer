@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="autoreplace_floater" title="自動置換の設定">
+	<check_box name="autoreplace_enable" label="自動置換を有効にする" tool_tip="チャット入力中に、入力したキーワードを対応する置換テキストに置き換えます" />
+	<view_border name="divisor1" />
+	<button name="autoreplace_import_list" label="リストをインポート..." tool_tip="以前エクスポートしたリストをファイルから読み込みます。" />
+	<button name="autoreplace_export_list" label="リストをエクスポート..." tool_tip="選択したリストをファイルに保存して共有できます。" />
+	<button name="autoreplace_new_list" label="新しいリスト..." tool_tip="新しいリストを作成します。" />
+	<button name="autoreplace_delete_list" label="リストを削除" tool_tip="選択したリストを削除します。" />
+	<scroll_list name="autoreplace_list_name" />
+	<button name="autoreplace_list_up" tool_tip="このリストの優先度を上げます。" />
+	<button name="autoreplace_list_down" tool_tip="このリストの優先度を下げます。" />
+	<view_border name="divisor2" />
+	<scroll_list name="autoreplace_list_replacements">
+		<scroll_list.columns name="Keyword" label="キーワード" />
+		<scroll_list.columns name="Replacement" label="置換" />
+	</scroll_list>
+	<button name="autoreplace_add_entry" label="追加..." />
+	<button name="autoreplace_delete_entry" label="削除" />
+	<view_border name="divisor3" />
+	<text name="keyword">キーワード:</text>
+	<line_editor name="autoreplace_keyword" />
+	<text name="replacement">置換:</text>
+	<line_editor name="autoreplace_replacement" />
+	<button name="autoreplace_save_entry" label="項目を保存" tool_tip="この項目を保存します。" />
+	<view_border name="divisor4" />
+	<button name="autoreplace_save_changes" label="変更を保存" tool_tip="すべての変更を保存します。" />
+	<button name="autoreplace_cancel" label="キャンセル" tool_tip="すべての変更を破棄します。" />
+</floater>

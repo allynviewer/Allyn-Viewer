@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="ao_remote">
+	<panel name="panel_bg_tab" />
+	<button name="ao_swim_btn" label="強制スイム" tool_tip="飛行アニメーションの代わりに泳ぎのアニメーションを使います" />
+	<button name="ao_sit_btn" label="座りオフ" label_selected="座りオン" />
+	<panel name="panel_ao_controls" />
+</panel>

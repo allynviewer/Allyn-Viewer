@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="mute by name" title="Nesneyi adına göre sessize al">
+	<text name="message">
+		Ada göre sessize alma yalnızca nesne sohbetini ve IM'yi etkiler, sesleri etkilemez.
+Nesnenin adını tam olarak yazmalısınız.
+	</text>
+	<line_editor name="object_name">Nesne adı</line_editor>
+	<button name="OK" label="OK" />
+	<button name="Cancel" label="İptal" />
+</floater>

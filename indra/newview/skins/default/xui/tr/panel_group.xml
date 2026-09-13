@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="GroupInfo" title="GrupBilgisi">
+	<string name="floater_title">Grup Bilgisi</string>
+	<string name="default_needs_apply_text">Geçerli sekmede uygulanmamış değişiklikler var.</string>
+	<string name="want_apply_text">Bu değişiklikleri uygulamak istiyor musunuz?</string>
+	<tab_container name="group_tab_container">
+		<panel name="general_tab" />
+		<panel name="roles_tab" />
+		<panel name="notices_tab" />
+		<panel name="voting_tab" />
+		<panel name="land_money_tab" />
+		<panel name="experiences_tab" />
+	</tab_container>
+	<button name="btn_apply" label="Uygula" />
+	<button name="btn_cancel" label="İptal" />
+	<button name="btn_ok" label="OK" />
+	<button name="btn_refresh" label="Yenile" />
+</panel>

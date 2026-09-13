@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="rlvLocks" title="Bloqueios RLV ativos">
+	<scroll_list name="lock_list">
+		<column name="lock_type" label="Tipo de bloqueio"/>
+		<column name="lock_addrem" label="Incluir/Remover"/>
+		<column name="lock_target" label="Alvo do bloqueio"/>
+		<column name="lock_origin" label="Segurado por"/>
+	</scroll_list>
+</floater>

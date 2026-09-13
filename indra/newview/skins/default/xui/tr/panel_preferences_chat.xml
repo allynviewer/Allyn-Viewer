@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="chat" label="Metin Sohbeti">
+	<scroll_container name="chat_scroll">
+		<panel name="chat_scroll_inner">
+			<text name="text_box">SOHBET YAZI TİPİ BOYUTU</text>
+			<icon name="section_font_rule" />
+			<radio_group name="chat_font_size">
+				<radio_item name="radio">Küçük</radio_item>
+				<radio_item name="radio2">Orta</radio_item>
+				<radio_item name="radio3">Büyük</radio_item>
+			</radio_group>
+			<text name="text_box2">SOHBET RENGİ</text>
+			<icon name="section_color_rule" />
+			<color_swatch name="user" label="sen" />
+			<color_swatch name="agent" label="Diğerleri" />
+			<color_swatch name="im" label="anlık ileti" />
+			<color_swatch name="system" label="Sistem" />
+			<color_swatch name="script_error" label="Hatalar" />
+			<color_swatch name="objects" label="Nesneler" />
+			<color_swatch name="owner" label="Sahip" />
+			<color_swatch name="background" label="Kabarcık" />
+			<color_swatch name="links" label="URLs" />
+			<text name="text_box3">SOHBET KONSOLU</text>
+			<icon name="section_console_rule" />
+			<spinner name="fade_chat_time" label="Daha sonra sohbeti sil" />
+			<text name="text_box4">(saniye)</text>
+			<spinner name="max_chat_count" />
+			<text name="text_box5">(# satır)</text>
+			<spinner name="chat_bottom_offset" label="Alt ofset" tool_tip="Sohbet konsolu ile izleyicinin alt kısmı arasındaki piksel cinsinden uzaklık." />
+			<slider name="console_opacity" label="Opaklık" />
+			<check_box name="chat_full_width_check" label="Tam ekran genişliğini kullan (Yeniden başlatma gerektirir)" />
+			<text name="text_box6">SOHBET SEÇENEKLERİ</text>
+			<icon name="section_opt_rule" />
+			<check_box name="close_chat_on_return_check" label="Geri dönüş tuşuna bastıktan sonra sohbet çubuğunu kapatın" />
+			<check_box name="arrow_keys_move_avatar_check" label="Ok tuşları sohbet ederken her zaman avatarı hareket ettirir" />
+			<check_box name="letter_keys_start_local_chat" label="Harf tuşları yerel sohbete yazmaya başlar" />
+			<check_box name="show_timestamps_check" label="Yerel Sohbette zaman damgalarını göster" />
+			<check_box name="script_errors_as_chat" label="Script hatalarını ve uyarılarını normal sohbet olarak göster" />
+			<check_box name="play_typing_animation" label="Sohbet ederken yazma animasyonunu oynat" />
+			<text name="text_box7">KABARCIK SOHBET</text>
+			<icon name="section_bubble_rule" />
+			<check_box name="bubble_text_chat" label="Sohbet balonlarını göster" />
+			<slider name="bubble_chat_opacity" label="Opaklık" />
+		</panel>
+	</scroll_container>
+</panel>

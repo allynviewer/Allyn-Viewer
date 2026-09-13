@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="ao_remote">
+	<button name="ao_swim_btn" label="Swim" tool_tip="Les anims fly deviennent swim"/>
+	<button name="ao_sit_btn" label="Sit off" label_selected="Sit on"/>
+</panel>

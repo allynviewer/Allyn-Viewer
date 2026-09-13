@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="teleporthistory" title="Teleport geçmişi">
+	<scroll_list name="places_list">
+		<column name="parcel" label="Parsel" />
+		<column name="region" label="Bölge" />
+		<column name="position" label="Pozisyon" />
+		<column name="visited" label="Ziyaret edildi" />
+		<column name="slurl" />
+		<column name="simstring" />
+	</scroll_list>
+	<button name="teleport" label="Teleport" tool_tip="Seçilen konuma teleport et" />
+	<button name="show_on_map" label="Haritada göster" tool_tip="Haritayı seçilen konuma ortalayın." />
+	<button name="copy_slurl" label="SLURL öğesini panoya kopyalayın" tool_tip="Seçilen konumu SLURL olarak kopyalayın." />
+</floater>

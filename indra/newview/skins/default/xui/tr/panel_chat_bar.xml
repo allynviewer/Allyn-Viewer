@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="chat_bar">
+	<button name="History" label="Yerel Sohbet" tool_tip="Ne söylendiğini görmek için buraya tıklayın" />
+	<line_editor name="Chat Editor" label="Sohbet etmek için buraya tıklayın." tool_tip="Söylemek için Enter'a, fısıldamak için Shift-Enter'a, bağırmak için Ctrl-Enter'a basın." />
+	<flyout_button name="Say" label="Söyle" tool_tip="(Enter)">
+		<flyout_button_item name="shout_item">Bağır</flyout_button_item>
+		<flyout_button_item name="say_item">Söyle</flyout_button_item>
+		<flyout_button_item name="whisper_item">Fısıltı</flyout_button_item>
+	</flyout_button>
+	<combo_box name="Gesture" label="Jestler" />
+	<string name="gesture_label">Jestler</string>
+</panel>

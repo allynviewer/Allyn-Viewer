@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="roles_tab" label="メンバー">
+	<string name="default_needs_apply_text">現在のサブタブに未適用の変更があります。</string>
+	<string name="want_apply_text">これらの変更を適用しますか？</string>
+	<string name="help_text" />
+	<button name="help_button" label="?" />
+	<panel name="members_header">
+		<text name="static">メンバーとロール</text>
+		<text name="static2">グループメンバーには、アビリティ付きのロールが割り当てられます。これらの設定は簡単にカスタマイズでき、より柔軟な運営ができます。</text>
+	</panel>
+	<panel name="roles_header">
+		<text name="static">ロール</text>
+		<text name="role_properties_modifiable">下のロールを選択してください。名前、説明、メンバータイトルを変更できます。</text>
+		<text name="role_properties_not_modifiable">下のロールを選ぶと、プロパティ、メンバー、許可されたアビリティを確認できます。</text>
+		<text name="role_actions_modifiable">ロールにアビリティを割り当てることもできます。</text>
+		<text name="role_actions_not_modifiable">割り当てられたアビリティは表示できますが、変更はできません。</text>
+	</panel>
+	<panel name="actions_header">
+		<text name="static">アビリティ</text>
+		<text name="static2">アビリティの説明と、どのロールとメンバーが実行できるかを確認できます。</text>
+	</panel>
+	<panel name="banlist_header">
+		<text name="static">バン済みレジデント</text>
+		<text name="static2">このグループに入れないレジデントを確認します。「バンリストの管理」アビリティを持つメンバーは、特定のレジデントの参加をブロックできます。</text>
+	</panel>
+	<tab_container name="roles_tab_container">
+		<panel name="members_sub_tab" label="メンバー" tool_tip="メンバー">
+			<string name="donation_area">[AREA] m²</string>
+			<filter_editor name="filter_input" />
+			<name_list name="member_list">
+				<column name="name" label="メンバー名" />
+				<column name="donated" label="寄付ティア" />
+				<column name="online" label="最終ログイン" />
+			</name_list>
+			<button name="member_invite" label="新しいメンバーを招待..." />
+			<button name="member_eject" label="グループから排出" />
+			<button name="member_ban" label="メンバーをバン" />
+			<string name="help_text">メンバーに割り当てられたロールを追加または削除できます。Ctrlキーを押しながら名前をクリックすると、複数のメンバーを選択できます。</string>
+			<string name="power_folder_icon">inv_folder_plain_closed.tga</string>
+		</panel>
+		<panel name="roles_sub_tab" label="ロール">
+			<filter_editor name="filter_input" />
+			<scroll_list name="role_list">
+				<column name="name" label="ロール名" />
+				<column name="title" label="タイトル" />
+				<column name="members" label="メンバー" />
+			</scroll_list>
+			<button name="role_create" label="新しいロールを作成..." />
+			<button name="role_delete" label="ロールを削除" />
+			<string name="help_text">ロールにはタイトルと、メンバーが実行できるアビリティの一覧があります。メンバーは1つ以上のロールに所属できます。グループは「全員」と「所有者」を含め、最大10ロールまで持てます。</string>
+			<string name="cant_delete_role">「全員」と「所有者」のロールは特別なため、削除できません。</string>
+			<string name="power_folder_icon">inv_folder_plain_closed.tga</string>
+			<string name="power_all_have_icon">checkbox_enabled_true.tga</string>
+			<string name="power_partial_icon">checkbox_enabled_false.tga</string>
+		</panel>
+		<panel name="actions_sub_tab" label="アビリティ">
+			<filter_editor name="filter_input" />
+			<scroll_list name="action_list" tool_tip="アビリティを選ぶと詳細が表示されます。">
+				<column name="icon" />
+				<column name="action" />
+			</scroll_list>
+			<string name="help_text">アビリティにより、ロールのメンバーはこのグループで特定の操作を実行できます。アビリティには多様な種類があります。</string>
+			<string name="power_folder_icon">inv_folder_plain_closed.tga</string>
+		</panel>
+		<panel name="banlist_sub_tab" label="バン済みレジデント">
+			<panel.string name="help_text">バンリスト上のレジデントはグループに参加できません。</panel.string>
+		</panel>
+	</tab_container>
+	<panel name="members_footer">
+		<text name="static">割り当てられたロール</text>
+		<text name="static2">許可されたアビリティ</text>
+		<scroll_list name="member_assigned_roles">
+			<column name="checkbox" />
+			<column name="role" />
+		</scroll_list>
+		<scroll_list name="member_allowed_actions" tool_tip="各アビリティの詳細はアビリティタブを参照してください。">
+			<column name="icon" />
+			<column name="action" />
+		</scroll_list>
+	</panel>
+	<panel name="roles_footer">
+		<text name="static">名前</text>
+		<text name="static2">説明</text>
+		<line_editor name="role_name">従業員</line_editor>
+		<text name="static3">タイトル</text>
+		<line_editor name="role_title">（待機中）</line_editor>
+		<text_editor name="role_description">（待機中）</text_editor>
+		<text name="static4">割り当てられたメンバー</text>
+		<text name="static5" tool_tip="現在選択中のロールが実行できるアビリティの一覧。">許可されたアビリティ</text>
+		<name_list name="role_assigned_members" />
+		<check_box name="role_visible_in_list" label="メンバーを公開" tool_tip="このロールのメンバーを、グループ外の人に一般タブで表示するかどうかを設定します。" />
+		<scroll_list name="role_allowed_actions" tool_tip="各アビリティの詳細はアビリティタブを参照してください。">
+			<column name="icon" />
+			<column name="checkbox" />
+			<column name="action" />
+		</scroll_list>
+	</panel>
+	<panel name="actions_footer">
+		<text name="static">説明</text>
+		<text_editor name="action_description">このアビリティは「このグループからメンバーを排出」です。所有者のみが別の所有者を排出できます。</text_editor>
+		<text name="static2">アビリティを持つロール</text>
+		<text name="static3">アビリティを持つメンバー</text>
+		<scroll_list name="action_roles" />
+		<name_list name="action_members" />
+	</panel>
+	<panel name="banlist_footer">
+		<name_list name="ban_list">
+			<column name="name" label="レジデント" />
+			<column name="ban_date" label="バン日" />
+		</name_list>
+		<button name="ban_create" label="レジデントをバン" tool_tip="グループからレジデントをバンします" />
+		<button name="ban_delete" label="バンを解除" tool_tip="選択したレジデントのバンを解除します" />
+		<button name="ban_refresh" label="更新" tool_tip="バンリストを更新します" />
+	</panel>
+</panel>

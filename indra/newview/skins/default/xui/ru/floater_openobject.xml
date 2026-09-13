@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="objectcontents" title="Содержимое объекта">
+	<panel name="object_contents" />
+	<text name="object_name">[DESC]:</text>
+	<button name="copy_to_inventory_button" label="Копировать в инвентарь" />
+	<button name="copy_and_wear_button" label="Копировать и носить" />
+</floater>

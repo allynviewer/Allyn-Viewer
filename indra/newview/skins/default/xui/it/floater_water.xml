@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Water Floater" title="Editor avanzato dell&apos;acqua">
+	<text name="KeyFramePresetsText">Preimpostazioni:</text>
+	<button label="Nuovo" label_selected="Nuovo" name="WaterNewPreset"/>
+	<button label="Salva" label_selected="Salva" name="WaterSavePreset"/>
+	<button label="Elimina" label_selected="Elimina" name="WaterDeletePreset"/>
+	<tab_container name="Water Tabs">
+		<panel label="Impostazioni" name="Settings">
+			<text name="BHText">Colore nebbia dell&apos;acqua</text>
+			<button label="?" name="WaterFogColorHelp"/>
+			<color_swatch label="" name="WaterFogColor" tool_tip="Clicca per aprire la selezione colore"/>
+			<text name="WaterFogDensText">Esponente densità nebbia</text>
+			<button label="?" name="WaterFogDensityHelp"/>
+			<text name="WaterUnderWaterFogModText">Modificatore nebbia subacquea</text>
+			<button label="?" name="WaterUnderWaterFogModHelp"/>
+			<text name="BDensText">Scala onde di riflessione</text>
+			<button label="?" name="WaterNormalScaleHelp"/>
+			<text name="BHText2">1</text>
+			<text name="BHText3">2</text>
+			<text name="BHText4">3</text>
+			<text name="HDText">Scala Fresnel</text>
+			<button label="?" name="WaterFresnelScaleHelp"/>
+			<text name="FresnelOffsetText">Offset Fresnel</text>
+			<button label="?" name="WaterFresnelOffsetHelp"/>
+			<text name="DensMultText">Scala rifrazione sopra</text>
+			<button label="?" name="WaterScaleAboveHelp"/>
+			<text name="WaterScaleBelowText">Scala rifrazione sotto</text>
+			<button label="?" name="WaterScaleBelowHelp"/>
+			<text name="MaxAltText">Moltiplicatore sfocatura</text>
+			<button label="?" name="WaterBlurMultiplierHelp"/>
+		</panel>
+		<panel label="Immagine" name="Waves">
+			<text name="BHText">Direzione onda grande</text>
+			<button label="?" name="WaterWave1Help"/>
+			<text name="WaterWave1DirXText">X</text>
+			<text name="WaterWave1DirYText">Y</text>
+			<text name="BHText2">Direzione onda piccola</text>
+			<button label="?" name="WaterWave2Help"/>
+			<text name="WaterWave2DirXText">X</text>
+			<text name="WaterWave2DirYText">Y</text>
+			<text name="BHText3">Mappa delle normali</text>
+			<button label="?" name="WaterNormalMapHelp"/>
+		</panel>
+	</tab_container>
+	<string name="WLDefaultWaterNames">Default:Glassy:Pond:Murky:Second Plague:SNAKE!!!:Valdez</string>
+</floater>

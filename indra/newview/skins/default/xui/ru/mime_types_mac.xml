@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<mimetypes name="default">
+	<defaultlabel>(Неизвестный)</defaultlabel>
+	<defaultwidget>никто</defaultwidget>
+	<defaultimpl>media_plugin_cef</defaultimpl>
+	<widgetset name="web">
+		<label name="web_label">Веб-контент</label>
+		<icon>icn_media_web.tga</icon>
+		<default_type>text/html</default_type>
+		<tooltip name="web_tooltip">В этом месте есть веб-контент</tooltip>
+		<playtip name="web_playtip">Показать веб-контент</playtip>
+		<allow_resize>true</allow_resize>
+		<allow_looping>false</allow_looping>
+	</widgetset>
+	<widgetset name="movie">
+		<label name="movie_label">Фильм</label>
+		<default_type>video/*</default_type>
+		<icon>icn_media_movie.tga</icon>
+		<tooltip name="movie_tooltip">Здесь можно посмотреть фильм</tooltip>
+		<playtip name="movie_playtip">Воспроизвести фильм</playtip>
+		<allow_resize>false</allow_resize>
+		<allow_looping>true</allow_looping>
+	</widgetset>
+	<widgetset name="image">
+		<label name="image_label">Изображение</label>
+		<icon>icn_media_web.tga</icon>
+		<default_type>image/*</default_type>
+		<tooltip name="image_tooltip">По этому адресу есть изображение</tooltip>
+		<playtip name="image_playtip">Посмотреть изображение этого места</playtip>
+		<allow_resize>false</allow_resize>
+		<allow_looping>false</allow_looping>
+	</widgetset>
+	<widgetset name="audio">
+		<label name="audio_label">Аудио</label>
+		<icon>icn_media_web.tga</icon>
+		<default_type>audio/*</default_type>
+		<tooltip name="audio_tooltip">Здесь есть аудио</tooltip>
+		<playtip name="audio_playtip">Воспроизвести аудио этого места</playtip>
+		<allow_resize>false</allow_resize>
+		<allow_looping>true</allow_looping>
+	</widgetset>
+	<widgetset name="none">
+		<label name="none_label">No Content</label>
+		<default_type>нет/нет</default_type>
+		<icon>icn_media_web.tga</icon>
+		<tooltip name="none_tooltip">No media here</tooltip>
+		<playtip name="none_playtip" />
+		<allow_resize>false</allow_resize>
+		<allow_looping>false</allow_looping>
+	</widgetset>
+	<scheme name="rtsp">
+		<label name="rtsp_label">Потоковое вещание в реальном времени</label>
+		<widgettype>movie</widgettype>
+		<impl>media_plugin_libvlc</impl>
+	</scheme>
+	<mimetype name="blank">
+		<label name="blank_label">- Никто -</label>
+		<widgettype>никто</widgettype>
+		<impl>media_plugin_libvlc</impl>
+	</mimetype>
+	<mimetype name="none/none">
+		<label name="none/none_label">- Никто -</label>
+		<widgettype>никто</widgettype>
+		<impl>media_plugin_cef</impl>
+	</mimetype>
+	<mimetype name="audio/*">
+		<label name="audio2_label">Аудио</label>
+		<widgettype>audio</widgettype>
+		<impl>media_plugin_libvlc</impl>
+	</mimetype>
+	<mimetype name="video/*">
+		<label name="video2_label">Video</label>
+		<widgettype>movie</widgettype>
+		<impl>media_plugin_libvlc</impl>
+	</mimetype>
+	<mimetype name="image/*">
+		<label name="image2_label">Изображение</label>
+		<widgettype>image</widgettype>
+		<impl>media_plugin_cef</impl>
+	</mimetype>
+	<mimetype name="video/vnd.secondlife.qt.legacy">
+		<label name="vnd.secondlife.qt.legacy_label">Фильм (QuickTime)</label>
+		<widgettype>movie</widgettype>
+		<impl>media_plugin_libvlc</impl>
+	</mimetype>
+	<mimetype name="application/javascript">
+		<label name="application/javascript_label">Javascript</label>
+		<widgettype>web</widgettype>
+		<impl>media_plugin_cef</impl>
+	</mimetype>
+	<mimetype name="application/ogg">
+		<label name="application/ogg_label">Огг Аудио/Видео</label>
+		<widgettype>audio</widgettype>
+		<impl>media_plugin_libvlc</impl>
+	</mimetype>
+	<mimetype name="application/pdf">
+		<label name="application/pdf_label">PDF-документ</label>
+		<widgettype>image</widgettype>
+		<impl>media_plugin_cef</impl>
+	</mimetype>
+	<mimetype name="application/postscript">
+		<label name="application/postscript_label">Постскриптум-документ</label>
+		<widgettype>image</widgettype>
+		<impl>media_plugin_cef</impl>
+	</mimetype>
+	<mimetype name="application/rtf">
+		<label name="application/rtf_label">Rich Text (RTF)</label>
+		<widgettype>image</widgettype>
+		<impl>media_plugin_cef</impl>
+	</mimetype>
+	<mimetype name="application/smil">
+		<label name="application/smil_label">Synchronized Multimedia Integration Language (SMIL)</label>
+		<widgettype>movie</widgettype>
+		<impl>media_plugin_cef</impl>
+	</mimetype>
+	<mimetype name="application/xhtml+xml">
+		<label name="application/xhtml+xml_label">Веб-страница (XHTML)</label>
+		<widgettype>web</widgettype>
+		<impl>media_plugin_cef</impl>
+	</mimetype>
+	<mimetype name="application/x-director">
+		<label name="application/x-director_label">Macromedia Director</label>
+		<widgettype>image</widgettype>
+		<impl>media_plugin_cef</impl>
+	</mimetype>
+	<mimetype name="audio/mid">
+		<label name="audio/mid_label">Audio (MIDI)</label>
+		<widgettype>audio</widgettype>
+		<impl>media_plugin_libvlc</impl>
+	</mimetype>
+	<mimetype name="audio/mpeg">
+		<label name="audio/mpeg_label">Audio (MP3)</label>
+		<widgettype>audio</widgettype>
+		<impl>media_plugin_libvlc</impl>
+	</mimetype>
+	<mimetype name="audio/x-aiff">
+		<label name="audio/x-aiff_label">Audio (AIFF)</label>
+		<widgettype>audio</widgettype>
+		<impl>media_plugin_libvlc</impl>
+	</mimetype>
+	<mimetype name="audio/x-wav">
+		<label name="audio/x-wav_label">Audio (WAV)</label>
+		<widgettype>audio</widgettype>
+		<impl>media_plugin_libvlc</impl>
+	</mimetype>
+	<mimetype name="image/bmp">
+		<label name="image/bmp_label">Изображение (BMP)</label>
+		<widgettype>image</widgettype>
+		<impl>media_plugin_cef</impl>
+	</mimetype>
+	<mimetype name="image/gif">
+		<label name="image/gif_label">Изображение (ГИФ)</label>
+		<widgettype>image</widgettype>
+		<impl>media_plugin_cef</impl>
+	</mimetype>
+	<mimetype name="image/jpeg">
+		<label name="image/jpeg_label">Изображение (JPEG)</label>
+		<widgettype>image</widgettype>
+		<impl>media_plugin_cef</impl>
+	</mimetype>
+	<mimetype name="image/png">
+		<label name="image/png_label">Изображение (ПНГ)</label>
+		<widgettype>image</widgettype>
+		<impl>media_plugin_cef</impl>
+	</mimetype>
+	<mimetype name="image/svg+xml">
+		<label name="image/svg+xml_label">Изображение (SVG)</label>
+		<widgettype>image</widgettype>
+		<impl>media_plugin_cef</impl>
+	</mimetype>
+	<mimetype name="image/tiff">
+		<label name="image/tiff_label">Изображение (TIFF)</label>
+		<widgettype>image</widgettype>
+		<impl>media_plugin_cef</impl>
+	</mimetype>
+	<mimetype name="text/html">
+		<label name="text/html_label">Веб-страница</label>
+		<widgettype>web</widgettype>
+		<impl>media_plugin_cef</impl>
+	</mimetype>
+	<mimetype name="text/plain">
+		<label name="text/plain_label">Текст</label>
+		<widgettype>текст</widgettype>
+		<impl>media_plugin_cef</impl>
+	</mimetype>
+	<mimetype name="text/xml">
+		<label name="text/xml_label">XML</label>
+		<widgettype>текст</widgettype>
+		<impl>media_plugin_cef</impl>
+	</mimetype>
+	<mimetype name="video/mpeg">
+		<label name="video/mpeg_label">Фильм (MPEG)</label>
+		<widgettype>movie</widgettype>
+		<impl>media_plugin_libvlc</impl>
+	</mimetype>
+	<mimetype name="video/mp4">
+		<label name="video/mp4_label">Фильм (MP4)</label>
+		<widgettype>movie</widgettype>
+		<impl>media_plugin_libvlc</impl>
+	</mimetype>
+	<mimetype name="video/quicktime">
+		<label name="video/quicktime_label">Фильм (QuickTime)</label>
+		<widgettype>movie</widgettype>
+		<impl>media_plugin_libvlc</impl>
+	</mimetype>
+	<mimetype name="video/x-ms-asf">
+		<label name="video/x-ms-asf_label">Фильм (Windows Media ASF)</label>
+		<widgettype>movie</widgettype>
+		<impl>media_plugin_libvlc</impl>
+	</mimetype>
+	<mimetype name="video/x-ms-wmv">
+		<label name="video/x-ms-wmv_label">Фильм (Windows Media WMV)</label>
+		<widgettype>movie</widgettype>
+		<impl>media_plugin_libvlc</impl>
+	</mimetype>
+	<mimetype name="video/x-msvideo">
+		<label name="video/x-msvideo_label">Фильм (AVI)</label>
+		<widgettype>movie</widgettype>
+		<impl>media_plugin_libvlc</impl>
+	</mimetype>
+</mimetypes>

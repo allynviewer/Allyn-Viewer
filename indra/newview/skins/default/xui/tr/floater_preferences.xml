@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Preferences" title="Ayarlar">
+	<button name="OK" label="OK" />
+	<button name="Cancel" label="İptal" />
+	<button name="Apply" label="Uygula" />
+	<button name="About..." label="Hakkında" />
+	<button name="Help" label="Yardım" />
+	<tab_container name="pref core" />
+	<filter_editor name="search_prefs_edit" label="Ayarları ara"
+	     tool_tip="Bir arama terimi yazın. Eşleşen ayarlar vurgulanır ve sonuçsuz sekmeler gizlenir." />
+</floater>

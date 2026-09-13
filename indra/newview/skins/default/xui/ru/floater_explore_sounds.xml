@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_explore_sounds" title="Звуки">
+	<text name="result_label">Controls:</text>
+	<check_box name="avatars_chk" label="Аватары" />
+	<check_box name="objects_chk" label="Объекты" />
+	<check_box name="collision_chk" label="Звуки столкновений по умолчанию" />
+	<text name="result_label">Элементы управления:</text>
+	<check_box name="repeated_asset_chk" label="Показать повторы" />
+	<check_box name="pause_chk" label="Пауза журнала" />
+	<scroll_list name="sound_list">
+		<column name="type" tool_tip="Тип" />
+		<column name="playing" label="Время" />
+		<column name="owner" label="Владелец" />
+		<column name="sound" label="Звук" />
+	</scroll_list>
+	<button name="look_at_btn" label="Посмотрите на" />
+	<button name="play_locally_btn" label="Играйте локально" />
+	<button name="play_ambient_btn" label="Играть в мире" />
+	<button name="stop_btn" label="Останавливаться" />
+	<button name="bl_btn" label="Добавить в черный список" />
+</floater>

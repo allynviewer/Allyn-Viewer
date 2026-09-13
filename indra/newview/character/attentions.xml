@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="yes"?>
+
+<linden_attentions version="1.0">
+   <gender name="Masculine">
+      <param attention="idle"         priority="1.0" timeout="3.0"  />
+      <param attention="auto_listen"  priority="3.0" timeout="4.0"  />
+      <param attention="freelook"     priority="2.0" timeout="2.0"  />
+      <param attention="respond"      priority="3.0" timeout="4.0"  />
+      <param attention="hover"        priority="4.0" timeout="1.0"  />
+      <param attention="conversation" priority="0.0" timeout="-1"   />
+      <param attention="select"       priority="6.0" timeout="-1"   />
+      <param attention="focus"        priority="6.0" timeout="-1"   />
+      <param attention="mouselook"    priority="7.0" timeout="-1"   />
+   </gender>
+   <gender name="Feminine">
+      <param attention="idle"         priority="1.0" timeout="3.0"  />
+      <param attention="auto_listen"  priority="3.0" timeout="4.0"  />
+      <param attention="freelook"     priority="2.0" timeout="2.0"  />
+      <param attention="respond"      priority="3.0" timeout="4.0"  />
+      <param attention="hover"        priority="4.0" timeout="1.0"  />
+      <param attention="conversation" priority="0.0" timeout="-1"   />
+      <param attention="select"       priority="6.0" timeout="-1"   />
+      <param attention="focus"        priority="6.0" timeout="-1"   />
+      <param attention="mouselook"    priority="7.0" timeout="-1"   />
+   </gender>
+</linden_attentions>
+

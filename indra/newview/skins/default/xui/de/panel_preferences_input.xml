@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel border="true" bottom="-409" height="408" label="Eingabe &amp; Kamera" left="102" name="Input panel" width="517">
+	<scroll_container name="input_scroll">
+		<panel name="input_scroll_inner">
+			<text bottom_delta="-20" height="12" left="10" name=" Mouselook Options:">Mouselook-Optionen:</text>
+			<text bottom_delta="-5" height="12" left="10" name=" Mouse Sensitivity:">Mausempfindlichkeit:</text>
+			<slider_bar bottom_delta="-5" name="mouse_sensitivity" />
+			<check_box bottom_delta="-18" left_delta="0" label="Maus umkehren" name="invert_mouse" />
+			<check_box bottom_delta="-18" label="Sofortiger Zoom bei Rechtsklick" name="instant_zoom" />
+			<check_box bottom_delta="-18" label="Avatar-Position und Gesundheit anzeigen" name="AlchemyMouselookInstructions" />
+			<check_box bottom_delta="-18" label="Namen des anvisierten Avatars unter dem Fadenkreuz anzeigen" name="AlchemyMouselookIFF" />
+			<check_box bottom_delta="-18" label="Realistisches Kameraverhalten in der Ich-Perspektive" control_name="UseRealisticMouselook" name="UseRealisticMouselook" />
+			<text bottom_delta="-5" height="12" name="UI Hidden in mouselook:">In Mouselook ausgeblendete UI:</text>
+			<check_box bottom_delta="-18" label="Fenster" name="mouselook_hides_floaters" />
+			<check_box bottom_delta="-18" left_delta="140" label="Benachrichtigungen" name="mouselook_hides_notices" />
+			<check_box bottom_delta="-18" label="Menüleiste" name="mouselook_hides_menubar" />
+			<check_box bottom_delta="-18" left_delta="140" label="Symbolleiste" name="mouselook_hides_toolbar" />
+			<text bottom_delta="-5" height="12" name=" Movement Options:">Bewegungsoptionen:</text>
+			<check_box bottom_delta="-18" label="Fliegen/Landen beim Drücken von auf/ab" name="automatic_fly" />
+			<check_box bottom_delta="-18" label="Hocken durch Umschalttaste halten ermöglichen" name="crouch_toggle" />
+			<check_box bottom_delta="-18" label="AZERTY-Layout statt QWERTY verwenden" name="azerty_keys" />
+			<text bottom_delta="-5" height="12" name=" Camera Options:">Kameraoptionen:</text>
+			<text bottom_delta="-18" height="12" name="camera_fov_label">Kamera-Sichtwinkel:</text>
+			<slider bottom_delta="-6" name="camera_fov" />
+			<text bottom_delta="-18" height="12" name="Camera Follow Distance:">Kameraabstand:</text>
+			<slider bottom_delta="-6" name="camera_offset_scale" />
+			<check_box bottom_delta="-18" label="Scroll + Strg und/oder Umschalt passt Kameraposition an" name="scroll_keys" />
+			<check_box bottom_delta="-18" label="Automatischer Kameraschwenk im Bearbeiten-Modus" name="edit_camera_movement" tool_tip="Automatische Kamerapositionierung bei Wechsel in und aus dem Bearbeitungsmodus." />
+			<check_box bottom_delta="-18" label="Automatischer Kameraschwenk im Aussehen-Modus" name="appearance_camera_movement" tool_tip="Automatische Kamerapositionierung im Aussehen-Modus." />
+			<check_box bottom_delta="-18" label="Avatar beim Zurücksetzen der Kamera aufstehen lassen" name="unsit_on_camera_reset" tool_tip="Steht automatisch auf, wenn Sie Esc drücken und die Kamera in die Third-Person-Ansicht wechselt." />
+			<check_box bottom_delta="-18" label="Kamerabeschränkungen deaktivieren" name="DisableCameraConstraints" tool_tip="Verhindert automatisches Zoomen der Kamera beim Annähern an Wände oder Objekte." />
+			<check_box bottom_delta="-18" label="Avatar in Ich-Perspektive anzeigen" name="first_person_avatar_visible" />
+			<check_box bottom_delta="-18" label="Auswahlentfernung begrenzen" name="Limit Select Distance" tool_tip="Begrenzt die Entfernung, in der ein Objekt ausgewählt werden kann." />
+			<button bottom_delta="-20" label="Joystick-Einrichtung" name="joystick_setup_button" width="175" />
+		</panel>
+	</scroll_container>
+</panel>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="ao_remote">
+	<panel name="panel_bg_tab" />
+	<button name="ao_swim_btn" label="Yüzmeye Zorla" tool_tip="Uçan animasyonların yerini yüzme animasyonları alacak" />
+	<button name="ao_sit_btn" label="Kapalı Oturur" />
+	<panel name="panel_ao_controls" />
+</panel>

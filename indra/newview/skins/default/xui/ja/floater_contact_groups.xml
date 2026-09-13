@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_contact_groups" title="Manage Contact グループ">
+	<text name="InstructManageContacts">a グループ (または 押す 新規 へ 作成 one):を選択</text>
+	<combo_box name="buddy_group_combobox" tool_tip="Buddy グループ">
+		<combo_item name="All">すべて</combo_item>
+	</combo_box>
+	<button name="combo_group_add" label="+" />
+	<button name="combo_group_remove" label="-" />
+	<button name="combo_group_create" label="新規" />
+	<text name="contact_list_text">Currently 内:</text>
+	<scroll_list name="group_scroll_list" />
+</floater>

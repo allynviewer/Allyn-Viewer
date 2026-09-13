@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="url_entry">
+	<text name="media_label">URL-адрес носителя:</text>
+	<combo_box name="media_entry" />
+	<button name="ok_btn" label="ОК" />
+	<button name="cancel_btn" label="Отмена" />
+	<button name="clear_btn" label="Очистить" />
+	<text name="loading_label">Загрузка...</text>
+</floater>

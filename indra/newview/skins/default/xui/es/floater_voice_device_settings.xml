@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="voice_device_settings" title="Ajustes de dispositivo">
+	<button name="OK" label="Aceptar"/>
+	<button name="Cancel" label="Cancelar"/>
+	<button name="Apply" label="Aplicar"/>
+</floater>

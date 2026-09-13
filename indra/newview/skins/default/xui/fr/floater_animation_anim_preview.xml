@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Anim Preview" title="Charger une animation brute">
+	<text name="name_label">Nom :</text>
+	<text name="description_label">Description :</text>
+	<button name="ok_btn" label="Charger ([UPLOADFEE])"/>
+	<button name="cancel_btn" label="Annuler" label_selected="Annuler"/>
+</floater>

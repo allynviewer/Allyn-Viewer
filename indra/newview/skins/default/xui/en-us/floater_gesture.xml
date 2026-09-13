@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="true"
+     height="420" min_height="250" min_width="500" name="gestures"
+     title="Active Gestures" width="500">
+	<text bottom="-28" follows="top|left|right" font="SansSerifSmall" height="16"
+	     left="10" name="help_label" right="-10" width="480">
+		Double-click a gesture to play animations and sounds.
+	</text>
+	<scroll_list bottom="42" draw_border="true" draw_heading="true"
+	     follows="top|left|bottom|right" left="10" multi_select="false"
+	     name="gesture_list" right="-10" top="-36">
+		<column label="Trigger" name="trigger" relwidth="0.28" />
+		<column label="Key" name="shortcut" relwidth="0.20" />
+		<column label="" name="key" width="-1" />
+		<column label="Name" name="name" relwidth="0.52" />
+	</scroll_list>
+	<button bottom="10" follows="bottom|left" height="22" label="New" left="10"
+	     name="new_gesture_btn" width="154" />
+	<button bottom="10" follows="bottom|left" height="22" label="Edit" left="174"
+	     name="edit_btn" width="154" />
+	<button bottom="10" follows="bottom|right" height="22" label="Play"
+	     name="play_btn" right="-10" width="154" />
+	<button bottom="10" follows="bottom|right" height="22" label="Stop"
+	     name="stop_btn" right="-10" width="154" />
+</floater>

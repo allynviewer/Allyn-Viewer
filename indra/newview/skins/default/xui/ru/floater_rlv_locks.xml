@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="rlvLocks" title="Активные блокировки RLV">
+	<scroll_list name="lock_list">
+		<column name="lock_type" label="Тип замка" />
+		<column name="lock_addrem" label="Добавить/Удалить" />
+		<column name="lock_target" label="Зафиксировать цель" />
+		<column name="lock_origin" label="Удерживается" />
+	</scroll_list>
+</floater>

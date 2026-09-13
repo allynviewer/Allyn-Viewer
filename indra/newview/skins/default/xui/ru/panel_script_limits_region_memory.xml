@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="script_limits_region_memory_panel" label="Память региона">
+	<text name="script_memory">Память сценариев парцелов</text>
+	<text name="parcels_listed" />
+	<text name="memory_used" />
+	<text name="urls_used" />
+	<text name="loading_text">Загрузка...</text>
+	<scroll_list name="scripts_list">
+		<column name="name" label="Объект" />
+		<column name="size" label="Размер" tool_tip="Размер в килобайтах" />
+		<column name="urls" label="URLs" />
+		<column name="owner" label="Владелец" />
+		<column name="parcel" label="Парцел" />
+		<column name="location" label="Расположение" />
+	</scroll_list>
+	<button name="refresh_list_btn" label="Обновить список" />
+	<button name="highlight_btn" label="Выделять" />
+	<button name="return_btn" label="Сбросить" />
+</panel>

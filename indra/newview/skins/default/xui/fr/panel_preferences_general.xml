@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel border="true" bottom="-409" height="408" label="Général" left="102" name="general_panel" width="517">
+	<scroll_container name="general_scroll">
+		<panel name="general_scroll_inner">
+			<radio_group bottom="-44" height="40" left="109" name="default_start_location" width="220">
+				<radio_item bottom="-20" height="20" name="home" tool_tip="Se connecter à mon domicile par défaut.">Domicile</radio_item>
+				<radio_item bottom="-20" height="20" left="93" name="last" tool_tip="Se connecter au dernier lieu par défaut.">Dernier lieu</radio_item>
+			</radio_group>
+			<check_box bottom="-42" height="16" initial_value="true" label="Afficher le départ à la connexion" name="show_location_checkbox" />
+			<combo_box bottom_delta="-27" follows="top" height="18" left="103" name="fade_out_combobox" width="111">
+				<combo_item name="Never" value="Never">Jamais</combo_item>
+				<combo_item name="Show Temporarily" value="Show Temporarily">Temporaire</combo_item>
+				<combo_item name="Always" value="Always">Toujours</combo_item>
+			</combo_box>
+			<combo_box bottom_delta="0" follows="top" height="18" left="220" name="namesystem_combobox" width="166">
+				<combo_item name="Old Names" value="0">Anciens noms</combo_item>
+				<combo_item name="Display Names (with Username)" value="1">Noms d'affichage (utilisateur)</combo_item>
+				<combo_item name="Display Names only" value="2">Noms d'affichage seuls</combo_item>
+				<combo_item name="Old Names (with Display Names)" value="3">Anciens noms (affichage)</combo_item>
+			</combo_box>
+			<check_box bottom_delta="0" follows="top" height="16" label="Afficher Resident" left_delta="174" name="show_resident_checkbox" />
+			<check_box bottom_delta="-25" follows="top" height="16" initial_value="true" label="Petits noms d'avatar" left="101" name="small_avatar_names_checkbox" />
+			<check_box bottom_delta="-18" follows="top" height="16" initial_value="false" label="Cacher mon nom sur mon écran" name="show_my_name_checkbox" />
+			<text bottom_delta="-24" follows="top" height="16" left="10" name="group_titles_textbox">TITRES GROUPE</text>
+			<check_box bottom_delta="0" follows="top" height="16" initial_value="false" label="Cacher titres de groupe" left="101" name="show_all_title_checkbox" />
+			<check_box bottom_delta="-18" follows="top" height="16" initial_value="false" label="Cacher mon titre" left="101" name="show_my_title_checkbox" />
+			<text bottom="-180" height="12" left="10" name="UI Size:">TAILLE UI</text>
+			<slider bottom="-180" can_edit_text="true" height="16" increment="0.025" initial_val="1" left="98" max_val="2.4" min_val="0.5" name="ui_scale_slider" value="1" width="227" />
+			<check_box bottom="-195" height="16" initial_value="false" label="Échelle indépendante de la résolution" left="101" name="ui_auto_scale" />
+			<check_box bottom="-219" height="16" left="10" label="Absent si inactif" name="away_when_idle_checkbox" />
+			<spinner bottom="-220" decimal_digits="0" height="16" increment="1" initial_val="300" label="Après :" label_width="91" left="136" max_val="600" min_val="0" name="afk_timeout_spinner" width="137" />
+			<check_box bottom="-257" height="16" initial_value="false" label="M'avertir lors d'échanges de devises" left="10" name="notify_money_change_checkbox" />
+			<check_box bottom="-257" height="16" label="Sans encombrer le coin" left="280" name="no_transaction_clutter_checkbox" tool_tip="Afficher les notifications brièvement en bas à droite, afin qu'elles attirent l'attention sans gêner." />
+			<text bottom="-291" height="10" left="10" name="maturity_desired_label">Note :</text>
+			<text bottom="-291" height="10" left="101" name="maturity_desired_prompt">Je veux accéder au contenu classé :</text>
+			<combo_box bottom="-297" follows="left|top" height="18" left="267" name="maturity_desired_combobox" width="120" control_name="PreferredMaturity">
+				<combo_item name="Desired_Adult" value="42">PG, Mature et Adulte</combo_item>
+				<combo_item name="Desired_Mature" value="21">PG et Mature</combo_item>
+				<combo_item name="Desired_PG" value="13">PG seul</combo_item>
+			</combo_box>
+			<text bottom="-291" height="10" left="265" name="maturity_desired_textbox">PG seul</text>
+			<text bottom="-20" height="10" left="10" name="start_location_textbox">Lieu de départ :</text>
+			<text bottom="-64" height="10" name="show_names_textbox">NOMS</text>
+			<text bottom="-214" height="10" left="276" name="seconds_textbox">secondes</text>
+			<text bottom="-331" height="18" left="10" name="crash_report_textbox">Crashs :</text>
+			<text bottom="-363" height="18" name="language_textbox">Langue :</text>
+			<text bottom_delta="6" follows="top" height="18" left_delta="243" name="language_textbox2">(Redémarrage requis)</text>
+			<combo_box allow_text_entry="true" bottom="-361" follows="top" height="16" left="103" name="language_combobox" max_chars="32" width="140">
+				<combo_item name="System Default Language" value="default">Langue par défaut</combo_item>
+				<combo_item name="English" value="en-us">English</combo_item>
+				<combo_item name="Spanish" value="es">Español</combo_item>
+				<combo_item name="Portugese" value="pt">Português</combo_item>
+				<combo_item name="French" value="fr">Français</combo_item>
+				<combo_item name="Deutsch(German)" value="de">Deutsch</combo_item>
+				<combo_item name="Italian" value="it">Italiano</combo_item>
+				<combo_item name="Turkish" value="tr">Türkçe</combo_item>
+				<combo_item name="Russian" value="ru">Русский</combo_item>
+				<combo_item name="Japanese" value="ja">日本語</combo_item>
+			</combo_box>
+			<string name="region_name_prompt">&lt;Nom de région&gt;</string>
+			<combo_box bottom="-328" height="18" left="103" name="crash_behavior_combobox" width="140">
+				<combo_item name="Neversend" value="0">Jamais</combo_item>
+				<combo_item name="Alwayssend" value="1">Toujours</combo_item>
+			</combo_box>
+			<check_box bottom="-385" height="16" initial_value="false" label="Partager la langue avec les objets" left="101" name="language_is_public" tool_tip="Permet aux objets du monde de connaître votre langue préférée." />
+			<button bottom="-425" height="25" label="Réinitialiser" name="clear_settings" width="200" />
+		</panel>
+	</scroll_container>
+</panel>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel background_opaque="false" background_visible="false"
+     bottom="0" enabled="true"
+     follows="top|right" height="27" left="0" mouse_opaque="false"
+     name="notify_icon_bar" width="36">
+	<button bottom="0" enabled="true" follows="left|bottom|right|top" font="SansSerifBold"
+	     height="27" image_overlay="notify_box_icon.tga" label="" left="0"
+	     mouse_opaque="true" name="notify_well_btn" scale_image="true"
+	     tool_tip="Notifications" width="36" halign="center" />
+</panel>

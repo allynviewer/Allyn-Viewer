@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="media_remote">
+	<string name="Title">タイトル</string>
+	<string name="Artist">アーティスト</string>
+	<string name="Now_playing">Now プレイ中</string>
+</panel>

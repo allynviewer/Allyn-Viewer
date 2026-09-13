@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Controlli &amp; Telecamera" name="Input panel">
+	<scroll_container name="input_scroll">
+		<panel name="input_scroll_inner">
+			<text name=" Mouselook Options:">
+		Opzioni visualizzazione
+in soggettiva:
+	</text>
+			<text name=" Mouse Sensitivity:">
+		Sensibilità del mouse:
+	</text>
+			<slider_bar name="mouse_sensitivity" width="128" />
+			<check_box label="Inverti i controlli del mouse" name="invert_mouse" />
+			<check_box label="Rendi lo zoom con clic destro istantaneo, non fluido" name="instant_zoom" />
+			<check_box label="Mostra posizione e salute dell'avatar" name="AlchemyMouselookInstructions" />
+			<check_box label="Mostra il nome dell'avatar mirato sotto il mirino" name="AlchemyMouselookIFF" />
+			<check_box label="Usa comportamento fotocamera 'realistico' in Mouselook" name="UseRealisticMouselook" />
+			<text name="UI Hidden in mouselook:">UI nascosta in mouselook:</text>
+			<check_box label="Finestre mobili" name="mouselook_hides_floaters" />
+			<check_box label="Notifiche" name="mouselook_hides_notices" />
+			<check_box label="Barra dei menu" name="mouselook_hides_menubar" />
+			<check_box label="Toolbar" name="mouselook_hides_toolbar" />
+			<text name=" Movement Options:">Opzioni di movimento:</text>
+			<check_box label="Vola/atterra premendo su/giù" name="automatic_fly" />
+			<check_box label="Consenti attivazione/disattivazione accovacciamento tenendo premuto shift" name="crouch_toggle" />
+			<check_box label="Usa layout azerty invece del layout qwerty" name="azerty_keys" />
+			<text name=" Camera Options:">
+		Opzioni della telecamera:
+	</text>
+			<text name="camera_fov_label" width="218">
+		Angolo di visualizzazione della telecamera:
+	</text>
+			<slider bottom_delta="-6" width="128" left="366" name="camera_fov" />
+			<text name="Camera Follow Distance:" width="218">
+		Distanza della telecamera dall'avatar:
+	</text>
+			<slider bottom_delta="-6" width="128" left="366" name="camera_offset_scale" />
+			<check_box label="Scorrimento con control e/o shift regola la posizione della telecamera" name="scroll_keys" />
+			<check_box label="Movimenti automatici della telecamera in &#10;modalità modifica oggetti" name="edit_camera_movement" tool_tip="Usa il posizionamento automatico della telecamera entrando e uscendo dalla modalità modifica oggetti" />
+			<check_box bottom_delta="-34" label="Movimenti automatici della telecamera in &#10;modalità aspetto fisico" name="appearance_camera_movement" tool_tip="Usa il posizionamento automatico della telecamera durante la modalità modifica oggetti" />
+			<check_box label="Libera l'avatar al ripristino della telecamera" tool_tip="Alzati automaticamente quando premi Esc e la telecamera passa alla modalità in terza persona." name="unsit_on_camera_reset" bottom_delta="-34" />
+			<check_box label="Mostra l'avatar in prima persona" name="first_person_avatar_visible" />
+			<check_box label="Disabilita vincoli telecamera" name="DisableCameraConstraints" tool_tip="Impedisce alla telecamera di zoomare automaticamente quando ti avvicini troppo a muri, oggetti, ecc." />
+			<check_box label="Limita distanza selezione" name="Limit Select Distance" tool_tip="Limita la distanza alla quale un oggetto può essere selezionato." />
+			<button bottom_delta="-40" label="Installazione del joystick" name="joystick_setup_button" width="165" />
+		</panel>
+	</scroll_container>
+</panel>

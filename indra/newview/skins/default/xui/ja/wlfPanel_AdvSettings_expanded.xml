@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Adv_Settings">
+	<text name="Camera Preset:">カメラプリセット:</text>
+	<button name="Rear" tool_tip="後方表示" />
+	<button name="Front" tool_tip="前方表示" />
+	<button name="Group" tool_tip="側面表示" />
+	<slider name="DrawDistance" label="描画距離:" tool_tip="描画距離を変更します" />
+	<slider name="HoverHeightSlider" label="ホバー高さ:" />
+	<slider name="MaxParticleCount" label="パーティクル:" tool_tip="描画するパーティクルの量" />
+	<slider name="RenderAvatarMaxVisible" label="最大アバター:" tool_tip="画面上で完全に描画するアバター数。混雑時は下げるとFPSが大幅に向上します。アバターインポスターがオンである必要があります。[デフォルト 35]" />
+	<slider name="Object Detail" label="オブジェクト詳細:" tool_tip="プリムの詳細レベルを制御します（画面上の面積から計算した詳細レベルの倍率。[0.5〜2.0が安定]）" />
+	<button name="PostProcessButton" tool_tip="ポストプロセスエフェクト" />
+	<combo_box name="PostProcessPresetsCombo" tool_tip="ポストプロセスプリセット" />
+	<button name="PPprev" />
+	<button name="PPnext" />
+	<button name="EnvAdvancedSkyButton" tool_tip="高度な空" />
+	<combo_box name="WLSkyPresetsCombo" tool_tip="空のWindLightプリセット。" />
+	<button name="WLprev" />
+	<button name="WLnext" />
+	<button name="EnvAdvancedWaterButton" tool_tip="高度な水" />
+	<combo_box name="WLWaterPresetsCombo" tool_tip="水のWindLightプリセット。" />
+	<button name="WWprev" />
+	<button name="WWnext" />
+	<check_box name="use_estate_wl" label="リージョンWL" tool_tip="利用可能な場合、リージョンのWindLight設定を使用します。" />
+	<check_box name="Crossfade" label="クロスフェード？" tool_tip="オフにすると、空のWindLight設定変更がアニメーションなしで即座に適用されます。" />
+	<slider name="EnvTimeSlider" />
+	<button name="expand" tool_tip="設定パネルを非表示" />
+</panel>

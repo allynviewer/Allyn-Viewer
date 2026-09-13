@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="region_tracker" title="Regionen-Tracker">
+	<text name="region_label_text">Regionen von der Weltkarte hinzufügen</text>
+	<scroll_list name="region_list" tool_tip="Doppelklicken Sie auf einen Eintrag, um ihn auf der Weltkarte zu öffnen.">
+		<scroll_list.columns name="region_label" label="Bezeichnung"/>
+		<scroll_list.columns name="region_name" label="Region"/>
+		<scroll_list.columns name="region_agent_count" label="Anzahl"/>
+	</scroll_list>
+</floater>

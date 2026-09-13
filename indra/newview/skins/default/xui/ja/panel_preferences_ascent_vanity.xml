@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="ascvan" label="バニティ">
+	<tab_container name="Ascent Vanity" label="バニティ">
+		<panel name="General" label="メイン">
+			<scroll_container name="vanity_main_scroll">
+				<panel name="vanity_main_inner">
+					<check_box name="use_account_settings_check" label="可能な場合、バニティ設定をアカウントごとに保存する" tool_tip="設定をアカウントごとに保存し、アルトのカスタマイズを簡単にします。" />
+					<check_box name="disable_tp_screen_check" label="テレポート進行画面を非表示" tool_tip="オンにするとテレポート進行画面を隠し、IMを読み続けられます。" />
+					<check_box name="tp_sound_check" label="リージョン間テレポート時にテレポート音を再生" tool_tip="テレポート時にビューアがTP音を再生します。" />
+					<check_box name="disable_logout_screen_check" label="ログイン／ログアウト進行画面を非表示" tool_tip="オンにするとログイン／ログアウト進行画面を隠します。" />
+					<check_box name="disable_chat_animation" label="チャット、ささやき、叫びのアニメーションを無効にする" tool_tip="自分のアバターからチャットアニメーションを削除します。効果は全員に見えます" />
+					<check_box name="add_not_replace" label="置き換えではなくアタッチメントとウェアラブルを追加" tool_tip="インベントリでウェアラブルやオブジェクトを選んでダブルクリックまたはEnterすると、装着先のものを置き換えず、衣装に追加します。" />
+					<check_box name="customize_anim" label="外見モードに入るときにアニメーションする" />
+					<check_box name="turn_around" label="後ろ歩きのときに向きを変える" tool_tip="オフでも、一部のAOは向きを変えることがあります。" />
+					<check_box name="announce_snapshots" label="誰かがスナップショットを撮ったときに通知" tool_tip="撮影を隠している人は通知しません。" />
+					<check_box name="announce_stream_metadata" label="音楽ストリームのメタデータをローカルチャットに表示" tool_tip="新しい曲が始まると、利用可能な曲情報をローカルチャットに表示します。" />
+					<check_box name="script_errors_steal_focus" label="コンパイルエラーのスクリプトにフォーカスを奪わせる" />
+					<check_box name="connect_to_neighbors" label="隣接リージョンに接続する" />
+					<check_box name="region_restart_minimized" label="リージョン再起動通知を自動で最小化" tool_tip="SIM所有者や、退出前に荷物をまとめたい人に便利です" />
+					<text name="UISndRestartText">リージョン再起動時に再生するサウンド:</text>
+					<line_editor name="UISndRestart" tool_tip="空にすると音を再生しません" />
+					<spinner name="Inactive Transparency" label="非アクティブ時の透明度" tool_tip="ウィンドウがフォーカスを失ったときの不透明度の変化量を制御します。" />
+					<spinner name="Active Transparency" label="アクティブ時の透明度" tool_tip="ウィンドウがフォーカス中の不透明度の変化量を制御します。" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="TagsColors" label="タグ／色">
+			<scroll_container name="vanity_tags_scroll">
+				<panel name="vanity_tags_inner">
+					<check_box name="show_my_tag_check" label="クライアントタグを放送:" tool_tip="他の人に[SHORT_APP_NAME]を使っていることを見せるかどうかを選びます。" />
+					<combo_box name="tag_spoofing_combobox" tool_tip="放送するクライアントタグ（と色）。カスタムタグ／色でローカル上書きされます。">
+						<combo_item name="Allyn">Allyn</combo_item>
+					</combo_box>
+					<check_box name="show_self_tag_check" label="自分にクライアントタグを表示" tool_tip="オンにすると、自分のアバター名にクライアントタグをローカル表示します。" />
+					<check_box name="show_self_tag_color_check" label="自分にクライアントタグの色を表示" tool_tip="オンにすると、アバター名の色をクライアントタグ色またはカスタム色にします。" />
+					<check_box name="show_friend_tag_check" label="フレンドのクライアントタグを（フレンド）と表示" tool_tip="オンにすると、フレンドのクライアントタグが（フレンド）になります。" />
+					<check_box name="display_client_new_line_check" label="クライアントタグを新しい行に表示" tool_tip="オンにすると、クライアントタグを新しい行に表示します。" />
+					<check_box name="customize_own_tag_check" label="カスタム色とラベルを使用（ローカルのみ）" tool_tip="オンにすると、自分だけに見えるカスタムクライアント名とタグ色を設定できます。" />
+					<text name="custom_tag_label_text">ラベル:</text>
+					<line_editor name="custom_tag_label_box" tool_tip="クライアントタグの代わりに表示するカスタム文字列（ローカルのみ）" />
+					<text name="custom_tag_color_text">色:</text>
+					<color_swatch name="custom_tag_color_swatch" tool_tip="クライアント色の代わりに使うカスタム色（ローカルのみ）" />
+					<check_box name="show_other_tag_check" label="他の人のクライアントタグを表示" tool_tip="オンにすると、他のアバター名にクライアントタグ名を表示します。" />
+					<check_box name="show_client_tag_color_check" label="他の人のクライアントタグ色を表示" tool_tip="オンにすると、他のアバター名の色をそのクライアントの色にします。" />
+					<check_box name="show_idle_time_check" label="アイドル時間を表示" tool_tip="オンにすると、アバターがアイドルになってからの時間を表示します。" />
+					<check_box name="update_tags_check" label="クライアント定義の更新をウェブサイトで自動確認" tool_tip="オンにすると、必要なときに[SHORT_APP_NAME]が新しい定義をダウンロードできます。" />
+					<button name="update_clientdefs" label="手動更新" />
+					<text name="effects_color_textbox">自分のエフェクトの色:</text>
+					<color_swatch name="effect_color_swatch" label="エフェクト" />
+					<check_box name="use_status_check" label="ユーザーステータス色を使用（フレンド、リンデンなど下記）" tool_tip="オンにすると、条件に合う人（リンデン、エステート所有者、フレンド、ミュートした人）を下で設定した色で表示します。" />
+					<text name="friends_color_textbox">色の対象（レーダー、タグ、ミニマップ）:</text>
+					<color_swatch name="friend_color_swatch" label="フレンド" tool_tip="フレンドの色" />
+					<color_swatch name="estate_owner_color_swatch" label="エステート" tool_tip="エステートマネージャーの色" />
+					<color_swatch name="linden_color_swatch" label="リンデン" tool_tip="リンデンの色" />
+					<color_swatch name="muted_color_swatch" label="ミュート" tool_tip="ミュートした人の色" />
+					<color_swatch name="others_color_swatch" label="その他" tool_tip="ミニマップとワールドマップ上のその他の人の色" />
+					<color_swatch name="custom_color_swatch" label="ミニ" tool_tip="ミニマップで選んだユーザーのみの色" />
+					<text name="chat_color_text">チャットに色を使う:</text>
+					<check_box name="color_friend_check" tool_tip="フレンドのチャットを色分け" />
+					<check_box name="color_estate_owner_check" tool_tip="エステートマネージャーのチャットを色分け" />
+					<check_box name="color_linden_check" tool_tip="リンデンのチャットを色分け" />
+					<check_box name="color_muted_check" tool_tip="ミュートした人のチャットを色分け" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="Body Dynamics" label="ボディダイナミクス">
+			<text name="av_mod_textbox">アバターオフセット調整</text>
+			<spinner name="X Modifier" label="X調整" tool_tip="アバターのバウンディングボックスをある程度操作します。オービターを歪めたり、シェイプを変えずに上下にずらしたりできます。" />
+			<spinner name="Y Modifier" label="Y調整" tool_tip="アバターのバウンディングボックスをある程度操作します。オービターを歪めたり、シェイプを変えずに上下にずらしたりできます。" />
+			<spinner name="Z Modifier" label="Z調整" tool_tip="アバターのバウンディングボックスをある程度操作します。オービターを歪めたり、シェイプを変えずに上下にずらしたりできます。" />
+		</panel>
+	</tab_container>
+</panel>

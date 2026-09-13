@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<menu name="menu_marketplace_sort">
+	<menu_item_check name="sort_by_name" label="Trier par nom"/>
+	<menu_item_check name="sort_by_recent" label="Trier par plus récent"/>
+	<menu_item_check name="sort_by_stock_amount" label="Trier par stock (croissant)"/>
+	<menu_item_check name="show_only_listing_folders" label="Afficher uniquement les dossiers d'annonces"/>
+</menu>

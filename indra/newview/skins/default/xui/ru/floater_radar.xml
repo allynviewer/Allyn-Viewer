@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="radar" title="Радар">
+	<string name="Title">Радар</string>
+	<string name="TitleOneAvatar">Радар (1 аватар)</string>
+	<string name="TitleWithCount">Радар ([COUNT] аватаров)</string>
+	<filter_editor name="filter_input" label="Фильтр по имени..." tool_tip="Фильтровать аватаров по имени пользователя или отображаемому имени"/>
+	<scroll_list name="avatar_list" tool_tip="Удерживайте Shift или Ctrl, чтобы выбрать несколько аватаров.">
+		<column name="marked" label="Метка" tool_tip="Отмеченные аватары" />
+		<column name="avatar_name" label="Имя" tool_tip="Удерживайте Shift или Ctrl, чтобы выбрать несколько аватаров." />
+		<column name="distance" label="Дист." tool_tip="Расстояние от вас (красный — зона чата, жёлтый — крик, зелёный — прорисовка)" />
+		<column name="position" label="Поз." tool_tip="Позиция (X, Y) в этом симе или направление для соседних симов." />
+		<column name="altitude" label="Выс." tool_tip="Высота" />
+		<column name="activity" label="Акт." tool_tip="Активность" />
+		<column name="voice" tool_tip="Голос" />
+		<column name="notes" tool_tip="Есть ли заметки в профиле этого аватара" />
+		<column name="age" label="Возраст" tool_tip="Возраст" />
+		<column name="time" label="Время" tool_tip="Время с момента появления в симе" />
+		<column name="client" label="Клиент" tool_tip="Возможный вьюер аватара" />
+	</scroll_list>
+	<tab_container name="actions_tab_container">
+		<panel name="actions_tab" label="Аватар">
+			<button name="profile_btn" label="Профиль" tool_tip="Картинка, группы и прочее" />
+			<button name="track_btn" label="Следить" tool_tip="Включить или выключить слежение за позицией" />
+			<button name="get_key_btn" label="Ключ" tool_tip="Копирует ключ аватара в буфер обмена" />
+			<button name="im_btn" label="IM" tool_tip="Открыть IM (Shift+Enter)" />
+			<button name="offer_btn" label="Предложить TP" tool_tip="Предложить телепорт" />
+			<button name="teleport_btn" label="TP к" tool_tip="Телепорт к аватару (Ctrl+Enter)" />
+			<button name="mark_btn" label="Метка" tool_tip="Отметить или снять метку" />
+			<button name="prev_marked_btn" label="Пред. отмеченный" tool_tip="Камера на предыдущего отмеченного" />
+			<button name="next_marked_btn" label="След. отмеченный" tool_tip="Камера на следующего отмеченного" />
+			<button name="focus_btn" label="Фокус" tool_tip="Камера на этого аватара (Enter)" />
+			<button name="prev_in_list_btn" label="Предыдущий" tool_tip="Камера на предыдущего в списке" />
+			<button name="next_in_list_btn" label="Следующий" tool_tip="Камера на следующего в списке" />
+		</panel>
+		<panel name="alerts_tab" label="Оповещения">
+			<check_box name="radar_alerts" label="Показывать оповещения в чате" tool_tip="Сообщать в чате о входящих и уходящих аватарах" />
+			<check_box name="alerts_sim" label="Вход / выход из сима" tool_tip="Сообщать, когда аватар входит в сим или уходит" />
+			<check_box name="alerts_draw" label="Зона прорисовки" tool_tip="Сообщать, когда аватар входит в зону прорисовки или выходит" />
+			<check_box name="alerts_chat" label="Зона чата" tool_tip="Сообщать, когда аватар входит в зону чата или выходит" />
+		</panel>
+		<panel name="land_tab" label="Модерация">
+			<button name="mute_btn" label="Заглушить" tool_tip="Заглушить или снять заглушение (имена заглушенных выделены красным)" />
+			<button name="freeze_btn" label="Заморозить" tool_tip="Заморозить аватар, чтобы он не мог двигаться" />
+			<button name="ar_btn" label="Жалоба" tool_tip="Сообщить о нарушении" />
+			<button name="eject_btn" label="Выгнать" tool_tip="Выгнать аватар с парцела" />
+			<button name="estate_eject_btn" label="Выгнать с эстейта" tool_tip="Выгнать этот аватар с эстейта" />
+			<button name="estate_ban_btn" label="Бан с эстейта" tool_tip="Выгнать и забанить этот аватар на эстейте" />
+		</panel>
+		<panel name="options_tab" label="Параметры">
+			<check_box name="update_enabled_cb" label="Обновлять" tool_tip="Обновлять ли список аватаров" />
+			<check_box name="keep_open" label="Сообщать, даже если закрыто" tool_tip="Скрывает окно вместо закрытия, чтобы оповещения в чате продолжались." />
+			<check_box name="radar_chat_keys" label="Передавать ключи на HUD" tool_tip="Отправлять ключи аватаров в скрипты LSL" />
+			<button name="send_keys_btn" label="Передать сейчас" tool_tip="Отправить все ключи на HUD сейчас" />
+		</panel>
+		<panel name="extras_tab" label="Дополнительно">
+			<check_box name="agealert" label="Оповещение о возрасте" tool_tip="Включить оповещение о возрасте аватара" />
+			<spinner name="AgeAlertDays" label="Порог возраста" tool_tip="Минимум дней в гриде, чтобы не срабатывало оповещение." />
+			<text name="hide_columns">Скрыть столбцы:</text>
+			<check_box name="hide_mark" label="Метка" />
+			<check_box name="hide_pos" label="Поз." tool_tip="Позиция" />
+			<check_box name="hide_alt" label="Выс." tool_tip="Высота" />
+			<check_box name="hide_act" label="Акт." tool_tip="Активность" />
+			<check_box name="hide_voice" label="Голос" tool_tip="Голос" />
+			<check_box name="hide_notes" label="Заметки" tool_tip="Столбец заметок" />
+			<check_box name="hide_age" label="Возраст" />
+			<check_box name="hide_time" label="Время" />
+			<check_box name="hide_client" label="Клиент" />
+		</panel>
+	</tab_container>
+	<string name="Out Of Range">Вне зоны</string>
+	<string name="Moving">Движется</string>
+	<string name="Playing a gesture">Жест</string>
+	<string name="Playing a sound">Звук</string>
+	<string name="Rezzing objects">Резит объекты</string>
+	<string name="Creating particles">Частицы</string>
+	<string name="Just arrived">Только что прибыл</string>
+	<string name="Typing">Печатает</string>
+</floater>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="test" title="Test UI">
+	<tab_container name="test_tab">
+		<panel name="first_tab_panel" label="Contrôles">
+			<text name="section_buttons">BOUTONS</text>
+			<button name="can't click" label="Sans clic" tool_tip="Bouton désactivé"/>
+			<button name="can click" label="Cliquable" tool_tip="Bouton activé"/>
+			<button name="unicode_btn" label="Unicode" tool_tip="Bouton avec libellé Unicode"/>
+			<button name="image_btn" tool_tip="Bouton image"/>
+			<text name="section_options">OPTIONS</text>
+			<check_box name="simple_check" label="Case simple"/>
+			<check_box name="unicode_check" label="Case Unicode"/>
+			<combo_box name="combo" tool_tip="Liste déroulante d'exemple">
+				<combo_item name="top_item">doit aller en haut</combo_item>
+				<combo_item name="first_item">premier élément</combo_item>
+				<combo_item name="second_item">deuxième élément</combo_item>
+				<combo_item name="disabled_item">élément désactivé</combo_item>
+			</combo_box>
+			<text name="section_radio">RADIO</text>
+			<radio_group name="radio_group">
+				<radio_item name="Radio1">Radio 1</radio_item>
+				<radio_item name="Radio2">Radio 2</radio_item>
+				<radio_item name="Radio3">Radio 3</radio_item>
+			</radio_group>
+			<text_editor name="widgets_help">
+Cette fenêtre teste les contrôles UI courants.
+
+Clics, cases, combo et radio sont enregistrés dans la console du viewer.
+			</text_editor>
+			<text name="section_line">ÉDITEUR DE LIGNE</text>
+			<line_editor name="test_line">Saisissez du texte unicode ici</line_editor>
+			<text name="section_slider">CURSEUR</text>
+			<text name="section_names">LISTE DE NOMS</text>
+			<name_list name="test_name_list">
+				<column name="name" label="Nom"/>
+			</name_list>
+		</panel>
+		<panel name="second_tab_panel" label="Listes">
+			<text name="lists_help">Liste d'exemple des contrôles. Cliquez une ligne pour consigner la sélection.</text>
+			<button name="Simple Button" label="Bouton simple"/>
+			<scroll_list name="test_scroll_list">
+				<column name="widget" label="Contrôle"/>
+				<column name="notes" label="Notes"/>
+			</scroll_list>
+		</panel>
+		<panel name="text_tab_panel" label="Texte">
+			<text name="simple_text">Texte sans-serif (opaque à la souris — cliquez)</text>
+			<text name="simple2_text" tool_tip="Je suis une infobulle">Texte monospace avec infobulle (pas opaque à la souris)</text>
+			<text name="unicode_text" tool_tip="Ceci devrait être du texte Unicode">Fichier</text>
+			<text_editor name="test_text_editor">
+Ceci est un éditeur de texte multiligne.
+
+Il s'agrandit avec la fenêtre pour que Test UI occupe toute la zone interne.
+
+Tapez ici pour tester le clavier, le défilement et le retour à la ligne.
+			</text_editor>
+		</panel>
+	</tab_container>
+</floater>

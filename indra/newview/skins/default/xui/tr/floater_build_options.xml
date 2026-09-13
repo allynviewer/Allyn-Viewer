@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="build options floater" title="Grid Seçenekleri">
+	<spinner name="GridResolution" label="Grid Birimi (metre)" />
+	<spinner name="GridDrawSize" label="Grid Kapsamları (metre)" />
+	<check_box name="GridSubUnit" label="Alt Birim Yakalamayı Etkinleştir" />
+	<check_box name="GridCrossSection" label="Kesitleri Göster" />
+	<slider name="GridOpacity" label="Grid Opaklığı" />
+	<spinner name="GridProtractorSize" label="Kısıtlı Adımlar" />
+	<spinner name="RotationStep" label="Kısıtlanmamış Adımlar" />
+</floater>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_pathfinding_linksets" title="Наборы ссылок поиска пути">
+	<string name="messaging_initial" />
+	<string name="messaging_get_inprogress">Запрос наборов ссылок для поиска пути...</string>
+	<string name="messaging_get_error">Обнаружена ошибка при запросе наборов ссылок для поиска пути.</string>
+	<string name="messaging_set_inprogress">Изменение выбранных наборов ссылок поиска пути...</string>
+	<string name="messaging_set_error">Обнаружена ошибка при изменении выбранных наборов ссылок поиска пути.</string>
+	<string name="messaging_complete_none_found">Нет наборов ссылок для поиска путей.</string>
+	<string name="messaging_complete_available">[NUM_SELECTED] наборов ссылок выбрано из [NUM_TOTAL].</string>
+	<string name="messaging_not_enabled">В этом регионе не разрешен поиск пути.</string>
+	<string name="linkset_terrain_name">[Terrain]</string>
+	<string name="linkset_terrain_description">--</string>
+	<string name="linkset_terrain_owner">--</string>
+	<string name="linkset_terrain_scripted">--</string>
+	<string name="linkset_terrain_land_impact">--</string>
+	<string name="linkset_terrain_dist_from_you">--</string>
+	<string name="linkset_owner_loading">[Loading]</string>
+	<string name="linkset_owner_unknown">[Unknown]</string>
+	<string name="linkset_owner_group">[group]</string>
+	<string name="linkset_is_scripted">Да</string>
+	<string name="linkset_is_not_scripted">No</string>
+	<string name="linkset_is_unknown_scripted">Неизвестный</string>
+	<string name="linkset_use_walkable">Прогулочный</string>
+	<string name="linkset_use_static_obstacle">Статическое препятствие</string>
+	<string name="linkset_use_dynamic_obstacle">Подвижное препятствие</string>
+	<string name="linkset_use_material_volume">Объем материала</string>
+	<string name="linkset_use_exclusion_volume">Объем исключения</string>
+	<string name="linkset_use_dynamic_phantom">Подвижный фантом</string>
+	<string name="linkset_is_terrain">[unmodifiable]</string>
+	<string name="linkset_is_restricted_state">[restricted]</string>
+	<string name="linkset_is_non_volume_state">[concave]</string>
+	<string name="linkset_is_restricted_non_volume_state">[restricted,concave]</string>
+	<string name="linkset_choose_use">Выберите использование набора ссылок...</string>
+	<panel name="pathfinding_linksets_main">
+		<text name="linksets_filter_label">Фильтровать по:</text>
+		<text name="linksets_name_label">Имя</text>
+		<line_editor name="filter_by_name" />
+		<text name="linksets_desc_label">Описание</text>
+		<line_editor name="filter_by_description" />
+		<combo_box name="filter_by_linkset_use">
+			<combo_item name="filter_by_linkset_use_none">Фильтровать по использованию набора ссылок...</combo_item>
+			<combo_item name="filter_by_linkset_use_walkable">Прогулочный</combo_item>
+			<combo_item name="filter_by_linkset_use_static_obstacle">Статическое препятствие</combo_item>
+			<combo_item name="filter_by_linkset_use_dynamic_obstacle">Подвижное препятствие</combo_item>
+			<combo_item name="filter_by_linkset_use_material_volume">Объем материала</combo_item>
+			<combo_item name="filter_by_linkset_use_exclusion_volume">Объем исключения</combo_item>
+			<combo_item name="filter_by_linkset_use_dynamic_phantom">Подвижный фантом</combo_item>
+		</combo_box>
+		<button name="apply_filters" label="Применить" />
+		<button name="clear_filters" label="Очистить" />
+		<scroll_list name="objects_scroll_list">
+			<column name="name" label="Имя (корневой прим)" />
+			<column name="description" label="Описание (корневой примитив)" />
+			<column name="owner" label="Владелец" />
+			<column name="scripted" label="Сценарий" />
+			<column name="land_impact" label="Влияние" />
+			<column name="dist_from_you" label="Расстояние" />
+			<column name="linkset_use" label="Использование набора ссылок" />
+			<column name="a_percent" label="A%" />
+			<column name="b_percent" label="B%" />
+			<column name="c_percent" label="C%" />
+			<column name="d_percent" label="D%" />
+		</scroll_list>
+		<text name="messaging_status">Наборы ссылок:</text>
+		<button name="refresh_objects_list" label="Обновить список" />
+		<button name="select_all_objects" label="Выделить всё" />
+		<button name="select_none_objects" label="Выбрать нет" />
+	</panel>
+	<view_border name="horiz_separator" />
+	<panel name="pathfinding_linksets_actions">
+		<text name="linksets_actions_label">Действия над выбранными наборами ссылок (Если набор ссылок удаляется из мира, его атрибуты могут быть потеряны):</text>
+		<check_box name="show_beacon" label="Показать маяк" />
+		<button name="take_objects" label="Брать" />
+		<button name="take_copy_objects" label="Сделать копию" />
+		<button name="teleport_me_to_object" label="Телепортируй меня туда" />
+		<button name="return_objects" label="Сбросить" />
+		<button name="delete_objects" label="Удалить" />
+	</panel>
+	<view_border name="horiz_separator" />
+	<panel name="pathfinding_linksets_attributes">
+		<text name="linksets_attributes_label">Отредактируйте атрибуты выбранных наборов связей и нажмите кнопку, чтобы применить изменения.</text>
+		<combo_box name="edit_linkset_use" />
+		<text name="walkability_coefficients_label">Проходимость:</text>
+		<text name="edit_a_label">A</text>
+		<line_editor name="edit_a_value" tool_tip="Проходимость для персонажей типа А. Примерный тип персонажа — гуманоид." />
+		<text name="edit_b_label">Б</text>
+		<line_editor name="edit_b_value" tool_tip="Проходимость для персонажей типа B. Пример типа персонажа — существо." />
+		<text name="edit_c_label">C</text>
+		<line_editor name="edit_c_value" tool_tip="Ходимость для персонажей типа C. Примерный тип персонажа — механический." />
+		<text name="edit_d_label">D</text>
+		<line_editor name="edit_d_value" tool_tip="Проходимость для персонажей типа D. Пример типа персонажа — другой." />
+		<button name="apply_edit_values" label="Применить изменения" />
+		<text name="suggested_use_a_label">(Гуманоид)</text>
+		<text name="suggested_use_b_label">(Существо)</text>
+		<text name="suggested_use_c_label">(Механический)</text>
+		<text name="suggested_use_d_label">(Другой)</text>
+	</panel>
+</floater>

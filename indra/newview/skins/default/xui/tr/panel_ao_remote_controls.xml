@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="ao_controls">
+	<button name="ao_btn" label="AO Off" tool_tip="Animasyon Geçersiz Kılmayı değiştirmek için burayı tıklayın" />
+	<button name="popup_btn" tool_tip="Daha fazla seçenek için burayı tıklayın" />
+</panel>

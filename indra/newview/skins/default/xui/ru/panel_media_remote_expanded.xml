@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="media_remote">
+	<panel name="Volume Panel" label="Аудио и видео" />
+	<string name="play_label">Играть</string>
+	<string name="stop_label">Останавливаться</string>
+	<string name="pause_label">Пауза</string>
+	<string name="default_tooltip_label">Не указан носитель</string>
+	<string name="media_hidden_label">(URL скрыт владельцем парцела)</string>
+	<string name="media_icon_tooltip_web">В этом месте отображается контент из Всемирной паутины. Нажмите кнопку «Воспроизвести», чтобы отобразить веб-контент.</string>
+	<string name="media_icon_tooltip_movie">В этом месте отображается видеоконтент. Нажмите кнопку «Воспроизвести», чтобы воспроизвести видео.</string>
+	<string name="media_play_tooltip">Отобразить веб-контент в этом месте.</string>
+	<string name="Title">Заголовок</string>
+	<string name="Artist">Художник</string>
+	<string name="Now_playing">Сейчас играю</string>
+</panel>

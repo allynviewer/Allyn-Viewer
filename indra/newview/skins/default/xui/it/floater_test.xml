@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="test" title="Test UI">
+	<tab_container name="test_tab">
+		<panel name="first_tab_panel" label="Controlli">
+			<text name="section_buttons">PULSANTI</text>
+			<button name="can't click" label="Non cliccabile" tool_tip="Pulsante disattivato"/>
+			<button name="can click" label="Cliccabile" tool_tip="Pulsante attivato"/>
+			<button name="unicode_btn" label="Unicode" tool_tip="Pulsante con etichetta Unicode"/>
+			<button name="image_btn" tool_tip="Pulsante immagine"/>
+			<text name="section_options">OPZIONI</text>
+			<check_box name="simple_check" label="Casella semplice"/>
+			<check_box name="unicode_check" label="Casella Unicode"/>
+			<combo_box name="combo" tool_tip="Elenco a discesa di esempio">
+				<combo_item name="top_item">deve andare in cima</combo_item>
+				<combo_item name="first_item">primo elemento</combo_item>
+				<combo_item name="second_item">secondo elemento</combo_item>
+				<combo_item name="disabled_item">elemento disattivato</combo_item>
+			</combo_box>
+			<text name="section_radio">RADIO</text>
+			<radio_group name="radio_group">
+				<radio_item name="Radio1">Radio 1</radio_item>
+				<radio_item name="Radio2">Radio 2</radio_item>
+				<radio_item name="Radio3">Radio 3</radio_item>
+			</radio_group>
+			<text_editor name="widgets_help">
+Questa finestra prova i controlli UI comuni.
+
+Clic, caselle, combo e radio vengono registrati nella console del viewer.
+			</text_editor>
+			<text name="section_line">EDITOR DI RIGA</text>
+			<line_editor name="test_line">Digita testo unicode qui</line_editor>
+			<text name="section_slider">SLIDER</text>
+			<text name="section_names">ELENCO NOMI</text>
+			<name_list name="test_name_list">
+				<column name="name" label="Nome"/>
+			</name_list>
+		</panel>
+		<panel name="second_tab_panel" label="Elenchi">
+			<text name="lists_help">Elenco di esempio dei controlli. Fai clic su una riga per registrare la selezione.</text>
+			<button name="Simple Button" label="Pulsante semplice"/>
+			<scroll_list name="test_scroll_list">
+				<column name="widget" label="Controllo"/>
+				<column name="notes" label="Note"/>
+			</scroll_list>
+		</panel>
+		<panel name="text_tab_panel" label="Testo">
+			<text name="simple_text">Testo sans-serif (opaco al mouse — fai clic)</text>
+			<text name="simple2_text" tool_tip="Sono un suggerimento">Testo monospazio con suggerimento (non opaco al mouse)</text>
+			<text name="unicode_text" tool_tip="Questo dovrebbe essere testo Unicode">File</text>
+			<text_editor name="test_text_editor">
+Questo è un editor di testo su più righe.
+
+Si adatta alla finestra così Test UI usa tutta l'area interna.
+
+Scrivi qui per provare tastiera, scorrimento e a capo automatico.
+			</text_editor>
+		</panel>
+	</tab_container>
+</floater>

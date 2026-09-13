@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater title="Erlebnisprofil">
+	<floater.string name="empty_slurl">(keine)</floater.string>
+	<tab_container name="tab_container">
+		<panel name="panel_experience_info">
+			<scroll_container name="xp_scroll">
+				<panel name="scrolling_panel">
+					<layout_stack name="Experience_profile">
+						<layout_panel name="top panel">
+							<button name="edit_btn" label="Bearbeiten"/>
+						</layout_panel>
+						<layout_panel name="maturity panel">
+							<text name="ContentRating">Einstufung:</text>
+						</layout_panel>
+						<layout_panel name="location panel">
+							<text name="Location">Standort:</text>
+						</layout_panel>
+						<layout_panel name="owner panel">
+							<text name="Owner">Eigentümer:</text>
+						</layout_panel>
+						<layout_panel name="group_panel">
+							<text name="Group">Gruppe:</text>
+						</layout_panel>
+						<layout_panel name="perm panel">
+							<button name="allow_btn" label="Erlauben"/>
+							<button name="forget_btn" label="Vergessen"/>
+							<button name="block_btn" label="Blockieren"/>
+							<text name="privileged">Dieses Erlebnis ist für alle Einwohner aktiviert.</text>
+							<button name="report_btn" label="Missbrauch melden"/>
+						</layout_panel>
+					</layout_stack>
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="edit_panel_experience_info">
+			<scroll_container name="edit_xp_scroll">
+				<panel name="edit_scrolling_panel">
+					<button name="Group_btn" label="Gruppe festlegen"/>
+					<text name="edit_ContentRating">Einstufung:</text>
+					<combo_box name="edit_ContentRatingText" label="Jugendfrei" tool_tip="Das Erhöhen der Inhaltsstufe eines Erlebnisses setzt die Berechtigung für alle Einwohner zurück, die das Erlebnis erlaubt haben.">
+						<combo_item name="Adult" label="Erwachsene"/>
+						<combo_item name="Mature" label="Jugendfrei"/>
+						<combo_item name="PG" label="Allgemein"/>
+					</combo_box>
+					<text name="edit_Location">Standort:</text>
+					<button name="location_btn" label="Auf aktuellen setzen"/>
+					<button name="clear_btn" label="Standort löschen"/>
+					<check_box name="edit_enable_btn" label="Erlebnis aktivieren"/>
+					<check_box name="edit_private_btn" label="In Suche ausblenden"/>
+					<button name="cancel_btn" label="Zurück"/>
+					<button name="save_btn" label="Speichern"/>
+				</panel>
+			</scroll_container>
+		</panel>
+	</tab_container>
+</floater>

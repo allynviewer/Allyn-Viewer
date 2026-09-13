@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="modal container">
+	<button name="Continue" label="Continua" label_selected="Continua"/>
+	<button name="Cancel" label="Annulla" label_selected="Annulla"/>
+	<check_box name="agree_chk" label="Accetto i termini della Politica di uso accettabile di Vivox"/>
+	<text name="license_heading">Leggi attentamente la seguente licenza. Per usare il voice, devi accettare il contratto di licenza.</text>
+	<text_editor name="license_text">LICENSE_TEXT</text_editor>
+</floater>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="nearby_media">
+	<string name="media_item_count_format">(%ld medya öğeleri)</string>
+	<string name="empty_item_text" />
+	<string name="parcel_media_name">Paket Akış Medyası</string>
+	<string name="parcel_audio_name">Paket Akışı Sesi</string>
+	<string name="playing_suffix">(oynuyor)</string>
+	<panel name="minimized_controls">
+		<button name="all_nearby_media_disable_btn" label="Tümünü Durdur" tool_tip="Yakındaki tüm medyayı kapat" />
+		<button name="all_nearby_media_enable_btn" label="Tümünü Başlat" tool_tip="Yakındaki tüm medyayı aç" />
+		<button name="open_prefs_btn" label="Ayarlar" tool_tip="Medya tercihlerini açın" />
+		<button name="more_btn" label="&gt;&gt;" tool_tip="Gelişmiş Kontroller" />
+	</panel>
+	<panel name="nearby_media_panel">
+		<text name="show_text">Göster:</text>
+		<combo_box name="show_combo">
+			<combo_item name="All" label="Hepsi">Hepsi</combo_item>
+			<combo_item name="WithinParcel" label="Bu Parselde">Bu Parselde</combo_item>
+			<combo_item name="OutsideParcel" label="Bu parselin dışında">Bu parselin dışında</combo_item>
+			<combo_item name="OnOthers" label="Diğer Avatarlarda">Diğer Avatarlarda</combo_item>
+		</combo_box>
+		<scroll_list name="media_list">
+			<column name="media_checkbox_ctrl" />
+			<column name="media_proximity" label="Yakınlık" />
+			<column name="media_visibility" label="Görünür" />
+			<column name="media_class" label="Sınıf" />
+			<column name="media_name" label="İsim" />
+			<column name="media_debug" label="Hata ayıklama" />
+		</scroll_list>
+		<panel name="media_controls_panel">
+			<layout_stack name="media_controls">
+				<layout_panel name="stop">
+					<button name="stop_btn" tool_tip="Seçilen medyayı durdur" />
+				</layout_panel>
+				<layout_panel name="play">
+					<button name="play_btn" tool_tip="Seçilen medyayı oynat" />
+				</layout_panel>
+				<layout_panel name="pause">
+					<button name="pause_btn" tool_tip="Seçilen medyayı duraklat" />
+				</layout_panel>
+				<layout_panel name="volume_slider_ctrl">
+					<slider_bar name="volume_slider" tool_tip="Seçilen medya için ses seviyesi" />
+				</layout_panel>
+				<layout_panel name="mute">
+					<button name="mute_btn" tool_tip="Seçilen medyadaki sesi kapat" />
+				</layout_panel>
+				<layout_panel name="zoom">
+					<button name="zoom_btn" tool_tip="Seçilen medyayı yakınlaştırın" />
+				</layout_panel>
+				<layout_panel name="unzoom">
+					<button name="unzoom_btn" tool_tip="Seçili ortamdan geriye yakınlaşın" />
+				</layout_panel>
+				<layout_panel name="right_bookend" />
+			</layout_stack>
+		</panel>
+	</panel>
+</panel>

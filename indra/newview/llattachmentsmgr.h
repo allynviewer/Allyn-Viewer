@@ -1,0 +1,86 @@
+/** 
+ * @file llattachmentsmgr.h
+ * @brief Batches up attachment requests and sends them all
+ * in one message.
+ *
+ * $LicenseInfo:firstyear=2004&license=viewerlgpl$
+ * Second Life Viewer Source Code
+ * Copyright (C) 2010, Linden Research, Inc.
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation;
+ * version 2.1 of the License only.
+ * 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * 
+ * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
+ * $/LicenseInfo$
+ */
+#ifndef LL_LLATTACHMENTSMGR_H
+#define LL_LLATTACHMENTSMGR_H
+#include "llsingleton.h"
+class LLViewerInventoryItem;
+class LLAttachmentsMgr: public LLSingleton<LLAttachmentsMgr>
+{
+public:
+	struct AttachmentsInfo
+	{
+		LLUUID mItemID;
+		U8 mAttachmentPt;
+		BOOL mAdd;
+	};
+	typedef std::deque<AttachmentsInfo> attachments_vec_t;
+	LLAttachmentsMgr();
+	virtual ~LLAttachmentsMgr();
+	void addAttachmentRequest(const LLUUID& item_id,
+					   const U8 attachment_pt,
+					   const BOOL add, const BOOL fRlvForce = FALSE);
+    void onAttachmentRequested(const LLUUID& item_id);
+	void requestAttachments(attachments_vec_t& attachment_requests);
+	static void onIdle(void *);
+    void onAttachmentArrived(const LLUUID& inv_item_id);
+    void onDetachRequested(const LLUUID& inv_item_id);
+    void onDetachCompleted(const LLUUID& inv_item_id);
+	void refreshAttachments();
+public:
+	void clearPendingAttachmentLink(const LLUUID& idItem);
+	bool getPendingAttachments(uuid_set_t& ids) const;
+protected:
+	void onRegisterAttachmentComplete(const LLUUID& idAttachLink);
+	friend class LLRegisterAttachmentCallback;
+private:
+    class LLItemRequestTimes: public std::map<LLUUID,LLTimer>
+	{
+    public:
+        LLItemRequestTimes(const std::string& op_name, F32 timeout);
+        void addTime(const LLUUID& inv_item_id);
+        void removeTime(const LLUUID& inv_item_id);
+        BOOL wasRequestedRecently(const LLUUID& item_id) const;
+        BOOL getTime(const LLUUID& inv_item_id, LLTimer& timer) const;
+    private:
+        F32 mTimeout;
+        std::string mOpName;
+	};
+	void removeAttachmentRequestTime(const LLUUID& inv_item_id);
+	void onIdle();
+	void requestPendingAttachments();
+	void linkRecentlyArrivedAttachments();
+    void expireOldAttachmentRequests();
+    void expireOldDetachRequests();
+    void spamStatusInfo();
+	attachments_vec_t mPendingAttachments;
+	LLItemRequestTimes mAttachmentRequests;
+	LLItemRequestTimes mDetachRequests;
+    uuid_set_t mRecentlyArrivedAttachments;
+    LLTimer mCOFLinkBatchTimer;
+	uuid_set_t mPendingAttachLinks;
+};
+#endif

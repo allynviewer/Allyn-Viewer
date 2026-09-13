@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_explore_sounds" title="Sesler">
+	<text name="result_label">Kaynaklar:</text>
+	<check_box name="avatars_chk" label="Avatarlar" />
+	<check_box name="objects_chk" label="Nesneler" />
+	<check_box name="collision_chk" label="Varsayılan Çarpışma Sesleri" />
+	<text name="result_label">Kontroller:</text>
+	<check_box name="repeated_asset_chk" label="Tekrarları Göster" />
+	<check_box name="pause_chk" label="Günlüğü Duraklat" />
+	<scroll_list name="sound_list">
+		<column name="type" tool_tip="Tür" />
+		<column name="playing" label="Zaman" />
+		<column name="owner" label="Sahip" />
+		<column name="sound" label="Ses" />
+	</scroll_list>
+	<button name="look_at_btn" label="Bak" />
+	<button name="play_locally_btn" label="Yerel Olarak Oyna" />
+	<button name="play_ambient_btn" label="Dünyada Oyna" />
+	<button name="stop_btn" label="Durdur" />
+	<button name="bl_btn" label="Kara Listeye Ekle" />
+</floater>

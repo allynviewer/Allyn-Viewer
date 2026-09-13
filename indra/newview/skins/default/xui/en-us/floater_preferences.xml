@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" can_tear_off="true" default_tab_group="1" enabled="true"
+     height="728" left="330" min_height="428" min_width="640"
+     mouse_opaque="true" name="Preferences" title="Preferences"
+     title_icon="pref_title_gear.png" width="880">
+	<filter_editor bottom="-62" enabled="true" follows="left|top|right" height="22"
+	     label="Search Settings" left="8" max_length="255" name="search_prefs_edit"
+	     right="-8" tool_tip="Type a search term. Matching settings are highlighted and tabs without matches are hidden.">
+		<filter_editor.commit_callback function="UpdateFilter"/>
+	</filter_editor>
+	<button bottom="12" enabled="true" follows="right|bottom" font="SansSerif"
+	     halign="center" height="24" label="OK" label_selected="OK" left="564"
+	     mouse_opaque="true" name="OK" scale_image="true" width="96"
+	     image_unselected="button_primary_32x128.png"
+	     image_selected="button_primary_pressed_32x128.png"
+	     image_hover_unselected="button_primary_pressed_32x128.png"
+	     image_hover_selected="button_primary_pressed_32x128.png" />
+	<button bottom="12" enabled="true" follows="right|bottom" font="SansSerif"
+	     halign="center" height="24" label="Cancel" label_selected="Cancel"
+	     left_delta="104" mouse_opaque="true" name="Cancel" scale_image="true"
+	     width="96" image_hover_unselected="button_enabled_selected_32x128.tga" />
+	<button bottom="12" enabled="true" follows="right|bottom" font="SansSerif"
+	     halign="center" height="24" label="Apply" label_selected="Apply"
+	     left_delta="104" mouse_opaque="true" name="Apply" scale_image="true"
+	     width="96" image_hover_unselected="button_enabled_selected_32x128.tga" />
+	<button bottom="12" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="24" image_overlay="pref_nav_about.tga"
+	     image_overlay_alignment="left" label="About" label_selected="About" left="12"
+	     mouse_opaque="true" name="About..." pad_left="8" scale_image="true" width="80"
+	     image_hover_unselected="button_enabled_selected_32x128.tga" />
+	<button bottom="12" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="24"
+	     help_url="http://secondlife.com/app/help/technical/preferences.php"
+	     image_overlay="pref_nav_help.tga" image_overlay_alignment="left"
+	     label="Help" label_selected="Help" left_delta="86" mouse_opaque="true"
+	     name="Help" pad_left="8" scale_image="true" width="80"
+	     image_hover_unselected="button_enabled_selected_32x128.tga" />
+	<tab_container bottom="-680" enabled="true" follows="left|top|right|bottom" height="614"
+	     left="8" mouse_opaque="false" name="pref core" tab_group="1"
+	     tab_position="left" tab_max_width="188" tab_width="188" width="864" />
+</floater>

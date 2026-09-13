@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="false" height="612" label="General" left="0" name="general_panel" width="648">
+	<scroll_container bottom="-612" follows="all" height="612" left="0" name="general_scroll" opaque="false" width="648">
+		<panel border="false" bottom="-700" follows="top|left" height="700" left="0" name="general_scroll_inner" width="628">
+	<text bottom="-20" follows="top" font="SansSerifSmall" height="12" left="20" name="start_location_textbox" text_color="LabelSelectedColor">START LOCATION</text>
+	<icon bottom="-26" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_start_rule" width="608"/>
+	<radio_group bottom="-78" follows="top" height="44" left="20" name="default_start_location" width="400">
+		<radio_item bottom="-20" height="20" name="home" tool_tip="Log into my home location by default.">My Home</radio_item>
+		<radio_item bottom="-20" height="20" left="160" name="last" tool_tip="Log into my last location by default.">My Last Location</radio_item>
+	</radio_group>
+	<check_box bottom="-104" follows="top" height="16" initial_value="true" label="Show Start Location on Login Screen" left="20" name="show_location_checkbox"/>
+	<text bottom="-140" follows="top" font="SansSerifSmall" height="12" left="20" name="show_names_textbox" text_color="LabelSelectedColor">NAMES</text>
+	<icon bottom="-146" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_names_rule" width="608"/>
+	<combo_box bottom="-176" follows="top" height="22" left="20" name="fade_out_combobox" width="160">
+		<combo_item name="Never" value="Never">Never</combo_item>
+		<combo_item name="Show Temporarily" value="Show Temporarily">Show Temporarily</combo_item>
+		<combo_item name="Always" value="Always">Always</combo_item>
+	</combo_box>
+	<combo_box bottom="-176" follows="top" height="22" left="196" name="namesystem_combobox" width="220">
+		<combo_item name="Old Names" value="0">Old Names</combo_item>
+		<combo_item name="Display Names (with Username)" value="1">Display Names (w/Username)</combo_item>
+		<combo_item name="Display Names only" value="2">Display Names only</combo_item>
+		<combo_item name="Old Names (with Display Names)" value="3">Old Names (w/Display)</combo_item>
+	</combo_box>
+	<check_box bottom="-176" follows="top" height="16" label="Show Resident" left="432" name="show_resident_checkbox"/>
+	<check_box bottom="-204" follows="top" height="16" initial_value="true" label="Small Avatar Names" left="20" name="small_avatar_names_checkbox"/>
+	<check_box bottom="-228" follows="top" height="16" initial_value="false" label="Hide My Name On My Screen" left="20" name="show_my_name_checkbox"/>
+	<text bottom="-264" follows="top" font="SansSerifSmall" height="12" left="20" name="group_titles_textbox" text_color="LabelSelectedColor">GROUP TITLES</text>
+	<icon bottom="-270" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_groups_rule" width="608"/>
+	<check_box bottom="-296" follows="top" height="16" initial_value="false" label="Hide All Group Titles" left="20" name="show_all_title_checkbox"/>
+	<check_box bottom="-320" follows="top" height="16" initial_value="false" label="Hide My Group Title" left="20" name="show_my_title_checkbox"/>
+	<text bottom="-356" follows="top" font="SansSerifSmall" height="12" left="20" name="UI Size:" text_color="LabelSelectedColor">UI SIZE</text>
+	<icon bottom="-362" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_ui_rule" width="608"/>
+	<slider bottom="-390" can_edit_text="true" follows="top" height="16" increment="0.025" initial_val="1" left="20" max_val="2.4" min_val="0.5" name="ui_scale_slider" value="1" width="400" />
+	<check_box bottom="-414" follows="top" height="16" initial_value="false" label="Use resolution independent scale" left="20" name="ui_auto_scale"/>
+	<check_box bottom="-446" follows="top" height="16" left="20" label="Go away when idle" name="away_when_idle_checkbox"/>
+	<spinner bottom="-446" decimal_digits="0" follows="top" height="16" increment="1" initial_val="300" label="After:" label_width="48" left="220" max_val="600" min_val="0" name="afk_timeout_spinner" width="140"/>
+	<text bottom="-444" follows="top" height="12" left="372" name="seconds_textbox">seconds</text>
+	<check_box bottom="-478" follows="top" height="16" initial_value="false" label="Notify when in-world currency is exchanged" left="20" name="notify_money_change_checkbox"/>
+	<check_box bottom="-502" follows="top" height="16" label="without filling up the corner" left="20" name="no_transaction_clutter_checkbox" tool_tip="Still present the notifications, but have them pop up in the bottom right momentarily, then leave, so the transaction draws attention but doesn't get in the way."/>
+	<text bottom="-530" follows="top" height="12" left="20" name="maturity_desired_label">Rating:</text>
+	<text bottom="-530" follows="top" height="12" left="120" name="maturity_desired_prompt">I want to access content rated:</text>
+	<combo_box bottom="-534" follows="top" height="22" left="340" name="maturity_desired_combobox" width="200" control_name="PreferredMaturity">
+		<combo_item name="Desired_Adult" value="42">PG, Mature &amp; Adult</combo_item>
+		<combo_item name="Desired_Mature" value="21">PG &amp; Mature</combo_item>
+		<combo_item name="Desired_PG" value="13">PG only</combo_item>
+	</combo_box>
+	<text bottom="-530" follows="top" height="12" left="340" name="maturity_desired_textbox">PG only</text>
+	<text bottom="-566" follows="top" height="12" left="20" name="crash_report_textbox">Crash reports:</text>
+	<combo_box bottom="-570" follows="top" height="22" left="200" name="crash_behavior_combobox" width="200">
+		<combo_item name="Neversend" value="0">Never send</combo_item>
+		<combo_item name="Alwayssend" value="1">Always send</combo_item>
+	</combo_box>
+	<text bottom="-598" follows="top" height="12" left="20" name="language_textbox">Language:</text>
+	<combo_box allow_text_entry="true" bottom="-602" follows="top" height="22" left="200" name="language_combobox" max_chars="32" width="180">
+		<combo_item name="System Default Language" value="default">System Default</combo_item>
+		<combo_item name="English" value="en-us">English</combo_item>
+		<combo_item name="Spanish" value="es">Español(Spanish)</combo_item>
+		<combo_item name="Portugese" value="pt">Português(Portuguese)</combo_item>
+		<combo_item name="French" value="fr">Français(French)</combo_item>
+		<combo_item name="Deutsch(German)" value="de">Deutsch(German)</combo_item>
+		<combo_item name="Italian" value="it">Italiano(Italian)</combo_item>
+		<combo_item name="Turkish" value="tr">Türkçe(Turkish)</combo_item>
+		<combo_item name="Russian" value="ru">Русский(Russian)</combo_item>
+		<combo_item name="Japanese" value="ja">日本語(Japanese)</combo_item>
+	</combo_box>
+	<text bottom="-598" follows="top" height="16" left="396" name="language_textbox2">(Requires restart)</text>
+	<string name="region_name_prompt">&lt;Type region name&gt;</string>
+	<check_box bottom="-630" follows="top" height="16" initial_value="false" label="Share language with objects" left="20" name="language_is_public" tool_tip="This lets in-world objects know your preferred language."/>
+	<button bottom="-672" follows="top" height="28" label="Reset All Settings" left="184" name="clear_settings" width="280" />
+		</panel>
+	</scroll_container>
+</panel>

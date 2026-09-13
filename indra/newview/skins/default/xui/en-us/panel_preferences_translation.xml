@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="false" height="612" label="Translation" left="0" name="translation" width="648">
+  <tab_container bottom="-612" follows="all" height="612" label="Translation" left="0" name="translation_tabs" tab_position="top" width="648">
+    <panel border="false" height="560" label="General" left="0" name="General" width="640">
+      <check_box bottom="-24" follows="top" height="16" label="Enable AI translation" left="20" name="enable_check"/>
+      <text bottom="-56" follows="top" height="14" left="20" name="scope_label">Apply to:</text>
+      <combo_box bottom="-60" control_name="AITranslateScope" follows="top" height="22" left="160" name="scope_combo" width="280">
+        <combo_item name="im" value="im">IMs only</combo_item>
+        <combo_item name="nearby" value="nearby">Nearby chat only</combo_item>
+        <combo_item name="both" value="both">Both</combo_item>
+      </combo_box>
+      <check_box bottom="-92" control_name="AITranslateIncoming" follows="top" height="16" label="Translate incoming" left="20" name="incoming_check"/>
+      <check_box bottom="-116" control_name="AITranslateOutgoing" follows="top" height="16" label="Translate outgoing" left="20" name="outgoing_check"/>
+      <text bottom="-148" follows="top" height="14" left="20" name="src_label">I speak:</text>
+      <combo_box allow_text_entry="true" bottom="-152" control_name="AITranslateSourceLang" follows="top" height="22" left="160" name="source_lang" tool_tip="Any ISO code (pt, en, ja, ru, zh...). You can type a custom code." width="280">
+        <combo_item name="pt" value="pt">Portuguese (pt)</combo_item>
+        <combo_item name="en" value="en">English (en)</combo_item>
+        <combo_item name="es" value="es">Spanish (es)</combo_item>
+        <combo_item name="fr" value="fr">French (fr)</combo_item>
+        <combo_item name="de" value="de">German (de)</combo_item>
+        <combo_item name="it" value="it">Italian (it)</combo_item>
+        <combo_item name="ru" value="ru">Russian (ru)</combo_item>
+        <combo_item name="ja" value="ja">Japanese (ja)</combo_item>
+        <combo_item name="ko" value="ko">Korean (ko)</combo_item>
+        <combo_item name="zh" value="zh">Chinese (zh)</combo_item>
+        <combo_item name="ar" value="ar">Arabic (ar)</combo_item>
+        <combo_item name="nl" value="nl">Dutch (nl)</combo_item>
+        <combo_item name="pl" value="pl">Polish (pl)</combo_item>
+        <combo_item name="tr" value="tr">Turkish (tr)</combo_item>
+        <combo_item name="hi" value="hi">Hindi (hi)</combo_item>
+        <combo_item name="th" value="th">Thai (th)</combo_item>
+        <combo_item name="vi" value="vi">Vietnamese (vi)</combo_item>
+        <combo_item name="uk" value="uk">Ukrainian (uk)</combo_item>
+      </combo_box>
+      <text bottom="-184" follows="top" height="14" left="20" name="dst_label">Others speak:</text>
+      <combo_box allow_text_entry="true" bottom="-188" control_name="AITranslateTargetLang" follows="top" height="22" left="160" name="target_lang" tool_tip="Any ISO code. Type freely if your language is not listed." width="280">
+        <combo_item name="en" value="en">English (en)</combo_item>
+        <combo_item name="pt" value="pt">Portuguese (pt)</combo_item>
+        <combo_item name="es" value="es">Spanish (es)</combo_item>
+        <combo_item name="fr" value="fr">French (fr)</combo_item>
+        <combo_item name="de" value="de">German (de)</combo_item>
+        <combo_item name="it" value="it">Italian (it)</combo_item>
+        <combo_item name="ru" value="ru">Russian (ru)</combo_item>
+        <combo_item name="ja" value="ja">Japanese (ja)</combo_item>
+        <combo_item name="ko" value="ko">Korean (ko)</combo_item>
+        <combo_item name="zh" value="zh">Chinese (zh)</combo_item>
+        <combo_item name="ar" value="ar">Arabic (ar)</combo_item>
+        <combo_item name="nl" value="nl">Dutch (nl)</combo_item>
+        <combo_item name="pl" value="pl">Polish (pl)</combo_item>
+        <combo_item name="tr" value="tr">Turkish (tr)</combo_item>
+        <combo_item name="hi" value="hi">Hindi (hi)</combo_item>
+        <combo_item name="th" value="th">Thai (th)</combo_item>
+        <combo_item name="vi" value="vi">Vietnamese (vi)</combo_item>
+        <combo_item name="uk" value="uk">Ukrainian (uk)</combo_item>
+      </combo_box>
+      <text bottom="-220" follows="top" height="14" left="20" name="in_disp_label">Incoming:</text>
+      <combo_box bottom="-224" control_name="AITranslateIncomingDisplay" follows="top" height="22" left="160" name="incoming_display" width="360">
+        <combo_item name="translation_only" value="translation_only">Translation only (hide original)</combo_item>
+        <combo_item name="both" value="both">Original and translation</combo_item>
+      </combo_box>
+      <text bottom="-256" follows="top" height="14" left="20" name="out_disp_label">Outgoing:</text>
+      <combo_box bottom="-260" control_name="AITranslateOutgoingDisplay" follows="top" height="22" left="160" name="outgoing_display" width="360">
+        <combo_item name="translation_only" value="translation_only">Translation only (hide original)</combo_item>
+        <combo_item name="both" value="both">Original and translation</combo_item>
+      </combo_box>
+      <text bottom="-300" follows="top" height="14" left="20" name="in_color_label">Incoming color:</text>
+      <color_swatch bottom="-320" can_apply_immediately="false" control_name="AITranslateIncomingColor" follows="top" height="34" left="160" name="incoming_color" width="30"/>
+      <text bottom="-300" follows="top" height="14" left="240" name="out_color_label">Outgoing color:</text>
+      <color_swatch bottom="-320" can_apply_immediately="false" control_name="AITranslateOutgoingColor" follows="top" height="34" left="380" name="outgoing_color" width="30"/>
+      <text bottom="-420" follows="top" font="SansSerifSmall" height="80" left="20" name="privacy_tip" width="580" word_wrap="true">I speak / Others speak = any language (pick or type ISO code: ja, ru, zh...). Outgoing: you→others. Incoming: others→you. [IA] only on incoming. No duplicate line if text is already in the target language.</text>
+    </panel>
+    <panel border="false" height="560" label="Groups" left="0" name="Groups" width="640">
+      <check_box bottom="-24" control_name="AITranslateGroupsEnabled" follows="top" height="16" label="Translate group chats" left="20" name="groups_enable"/>
+      <text bottom="-56" follows="top" height="14" left="20" name="group_mode_label">Groups:</text>
+      <combo_box bottom="-60" control_name="AITranslateGroupMode" follows="top" height="22" left="160" name="group_mode" width="360">
+        <combo_item name="all" value="all">All my groups</combo_item>
+        <combo_item name="selected" value="selected">Only selected below</combo_item>
+      </combo_box>
+      <scroll_list bottom="-360" column_padding="4" draw_heading="true" follows="top" height="280" left="20" multi_select="true" name="group_list" tool_tip="Ctrl+click to select multiple groups (Selected mode)" width="580">
+        <column dynamicwidth="true" label="Group" name="name" width="560"/>
+      </scroll_list>
+      <button bottom="-396" follows="top" height="24" label="Refresh group list" left="20" name="group_refresh_btn" width="200"/>
+    </panel>
+    <panel border="false" height="560" label="Provider" left="0" name="Provider" width="640">
+      <text bottom="-24" follows="top" height="14" left="20" name="provider_label">Provider:</text>
+      <combo_box bottom="-28" control_name="AITranslateProvider" follows="top" height="22" left="160" name="provider_combo" width="360">
+        <combo_item name="openai" value="openai">OpenAI (ChatGPT)</combo_item>
+        <combo_item name="anthropic" value="anthropic">Anthropic (Claude)</combo_item>
+        <combo_item name="opencode_zen" value="opencode_zen">OpenCode Zen</combo_item>
+        <combo_item name="openrouter" value="openrouter">OpenRouter</combo_item>
+        <combo_item name="custom" value="custom">Custom (OpenAI-compatible)</combo_item>
+      </combo_box>
+      <text bottom="-64" follows="top" height="14" left="20" name="key_label">API key:</text>
+      <line_editor bottom="-68" control_name="AITranslateApiKey" follows="top" height="22" left="160" max_length_chars="256" name="api_key" width="420"/>
+      <text bottom="-104" follows="top" height="14" left="20" name="url_label">Base URL:</text>
+      <line_editor bottom="-108" control_name="AITranslateBaseUrl" follows="top" height="22" left="160" max_length_chars="512" name="base_url" width="420"/>
+      <text bottom="-144" follows="top" height="14" left="20" name="model_label">Model:</text>
+      <line_editor bottom="-148" control_name="AITranslateModel" follows="top" height="22" left="160" max_length_chars="128" name="model" width="420"/>
+      <button bottom="-188" follows="top" height="24" label="Test connection" left="160" name="test_btn" width="180"/>
+      <text bottom="-300" follows="top" font="SansSerifSmall" height="88" left="20" name="status_text" width="580" word_wrap="true">Not tested</text>
+      <text bottom="-390" follows="top" font="SansSerifSmall" height="64" left="20" name="provider_tip" width="580" word_wrap="true">API key is stored in local settings (this PC only).&#10;OpenCode Zen: chat/completions (e.g. mimo-v2.5-free).&#10;OpenRouter: https://openrouter.ai/api/v1 (e.g. minimax/minimax-m3:free).</text>
+    </panel>
+  </tab_container>
+</panel>

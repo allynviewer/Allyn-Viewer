@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Inventory Finder" title="Недавние предметы">
+	<icon name="icon_animation" />
+	<check_box name="check_animation" label="Анимации" />
+	<icon name="icon_calling_card" />
+	<check_box name="check_calling_card" label="Визитки" />
+	<icon name="icon_clothing" />
+	<check_box name="check_clothing" label="Одежда" />
+	<icon name="icon_gesture" />
+	<check_box name="check_gesture" label="Жесты" />
+	<icon name="icon_landmark" />
+	<check_box name="check_landmark" label="Ландмарки" />
+	<icon name="icon_notecard" />
+	<check_box name="check_notecard" label="Ноуткарды" />
+	<icon name="icon_object" />
+	<check_box name="check_object" label="Объекты" />
+	<icon name="icon_script" />
+	<check_box name="check_script" label="Скрипты" />
+	<icon name="icon_sound" />
+	<check_box name="check_sound" label="Звуки" />
+	<icon name="icon_texture" />
+	<check_box name="check_texture" label="Текстуры" />
+	<icon name="icon_snapshot" />
+	<check_box name="check_snapshot" label="Снимки" />
+	<button name="All" label="Все" />
+	<button name="None" label="Нет" />
+	<text name="links">Ссылки:</text>
+	<radio_group name="radio_links">
+		<radio_item name="Any">Любые</radio_item>
+		<radio_item name="Only">Только</radio_item>
+		<radio_item name="None">Нет</radio_item>
+	</radio_group>
+	<check_box name="check_show_empty" label="Всегда показывать папки" />
+	<check_box name="check_since_logoff" label="С последнего выхода" />
+	<text name="- OR -">- ИЛИ -</text>
+	<spinner name="spin_hours_ago" label="Часов назад" />
+	<spinner name="spin_days_ago" label="Дней назад" />
+	<button name="Close" label="Закрыть" />
+</floater>

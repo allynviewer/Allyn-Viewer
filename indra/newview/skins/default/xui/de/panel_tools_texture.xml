@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Texture" label="Textur">
+	<panel.string name="string repeats per meter">Kacheln pro Meter</panel.string>
+	<panel.string name="string repeats per face">Wiederholungen pro Fläche</panel.string>
+	<text name="color label">Farbe</text>
+	<color_swatch name="colorswatch" tool_tip="Klicken, um die Farbauswahl zu öffnen"/>
+	<text name="color trans">Transparenz %</text>
+	<text name="glow label">Leuchten</text>
+	<check_box name="checkbox fullbright" label="Ganz hell"/>
+	<combo_box name="combobox matmedia">
+		<combo_box.item name="Materials" label="Materialien"/>
+		<combo_box.item name="Media" label="Medien"/>
+	</combo_box>
+	<combo_box name="combobox mattype">
+		<combo_box.item name="Texture (diffuse)" label="Textur (diffus)"/>
+		<combo_box.item name="Bumpiness (normal)" label="Relief (Normal)"/>
+		<combo_box.item name="Shininess (specular)" label="Glanz (Spekular)"/>
+	</combo_box>
+	<texture_picker name="texture control" label="Textur" tool_tip="Klicken, um ein Bild auszuwählen"/>
+	<text name="label alphamode">Alpha-Modus</text>
+	<combo_box name="combobox alphamode">
+		<combo_box.item name="None" label="Keine"/>
+		<combo_box.item name="Alpha blending" label="Alpha-Blending"/>
+		<combo_box.item name="Alpha masking" label="Alpha-Maskierung"/>
+		<combo_box.item name="Emissive mask" label="Emissionsmaske"/>
+	</combo_box>
+	<text name="label maskcutoff">Maskengrenze</text>
+	<texture_picker name="bumpytexture control" label="Textur" tool_tip="Klicken, um ein Bild auszuwählen"/>
+	<text name="label bumpiness">Holprigkeit</text>
+	<combo_box name="combobox bumpiness">
+		<combo_box.item name="None" label="Keine"/>
+		<combo_box.item name="Brightness" label="Helligkeit"/>
+		<combo_box.item name="Darkness" label="Dunkelheit"/>
+		<combo_box.item name="woodgrain" label="Holzmaserung"/>
+		<combo_box.item name="bark" label="Rinde"/>
+		<combo_box.item name="bricks" label="Ziegel"/>
+		<combo_box.item name="checker" label="Karo"/>
+		<combo_box.item name="concrete" label="Beton"/>
+		<combo_box.item name="crustytile" label="verkrustete Fliesen"/>
+		<combo_box.item name="cutstone" label="Steinplatten"/>
+		<combo_box.item name="discs" label="Scheiben"/>
+		<combo_box.item name="gravel" label="Kies"/>
+		<combo_box.item name="petridish" label="Petrischale"/>
+		<combo_box.item name="siding" label="Verkleidung"/>
+		<combo_box.item name="stonetile" label="Steinfliesen"/>
+		<combo_box.item name="stucco" label="Stuck"/>
+		<combo_box.item name="suction" label="Saugen"/>
+		<combo_box.item name="weave" label="gewoben"/>
+	</combo_box>
+	<texture_picker name="shinytexture control" label="Textur" tool_tip="Klicken, um ein Bild auszuwählen"/>
+	<text name="label shininess">Glanz</text>
+	<combo_box name="combobox shininess">
+		<combo_box.item name="None" label="Keine"/>
+		<combo_box.item name="Low" label="Niedrig"/>
+		<combo_box.item name="Medium" label="Mittel"/>
+		<combo_box.item name="High" label="Hoch"/>
+	</combo_box>
+	<text name="label glossiness">Glanzgrad</text>
+	<text name="label environment">Umgebung</text>
+	<text name="label shinycolor">Farbe</text>
+	<color_swatch name="shinycolorswatch" tool_tip="Klicken, um die Farbauswahl zu öffnen"/>
+	<text name="media_info">URL des gewählten Mediums, falls vorhanden</text>
+	<button name="add_media" label="Auswählen..." tool_tip="Medien hinzufügen"/>
+	<button name="delete_media" label="Entfernen" tool_tip="Diese Medientextur löschen"/>
+	<button name="button align" label="Ausrichten" tool_tip="Medientextur ausrichten (zuerst laden)"/>
+	<check_box name="checkbox maps sync" label="Materialien synchronisieren" tool_tip="Textur-Mapping-Parameter synchronisieren"/>
+	<text name="tex gen">Zuordnung</text>
+	<combo_box name="combobox texgen">
+		<combo_box.item name="Default" label="Standard"/>
+		<combo_box.item name="Planar" label="Eben"/>
+	</combo_box>
+	<check_box name="checkbox planar align" label="Planar ausrichten" tool_tip="Richtet Texturen auf allen gewählten Flächen nach der letzten gewählten Fläche aus. Benötigt planare Textur-Abbildung."/>
+	<spinner name="TexScaleU" label="Horizontaler Maßstab"/>
+	<button name="flipTextureScaleU" tool_tip="Umkehren"/>
+	<spinner name="TexScaleV" label="Vertikaler Maßstab"/>
+	<button name="flipTextureScaleV" tool_tip="Umkehren"/>
+	<spinner name="rptctrl" label="Kacheln pro Meter"/>
+	<spinner name="TexRot" label="Rotation (Grad)"/>
+	<spinner name="TexOffsetU" label="Horizontaler Versatz"/>
+	<spinner name="TexOffsetV" label="Vertikaler Versatz"/>
+	<spinner name="bumpyScaleU" label="Horizontaler Maßstab"/>
+	<spinner name="bumpyScaleV" label="Vertikaler Maßstab"/>
+	<spinner name="bumpyRot" label="Rotation (Grad)"/>
+	<spinner name="bumpyOffsetU" label="Horizontaler Versatz"/>
+	<spinner name="bumpyOffsetV" label="Vertikaler Versatz"/>
+	<spinner name="shinyScaleU" label="Horizontaler Maßstab"/>
+	<spinner name="shinyScaleV" label="Vertikaler Maßstab"/>
+	<spinner name="shinyRot" label="Rotation (Grad)"/>
+	<spinner name="shinyOffsetU" label="Horizontaler Versatz"/>
+	<spinner name="shinyOffsetV" label="Vertikaler Versatz"/>
+	<button name="copytextures" label="Kopieren" tool_tip="Textur-Parameter kopieren"/>
+	<button name="pastetextures" label="Einfügen" tool_tip="Textur-Parameter einfügen"/>
+</panel>

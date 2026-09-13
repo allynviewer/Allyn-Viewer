@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="media_remote">
+	<panel name="Volume Panel" label="オーディオ &amp; 動画" />
+	<string name="play_label">再生</string>
+	<string name="stop_label">停止</string>
+	<string name="pause_label">一時停止</string>
+	<string name="default_tooltip_label">メディアが指定されていません</string>
+	<string name="media_hidden_label">（URLはパーセル所有者により非表示）</string>
+	<string name="media_icon_tooltip_web">この場所ではウェブのコンテンツが表示されます。再生ボタンをクリックするとウェブコンテンツが表示されます。</string>
+	<string name="media_icon_tooltip_movie">この場所では動画コンテンツが表示されます。再生ボタンをクリックすると動画が再生されます。</string>
+	<string name="media_play_tooltip">この場所でウェブコンテンツを表示します。</string>
+	<string name="Title">タイトル</string>
+	<string name="Artist">アーティスト</string>
+	<string name="Now_playing">再生中</string>
+</panel>

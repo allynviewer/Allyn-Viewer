@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="buy land" title="土地を購入">
+	<text name="region_name_label">リージョン:</text>
+	<text name="region_name_text">（不明）</text>
+	<text name="region_type_label">タイプ:</text>
+	<text name="region_type_text">（不明）</text>
+	<text name="estate_name_label">エステート:</text>
+	<text name="estate_name_text">（不明）</text>
+	<text name="estate_owner_label">エステート所有者:</text>
+	<name_box name="estate_owner_text">（不明）</name_box>
+	<text name="resellable_changeable_label">このリージョンで購入した土地:</text>
+	<text name="resellable_clause">転売できる場合とできない場合があります。</text>
+	<text name="changeable_clause">結合または分割できる場合とできない場合があります。</text>
+	<text name="covenant_text">エステート規約に同意する必要があります:</text>
+	<text name="covenant_timestamp_text" />
+	<text_editor name="covenant_editor">読み込み中...</text_editor>
+	<check_box name="agree_covenant" label="上記の規約に同意します。" />
+	<texture_picker name="info_image" />
+	<text name="info_parcel_label">パーセル:</text>
+	<text name="info_parcel">Scotopteryx 138,204</text>
+	<text name="info_size_label">サイズ:</text>
+	<text name="info_size">1024平方メートル</text>
+	<text name="info_price_label">価格:</text>
+	<text name="info_price">L$ 1500（L$ 1.1/平方メートル）オブジェクト付きで売却</text>
+	<text name="info_action">この土地を購入すると:</text>
+	<icon name="step_error" />
+	<text name="error_message">何かが正しくありません。</text>
+	<button name="error_web" label="ウェブサイトへ" />
+	<icon name="step_1" />
+	<text name="account_action">プレミアム会員にアップグレードします。</text>
+	<text name="account_reason">土地を所有できるのはプレミアム会員のみです。</text>
+	<combo_box name="account_level">
+		<combo_item name="US$9.95/month,billedmonthly">US$9.95/月（毎月請求）</combo_item>
+		<combo_item name="US$7.50/month,billedquarterly">US$7.50/月（四半期請求）</combo_item>
+		<combo_item name="US$6.00/month,billedannually">US$6.00/月（年次請求）</combo_item>
+	</combo_box>
+	<icon name="step_2" />
+	<text name="land_use_action">月額土地使用料を US$ 40/月に増やします。</text>
+	<text name="land_use_reason">あなたは1309平方メートルの土地を所有しています。このパーセルは512平方メートルです。</text>
+	<icon name="step_3" />
+	<text name="purchase_action">Joe Residentに土地代として L$ 4000 を支払います</text>
+	<text name="currency_reason">所持金は L$ 2,100 です。</text>
+	<text name="currency_action">追加の[CURRENCY]を購入</text>
+	<line_editor name="currency_amt" />
+	<text name="currency_est">約 [REALCURRENCY] [AMOUNT2]</text>
+	<text name="currency_balance">所持金は L$ 2,100 です。</text>
+	<check_box name="remove_contribution" label="グループ貢献から[AMOUNT]平方メートルを削除する。" />
+	<button name="buy_btn" label="購入" />
+	<button name="cancel_btn" label="キャンセル" />
+	<string name="can_resell">転売できます。</string>
+	<string name="can_not_resell">転売できません。</string>
+	<string name="can_change">結合または分割できます。</string>
+	<string name="can_not_change">結合または分割できません。</string>
+	<string name="cant_buy_for_group">アクティブグループのために土地を買う権限がありません。</string>
+	<string name="no_land_selected">土地が選択されていません。</string>
+	<string name="multiple_parcels_selected">複数の異なるパーセルが選択されています。より小さい範囲を選んでください。</string>
+	<string name="no_permission">アクティブグループのために土地を買う権限がありません。</string>
+	<string name="parcel_not_for_sale">選択したパーセルは売りに出ていません。</string>
+	<string name="group_already_owns">グループはすでにこのパーセルを所有しています。</string>
+	<string name="you_already_own">すでにこのパーセルを所有しています。</string>
+	<string name="set_to_sell_to_other">選択したパーセルは別の相手への売却に設定されています。</string>
+	<string name="no_public_land">選択した範囲に公開土地がありません。</string>
+	<string name="not_owned_by_you">他のユーザーの土地が選択されています。より小さい範囲を選んでください。</string>
+	<string name="processing">購入を処理しています...（1〜2分かかることがあります。）</string>
+	<string name="fetching_error">土地購入情報の取得中にエラーが発生しました。</string>
+	<string name="buying_will">この土地を購入すると:</string>
+	<string name="buying_for_group">グループのために土地を購入すると:</string>
+	<string name="cannot_buy_now">今は購入できません:</string>
+	<string name="not_for_sale">売りに出ていません:</string>
+	<string name="none_needed">不要</string>
+	<string name="must_upgrade">土地を所有するにはアカウントのアップグレードが必要です。</string>
+	<string name="cant_own_land">あなたのアカウントは土地を所有できます。</string>
+	<string name="land_holdings">あなたは[BUYER]平方メートルの土地を所有しています。</string>
+	<string name="pay_to_for_land">この土地の代金として[CURRENCY] [AMOUNT]を[SELLER]に支払う</string>
+	<string name="buy_for_US">約[REALCURRENCY] [AMOUNT2]で[CURRENCY] [AMOUNT]を購入、</string>
+	<string name="parcel_meters">このパーセルは[AMOUNT]平方メートルです。</string>
+	<string name="premium_land">この土地はプレミアムで、[AMOUNT]平方メートルとして課金されます。</string>
+	<string name="discounted_land">この土地は割引され、[AMOUNT]平方メートルとして課金されます。</string>
+	<string name="meters_supports_object">[AMOUNT]平方メートルは[AMOUNT2]オブジェクトをサポートします</string>
+	<string name="sold_with_objects">オブジェクト付きで売却</string>
+	<string name="sold_without_objects">オブジェクトは含まれません</string>
+	<string name="info_price_string">[CURRENCY] [PRICE]（[CURRENCY] [PRICE_PER_SQM]/平方メートル）[SOLD_WITH_OBJECTS]</string>
+	<string name="insufficient_land_credits">グループ[GROUP]は、購入完了前にこのパーセルをまかなう土地使用クレジットの貢献が必要です。</string>
+	<string name="have_enough_lindens">所持金は[CURRENCY] [AMOUNT]で、この土地を買うのに十分です。</string>
+	<string name="not_enough_lindens">所持金は[CURRENCY] [AMOUNT]のみで、あと[CURRENCY] [AMOUNT2]必要です。</string>
+	<string name="balance_left">購入後、[CURRENCY] [AMOUNT]が残ります。</string>
+	<string name="balance_needed">この土地を買うには、少なくとも[CURRENCY] [AMOUNT]を購入する必要があります。</string>
+	<string name="no_parcel_selected">（パーセル未選択）</string>
+	<string name="buy_currency">約[REALCURRENCY] [USD]で[CURRENCY] [LINDENS]を購入</string>
+</floater>

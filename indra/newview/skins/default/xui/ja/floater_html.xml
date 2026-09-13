@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="htmlfloater">
+	<button name="close_btn" label="閉じる" />
+	<web_browser name="html_floater_browser" />
+	<button name="back_btn" label="後" />
+	<button name="forward_btn" label="前進" />
+	<line_editor name="url_edit" />
+	<button name="go_btn" label="移動" />
+	<string name="home_page_url" />
+	<string name="support_page_url" />
+</floater>

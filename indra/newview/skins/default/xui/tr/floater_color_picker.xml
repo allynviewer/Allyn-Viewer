@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="ColorPicker" title="Renk Seçici">
+	<text name="r_val_text">Kırmızı:</text>
+	<spinner name="rspin" />
+	<text name="g_val_text">Yeşil:</text>
+	<spinner name="gspin" />
+	<text name="b_val_text">Mavi:</text>
+	<spinner name="bspin" />
+	<text name="h_val_text">Ton:</text>
+	<spinner name="hspin" />
+	<text name="s_val_text">Sat:</text>
+	<spinner name="sspin" />
+	<text name="l_val_text">Lum:</text>
+	<spinner name="lspin" />
+	<check_box name="apply_immediate" label="Hemen Başvurun" />
+	<button name="color_pipette" />
+	<button name="cancel_btn" label="İptal" />
+	<button name="select_btn" label="Seç" />
+	<text name="Hex Value:">Hex:</text>
+	<line_editor name="hexval" />
+	<text name="Current color:">Mevcut renk:</text>
+	<text name="(Drag below to save.)">Kaydetmek için aşağıya sürükleyin.</text>
+</floater>

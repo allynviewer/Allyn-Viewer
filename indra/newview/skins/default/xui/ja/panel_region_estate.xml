@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Estate" label="エステート">
+	<text name="estate_help_text">このタブの設定変更は、エステート内のすべてのリージョンに影響します。</text>
+	<text name="estate_text">エステート:</text>
+	<text name="estate_name">（不明）</text>
+	<text name="owner_text">エステート所有者:</text>
+	<name_box name="estate_owner">（不明）</name_box>
+	<check_box name="externally_visible_check" label="公開アクセスを許可" />
+	<button name="externally_visible_help" label=""  tool_tip="ヘルプ"/>
+	<check_box name="voice_chat_check" label="ボイスチャットを許可" />
+	<button name="voice_chat_help" label=""  tool_tip="ヘルプ"/>
+	<check_box name="allow_direct_teleport" label="直接テレポートを許可" />
+	<button name="allow_direct_teleport_help" label=""  tool_tip="ヘルプ"/>
+	<check_box name="use_global_time_check" label="グローバル時刻を使用" />
+	<button name="use_global_time_help" label=""  tool_tip="ヘルプ"/>
+	<check_box name="fixed_sun_check" label="太陽を固定" />
+	<button name="fixed_sun_help" label=""  tool_tip="ヘルプ"/>
+	<icon name="daycycle" />
+	<slider name="sun_hour_slider" label="フェーズ" />
+	<button name="apply_btn" label="適用" />
+	<text name="Only Allow">次の条件を満たすレジデントのみアクセスを許可:</text>
+	<check_box name="limit_payment" label="支払い情報が登録済み" tool_tip="このエステートに入るには、支払い情報が登録されている必要があります。" />
+	<check_box name="limit_age_verified" label="18歳以上" tool_tip="このエステートに入るには18歳以上である必要があります。詳細は support.secondlife.com を参照してください。" />
+	<button name="message_estate_btn" label="エステートにメッセージを送信..." />
+	<button name="kick_user_from_estate_btn" label="レジデントをエステートからキック..." />
+</panel>

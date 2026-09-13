@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_web_content" title="Web Tarayıcısı">
+	<layout_stack name="stack1">
+		<layout_panel name="nav_controls">
+			<button name="back" tool_tip="Geri git" />
+			<button name="forward" tool_tip="İleriye git" />
+			<button name="stop" tool_tip="Navigasyonu durdur" />
+			<button name="reload" tool_tip="Sayfayı yeniden yükle" />
+			<combo_box name="address" tool_tip="URL'yi buraya girin" />
+			<icon name="media_secure_lock_flag" tool_tip="Güvenli Tarama" />
+			<button name="popexternal" tool_tip="Geçerli URL'yi masaüstü tarayıcınızda açın" />
+		</layout_panel>
+		<layout_panel name="external_controls">
+			<web_browser name="webbrowser" />
+		</layout_panel>
+		<layout_panel name="status_bar">
+			<text name="statusbartext" />
+			<progress_bar name="statusbarprogress" />
+		</layout_panel>
+	</layout_stack>
+</floater>

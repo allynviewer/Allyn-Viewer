@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel>
+	<panel.string name="loading">yükleniyor...</panel.string>
+	<panel.string name="panel_allowed">İzin verilen Experiences:</panel.string>
+	<panel.string name="panel_blocked">Engellenen Experiences:</panel.string>
+	<panel.string name="panel_trusted">Güvenilir Experiences:</panel.string>
+	<panel.string name="no_results">(boş)</panel.string>
+	<text name="text_name">Deneyim Listesi</text>
+	<text name="text_count" />
+	<name_list name="experience_list">
+		<columns name="experience_name" label="İsim" />
+	</name_list>
+	<button name="btn_add" label="Ekle..." />
+	<button name="btn_remove" label="Kaldır" />
+	<button name="btn_profile" label="Profil..." />
+</panel>

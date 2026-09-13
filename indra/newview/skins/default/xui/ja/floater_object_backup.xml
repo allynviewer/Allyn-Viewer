@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Object Backup" title="進行">
+	<text name="name_label">進行</text>
+	<string name="export">オブジェクト エクスポート</string>
+	<string name="import">オブジェクト インポート</string>
+</floater>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_snapshot_profile" title="Publier dans le fil de mon profil">
+	<text_editor name="caption">Saisissez votre message ici.</text_editor>
+	<check_box name="add_location_cb" label="Inclure l'emplacement"/>
+	<button name="cancel_btn" label="Annuler"/>
+	<button name="post_btn" label="Publier"/>
+	<string name="default_message">Cliquez sur le lien « snapshot » ci-dessus pour voir l'original en plus grand.</string>
+	<string name="upload_message">&quot;Chargement...&quot;</string>
+</floater>

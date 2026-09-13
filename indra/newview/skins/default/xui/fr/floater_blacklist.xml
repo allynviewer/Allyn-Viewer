@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_blacklist" title="Liste noire d'assets">
+	<button name="add_btn" label="Ajouter..."/>
+	<button name="remove_btn" label="Retirer"/>
+	<combo_box name="asset_combo" label="Type d'asset"/>
+	<line_editor name="id_edit" label="UUID de l'asset ici."/>
+	<line_editor name="name_edit" label="Nom de l'entrée ici."/>
+	<scroll_list name="file_list">
+		<column name="asset_id" label="ID de l'asset"/>
+		<column name="entry_name" label="Nom"/>
+		<column name="entry_type" label="Type"/>
+		<column name="entry_agent" label="Mis en liste noire par"/>
+		<column name="entry_date" label="Date"/>
+	</scroll_list>
+	<button name="save_btn" label="Enregistrer XML"/>
+	<button name="load_btn" label="Charger XML"/>
+	<button name="clear_btn" label="Effacer"/>
+	<button name="copy_uuid_btn" label="Copier l'UUID"/>
+</floater>

@@ -1,0 +1,186 @@
+/**
+ * @file llscrolllistcell.h
+ * @brief Scroll lists are composed of rows (items), each of which
+ * contains columns (cells).
+ *
+ * $LicenseInfo:firstyear=2007&license=viewerlgpl$
+ * Second Life Viewer Source Code
+ * Copyright (C) 2010, Linden Research, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation;
+ * version 2.1 of the License only.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
+ * $/LicenseInfo$
+ */
+#ifndef LLSCROLLLISTCELL_H
+#define LLSCROLLLISTCELL_H
+#include "llfontgl.h"
+#include "llpointer.h"
+#include "lluistring.h"
+#include "v4color.h"
+#include "llui.h"
+#include "llinitparam.h"
+class LLCheckBoxCtrl;
+class LLSD;
+class LLScrollListCell
+{
+public:
+	struct Params : public LLInitParam::Block<Params>
+	{
+		Optional<std::string>		type,
+									column;
+		Optional<S32>				width;
+		Optional<bool>				enabled,
+									visible;
+		Optional<void*>				userdata;
+		Optional<LLSD>				value;
+		Optional<std::string>		tool_tip;
+		Optional<std::string>		format;
+		Optional<std::string>		font;
+		Optional<LLColor4>			font_color;
+		Optional<LLFontGL::HAlign>	font_halign;
+		Optional<std::string>		font_style;
+		Optional<LLColor4>			color;
+		Params()
+		:	type("type", "text"),
+			column("column"),
+			width("width"),
+			enabled("enabled", true),
+			visible("visible", true),
+			value("value"),
+			tool_tip("tool_tip", ""),
+			format("format", "%D %T"),
+			font("font"),
+			font_color("font_color", LLColor4::black),
+			font_style("font-style"),
+			color("color", LLColor4::white),
+			font_halign("halign", LLFontGL::LEFT)
+		{
+			addSynonym(column, "name");
+			addSynonym(font_color, "font-color");
+		}
+	};
+	static LLScrollListCell* create(Params);
+	LLScrollListCell(const LLScrollListCell::Params&);
+	virtual ~LLScrollListCell() {};
+	virtual void			draw(const LLColor4& color, const LLColor4& highlight_color) const {};
+	virtual S32				getWidth() const {return mWidth;}
+	virtual S32				getContentWidth() const { return 0; }
+	virtual S32				getHeight() const { return 0; }
+	virtual const LLSD		getValue() const;
+	virtual void			setValue(const LLSD& value) { }
+	virtual const std::string &getToolTip() const { return mToolTip; }
+	virtual void			setToolTip(const std::string &str) { mToolTip = str; }
+	virtual BOOL			getVisible() const { return TRUE; }
+	virtual void			setWidth(S32 width) { mWidth = width; }
+	virtual void			highlightText(S32 offset, S32 num_chars) {}
+	virtual BOOL			isText() const { return FALSE; }
+	virtual BOOL			needsToolTip() const { return ! mToolTip.empty(); }
+	virtual void			setColor(const LLColor4&) {}
+	virtual void			onCommit() {};
+	virtual BOOL			handleClick() { return FALSE; }
+	virtual	void			setEnabled(BOOL enable) { }
+private:
+	S32 mWidth;
+	std::string mToolTip;
+};
+class LLScrollListSpacer : public LLScrollListCell
+{
+public:
+	LLScrollListSpacer(const LLScrollListCell::Params& p) : LLScrollListCell(p) {}
+	~LLScrollListSpacer() {};
+	void			draw(const LLColor4& color, const LLColor4& highlight_color) const {}
+};
+class LLScrollListText : public LLScrollListCell
+{
+public:
+	LLScrollListText(const LLScrollListCell::Params&);
+	~LLScrollListText();
+	void    draw(const LLColor4& color, const LLColor4& highlight_color) const;
+	S32		getContentWidth() const;
+	S32		getHeight() const;
+	void	setValue(const LLSD& value);
+	const LLSD getValue() const;
+	BOOL	getVisible() const;
+	void	highlightText(S32 offset, S32 num_chars);
+	void	setColor(const LLColor4&);
+	BOOL	isText() const;
+	const std::string &	getToolTip() const;
+	BOOL	needsToolTip() const;
+	S32				getTextWidth() const { return mTextWidth;}
+	void			setTextWidth(S32 value) { mTextWidth = value;}
+	virtual void	setWidth(S32 width) { LLScrollListCell::setWidth(width); mTextWidth = width; }
+	void			setText(const LLStringExplicit& text);
+	void			setFontStyle(const U8 font_style);
+private:
+	LLUIString		mText;
+	S32				mTextWidth;
+	const LLFontGL*	mFont;
+	LLColor4		mColor;
+	U8				mUseColor;
+	U8				mFontStyle;
+	LLFontGL::HAlign mFontAlignment;
+	BOOL			mVisible;
+	S32				mHighlightCount;
+	S32				mHighlightOffset;
+	LLPointer<LLUIImage> mRoundedRectImage;
+	static U32 sCount;
+};
+class LLScrollListIcon : public LLScrollListCell
+{
+public:
+	LLScrollListIcon(const LLScrollListCell::Params& p);
+	~LLScrollListIcon();
+	void	draw(const LLColor4& color, const LLColor4& highlight_color) const;
+	S32		getWidth() const;
+	S32		getHeight() const;
+	const LLSD		getValue() const;
+	void	setColor(const LLColor4&);
+	void	setValue(const LLSD& value);
+	void setClickCallback(boost::function<bool (void)> cb) { mCallback = cb; }
+	BOOL handleClick() { return mCallback ? mCallback() : false; }
+private:
+	LLPointer<LLUIImage>	mIcon;
+	LLColor4				mColor;
+	LLFontGL::HAlign		mAlignment;
+	boost::function<bool (void)> mCallback;
+};
+class LLScrollListCheck : public LLScrollListCell
+{
+public:
+	LLScrollListCheck( const LLScrollListCell::Params&);
+	~LLScrollListCheck();
+	void	draw(const LLColor4& color, const LLColor4& highlight_color) const;
+	S32		getHeight() const			{ return 0; }
+	const LLSD	getValue() const;
+	void	setValue(const LLSD& value);
+	void	onCommit();
+	BOOL	handleClick();
+	void	setEnabled(BOOL enable);
+	LLCheckBoxCtrl*	getCheckBox()				{ return mCheckBox; }
+private:
+	LLCheckBoxCtrl* mCheckBox;
+};
+class LLScrollListDate : public LLScrollListText
+{
+public:
+	LLScrollListDate( const LLScrollListCell::Params& p );
+	virtual void	setValue(const LLSD& value);
+	virtual const LLSD getValue() const;
+private:
+	std::string	mFormat;
+	LLDate		mDate;
+};
+#endif

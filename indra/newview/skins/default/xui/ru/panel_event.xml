@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Event" title="Событие">
+	<text name="event_name_label">Имя:</text>
+	<text name="event_name">(никто)</text>
+	<text name="event_category_label">Тип:</text>
+	<text name="event_category">(никто)</text>
+	<text name="event_mature_label">Зрелый контент:</text>
+	<text name="event_mature_yes">Да</text>
+	<text name="event_mature_no">No</text>
+	<text name="event_date_label">Дата:</text>
+	<text name="event_date">(никто)</text>
+	<text name="event_duration_label">Продолжительность мероприятия:</text>
+	<text name="event_duration">(никто)</text>
+	<text name="event_runby_label">Управляет:</text>
+	<name_box name="event_runby">(никто)</name_box>
+	<text name="event_location_label">Расположение:</text>
+	<text name="event_location">(никто)</text>
+	<text name="event_cover_label">Плата за покрытие:</text>
+	<text name="event_cover">(никто)</text>
+	<text name="event_desc_label">Описание:</text>
+	<text_editor name="event_desc" />
+	<button name="teleport_btn" label="Телепортироваться" />
+	<button name="map_btn" label="Показать на карте" />
+	<button name="notify_btn" label="Уведомить" />
+	<button name="create_event_btn" label="Создать событие..." />
+	<string name="none">никто</string>
+	<string name="notify">Уведомить</string>
+	<string name="dont_notify">Не уведомлять</string>
+</panel>

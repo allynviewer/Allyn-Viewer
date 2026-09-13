@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel bottom="0" follows="left|top|right|bottom" height="600" left="0"
+     mouse_opaque="true" name="panel_login" width="800">
+	<web_browser border_visible="false" bottom="0" decouple_texture_size="false"
+	     follows="top|right|bottom" left="300"
+	     tab_stop="false" trusted_content="true" focus_on_click="false"
+	     name="login_html" right="-1"
+	     start_url="data:text/html,%3Chtml%3E%3Chead%3E%3C/head%3E%3Cbody bgcolor=%22%23050812%22 text=%22ffffff%22%3E%3Ch1%3E%3Ctt%3Eloading...%3C/tt%3E%3C/h1%3E %3C/body%3E %3C/html%3E"
+	     top="-1" />
+	<string name="real_url">
+		http://secondlife.com/app/login/
+	</string>
+	<string name="forgot_password_url">
+		http://secondlife.com/account/request.php
+	</string>
+	<string name="online_users_title">ONLINE USERS: </string>
+	<string name="online_allyn_label">ALLYN VIEWER: </string>
+	<string name="online_sl_label">SECOND LIFE</string>
+	<panel background_opaque="true" background_visible="true" bg_opaque_color="LoginFormBgColor"
+	     bottom="0" follows="left|top|bottom" height="600" left="0" mouse_opaque="true"
+	     name="login_form_bg" width="300">
+		<scroll_container bottom="34" follows="left|top|right|bottom" height="566" left="0"
+		     name="login_form_scroll" opaque="false" width="300">
+			<panel background_visible="false" border="false" bottom="0" follows="left|top|right"
+			     height="728" left="0" mouse_opaque="true" name="login_form_inner" width="300">
+				<icon bottom="96" color="LoginFormCardColor" follows="left|top|right"
+				     height="624" image_name="Rounded_Square" left="8" mouse_opaque="false"
+				     name="login_form_card" scale_image="true" width="284" />
+				<icon bottom="504" color="1, 1, 1, 1" follows="left|top" height="180"
+				     image_name="allyn_login_logo.png" left="60" mouse_opaque="false"
+				     name="login_logo" scale_image="true" width="180" />
+				<text bg_visible="false" border_visible="false" bottom="456" drop_shadow_visible="true"
+				     follows="left|top" font="SansSerif" font_size="LoginTitle" font-style="BOLD" halign="center"
+				     height="40" left="16" mouse_opaque="false" name="login_title"
+				     text_color="LoginAccentColor" width="268">
+					ALLYN VIEWER
+				</text>
+				<text bg_visible="false" border_visible="false" bottom="435" drop_shadow_visible="false"
+				     follows="left|top" font="SansSerif" font_size="LoginField" halign="center"
+				     height="15" left="16" mouse_opaque="false" name="login_subtitle"
+				     text_color="LoginLabelColor" width="268">
+					Sign in to continue
+				</text>
+				<icon bottom="426" follows="left|top" height="1" image_name="pref_section_rule.tga"
+				     left="16" mouse_opaque="false" name="login_section_rule" width="268" />
+				<text bg_visible="false" border_visible="false" bottom="395" drop_shadow_visible="false"
+				     follows="left|top" font="SansSerif" font_size="Large" font-style="BOLD" halign="left"
+				     height="20" left="16" mouse_opaque="false" name="name_label"
+				     text_color="LoginLabelColor" width="268">
+					Username
+				</text>
+				<combo_box allow_text_entry="true" bevel_style="none"
+				     bottom="367" follows="left|top|right"
+				     font="SansSerif" font_size="LoginField" font-style="BOLD" halign="left" handle_edit_keys_directly="true" height="24" left="16"
+				     max_chars="64" mouse_opaque="true" name="username_combo"
+				     select_all_on_focus_received="true" valign="center" width="268" />
+				<text bg_visible="false" border_visible="false" bottom="335" drop_shadow_visible="false"
+				     follows="left|top" font="SansSerif" font_size="Large" font-style="BOLD" halign="left"
+				     height="20" left="16" mouse_opaque="false" name="password_text"
+				     text_color="LoginLabelColor" width="268">
+					Password
+				</text>
+				<line_editor bevel_style="none" bottom="307" follows="left|top|right" font="SansSerif" font_size="LoginField" font-style="BOLD"
+				     handle_edit_keys_directly="true" height="24" image="icn_textfield_enabled.tga" left="16" max_length="24"
+				     mouse_opaque="true" name="password_edit" select_all_on_focus_received="true"
+				     valign="center" width="268" />
+				<panel background_visible="false" border_visible="false" bottom="243" follows="left|top|right"
+				     height="52" left="16" mouse_opaque="true" name="location_panel" width="268">
+					<text bg_visible="false" border_visible="false" bottom="32" drop_shadow_visible="false"
+					     follows="left|top" font="SansSerif" font_size="Large" font-style="BOLD" halign="left"
+					     height="20" left="0" mouse_opaque="false" name="start_location_text"
+					     text_color="LoginLabelColor" width="268">
+						Start Location
+					</text>
+					<combo_box allow_text_entry="true" bevel_style="none"
+					     bottom="4" follows="left|top|right" font="SansSerif" font_size="LoginField" font-style="BOLD" halign="left"
+					     height="24" left="0" max_chars="256"
+					     mouse_opaque="true" name="start_location_combo" width="268">
+						<combo_item name="MyHome" value="home">
+							My Home
+						</combo_item>
+						<combo_item name="MyLastLocation" value="last">
+							My Last Location
+						</combo_item>
+						<combo_item name="Typeregionname" value="">
+							&lt;Type region name&gt;
+						</combo_item>
+					</combo_box>
+				</panel>
+				<button bottom="191" follows="left|top|right" font="SansSerif" font-style="BOLD"
+				     height="36"
+				     image_hover_selected="button_primary_pressed_32x128.png"
+				     image_hover_unselected="button_primary_pressed_32x128.png"
+				     image_selected="button_primary_pressed_32x128.png"
+				     image_unselected="button_primary_32x128.png"
+				     label="Log In" label_selected="Log In" left="16"
+				     mouse_opaque="true" name="connect_btn" scale_image="true" width="268" />
+				<check_box bottom="168" control_name="RememberName" follows="left|top"
+				     font="SansSerif" font_size="LoginField" height="15"
+				     label="Save username" left="16" name="remember_name_check" width="180"/>
+				<button bottom="168" follows="left|top" height="15" image_overlay="inv_folder_trash.tga"
+				     label="" left="268" name="remove_login" scale_image="true" width="16"
+				     tool_tip="Delete the currently selected remembered login info, if any."/>
+				<check_box bottom="149" control_name="RememberPassword" follows="left|top"
+				     font="SansSerif" font_size="LoginField" height="15"
+				     label="Save password" left="16" name="remember_check" width="180"/>
+				<text bg_visible="false" border_visible="false" bottom="126" drop_shadow_visible="false"
+				     follows="left|top" font="SansSerif" font_size="LoginField" font-style="UNDERLINE"
+				     halign="left" height="15" hover="true" hover_color="LoginAccentColor"
+				     left="16" mouse_opaque="true" name="create_new_account_text"
+				     text_color="LoginLinkColor" width="268">
+					Sign up for account
+				</text>
+				<text bg_visible="false" border_visible="false" bottom="107" drop_shadow_visible="false"
+				     follows="left|top" font="SansSerif" font_size="LoginField" font-style="UNDERLINE"
+				     halign="left" height="15" hover="true" hover_color="LoginAccentColor"
+				     left="16" mouse_opaque="true" name="forgot_password_text"
+				     text_color="LoginLinkColor" width="268">
+					Forgot your name or password?
+				</text>
+				<panel background_visible="false" border_visible="false" bottom="8" follows="left|top"
+				     height="80" left="8" mouse_opaque="false" name="online_users_panel" width="284">
+					<icon bottom="0" color="LoginFormCardColor" follows="left|top|right|bottom"
+					     height="80" image_name="Rounded_Square" left="0" mouse_opaque="false"
+					     name="online_users_card" scale_image="true" width="284" />
+					<text bg_visible="false" border_visible="false" bottom="58" drop_shadow_visible="false"
+					     follows="left|top|right" font="SansSerifSmall" font-style="BOLD" halign="center"
+					     height="16" left="8" mouse_opaque="false" name="online_users_title"
+					     text_color="LoginAccentColor" width="268">
+						ONLINE USERS
+					</text>
+					<icon bottom="54" follows="left|top|right" height="1" image_name="pref_section_rule.tga"
+					     left="16" mouse_opaque="false" name="online_users_rule" width="252" />
+					<text bg_visible="false" border_visible="false" bottom="30" drop_shadow_visible="false"
+					     follows="left|top" font="SansSerifSmall" font-style="BOLD" halign="left"
+					     height="16" left="12" mouse_opaque="false" name="online_allyn_text"
+					     text_color="LoginLabelColor" width="160">
+						ALLYN VIEWER
+					</text>
+					<text bg_visible="false" border_visible="false" bottom="30" drop_shadow_visible="false"
+					     follows="top|right" font="SansSerifSmall" font-style="BOLD" halign="right"
+					     height="16" left="166" mouse_opaque="false" name="online_allyn_count"
+					     text_color="LoginAccentColor" width="106">
+						--
+					</text>
+					<text bg_visible="false" border_visible="false" bottom="10" drop_shadow_visible="false"
+					     follows="left|top" font="SansSerifSmall" font-style="BOLD" halign="left"
+					     height="16" left="12" mouse_opaque="false" name="online_sl_text"
+					     text_color="LoginLabelColor" width="160">
+						SECOND LIFE
+					</text>
+					<text bg_visible="false" border_visible="false" bottom="10" drop_shadow_visible="false"
+					     follows="top|right" font="SansSerifSmall" font-style="BOLD" halign="right"
+					     height="16" left="166" mouse_opaque="false" name="online_sl_count"
+					     text_color="LoginAccentColor" width="106">
+						--
+					</text>
+				</panel>
+				<panel background_visible="false" border_visible="false" bottom="136" follows="left|top|right"
+				     height="80" left="16" name="grids_panel" visible="false" width="268">
+					<text bg_visible="false" border_visible="false" bottom="64" drop_shadow_visible="false"
+					     follows="left|top" font="SansSerif" font_size="LoginField" halign="left"
+					     height="15" left="0" mouse_opaque="false" name="grids_combo_text"
+					     text_color="LoginLabelColor" width="268">
+						Grid or Login URI:
+					</text>
+					<combo_box allow_text_entry="true" bevel_style="none"
+					     bottom="36" follows="left|top|right" font="SansSerif" font_size="LoginField" height="24" left="0" max_chars="256"
+					     mouse_opaque="true" name="grids_combo" width="268"
+					     tool_tip="Input the name/nick for a known grid or any login uri, or pick one from the list"/>
+					<button bottom="6" follows="left|top|right" font="SansSerifSmall" height="22"
+					     image_hover_unselected="button_enabled_selected_32x128.tga"
+					     image_pressed="button_enabled_selected_32x128.tga"
+					     image_unselected="button_enabled_32x128.tga"
+					     label="Grid Manager" left="0" name="grids_btn" scale_image="true" width="268"/>
+				</panel>
+			</panel>
+		</scroll_container>
+		<text bg_visible="false" border_visible="false" bottom="10" drop_shadow_visible="true"
+		     follows="left|bottom" font="SansSerifSmall" halign="center"
+		     height="24" left="16" mouse_opaque="false" name="channel_text"
+		     text_color="LoginLabelColor" width="268" word_wrap="true">
+		</text>
+	</panel>
+</panel>

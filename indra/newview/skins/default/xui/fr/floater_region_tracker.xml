@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="region_tracker" title="Suivi de région">
+	<scroll_list name="region_list" tool_tip="Double-cliquez sur une entrée pour l'ouvrir sur la carte du monde.">
+		<scroll_list.columns name="region_label" label="Libellé"/>
+		<scroll_list.columns name="region_name" label="Région"/>
+		<scroll_list.columns name="region_agent_count" label="Nombre"/>
+	</scroll_list>
+</floater>

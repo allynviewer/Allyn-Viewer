@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Attachment Pie">
+	<menu_item_call name="Profile..." label="Профиль..." />
+	<menu_item_call name="Drop" label="Сбросить" />
+	<menu_item_call name="Attachment Object Touch" label="Коснуться">
+		<on_enable name="EnableTouch" />
+	</menu_item_call>
+	<menu_item_call name="Stand Up" label="Встать" />
+	<menu_item_call name="Detach" label="Отсоединить" />
+	<pie_menu name="Tools" label="Инструменты">
+		<pie_menu name="ScriptsMenu" label="Скрипты">
+			<menu_item_call name="CompileMono" label="Компилировать в Mono" />
+			<menu_item_call name="CompileLSL" label="Компилировать в LSL" />
+			<menu_item_call name="Reset Scripts" label="Сбросить" />
+			<menu_item_call name="Object Set Scripts to Running" label="Запустить" />
+			<menu_item_call name="Object Set Scripts to Not Running" label="Остановить" />
+			<menu_item_call name="Remove Scripts From Selection" label="Удалить" />
+			<menu_item_call name="ScriptCount" label="Посчитать" />
+			<menu_item_call name="Script Info" label="Сведения о скриптах" />
+		</pie_menu>
+		<menu_item_call name="Object Inspect" label="Осмотреть" />
+		<menu_item_call name="Data" label="Данные" />
+		<menu_item_call name="Derender" label="Скрыть" />
+		<menu_item_call name="Reload Textures" label="Перезагрузить" />
+		<pie_menu name="Avatar Tools" label="Аватар">
+			<menu_item_call name="Reload Textures" label="Перезагрузить" />
+			<menu_item_call name="Reset Skeleton" label="Сбросить скелет" />
+			<menu_item_call name="Reset Skeleton And Animations" label="Сбросить скелет и анимации" />
+			<menu_item_call name="Anims..." label="Анимации..." />
+			<menu_item_call name="ScriptCount" label="Скрипты" />
+			<menu_item_call name="Script Info" label="Сведения о скриптах" />
+			<menu_item_call name="CopyUUID" label="Копировать UUID" />
+			<menu_item_call name="Save OBJ..." label="Сохранить OBJ..." />
+		</pie_menu>
+		<menu_item_call name="Save OBJ..." label="Сохранить OBJ..." />
+		<menu_item_call name="Save DAE..." label="Сохранить DAE..." />
+	</pie_menu>
+	<menu_item_call name="Appearance..." label="Внешность..." />
+	<menu_item_call name="Edit..." label="Править..." />
+</pie_menu>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="device_settings_panel">
+	<string name="default_text">Predefinito</string>
+	<string name="name_no_device">Nessun dispositivo</string>
+	<string name="name_default_system_device">Dispositivo di sistema predefinito</string>
+	<text name="Input">Ingresso (microfono):</text>
+	<text name="My volume label">Livello ingresso:</text>
+	<volume_slider name="mic_volume_slider" tool_tip="Cambia il livello di ingresso del microfono"/>
+	<text name="wait_text">Attendere</text>
+	<text name="Output">Uscita (altoparlanti):</text>
+	<text_editor name="mic_test_label">Parla nel microfono. Le barre verdi mostrano il livello; dovresti anche sentirti negli altoparlanti.</text_editor>
+</panel>

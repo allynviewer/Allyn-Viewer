@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<context_menu name="Url Popup" label="URL">
+	<menu_item_call name="show_item" label="インベントリ 項目を表示" />
+	<menu_item_call name="url_copy_label" label="名前をクリップボードにコピー" />
+	<menu_item_call name="url_copy" label="SLURLをクリップボードにコピー" />
+	<menu_item_call name="Select All" label="すべて選択" />
+</context_menu>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="script panel">
+	<text_editor name="Script Editor">Загрузка...</text_editor>
+	<button name="Edit_btn" label="Редактировать..." />
+	<button name="Save_btn" label="Сохранить" />
+	<scroll_list name="lsl errors" />
+	<combo_box name="Insert..." label="Вставить..." />
+	<text name="line_col" />
+	<menu_bar name="script_menu">
+		<menu name="File">
+			<menu_item_call name="Save" label="Сохранить" />
+			<menu_item_call name="Revert All Changes" label="Отменить все изменения" />
+		</menu>
+		<menu name="Edit" label="Редактировать">
+			<menu_item_call name="Undo" label="Отменить" />
+			<menu_item_call name="Redo" label="Повторить" />
+			<menu_item_call name="Cut" label="Вырезать" />
+			<menu_item_call name="Copy" label="Копировать" />
+			<menu_item_call name="Paste" label="Вставить" />
+			<menu_item_call name="Select All" label="Выделить всё" />
+			<menu_item_call name="Deselect" label="Отменить выбор" />
+			<menu_item_call name="Search / Replace..." label="Найти/Заменить..." />
+		</menu>
+		<menu name="Help">
+			<menu_item_call name="Help..." label="Помощь..." />
+			<menu_item_call name="LSL Wiki Help..." label="Справка LSL Wiki..." />
+		</menu>
+	</menu_bar>
+	<string name="loading">Загрузка...</string>
+	<string name="can_not_view">Вам не разрешено просматривать этот сценарий.</string>
+	<string name="public_objects_can_not_run">Публичные объекты не могут запускать сценарии</string>
+	<string name="script_running">Бег</string>
+</panel>

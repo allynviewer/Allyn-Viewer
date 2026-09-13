@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Collada Export" title="Collada エクスポート">
+	<string name="texture_progress">Colladaエクスポート: テクスチャを保存中（残り [COUNT]）</string>
+	<text name="file name">ファイル名:</text>
+	<line_editor name="file name editor" />
+	<button name="browse button" label="参照" />
+	<button name="export button" label="エクスポート" />
+	<panel name="object info panel">
+		<text name="Object info">オブジェクト情報</text>
+		<text name="Object Name">名前: [NAME]</text>
+		<text name="Exportable Prims">エクスポート可能なプリム: [COUNT]/[TOTAL]</text>
+		<text name="Exportable Textures">エクスポート可能なテクスチャ: [COUNT]/[TOTAL]</text>
+	</panel>
+	<panel name="options panel">
+		<text name="Options">オプション</text>
+		<check_box name="texture export check" label="テクスチャをエクスポート" />
+		<combo_box name="texture type combo">
+			<combo_item name="tga">TGA</combo_item>
+			<combo_item name="png">PNG</combo_item>
+			<combo_item name="j2c">J2C</combo_item>
+			<combo_item name="bmp">BMP</combo_item>
+			<combo_item name="jpg">JPG</combo_item>
+		</combo_box>
+		<check_box name="consolidate check" label="面を統合" tool_tip="同じテクスチャの面を1つとしてエクスポート" />
+		<check_box name="skip transparent check" label="透明テクスチャをスキップ" />
+		<check_box name="texture params check" label="テクスチャパラメータを適用" />
+	</panel>
+	<scroll_container name="textures container" />
+</floater>

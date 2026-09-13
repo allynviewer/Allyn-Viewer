@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="experiences_tab" label="Experiences">
+	<string name="help_text">Varsa grupla ilgili deneyimler burada listelenir.</string>
+	<button name="help_button" label="?" />
+	<text name="panel_header">Grup Experiences</text>
+</panel>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="im" label="Коммуникация">
+	<text name="text_box">Мой онлайн-статус:</text>
+	<check_box name="online_visibility" label="Только мои друзья и группы могут видеть, когда я в сети." />
+	<text name="text_box2">Параметры обмена мгновенными сообщениями:</text>
+	<string name="log_in_to_change">войдите, чтобы изменить</string>
+	<string name="email_unverified_tooltip">Пожалуйста, подтвердите свой адрес электронной почты, чтобы включить обмен мгновенными сообщениями по электронной почте. Сделать это можно на сайте сетки.</string>
+	<check_box name="send_im_to_email" label="Отправить мгновенное сообщение на электронную почту ([EMAIL])" />
+	<check_box name="include_im_in_chat_console" label="Включить обмен мгновенными сообщениями в консоль чата" />
+	<check_box name="show_timestamps_check" label="Показывать временные метки в чате" />
+	<check_box name="friends_online_notify_checkbox" label="Показывать онлайн-уведомления о друзьях" />
+	<text name="conference_block_text">Входящие конференции:</text>
+	<radio_group name="block_conferences_radio">
+		<radio_item name="accept">Принимать</radio_item>
+		<radio_item name="friends only">Только друзья</radio_item>
+		<radio_item name="block">Блокировать</radio_item>
+	</radio_group>
+	<text name="text_box4">Параметры журналирования:</text>
+	<check_box name="log_instant_messages" label="Сохраните журнал обмена мгновенными сообщениями на моем компьютере" />
+	<check_box name="log_instant_messages_timestamp" label="Показывать временные метки в журнале мгновенных сообщений" />
+	<check_box name="log_show_history" label="Показать конец последней беседы в мгновенных сообщениях" />
+	<check_box name="log_chat" label="Сохраните журнал локального чата на моем компьютере." />
+	<check_box name="log_chat_timestamp" label="Показывать временные метки в журнале локального чата" />
+	<check_box name="log_chat_IM" label="Показывать входящие мгновенные сообщения в журнале локального чата" />
+	<check_box name="log_date_timestamp" label="Включить дату с временными метками" />
+	<check_box name="logfile_name_datestamp" label="Добавить дату к имени файла журнала" />
+	<button name="log_path_button" label="Изменить путь" />
+	<line_editor name="log_path_string" />
+</panel>

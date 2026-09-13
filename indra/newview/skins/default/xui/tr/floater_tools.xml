@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="toolbox floater" title="Yapı">
+	<floater.string name="status_selectcount">İlkeller: [OBJ_COUNT], LI: [LAND_IMPACT]</floater.string>
+	<string name="Selected Face:" />
+	<string name="Link number:" />
+	<string name="Selected prims:" />
+	<string name="Selected objects:" />
+	<floater.string name="status_remaining_capacity">Kalan kapasite [LAND_CAPACITY].</floater.string>
+	<button name="button focus" tool_tip="Odaklanma — kamera yakınlaştırma, yörünge ve kaydırma" />
+	<button name="button move" tool_tip="Taşı — sürükleyin, Ctrl kaldırır, Ctrl-Shift döndürür" />
+	<button name="button edit" tool_tip="Düzenle — konum, döndürme, uzatma ve hizalama" />
+	<button name="button create" tool_tip="Oluştur — prim yerleştirmek için dünyaya tıklayın" />
+	<button name="button land" tool_tip="Arsa — arazi seçin ve şekillendirin" />
+	<button name="mini_button" tool_tip="Minik yapı kayan noktayı aç/kapat" />
+	<check_box name="radio zoom" label="Zoom" />
+	<volume_slider name="slider zoom" />
+	<check_box name="radio orbit" label="Yörünge (Ctrl)" />
+	<check_box name="radio pan" label="Kaydırma (Ctrl-Shift)" />
+	<check_box name="radio move" label="Taşı" />
+	<check_box name="radio lift" label="Kaldırma (Ctrl)" />
+	<check_box name="radio spin" label="Döndürme (Ctrl-Shift)" />
+	<check_box name="radio position" label="Pozisyon" />
+	<check_box name="radio rotate" label="Döndür (Ctrl)" />
+	<check_box name="radio stretch" label="Uzat (Ctrl-Shift)" />
+	<check_box name="radio select face" label="Yüz Seç" />
+	<check_box name="radio align" label="Hizala" />
+	<check_box name="checkbox edit linked parts" label="Bağlantılı parçaları düzenle" />
+	<text name="text ruler mode">Cetvel:</text>
+	<combo_box name="combobox grid mode">
+		<combo_item name="World">Dünya</combo_item>
+		<combo_item name="Local">Yerel</combo_item>
+		<combo_item name="Reference">Referans</combo_item>
+	</combo_box>
+	<check_box name="checkbox uniform" label="Her İki Tarafı da Esnetin" />
+	<check_box name="checkbox stretch textures" label="Streç Dokular" />
+	<check_box name="checkbox limit drag distance" label="Sürükleme mesafesini sınırlayın" />
+	<check_box name="checkbox actual root" label="Kökteki Ekseni Düzenle" />
+	<check_box name="checkbox show highlight" label="Vurguyu Göster" />
+	<check_box name="checkbox snap to grid" label="Grid'i Kullan" />
+	<button name="Options..." label="Seçenekler" />
+	<text name="text status">Taşımak için sürükleyin, kopyalamak için Shift tuşunu basılı tutarak sürükleyin</text>
+	<button name="ToolCube" tool_tip="Küp" />
+	<button name="ToolPrism" tool_tip="prizma" />
+	<button name="ToolPyramid" tool_tip="Piramit" />
+	<button name="ToolTetrahedron" tool_tip="dörtyüzlü" />
+	<button name="ToolCylinder" tool_tip="Silindir" />
+	<button name="ToolHemiCylinder" tool_tip="Yarım silindir" />
+	<button name="ToolCone" tool_tip="Koni" />
+	<button name="ToolHemiCone" tool_tip="Hemikon" />
+	<button name="ToolSphere" tool_tip="Küre" />
+	<button name="ToolHemiSphere" tool_tip="Yarımküre" />
+	<button name="ToolTorus" tool_tip="simit" />
+	<button name="ToolTube" tool_tip="Tüp" />
+	<button name="ToolRing" tool_tip="Yüzük" />
+	<button name="ToolTree" tool_tip="Ağaç" />
+	<button name="ToolGrass" tool_tip="Çim" />
+	<text name="tree_grass_label" />
+	<combo_box name="trees_grass" />
+	<string name="Random">Rastgele</string>
+	<check_box name="checkbox sticky" label="Seçili kal" tool_tip="Yerleştirdikten sonra Oluştur aracını seçili tut" />
+	<check_box name="checkbox copy selection" label="Seçileni kopyala" tool_tip="Geçerli seçimin kopyalarını oluştur" />
+	<check_box name="checkbox copy centers" label="Merkez" />
+	<check_box name="checkbox copy rotates" label="Döndür" />
+	<check_box name="radio select land" label="Arsa Seçiniz" />
+	<check_box name="radio flatten" label="Düzleştir" />
+	<check_box name="radio raise" label="Yükselt" />
+	<check_box name="radio lower" label="Daha düşük" />
+	<check_box name="radio smooth" label="Pürüzsüz" />
+	<check_box name="radio noise" label="Pürüzlendirmek" />
+	<check_box name="radio revert" label="Geri al" />
+	<button name="button apply to selection" label="Uygula" tool_tip="Seçilen Araziyi Değiştir" />
+	<text name="Bulldozer:">Buldozer:</text>
+	<text name="Dozer Size:">Boyut</text>
+	<volume_slider name="slider brush size" />
+	<text name="Strength:">Güç</text>
+	<volume_slider name="slider force" />
+	<text name="link_num_obj_count">[DESC] [NUM]</text>
+	<text name="selection_empty">Hiçbir şey seçilmedi.</text>
+	<text name="selection_count" />
+	<tab_container name="Object Info Tabs">
+		<panel name="General" label="Genel">
+			<text name="Name:">İsim:</text>
+			<line_editor name="Object Name" />
+			<text name="Description:">Açıklama:</text>
+			<line_editor name="Object Description" />
+			<string name="multiple_objects_selected" />
+			<text name="Creator:">Yaratıcı:</text>
+			<name_box name="Creator Name">Thrax Linden</name_box>
+			<text name="Owner:">Sahibi:</text>
+			<name_box name="Owner Name">Thrax Linden</name_box>
+			<text name="Last Owner:">Son Sahibi:</text>
+			<name_box name="Last Owner Name">Thrax Linden</name_box>
+			<text name="Group:">Grup:</text>
+			<name_box name="Group Name Proxy" />
+			<button name="button set group" label="Ayarla" />
+			<text name="Permissions:">İzinler:</text>
+			<text name="perm_modify">Bu nesneyi değiştirebilirsiniz.</text>
+			<check_box name="checkbox share with group" label="Grupla paylaş" tool_tip="Ayarlanan grubun tüm üyelerinin bu nesne için izinlerinizi paylaşmasına ve kullanmasına izin verin. Rol kısıtlamalarını etkinleştirmek için Deed'i kullanmalısınız." />
+			<string name="text deed continued">Tapu...</string>
+			<string name="text deed">tapu</string>
+			<button name="button deed" label="Tapu..." tool_tip="Grup paylaşılan nesnelerin tapusu bir grup görevlisi tarafından yapılabilir." />
+			<text name="text anyone can">Herkes şunları yapabilir:</text>
+			<check_box name="checkbox allow everyone move" label="Taşı" />
+			<check_box name="checkbox allow everyone copy" label="Kopyala" />
+			<check_box name="checkbox allow export" label="İhracat" />
+			<check_box name="search_check" label="Aramada göster" tool_tip="İnsanların bu nesneyi arama sonuçlarında görmesine izin ver" />
+			<check_box name="checkbox for sale" label="Satılık" />
+			<text name="Cost">Fiyat: [CURRENCY]</text>
+			<line_editor name="Edit Cost" />
+			<radio_group name="sale type">
+				<radio_item name="Original">Original</radio_item>
+				<radio_item name="Copy">Kopyala</radio_item>
+				<radio_item name="Contents">İçindekiler</radio_item>
+			</radio_group>
+			<text name="Next owner can:">Sonraki sahip şunları yapabilir:</text>
+			<check_box name="checkbox next owner can modify" label="Değiştir" />
+			<check_box name="checkbox next owner can copy" label="Kopyala" />
+			<check_box name="checkbox next owner can transfer" label="Tekrar Sat/Ver" />
+			<text name="label click action">Sol Tıklandığında:</text>
+			<combo_box name="clickaction">
+				<combo_item name="Touch/grab(default)">Dokunma/tutma (varsayılan)</combo_item>
+				<combo_item name="Sitonobject">Nesnenin üzerine oturun</combo_item>
+				<combo_item name="Buyobject">Nesne satın al</combo_item>
+				<combo_item name="Payobject">Ödeme nesnesi</combo_item>
+				<combo_item name="Open">Açık</combo_item>
+				<combo_item name="Play">Paket medyayı oynat</combo_item>
+				<combo_item name="Opemmedia">Paket ortamını aç</combo_item>
+			</combo_box>
+			<button name="button cpy_key" label="Anahtarı Kopyala" tool_tip="Nesne anahtarını panoya kopyalar." />
+			<text name="B:">B:</text>
+			<text name="G:">G:</text>
+			<text name="E:">E:</text>
+			<text name="N:">N:</text>
+			<text name="F:">F:</text>
+			<panel name="pathfinding_attrs_panel">
+				<text name="pathfinding_attributes_label">Yol bulma özellikleri:</text>
+				<text name="pathfinding_attributes_value">testi</text>
+			</panel>
+			<string name="text modify info 1">Bu nesneyi değiştirebilirsiniz.</string>
+			<string name="text modify info 2">Bu nesneleri değiştirebilirsiniz.</string>
+			<string name="text modify info 3">Bu nesneyi değiştiremezsiniz.</string>
+			<string name="text modify info 4">Bu nesneleri değiştiremezsiniz.</string>
+			<string name="text modify info 5">Bu nesneyi bölge sınırında değiştiremezsiniz</string>
+			<string name="text modify info 6">Bu nesneleri bölge sınırında değiştiremezsiniz</string>
+			<string name="text modify warning">İzinleri ayarlamak için nesnenin tamamını seçmelisiniz.</string>
+			<string name="Cost Default">Fiyat: [CURRENCY]</string>
+			<string name="Cost Total">Toplam Fiyat: [CURRENCY]</string>
+			<string name="Cost Per Unit">Fiyat Başı: [CURRENCY]</string>
+			<string name="Cost Mixed">Karışık Fiyat</string>
+			<string name="Sale Mixed">Karma Satış</string>
+		</panel>
+		<panel name="Object" label="Nesne">
+			<text name="select_single" />
+			<button name="link_obj" label="Bağla" tool_tip="Şehre geldi..." />
+			<button name="unlink_obj" label="Ayır" tool_tip="Bağlantı kümesinin bağlantısını kaldırır." />
+			<check_box name="checkbox locked" label="Kilitli" tool_tip="Nesnenin taşınmasını veya silinmesini engeller. İstenmeyen düzenlemeleri önlemek için oluşturma sırasında sıklıkla faydalıdır." />
+			<check_box name="Physical Checkbox Ctrl" label="Fiziksel" tool_tip="Nesnenin yer çekiminden etkilenmesine ve itilmesine izin verir" />
+			<check_box name="Temporary Checkbox Ctrl" label="Geçici" tool_tip="Nesnenin oluşturulduktan 1 dakika sonra silinmesine neden olur." />
+			<check_box name="Phantom Checkbox Ctrl" label="Hayalet" tool_tip="Nesnenin diğer nesnelerle veya avatarlarla çarpışmamasını sağlar" />
+			<text name="label position">Pozisyon (metre)</text>
+			<spinner name="Pos X" label="X" />
+			<spinner name="Pos Y" label="Y" />
+			<spinner name="Pos Z" label="Z" />
+			<button name="copypos" label="C" tool_tip="Konumu Kopyala" />
+			<button name="pastepos" label="P" tool_tip="Konumu Yapıştır" />
+			<button name="pasteposclip" label="p" tool_tip="Konumu Panodan Yapıştır" />
+			<text name="label size">Boyut</text>
+			<spinner name="Scale X" label="X" />
+			<spinner name="Scale Y" label="Y" />
+			<spinner name="Scale Z" label="Z" />
+			<button name="copysize" label="C" tool_tip="Kopya Boyutu" />
+			<button name="pastesize" label="P" tool_tip="Yapıştırma Boyutu" />
+			<button name="pastesizeclip" label="p" tool_tip="Boyutu Panodan Yapıştır" />
+			<text name="label rotation">Döndürme (derece)</text>
+			<spinner name="Rot X" label="X" />
+			<spinner name="Rot Y" label="Y" />
+			<spinner name="Rot Z" label="Z" />
+			<button name="copyrot" label="C" tool_tip="Rotasyonu Kopyala" />
+			<button name="pasterot" label="P" tool_tip="Yapıştırma Rotasyonu" />
+			<button name="pasterotclip" label="p" tool_tip="Rotasyonu Panodan Yapıştır" />
+			<text name="label material">Material</text>
+			<combo_box name="material">
+				<combo_item name="Stone">Taş</combo_item>
+				<combo_item name="Metal">Metal</combo_item>
+				<combo_item name="Glass">Cam</combo_item>
+				<combo_item name="Wood">Ahşap</combo_item>
+				<combo_item name="Flesh">Et</combo_item>
+				<combo_item name="Plastic">Plastik</combo_item>
+				<combo_item name="Rubber">Kauçuk</combo_item>
+			</combo_box>
+			<text name="edit_object">Parametreler:</text>
+			<button name="copyparams" label="Kopyala" tool_tip="Parametreleri Panoya Kopyala" />
+			<button name="pasteparams" label="Yapıştır" tool_tip="Parametreleri Panodan Yapıştır" />
+			<text name="label basetype">Yapı Taşı Türü</text>
+			<combo_box name="comboBaseType">
+				<combo_item name="Box">Kutu</combo_item>
+				<combo_item name="Cylinder">Silindir</combo_item>
+				<combo_item name="Prism">prizma</combo_item>
+				<combo_item name="Sphere">Küre</combo_item>
+				<combo_item name="Torus">simit</combo_item>
+				<combo_item name="Tube">Tüp</combo_item>
+				<combo_item name="Ring">Yüzük</combo_item>
+				<combo_item name="Sculpted">Sculpted</combo_item>
+				<combo_item name="Hemicylinder">Yarım silindir</combo_item>
+				<combo_item name="Spiral Circle">Sarmal Daire</combo_item>
+				<combo_item name="Spiral Square">Sarmal Kare</combo_item>
+				<combo_item name="Spiral Triangle">Sarmal Üçgen</combo_item>
+				<combo_item name="Spiral Semicircle">Sarmal Yarım Daire</combo_item>
+				<combo_item name="Test Cylinder">Test Silindiri</combo_item>
+				<combo_item name="Test Box">Test Kutusu</combo_item>
+				<combo_item name="Test Prism">Test Prizması</combo_item>
+				<combo_item name="Test Hemicylinder">Yarı Silindir Testi</combo_item>
+			</combo_box>
+			<text name="text cut">Yol Kesme Başlangıcı ve Bitişi</text>
+			<spinner name="cut begin" label="B" />
+			<spinner name="cut end" label="e" />
+			<text name="text hollow">içi boş</text>
+			<text name="text skew">Eğik</text>
+			<spinner name="Scale 1" />
+			<spinner name="Skew" />
+			<text name="Hollow Shape">İçi Boş Şekil</text>
+			<combo_box name="hole">
+				<combo_item name="Default">Varsayılan</combo_item>
+				<combo_item name="Circle">daire</combo_item>
+				<combo_item name="Square">Kare</combo_item>
+				<combo_item name="Triangle">Üçgen</combo_item>
+			</combo_box>
+			<text name="text twist">Büküm Başlangıç ve Bitiş</text>
+			<spinner name="Twist Begin" label="B" />
+			<spinner name="Twist End" label="e" />
+			<text name="scale_taper">Konik</text>
+			<text name="scale_hole">Delik Boyutu</text>
+			<spinner name="Taper Scale X" label="X" />
+			<spinner name="Taper Scale Y" label="Y" />
+			<text name="text topshear">Üst Kesme</text>
+			<spinner name="Shear X" label="X" />
+			<spinner name="Shear Y" label="Y" />
+			<text name="advanced_cut">Profil Kesim Başlangıcı ve Bitişi</text>
+			<text name="advanced_dimple">Gamze Başlangıç ve Bitiş</text>
+			<text name="advanced_slice">Dilim Başlangıcı ve Bitişi</text>
+			<spinner name="Path Limit Begin" label="B" />
+			<spinner name="Path Limit End" label="e" />
+			<text name="text taper2">Konik</text>
+			<spinner name="Taper X" label="X" />
+			<spinner name="Taper Y" label="Y" />
+			<text name="text radius delta">Yarıçap</text>
+			<text name="text revolutions">Devrimler</text>
+			<spinner name="Radius Offset" />
+			<spinner name="Revolutions" />
+			<texture_picker name="sculpt texture control" label="Heykel Dokusu" tool_tip="Bir resim seçmek için tıklayın" />
+			<check_box name="sculpt mirror control" label="Ayna" tool_tip="Şekillendirilmiş primi X ekseni boyunca döndürür." />
+			<check_box name="sculpt invert control" label="İçten dışa" tool_tip="Şekillendirilmiş primlerin normallerini ters çevirerek içten dışa görünmesini sağlar." />
+			<text name="label sculpt type">Dikiş türü</text>
+			<combo_box name="sculpt type control">
+				<combo_item name="None">(yok)</combo_item>
+				<combo_item name="Sphere">Küre</combo_item>
+				<combo_item name="Torus">simit</combo_item>
+				<combo_item name="Plane">Uçak</combo_item>
+				<combo_item name="Cylinder">Silindir</combo_item>
+			</combo_box>
+		</panel>
+		<panel name="Features" label="Özellikler">
+			<string name="None">Yok</string>
+			<string name="Prim">Prim</string>
+			<string name="Convex Hull">Dışbükey Gövde</string>
+			<text name="select_single">Unsurları düzenlemek için yalnızca bir temel öğe seçin.</text>
+			<text name="edit_object">Nesne özelliklerini düzenleyin:</text>
+			<check_box name="Animated Mesh Checkbox Ctrl" label="Animasyonlu Örgü" tool_tip="Donanımlı ağ nesnelerinin bağımsız olarak canlandırılmasına olanak tanır" />
+			<check_box name="Flexible1D Checkbox Ctrl" label="Esnek Yol" tool_tip="Nesnenin Z ekseni etrafında esnemesine izin verir. (Yalnızca istemci tarafı)" />
+			<spinner name="FlexNumSections" label="Yumuşaklık" />
+			<spinner name="FlexGravity" label="Yerçekimi" />
+			<spinner name="FlexFriction" label="Sürükle" />
+			<spinner name="FlexWind" label="Rüzgar" />
+			<spinner name="FlexTension" label="Gerginlik" />
+			<spinner name="FlexForceX" label="X'i zorla" />
+			<spinner name="FlexForceY" label="Y'yi zorla" />
+			<spinner name="FlexForceZ" label="Z'yi zorla" />
+			<check_box name="Light Checkbox Ctrl" label="Işık" tool_tip="Nesnenin ışık yaymasına neden olur" />
+			<text name="label color">Renk</text>
+			<text name="label texture">Doku</text>
+			<color_swatch name="colorswatch" tool_tip="Renk Seçiciyi açmak için tıklayın" />
+			<texture_picker name="light texture control" tool_tip="Bir projeksiyon görüntüsü seçmek için tıklayın (yalnızca ertelenmiş görüntü oluşturma etkin olduğunda etkilidir)" />
+			<spinner name="Light Intensity" label="Yoğunluk" />
+			<spinner name="Light FOV" label="FOV" />
+			<spinner name="Light Radius" label="Yarıçap" />
+			<spinner name="Light Focus" label="Odak" />
+			<spinner name="Light Falloff" label="Düşüş" />
+			<spinner name="Light Ambiance" label="Ambiyans" />
+			<text name="label physicsshapetype">Fizik Şekil Türü:</text>
+			<combo_box name="Physics Shape Type Combo Ctrl" tool_tip="Fizik şekli türünü seçin" />
+			<spinner name="Physics Gravity" label="Yerçekimi" />
+			<spinner name="Physics Friction" label="Sürtünme" />
+			<spinner name="Physics Density" label="Yoğunluk" />
+			<spinner name="Physics Restitution" label="Tazminat" />
+		</panel>
+		<panel name="Texture" label="Doku" />
+		<panel name="Contents" label="İçerik">
+			<button name="button new script" label="Yeni script" />
+			<button name="button permissions" label="İzinler..." />
+			<panel name="ContentsInventory" />
+		</panel>
+	</tab_container>
+	<panel name="land info panel">
+		<text name="label_parcel_info">Parsel Bilgileri</text>
+		<text name="label_area_price">Fiyat: [AREA] metrekare için [CURRENCY][PRICE].</text>
+		<text name="label_area">Alan: [AREA] metrekare m.</text>
+		<button name="button about land" label="Arsa Hakkında..." />
+		<check_box name="checkbox show owners" label="Sahipleri göster" tool_tip="Sahipliklerine göre parselleri renklendirin" />
+		<button name="button show owners help" label="?" />
+		<text name="label_parcel_modify">Parseli Değiştir</text>
+		<button name="button subdivide land" label="Alt bölümlere ayır..." />
+		<button name="button join land" label="Katıl..." />
+		<text name="label_parcel_trans">Arsa İşlemleri</text>
+		<button name="button buy land" label="Arsa satın al..." />
+		<button name="button abandon land" label="Araziyi terk et..." />
+	</panel>
+	<string name="status_rotate">Nesneyi döndürmek için renkli bantları sürükleyin</string>
+	<string name="status_scale">Seçilen tarafı uzatmak için tıklayın ve sürükleyin</string>
+	<string name="status_move">Taşımak için sürükleyin, kopyalamak için Shift tuşunu basılı tutarak sürükleyin</string>
+	<string name="status_align">Nesneleri o yönde hizalamak için bir oku tıklayın</string>
+	<string name="status_modifyland">Araziyi değiştirmek için tıklayıp basılı tutun</string>
+	<string name="status_camera">Görünümü değiştirmek için tıklayıp sürükleyin</string>
+	<string name="status_grab">Taşımak için sürükleyin, kaldırmak için Ctrl, döndürmek için Ctrl-Shift</string>
+	<string name="status_place">İnşa etmek için dünyaya tıklayın</string>
+	<string name="status_selectland">Arazi seçmek için tıklayın ve sürükleyin</string>
+	<string name="grid_screen_text">Ekran</string>
+	<string name="grid_local_text">Yerel</string>
+	<string name="grid_world_text">Dünya</string>
+	<string name="grid_reference_text">Referans</string>
+	<string name="grid_attachment_text">Ek</string>
+</floater>

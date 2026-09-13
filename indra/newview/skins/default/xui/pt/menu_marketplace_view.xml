@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="menu_marketplace_sort">
+	<menu_item_check name="sort_by_name" label="Ordenar por nome"/>
+	<menu_item_check name="sort_by_recent" label="Ordenar por mais recente"/>
+	<menu_item_check name="sort_by_stock_amount" label="Sort por stockr)"/>
+	<menu_item_check name="show_only_listing_folders" label="Mostrar apenas pastas de anúncios"/>
+</menu>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="autoreplace_floater" title="Otomatik Değiştirme Ayarları">
+	<check_box name="autoreplace_enable" label="Otomatik Değiştirmeyi Etkinleştir" tool_tip="Sohbet metnini girerken, girdiğiniz anahtar kelimelerden herhangi birini karşılık gelen anahtar kelimeyle değiştirin" />
+	<view_border name="divisor1" />
+	<button name="autoreplace_import_list" label="Listeyi İçe Aktar..." tool_tip="Daha önce dışa aktarılan bir listeyi bir dosyadan yükleyin." />
+	<button name="autoreplace_export_list" label="Listeyi Dışa Aktar..." tool_tip="Seçili listeyi paylaşabilmek için bir dosyaya kaydedin." />
+	<button name="autoreplace_new_list" label="Yeni Liste..." tool_tip="Yeni bir liste oluşturun." />
+	<button name="autoreplace_delete_list" label="Listeyi Sil" tool_tip="Seçilen listeyi silin." />
+	<scroll_list name="autoreplace_list_name" />
+	<button name="autoreplace_list_up" tool_tip="Bu listeyi öncelikli olarak yukarı taşıyın." />
+	<button name="autoreplace_list_down" tool_tip="Bu listeyi öncelik sırasına göre aşağı taşıyın." />
+	<view_border name="divisor2" />
+	<scroll_list name="autoreplace_list_replacements">
+		<scroll_list.columns name="Keyword" label="Anahtar kelime" />
+		<scroll_list.columns name="Replacement" label="Değiştirme" />
+	</scroll_list>
+	<button name="autoreplace_add_entry" label="Ekle..." />
+	<button name="autoreplace_delete_entry" label="Kaldır" />
+	<view_border name="divisor3" />
+	<text name="keyword">Anahtar kelime:</text>
+	<line_editor name="autoreplace_keyword" />
+	<text name="replacement">Değiştirme:</text>
+	<line_editor name="autoreplace_replacement" />
+	<button name="autoreplace_save_entry" label="Girişi Kaydet" tool_tip="Bu girişi kaydedin." />
+	<view_border name="divisor4" />
+	<button name="autoreplace_save_changes" label="Değişiklikleri Kaydet" tool_tip="Tüm değişiklikleri kaydedin." />
+	<button name="autoreplace_cancel" label="İptal" tool_tip="Tüm değişiklikleri iptal edin." />
+</floater>

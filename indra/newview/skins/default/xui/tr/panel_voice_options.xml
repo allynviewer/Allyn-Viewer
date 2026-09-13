@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="content_panel">
+	<text_editor name="voice_intro_text1">Sesli Sohbet deneyiminizi yapılandırmak için aşağıdaki seçenekleri kullanın.</text_editor>
+	<radio_group name="ear_location">
+		<radio_item name="0">Sesli Sohbeti kamera konumundan duyun.</radio_item>
+		<radio_item name="1">Sesli Sohbeti avatar konumundan duyun.</radio_item>
+	</radio_group>
+	<check_box name="friends_only_check" label="Yalnızca Arkadaşlarımın benimle Sesli Arama başlatmasına izin ver" />
+	<check_box name="push_to_talk_toggle_check" label="Geçiş modunda Bas-Konuş'u kullanma" />
+	<text name="push_to_talk_label">Bas-Konuş tetikleyicisi:</text>
+	<line_editor name="modifier_combo" />
+	<button name="set_voice_hotkey_button" label="Anahtarı Ayarla" />
+	<button name="set_voice_middlemouse_button" label="Orta Fare Düğmesi" />
+</panel>

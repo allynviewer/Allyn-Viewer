@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Classified" title="Gizli">
+	<texture_picker name="snapshot_ctrl" />
+	<line_editor name="given_name_editor" tool_tip="İsim noktalama işaretiyle değil, harf veya rakamla başlamalıdır." />
+	<text_editor name="desc_editor" />
+	<line_editor name="location_editor" tool_tip="Bu sınıflandırılmanın konumunu mevcut konumunuza ayarlayın." />
+	<button name="set_location_btn" label="Ayarla" />
+	<button name="classified_teleport_btn" label="Teleport" />
+	<button name="classified_map_btn" label="Haritada Göster" />
+	<button name="classified_profile_btn" label="Profil" />
+	<combo_box name="classified_mature_check">
+		<combo_item name="select_mature">- Olgun'u seçin -</combo_item>
+		<combo_item name="mature">Yetişkin İçerik</combo_item>
+		<combo_item name="pg">PG İçeriği</combo_item>
+	</combo_box>
+	<combo_box name="classified_category_combo" />
+	<button name="classified_update_btn" label="Güncelleme" />
+	<string name="ad_placed_paid">İlan verildi: [DATE], Listeleme için [CURRENCY][AMT] ödendi.</string>
+	<string name="update_txt">Güncelleme</string>
+	<string name="publish_txt">Yayınla...</string>
+</panel>

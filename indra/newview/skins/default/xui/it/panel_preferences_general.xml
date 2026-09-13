@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Generale" name="general_panel">
+	<scroll_container name="general_scroll">
+		<panel name="general_scroll_inner">
+			<text name="start_location_textbox">POSIZIONE INIZIALE</text>
+			<radio_group name="default_start_location">
+				<radio_item name="home" tool_tip="Accedi a casa di default.">Casa mia</radio_item>
+				<radio_item name="last" tool_tip="Accedi all'ultima posizione di default.">Ultima posizione</radio_item>
+			</radio_group>
+			<check_box label="Mostra posizione iniziale al login" name="show_location_checkbox" />
+			<text name="show_names_textbox">NOMI</text>
+			<combo_box name="fade_out_combobox">
+				<combo_item name="Never">Mai</combo_item>
+				<combo_item name="Show Temporarily">Temporaneo</combo_item>
+				<combo_item name="Always">Sempre</combo_item>
+			</combo_box>
+			<combo_box name="namesystem_combobox">
+				<combo_item name="Old Names">Nomi prec.</combo_item>
+				<combo_item name="Display Names (with Username)">Nomi vis. (c/utente)</combo_item>
+				<combo_item name="Display Names only">Solo nomi vis.</combo_item>
+				<combo_item name="Old Names (with Display Names)">Prec. (c/vis.)</combo_item>
+			</combo_box>
+			<check_box label="Residente" name="show_resident_checkbox" />
+			<check_box label="Nomi avatar piccoli" name="small_avatar_names_checkbox" />
+			<check_box label="Nascondi il mio nome" name="show_my_name_checkbox" />
+			<text name="group_titles_textbox">TITOLI DI GRUPPO</text>
+			<check_box label="Nascondi tutti i titoli" name="show_all_title_checkbox" />
+			<check_box label="Nascondi il mio titolo" name="show_my_title_checkbox" />
+			<text name="UI Size:">DIM. UI</text>
+			<check_box label="Scala indipendente dalla risoluzione" name="ui_auto_scale" />
+			<check_box label="Assente se inattivo" name="away_when_idle_checkbox" />
+			<spinner label="Dopo:" name="afk_timeout_spinner" />
+			<text name="seconds_textbox">secondi</text>
+			<check_box label="Avvisa scambi di L$" name="notify_money_change_checkbox" />
+			<check_box label="senza ingombrare l'angolo" name="no_transaction_clutter_checkbox" tool_tip="Mostra le notifiche nell'angolo in basso a destra per un momento, poi le nasconde, così la transazione attira l'attenzione senza intralciare." />
+			<text name="maturity_desired_label">Voto:</text>
+			<text name="maturity_desired_prompt">Voglio accedere a:</text>
+			<combo_box name="maturity_desired_combobox">
+				<combo_item name="Desired_Adult">PG, Mature e Adult</combo_item>
+				<combo_item name="Desired_Mature">PG e Mature</combo_item>
+				<combo_item name="Desired_PG">solo PG</combo_item>
+			</combo_box>
+			<text name="maturity_desired_textbox">solo PG</text>
+			<text name="crash_report_textbox">Crash:</text>
+			<combo_box name="crash_behavior_combobox">
+				<combo_item name="Askbeforesending">Chiedi prima</combo_item>
+				<combo_item name="Alwayssend">Invia sempre</combo_item>
+				<combo_item name="Neversend">Mai inviare</combo_item>
+			</combo_box>
+			<text name="language_textbox">Lingua:</text>
+			<text name="language_textbox2">(Riavvio)</text>
+			<string name="region_name_prompt">&lt;Nome regione&gt;</string>
+			<combo_box name="language_combobox">
+				<combo_item name="System Default Language">Default di sistema</combo_item>
+				<combo_item name="English">Inglese</combo_item>
+				<combo_item name="Spanish">Español (Spagnolo)</combo_item>
+				<combo_item name="Portugese">Português</combo_item>
+				<combo_item name="French">Français (Francese)</combo_item>
+				<combo_item name="Deutsch(German)">Deutsch (Tedesco)</combo_item>
+				<combo_item name="Italian">Italiano</combo_item>
+				<combo_item name="Turkish">Türkçe (Turco)</combo_item>
+				<combo_item name="Russian">Русский (Russo)</combo_item>
+				<combo_item name="Japanese">日本語 (Giapponese)</combo_item>
+			</combo_box>
+			<check_box label="Condividi lingua con oggetti" name="language_is_public" tool_tip="Permette agli oggetti inworld di conoscere la tua lingua preferita." />
+			<button label="Reimposta impostazioni" name="clear_settings" />
+		</panel>
+	</scroll_container>
+</panel>

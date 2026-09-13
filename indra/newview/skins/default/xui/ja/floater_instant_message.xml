@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="im_floater" label="（不明）" title="（不明）">
+	<string name="answering">接続中...</string>
+	<string name="ringing">発信中...</string>
+	<string name="connected">接続済み。「終了」をクリックすると切断します</string>
+	<string name="hang_up">通話を終了しました</string>
+	<string name="voice_icon">icn_voice-pvtfocus.tga</string>
+	<string name="title_string">[NAME]とのIM</string>
+	<string name="typing_start_string">[NAME]が入力中...</string>
+	<string name="session_start_string">[NAME]とのセッションを開始しています。しばらくお待ちください。</string>
+	<string name="default_text_label">クリックしてIMを送信</string>
+	<string name="unavailable_text_label">この通話ではテキストチャットを利用できません。</string>
+	<string name="inventory_item_offered">インベントリアイテムのオファー</string>
+	<flyout_button name="instant_message_flyout" label="プロフィール">
+		<flyout_button_item name="request_teleport_item" label="テレポートをリクエスト" />
+		<flyout_button_item name="group_invite_item" label="グループに招待" />
+		<flyout_button_item name="copy_slurl_item" label="SLURLをコピー" />
+		<flyout_button_item name="conference" label="会議に追加" />
+		<flyout_button_item name="report" label="通報" />
+	</flyout_button>
+	<string name="find on map" value="マップで探す" />
+	<string name="ding on" value="新着メッセージで鳴る（オン）" />
+	<string name="ding off" value="新着メッセージで鳴る（オフ）" />
+	<string name="rp mode on" value="RPモード（オン）" />
+	<string name="rp mode off" value="RPモード（オフ）" />
+	<string name="add friend" value="フレンドに追加" />
+	<string name="remove friend" value="フレンドから削除" />
+	<string name="mute" value="ミュート" />
+	<string name="unmute" value="ミュート解除" />
+	<string name="focus" value="フォーカス" />
+	<button name="tp_btn" label="TP" />
+	<button name="pay_btn" label="支払い" />
+	<button name="history_btn" label="履歴" />
+	<button name="start_call_btn" label="通話" />
+	<button name="end_call_btn" label="終了" />
+	<check_box name="im_translate_check" tool_tip="チェックして翻訳を有効にする" />
+	<button name="im_translate_btn" label="翻訳" tool_tip="この会話の言語を設定" />
+	<panel name="speaker_controls">
+		<volume_slider name="speaker_volume" />
+		<button name="mute_btn" tool_tip="ボイスをミュート" />
+	</panel>
+	<text_editor name="im_history" />
+	<line_editor name="chat_editor" label="クリックしてIMを送信" />
+	<button name="send_btn" label="送信" />
+	<string name="live_help_dialog">
+		*** ヘルプリクエストへようこそ ***
+まず F1 キーで SL ヘルプページを確認するか、ナレッジベース http://secondlife.com/knowledgebase/ にアクセスしてください。
+答えが見つからない場合は、質問を入力して開始してください。対応可能なヘルパーが応答するまで少々お待ちください。
+-=-=- 応答時間は変動します。特にピーク時はご注意ください -=-=-
+	</string>
+</floater>

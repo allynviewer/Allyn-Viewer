@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="im_floater" label="(sconosciuto)" title="(sconosciuto)">
+	<string name="answering">In connessione...</string>
+	<string name="ringing">In chiamata...</string>
+	<string name="connected">Connesso, clicca 'Fine Chiamata' per riagganciare</string>
+	<string name="hang_up">Chiamata conclusa</string>
+	<string name="title_string">IM con [NAME]</string>
+	<string name="typing_start_string">[NAME] sta scrivendo...</string>
+	<string name="session_start_string">Sessione in avvio con [NAME], attendi.</string>
+	<string name="default_text_label">Clicca qui per scrivere un messaggio.</string>
+	<string name="unavailable_text_label">La chat di testo non è disponibile in questa chiamata.</string>
+	<string name="inventory_item_offered">Offerto oggetto dell'inventario</string>
+	<flyout_button name="instant_message_flyout" label="Profilo">
+		<flyout_button_item name="profile_item" label="Profilo"/>
+		<flyout_button_item name="history_btn" label="Cronologia"/>
+		<flyout_button_item name="profile_tele_btn" label="Offri Teleport"/>
+		<flyout_button_item name="request_teleport_item" label="Richiedi Teleport"/>
+		<flyout_button_item name="pay_item" label="Paga"/>
+		<flyout_button_item name="group_invite_item" label="Invita in un gruppo"/>
+		<flyout_button_item name="copy_slurl_item" label="Copia SLURL"/>
+		<flyout_button_item name="conference" label="Aggiungi alla conferenza"/>
+		<flyout_button_item name="report" label="Denuncia"/>
+	</flyout_button>
+	<button name="start_call_btn" label="Chiama"/>
+	<button name="end_call_btn" label="Termina"/>
+	<check_box name="im_translate_check" tool_tip="Spunta per attivare la traduzione"/>
+	<button name="im_translate_btn" label="Traduzione" tool_tip="Configura le lingue di questa conversazione"/>
+	<panel name="speaker_controls">
+		<button name="mute_btn" tool_tip="Muta il voice"/>
+	</panel>
+	<line_editor name="chat_editor" label="Clicca qui per scrivere un messaggio"/>
+	<button name="send_btn" label="Invia"/>
+	<string name="live_help_dialog">*** Benvenuto nella 'Richiesta di Aiuto' *** Controlla, prima le nostre 'Pagine di Aiuto' premendo F1, o accedendo alle Nozioni di Base a http://secondlife.com/knowledgebase/ Se la risposta che cerchi non è presente, scrivi la tua domanda per cominciare, quindi attendi qualche istante per consentire agli assistenti disponibili di rispondere. -=-=- I tempi di risposta varieranno, specialmente durante gli orari di picco -=-=-</string>
+</floater>

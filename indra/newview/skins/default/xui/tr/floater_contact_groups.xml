@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_contact_groups" title="Kişi Gruplarını Yönetin">
+	<text name="InstructManageContacts">Bir grup seçin (Veya bir grup oluşturmak için Yeni'ye basın):</text>
+	<combo_box name="buddy_group_combobox" tool_tip="Arkadaş grubu">
+		<combo_item name="All">Hepsi</combo_item>
+	</combo_box>
+	<button name="combo_group_add" label="+" />
+	<button name="combo_group_remove" label="-" />
+	<button name="combo_group_create" label="Yeni" />
+	<text name="contact_list_text">Şu anda:</text>
+	<scroll_list name="group_scroll_list" />
+</floater>

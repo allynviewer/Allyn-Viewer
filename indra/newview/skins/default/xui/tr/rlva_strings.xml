@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<llsd>
+	<map>
+		<key>strings</key>
+		<map>
+			<key>hidden_generic</key>
+			<map>
+				<key>value</key>
+				<string>(Gizli)</string>
+			</map>
+			<key>hidden_parcel</key>
+			<map>
+				<key>value</key>
+				<string>(Gizli parsel)</string>
+			</map>
+			<key>hidden_region</key>
+			<map>
+				<key>value</key>
+				<string>(Gizli bölge)</string>
+			</map>
+			<key>blocked_recvim</key>
+			<map>
+				<key>value</key>
+				<string>*** IM görüntüleyicin tarafından engellendi</string>
+				<key>description</key>
+				<string>Gelen IM engellendiğinde asıl mesajın yerine gösterilir</string>
+				<key>label</key>
+				<string>Engellenen gelen IM (yerel)</string>
+				<key>customizable</key>
+			</map>
+			<key>blocked_sendim</key>
+			<map>
+				<key>value</key>
+				<string>*** IM gönderenin görüntüleyicisi tarafından engellendi</string>
+				<key>description</key>
+				<string>Giden IM engellendiğinde gösterilir (ve karşı tarafa gönderilir)</string>
+				<key>label</key>
+				<string>Engellenen giden IM (yerel + uzak)</string>
+				<key>customizable</key>
+			</map>
+			<key>blocked_generic</key>
+			<map>
+				<key>value</key>
+				<string>RLV kısıtlamaları nedeniyle bu işlem yapılamıyor</string>
+			</map>
+			<key>blocked_permattach</key>
+			<map>
+				<key>value</key>
+				<string>'[OBJECT]' takma denemesi RLV kısıtlamaları nedeniyle reddedildi</string>
+			</map>
+			<key>blocked_permteleport</key>
+			<map>
+				<key>value</key>
+				<string>'[OBJECT]' seni teleport etme izni alamadı (RLV kısıtlaması)</string>
+			</map>
+			<key>blocked_startim</key>
+			<map>
+				<key>value</key>
+				<string>RLV kısıtlamaları nedeniyle [RECIPIENT] ile IM başlatılamıyor</string>
+			</map>
+			<key>blocked_startconf</key>
+			<map>
+				<key>value</key>
+				<string>RLV kısıtlamaları nedeniyle [RECIPIENT] ile konferans başlatılamıyor</string>
+			</map>
+			<key>blocked_teleport</key>
+			<map>
+				<key>value</key>
+				<string>RLV kısıtlamaları nedeniyle teleport başlatılamıyor</string>
+			</map>
+			<key>blocked_viewxxx</key>
+			<map>
+				<key>value</key>
+				<string>RLV kısıtlamaları nedeniyle [TYPE] açılamıyor</string>
+			</map>
+			<key>blocked_wireframe</key>
+			<map>
+				<key>value</key>
+				<string>RLV kısıtlamaları nedeniyle tel kafes kipi açılamıyor</string>
+			</map>
+			<key>blocked_recvim_remote</key>
+			<map>
+				<key>value</key>
+				<string>Yazdığın sakin şu an anlık mesajlarını okuyamıyor. Sonra tekrar dene.</string>
+				<key>description</key>
+				<string>Karşı tarafın IM'si engellendiğinde ona gönderilir</string>
+				<key>label</key>
+				<string>Engellenen gelen IM (uzak)</string>
+				<key>customizable</key>
+			</map>
+			<key>blocked_tplurerequest_remote</key>
+			<map>
+				<key>value</key>
+				<string>Sakin şu an kabul edemiyor. Sonra tekrar dene.</string>
+				<key>description</key>
+				<string>Teleport teklifi veya isteği engellendiğinde karşı tarafa gönderilir</string>
+				<key>label</key>
+				<string>Engellenen teleport teklifi / isteği (uzak)</string>
+				<key>customizable</key>
+			</map>
+		</map>
+		<key>anonyms</key>
+		<array>
+			<string>Bir sakin</string>
+			<string>Bu sakin</string>
+			<string>Şu sakin</string>
+			<string>Bir kişi</string>
+			<string>Bu kişi</string>
+			<string>Şu kişi</string>
+			<string>Bir insan</string>
+			<string>Bu insan</string>
+			<string>Şu insan</string>
+			<string>Bir yabancı</string>
+			<string>Bu yabancı</string>
+			<string>Şu yabancı</string>
+			<string>Bir varlık</string>
+			<string>Bu varlık</string>
+			<string>Şu varlık</string>
+			<string>Bir ajan</string>
+			<string>Bu ajan</string>
+			<string>Şu ajan</string>
+			<string>Bir ruh</string>
+			<string>Bu ruh</string>
+			<string>Şu ruh</string>
+			<string>Birileri</string>
+			<string>Bazı kişiler</string>
+			<string>Biri</string>
+			<string>Gizemli biri</string>
+			<string>Bilinmeyen bir varlık</string>
+			<string>Kimliği belirsiz</string>
+			<string>Bilinmeyen biri</string>
+		</array>
+	</map>
+</llsd>

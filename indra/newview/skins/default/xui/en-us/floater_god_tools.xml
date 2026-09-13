@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-450" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" height="450" left="433" min_height="450" min_width="600"
+     mouse_opaque="true" name="godtools floater" title="God Tools" width="600">
+	<tab_container bottom="-450" follows="left|top|right|bottom" height="430" left="0" mouse_opaque="false"
+	     name="GodTools Tabs" tab_position="top" width="600">
+
+		<panel border="true" bottom="-429" follows="left|top|right|bottom" height="413"
+		     label="Grid" left="1" mouse_opaque="false" name="grid" width="598">
+			<button bottom="-56" follows="left|top|right" font="SansSerifSmall" halign="center" height="40"
+			     image_overlay="icn_region_kick.png" image_overlay_alignment="left" pad_left="8"
+			     label="Kick all users" label_selected="Kick all users" left="14"
+			     mouse_opaque="true" name="Kick all users" width="570">
+				<button.commit_callback
+				function="GridTools.KickAllUsers" />
+			</button>
+			<button bottom="-112" follows="left|top|right" font="SansSerifSmall" halign="center"
+			     height="40" image_overlay="icn_region_reset.png" image_overlay_alignment="left" pad_left="8"
+			     label="Flush This Region&apos;s Map Visibility Caches"
+			     label_selected="Flush This Region&apos;s Map Visibility Caches" left="14"
+			     mouse_opaque="true" name="Flush This Region&apos;s Map Visibility Caches"
+			     width="570">
+				<button.commit_callback
+				function="GridTools.FlushMapVisibilityCaches" />
+			</button>
+		</panel>
+
+		<panel border="true" bottom="-429" follows="left|top|right|bottom" height="413"
+		     label="Region" left="1" mouse_opaque="false" name="region" width="598">
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-32" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="18" left="14"
+			     mouse_opaque="true" name="Sim Name:" v_pad="0" width="120">
+				Sim Name:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-36"
+			     follows="left|top|right" font="SansSerifSmall" height="22" left="140"
+			     max_length="63" mouse_opaque="true" name="region name" width="444">
+			       <line_editor.commit_callback
+					function="RegionTools.ChangeAnything" />
+			</line_editor>
+
+			<check_box bottom="-70" follows="left|top" font="SansSerifSmall" height="22"
+			     initial_value="false" label="Prelude" left="14" mouse_opaque="true"
+			     name="check prelude" tool_tip="Set this to make the region a prelude."
+			     width="280">
+			       <check_box.commit_callback
+					function="RegionTools.ChangePrelude" />
+			</check_box>
+			<check_box bottom="-96" follows="left|top" font="SansSerifSmall" height="22"
+			     initial_value="false" label="Fixed Sun" left="14" mouse_opaque="true"
+			     name="check fixed sun"
+			     tool_tip="Fix the sun position (like in Region/Estate &gt; Terrain."
+			     width="280">
+			       <check_box.commit_callback
+					function="RegionTools.ChangeAnything" />
+			</check_box>
+			<check_box bottom="-122" follows="left|top" font="SansSerifSmall" height="22"
+			     initial_value="false" label="Reset Home On Teleport" left="14"
+			     mouse_opaque="true" name="check reset home"
+			     tool_tip="When resident teleports out, reset their home to the destination position."
+			     width="280">
+			       <check_box.commit_callback
+					function="RegionTools.ChangeAnything" />
+			</check_box>
+			<check_box bottom="-148" follows="left|top" font="SansSerifSmall" height="22"
+			     initial_value="false" label="Visible" left="14" mouse_opaque="true"
+			     name="check visible"
+			     tool_tip="Set this to make the region visible to non-gods." width="280">
+			       <check_box.commit_callback
+					function="RegionTools.ChangeAnything" />
+			</check_box>
+			<check_box bottom="-174" follows="left|top" font="SansSerifSmall" height="22"
+			     initial_value="false" label="Damage" left="14" mouse_opaque="true"
+			     name="check damage" tool_tip="Set this to enable damage in this region."
+			     width="280">
+			       <check_box.commit_callback
+					function="RegionTools.ChangeAnything" />
+			</check_box>
+			<check_box bottom="-200" follows="left|top" font="SansSerifSmall" height="22"
+			     initial_value="false" label="Block Traffic Tracking" left="14"
+			     mouse_opaque="true" name="block dwell"
+			     tool_tip="Set this to make the region not compute traffic." width="280">
+			       <check_box.commit_callback
+					function="RegionTools.ChangeAnything" />
+			</check_box>
+			<check_box bottom="-226" follows="left|top" font="SansSerifSmall" height="22"
+			     initial_value="false" label="Block Terraform" left="14" mouse_opaque="true"
+			     name="block terraform"
+			     tool_tip="Set this to disallow people terraforming their land" width="280">
+			       <check_box.commit_callback
+					function="RegionTools.ChangeAnything" />
+			</check_box>
+			<check_box bottom="-252" follows="left|top" font="SansSerifSmall" height="22"
+			     initial_value="false" label="Sandbox" left="14" mouse_opaque="true"
+			     name="is sandbox" tool_tip="Toggle whether this is a sandbox region."
+			     width="280">
+			       <check_box.commit_callback
+					function="RegionTools.ChangeAnything" />
+			</check_box>
+			<check_box bottom="-278" follows="left|top" font="SansSerifSmall" height="22"
+			     initial_value="false" label="Gaming" left="14" mouse_opaque="true"
+			     name="is gaming" tool_tip="Toggle whether this is a gaming region."
+			     width="280">
+			       <check_box.commit_callback
+					function="RegionTools.ChangeAnything" />
+			</check_box>
+			<check_box bottom="-304" follows="left|top" font="SansSerifSmall" height="22"
+			     initial_value="false" label="Hide region from search" left="14" mouse_opaque="true"
+			     name="hide from search" tool_tip="Toggle whether this region is searchable at all."
+			     width="280">
+			       <check_box.commit_callback
+					function="RegionTools.ChangeAnything" />
+			</check_box>
+
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-70" drop_shadow_visible="true" follows="left|top" font="SansSerifSmall"
+			     h_pad="0" halign="left" height="18" left="308" mouse_opaque="true"
+			     name="estate id" v_pad="0" width="130">
+				Estate ID:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-74"
+			     follows="top|right" font="SansSerifSmall" height="22" left="444"
+			     max_length="10" mouse_opaque="true" name="estate" width="140">
+			       <line_editor.commit_callback
+					function="RegionTools.ChangeAnything" />
+			</line_editor>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-96" drop_shadow_visible="true" follows="left|top" font="SansSerifSmall"
+			     h_pad="0" halign="left" height="18" left="308" mouse_opaque="true"
+			     name="parent id" v_pad="0" width="130">
+				Parent ID:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-100"
+			     follows="top|right" font="SansSerifSmall" height="22" left="444"
+			     max_length="10" mouse_opaque="true" name="parentestate"
+			     tool_tip="This is the parent estate for this region" width="140">
+			       <line_editor.commit_callback
+					function="RegionTools.ChangeAnything" />
+			</line_editor>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-122" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="18" left="308"
+			     mouse_opaque="true" name="Grid Pos: " v_pad="0" width="130">
+				Grid Pos:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-126"
+			     follows="top|right" font="SansSerifSmall" height="22" left="444"
+			     max_length="10" mouse_opaque="true" name="gridposx"
+			     tool_tip="This is the grid x position for this region" width="66">
+			       <line_editor.commit_callback
+					function="RegionTools.ChangeAnything" />
+			</line_editor>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-126"
+			     follows="top|right" font="SansSerifSmall" height="22" left="518"
+			     max_length="10" mouse_opaque="true" name="gridposy"
+			     tool_tip="This is the grid y position for this region" width="66">
+			       <line_editor.commit_callback
+					function="RegionTools.ChangeAnything" />
+			</line_editor>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-148" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="18" left="308"
+			     mouse_opaque="true" name="Redirect to Grid: " v_pad="0" width="130">
+				Redirect to Grid:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-152"
+			     follows="top|right" font="SansSerifSmall" height="22" left="444"
+			     max_length="10" mouse_opaque="true" name="redirectx" width="66">
+			       <line_editor.commit_callback
+					function="RegionTools.ChangeAnything" />
+			</line_editor>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-152"
+			     follows="top|right" font="SansSerifSmall" height="22" left="518"
+			     max_length="10" mouse_opaque="true" name="redirecty" width="66">
+			       <line_editor.commit_callback
+					function="RegionTools.ChangeAnything" />
+			</line_editor>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-174" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="18" left="308"
+			     mouse_opaque="true" name="billable factor text" v_pad="0" width="140">
+				Billable Factor:
+			</text>
+			<spinner bottom="-178" decimal_digits="3" follows="top|right" height="22"
+			     increment="0.1" initial_val="1" left="456" max_val="4" min_val="0"
+			     mouse_opaque="true" name="billable factor" label_width="0" width="128">
+                          <spinner.commit_callback
+                           function="RegionTools.ChangeAnything" />
+                        </spinner>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-200" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="18" left="308"
+			     mouse_opaque="true" name="land cost text" v_pad="0" width="140">
+				[CURRENCY] per sq. meter:
+			</text>
+			<spinner bottom="-204" decimal_digits="3" follows="top|right" height="22" increment="1"
+			     initial_val="1" left="456" max_val="100" min_val="0" mouse_opaque="true"
+			     name="land cost" label_width="0" width="128">
+                          <spinner.commit_callback
+                           function="RegionTools.ChangeAnything" />
+                        </spinner>
+
+			<button bottom="-248" follows="top|right" font="SansSerifSmall" halign="center"
+			     height="32" image_overlay="icn_region_restart.png" image_overlay_alignment="left" pad_left="8"
+			     label="Refresh" label_selected="Refresh" left="308"
+			     mouse_opaque="true" name="Refresh"
+			     tool_tip="Click here to refresh the above information." width="276">
+				<button.commit_callback
+				function="RegionTools.Refresh" />
+			</button>
+			<button bottom="-288" follows="top|right" font="SansSerifSmall" halign="center"
+			     height="32" image_overlay="icn_region_apply.png" image_overlay_alignment="left" pad_left="8"
+			     label="Apply" label_selected="Apply" left="308"
+			     mouse_opaque="true" name="Apply"
+			     tool_tip="Click here to apply any changes from above." width="276">
+				<button.commit_callback
+				function="RegionTools.ApplyChanges" />
+			</button>
+
+			<button bottom="-340" follows="left|top" font="SansSerifSmall" halign="center"
+			     height="32" image_overlay="icn_region_bake.png" image_overlay_alignment="left" pad_left="8"
+			     label="Bake Terrain" label_selected="Bake Terrain" left="14"
+			     mouse_opaque="true" name="Bake Terrain"
+			     tool_tip="Save the current terrain as default." width="182">
+			       <button.commit_callback
+					function="RegionTools.BakeTerrain" />
+			</button>
+			<button bottom="-340" follows="left|top" font="SansSerifSmall" halign="center"
+			     height="32" image_overlay="icn_region_reset.png" image_overlay_alignment="left" pad_left="8"
+			     label="Revert Terrain" label_selected="Revert Terrain" left="208"
+			     mouse_opaque="true" name="Revert Terrain"
+			     tool_tip="Replace the current terrain with default." width="182">
+			       <button.commit_callback
+					function="RegionTools.RevertTerrain" />
+			</button>
+			<button bottom="-340" follows="left|top|right" font="SansSerifSmall" halign="center"
+			     height="32" image_overlay="icn_region_copy.png" image_overlay_alignment="left" pad_left="8"
+			     label="Swap Terrain" label_selected="Swap Terrain" left="402"
+			     mouse_opaque="true" name="Swap Terrain"
+			     tool_tip="Swap current terrain with default." width="182">
+			       <button.commit_callback
+					function="RegionTools.SwapTerrain" />
+			</button>
+			<button bottom="-380" follows="left|top" font="SansSerifSmall" halign="center"
+			     height="32" image_overlay="icn_region_choose.png" image_overlay_alignment="left" pad_left="8"
+			     label="Select Region" label_selected="Select Region" left="14"
+			     mouse_opaque="true" name="Select Region"
+			     tool_tip="Select the whole region with the land tool." width="279">
+				<button.commit_callback
+				function="RegionTools.SelectRegion" />
+			</button>
+			<button bottom="-380" follows="left|top|right" font="SansSerifSmall" halign="center"
+			     height="32" image_overlay="icn_region_download.png" image_overlay_alignment="left" pad_left="8"
+			     label="Autosave now" label_selected="Autosave now" left="305"
+			     mouse_opaque="true" name="Autosave now"
+			     tool_tip="Save gzipped state to autosave directory." width="279">
+				<button.commit_callback
+				function="RegionTools.SaveState" />
+			</button>
+		</panel>
+
+		<panel border="true" bottom="-429" follows="left|top|right|bottom" height="413"
+		     label="Objects" left="1" mouse_opaque="false" name="objects" width="598">
+            <string
+             name="no_target">
+                (no target)
+            </string>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-32" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="18" left="14"
+			     mouse_opaque="true" name="Sim Name:" v_pad="0" width="120">
+				Sim Name:
+			</text>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-32" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="18" left="140"
+			     mouse_opaque="true" name="region name" v_pad="0" width="444">
+				Welsh
+			</text>
+			<check_box bottom="-68" follows="left|top" font="SansSerifSmall" height="22"
+			     initial_value="false" label="Disable Scripts" left="14" mouse_opaque="true"
+			     name="disable scripts"
+			     tool_tip="Set this to disable all scripts in this region" width="186">
+				<check_box.commit_callback
+					function="ObjectTools.ChangeAnything" />
+			</check_box>
+			<check_box bottom="-68" follows="left|top" font="SansSerifSmall" height="22"
+			     initial_value="false" label="Disable Collisions" left="206"
+			     mouse_opaque="true" name="disable collisions"
+			     tool_tip="Set this to disable non-agent collisions in this region"
+			     width="186">
+				<check_box.commit_callback
+					function="ObjectTools.ChangeAnything" />
+			</check_box>
+			<check_box bottom="-68" follows="left|top|right" font="SansSerifSmall" height="22"
+			     initial_value="false" label="Disable Physics" left="398"
+			     mouse_opaque="true" name="disable physics"
+			     tool_tip="Set this to disable all physics in this region" width="186">
+				<check_box.commit_callback
+					function="ObjectTools.ChangeAnything" />
+			</check_box>
+			<button bottom="-104" follows="left|top|right" font="SansSerifSmall" halign="center"
+			     height="32" image_overlay="icn_region_apply.png" image_overlay_alignment="left" pad_left="8"
+			     label="Apply" label_selected="Apply" left="14"
+			     mouse_opaque="true" name="Apply"
+			     tool_tip="Click here to apply any changes from above." width="570">
+				<button.commit_callback
+				function="ObjectTools.ApplyChanges" />
+			</button>
+			<button bottom="-148" follows="left|top" font="SansSerifSmall" halign="center"
+			     height="32" image_overlay="icn_region_profile.png" image_overlay_alignment="left" pad_left="8"
+			     label="Set Target" label_selected="Set Target" left="14"
+			     mouse_opaque="true" name="Set Target"
+			     tool_tip="Set the target avatar for object deletion." width="180">
+				<button.commit_callback
+				function="ObjectTools.Set" />
+			</button>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-142" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="18" left="206"
+			     mouse_opaque="true" name="target_avatar_name" v_pad="0" width="378">
+				(no target)
+			</text>
+			<button bottom="-192" follows="left|top|right" font="SansSerifSmall" halign="center"
+			     height="32" image_overlay="icn_region_remove.png" image_overlay_alignment="left" pad_left="8"
+			     label="Delete Target&apos;s Scripted Objects On Others Land"
+			     label_selected="Delete Target&apos;s Scripted Objects On Others Land"
+			     left="14" mouse_opaque="true"
+			     name="Delete Target&apos;s Scripted Objects On Others Land"
+			     tool_tip="Delete all scripted objects owned by the target on land not owned by the target. (no copy) objects will be returned."
+			     width="570">
+				<button.commit_callback
+				function="ObjectTools.DeletePublicOwnedBy" />
+			</button>
+			<button bottom="-232" follows="left|top|right" font="SansSerifSmall" halign="center"
+			     height="32" image_overlay="icn_region_remove.png" image_overlay_alignment="left" pad_left="8"
+			     label="Delete Target&apos;s Scripted Objects On *Any* Land"
+			     label_selected="Delete Target&apos;s Scripted Objects On *Any* Land"
+			     left="14" mouse_opaque="true"
+			     name="Delete Target&apos;s Scripted Objects On *Any* Land"
+			     tool_tip="Delete all scripted objects owned by the target in this region. (no copy) objects will be returned."
+			     width="570">
+				<button.commit_callback
+				function="ObjectTools.DeleteAllScriptedOwnedBy" />
+			</button>
+			<button bottom="-272" follows="left|top|right" font="SansSerifSmall" halign="center"
+			     height="32" image_overlay="icn_region_remove.png" image_overlay_alignment="left" pad_left="8"
+			     label="Delete *ALL* Of Target&apos;s Objects"
+			     label_selected="Delete *ALL* Of Target&apos;s Objects" left="14"
+			     mouse_opaque="true" name="Delete *ALL* Of Target&apos;s Objects"
+			     tool_tip="Delete all objects owned by the target in this region. (no copy) objects will be returned."
+			     width="570">
+				<button.commit_callback
+				function="ObjectTools.DeleteAllOwnedBy" />
+			</button>
+			<button bottom="-324" follows="left|top|right" font="SansSerifSmall" halign="center"
+			     height="32" image_overlay="icn_region_colliders.png" image_overlay_alignment="left" pad_left="8"
+			     label="Get Top Colliders" label_selected="Get Top Colliders"
+			     left="14" mouse_opaque="true" name="Get Top Colliders"
+			     tool_tip="Gets list of objects experiencing the most narrowphase callbacks."
+			     width="570">
+				<button.commit_callback
+				function="ObjectTools.GetTopColliders" />
+			</button>
+			<button bottom="-364" follows="left|top|right" font="SansSerifSmall" halign="center"
+			     height="32" image_overlay="icn_region_scripts.png" image_overlay_alignment="left" pad_left="8"
+			     label="Get Top Scripts" label_selected="Get Top Scripts"
+			     left="14" mouse_opaque="true" name="Get Top Scripts"
+			     tool_tip="Gets list of objects spending the most time running scripts."
+			     width="570">
+				<button.commit_callback
+				function="ObjectTools.GetTopScripts" />
+			</button>
+			<button bottom="-404" follows="left|top|right" font="SansSerifSmall" halign="center"
+			     height="32" image_overlay="icn_region_scripts.png" image_overlay_alignment="left" pad_left="8"
+			     label="Scripts digest" label_selected="Scripts digest" left="14"
+			     mouse_opaque="true" name="Scripts digest"
+			     tool_tip="Gets a list of all scripts and number of occurences of each."
+			     width="570">
+				<button.commit_callback
+				function="ObjectTools.GetScriptDigest" />
+			</button>
+		</panel>
+
+		<panel border="true" bottom="-429" follows="left|top|right|bottom" height="413"
+		     label="Request" left="1" mouse_opaque="true" name="request" width="598">
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-40" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="18" left="14"
+			     mouse_opaque="true" name="Destination:" v_pad="0" width="120">
+				Destination:
+			</text>
+			<combo_box allow_text_entry="false" bottom="-44" follows="left|top|right" height="22" left="140"
+			     max_chars="20" mouse_opaque="true" name="destination" width="444">
+				<combo_item name="Selection" value="Selection">
+					Selection
+				</combo_item>
+				<combo_item name="AgentRegion" value="Agent Region">
+					Agent Region
+				</combo_item>
+			</combo_box>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-80" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="18" left="14"
+			     mouse_opaque="true" name="Request:" v_pad="0" width="120">
+				Request:
+			</text>
+			<combo_box allow_text_entry="true" bottom="-84" follows="left|top|right" height="22" left="140"
+			     max_chars="20" mouse_opaque="true" name="request" width="444">
+				<combo_item name="colliders&lt;steps&gt;" value="colliders &lt;steps&gt;">
+					colliders &lt;steps&gt;
+				</combo_item>
+				<combo_item name="scripts&lt;count&gt;,&lt;optionalpattern&gt;"
+				     value="scripts &lt;count&gt;,&lt;optional pattern&gt;">
+					scripts &lt;count&gt;,&lt;optional pattern&gt;
+				</combo_item>
+				<combo_item name="objects&lt;pattern&gt;" value="objects &lt;pattern&gt;">
+					objects &lt;pattern&gt;
+				</combo_item>
+				<combo_item name="rez&lt;asset_id&gt;" value="rez &lt;asset_id&gt;">
+					rez &lt;asset_id&gt;
+				</combo_item>
+			</combo_box>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-120" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="18" left="14"
+			     mouse_opaque="true" name="Parameter:" v_pad="0" width="120">
+				Parameter:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-124"
+			     follows="left|top|right" font="SansSerifSmall" height="22" left="140"
+			     max_length="63" mouse_opaque="true" name="parameter" width="444" />
+			<button bottom="-176" follows="left|top|right" font="SansSerifSmall" halign="center" height="36"
+			     image_overlay="icn_region_apply.png" image_overlay_alignment="left" pad_left="8"
+			     label="Make Request" label_selected="Make Request" left="14"
+			     mouse_opaque="true" name="Make Request" width="570">
+				<button.commit_callback
+					function="GodTools.Request" />
+			</button>
+		</panel>
+	</tab_container>
+</floater>

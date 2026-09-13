@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_snapshot_profile" title="Pubblica nel feed del mio profilo">
+	<text_editor name="caption">Digita qui il tuo messaggio.</text_editor>
+	<check_box name="add_location_cb" label="Includi posizione"/>
+	<button name="cancel_btn" label="Annulla"/>
+	<button name="post_btn" label="Pubblica"/>
+	<string name="default_message">Clicca sul link 'fotografia' sopra per vedere l'originale più grande.</string>
+	<string name="upload_message">&quot;Caricamento...&quot;</string>
+</floater>

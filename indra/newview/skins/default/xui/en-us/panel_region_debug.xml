@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="0" follows="left|right|top|bottom" height="548" label="Debug"
+     layout="topleft" left="0" name="Debug" width="690">
+	<text bottom="-28" follows="left|top" font="SansSerif" height="20" left="12"
+	     name="region_text_lbl" width="80">
+		Region:
+	</text>
+	<text bottom="-28" follows="left|top|right" font="SansSerif" height="20" left="96"
+	     name="region_text" width="580">
+		unknown
+	</text>
+
+	<view_border bevel_style="none" follows="top|left" height="200" left="12" bottom="-248" width="330" />
+	<view_border bevel_style="none" follows="top|left|right" height="200" left="354" bottom="-248" width="324" />
+
+	<check_box bottom="-72" follows="left|top" height="22" label="Disable Scripts"
+	     left="24" name="disable_scripts_check"
+	     tool_tip="Disable all scripts in this region" width="260" />
+	<button bottom="-72" follows="left|top" font="SansSerifSmall" height="22" label=""
+	     tool_tip="Help" image_overlay="icn_region_help.png" image_overlay_alignment="center"
+	     left="296" name="disable_scripts_help" width="22" />
+	<check_box bottom="-104" follows="left|top" height="22" label="Disable Collisions"
+	     left="24" name="disable_collisions_check"
+	     tool_tip="Disable non-avatar collisions in this region" width="260" />
+	<button bottom="-104" follows="left|top" font="SansSerifSmall" height="22" label=""
+	     tool_tip="Help" image_overlay="icn_region_help.png" image_overlay_alignment="center"
+	     left="296" name="disable_collisions_help" width="22" />
+	<check_box bottom="-136" follows="left|top" height="22" label="Disable Physics"
+	     left="24" name="disable_physics_check"
+	     tool_tip="Disable all physics in this region" width="260" />
+	<button bottom="-136" follows="left|top" font="SansSerifSmall" height="22" label=""
+	     tool_tip="Help" image_overlay="icn_region_help.png" image_overlay_alignment="center"
+	     left="296" name="disable_physics_help" width="22" />
+	<button bottom="-188" enabled="false" follows="left|top" height="28" label="Apply"
+	     image_overlay="icn_region_apply.png" image_overlay_alignment="left" pad_left="6"
+	     font="SansSerifSmall" left="24" name="apply_btn" width="140" />
+
+	<text bottom="-72" follows="left|top" height="20" left="366" width="200" name="objret_text_lbl">
+	  Object Return
+	</text>
+	<text bottom="-100" follows="left|top" height="20" left="366" width="80" name="resident_text_lbl">
+	  Resident:
+	</text>
+	<line_editor bottom="-102" follows="left|top" height="22" left="450"
+		 border_style="line" border_thickness="1" enabled="false" max_length="254" mouse_opaque="false"
+	     name="target_avatar_name" width="110">
+	  (none)
+    </line_editor>
+	<button bottom="-102" follows="left|top" height="28" label="Choose..."
+	     left="568" name="choose_avatar_btn" width="110"
+	     image_overlay="icn_region_choose.png" image_overlay_alignment="left" pad_left="4" font="SansSerifSmall" />
+	<text bottom="-136" follows="left|top" height="20" left="366" width="80" name="options_text_lbl">
+	  Options:
+	</text>
+    <check_box bottom="-136" follows="left|top" height="20" label="Return only those objects with scripts"
+         left="450" name="return_scripts"
+         tool_tip="Return only objects which have scripts." width="220" />
+    <check_box bottom="-164" follows="left|top" height="20" label="Return only those objects on someone else's land"
+         left="450" name="return_other_land"
+         tool_tip="Return only objects which are on land belonging to someone else" width="220" />
+    <check_box bottom="-192" follows="left|top" height="20" label="Return objects in every region of this estate"
+         left="450" name="return_estate_wide"
+         tool_tip="Return objects in all of the regions that make up this estate" width="220" />
+	<button bottom="-228" follows="left|top" height="28"
+	     label="Return"
+	     left="450" name="return_btn" width="140"
+	     image_overlay="icn_region_return.png" image_overlay_alignment="left" pad_left="6" font="SansSerifSmall" />
+
+	<button bottom="-292" follows="left|top" height="28" label="Get Top Colliders..."
+	     left="12" name="top_colliders_btn"
+	     image_overlay="icn_region_colliders.png" image_overlay_alignment="left" pad_left="6"
+	     font="SansSerifSmall"
+	     tool_tip="List of objects experiencing the most potential collisions"
+	     width="300" />
+	<button bottom="-292" follows="left|top" font="SansSerifSmall" height="28" label=""
+	     tool_tip="Help" image_overlay="icn_region_help.png" image_overlay_alignment="center"
+	     left="320" name="top_colliders_help" width="28" />
+	<button bottom="-292" follows="left|top" height="28" label="Get Top Scripts..."
+	     left="366" name="top_scripts_btn"
+	     image_overlay="icn_region_scripts.png" image_overlay_alignment="left" pad_left="6"
+	     font="SansSerifSmall"
+	     tool_tip="List of objects spending the most time running scripts"
+	     width="280" />
+	<button bottom="-292" follows="left|top" font="SansSerifSmall" height="28" label=""
+	     tool_tip="Help" image_overlay="icn_region_help.png" image_overlay_alignment="center"
+	     left="654" name="top_scripts_help" width="28" />
+
+  <button bottom="-360" follows="left|top" height="28" label="Restart Region"
+	     left="12" name="restart_btn"
+	     image_overlay="icn_region_restart.png" image_overlay_alignment="left" pad_left="6"
+	     font="SansSerifSmall"
+	     tool_tip="Give x second countdown and restart region" width="200" />
+  <spinner bottom="-358" decimal_digits="0" follows="left|top" height="22"
+             increment="1" initial_val="120" left="224" max_val="3600" min_val="15"
+             mouse_opaque="true" name="rcount" label="Seconds:" label_width="70" width="150" />
+  <button bottom="-360" follows="left|top" font="SansSerifSmall" height="28" label=""
+	     tool_tip="Help" image_overlay="icn_region_help.png" image_overlay_alignment="center"
+	     left="384" name="restart_help" width="28" />
+  <button bottom="-400" follows="left|top" height="28" label="Delay Restart"
+	     left="12" name="cancel_restart_btn"
+	     image_overlay="icn_region_delay.png" image_overlay_alignment="left" pad_left="6"
+	     font="SansSerifSmall"
+	     tool_tip="Delay region restart by one hour" width="200" />
+</panel>

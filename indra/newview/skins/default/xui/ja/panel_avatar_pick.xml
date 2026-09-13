@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Pick" title="選択">
+	<texture_picker name="snapshot_ctrl" />
+	<line_editor name="given_name_editor" />
+	<text_editor name="desc_editor" />
+	<line_editor name="location_editor" />
+	<button name="set_location_btn" label="場所を設定" />
+	<button name="open_picture_btn" label="画像を開く" />
+	<button name="pick_teleport_btn" label="テレポート" />
+	<button name="pick_map_btn" label="マップで表示" />
+</panel>

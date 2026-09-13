@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="general_tab" label="General">
+	<string name="help_text">
+		Genel sekmesi aşağıdakiler hakkında genel bilgiler içerir:
+bu grup, Sahiplerin ve görünür Üyelerin bir listesi, 
+genel Grup Ayarlari ve üye seçenekleri.
+
+Daha fazla yardım için farenizi seçeneklerin üzerine getirin.
+	</string>
+	<string name="group_info_unchanged">Genel grup bilgileri değişti.</string>
+	<button name="help_button" label="?" />
+	<line_editor name="group_name_editor" label="Yeni grubunuzun adını buraya yazın" />
+	<name_box name="group_name">Yeni grubunuzun adını buraya yazın</name_box>
+	<text name="prepend_founded_by">Tarafından kuruldu</text>
+	<name_box name="founder_name" />
+	<text name="group_key_text">Grup Anahtarı:</text>
+	<line_editor name="group_key" />
+	<button name="copy_uri" label="URI'yi kopyala" />
+	<text name="group_charter_label">Grup Şartı</text>
+	<texture_picker name="insignia" label="Grup Amblemi" tool_tip="Bir resim seçmek için tıklayın" />
+	<text_editor name="charter">Grup Şartı</text_editor>
+	<button name="join_button" label="Katıl ([CURRENCY]0)" />
+	<button name="info_button" label="Detaylı Görünüm" />
+	<name_list name="visible_members">
+		<column name="name" label="Üye Adı" />
+		<column name="title" label="Başlık" />
+		<column name="online" label="Son Giriş" />
+	</name_list>
+	<text name="text_group_preferences">Grup Ayarlari</text>
+	<panel name="preferences_container">
+		<check_box name="show_in_group_list" label="Aramada göster" tool_tip="İnsanların bu grubu arama sonuçlarında görmesine izin verin." />
+		<check_box name="open_enrollement" label="Kayıt aç" tool_tip="Bu grubun yeni üyelerin davet edilmeden katılmasına izin verip vermeyeceğini ayarlar." />
+		<check_box name="check_enrollment_fee" label="Kayıt ücreti: [CURRENCY]" tool_tip="Gruba katılmak için kayıt ücreti istenip istenmeyeceğini ayarlar." />
+		<spinner name="spin_enrollment_fee" tool_tip="Yeni üyelerin gruba katılabilmeleri için Kayıt Ücreti işaretlendiğinde bu ücreti ödemeleri gerekmektedir." />
+		<text name="content_rating">İçerik Derecelendirmesi</text>
+		<combo_box name="group_mature_check" tool_tip="Grup bilgilerinizin olgun kabul edilip edilmeyeceğini ayarlar.">
+			<combo_item name="select_mature">- Olgun'u seçin -</combo_item>
+			<combo_item name="mature">Yetişkin İçerik</combo_item>
+			<combo_item name="pg">PG İçeriği</combo_item>
+		</combo_box>
+		<check_box name="receive_notices" label="Grup bildirimlerini alın" tool_tip="Bu gruptan Bildirim almak isteyip istemediğinizi ayarlar.   Bu grup size spam gönderiyorsa bu kutunun işaretini kaldırın." />
+		<check_box name="receive_chat" label="Grup sohbetine katılın" tool_tip="Grup sohbetine katılmak isteyip istemediğinizi ayarlar.   Bu grup size spam gönderiyorsa bu kutunun işaretini kaldırın." />
+		<check_box name="list_groups_in_profile" label="Grubu profilimde listele" tool_tip="Bu grubu Profilinizde listelemek isteyip istemediğinizi ayarlar" />
+		<text name="active_title_label">Aktif Başlığım</text>
+		<combo_box name="active_title" tool_tip="Bu grup etkinken avatarınızın ad etiketinde görünecek başlığı ayarlar." />
+	</panel>
+	<string name="incomplete_member_data_str">Üye verileri alınıyor</string>
+	<string name="confirm_group_create_str">
+		Bu grubu oluşturmanın maliyeti [GROUPCREATEFEE]. 
+Bu grubu oluşturmak için [GROUPCREATEFEE] harcamak istediğinizden gerçekten, gerçekten, GERÇEKTEN emin misiniz?
+Bu gruba 48 saat içinde başka kimse katılmazsa grubun dağılacağını ve grubun adının gelecekte kullanılamayacağını unutmayın.
+	</string>
+</panel>

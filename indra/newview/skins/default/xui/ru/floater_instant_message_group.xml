@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="im_floater" label="(неизвестно)" title="(неизвестно)">
+	<string name="ringing">Подключение к голосовому чату...</string>
+	<string name="connected">Соединение установлено. Нажмите «Завершить», чтобы сбросить звонок.</string>
+	<string name="hang_up">Вы вышли из голосового чата</string>
+	<string name="voice_icon">icn_voice-groupfocus.tga</string>
+	<string name="title_string">IM с [NAME]</string>
+	<string name="typing_start_string">[NAME] печатает...</string>
+	<string name="session_start_string">Начинаем сеанс с [NAME], подождите.</string>
+	<string name="default_text_label">Нажмите, чтобы написать IM</string>
+	<string name="moderated_chat_label">(Модерация: голос по умолчанию выключен)</string>
+	<string name="muted_text_label">Модератор группы отключил ваш текстовый чат.</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<button name="group_info_btn" label="О группе" />
+			<button name="history_btn" label="История" />
+			<button name="ding_btn" label="Звук" />
+			<check_box name="Support Check" label="Сборка" tool_tip="Снимите флажок, чтобы не отправлять номер сборки." />
+			<check_box name="im_translate_check" tool_tip="Отметьте, чтобы включить перевод" />
+			<button name="im_translate_btn" label="Перевод" tool_tip="Языки этой группы" />
+			<button name="start_call_btn" label="Войти в звонок" />
+			<button name="end_call_btn" label="Завершить" />
+			<button name="toggle_active_speakers_btn" label="&lt; &lt;" tool_tip="Показать или скрыть список участников этого IM" />
+			<text_editor name="im_history" />
+			<line_editor name="chat_editor" />
+			<button name="send_btn" label="Отправить" />
+		</layout_panel>
+		<layout_panel name="active_speakers_panel" />
+	</layout_stack>
+	<string name="live_help_dialog">
+		*** Запрос помощи ***
+Сначала загляните в справку SL — нажмите F1 или откройте базу знаний: http://secondlife.com/knowledgebase/
+Если ответа там нет, напишите вопрос и подождите: доступные помощники ответят через несколько минут.
+-=-=- Время ответа зависит от нагрузки, особенно в часы пик -=-=-
+	</string>
+</floater>

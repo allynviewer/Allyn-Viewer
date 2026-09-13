@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="landmarkpicker" title="Организовать: Достопримечательности">
+	<check_box name="show_folders_check" label="Показать папки" />
+	<filter_editor name="inventory search editor" />
+	<inventory_panel name="inventory panel" />
+	<button name="New" label="Новый" />
+	<button name="Rename" label="Переименовать" />
+	<button name="NewFolder" label="Новая папка" />
+	<button name="Edit" label="Редактировать" />
+	<button name="Delete" label="Удалить" />
+	<button name="Close" label="Закрыть" />
+</floater>

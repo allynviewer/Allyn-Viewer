@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Collada Export" title="Esportazione Collada">
+	<string name="texture_progress">Esportazione Collada: salvataggio texture ([COUNT] rimanenti)</string>
+	<text name="file name">Nome file:</text>
+	<button name="browse button" label="Sfoglia"/>
+	<button name="export button" label="Esporta"/>
+	<panel name="object info panel">
+		<text name="Object info">Info oggetto</text>
+		<text name="Object Name">Nome: [NAME]</text>
+		<text name="Exportable Prims">Prim esportabili: [COUNT]/[TOTAL]</text>
+		<text name="Exportable Textures">Texture esportabili: [COUNT]/[TOTAL]</text>
+	</panel>
+	<panel name="options panel">
+		<text name="Options">Opzioni</text>
+		<check_box name="texture export check" label="Esporta texture"/>
+		<combo_box name="texture type combo">
+			<combo_item name="tga">TGA</combo_item>
+			<combo_item name="png">PNG</combo_item>
+			<combo_item name="j2c">J2C</combo_item>
+			<combo_item name="bmp">BMP</combo_item>
+			<combo_item name="jpg">JPG</combo_item>
+		</combo_box>
+		<check_box name="consolidate check" label="Consolida le facce" tool_tip="Esporta come una sola le facce con la stessa texture"/>
+		<check_box name="skip transparent check" label="Salta texture trasparenti"/>
+		<check_box name="texture params check" label="Applica parametri texture"/>
+	</panel>
+</floater>

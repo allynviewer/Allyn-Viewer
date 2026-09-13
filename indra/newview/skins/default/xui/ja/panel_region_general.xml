@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="General" label="リージョン">
+	<text name="region_text_lbl">リージョン:</text>
+	<text name="region_text">不明</text>
+	<text name="version_channel_text_lbl">バージョン:</text>
+	<text name="version_channel_text">不明</text>
+	<text name="region_type_lbl">タイプ:</text>
+	<text name="region_type">不明</text>
+	<check_box name="block_terraform_check" label="テラフォーム禁止" />
+	<button name="terraform_help" label=""  tool_tip="ヘルプ"/>
+	<check_box name="block_fly_check" label="飛行禁止" />
+	<button name="fly_help" label=""  tool_tip="ヘルプ"/>
+	<check_box name="block_fly_over_check" label="パーセル上空の飛行を禁止" tool_tip="アクセス判定を上空にも適用し、パーセル上の飛行を防ぎます" />
+	<check_box name="allow_damage_check" label="ダメージを許可" />
+	<button name="damage_help" label=""  tool_tip="ヘルプ"/>
+	<check_box name="restrict_pushobject" label="プッシュを制限" />
+	<button name="restrict_pushobject_help" label=""  tool_tip="ヘルプ"/>
+	<check_box name="allow_land_resell_check" label="土地の再販を許可" />
+	<button name="land_resell_help" label=""  tool_tip="ヘルプ"/>
+	<check_box name="allow_parcel_changes_check" label="土地の結合/分割を許可" />
+	<button name="parcel_changes_help" label=""  tool_tip="ヘルプ"/>
+	<check_box name="block_parcel_search_check" label="検索への土地表示を禁止" tool_tip="このリージョンとそのパーセルを検索結果に表示するかどうかを決めます" />
+	<button name="parcel_search_help" label=""  tool_tip="ヘルプ"/>
+	<spinner name="agent_limit_spin" label="エージェント上限" />
+	<button name="agent_limit_help" label=""  tool_tip="ヘルプ"/>
+	<spinner name="object_bonus_spin" label="オブジェクトボーナス" />
+	<button name="object_bonus_help" label=""  tool_tip="ヘルプ"/>
+	<text name="access_text" label="成熟度">レーティング:</text>
+	<combo_box name="access_combo" label="マチュア">
+		<combo_item name="Adult">アダルト</combo_item>
+		<combo_item name="Mature">マチュア</combo_item>
+		<combo_item name="PG">PG</combo_item>
+	</combo_box>
+	<button name="access_help" label=""  tool_tip="ヘルプ"/>
+	<check_box name="use_estate_sun_check" label="エステートの太陽を使用" />
+	<button name="use_estate_sun_help" label=""  tool_tip="ヘルプ"/>
+	<check_box name="fixed_sun_check" label="固定太陽" />
+	<button name="fixed_sun_help" label=""  tool_tip="ヘルプ"/>
+	<icon name="daycycle" />
+	<slider name="sun_hour_slider" label="フェーズ" />
+	<button name="apply_btn" label="適用" />
+	<button name="kick_btn" label="1人をホームへテレポート..." />
+	<button name="kick_all_btn" label="全員をホームへテレポート..." />
+	<button name="im_btn" label="リージョンへメッセージを送信..." />
+	<button name="manage_telehub_btn" label="テレハブを管理..." />
+</panel>

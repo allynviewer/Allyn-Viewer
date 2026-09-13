@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Media Settings Security" label="セキュリティ">
+	<check_box name="whitelist_enable" label="指定したURLパターンへのアクセスのみ許可" />
+	<scroll_list name="whitelist" />
+	<icon name="Parcel_Exp_Color" />
+	<text name="home_url_fails_some_items_in_whitelist">ホームページが通らない項目は次のように表示されます:</text>
+	<button name="whitelist_add" label="追加" />
+	<button name="whitelist_del" label="削除" />
+	<text name="home_url_fails_whitelist">警告: 一般タブで指定したホームページはこのホワイトリストを通過しません。有効な項目が追加されるまで無効になっています。</text>
+</panel>

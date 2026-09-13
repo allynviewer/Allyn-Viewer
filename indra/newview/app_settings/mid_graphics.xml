@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings version = "101">
+	<RenderAvatarCloth value="FALSE"/>
+	<RenderAvatarLODFactor value="0.5"/>
+	<RenderAvatarVP value="TRUE"/>
+	<RenderFarClip value="96"/>
+	<RenderFlexTimeFactor value="1"/>
+	<RenderGlowResolutionPow value="8"/>
+  <RenderLocalLights value="1"/>
+	<RenderMaxPartCount value="2048"/>
+	<RenderObjectBump value="TRUE"/>
+	<RenderReflectionDetail value="0"/>
+	<RenderTerrainDetail value="1"/>
+	<RenderTerrainLODFactor value="1.0"/>
+	<RenderTreeLODFactor value="1.0"/>
+	<RenderUseImpostors value="TRUE"/>
+	<RenderVolumeLODFactor value="1.125"/>
+	<RenderWaterReflections value="FALSE"/>
+	<VertexShaderEnable value="TRUE"/>
+	<WindLightUseAtmosShaders value="FALSE"/>
+  <RenderAvatarVP value="TRUE"/>
+</settings>

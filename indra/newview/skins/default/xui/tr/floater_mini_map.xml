@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="minimap">
+	<panel name="mini_mapview" label="Mini Harita" tool_tip="(Haritayı açmak için çift tıklayın, SHIFT tuşunu basılı tutarak tıklayın ve kaydırmak için sürükleyin)" />
+</floater>

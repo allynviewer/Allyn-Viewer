@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="price_for_listing" title="Seri İlanı Yayınla">
+	<text name="explanation_text">
+		Seri ilanınız şu tarihten itibaren bir hafta süreyle yayınlanacaktır: 
+yayınlandığı tarih. 
+ 
+İlanınızın seri ilanlardaki konumu 
+ne kadar ödemeyi seçtiğinize göre belirlenir.
+En yüksek ücretli reklamlar listenin en üstüne çıkar, 
+ve aramalarda daha üst sıralarda görünür.
+	</text>
+	<text name="price_text">Reklam Fiyatı ([CURRENCY]):</text>
+	<line_editor name="price_edit" />
+	<button name="cancel_btn" label="İptal" />
+	<button name="set_price_btn" label="Fiyatı Belirle" />
+</floater>

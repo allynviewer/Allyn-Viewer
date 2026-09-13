@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="general_tab" label="Общие">
+	<string name="help_text">
+		Вкладка «Общие» содержит общую информацию о
+эта группа, список владельцев и видимых участников, 
+общие настройки группы и параметры участников.
+
+Наведите указатель мыши на варианты, чтобы получить дополнительную помощь.
+	</string>
+	<string name="group_info_unchanged">Общая информация о группе изменилась.</string>
+	<button name="help_button" label="?" />
+	<line_editor name="group_name_editor" label="Введите здесь новое название группы" />
+	<name_box name="group_name">Введите здесь новое название группы</name_box>
+	<text name="prepend_founded_by">Основан</text>
+	<name_box name="founder_name" />
+	<text name="group_key_text">Групповой ключ:</text>
+	<line_editor name="group_key" />
+	<button name="copy_uri" label="Копировать URI" />
+	<text name="group_charter_label">Устав группы</text>
+	<texture_picker name="insignia" label="Знаки отличия группы" tool_tip="Нажмите, чтобы выбрать картинку" />
+	<text_editor name="charter">Устав группы</text_editor>
+	<button name="join_button" label="Присоединяйтесь ([CURRENCY]0)" />
+	<button name="info_button" label="Детальный вид" />
+	<name_list name="visible_members">
+		<column name="name" label="Имя участника" />
+		<column name="title" label="Заголовок" />
+		<column name="online" label="Последний вход" />
+	</name_list>
+	<text name="text_group_preferences">Групповые предпочтения</text>
+	<panel name="preferences_container">
+		<check_box name="show_in_group_list" label="Показать в поиске" tool_tip="Разрешите людям видеть эту группу в результатах поиска." />
+		<check_box name="open_enrollement" label="Открытая регистрация" tool_tip="Устанавливает, позволяет ли эта группа новым участникам присоединяться без приглашения." />
+		<check_box name="check_enrollment_fee" label="Регистрационный взнос: [CURRENCY]" tool_tip="Устанавливает, будет ли требоваться вступительный взнос для присоединения к группе." />
+		<spinner name="spin_enrollment_fee" tool_tip="Новые участники должны оплатить этот сбор, чтобы присоединиться к группе, если установлен флажок «Вступительный взнос»." />
+		<text name="content_rating">Рейтинг контента</text>
+		<combo_box name="group_mature_check" tool_tip="Определяет, считается ли информация о вашей группе устаревшей.">
+			<combo_item name="select_mature">- Выберите зрелый -</combo_item>
+			<combo_item name="mature">Зрелый контент</combo_item>
+			<combo_item name="pg">PG-контент</combo_item>
+		</combo_box>
+		<check_box name="receive_notices" label="Получать групповые уведомления" tool_tip="Определяет, хотите ли вы получать уведомления от этой группы.   Снимите этот флажок, если эта группа рассылает вам спам." />
+		<check_box name="receive_chat" label="Присоединяйтесь к групповому чату" tool_tip="Определяет, хотите ли вы участвовать в групповом чате.   Снимите этот флажок, если эта группа рассылает вам спам." />
+		<check_box name="list_groups_in_profile" label="Добавить группу в мой профиль" tool_tip="Определяет, хотите ли вы включить эту группу в свой профиль." />
+		<text name="active_title_label">Мой активный титул</text>
+		<combo_box name="active_title" tool_tip="Устанавливает заголовок, который будет отображаться в теге имени вашего аватара, когда эта группа активна." />
+	</panel>
+	<string name="incomplete_member_data_str">Получение данных участников</string>
+	<string name="confirm_group_create_str">
+		Создание этой группы будет стоить [GROUPCREATEFEE]. 
+Вы действительно, действительно, ДЕЙСТВИТЕЛЬНО уверены, что хотите потратить [GROUPCREATEFEE] на создание этой группы?
+Имейте в виду, что если в течение 48 часов к этой группе больше никто не присоединится, она будет расформирована, а название группы станет недоступно для дальнейшего использования.
+	</string>
+</panel>

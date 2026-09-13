@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="im_translation_config" title="Traducción del chat">
+	<text name="src_label">Idioma de origen:</text>
+	<combo_box name="source_lang" tool_tip="Idioma en el que escribes (código ISO). Puedes escribirlo libremente."/>
+	<text name="dst_label">Idioma de destino:</text>
+	<combo_box name="target_lang" tool_tip="Idioma al que traducir los mensajes recibidos."/>
+	<check_box name="incoming_check" label="Traducir recibidos" tool_tip="Traducir mensajes que recibes en esta conversación"/>
+	<check_box name="outgoing_check" label="Traducir enviados" tool_tip="Traducir mensajes que envías en esta conversación"/>
+	<text name="hint">Origen = tú hablas. Destino = los demás hablan. La casilla Traducción activa o desactiva. Entrada/salida se guardan al reiniciar.</text>
+	<button name="ok_btn" label="Aceptar"/>
+	<button name="cancel_btn" label="Cancelar"/>
+</floater>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="roles_tab" label="Члены">
+	<string name="default_needs_apply_text">На текущей вложенной вкладке есть непримененные изменения.</string>
+	<string name="want_apply_text">Вы хотите применить эти изменения?</string>
+	<string name="help_text" />
+	<button name="help_button" label="?" />
+	<panel name="members_header">
+		<text name="static">Участники и роли</text>
+		<text name="static2">
+			Членам группы назначаются роли со способностями. Эти настройки могут 
+легко настраиваются, обеспечивая большую организацию и гибкость.
+		</text>
+	</panel>
+	<panel name="roles_header">
+		<text name="static">Роли</text>
+		<text name="role_properties_modifiable">Выберите роль ниже.  Вы можете изменить его имя, описание и титул участника.</text>
+		<text name="role_properties_not_modifiable">Выберите роль ниже, чтобы просмотреть ее свойства, участников и разрешенные способности.</text>
+		<text name="role_actions_modifiable">Вы также можете назначить Способности для Роли.</text>
+		<text name="role_actions_not_modifiable">Вы можете просматривать, но не изменять назначенные Способности.</text>
+	</panel>
+	<panel name="actions_header">
+		<text name="static">Способности</text>
+		<text name="static2">
+			Вы можете просмотреть описание способности и узнать, какие роли и участники могут 
+применить Способность.
+		</text>
+	</panel>
+	<panel name="banlist_header">
+		<text name="static">Забаненные резиденты</text>
+		<text name="static2">
+			Проверьте, какие резиденты не допускаются в эту группу. Члены с
+Функция «Управление списком запретов» может заблокировать некоторых жителей от присоединения к группе.
+		</text>
+	</panel>
+	<tab_container name="roles_tab_container">
+		<panel name="members_sub_tab" label="Члены" tool_tip="Члены">
+			<string name="donation_area">[AREA] m²</string>
+			<filter_editor name="filter_input" />
+			<name_list name="member_list">
+				<column name="name" label="Имя участника" />
+				<column name="donated" label="Вклад земли" />
+				<column name="online" label="Последний вход" />
+			</name_list>
+			<button name="member_invite" label="Пригласить нового участника..." />
+			<button name="member_eject" label="Выгнать из группы" />
+			<button name="member_ban" label="Забанить участника(ов)" />
+			<string name="help_text">
+				Вы можете добавлять или удалять роли, назначенные участникам.
+Выберите несколько участников, удерживая клавишу Ctrl и
+нажимая на их имена.
+			</string>
+			<string name="power_folder_icon">inv_folder_plain_closed.tga</string>
+		</panel>
+		<panel name="roles_sub_tab" label="Роли">
+			<filter_editor name="filter_input" />
+			<scroll_list name="role_list">
+				<column name="name" label="Имя роли" />
+				<column name="title" label="Титул" />
+				<column name="members" label="Члены" />
+			</scroll_list>
+			<button name="role_create" label="Создать новую роль..." />
+			<button name="role_delete" label="Удалить роль" />
+			<string name="help_text">
+				Роли имеют название и разрешенный список способностей.
+которые могут выполнить члены. Участники могут принадлежать к 
+одна или несколько ролей. В группе может быть до 10 ролей.
+включая роли «Все» и «Владелец».
+			</string>
+			<string name="cant_delete_role">Роли «Все» и «Владельцы» являются особыми и не могут быть удалены.</string>
+			<string name="power_folder_icon">inv_folder_plain_closed.tga</string>
+			<string name="power_all_have_icon">checkbox_enabled_true.tga</string>
+			<string name="power_partial_icon">checkbox_enabled_false.tga</string>
+		</panel>
+		<panel name="actions_sub_tab" label="Способности">
+			<filter_editor name="filter_input" />
+			<scroll_list name="action_list" tool_tip="Выберите Возможность, чтобы просмотреть более подробную информацию.">
+				<column name="icon" />
+				<column name="action" />
+			</scroll_list>
+			<string name="help_text">
+				Способности позволяют участникам в ролях выполнять определенные действия.
+вещи из этой группы. Существует большое разнообразие способностей.
+			</string>
+			<string name="power_folder_icon">inv_folder_plain_closed.tga</string>
+		</panel>
+		<panel name="banlist_sub_tab" label="Забаненные резиденты">
+			<panel.string name="help_text">Любой житель из бан-листа не сможет присоединиться к группе.</panel.string>
+		</panel>
+	</tab_container>
+	<panel name="members_footer">
+		<text name="static">Назначенные роли</text>
+		<text name="static2">Разрешенные способности</text>
+		<scroll_list name="member_assigned_roles">
+			<column name="checkbox" />
+			<column name="role" />
+		</scroll_list>
+		<scroll_list name="member_allowed_actions" tool_tip="Подробную информацию о каждой разрешенной способности см. на вкладке «Способности».">
+			<column name="icon" />
+			<column name="action" />
+		</scroll_list>
+	</panel>
+	<panel name="roles_footer">
+		<text name="static">Имя</text>
+		<text name="static2">Описание</text>
+		<line_editor name="role_name">Сотрудники</line_editor>
+		<text name="static3">Заголовок</text>
+		<line_editor name="role_title">(ожидающий)</line_editor>
+		<text_editor name="role_description">(ожидающий)</text_editor>
+		<text name="static4">Назначенные участники</text>
+		<text name="static5" tool_tip="Список способностей, которые может выполнять выбранная в данный момент роль.">Разрешенные способности</text>
+		<name_list name="role_assigned_members" />
+		<check_box name="role_visible_in_list" label="Участники видны" tool_tip="Определяет, будут ли участники этой роли видны на вкладке «Общие» людям за пределами группы." />
+		<scroll_list name="role_allowed_actions" tool_tip="Подробную информацию о каждой разрешенной способности см. на вкладке «Способности».">
+			<column name="icon" />
+			<column name="checkbox" />
+			<column name="action" />
+		</scroll_list>
+	</panel>
+	<panel name="actions_footer">
+		<text name="static">Описание</text>
+		<text_editor name="action_description">Эта способность — «Извлекать участников из этой группы». Только Владелец может исключить другого Владельца.</text_editor>
+		<text name="static2">Роли со способностями</text>
+		<text name="static3">Участники со способностями</text>
+		<scroll_list name="action_roles" />
+		<name_list name="action_members" />
+	</panel>
+	<panel name="banlist_footer">
+		<name_list name="ban_list">
+			<column name="name" label="Резидент" />
+			<column name="ban_date" label="Дата запрета" />
+		</name_list>
+		<button name="ban_create" label="Запретить резидента(ов)" tool_tip="Запретить жителей из вашей группы" />
+		<button name="ban_delete" label="Снять бан(ы)" tool_tip="Разблокировать выбранных жителей из вашей группы" />
+		<button name="ban_refresh" label="Обновить" tool_tip="Обновить список банов" />
+	</panel>
+</panel>

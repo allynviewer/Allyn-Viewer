@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Debug" label="Отлаживать">
+	<text name="region_text_lbl">Область:</text>
+	<text name="region_text">неизвестный</text>
+	<check_box name="disable_scripts_check" label="Отключить сценарии" tool_tip="Отключить все скрипты в этом регионе" />
+	<button name="disable_scripts_help" label=""  tool_tip="Справка"/>
+	<check_box name="disable_collisions_check" label="Отключить столкновения" tool_tip="Отключить коллизии без аватара в этом регионе." />
+	<button name="disable_collisions_help" label=""  tool_tip="Справка"/>
+	<check_box name="disable_physics_check" label="Отключить физику" tool_tip="Отключить всю физику в этом регионе" />
+	<button name="disable_physics_help" label=""  tool_tip="Справка"/>
+	<button name="apply_btn" label="Применить" />
+	<text name="objret_text_lbl">Возврат объекта</text>
+	<text name="resident_text_lbl">Резидент:</text>
+	<line_editor name="target_avatar_name">(никто)</line_editor>
+	<button name="choose_avatar_btn" label="Выбирать..." />
+	<text name="options_text_lbl">Параметры:</text>
+	<check_box name="return_scripts" label="Возвращайте только те объекты со скриптами" tool_tip="Возвращайте только объекты, имеющие скрипты." />
+	<check_box name="return_other_land" label="Возвращайте только те объекты, которые находятся на чужой земле." tool_tip="Возвращайте только те объекты, которые находятся на земле, принадлежащей другому лицу." />
+	<check_box name="return_estate_wide" label="Верните объекты в каждом регионе этого эстейта." tool_tip="Верните объекты во всех регионах, входящих в это эстейт." />
+	<button name="return_btn" label="Сбросить" />
+	<button name="top_colliders_btn" label="Получите лучшие коллайдеры..." tool_tip="Список объектов, подвергающихся наибольшему количеству потенциальных столкновений" />
+	<button name="top_colliders_help" label=""  tool_tip="Справка"/>
+	<button name="top_scripts_btn" label="Получите лучшие сценарии..." tool_tip="Список объектов, которые тратят больше всего времени на выполнение скриптов" />
+	<button name="top_scripts_help" label=""  tool_tip="Справка"/>
+	<button name="restart_btn" label="Перезапустить регион" tool_tip="Дайте x секунд обратного отсчета и перезапустите регион" />
+	<spinner name="rcount" label="Секунды:" />
+	<button name="restart_help" label=""  tool_tip="Справка"/>
+	<button name="cancel_restart_btn" label="Отсрочка перезапуска" tool_tip="Задержка перезапуска региона на один час" />
+</panel>

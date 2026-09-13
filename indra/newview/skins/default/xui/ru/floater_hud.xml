@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_hud" title="Обучение">
+	<web_browser name="floater_hud_browser" />
+</floater>

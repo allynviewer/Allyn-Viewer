@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater
+	name="geminifloater"
+	rect_control="AORect"
+	title="AO Settings"
+	can_resize="false"
+	can_minimize="true"
+	can_close="true"
+	can_drag_on_left="false"
+	width="300"
+	height="365"
+	min_width="300"
+	min_height="365">
+
+	<drop_target
+		name="ao_notecard"
+		control_name="AOConfigNotecardID"
+		label="Drop a ZHAO notecard here"
+		tool_tip="Drop a ZHAO notecard here. Animations must be in the same inventory folder as the notecard."
+		fill_parent="false"
+		show_reset="true"
+		follows="left|top"
+		left="10"
+		bottom="-32"
+		width="280"
+		height="22"/>
+
+	<button
+		name="opencard"
+		label=""
+		tool_tip="View the current AO notecard"
+		image_overlay="icn_ao_notecard.png"
+		image_overlay_alignment="center"
+		font="SansSerifSmall"
+		follows="left|top"
+		left="10"
+		bottom="-62"
+		width="88"
+		height="26"/>
+	<button
+		name="reloadcard"
+		label=""
+		tool_tip="Reload animations from the AO notecard"
+		image_overlay="icn_ao_reload.png"
+		image_overlay_alignment="center"
+		font="SansSerifSmall"
+		follows="left|top"
+		left="106"
+		bottom="-62"
+		width="88"
+		height="26"/>
+	<button
+		name="newcard"
+		label=""
+		tool_tip="Create a new AO notecard template in inventory"
+		image_overlay="icn_ao_new.png"
+		image_overlay_alignment="center"
+		font="SansSerifSmall"
+		follows="left|top"
+		left="202"
+		bottom="-62"
+		width="88"
+		height="26"/>
+
+	<check_box
+		name="AOEnabled"
+		control_name="AOEnabled"
+		label="Enable animations override"
+		tool_tip="Turn the animation overrider on or off"
+		follows="left|top"
+		font="SansSerifSmall"
+		height="16"
+		width="280"
+		left="10"
+		bottom="-96"
+		initial_value="false"
+		mouse_opaque="true"
+		radio_style="false"/>
+	<check_box
+		name="AOSwimEnabled"
+		control_name="AOSwimEnabled"
+		label="Enable swimming override"
+		tool_tip="Replace fly animations with swim animations when underwater"
+		follows="left|top"
+		font="SansSerifSmall"
+		height="16"
+		width="280"
+		left="10"
+		bottom="-116"
+		initial_value="true"
+		mouse_opaque="true"
+		radio_style="false"/>
+	<check_box
+		name="AOSitsEnabled"
+		control_name="AOSitsEnabled"
+		label="Enable sits override"
+		tool_tip="Override sit and ground sit animations"
+		follows="left|top"
+		font="SansSerifSmall"
+		height="16"
+		width="280"
+		left="10"
+		bottom="-136"
+		initial_value="true"
+		mouse_opaque="true"
+		radio_style="false"/>
+
+	<text
+		name="buttons_desc"
+		follows="left|top"
+		font="SansSerifSmall"
+		height="16"
+		width="280"
+		left="10"
+		bottom="-164"
+		halign="left"
+		drop_shadow_visible="true">
+		Stands:
+	</text>
+	<combo_box
+		name="stands"
+		label=""
+		tool_tip="Current stand animation"
+		follows="left|top"
+		height="20"
+		width="280"
+		left="10"
+		bottom="-186"/>
+
+	<button
+		name="prevstand"
+		label=""
+		tool_tip="Previous stand"
+		image_overlay="icn_ao_prev.png"
+		image_overlay_alignment="center"
+		font="SansSerifSmall"
+		follows="left|top"
+		left="10"
+		bottom="-214"
+		width="136"
+		height="26"/>
+	<button
+		name="nextstand"
+		label=""
+		tool_tip="Next stand"
+		image_overlay="icn_ao_next.png"
+		image_overlay_alignment="center"
+		font="SansSerifSmall"
+		follows="left|top"
+		left="154"
+		bottom="-214"
+		width="136"
+		height="26"/>
+
+	<check_box
+		name="AOStandRandomize"
+		control_name="AOStandRandomize"
+		label="Randomize stand order"
+		tool_tip="Cycle stands in random order instead of sequentially"
+		follows="left|top"
+		font="SansSerifSmall"
+		height="16"
+		width="280"
+		left="10"
+		bottom="-248"
+		initial_value="false"
+		mouse_opaque="true"
+		radio_style="false"/>
+	<check_box
+		name="AONoStandsInMouselook"
+		control_name="AONoStandsInMouselook"
+		label="Disable stands in mouselook"
+		tool_tip="Stop stand animations while in mouselook"
+		follows="left|top"
+		font="SansSerifSmall"
+		height="16"
+		width="280"
+		left="10"
+		bottom="-268"
+		initial_value="true"
+		mouse_opaque="true"
+		radio_style="false"/>
+	<check_box
+		name="ao_remote_checkbox"
+		control_name="EnableAORemote"
+		label="Show AO toolbar"
+		tool_tip="Show the AO remote on the bottom toolbar"
+		follows="left|top"
+		font="SansSerifSmall"
+		height="16"
+		width="280"
+		left="10"
+		bottom="-288"
+		initial_value="true"
+		mouse_opaque="true"
+		radio_style="false"/>
+
+	<spinner
+		name="standtime"
+		control_name="AOStandInterval"
+		label="Stand time:"
+		tool_tip="How long each stand plays, in seconds"
+		label_width="90"
+		follows="left|top"
+		height="18"
+		width="280"
+		left="10"
+		bottom="-316"
+		decimal_digits="0"
+		increment="1"
+		initial_val="20"
+		max_val="9000"
+		min_val="1.00"
+		mouse_opaque="true"/>
+
+	<button
+		name="more_btn"
+		label="More &gt;&gt;"
+		label_selected="&lt;&lt; Less"
+		tool_tip="Show or hide default animation assignments"
+		toggle="true"
+		control_name="AOAdvanced"
+		font="SansSerifSmall"
+		halign="center"
+		follows="left|bottom"
+		left="10"
+		bottom="8"
+		width="280"
+		height="22"
+		scale_image="TRUE"
+		image_selected="button_enabled_32x128.tga"
+		mouse_opaque="true"/>
+
+	<tab_container
+		name="tabcontainer"
+		label="Default"
+		follows="left|top"
+		left="308"
+		bottom="8"
+		width="564"
+		height="349"
+		tab_min_width="80"
+		tab_position="top"
+		mouse_opaque="false"
+		bg_opaque_color="0,0,0,0.0">
+		<panel
+			name="tabdefaultanims"
+			label="Default Anims"
+			border="true"
+			follows="left|top|right|bottom"
+			left="0"
+			bottom="0"
+			width="564"
+			height="325"
+			mouse_opaque="true">
+
+			<text name="textdefaultwalk" follows="left|top" font="SansSerifSmall" height="14" width="174" left="10" bottom="-22" drop_shadow_visible="true">Walk:</text>
+			<combo_box name="walks" label="" tool_tip="Default walk animation" follows="left|top" height="18" width="174" left="10" bottom="-40" control_name="AODefaultWalk"/>
+			<text name="textdefaultrun" follows="left|top" font="SansSerifSmall" height="14" width="174" left="10" bottom="-66" drop_shadow_visible="true">Run:</text>
+			<combo_box name="runs" label="" tool_tip="Default run animation" follows="left|top" height="18" width="174" left="10" bottom="-84" control_name="AODefaultRun"/>
+			<text name="textdefaultjump" follows="left|top" font="SansSerifSmall" height="14" width="174" left="10" bottom="-110" drop_shadow_visible="true">Jump:</text>
+			<combo_box name="jumps" label="" tool_tip="Default jump animation" follows="left|top" height="18" width="174" left="10" bottom="-128" control_name="AODefaultJump"/>
+			<text name="textdefaultsit" follows="left|top" font="SansSerifSmall" height="14" width="174" left="10" bottom="-154" drop_shadow_visible="true">Sit:</text>
+			<combo_box name="sits" label="" tool_tip="Default sit animation" follows="left|top" height="18" width="174" left="10" bottom="-172" control_name="AODefaultSit"/>
+			<text name="textdefaultgsit" follows="left|top" font="SansSerifSmall" height="14" width="174" left="10" bottom="-198" drop_shadow_visible="true">Ground sit:</text>
+			<combo_box name="gsits" label="" tool_tip="Default ground sit animation" follows="left|top" height="18" width="174" left="10" bottom="-216" control_name="AODefaultGroundSit"/>
+			<text name="textdefaultcrouch" follows="left|top" font="SansSerifSmall" height="14" width="174" left="10" bottom="-242" drop_shadow_visible="true">Crouch:</text>
+			<combo_box name="crouchs" label="" tool_tip="Default crouch animation" follows="left|top" height="18" width="174" left="10" bottom="-260" control_name="AODefaultCrouch"/>
+			<text name="textdefaultcrouchwalk" follows="left|top" font="SansSerifSmall" height="14" width="174" left="10" bottom="-286" drop_shadow_visible="true">Crouch walk:</text>
+			<combo_box name="cwalks" label="" tool_tip="Default crouch walk animation" follows="left|top" height="18" width="174" left="10" bottom="-304" control_name="AODefaultCrouchWalk"/>
+
+			<text name="textdefaultfall" follows="left|top" font="SansSerifSmall" height="14" width="174" left="194" bottom="-22" drop_shadow_visible="true">Fall:</text>
+			<combo_box name="falls" label="" tool_tip="Default fall animation" follows="left|top" height="18" width="174" left="194" bottom="-40" control_name="AODefaultFall"/>
+			<text name="textdefaulthover" follows="left|top" font="SansSerifSmall" height="14" width="174" left="194" bottom="-66" drop_shadow_visible="true">Hover:</text>
+			<combo_box name="hovers" label="" tool_tip="Default hover animation" follows="left|top" height="18" width="174" left="194" bottom="-84" control_name="AODefaultHover"/>
+			<text name="textdefaultfly" follows="left|top" font="SansSerifSmall" height="14" width="174" left="194" bottom="-110" drop_shadow_visible="true">Fly:</text>
+			<combo_box name="flys" label="" tool_tip="Default fly animation" follows="left|top" height="18" width="174" left="194" bottom="-128" control_name="AODefaultFly"/>
+			<text name="textdefaultflyslow" follows="left|top" font="SansSerifSmall" height="14" width="174" left="194" bottom="-154" drop_shadow_visible="true">Slow fly:</text>
+			<combo_box name="flyslows" label="" tool_tip="Default slow fly animation" follows="left|top" height="18" width="174" left="194" bottom="-172" control_name="AODefaultFlySlow"/>
+			<text name="textdefaultflyup" follows="left|top" font="SansSerifSmall" height="14" width="174" left="194" bottom="-198" drop_shadow_visible="true">Fly up:</text>
+			<combo_box name="flyups" label="" tool_tip="Default upward fly animation" follows="left|top" height="18" width="174" left="194" bottom="-216" control_name="AODefaultFlyUp"/>
+			<text name="textdefaultflydown" follows="left|top" font="SansSerifSmall" height="14" width="174" left="194" bottom="-242" drop_shadow_visible="true">Fly down:</text>
+			<combo_box name="flydowns" label="" tool_tip="Default downward fly animation" follows="left|top" height="18" width="174" left="194" bottom="-260" control_name="AODefaultFlyDown"/>
+			<text name="textdefaultland" follows="left|top" font="SansSerifSmall" height="14" width="174" left="194" bottom="-286" drop_shadow_visible="true">Land:</text>
+			<combo_box name="lands" label="" tool_tip="Default land animation" follows="left|top" height="18" width="174" left="194" bottom="-304" control_name="AODefaultLand"/>
+
+			<text name="textdefaultstandup" follows="left|top" font="SansSerifSmall" height="14" width="174" left="378" bottom="-22" drop_shadow_visible="true">Stand up:</text>
+			<combo_box name="standups" label="" tool_tip="Default stand up animation" follows="left|top" height="18" width="174" left="378" bottom="-40" control_name="AODefaultStandUp"/>
+			<text name="textdefaultprejump" follows="left|top" font="SansSerifSmall" height="14" width="174" left="378" bottom="-66" drop_shadow_visible="true">Pre-jump:</text>
+			<combo_box name="prejumps" label="" tool_tip="Default pre-jump animation" follows="left|top" height="18" width="174" left="378" bottom="-84" control_name="AODefaultPreJump"/>
+			<text name="textdefaultfloat" follows="left|top" font="SansSerifSmall" height="14" width="174" left="378" bottom="-110" drop_shadow_visible="true">Float:</text>
+			<combo_box name="floats" label="" tool_tip="Default float animation" follows="left|top" height="18" width="174" left="378" bottom="-128" control_name="AODefaultFloat"/>
+			<text name="textdefaultswim" follows="left|top" font="SansSerifSmall" height="14" width="174" left="378" bottom="-154" drop_shadow_visible="true">Swim:</text>
+			<combo_box name="swims" label="" tool_tip="Default swim animation" follows="left|top" height="18" width="174" left="378" bottom="-172" control_name="AODefaultSwim"/>
+			<text name="textdefaultswimup" follows="left|top" font="SansSerifSmall" height="14" width="174" left="378" bottom="-198" drop_shadow_visible="true">Swim up:</text>
+			<combo_box name="swimups" label="" tool_tip="Default upward swim animation" follows="left|top" height="18" width="174" left="378" bottom="-216" control_name="AODefaultSwimUp"/>
+			<text name="textdefaultswimdown" follows="left|top" font="SansSerifSmall" height="14" width="174" left="378" bottom="-242" drop_shadow_visible="true">Swim down:</text>
+			<combo_box name="swimdowns" label="" tool_tip="Default downward swim animation" follows="left|top" height="18" width="174" left="378" bottom="-260" control_name="AODefaultSwimDown"/>
+			<text name="textdefaulttyping" follows="left|top" font="SansSerifSmall" height="14" width="174" left="378" bottom="-286" drop_shadow_visible="true">Typing:</text>
+			<combo_box name="typings" label="" tool_tip="Default typing animation" follows="left|top" height="18" width="174" left="378" bottom="-304" control_name="AODefaultTyping"/>
+		</panel>
+	</tab_container>
+</floater>

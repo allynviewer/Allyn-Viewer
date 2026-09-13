@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Media Settings General" label="Generale">
+	<text name="home_label">Home page:</text>
+	<text name="home_fails_whitelist_label">(Questa pagina non supera la whitelist specificata)</text>
+	<line_editor name="home_url" tool_tip="La home page di questa sorgente media"/>
+	<text name="preview_label">Anteprima</text>
+	<text name="current_url_label">Pagina corrente:</text>
+	<text name="current_url" tool_tip="La pagina corrente di questa sorgente media"/>
+	<button name="current_url_reset_btn" label="Reimposta"/>
+	<check_box name="auto_loop" label="Loop automatico"/>
+	<check_box name="first_click_interact" label="Il primo clic interagisce"/>
+	<check_box name="auto_zoom" label="Zoom automatico"/>
+	<check_box name="auto_play" label="Riproduci media automaticamente"/>
+	<text name="media_setting_note">Nota: i residenti possono ignorare questa impostazione</text>
+	<check_box name="auto_scale" label="Scala automaticamente il media sulla faccia dell'oggetto"/>
+	<text name="size_label">Dimensione:</text>
+</panel>

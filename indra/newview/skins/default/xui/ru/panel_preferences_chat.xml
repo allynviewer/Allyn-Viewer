@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="chat" label="Текстовый чат">
+	<scroll_container name="chat_scroll">
+		<panel name="chat_scroll_inner">
+			<text name="text_box">РАЗМЕР ШРИФТА ЧАТА</text>
+			<icon name="section_font_rule" />
+			<radio_group name="chat_font_size">
+				<radio_item name="radio">Маленький</radio_item>
+				<radio_item name="radio2">Середина</radio_item>
+				<radio_item name="radio3">Большой</radio_item>
+			</radio_group>
+			<text name="text_box2">ЦВЕТ ЧАТА</text>
+			<icon name="section_color_rule" />
+			<color_swatch name="user" label="Ты" />
+			<color_swatch name="agent" label="Другие" />
+			<color_swatch name="im" label="Я" />
+			<color_swatch name="system" label="Система" />
+			<color_swatch name="script_error" label="Ошибки" />
+			<color_swatch name="objects" label="Объекты" />
+			<color_swatch name="owner" label="Владелец" />
+			<color_swatch name="background" label="Пузырь" />
+			<color_swatch name="links" label="URLs" />
+			<text name="text_box3">ЧАТ КОНСОЛЬ</text>
+			<icon name="section_console_rule" />
+			<spinner name="fade_chat_time" label="Затухание чата после" />
+			<text name="text_box4">(секунды)</text>
+			<spinner name="max_chat_count" />
+			<text name="text_box5">(# строки)</text>
+			<spinner name="chat_bottom_offset" label="Нижнее смещение" tool_tip="Смещение в пикселях между консолью чата и нижней частью вьюера." />
+			<slider name="console_opacity" label="Непрозрачность" />
+			<check_box name="chat_full_width_check" label="Использовать всю ширину экрана (требуется перезагрузка)" />
+			<text name="text_box6">ОПЦИИ ЧАТА</text>
+			<icon name="section_opt_rule" />
+			<check_box name="close_chat_on_return_check" label="Закрыть панель чата после нажатия возврата" />
+			<check_box name="arrow_keys_move_avatar_check" label="Клавиши со стрелками всегда перемещают аватар во время чата." />
+			<check_box name="letter_keys_start_local_chat" label="Буквенные клавиши начинают печатать в локальном чате" />
+			<check_box name="show_timestamps_check" label="Показывать временные метки в локальном чате" />
+			<check_box name="script_errors_as_chat" label="Показывать ошибки и предупреждения скриптов как обычный чат." />
+			<check_box name="play_typing_animation" label="Воспроизвести анимацию набора текста во время чата" />
+			<text name="text_box7">ПУЗЫРЬЧАТЫЙ ЧАТ</text>
+			<icon name="section_bubble_rule" />
+			<check_box name="bubble_text_chat" label="Показывать пузырьки чата" />
+			<slider name="bubble_chat_opacity" label="Непрозрачность" />
+		</panel>
+	</scroll_container>
+</panel>

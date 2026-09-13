@@ -1,0 +1,67 @@
+/** 
+ * @file llfloaterauction.h
+ * @author James Cook, Ian Wilkes
+ * @brief llfloaterauction class header file
+ *
+ * $LicenseInfo:firstyear=2004&license=viewerlgpl$
+ * Second Life Viewer Source Code
+ * Copyright (C) 2010, Linden Research, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation;
+ * version 2.1 of the License only.
+ * 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * 
+ * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
+ * $/LicenseInfo$
+ */
+#ifndef LL_LLFLOATERAUCTION_H
+#define LL_LLFLOATERAUCTION_H
+#include "llfloater.h"
+#include "lluuid.h"
+#include "llsafehandle.h"
+#include "llviewertexture.h"
+class LLParcelSelection;
+class LLParcel;
+class LLViewerRegion;
+class LLFloaterAuction final : public LLFloater
+{
+public:
+	void onOpen() override;
+	void onClose(bool app_quitting) override { setVisible(FALSE); }
+	void draw() override;
+	static void show();
+private:
+	LLFloaterAuction();
+	~LLFloaterAuction();
+	void initialize();
+	static void onClickSnapshot(void* data);
+	static void onClickResetParcel(void* data);
+	static void onClickSellToAnyone(void* data);
+	bool onSellToAnyoneConfirmed(const LLSD& notification, const LLSD& response);
+	static void onClickStartAuction(void* data);
+	static LLFloaterAuction* sInstance;
+	BOOL postBuild() override;
+	void doResetParcel();
+	void doSellToAnyone();
+	void clearParcelAccessList(LLParcel* parcel, LLViewerRegion* region, U32 list);
+	void cleanupAndClose();
+private:
+	LLTransactionID mTransactionID;
+	LLAssetID mImageID;
+	LLPointer<LLViewerTexture> mImage;
+	LLSafeHandle<LLParcelSelection> mParcelp;
+	S32 mParcelID;
+	LLHost mParcelHost;
+	std::string mParcelUpdateCapUrl;
+};
+#endif

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="inventory panel floater">
+	<filter_editor name="inventory search editor" label="Saisissez ici pour rechercher"/>
+</floater>

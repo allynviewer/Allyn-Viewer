@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater title="Профиль опыта">
+	<floater.string name="empty_slurl">(никто)</floater.string>
+	<floater.string name="maturity_icon_general">map_event.tga</floater.string>
+	<floater.string name="maturity_icon_moderate">map_event_mature.tga</floater.string>
+	<floater.string name="maturity_icon_adult">map_event_adult.tga</floater.string>
+	<name_box name="experience_title" />
+	<tab_container name="tab_container">
+		<panel name="panel_experience_info">
+			<scroll_container name="xp_scroll">
+				<panel name="scrolling_panel">
+					<layout_stack name="Experience_profile">
+						<layout_panel name="top panel">
+							<text name="grid_wide" />
+							<button name="edit_btn" label="Редактировать" />
+						</layout_panel>
+						<layout_panel name="image_panel">
+							<texture_picker name="logo" />
+						</layout_panel>
+						<layout_panel name="description panel">
+							<text_editor name="experience_description" />
+						</layout_panel>
+						<layout_panel name="maturity panel">
+							<text name="ContentRating">Рейтинг:</text>
+							<text name="ContentRatingText" />
+						</layout_panel>
+						<layout_panel name="location panel">
+							<text name="Location">Расположение:</text>
+							<text_editor name="LocationTextText" />
+						</layout_panel>
+						<layout_panel name="marketplace panel">
+							<text>Магазин Marketplace:</text>
+							<text_editor name="marketplace" />
+						</layout_panel>
+						<layout_panel name="owner panel">
+							<text name="Owner">Владелец:</text>
+							<name_box name="OwnerText" />
+						</layout_panel>
+						<layout_panel name="group_panel">
+							<text name="Group">Группа:</text>
+							<name_box name="GroupText" />
+						</layout_panel>
+						<layout_panel name="perm panel">
+							<button name="allow_btn" label="Позволять" />
+							<button name="forget_btn" label="Забывать" />
+							<button name="block_btn" label="Блокировать" />
+							<text name="privileged">Этот опыт доступен для всех жителей.</text>
+							<button name="report_btn" label="Сообщить о нарушении" />
+						</layout_panel>
+					</layout_stack>
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel name="edit_panel_experience_info">
+			<scroll_container name="edit_xp_scroll">
+				<panel name="edit_scrolling_panel">
+					<texture_picker name="edit_logo" />
+					<text name="edit_experience_title_label" />
+					<line_editor name="edit_experience_title" />
+					<text name="edit_experience_desc_label" />
+					<text_editor name="edit_experience_description" />
+					<button name="Group_btn" label="Установить группу" />
+					<name_box name="edit_GroupText" />
+					<text name="edit_ContentRating">Рейтинг:</text>
+					<combo_box name="edit_ContentRatingText" label="Для взрослых" tool_tip="Повышение рейтинга зрелости опыта сбросит разрешение у всех резидентов, которые его разрешили.">
+						<combo_item name="Adult" label="Взрослый" />
+						<combo_item name="Mature" label="Для взрослых" />
+						<combo_item name="PG" label="Общие" />
+					</combo_box>
+					<text name="edit_Location">Расположение:</text>
+					<text_editor name="edit_LocationTextText" />
+					<button name="location_btn" label="Установить на текущий" />
+					<button name="clear_btn" label="Очистить местоположение" />
+					<text>Магазин Marketplace:</text>
+					<line_editor name="edit_marketplace" />
+					<check_box name="edit_enable_btn" label="Включить опыт" />
+					<check_box name="edit_private_btn" label="Скрыть в поиске" />
+					<text name="changes" />
+					<button name="cancel_btn" label="Назад" />
+					<button name="save_btn" label="Сохранить" />
+				</panel>
+			</scroll_container>
+		</panel>
+	</tab_container>
+</floater>

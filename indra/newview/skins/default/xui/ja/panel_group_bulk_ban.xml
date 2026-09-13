@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="bulk_ban_panel" label="レジデントをバン">
+	<panel.string name="loading">（読み込み中...）</panel.string>
+	<panel.string name="ban_selection_too_large">グループバンは送信されませんでした: 選択したレジデントが多すぎます。グループバンは1リクエストあたり100人までです。</panel.string>
+	<panel.string name="ban_not_permitted">グループバンは送信されませんでした: 「バンリストを管理」する能力がありません。</panel.string>
+	<panel.string name="ban_limit_fail">グループバンは送信されませんでした: グループのバン記録の上限に達しています。</panel.string>
+	<panel.string name="partial_ban">一部のグループバンは送信されませんでした: [REASONS]</panel.string>
+	<panel.string name="ban_failed">グループバンは送信されませんでした: [REASONS]</panel.string>
+	<panel.string name="residents_already_banned">- 以下のレジデントは既にバンされています: [RESIDENTS]。</panel.string>
+	<panel.string name="ban_limit_reached">- バン上限に達しました。以下のエージェントはバンされませんでした: [RESIDENTS]。</panel.string>
+	<panel.string name="cant_ban_yourself">- 自分自身をグループからバンすることはできません。</panel.string>
+	<text name="help_text">グループからバンするレジデントを複数選べます。「レジデント選択を開く」をクリックして開始してください。</text>
+	<button name="add_button" label="レジデント選択を開く" />
+	<name_list name="banned_agent_list" tool_tip="Ctrlキーを押しながらレジデント名をクリックすると複数選択できます" />
+	<button name="remove_button" label="選択をリストから削除" tool_tip="上で選択したレジデントをバンリストから削除します" />
+	<button name="ban_button" label="レジデントをバン" />
+	<button name="cancel_button" label="キャンセル" />
+	<string name="GroupBulkBan">グループバン</string>
+</panel>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Adv_Settings">
+	<text name="Camera Preset:">Предварительные настройки камеры:</text>
+	<button name="Rear" tool_tip="Вид сзади" />
+	<button name="Front" tool_tip="Вид спереди" />
+	<button name="Group" tool_tip="Вид сбоку" />
+	<slider name="DrawDistance" label="Рисовать расст.:" tool_tip="Измените расстояние прорисовки" />
+	<slider name="HoverHeightSlider" label="Парение:" />
+	<slider name="MaxParticleCount" label="Частицы:" tool_tip="Количество частиц для рендеринга" />
+	<slider name="RenderAvatarMaxVisible" label="Макс. аватар:" tool_tip="Сколько аватаров нужно полностью отобразить на экране. Уменьшение этого значения значительно повышает FPS в многолюдных ситуациях. Требуется, чтобы Avatar Impostors были включены. [Default 35]" />
+	<slider name="Object Detail" label="Объект Деталь:" tool_tip="Управляет уровнем детализации примитивов (множитель для текущей области экрана при расчете уровня детализации[0.5 to 2.0 is stable])" />
+	<button name="PostProcessButton" tool_tip="Эффекты постобработки" />
+	<combo_box name="PostProcessPresetsCombo" tool_tip="Пресеты постобработки" />
+	<button name="PPprev" />
+	<button name="PPnext" />
+	<button name="EnvAdvancedSkyButton" tool_tip="Продвинутое небо" />
+	<combo_box name="WLSkyPresetsCombo" tool_tip="Пресеты WindLight для вашего неба." />
+	<button name="WLprev" />
+	<button name="WLnext" />
+	<button name="EnvAdvancedWaterButton" tool_tip="Продвинутая вода" />
+	<combo_box name="WLWaterPresetsCombo" tool_tip="Настройки WindLight для вашей воды." />
+	<button name="WWprev" />
+	<button name="WWnext" />
+	<check_box name="use_estate_wl" label="Регион WL" tool_tip="Используйте настройки ветрового освещения региона, если они доступны." />
+	<check_box name="Crossfade" label="Кроссфейд?" tool_tip="Если этот флажок не установлен, изменения настроек Sky Windlight вступят в силу немедленно, без колебаний/анимации." />
+	<slider name="EnvTimeSlider" />
+	<button name="expand" tool_tip="Скрыть панель настроек" />
+</panel>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Object Pie">
+	<menu_item_call name="Open" label="開く" />
+	<menu_item_call name="Create" label="作成" />
+	<menu_item_call name="Object Touch" label="タッチ">
+		<on_enable name="EnableTouch" />
+	</menu_item_call>
+	<menu_item_call name="Object Sit" label="ここに座る">
+		<on_enable name="EnableSitOrStand" />
+	</menu_item_call>
+	<menu_item_call name="Pie Object Take" label="取る">
+		<on_enable name="EnableBuyOrTake" />
+	</menu_item_call>
+	<menu_item_call name="Pay..." label="支払う..." />
+	<pie_menu name="More" label="もっと">
+		<menu_item_call name="Delete" label="削除" />
+		<menu_item_call name="Wear" label="装着" />
+		<menu_item_call name="Take Copy" label="コピーを取る" />
+		<pie_menu name="Object Attach HUD" label="HUDに装着" />
+		<pie_menu name="Object Attach" label="装着" />
+		<pie_menu name="Object Attach More" label="さらに装着" />
+		<menu_item_call name="Return..." label="返却..." />
+		<pie_menu name="Rate Menu" label="もっと">
+			<pie_menu name="Export Menu" label="エクスポート">
+				<menu_item_call name="XML" label="XML" />
+				<menu_item_call name="Save OBJ..." label="OBJ..." />
+				<menu_item_call name="Save DAE..." label="DAE..." />
+			</pie_menu>
+			<pie_menu name="Rate Menu" label="ツール">
+				<menu_item_call name="Destroy" label="破壊" />
+				<menu_item_call name="Explode" label="爆発" />
+				<menu_item_call name="Measure" label="測定" />
+				<menu_item_call name="Data" label="データ" />
+				<menu_item_call name="Go To" label="移動" />
+				<menu_item_call name="Follow" label="フォロー" />
+				<menu_item_call name="Reload Textures" label="再読み込み" />
+			</pie_menu>
+			<menu_item_call name="Object Mute" label="ミュート" />
+			<menu_item_call name="Object Inspect" label="検査" />
+			<menu_item_call name="Derender" label="非表示" />
+			<menu_item_call name="Report Abuse..." label="通報..." />
+			<pie_menu name="PF Menu" label="パスファインディング">
+				<menu_item_call name="show_in_linksets" label="リンクセットに表示" />
+				<menu_item_call name="show_in_characters" label="キャラクターに表示" />
+			</pie_menu>
+			<pie_menu name="ScriptsMenu" label="スクリプト">
+				<menu_item_call name="CompileMono" label="Monoにする" />
+				<menu_item_call name="CompileLSL" label="LSLにする" />
+				<menu_item_call name="Reset Scripts" label="リセット" />
+				<menu_item_call name="Object Set Scripts to Running" label="開始" />
+				<menu_item_call name="Object Set Scripts to Not Running" label="停止" />
+				<menu_item_call name="Remove Scripts From Selection" label="削除" />
+				<menu_item_call name="ScriptCount" label="数" />
+			</pie_menu>
+		</pie_menu>
+		<menu_item_call name="Buy..." label="購入..." />
+	</pie_menu>
+	<menu_item_call name="Edit..." label="編集..." />
+</pie_menu>

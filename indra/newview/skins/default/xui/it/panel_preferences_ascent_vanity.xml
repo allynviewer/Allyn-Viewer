@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel top="20" left="10" height="400" width="512" border="true" label="VanitÃ " name="ascvan">
+	<tab_container label="VanitÃ " bottom="0" height="440" width="497" name="Ascent Vanity" tab_min_width="0">
+		<panel border="true" left="1" bottom="-190" height="180" width="500" label="Principale" name="General">
+			<scroll_container name="vanity_main_scroll">
+				<panel name="vanity_main_inner">
+					<check_box bottom_delta="-25" control_name="AscentStoreSettingsPerAccount" follows="top" height="16" initial_value="true" label="Dove applicabile, salva le impostazioni di VanitÃ  per account." left="10" tool_tip="Salva le impostazioni per account, consentendo una personalizzazione più facile per gli alt." name="use_account_settings_check" />
+					<check_box bottom_delta="-20" control_name="AscentDisableTeleportScreens" follows="top" height="16" initial_value="true" label="Nascondi le schermate di progresso del TP" tool_tip="Se selezionato, il visualizzatore nasconderÃ  la schermata di avanzamento del TP, permettendoti di continuare a leggere IM." name="disable_tp_screen_check" />
+					<check_box bottom_delta="-20" control_name="OptionPlayTpSound" follows="top" height="16" initial_value="true" label="Riproduci il suono di TP quando ci si teletrasporta tra regioni" tool_tip="Il visualizzatore riprodurrÃ  il rumore del TP al TP." name="tp_sound_check" />
+					<check_box bottom_delta="-20" control_name="AscentDisableLogoutScreens" follows="top" height="16" initial_value="true" label="Nascondi le schermate di progresso di Login/Logout" tool_tip="Se selezionato, il visualizzatore nasconderÃ  la schermata di avanzamento del login/logout." name="disable_logout_screen_check" />
+					<check_box bottom_delta="-20" control_name="SGDisableChatAnimation" follows="top" height="16" initial_value="false" label="Disabilita animazioni di chat, sussurro e grido" tool_tip="Rimuove le animazioni di chat dal tuo avatar. Effetto visibile a tutti." name="disable_chat_animation" />
+					<check_box bottom_delta="-20" control_name="LiruAddNotReplace" follows="top" height="16" label="Aggiungi allegati e indossabili invece di sostituirli" tool_tip="Quando si fa doppio clic o si preme invio nell'inventario con indossabili o oggetti selezionati, verranno aggiunti al tuo outfit, invece di sostituire l'indossabile o l'oggetto attualmente nella loro destinazione." name="add_not_replace" />
+					<check_box bottom_delta="-20" control_name="LiruCustomizeAnim" follows="top" height="16" label="Anima quando si entra in ModalitÃ  Aspetto" name="customize_anim" />
+					<check_box bottom_delta="-20" control_name="TurnAroundWhenWalkingBackwards" follows="top" height="16" label="Girati quando cammini all'indietro" tool_tip="Alcuni AO potrebbero girarti anche con questa opzione disabilitata." name="turn_around" />
+					<check_box bottom_delta="-20" control_name="AnnounceSnapshots" follows="top" height="16" label="Annuncia quando qualcuno scatta una foto" tool_tip="Non annuncerÃ  per le persone che nascondono il fatto che stanno scattando una foto." name="announce_snapshots" />
+					<check_box bottom_delta="-20" control_name="AnnounceStreamMetadata" follows="top" height="16" label="Annuncia i metadati del flusso musicale nella chat locale quando sintonizzato" tool_tip="Quando una nuova canzone viene riprodotta, verrÃ  visualizzato un messaggio nella chat locale con le informazioni disponibili sul brano." name="announce_stream_metadata" />
+					<check_box bottom_delta="-20" control_name="LiruScriptErrorsStealFocus" follows="top" height="16" label="Lascia che gli script rubino il focus quando non possono compilare a causa di errori" name="script_errors_steal_focus" />
+					<check_box bottom_delta="-20" control_name="AlchemyConnectToNeighbors" follows="top" height="16" label="Connetti alle regioni vicine" name="connect_to_neighbors" />
+					<check_box bottom_delta="-20" follows="top" label="Riduci a icona automaticamente l'avviso di riavvio regione" name="region_restart_minimized" control_name="LiruRegionRestartMinimized" tool_tip="Utile per i proprietari di sim e per chi deve fare le valigie prima di partire" />
+					<text bottom_delta="-16" follows="top" name="UISndRestartText">Suono riprodotto quando le regioni si riavviano:</text>
+					<line_editor bottom_delta="-6" left_delta="222" follows="top" width="216" height="16" name="UISndRestart" tool_tip="Vuoto per nessun suono" />
+					<spinner bottom_delta="-20" left_delta="-222" decimal_digits="3" follows="top" height="16" increment="0.05" label="Trasparenza Inattiva" tool_tip="Quando una finestra perde il focus, controlla quanto cambia la sua opacitÃ ." label_width="120" max_val="5" min_val="0" name="Inactive Transparency" width="200" control_name="InactiveFloaterTransparency" />
+					<spinner bottom_delta="0" left_delta="220" decimal_digits="3" follows="top" height="16" increment="0.05" label="Trasparenza Attiva" tool_tip="Quando una finestra è in focus, controlla quanto cambia la sua opacitÃ ." label_width="110" max_val="5" min_val="0" name="Active Transparency" width="190" control_name="ActiveFloaterTransparency" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel label="Tag/Colori" name="TagsColors">
+			<scroll_container name="vanity_tags_scroll">
+				<panel name="vanity_tags_inner">
+					<check_box control_name="AscentBroadcastTag" initial_value="true" label="Trasmetti Tag Client:" tool_tip="Scegli se gli altri vedono che usi [SHORT_APP_NAME]." name="show_my_tag_check" />
+					<combo_box max_chars="32" tool_tip="Il tag client (e colore) da trasmettere. Sostituito localmente da Tag/Colore personalizzato." name="tag_spoofing_combobox">
+						<combo_item name="Allyn" value="f25263b7-6167-4f34-a4ef-af65213b2e39">Allyn</combo_item>
+					</combo_box>
+					<check_box control_name="AscentShowSelfTag" initial_value="true" label="Mostra tag client a se stessi" tool_tip="Abilitando questo, il tuo tag client verrÃ  mostrato sul tuo nome avatar localmente." name="show_self_tag_check" />
+					<check_box control_name="AscentShowSelfTagColor" initial_value="true" label="Mostra colore tag client a se stessi" tool_tip="Abilitando questo, il colore del nome del tuo avatar corrisponderÃ  al colore del tuo tag client o a un colore personalizzato." name="show_self_tag_color_check" />
+					<check_box control_name="AscentShowFriendsTag" initial_value="true" label="Mostra tag client amici come (Amico)" tool_tip="Abilitando questo, i tag client dei tuoi amici verranno cambiati in (Amico)." name="show_friend_tag_check" />
+					<check_box control_name="SLBDisplayClientTagOnNewLine" initial_value="true" label="Mostra tag client su una nuova riga" tool_tip="Abilitando questo, il tag client verrÃ  mostrato su una nuova riga." name="display_client_new_line_check" />
+					<check_box control_name="AscentUseCustomTag" initial_value="true" label="Usa un colore ed etichetta personalizzati (Solo locale)" tool_tip="Abilitando questo, puoi impostare il tuo tag nome per mostrarlo con il tuo client personalizzato e colore del tag. Questo viene mostrato solo a te stesso." name="customize_own_tag_check" />
+					<text enabled_control="AscentUseCustomTag" name="custom_tag_label_text">Etichetta:</text>
+					<line_editor enabled_control="AscentUseCustomTag" font="SansSerif" name="custom_tag_label_box" tool_tip="Il testo personalizzato con cui vorresti sostituire il tuo tag client (Solo locale)" />
+					<text enabled_control="AscentUseCustomTag" name="custom_tag_color_text">Colore:</text>
+					<color_swatch enabled_control="AscentUseCustomTag" name="custom_tag_color_swatch" control_name="AscentCustomTagColor" tool_tip="Il colore personalizzato con cui vorresti sostituire il tuo colore client (Solo locale)" />
+					<check_box control_name="AscentShowOthersTag" initial_value="true" label="Mostra tag client per gli altri" tool_tip="Abilitando questo, i nomi dei tag client verranno mostrati sui nomi avatar degli altri." name="show_other_tag_check" />
+					<check_box control_name="AscentShowOthersTagColor" initial_value="true" label="Mostra colore tag client per gli altri" tool_tip="Abilitando questo, il colore del nome avatar degli altri corrisponderÃ  al colore del loro client." name="show_client_tag_color_check" />
+					<check_box control_name="AscentShowIdleTime" initial_value="true" label="Mostra Tempo di InattivitÃ " tool_tip="Abilitando questo, verrÃ  mostrato il tempo di inattivitÃ  di un avatar." name="show_idle_time_check" />
+					<check_box control_name="AscentUpdateTagsOnLoad" initial_value="true" label="Controlla automaticamente la presenza di aggiornamenti alle definizioni client sul sito web" tool_tip="Abilitando questo, [SHORT_APP_NAME] potrÃ  scaricare definizioni aggiornate quando necessario." name="update_tags_check" />
+					<button control_name="ManualUpdate" name="update_clientdefs" label="Aggiornamento Manuale" />
+					<text name="effects_color_textbox">Colore per i Miei Effetti:</text>
+					<color_swatch control_name="EffectColor" label="Effetti" name="effect_color_swatch" />
+					<check_box control_name="AscentUseStatusColors" initial_value="true" label="Usa colori stato utente (Amico, Linden, eccetera sotto)" tool_tip="Abilitando questo, le persone che corrispondono a criteri specifici (Linden, proprietari di Estate, amici, silenziati) verranno mostrate con il colore che hai impostato sotto." name="use_status_check" />
+					<text enabled_control="AscentUseStatusColors" name="friends_color_textbox">Colore (radar, tag, minimappa):</text>
+					<color_swatch control_name="AscentFriendColor" label="Amici" name="friend_color_swatch" tool_tip="Colore degli Amici" />
+					<color_swatch control_name="AscentEstateOwnerColor" label="Estate" name="estate_owner_color_swatch" tool_tip="Colore dei Gestori di Estate" />
+					<color_swatch control_name="AscentLindenColor" label="Linden" name="linden_color_swatch" tool_tip="Colore dei Linden" />
+					<color_swatch control_name="AscentMutedColor" label="Mute" name="muted_color_swatch" tool_tip="Colore dei Silenziati" />
+					<color_swatch control_name="MapAvatar" label="Altri" name="others_color_swatch" tool_tip="Colore di tutti gli altri sulla minimappa e mappa del mondo" />
+					<color_swatch control_name="MoyMiniMapCustomColor" label="Mini" name="custom_color_swatch" tool_tip="Colore degli utenti selezionati solo sulla minimappa" />
+					<text name="chat_color_text">Usa colori per la chat:</text>
+					<check_box control_name="ColorFriendChat" label="" name="color_friend_check" tool_tip="Colora Chat Amici" />
+					<check_box control_name="ColorEstateOwnerChat" label="" name="color_estate_owner_check" tool_tip="Colora Chat Gestori di Estate" />
+					<check_box control_name="ColorLindenChat" label="" name="color_linden_check" tool_tip="Colora Chat Linden" />
+					<check_box control_name="ColorMutedChat" label="" name="color_muted_check" tool_tip="Colora Chat Silenziati" />
+				</panel>
+			</scroll_container>
+		</panel>
+		<panel border="true" left="1" bottom="-190" height="180" width="500" label="Dinamica del Corpo" name="Body Dynamics">
+			<text bottom_delta="-20" height="15" left="10" name="av_mod_textbox" follows="top">Modificatori Offset Avatar</text>
+			<spinner bottom_delta="-20" decimal_digits="5" follows="top" height="16" increment="0.05" label="Modificatore X" label_width="65" left_delta="5" max_val="0.15" min_val="-0.15" name="X Modifier" width="128" control_name="AscentAvatarXModifier" tool_tip="Usa questo per manipolare, in una certa misura, il bounding box del tuo avatar. PuÃ² essere usato per distorcere orbiter, o per alzarti o abbassarti senza alterare la tua forma." />
+			<spinner bottom_delta="-20" decimal_digits="5" follows="top" height="16" increment="0.05" label="Modificatore Y" label_width="65" max_val="0.20" min_val="-0.20" name="Y Modifier" width="128" control_name="AscentAvatarYModifier" tool_tip="Usa questo per manipolare, in una certa misura, il bounding box del tuo avatar. PuÃ² essere usato per distorcere orbiter, o per alzarti o abbassarti senza alterare la tua forma." />
+			<spinner bottom_delta="-20" decimal_digits="5" follows="top" height="16" increment="0.1" label="Modificatore Z" label_width="65" max_val="5.0" min_val="-5.0" name="Z Modifier" width="128" control_name="AscentAvatarZModifier" tool_tip="Usa questo per manipolare, in una certa misura, il bounding box del tuo avatar. PuÃ² essere usato per distorcere orbiter, o per alzarti o abbassarti senza alterare la tua forma." />
+		</panel>
+	</tab_container>
+</panel>
