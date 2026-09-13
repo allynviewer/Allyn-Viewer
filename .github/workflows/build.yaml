@@ -335,11 +335,7 @@ jobs:
           [ "$CHANNEL_TYPE" = "Release" ] || title="$title $CHANNEL_TYPE"
 
           notes=$(mktemp)
-          if [ -f RELEASE_NOTES.md ]; then
-            cat RELEASE_NOTES.md > "$notes"
-          else
-            gh api "repos/$GITHUB_REPOSITORY/releases/generate-notes" -f tag_name="$TAG" -q .body > "$notes"
-          fi
+          gh api "repos/$GITHUB_REPOSITORY/releases/generate-notes" -f tag_name="$TAG" -q .body > "$notes"
           {
             printf '\n\n## Code signing policy\n\n'
             if [ "$SIGNED" = "true" ]; then

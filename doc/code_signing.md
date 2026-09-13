@@ -126,7 +126,7 @@ git tag v1.0.0.5          # v<version>, version = VIEWER_VERSION.txt + build num
 git push origin v1.0.0.5
 ```
 
-The workflow builds, waits for the two approvals and creates the GitHub Release `v1.0.0.5` titled `Allyn Viewer 1.0.0.5 <channel type>` (pre-release unless the channel type is `Release`). Release notes come from `RELEASE_NOTES.md` when present, otherwise from GitHub's generated notes; the *Code signing policy* footer is always appended.
+The workflow builds, waits for the two approvals and creates the GitHub Release `v1.0.0.5` titled `Allyn Viewer 1.0.0.5 <channel type>` (pre-release unless the channel type is `Release`). Release notes come from GitHub's generated notes unless the release already exists (in that case title and notes are left untouched); the *Code signing policy* footer is always appended when the job creates the release.
 
 If the release already exists, the job only uploads the signed packages with `--clobber`, so the unsigned assets are replaced as long as the file names match — i.e. the channel type used locally (`VIEWER_CHANNEL_TYPE` in the CMake cache, default `Beta`) equals `RELEASE_CHANNEL_TYPE` in CI. The release title and notes are left untouched in that case.
 

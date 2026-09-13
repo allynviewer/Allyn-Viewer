@@ -713,9 +713,9 @@ class WindowsManifest(ViewerManifest):
         """ % substitution_strings
 
         if self.channel_type() == 'release':
-            substitution_strings['caption'] = CHANNEL_VENDOR_BASE
+            substitution_strings['caption'] = CHANNEL_VENDOR_BASE + ' ${VERSION_LONG}'
         else:
-            substitution_strings['caption'] = self.app_name() + ' ${VERSION}'
+            substitution_strings['caption'] = self.app_name() + ' ${VERSION_LONG}'
 
         inst_vars_template = """
             !define INSTEXE  "%(final_exe)s"

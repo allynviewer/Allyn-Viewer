@@ -138,7 +138,9 @@ exoflickrkeys.h
 
 # --- Maintainer-only helpers (never commit) ---
 /build-release.local.bat
+/build-release.local.ps1
 *.local.bat
+*.local.ps1
 
 # --- Local-only scratch (this workspace) ---
 /traducao
