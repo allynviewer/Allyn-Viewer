@@ -54,3 +54,6 @@ LangString DeleteProgramFilesMB ${LANG_RUSSIAN} "В каталоге прогр�
 
 ; uninstall text
 LangString UninstallTextMsg ${LANG_RUSSIAN} "Программа ${APPNAME} ${VERSION_LONG} будет удалена из вашей системы."
+
+; finish page
+LangString CreateDesktopShortcut ${LANG_RUSSIAN} "Создать ярлык на рабочем столе"

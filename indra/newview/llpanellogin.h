@@ -91,6 +91,9 @@ private:
 	void onNameCheckChanged(const LLSD& value);
 	void confirmDelete();
 	void removeLogin(bool knot);
+	void loadSavedLogins();
+	void saveSavedLogins();
+	static std::string loginHistoryPath();
 public:
 	static bool hasLoginHistory();
 private:

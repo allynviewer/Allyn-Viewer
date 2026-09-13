@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="false" can_tear_off="true" default_tab_group="1" enabled="true"
+     can_resize="true" can_tear_off="true" default_tab_group="1" enabled="true"
      height="728" left="330" min_height="428" min_width="640"
      mouse_opaque="true" name="Preferences" title="Preferences"
-     title_icon="pref_title_gear.png" width="880">
+     title_icon="pref_title_gear.png" width="880"
+     rect_control="FloaterPreferenceRect">
 	<filter_editor bottom="-62" enabled="true" follows="left|top|right" height="22"
 	     label="Search Settings" left="8" max_length="255" name="search_prefs_edit"
 	     right="-8" tool_tip="Type a search term. Matching settings are highlighted and tabs without matches are hidden.">

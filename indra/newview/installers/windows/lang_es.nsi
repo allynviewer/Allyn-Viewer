@@ -54,3 +54,6 @@ LangString DeleteProgramFilesMB ${LANG_SPANISH} "Aún hay archivos en su directo
 
 ; uninstall text
 LangString UninstallTextMsg ${LANG_SPANISH} "Este proceso desinstalará ${APPNAME} ${VERSION_LONG} de su sistema."
+
+; finish page
+LangString CreateDesktopShortcut ${LANG_SPANISH} "Crear acceso directo en el escritorio"

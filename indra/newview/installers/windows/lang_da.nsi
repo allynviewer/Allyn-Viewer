@@ -54,3 +54,6 @@ LangString DeleteProgramFilesMB ${LANG_DANISH} "Der er stadig filer i ${APPNAME}
 
 ; uninstall text
 LangString UninstallTextMsg ${LANG_DANISH} "Dette vil afinstallere ${APPNAME} ${VERSION_LONG} fra dit system."
+
+; finish page
+LangString CreateDesktopShortcut ${LANG_DANISH} "Opret genvej på skrivebordet"

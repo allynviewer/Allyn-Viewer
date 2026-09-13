@@ -26,6 +26,7 @@
   <texture name="Rounded_Square" file_name="rounded_square.tga" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16"/>
   <texture name="sm_rounded_corners_simple.tga" scale.left="6" scale.top="6" scale.bottom="6" scale.right="6"/>
   <texture name="icn_textfield_enabled.tga" scale.left="6" scale.top="6" scale.bottom="6" scale.right="6"/>
+  <texture name="combobox_arrow.tga" file_name="combobox_arrow.tga" preload="true"/>
   <texture name="icn_rounded-text-field.tga" file_name="icn_textfield_enabled.tga" scale.left="6" scale.top="6" scale.bottom="6" scale.right="6"/>
   <texture name="icn_scrollbar_thumb.tga" scale.left="4" scale.top="8" scale.right="12" scale.bottom="8"/>
 

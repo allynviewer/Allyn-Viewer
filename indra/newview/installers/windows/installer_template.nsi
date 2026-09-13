@@ -159,8 +159,9 @@
   !define MUI_PAGE_CUSTOMFUNCTION_PRE check_skip_finish
   !define MUI_FINISHPAGE_RUN
   !define MUI_FINISHPAGE_RUN_FUNCTION launch_viewer
-  !define MUI_FINISHPAGE_SHOWREADME
-  !define MUI_FINISHPAGE_SHOWREADME_TEXT "Create Desktop Shortcut"
+  ; Empty string is required so MUI treats this as a checkbox, not a file to open.
+  !define MUI_FINISHPAGE_SHOWREADME ""
+  !define MUI_FINISHPAGE_SHOWREADME_TEXT "$(CreateDesktopShortcut)"
   !define MUI_FINISHPAGE_SHOWREADME_NOTCHECKED
   !define MUI_FINISHPAGE_SHOWREADME_FUNCTION create_desktop_shortcut
   !define MUI_FINISHPAGE_NOREBOOTSUPPORT
@@ -239,11 +240,15 @@ Function launch_viewer
 FunctionEnd
 
 Function create_desktop_shortcut
-!ifdef WIN64_BIN_BUILD
-  CreateShortCut "$DESKTOP\$INSTSHORTCUT x64.lnk" "$INSTDIR\$INSTEXE" "$SHORTCUT_LANG_PARAM" "$INSTDIR\$INSTEXE"
-!else
+  ; The install section uses SetShellVarContext all, which persists into this
+  ; finish-page callback. That makes $DESKTOP resolve to Public Desktop
+  ; (C:\Users\Public\Desktop), which Windows 10/11 — especially with OneDrive
+  ; Desktop backup — does not show on the user's actual desktop.
+  ; CreateShortCut also uses $OUTDIR as the shortcut working directory and
+  ; fails if that path does not exist.
+  SetShellVarContext current
+  SetOutPath "$INSTDIR"
   CreateShortCut "$DESKTOP\$INSTSHORTCUT.lnk" "$INSTDIR\$INSTEXE" "$SHORTCUT_LANG_PARAM" "$INSTDIR\$INSTEXE"
-!endif
 FunctionEnd
 
 ;Check version compatibility
@@ -635,6 +640,15 @@ Section "Uninstall"
   ;Optional/obsolete files.  Delete won't fail if they don't exist.
   Delete "$INSTDIR\message_template.msg"
   Delete "$INSTDIR\VivoxVoiceService-*.log"
+
+  ; Desktop shortcut from the finish page (current-user desktop). Also remove
+  ; legacy Public Desktop / "x64" names created by older installers.
+  SetShellVarContext current
+  Delete "$DESKTOP\$INSTSHORTCUT.lnk"
+  Delete "$DESKTOP\$INSTSHORTCUT x64.lnk"
+  SetShellVarContext all
+  Delete "$DESKTOP\$INSTSHORTCUT.lnk"
+  Delete "$DESKTOP\$INSTSHORTCUT x64.lnk"
 
   ;Shortcuts in install directory
 !ifdef WIN64_BIN_BUILD

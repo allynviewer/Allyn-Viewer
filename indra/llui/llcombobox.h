@@ -122,6 +122,9 @@ public:
 	void			setTextEntryCallback( commit_callback_t cb ) { mTextEntryCallback = cb; }
 	void			setButtonVisible(BOOL visible);
 	void			setButtonImages(const std::string& unselected, const std::string& selected);
+	void			setButtonOverlay(const std::string& image_name,
+									 LLFontGL::HAlign alignment = LLFontGL::RIGHT,
+									 const LLColor4& color = LLColor4::white);
 	void			onButtonMouseDown();
 	void			onListMouseUp();
 	void			onItemSelected(const LLSD& data);

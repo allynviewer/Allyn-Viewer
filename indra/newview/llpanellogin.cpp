@@ -345,6 +345,9 @@ LLPanelLogin::LLPanelLogin(const LLRect& rect)
 	username_combo->setSuppressTentative(true);
 	username_combo->setSuppressAutoComplete(true);
 	username_combo->setButtonImages("icn_textfield_enabled.tga", "icn_textfield_enabled.tga");
+	username_combo->setButtonOverlay("combobox_arrow.tga", LLFontGL::HCENTER,
+		LLUI::sColorsGroup->getColor("LoginLabelColor"));
+	username_combo->setButtonVisible(TRUE);
 	if (LLLineEditor* username_entry = username_combo->getChild<LLLineEditor>("combo_text_entry", TRUE, FALSE))
 	{
 		username_entry->setVAlign(LLFontGL::VCENTER);
@@ -372,10 +375,14 @@ LLPanelLogin::LLPanelLogin(const LLRect& rect)
 	location_combo->setAllowTextEntry(TRUE, 128, FALSE);
 	location_combo->setFocusLostCallback( boost::bind(&LLPanelLogin::onLocationSLURL, this) );
 	location_combo->setButtonImages("icn_textfield_enabled.tga", "icn_textfield_enabled.tga");
+	location_combo->setButtonOverlay("combobox_arrow.tga", LLFontGL::HCENTER,
+		LLUI::sColorsGroup->getColor("LoginLabelColor"));
 	LLComboBox* server_choice_combo = getChild<LLComboBox>("grids_combo");
 	server_choice_combo->setCommitCallback(boost::bind(&LLPanelLogin::onSelectGrid, this, _1));
 	server_choice_combo->setFocusLostCallback(boost::bind(&LLPanelLogin::onSelectGrid, this, server_choice_combo));
 	server_choice_combo->setButtonImages("icn_textfield_enabled.tga", "icn_textfield_enabled.tga");
+	server_choice_combo->setButtonOverlay("combobox_arrow.tga", LLFontGL::HCENTER,
+		LLUI::sColorsGroup->getColor("LoginLabelColor"));
 	if (LLView* grids_panel = getChildView("grids_panel", TRUE, FALSE))
 		grids_panel->setVisible(FALSE);
 	updateGridCombo();
@@ -429,10 +436,41 @@ LLPanelLogin::LLPanelLogin(const LLRect& rect)
 	AllynPresence::requestStatus();
 	atualizarTextosOnlineLogin(this);
 	gHippoGridManager->setCurrentGridChangeCallback(boost::bind(&LLPanelLogin::onCurGridChange,this,_1,_2));
+	loadSavedLogins();
+}
+std::string LLPanelLogin::loginHistoryPath()
+{
+	return gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "saved_logins_sg2.xml");
+}
+void LLPanelLogin::loadSavedLogins()
+{
+	LLComboBox* username_combo = getChild<LLComboBox>("username_combo");
+	if (!username_combo)
+		return;
+	username_combo->removeall();
+	mLoginHistoryData = LLSavedLogins::loadFile(loginHistoryPath());
+	const LLSavedLoginsList& saved_login_entries(mLoginHistoryData.getEntries());
+	for (LLSavedLoginsList::const_reverse_iterator i = saved_login_entries.rbegin();
+		 i != saved_login_entries.rend(); ++i)
+	{
+		const LLSD& e = i->asLLSD();
+		if (e.isMap() && gHippoGridManager->getGrid(i->getGrid()))
+			username_combo->add(getDisplayString(*i), e);
+	}
+	username_combo->setButtonVisible(TRUE);
+	if (!saved_login_entries.empty())
+	{
+		setFields(*saved_login_entries.rbegin(), false);
+	}
+	addFavoritesToStartLocation();
+}
+void LLPanelLogin::saveSavedLogins()
+{
+	LLSavedLogins::saveFile(mLoginHistoryData, loginHistoryPath());
 }
 bool LLPanelLogin::hasLoginHistory()
 {
-	return false;
+	return sInstance && sInstance->mLoginHistoryData.size() > 0;
 }
 void LLPanelLogin::addFavoritesToStartLocation()
 {
@@ -614,6 +652,7 @@ void LLPanelLogin::reshape(S32 width, S32 height, BOOL called_from_parent)
 }
 LLPanelLogin::~LLPanelLogin()
 {
+	saveSavedLogins();
 	sInstance = nullptr;
 	if (gFocusMgr.getDefaultKeyboardFocus() == this)
 		gFocusMgr.setDefaultKeyboardFocus(nullptr);
@@ -784,6 +823,7 @@ void LLPanelLogin::setFields(const LLSavedLoginEntry& entry, bool takeFocus)
 	LLCheckBoxCtrl* remember_pass_check = sInstance->getChild<LLCheckBoxCtrl>("remember_check");
 	std::string fullname = nameJoin(entry.getFirstName(), entry.getLastName(), entry.isSecondLife());
 	LLComboBox* login_combo = sInstance->getChild<LLComboBox>("username_combo");
+	login_combo->setSelectedByValue(entry.asLLSD(), TRUE);
 	login_combo->setTextEntry(fullname);
 	login_combo->resetTextDirty();
 	const auto& grid = entry.getGrid();
@@ -1209,6 +1249,15 @@ void LLPanelLogin::removeLogin(bool knot)
 	{
 		mLoginHistoryData.deleteEntry(selected.get("firstname").asString(), selected.get("lastname").asString(), selected.get("grid").asString());
 		combo->remove(label);
-		combo->selectFirstItem();
+		saveSavedLogins();
+		if (combo->selectFirstItem())
+		{
+			onSelectLoginEntry(combo->getSelectedValue());
+		}
+		else
+		{
+			combo->setTextEntry(LLStringUtil::null);
+			clearPassword();
+		}
 	}
 }

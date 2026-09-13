@@ -54,3 +54,6 @@ LangString DeleteProgramFilesMB ${LANG_TRADCHINESE} "在您的 ${APPNAME} 程式
 
 ; uninstall text
 LangString UninstallTextMsg ${LANG_TRADCHINESE} "將從您的系統中卸載 ${APPNAME} ${VERSION_LONG}。"
+
+; finish page
+LangString CreateDesktopShortcut ${LANG_TRADCHINESE} "建立桌面捷徑"

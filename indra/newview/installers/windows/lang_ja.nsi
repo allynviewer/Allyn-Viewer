@@ -54,3 +54,6 @@ LangString DeleteProgramFilesMB ${LANG_JAPANESE} "セカンドライフのディ
 
 ; uninstall text
 LangString UninstallTextMsg ${LANG_JAPANESE} "セカンドライフ${VERSION_LONG}をアンインストールします。"
+
+; finish page
+LangString CreateDesktopShortcut ${LANG_JAPANESE} "デスクトップにショートカットを作成"

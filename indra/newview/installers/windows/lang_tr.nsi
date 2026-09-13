@@ -54,3 +54,6 @@ LangString DeleteProgramFilesMB ${LANG_TURKISH} "${APPNAME} program dizininizde 
 
 ; uninstall text
 LangString UninstallTextMsg ${LANG_TURKISH} "Bu adımla ${APPNAME} ${VERSION_LONG} sisteminizden kaldırılacaktır."
+
+; finish page
+LangString CreateDesktopShortcut ${LANG_TURKISH} "Masaüstünde kısayol oluştur"

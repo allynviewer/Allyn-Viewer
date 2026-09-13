@@ -465,6 +465,15 @@ void LLComboBox::setButtonImages(const std::string& unselected, const std::strin
 		mTextEntry->setUIImage(uns);
 	}
 }
+void LLComboBox::setButtonOverlay(const std::string& image_name, LLFontGL::HAlign alignment, const LLColor4& color)
+{
+	mArrowImage = LLUI::getUIImage(image_name);
+	if (mButton)
+	{
+		mButton->setImageOverlay(image_name, alignment, color);
+	}
+	updateLayout();
+}
 void LLComboBox::draw()
 {
 	mButton->setEnabled(getEnabled() );

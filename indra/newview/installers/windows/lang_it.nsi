@@ -54,3 +54,6 @@ LangString DeleteProgramFilesMB ${LANG_ITALIAN} "Sono ancora presenti dei file n
 
 ; uninstall text
 LangString UninstallTextMsg ${LANG_ITALIAN} "Così facendo ${APPNAME} verrà disinstallato ${VERSION_LONG} dal tuo sistema."
+
+; finish page
+LangString CreateDesktopShortcut ${LANG_ITALIAN} "Crea collegamento sul desktop"

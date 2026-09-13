@@ -595,8 +595,16 @@ def make_arrow(w=16, h=16, direction="up", active=True):
     return pixels
 
 
-def make_combobox_arrow(w=16, h=16):
-    return make_arrow(w, h, "down", True)
+def make_combobox_arrow(w=20, h=24):
+    pixels = blank(w, h)
+    col = (*TEXT, 255)
+    cx, cy = w // 2, h // 2
+    for i in range(8):
+        half = 7 - i
+        y = cy - 2 + i
+        for x in range(cx - half, cx + half + 1):
+            set_px(pixels, w, x, y, col)
+    return pixels
 
 
 def write_named(out_dir, name, pixels, ww, hh):
@@ -693,7 +701,7 @@ def write_all(out_dir):
         ("spin_up_in_blue.tga", lambda: make_arrow(direction="up", active=True), 16, 16),
         ("spin_down_out_blue.tga", lambda: make_arrow(direction="down", active=True), 16, 16),
         ("spin_down_in_blue.tga", lambda: make_arrow(direction="down", active=True), 16, 16),
-        ("combobox_arrow.tga", lambda: make_combobox_arrow(), 16, 16),
+        ("combobox_arrow.tga", lambda: make_combobox_arrow(), 20, 24),
     ]
 
     for name, factory, ww, hh in specs:
