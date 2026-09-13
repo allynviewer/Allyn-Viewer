@@ -8,14 +8,14 @@
 	<check_box label="Modifier" name="CheckOwnerModify"/>
 	<check_box label="Copier" name="CheckOwnerCopy"/>
 	<check_box label="Revendre/Donner" name="CheckOwnerTransfer"/>
-	<text bottom_delta="-1" name="GroupLabel">Les Membres du Groupe peuvent:</text>
+	<text name="GroupLabel">Les Membres du Groupe peuvent:</text>
 	<check_box label="Modifer" name="CheckGroupMod"/>
 	<check_box label="Copier" name="CheckGroupCopy"/>
 	<check_box label="Déplacer" name="CheckGroupMove"/>
-	<text bottom_delta="-10" name="EveryoneLabel">Tout le Monde peux:</text>
-	<check_box bottom_delta="-20" label="Copier" name="CheckEveryoneCopy"/>
+	<text name="EveryoneLabel">Tout le Monde peux:</text>
+	<check_box label="Copier" name="CheckEveryoneCopy"/>
 	<check_box label="Déplacer" name="CheckEveryoneMove"/>
-	<text name="NextOwnerLabel" width="150">Le Prochain Propriétaire peux:</text>
+	<text name="NextOwnerLabel">Le Prochain Propriétaire peux:</text>
 	<check_box label="Modifier" name="CheckNextOwnerModify"/>
 	<check_box label="Copier" name="CheckNextOwnerCopy"/>
 	<check_box label="Revendre/Donner" name="CheckNextOwnerTransfer"/>

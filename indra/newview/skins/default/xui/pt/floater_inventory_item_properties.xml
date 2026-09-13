@@ -12,18 +12,25 @@
 	<text name="LabelOwnerTitle">
 		Dono:
 	</text>
+	<text name="LabelLastOwnerTitle">
+		Último dono:
+	</text>
 	<text name="LabelAcquiredTitle">
 		Adquirido:
 	</text>
 	<text name="LabelAcquiredDate">
 		Qua Mai 24 12:50:46 2006
 	</text>
+	<text name="LabelItemExperienceTitle">
+		Experiência:
+	</text>
 	<text name="OwnerLabel">
 		Você pode:
 	</text>
 	<check_box label="Modificar" name="CheckOwnerModify"/>
 	<check_box label="Copiar" name="CheckOwnerCopy"/>
-	<check_box label="Revender/Doar" name="CheckOwnerTransfer"/>
+	<check_box label="Transferir" name="CheckOwnerTransfer"/>
+	<check_box label="Exportar" name="CheckOwnerExport"/>
 	<text name="BaseMaskDebug">
 		B:
 	</text>
@@ -39,14 +46,24 @@
 	<text name="NextMaskDebug">
 		N:
 	</text>
-	<check_box label="Compartilhar com o grupo" name="CheckShareWithGroup"/>
-	<check_box label="Permitir qualquer um copiar" name="CheckEveryoneCopy"/>
-	<text name="NextOwnerLabel" width="230">
+	<text name="GroupLabel">
+		Membros do grupo podem:
+	</text>
+	<check_box label="Modificar" name="CheckGroupMod"/>
+	<check_box label="Copiar" name="CheckGroupCopy"/>
+	<check_box label="Mover" name="CheckGroupMove"/>
+	<text name="EveryoneLabel">
+		Qualquer um pode:
+	</text>
+	<check_box label="Copiar" name="CheckEveryoneCopy"/>
+	<check_box label="Mover" name="CheckEveryoneMove"/>
+	<check_box label="Exportar" name="CheckExport"/>
+	<text name="NextOwnerLabel">
 		Próximo dono pode:
 	</text>
 	<check_box label="Modificar" name="CheckNextOwnerModify"/>
 	<check_box label="Copiar" name="CheckNextOwnerCopy"/>
-	<check_box label="Revender/Doar" name="CheckNextOwnerTransfer"/>
+	<check_box label="Transferir" name="CheckNextOwnerTransfer"/>
 	<text name="SaleLabel">
 		Marcar Item:
 	</text>
@@ -60,7 +77,7 @@
 		</radio_item>
 	</radio_group>
 	<text name="TextPrice">
-		Price: [CURRENCY]
+		Preço: [CURRENCY]
 	</text>
 	<string name="unknown">
 		(desconhecido)
@@ -72,6 +89,6 @@
 		Você pode:
 	</string>
 	<string name="owner_can">
-		Proprietário pode :
+		Proprietário pode:
 	</string>
 </floater>

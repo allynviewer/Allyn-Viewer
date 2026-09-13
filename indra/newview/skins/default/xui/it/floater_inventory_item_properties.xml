@@ -22,8 +22,8 @@
 		Tu puoi:
 	</text>
 	<check_box label="Modificare" name="CheckOwnerModify"/>
-	<check_box left_delta="88" label="Copiare" name="CheckOwnerCopy"/>
-	<check_box label="Rivendere/Regalare" name="CheckOwnerTransfer"/>
+	<check_box label="Copiare" name="CheckOwnerCopy"/>
+	<check_box label="Trasferire" name="CheckOwnerTransfer"/>
 	<text name="BaseMaskDebug">
 		B:
 	</text>
@@ -39,19 +39,28 @@
 	<text name="NextMaskDebug">
 		N:
 	</text>
-	<check_box label="Condividi con il gruppo" name="CheckShareWithGroup"/>
-	<check_box label="Permetti a tutti di copiare" name="CheckEveryoneCopy"/>
-	<text name="NextOwnerLabel" width="230">
+	<text name="GroupLabel">
+		I membri del gruppo possono:
+	</text>
+	<check_box label="Modificare" name="CheckGroupMod"/>
+	<check_box label="Copiare" name="CheckGroupCopy"/>
+	<check_box label="Spostare" name="CheckGroupMove"/>
+	<text name="EveryoneLabel">
+		Chiunque può:
+	</text>
+	<check_box label="Copiare" name="CheckEveryoneCopy"/>
+	<check_box label="Spostare" name="CheckEveryoneMove"/>
+	<text name="NextOwnerLabel">
 		Il prossimo proprietario può:
 	</text>
 	<check_box label="Modificare" name="CheckNextOwnerModify"/>
-	<check_box left_delta="88" label="Copiare" name="CheckNextOwnerCopy"/>
-	<check_box label="Rivendere/Regalare" name="CheckNextOwnerTransfer"/>
+	<check_box label="Copiare" name="CheckNextOwnerCopy"/>
+	<check_box label="Trasferire" name="CheckNextOwnerTransfer"/>
 	<text name="SaleLabel">
 		Metti l&apos;oggetto:
 	</text>
 	<check_box label="In vendita" name="CheckPurchase"/>
-	<radio_group name="RadioSaleType" left_delta="88" >
+	<radio_group name="RadioSaleType">
 		<radio_item name="radio">
 			Originale
 		</radio_item>

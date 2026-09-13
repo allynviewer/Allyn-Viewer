@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="true" height="570" min_height="570" min_width="780"
+     can_resize="true" height="570" min_height="700" min_width="1070"
      name="directory" rect_control="FloaterFindRect2" title="Search"
      width="780">
 	<tab_container bottom="-570" follows="left|top|right|bottom" height="550" left="0"

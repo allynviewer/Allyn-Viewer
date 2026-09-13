@@ -111,6 +111,7 @@ LLFloaterProperties::LLFloaterProperties(const std::string& name, const LLRect& 
 {
 	mPropertiesObserver = new LLPropertiesObserver(this);
 	LLUICtrlFactory::getInstance()->buildFloater(this,"floater_inventory_item_properties.xml");
+	reshape(450, 460);
 }
 LLFloaterProperties::~LLFloaterProperties()
 {

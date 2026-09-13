@@ -7617,8 +7617,8 @@ This should be as low as possible, but too low may break functionality</string>
       <key>Value</key>
       <array>
         <integer>0</integer>
-        <integer>570</integer>
-        <integer>780</integer>
+        <integer>700</integer>
+        <integer>1070</integer>
         <integer>0</integer>
       </array>
     </map>
@@ -12739,8 +12739,8 @@ This should be as low as possible, but too low may break functionality</string>
       <key>Value</key>
       <array>
         <integer>0</integer>
-        <integer>320</integer>
-        <integer>350</integer>
+        <integer>460</integer>
+        <integer>450</integer>
         <integer>0</integer>
       </array>
     </map>
