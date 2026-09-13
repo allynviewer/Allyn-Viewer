@@ -17,9 +17,10 @@
 	<line_editor name="group_key" />
 	<button name="copy_uri" label="Копировать URI" />
 	<text name="group_charter_label">Устав группы</text>
-	<texture_picker name="insignia" label="Знаки отличия группы" tool_tip="Нажмите, чтобы выбрать картинку" />
+	<string name="join_btn_label">Вступить ([FEE])</string>
+	<texture_picker name="insignia" label="" tool_tip="Нажмите, чтобы выбрать картинку" />
 	<text_editor name="charter">Устав группы</text_editor>
-	<button name="join_button" label="Присоединяйтесь ([CURRENCY]0)" />
+	<button name="join_button" label="Вступить ([CURRENCY]0)" />
 	<button name="info_button" label="Детальный вид" />
 	<name_list name="visible_members">
 		<column name="name" label="Имя участника" />

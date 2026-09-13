@@ -17,7 +17,8 @@ Daha fazla yardım için farenizi seçeneklerin üzerine getirin.
 	<line_editor name="group_key" />
 	<button name="copy_uri" label="URI'yi kopyala" />
 	<text name="group_charter_label">Grup Şartı</text>
-	<texture_picker name="insignia" label="Grup Amblemi" tool_tip="Bir resim seçmek için tıklayın" />
+	<string name="join_btn_label">Katıl ([FEE])</string>
+	<texture_picker name="insignia" label="" tool_tip="Bir resim seçmek için tıklayın" />
 	<text_editor name="charter">Grup Şartı</text_editor>
 	<button name="join_button" label="Katıl ([CURRENCY]0)" />
 	<button name="info_button" label="Detaylı Görünüm" />

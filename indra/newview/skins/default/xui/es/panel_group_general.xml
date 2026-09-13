@@ -27,7 +27,10 @@ Coloca el cursor sobre las opciones para más información.
 	<text name="group_charter_label">
 		Carta del Grupo
 	</text>
-	<texture_picker label="Emblema del Grupo" name="insignia" tool_tip="Pulsa aquí para elegir una imagen"/>
+	<string name="join_btn_label">
+		Entrar ([FEE])
+	</string>
+	<texture_picker label="" name="insignia" tool_tip="Pulsa aquí para elegir una imagen"/>
 	<text_editor name="charter">
 		Carta del Grupo
 	</text_editor>

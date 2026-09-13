@@ -3,21 +3,45 @@
 	<string name="choose_picture">
 		Clique para escolher uma imagem
 	</string>
+	<string name="pick title">
+		Pegar:
+	</string>
 	<text name="Multiple">
-		Multiplo
+		Múltiplo
 	</text>
 	<text name="unknown">
 		Dimensões: [DIMENSIONS]
 	</text>
 	<button label="Padrão" label_selected="Padrão" name="Default"/>
-	<button label="Nenhum" label_selected="Nenhum" name="None"/>
+	<button label="Alfa" label_selected="Alfa" name="Alpha"/>
 	<button label="Branco" label_selected="Branco" name="Blank"/>
-	<check_box label="Mostrar Pastas" name="show_folders_check"/>
- <filter_editor label="Clique aqui para buscar" name="inventory search editor"/>
-	<check_box label="Aplicar Imediatamente" name="apply_immediate_check"/>
+	<button label="Invisível" label_selected="Invisível" name="Invisible"/>
+	<button label="Nenhum" label_selected="Nenhum" name="None"/>
+	<check_box label="Mostrar pastas" name="show_folders_check"/>
+	<check_box label="Aplicar imediatamente" name="apply_immediate_check"/>
 	<button label="Cancelar" label_selected="Cancelar" name="Cancel"/>
 	<button label="Selecionar" label_selected="Selecionar" name="Select"/>
-	<string name="pick title">
-		Pegar:
-	</string>
+	<button label="Aplicar UUID" label_selected="Aplicar UUID" name="ApplyUUID"/>
+	<tab_container name="actions_tab_container">
+		<panel label="Inventário" name="server_tab">
+			<filter_editor label="Digite aqui para buscar" name="inventory search editor"/>
+		</panel>
+		<panel label="Local" name="local_tab">
+			<text name="select_local">
+				Selecione uma textura no computador para pré-visualizar no mundo
+			</text>
+			<button label="Adicionar" name="Add"/>
+			<button label="Remover" name="Remove"/>
+			<button label="Propriedades..." name="Browser"/>
+			<scroll_list name="local_name_list">
+				<column name="unit_name" label="Nome"/>
+				<column name="unit_id_HIDDEN" label="ID"/>
+			</scroll_list>
+		</panel>
+		<panel label="Bake" name="bake">
+			<scroll_list name="l_bake_use_texture_combo_box" tool_tip="Escolha a textura bake">
+				<scroll_list.column name="type" label="Tipo"/>
+			</scroll_list>
+		</panel>
+	</tab_container>
 </floater>

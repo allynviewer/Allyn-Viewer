@@ -22,7 +22,10 @@ Passa il mouse sulle opzioni per un aiuto aggiuntivo.
 	<text name="group_charter_label">
 		Statuto del gruppo
 	</text>
-	<texture_picker label="Immagine del gruppo" name="insignia" tool_tip="Clicca per scegliere una immagine"/>
+	<string name="join_btn_label">
+		Unisciti ([FEE])
+	</string>
+	<texture_picker label="" name="insignia" tool_tip="Clicca per scegliere una immagine"/>
 	<text_editor name="charter">
 		Statuto del gruppo
 	</text_editor>

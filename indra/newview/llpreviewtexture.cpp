@@ -100,8 +100,7 @@ LLPreviewTexture::LLPreviewTexture(const std::string& name,
 			mIsCopyable = TRUE;
 		}
 	}
-	init();
-	setTitle(title);
+	init(title);
 	if (!getHost())
 	{
 		LLRect curRect = getRect();
@@ -136,8 +135,7 @@ LLPreviewTexture::LLPreviewTexture(
 	mAlphaMaskResult(0),
 	mMaxAutoSize(max_auto_size)
 {
-	init();
-	setTitle(title);
+	init(title);
 	LLRect curRect = getRect();
 	translate(curRect.mLeft - rect.mLeft, curRect.mTop - rect.mTop);
 }
@@ -155,10 +153,11 @@ LLPreviewTexture::~LLPreviewTexture()
 	}
 	sInstance = NULL;
 }
-void LLPreviewTexture::init()
+void LLPreviewTexture::init(const std::string& title)
 {
 	sInstance = this;
 	LLUICtrlFactory::getInstance()->buildFloater(sInstance,"floater_preview_texture.xml");
+	setTitle(title);
 	childSetVisible("desc", !mCopyToInv);
 	childSetVisible("desc txt", !mCopyToInv);
 	childSetVisible("Copy To Inventory", mCopyToInv);
@@ -183,9 +182,17 @@ void LLPreviewTexture::init()
 			childSetCommitCallback("desc", LLPreview::onText, this);
 			childSetText("desc", item->getDescription());
 			getChild<LLLineEditor>("desc")->setPrevalidate(&LLLineEditor::prevalidatePrintableNotPipe);
-			childSetText("uuid", getItemID().asString());
-			childSetText("alphanote", LLTrans::getString("LoadingData"));
 		}
+		else
+		{
+			childSetText("desc", title);
+		}
+		const LLUUID uuid = getItemID();
+		if (uuid.notNull())
+		{
+			childSetText("uuid", uuid.asString());
+		}
+		childSetText("alphanote", LLTrans::getString("LoadingData"));
 	}
 	childSetText("uploader", getItemCreatorName());
 	childSetText("uploadtime", getItemCreationDate());
@@ -377,8 +384,9 @@ LLUUID LLPreviewTexture::getItemID()
 		{
 			return item->getAssetUUID();
 		}
+		return LLUUID::null;
 	}
-	return LLUUID::null;
+	return mImageID;
 }
 std::string LLPreviewTexture::getItemCreationDate()
 {
@@ -389,6 +397,10 @@ std::string LLPreviewTexture::getItemCreationDate()
 		timeToFormattedString(item->getCreationDate(), gSavedSettings.getString("TimestampFormat"), time);
 		return time;
 	}
+	if (mImage.isNull())
+	{
+		return getString("Unknown");
+	}
 	const LLDate date = mImage->getUploadTime();
 	return date.notNull() ? date.toHTTPDateString(gSavedSettings.getString("TimestampFormat"))
 		: getString("Unknown");
@@ -396,7 +408,7 @@ std::string LLPreviewTexture::getItemCreationDate()
 std::string LLPreviewTexture::getItemCreatorName()
 {
 	const LLViewerInventoryItem* item = getItem();
-	const LLUUID& id = item ? item->getCreatorUUID() : mImage->getUploader();
+	const LLUUID id = item ? item->getCreatorUUID() : (mImage.notNull() ? mImage->getUploader() : LLUUID::null);
 	if (id.notNull())
 	{
 		std::string name;
@@ -506,6 +518,13 @@ void LLPreviewTexture::updateDimensions()
 	{
 		childSetText("uploader", getItemCreatorName());
 		childSetText("uploadtime", getItemCreationDate());
+	}
+	{
+		const LLUUID uuid = getItemID();
+		if (uuid.notNull())
+		{
+			childSetText("uuid", uuid.asString());
+		}
 	}
 	const LLRect slot = getImageSlot();
 	const S32 avail_w = llmax(1, slot.getWidth());

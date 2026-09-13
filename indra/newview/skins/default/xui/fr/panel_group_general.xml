@@ -33,8 +33,11 @@
 	 name="group_charter_label" right="410" width="265">
 		Charte du groupe
 	</text>
+	<string name="join_btn_label">
+		Rejoindre ([FEE])
+	</string>
 	<texture_picker bottom_delta="-129" follows="left|top" height="144"
-	 label="Logo du groupe" left="7"
+	 label="" left="7"
 	 mouse_opaque="true" name="insignia" tool_tip="Cliquez pour changer le Logo"
 	 width="128" />
 	<text_editor bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -46,7 +49,7 @@
 		Indiquez ici la charte de votre groupe :
 	</text_editor>
 	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
-	 height="22" label="Join ([CURRENCY]0)" label_selected="Join ([CURRENCY]0)" left="7"
+	 height="22" label="Rejoindre ([CURRENCY]0)" label_selected="Rejoindre ([CURRENCY]0)" left="7"
 	 mouse_opaque="true" name="join_button" width="128" />
 	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
 	 height="22" label="Detailed View" label_selected="Detailed View"

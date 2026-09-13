@@ -75,23 +75,11 @@ static const S32 HPAD = 4;
 static const S32 VPAD = 4;
 static const S32 LINE = 16;
 static const S32 SMALL_BTN_WIDTH = 64;
-static const S32 TEX_PICKER_MIN_WIDTH =
-	(HPAD +
-	CLOSE_BTN_WIDTH +
-	HPAD +
-	CLOSE_BTN_WIDTH +
-	HPAD +
-	SMALL_BTN_WIDTH +
-	HPAD +
-	SMALL_BTN_WIDTH +
-	HPAD +
-	30 +
-	RESIZE_HANDLE_WIDTH * 2);
+static const S32 TEX_PICKER_MIN_WIDTH = 520;
 static const S32 CLEAR_BTN_WIDTH = 50;
-static const S32 TEX_PICKER_MIN_HEIGHT = 290;
-static const S32 FOOTER_HEIGHT = 100;
-static const S32 BORDER_PAD = HPAD;
-static const S32 TEXTURE_INVENTORY_PADDING = 30;
+static const S32 TEX_PICKER_MIN_HEIGHT = 400;
+static const S32 PREVIEW_WIDTH = 156;
+static const S32 PREVIEW_HEIGHT = 150;
 static const F32 CONTEXT_CONE_IN_ALPHA = 0.0f;
 static const F32 CONTEXT_CONE_OUT_ALPHA = 1.f;
 static const F32 CONTEXT_FADE_TIME = 0.08f;
@@ -535,10 +523,11 @@ void LLFloaterTexturePicker::draw()
 		{
 			return;
 		}
-		LLRect border( BORDER_PAD,
-				getRect().getHeight() - LLFLOATER_HEADER_SIZE - BORDER_PAD,
-				((TEX_PICKER_MIN_WIDTH / 2) - TEXTURE_INVENTORY_PADDING - HPAD) - BORDER_PAD,
-				BORDER_PAD + FOOTER_HEIGHT + (getRect().getHeight() - TEX_PICKER_MIN_HEIGHT));
+		const S32 preview_left = LLFLOATER_CONTENT_PAD;
+		const S32 preview_right = preview_left + PREVIEW_WIDTH;
+		const S32 preview_top = getRect().getHeight() - LLFLOATER_HEADER_SIZE - 4;
+		const S32 preview_bottom = preview_top - PREVIEW_HEIGHT;
+		LLRect border(preview_left, preview_top, preview_right, preview_bottom);
 		gl_rect_2d( border, LLColor4::black, FALSE );
 		LLRect interior = border;
 		interior.stretch( -1 );

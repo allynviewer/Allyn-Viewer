@@ -15,7 +15,8 @@ Bewegen Sie die Maus über die Optionen, um weitere Informationen anzuzeigen.</s
  
  <button name="copy_uri" label="URI kopieren"/>
 	<text name="group_charter_label">Gruppencharta</text>
-	<texture_picker label="Gruppeninsignien" name="insignia" tool_tip="Klicken, um ein Bild auszuwählen"/>
+	<string name="join_btn_label">Beitreten ([FEE])</string>
+	<texture_picker label="" name="insignia" tool_tip="Klicken, um ein Bild auszuwählen"/>
 	<text_editor name="charter">Gruppencharta</text_editor>
 	<button label="Beitreten (0 L$)" label_selected="Beitreten (0 L$)" name="join_button"/>
 	<button label="Detailansicht" label_selected="Detailansicht" name="info_button"/>

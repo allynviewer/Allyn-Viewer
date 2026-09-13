@@ -539,15 +539,18 @@ void LLPanelGroupGeneral::update(LLGroupChange gc)
 	}
 	if ( mBtnJoinGroup )
 	{
-		std::string fee_buff;
-		bool visible;
-		visible = !is_member && gdatap->mOpenEnrollment;
+		bool visible = !is_member && gdatap->mOpenEnrollment;
 		mBtnJoinGroup->setVisible(visible);
 		if ( visible )
 		{
-			fee_buff = llformat( "Join (%s%d)",
+			LLStringUtil::format_map_t args;
+			std::string fee_str = llformat("%s%d",
 				gHippoGridManager->getConnectedGrid()->getCurrencySymbol().c_str(),
 				gdatap->mMembershipFee);
+			args["[FEE]"] = fee_str;
+			std::string fee_buff = hasString("join_btn_label")
+				? getString("join_btn_label", args)
+				: llformat("Join (%s)", fee_str.c_str());
 			mBtnJoinGroup->setLabelSelected(fee_buff);
 			mBtnJoinGroup->setLabelUnselected(fee_buff);
 		}

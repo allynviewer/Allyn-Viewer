@@ -11,7 +11,8 @@
 	<line_editor name="group_key" />
 	<button name="copy_uri" label="URIをコピー" />
 	<text name="group_charter_label">グループ憲章</text>
-	<texture_picker name="insignia" label="グループ記章" tool_tip="クリックして画像を選択" />
+	<string name="join_btn_label">参加（[FEE]）</string>
+	<texture_picker name="insignia" label="" tool_tip="クリックして画像を選択" />
 	<text_editor name="charter">グループ憲章</text_editor>
 	<button name="join_button" label="参加（[CURRENCY]0）" />
 	<button name="info_button" label="詳細表示" />

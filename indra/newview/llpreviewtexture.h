@@ -78,7 +78,7 @@ public:
 	static LLPreviewTexture* getInstance(){ return sInstance; }
 	LLUUID mCreatorKey;
 protected:
-	void				init();
+	void				init(const std::string& title);
 	bool				setAspectRatio(const F32 width, const F32 height);
 	static void			onAspectRatioCommit(LLUICtrl*,void* userdata);
 	virtual const char *getTitleName() const { return "Texture"; }
