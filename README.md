@@ -1,11 +1,7 @@
-```
-     _    _ _ _                   _   _   _ _
-    / \  | | (_)_   _ _ __       | | | | (_) | _____      _____ _ __
-   / _ \ | | | | | | | '_ \ _____| | | | | | |/ _ \ \ /\ / / _ \ '__|
-  / ___ \| | | | |_| | | | |_____| |_| | | | |  __/\ V  V /  __/ |
- /_/   \_\_|_|_|\__, |_| |_|      \___/  |_| |_|\___| \_/\_/ \___|_|
-                 |___/
-```
+<p align="center">
+  <img width="250" height="250" alt="Allyn Viewer Logo" src="https://github.com/user-attachments/assets/560b172b-4f13-421e-8977-6e91dcde022a" />
+</p>
+
 
 **A third-party viewer for Second Life.**
 
