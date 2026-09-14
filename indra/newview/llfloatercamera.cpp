@@ -34,6 +34,7 @@
 #include "llagent.h"
 #include "llagentcamera.h"
 #include "llbutton.h"
+#include "lldraghandle.h"
 #include "lljoystickbutton.h"
 #include "llmoveview.h"
 #include "lltool.h"
@@ -45,11 +46,11 @@
 #include "wlfPanel_AdvSettings.h"
 const F32 CAMERA_BUTTON_DELAY = 0.0f;
 const F32 MOVE_BUTTON_DELAY = 0.0f;
-const S32 CAMERA_CONTROLS_MIN_WIDTH = 176;
+const S32 CAMERA_CONTROLS_MIN_WIDTH = 240;
 const S32 CAMERA_CONTROLS_MOVE_HEIGHT = 56;
 const S32 CAMERA_CONTROLS_JOY_HEIGHT = 80;
-const S32 CAMERA_CONTROLS_PRESET_HEIGHT = 22;
-const S32 CAMERA_CONTROLS_MIN_HEIGHT = CAMERA_CONTROLS_PRESET_HEIGHT + CAMERA_CONTROLS_JOY_HEIGHT + CAMERA_CONTROLS_MOVE_HEIGHT;
+const S32 CAMERA_CONTROLS_PRESET_HEIGHT = 24;
+const S32 CAMERA_CONTROLS_MIN_HEIGHT = 160;
 LLFloaterCamera::LLFloaterCamera(const LLSD& val)
 :	LLFloater("camera floater"),
 	mRotate(nullptr),
@@ -66,19 +67,18 @@ LLFloaterCamera::LLFloaterCamera(const LLSD& val)
 	mRollLeftButton(nullptr),
 	mRollRightButton(nullptr)
 {
-	setIsChrome(TRUE);
 	const BOOL DONT_OPEN = FALSE;
 	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_camera.xml", NULL, DONT_OPEN);
-	LLRect r = getRect();
-	if (r.getWidth() < CAMERA_CONTROLS_MIN_WIDTH || r.getHeight() < CAMERA_CONTROLS_MIN_HEIGHT)
-	{
-		reshape(llmax(r.getWidth(), CAMERA_CONTROLS_MIN_WIDTH),
-				llmax(r.getHeight(), CAMERA_CONTROLS_MIN_HEIGHT));
-	}
+	setIsChrome(TRUE);
+	setCanTearOff(FALSE);
+	reshape(CAMERA_CONTROLS_MIN_WIDTH, CAMERA_CONTROLS_MIN_HEIGHT);
+	setCanClose(TRUE);
 	const S32 joy_bottom = CAMERA_CONTROLS_MOVE_HEIGHT;
 	const S32 joy_top = joy_bottom + CAMERA_CONTROLS_JOY_HEIGHT;
-	S32 left = 16;
-	const S32 ROTATE_WIDTH = 64;
+	const S32 ROTATE_WIDTH = 80;
+	const S32 ZOOM_WIDTH = 16;
+	const S32 TRACK_WIDTH = 80;
+	S32 left = (CAMERA_CONTROLS_MIN_WIDTH - ROTATE_WIDTH - ZOOM_WIDTH - TRACK_WIDTH) / 2;
 	mRotate = new LLJoystickCameraRotate(std::string("cam rotate stick"),
 										 LLRect( left, joy_top, left + ROTATE_WIDTH, joy_bottom ),
 										 std::string("cam_rotate_out.tga"),
@@ -89,7 +89,6 @@ LLFloaterCamera::LLFloaterCamera(const LLSD& val)
 	mRotate->setSoundFlags(MOUSE_DOWN | MOUSE_UP);
 	addChild(mRotate);
 	left += ROTATE_WIDTH;
-	const S32 ZOOM_WIDTH = 16;
 	mZoom = new LLJoystickCameraZoom(
 									 std::string("zoom"),
 									 LLRect( left, joy_top, left + ZOOM_WIDTH, joy_bottom ),
@@ -102,7 +101,6 @@ LLFloaterCamera::LLFloaterCamera(const LLSD& val)
 	mZoom->setSoundFlags(MOUSE_DOWN | MOUSE_UP);
 	addChild(mZoom);
 	left += ZOOM_WIDTH;
-	const S32 TRACK_WIDTH = 64;
 	mTrack = new LLJoystickCameraTrack(std::string("cam track stick"),
 									   LLRect( left, joy_top, left + TRACK_WIDTH, joy_bottom ),
 									   std::string("cam_tracking_out.tga"),
@@ -149,9 +147,21 @@ LLFloaterCamera::LLFloaterCamera(const LLSD& val)
 	childSetAction("reset_view_btn", boost::bind(&LLFloaterCamera::onClickCameraItem, this, std::string("reset_view")));
 	childSetAction("roll_left_btn", boost::bind(&LLFloaterCamera::rollLeft, this));
 	childSetAction("roll_right_btn", boost::bind(&LLFloaterCamera::rollRight, this));
+	if (getDragHandle())
+	{
+		sendChildToBack(getDragHandle());
+	}
+	sendChildToFront(getChild<LLButton>("llfloater_close_btn"));
 }
 void LLFloaterCamera::onOpen()
 {
+	reshape(CAMERA_CONTROLS_MIN_WIDTH, CAMERA_CONTROLS_MIN_HEIGHT);
+	setCanClose(TRUE);
+	if (getDragHandle())
+	{
+		sendChildToBack(getDragHandle());
+	}
+	sendChildToFront(getChild<LLButton>("llfloater_close_btn"));
 	LLFloater::onOpen();
 	gSavedSettings.setBOOL("ShowCameraControls", TRUE);
 	gSavedSettings.setBOOL("ShowMovementControls", FALSE);

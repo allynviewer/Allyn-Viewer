@@ -7440,8 +7440,8 @@ This should be as low as possible, but too low may break functionality</string>
       <key>Value</key>
       <array>
         <integer>0</integer>
-        <integer>158</integer>
-        <integer>176</integer>
+        <integer>160</integer>
+        <integer>240</integer>
         <integer>0</integer>
       </array>
     </map>

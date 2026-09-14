@@ -3,91 +3,91 @@
 	can_drag_on_left="false"
 	can_minimize="false"
 	can_resize="false"
-	can_tear_off="true"
+	can_tear_off="false"
 	follows="top"
-	height="158"
-	min_height="158"
-	min_width="176"
+	height="160"
+	min_height="160"
+	min_width="240"
 	mouse_opaque="true"
 	name="move floater"
 	rect_control="FloaterCameraRect3"
 	title=""
-	width="176">
+	width="240">
 	<string name="rotate_tooltip">Rotate Camera Around Focus</string>
 	<string name="zoom_tooltip">Zoom Camera Towards Focus</string>
 	<string name="move_tooltip">Move Camera Up and Down, Left and Right</string>
 	<button bottom="-22" enabled="true" follows="left|top" height="20" image_selected="Cam_Preset_Front_On.png"
-		image_unselected="Cam_Preset_Front_Off.png" label="" left="2" name="front_view_btn"
+		image_unselected="Cam_Preset_Front_Off.png" label="" left="8" name="front_view_btn"
 		scale_image="true" toggle="true" tool_tip="Front View" width="20" />
 	<button bottom="-22" enabled="true" follows="left|top" height="20" image_selected="Cam_Preset_Side_On.png"
-		image_unselected="Cam_Preset_Side_Off.png" label="" left="24" name="side_view_btn"
+		image_unselected="Cam_Preset_Side_Off.png" label="" left="36" name="side_view_btn"
 		scale_image="true" toggle="true" tool_tip="Side View" width="20" />
 	<button bottom="-22" enabled="true" follows="left|top" height="20" image_selected="Cam_Preset_Back_On.png"
-		image_unselected="Cam_Preset_Back_Off.png" label="" left="46" name="rear_view_btn"
+		image_unselected="Cam_Preset_Back_Off.png" label="" left="64" name="rear_view_btn"
 		scale_image="true" toggle="true" tool_tip="Rear View" width="20" />
 	<button bottom="-22" enabled="true" follows="left|top" height="20" image_selected="Cam_Preset_TPP_On.png"
-		image_unselected="Cam_Preset_TPP_Off.png" label="" left="68" name="tpp_view_btn"
+		image_unselected="Cam_Preset_TPP_Off.png" label="" left="92" name="tpp_view_btn"
 		scale_image="true" toggle="true" tool_tip="TPP View" width="20" />
 	<button bottom="-22" enabled="true" follows="left|top" height="20" image_selected="Object_View_On.png"
-		image_unselected="Object_View_Off.png" label="" left="90" name="object_view_btn"
+		image_unselected="Object_View_Off.png" label="" left="120" name="object_view_btn"
 		scale_image="true" toggle="true" tool_tip="Object View" width="20" />
 	<button bottom="-22" enabled="true" follows="left|top" height="20" image_selected="MouseLook_View_On.png"
-		image_unselected="MouseLook_View_Off.png" label="" left="112" name="mouselook_view_btn"
+		image_unselected="MouseLook_View_Off.png" label="" left="148" name="mouselook_view_btn"
 		scale_image="true" toggle="true" tool_tip="Mouselook View" width="20" />
 	<button bottom="-22" enabled="true" follows="left|top" height="20" image_overlay="Refresh_Off"
-		label="" left="134" name="reset_view_btn" scale_image="true"
+		label="" left="176" name="reset_view_btn" scale_image="true"
 		tool_tip="Reset View" width="20" />
 	<button bottom="58" enabled="true" follows="left|bottom" height="16" image_selected="Cam_Roll_Left_On.png"
-		image_unselected="Cam_Roll_Left_Off.png" label="" left="18" name="roll_left_btn"
+		image_unselected="Cam_Roll_Left_Off.png" label="" left="34" name="roll_left_btn"
 		scale_image="true" toggle="true" tool_tip="Roll Camera Left" width="16" />
 	<button bottom="58" enabled="true" follows="left|bottom" height="16" image_selected="Cam_Roll_Right_On.png"
-		image_unselected="Cam_Roll_Right_Off.png" label="" left="62" name="roll_right_btn"
+		image_unselected="Cam_Roll_Right_Off.png" label="" left="94" name="roll_right_btn"
 		scale_image="true" toggle="true" tool_tip="Roll Camera Right" width="16" />
 	<button bottom="4" enabled="true" follows="left|bottom" font="SansSerif"
 		halign="center" height="25" image_disabled="UIImgBtnLeftOutUUID"
 		image_disabled_selected="UIImgBtnLeftInUUID"
 		image_selected="UIImgBtnLeftInUUID" image_unselected="UIImgBtnLeftOutUUID"
-		label="" label_selected="" left="20" mouse_opaque="true"
+		label="" label_selected="" left="72" mouse_opaque="true"
 		name="turn left btn" scale_image="false" tool_tip="Turn Left" width="25" />
 	<button bottom="4" enabled="true" follows="left|bottom" font="SansSerif"
 		halign="center" height="25" image_disabled="UIImgBtnRightOutUUID"
 		image_disabled_selected="UIImgBtnRightInUUID"
 		image_selected="UIImgBtnRightInUUID"
 		image_unselected="UIImgBtnRightOutUUID" label="" label_selected=""
-		left="66" mouse_opaque="true" name="turn right btn" scale_image="false"
+		left="118" mouse_opaque="true" name="turn right btn" scale_image="false"
 		tool_tip="Turn Right" width="25" />
 	<button bottom="29" enabled="true" follows="left|bottom" font="SansSerif"
 		halign="center" height="25" image_disabled="UIImgBtnMoveUpOutUUID"
 		image_disabled_selected="UIImgBtnMoveUpInUUID"
 		image_selected="UIImgBtnMoveUpInUUID"
 		image_unselected="UIImgBtnMoveUpOutUUID" label="" label_selected=""
-		left="91" mouse_opaque="true" name="move up btn" scale_image="false"
+		left="143" mouse_opaque="true" name="move up btn" scale_image="false"
 		tool_tip="Jump or Fly Up" width="25" />
 	<button bottom="4" enabled="true" follows="left|bottom" font="SansSerif"
 		halign="center" height="25" image_disabled="UIImgBtnMoveDownOutUUID"
 		image_disabled_selected="UIImgBtnMoveDownInUUID"
 		image_selected="UIImgBtnMoveDownInUUID"
 		image_unselected="UIImgBtnMoveDownOutUUID" label="" label_selected=""
-		left="91" mouse_opaque="true" name="move down btn" scale_image="false"
+		left="143" mouse_opaque="true" name="move down btn" scale_image="false"
 		tool_tip="Crouch or Fly Down" width="25" />
 	<joystick_slide bottom="29" enabled="true" follows="left|bottom" halign="center" height="25"
 		image_selected="UIImgBtnSlideLeftInUUID"
-		image_unselected="UIImgBtnSlideLeftOutUUID" left="20" mouse_opaque="true"
+		image_unselected="UIImgBtnSlideLeftOutUUID" left="72" mouse_opaque="true"
 		name="slide left btn" quadrant="left" scale_image="false"
 		tool_tip="Move Left" width="25" />
 	<joystick_slide bottom="29" enabled="true" follows="left|bottom" halign="center" height="25"
 		image_selected="UIImgBtnSlideRightInUUID"
-		image_unselected="UIImgBtnSlideRightOutUUID" left="66" mouse_opaque="true"
+		image_unselected="UIImgBtnSlideRightOutUUID" left="118" mouse_opaque="true"
 		name="slide right btn" quadrant="right" scale_image="false"
 		tool_tip="Move Right" width="25" />
 	<joystick_turn bottom="29" enabled="true" follows="left|bottom" halign="center" height="25"
 		image_selected="UIImgBtnForwardInUUID"
-		image_unselected="UIImgBtnForwardOutUUID" left="45" mouse_opaque="true"
+		image_unselected="UIImgBtnForwardOutUUID" left="97" mouse_opaque="true"
 		name="forward btn" quadrant="up" scale_image="false"
 		tool_tip="Move Forward" width="21" />
 	<joystick_turn bottom="4" enabled="true" follows="left|bottom" halign="center" height="25"
 		image_selected="move_backward_in.tga"
-		image_unselected="move_backward_out.tga" left="45" mouse_opaque="true"
+		image_unselected="move_backward_out.tga" left="97" mouse_opaque="true"
 		name="backward btn" quadrant="down" scale_image="false"
 		tool_tip="Move Backward" width="21" />
 </floater>
