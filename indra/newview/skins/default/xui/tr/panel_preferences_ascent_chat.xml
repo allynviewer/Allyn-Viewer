@@ -9,7 +9,7 @@
 					<check_box name="quickstart_im_check" label="Gelen anlık mesajları duyurun" tool_tip="Birisi size anlık ileti yazmaya başladığında bir anlık ileti penceresi açar. Bu size birisinin enter tuşuna basmadan önce size mesaj gönderdiği konusunda bilgi verir." />
 					<check_box name="hide_typing_check" label="Anlık iletilerde '[name] yazıyor...' göndermeyin" tool_tip="IM ortakları siz yanıt verirken '______ yazıyor...' ifadesini görmez." />
 					<check_box name="InstantMessagesFriendsOnly" label="Yalnızca Arkadaşlardan gelen anlık iletileri kabul et" />
-					<check_box name="allow_mu_pose_check" label="MU poz yöntemine izin ver." tool_tip="İfadeleri gerçekleştirmek için hem /me hem de : kullanımına izin verir." />
+					<check_box name="allow_mu_pose_check" label=": işaretini /me gibi kullan" tool_tip="Bir satırı : ile başlatarak /me ile aynı emote yapılmasını sağlar. MU tarzı rol yapmada yaygındır." />
 					<check_box name="close_ooc_check" label="OOC yorumlarını otomatik kapat." tool_tip="'((' veya tam tersi) ile başlayan herhangi bir mesaja otomatik olarak '))' eklenecektir." />
 					<text name="objects_link_text_box2">SOHBET</text>
 					<icon name="section_chat_rule" />

@@ -50,6 +50,7 @@
 bool getCustomColorRLV(const LLUUID& id, LLColor4& color, LLViewerRegion* parent_estate, bool name_restricted);
 #include "llavatarnamecache.h"
 #include "llworld.h"
+#include "lltracker.h"
 #include "rlvhandler.h"
 LLToolGun::LLToolGun( LLToolComposite* composite )
 :	LLTool( std::string("gun"), composite ),
@@ -127,50 +128,56 @@ void LLToolGun::draw()
 	static LLCachedControl<bool> show_crosshairs(gSavedSettings, "ShowCrosshairs");
 	static LLCachedControl<bool> show_iff(gSavedSettings, "AlchemyMouselookIFF", true);
 	static LLCachedControl<F32> iff_range(gSavedSettings, "AlchemyMouselookIFFRange", 380.f);
-	if (show_crosshairs)
+	const S32 windowWidth = gViewerWindow->getWorldViewRectScaled().getWidth();
+	const S32 windowHeight = gViewerWindow->getWorldViewRectScaled().getHeight();
+	static const LLCachedControl<LLColor4> color("LiruCrosshairColor");
+	LLColor4 targetColor = color;
+	targetColor.mV[VALPHA] = 0.5f;
+	if (show_iff && !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWMINIMAP))
 	{
-		const S32 windowWidth = gViewerWindow->getWorldViewRectScaled().getWidth();
-		const S32 windowHeight = gViewerWindow->getWorldViewRectScaled().getHeight();
-		static const LLCachedControl<LLColor4> color("LiruCrosshairColor");
-		LLColor4 targetColor = color;
-		targetColor.mV[VALPHA] = 0.5f;
-		if (show_iff && !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWMINIMAP))
+		LLVector3d myPosition = gAgentCamera.getCameraPositionGlobal();
+		LLQuaternion myRotation = LLViewerCamera::getInstance()->getQuaternion();
+		myRotation.set(-myRotation.mQ[VX], -myRotation.mQ[VY], -myRotation.mQ[VZ], myRotation.mQ[VW]);
+		bool no_names(gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMETAGS));
+		bool name_restricted = no_names || gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES);
+		LLWorld::pos_map_t positions;
+		LLWorld& world(LLWorld::instance());
+		world.getAvatars(&positions, gAgent.getPositionGlobal(), name_restricted && gRlvHandler.hasBehaviour(RLV_BHVR_CAMAVDIST) ? llmin(iff_range(), gRlvHandler.camPole(RLV_BHVR_CAMAVDIST)) : iff_range);
+		bool name_drawn = false;
+		for (LLWorld::pos_map_t::const_iterator iter = positions.cbegin(), iter_end = positions.cend(); iter != iter_end; ++iter)
 		{
-			LLVector3d myPosition = gAgentCamera.getCameraPositionGlobal();
-			LLQuaternion myRotation = LLViewerCamera::getInstance()->getQuaternion();
-			myRotation.set(-myRotation.mQ[VX], -myRotation.mQ[VY], -myRotation.mQ[VZ], myRotation.mQ[VW]);
-			bool no_names(gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMETAGS));
-			bool name_restricted = no_names || gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES);
-			LLWorld::pos_map_t positions;
-			LLWorld& world(LLWorld::instance());
-			world.getAvatars(&positions, gAgent.getPositionGlobal(), name_restricted && gRlvHandler.hasBehaviour(RLV_BHVR_CAMAVDIST) ? llmin(iff_range(), gRlvHandler.camPole(RLV_BHVR_CAMAVDIST)) : iff_range);
-			for (LLWorld::pos_map_t::const_iterator iter = positions.cbegin(), iter_end = positions.cend(); iter != iter_end; ++iter)
+			const LLUUID& id = iter->first;
+			const LLVector3d& targetPosition = iter->second;
+			if (id == gAgentID || targetPosition.isNull())
 			{
-				const LLUUID& id = iter->first;
-				const LLVector3d& targetPosition = iter->second;
-				if (id == gAgentID || targetPosition.isNull())
-				{
-					continue;
-				}
-				LLVector3d magicVector = (targetPosition - myPosition) * myRotation;
-				magicVector.setVec(-magicVector.mdV[VY], magicVector.mdV[VZ], magicVector.mdV[VX]);
-				if (magicVector.mdV[VX] > -0.75 && magicVector.mdV[VX] < 0.75 && magicVector.mdV[VZ] > 0.0 && magicVector.mdV[VY] > -1.5 && magicVector.mdV[VY] < 1.5)
-				{
-					LLAvatarName avatarName;
-					if (!no_names)
-						LLAvatarNameCache::get(id, &avatarName);
-					getCustomColorRLV(id, targetColor, world.getRegionFromPosGlobal(targetPosition), name_restricted);
-					const std::string name(no_names ? LLStringUtil::null : name_restricted ? RlvStrings::getAnonym(avatarName.getNSName()) : avatarName.getNSName());
-					targetColor.mV[VALPHA] = 0.5f;
-					LLFontGL::getFontSansSerifBold()->renderUTF8(
-						llformat("%s : %.2fm", name.c_str(), (targetPosition - myPosition).magVec()),
-						0, (windowWidth / 2.f), (windowHeight / 2.f) - 25.f, targetColor,
-						LLFontGL::HCENTER, LLFontGL::TOP, LLFontGL::BOLD, LLFontGL::NO_SHADOW
-						);
-					break;
-				}
+				continue;
+			}
+			getCustomColorRLV(id, targetColor, world.getRegionFromPosGlobal(targetPosition), name_restricted);
+			targetColor.mV[VALPHA] = 0.5f;
+			LLTracker::instance()->drawMarker(targetPosition, targetColor, true);
+			if (name_drawn)
+			{
+				continue;
+			}
+			LLVector3d magicVector = (targetPosition - myPosition) * myRotation;
+			magicVector.setVec(-magicVector.mdV[VY], magicVector.mdV[VZ], magicVector.mdV[VX]);
+			if (magicVector.mdV[VX] > -0.75 && magicVector.mdV[VX] < 0.75 && magicVector.mdV[VZ] > 0.0 && magicVector.mdV[VY] > -1.5 && magicVector.mdV[VY] < 1.5)
+			{
+				LLAvatarName avatarName;
+				if (!no_names)
+					LLAvatarNameCache::get(id, &avatarName);
+				const std::string name(no_names ? LLStringUtil::null : name_restricted ? RlvStrings::getAnonym(avatarName.getNSName()) : avatarName.getNSName());
+				LLFontGL::getFontSansSerifBold()->renderUTF8(
+					llformat("%s : %.2fm", name.c_str(), (targetPosition - myPosition).magVec()),
+					0, (windowWidth / 2.f), (windowHeight / 2.f) - 25.f, targetColor,
+					LLFontGL::HCENTER, LLFontGL::TOP, LLFontGL::BOLD, LLFontGL::NO_SHADOW
+					);
+				name_drawn = true;
 			}
 		}
+	}
+	if (show_crosshairs)
+	{
 		mCrosshairp->draw(
 			(windowWidth - mCrosshairp->getWidth() ) / 2,
 			(windowHeight - mCrosshairp->getHeight() ) / 2, targetColor);

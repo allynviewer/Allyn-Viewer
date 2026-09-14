@@ -797,8 +797,8 @@ echo !M_INSTALL_DONE!
 exit /b 0
 
 :setup_nsis_plugins
-REM The installer template needs the StdUtils and INetC plugins, which stock NSIS
-REM does not ship. Only runs when NSIS itself is installed.
+REM The installer template needs the StdUtils plugin, which stock NSIS does not
+REM ship. Only runs when NSIS itself is installed.
 if not "!NSIS_OK!"=="1" call :dep_check_nsis
 if not "!NSIS_OK!"=="1" exit /b 0
 if not exist "%REPO_ROOT%scripts\setup-nsis-plugins.ps1" exit /b 0
@@ -859,7 +859,7 @@ if not "!VS_OK!"=="1" (
   echo !M_TOOLS_VS_NOTE!
   call :winget_install "Visual Studio 2022 Build Tools (C++)" Microsoft.VisualStudio.2022.BuildTools "--wait --quiet --norestart --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended"
 )
-REM NSIS (optional - needed only for the .exe installer) plus the StdUtils/INetC plugins.
+REM NSIS (optional - needed only for the .exe installer) plus the StdUtils plugin.
 set "NSIS_OK=0"
 if exist "!ProgramFiles(x86)!\NSIS\makensis.exe" set "NSIS_OK=1"
 if exist "%ProgramFiles%\NSIS\makensis.exe" set "NSIS_OK=1"

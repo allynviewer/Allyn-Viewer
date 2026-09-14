@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="move floater">
-	<string name="rotate_tooltip">
-		Faire tourner la caméra autour du point central
-	</string>
-	<string name="zoom_tooltip">
-		Zoomer en direction du point central
-	</string>
-	<string name="move_tooltip">
-		Déplacer la caméra vers le haut et le bas, la gauche et la droite
-	</string>
+	<string name="rotate_tooltip">Faire tourner la caméra autour du point central</string>
+	<string name="zoom_tooltip">Zoomer en direction du point central</string>
+	<string name="move_tooltip">Déplacer la caméra vers le haut et le bas, la gauche et la droite</string>
+	<button name="front_view_btn" tool_tip="Vue de face"/>
+	<button name="side_view_btn" tool_tip="Vue de côté"/>
+	<button name="rear_view_btn" tool_tip="Vue arrière"/>
+	<button name="tpp_view_btn" tool_tip="Vue TPP"/>
+	<button name="object_view_btn" tool_tip="Vue objet"/>
+	<button name="mouselook_view_btn" tool_tip="Vue mouselook"/>
+	<button name="reset_view_btn" tool_tip="Réinitialiser la vue"/>
+	<button name="roll_left_btn" tool_tip="Incliner la caméra à gauche"/>
+	<button name="roll_right_btn" tool_tip="Incliner la caméra à droite"/>
+	<button name="turn left btn" tool_tip="Tourner à gauche"/>
+	<button name="turn right btn" tool_tip="Tourner à droite"/>
+	<button name="move up btn" tool_tip="Sauter ou voler vers le haut"/>
+	<button name="move down btn" tool_tip="S'accroupir ou voler vers le bas"/>
+	<joystick_slide name="slide left btn" tool_tip="Se déplacer vers la gauche"/>
+	<joystick_slide name="slide right btn" tool_tip="Se déplacer vers la droite"/>
+	<joystick_turn name="forward btn" tool_tip="Se déplacer vers l'avant"/>
+	<joystick_turn name="backward btn" tool_tip="Se déplacer vers l'arrière"/>
 </floater>

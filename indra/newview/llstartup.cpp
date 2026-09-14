@@ -62,7 +62,6 @@
 #include "llmd5.h"
 #include "llmemorystream.h"
 #include "llmessageconfig.h"
-#include "llmoveview.h"
 #include "llnotifications.h"
 #include "llnotificationsutil.h"
 #include "llregionhandle.h"
@@ -1710,13 +1709,10 @@ bool idle_startup()
 		{
 			SHFloaterMediaTicker::showInstance();
 		}
-		if (gSavedSettings.getBOOL("ShowCameraControls"))
+		if (gSavedSettings.getBOOL("ShowCameraControls")
+			|| gSavedSettings.getBOOL("ShowMovementControls"))
 		{
 			LLFloaterCamera::showInstance();
-		}
-		if (gSavedSettings.getBOOL("ShowMovementControls"))
-		{
-			LLFloaterMove::showInstance();
 		}
 		if (gSavedSettings.getBOOL("ShowActiveSpeakers"))
 		{

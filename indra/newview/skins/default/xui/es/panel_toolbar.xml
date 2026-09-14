@@ -55,9 +55,6 @@
 		<layout_panel name="panelcameracontrols">
 			<button label="Controles Cámara" name="camera_controls_btn"/>
 		</layout_panel>
-		<layout_panel name="panelmessagelog">
-			<button label="Controles Movimiento" name="movement_controls_btn"/>
-		</layout_panel>
 		<layout_panel name="panelmouselook">
 			<button label="mouselook" name="mouselook_btn"/>
 		</layout_panel>

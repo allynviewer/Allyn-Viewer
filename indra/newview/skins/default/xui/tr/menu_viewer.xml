@@ -91,7 +91,6 @@
 		<menu_item_check name="Teleport History" label="Teleport geçmişi" />
 		<menu_item_separator name="separator2" label="-----------" />
 		<menu_item_check name="Camera Controls" label="Kamera" />
-		<menu_item_check name="Movement Controls" label="Hareket" />
 		<menu_item_check name="World Map" label="Dünya haritası" />
 		<menu_item_check name="Mini-Map" label="Mini harita" />
 		<menu_item_check name="Radar" label="Radar" />
@@ -184,6 +183,7 @@
 			<menu_item_call name="Day Cycle Editor" label="Gün döngüsü" />
 			<menu_item_call name="Post-Processing Effects" label="Son işlem efektleri" />
 		</menu>
+		<menu_item_check name="Render Friends Only" label="Yalnızca arkadaşları göster" />
 	</menu>
 	<menu name="Tools" label="Araçlar">
 		<menu name="Select Tool" label="Araç seç">

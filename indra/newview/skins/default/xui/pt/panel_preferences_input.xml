@@ -3,11 +3,12 @@
 	<scroll_container name="input_scroll">
 		<panel name="input_scroll_inner">
 			<text name=" Mouselook Options:">OPÇÕES DE MOUSELOOK</text>
-			<text name=" Mouse Sensitivity:">Sensibilidade do mouse:</text>
-			<check_box label="Inverter o mouse" name="invert_mouse"/>
+			<check_box label="Ativar marcadores de alvo" name="AlchemyMouselookIFF" tool_tip="Mostra setas de rastreamento para avatares próximos no Mouselook e o nome do avatar visado sob a mira."/>
+			<slider label="Alcance (m):" name="AlchemyMouselookIFFRange"/>
+			<text name=" Mouse Sensitivity:">Sensibilidade do Mouse:</text>
+			<check_box label="Reverter" name="invert_mouse"/>
 			<check_box label="Zoom instantâneo no clique direito" name="instant_zoom"/>
 			<check_box label="Exibir posição e saúde do avatar" name="AlchemyMouselookInstructions"/>
-			<check_box label="Exibir nome do avatar sob a mira" name="AlchemyMouselookIFF"/>
 			<check_box label="Mostrar o avatar no Mouselook" name="first_person_avatar_visible"/>
 			<check_box label="Câmera realista no Mouselook" name="UseRealisticMouselook"/>
 			<text name="UI Hidden in mouselook:">Interface oculta no Mouselook:</text>
@@ -28,6 +29,7 @@
 			<check_box label="Levantar o avatar ao redefinir a câmera" name="unsit_on_camera_reset" tool_tip="Levanta automaticamente quando você pressiona Esc e a câmera volta à terceira pessoa"/>
 			<check_box label="Desativar restrições da câmera" name="DisableCameraConstraints" tool_tip="Impede que a câmera dê zoom sozinha ao se aproximar de paredes, objetos etc."/>
 			<check_box label="Limitar distância de seleção" name="Limit Select Distance" tool_tip="Limita a distância em que um objeto pode ser selecionado."/>
+			<check_box name="AllynRenderFriendsOnlyPersistsTP" label="Manter 'Mostrar apenas amigos' ativado após o teletransporte" tool_tip="Impede que a opção 'Mostrar apenas amigos' seja desligada automaticamente após um teletransporte (padrão: desligado)."/>
 			<button label="Configuração do joystick" name="joystick_setup_button"/>
 		</panel>
 	</scroll_container>

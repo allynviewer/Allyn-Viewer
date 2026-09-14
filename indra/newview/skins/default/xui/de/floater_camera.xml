@@ -3,4 +3,21 @@
 	<string name="rotate_tooltip">Kamera um Fokus drehen</string>
 	<string name="zoom_tooltip">Kamera auf Fokus zoomen</string>
 	<string name="move_tooltip">Kamera nach oben, unten, links und rechts bewegen</string>
+	<button name="front_view_btn" tool_tip="Vorderansicht"/>
+	<button name="side_view_btn" tool_tip="Seitenansicht"/>
+	<button name="rear_view_btn" tool_tip="Rückansicht"/>
+	<button name="tpp_view_btn" tool_tip="TPP-Ansicht"/>
+	<button name="object_view_btn" tool_tip="Objektansicht"/>
+	<button name="mouselook_view_btn" tool_tip="Mouselook-Ansicht"/>
+	<button name="reset_view_btn" tool_tip="Ansicht zurücksetzen"/>
+	<button name="roll_left_btn" tool_tip="Kamera nach links rollen"/>
+	<button name="roll_right_btn" tool_tip="Kamera nach rechts rollen"/>
+	<button name="turn left btn" tool_tip="Nach links"/>
+	<button name="turn right btn" tool_tip="Nach rechts"/>
+	<button name="move up btn" tool_tip="Springen oder Steigflug"/>
+	<button name="move down btn" tool_tip="Ducken oder Sinkflug"/>
+	<joystick_slide name="slide left btn" tool_tip="Nach links"/>
+	<joystick_slide name="slide right btn" tool_tip="Nach rechts"/>
+	<joystick_turn name="forward btn" tool_tip="Nach vorn"/>
+	<joystick_turn name="backward btn" tool_tip="Nach hinten"/>
 </floater>

@@ -133,6 +133,9 @@ LLAgentCamera::LLAgentCamera() :
 	mOrbitDownKey(0.f),
 	mOrbitInKey(0.f),
 	mOrbitOutKey(0.f),
+	mRollLeftKey(0.f),
+	mRollRightKey(0.f),
+	mRollAngle(0.f),
 	mPanUpKey(0.f),
 	mPanDownKey(0.f),
 	mPanLeftKey(0.f),
@@ -158,9 +161,11 @@ void LLAgentCamera::init()
 	mCameraOffsetInitial[CAMERA_PRESET_REAR_VIEW] = gSavedSettings.getControl("CameraOffsetRearView");
 	mCameraOffsetInitial[CAMERA_PRESET_FRONT_VIEW] = gSavedSettings.getControl("CameraOffsetFrontView");
 	mCameraOffsetInitial[CAMERA_PRESET_GROUP_VIEW] = gSavedSettings.getControl("CameraOffsetGroupView");
+	mCameraOffsetInitial[CAMERA_PRESET_TPP_VIEW] = gSavedSettings.getControl("CameraOffsetTPPView");
 	mFocusOffsetInitial[CAMERA_PRESET_REAR_VIEW] = gSavedSettings.getControl("FocusOffsetRearView");
 	mFocusOffsetInitial[CAMERA_PRESET_FRONT_VIEW] = gSavedSettings.getControl("FocusOffsetFrontView");
 	mFocusOffsetInitial[CAMERA_PRESET_GROUP_VIEW] = gSavedSettings.getControl("FocusOffsetGroupView");
+	mFocusOffsetInitial[CAMERA_PRESET_TPP_VIEW] = gSavedSettings.getControl("FocusOffsetTPPView");
 	mCameraCollidePlane.clearVec();
 	mCurrentCameraDistance = getCameraOffsetInitial().magVec() * gSavedSettings.getF32("CameraOffsetScale");
 	mTargetCameraDistance = mCurrentCameraDistance;
@@ -244,6 +249,7 @@ void LLAgentCamera::resetView(BOOL reset_camera, BOOL change_camera)
 		}
 		setFocusOnAvatar(TRUE, ANIMATE);
 		mCameraFOVZoomFactor = 0.f;
+		resetCameraRoll();
 	}
 	mHUDTargetZoom = 1.f;
 }
@@ -834,6 +840,11 @@ void LLAgentCamera::updateCamera()
 											   gAgentCamera.getPanUpKey() > 0.f,
 											   gAgentCamera.getPanRightKey() > 0.f,
 											   gAgentCamera.getPanDownKey() > 0.f);
+		if (camera_floater->mRollLeftButton)
+		{
+			camera_floater->mRollLeftButton->setToggleState(gAgentCamera.getRollLeftKey() > 0.f);
+			camera_floater->mRollRightButton->setToggleState(gAgentCamera.getRollRightKey() > 0.f);
+		}
 	}
 	const F32 ORBIT_OVER_RATE = 90.f * DEG_TO_RAD;
 	const F32 ORBIT_AROUND_RATE = 90.f * DEG_TO_RAD;
@@ -869,6 +880,12 @@ void LLAgentCamera::updateCamera()
 	{
 		F32 input_rate = gAgentCamera.getPanUpKey() - gAgentCamera.getPanDownKey();
 		cameraPanUp(input_rate * PAN_RATE / gFPSClamped );
+	}
+	if (gAgentCamera.getRollLeftKey() || gAgentCamera.getRollRightKey())
+	{
+		const F32 ROLL_RATE = 45.f * DEG_TO_RAD;
+		F32 input_rate = gAgentCamera.getRollRightKey() - gAgentCamera.getRollLeftKey();
+		cameraRollOver(input_rate * ROLL_RATE / gFPSClamped);
 	}
 	gAgentCamera.clearOrbitKeys();
 	gAgentCamera.clearPanKeys();
@@ -1040,6 +1057,16 @@ void LLAgentCamera::updateCamera()
 		torso_joint->setScale(torso_scale);
 		chest_joint->setScale(chest_scale);
 	}
+	if (mRollAngle != 0.f)
+	{
+		LLQuaternion rot_quat = LLViewerCamera::getInstance()->getQuaternion();
+		LLMatrix3 rot_mat(mRollAngle, 0.f, 0.f);
+		rot_quat = LLQuaternion(rot_mat) * rot_quat;
+		LLMatrix3 mat(rot_quat);
+		LLViewerCamera::getInstance()->mXAxis = LLVector3(mat.mMatrix[0]);
+		LLViewerCamera::getInstance()->mYAxis = LLVector3(mat.mMatrix[1]);
+		LLViewerCamera::getInstance()->mZAxis = LLVector3(mat.mMatrix[2]);
+	}
 }
 void LLAgentCamera::updateLastCamera()
 {
@@ -1174,7 +1201,12 @@ LLVector3d LLAgentCamera::calcThirdPersonFocusOffset()
 	{
 		agent_rot *= ((LLViewerObject*)(gAgentAvatarp->getParent()))->getRenderRotation();
 	}
-	focus_offset = convert_from_llsd<LLVector3d>(mFocusOffsetInitial[mCameraPreset]->get(), TYPE_VEC3D, "");
+	std::map<ECameraPreset, LLPointer<LLControlVariable> >::iterator it = mFocusOffsetInitial.find(mCameraPreset);
+	if (it == mFocusOffsetInitial.end() || it->second.isNull())
+	{
+		it = mFocusOffsetInitial.find(CAMERA_PRESET_REAR_VIEW);
+	}
+	focus_offset = convert_from_llsd<LLVector3d>(it->second->get(), TYPE_VEC3D, "");
 	return focus_offset * agent_rot;
 }
 void LLAgentCamera::setupSitCamera()
@@ -1451,7 +1483,12 @@ LLVector3d LLAgentCamera::calcCameraPositionTargetGlobal(BOOL *hit_limit)
 }
 LLVector3 LLAgentCamera::getCameraOffsetInitial()
 {
-	return convert_from_llsd<LLVector3>(mCameraOffsetInitial[mCameraPreset]->get(), TYPE_VEC3, "");
+	std::map<ECameraPreset, LLPointer<LLControlVariable> >::iterator it = mCameraOffsetInitial.find(mCameraPreset);
+	if (it == mCameraOffsetInitial.end() || it->second.isNull())
+	{
+		it = mCameraOffsetInitial.find(CAMERA_PRESET_REAR_VIEW);
+	}
+	return convert_from_llsd<LLVector3>(it->second->get(), TYPE_VEC3, "");
 }
 template <typename Vec, typename T>
 void change_vec(const T& change, LLCachedControl<Vec>& vec, const U32& idx = VZ)
@@ -1803,6 +1840,7 @@ void LLAgentCamera::switchCameraPreset(ECameraPreset preset)
 	mFocusOnAvatar = TRUE;
 	mCameraPreset = preset;
 	gSavedSettings.setU32("CameraPreset", mCameraPreset);
+	resetCameraRoll();
 }
 void LLAgentCamera::setAnimationDuration(F32 duration)
 {
@@ -2190,6 +2228,14 @@ void LLAgentCamera::clearGeneralKeys()
 	mYawKey 			= 0.f;
 	mPitchKey 			= 0.f;
 }
+void LLAgentCamera::cameraRollOver(const F32 angle)
+{
+	mRollAngle += fmodf(angle, F_TWO_PI);
+}
+void LLAgentCamera::resetCameraRoll()
+{
+	mRollAngle = 0.f;
+}
 void LLAgentCamera::clearOrbitKeys()
 {
 	mOrbitLeftKey		= 0.f;
@@ -2198,6 +2244,8 @@ void LLAgentCamera::clearOrbitKeys()
 	mOrbitDownKey		= 0.f;
 	mOrbitInKey			= 0.f;
 	mOrbitOutKey		= 0.f;
+	mRollLeftKey		= 0.f;
+	mRollRightKey		= 0.f;
 }
 void LLAgentCamera::clearPanKeys()
 {

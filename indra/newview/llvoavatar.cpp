@@ -285,6 +285,37 @@ struct LLAppearanceMessageContents: public LLRefCount
 	LLVector3 mHoverOffset;
 	bool mHoverOffsetWasSet;
 };
+struct FriendsOnlyCachedAppearance : public LLRefCount
+{
+	LLPointer<LLAppearanceMessageContents> contents;
+	std::vector<U8> param_u8s;
+	std::map<LLUUID, S32> animations;
+};
+typedef std::map<LLUUID, LLPointer<FriendsOnlyCachedAppearance> > friends_only_appearance_cache_t;
+static friends_only_appearance_cache_t sFriendsOnlyAppearanceCache;
+static LLPointer<FriendsOnlyCachedAppearance> getOrCreateFriendsOnlyAppearanceCache(const LLUUID& id)
+{
+	friends_only_appearance_cache_t::iterator it = sFriendsOnlyAppearanceCache.find(id);
+	if (it != sFriendsOnlyAppearanceCache.end() && it->second.notNull())
+	{
+		return it->second;
+	}
+	LLPointer<FriendsOnlyCachedAppearance> entry = new FriendsOnlyCachedAppearance;
+	sFriendsOnlyAppearanceCache[id] = entry;
+	return entry;
+}
+static LLPointer<LLAppearanceMessageContents> cloneAppearanceWithoutParams(const LLAppearanceMessageContents& src)
+{
+	LLPointer<LLAppearanceMessageContents> dst = new LLAppearanceMessageContents;
+	dst->mTEContents = src.mTEContents;
+	dst->mAppearanceVersion = src.mAppearanceVersion;
+	dst->mParamAppearanceVersion = src.mParamAppearanceVersion;
+	dst->mCOFVersion = src.mCOFVersion;
+	dst->mParamWeights = src.mParamWeights;
+	dst->mHoverOffset = src.mHoverOffset;
+	dst->mHoverOffsetWasSet = src.mHoverOffsetWasSet;
+	return dst;
+}
 class LLBodyNoiseMotion :
 	public AIMaskedMotion
 {
@@ -1180,6 +1211,7 @@ void LLVOAvatar::initClass()
 }
 void LLVOAvatar::cleanupClass()
 {
+	sFriendsOnlyAppearanceCache.clear();
 }
 void LLVOAvatar::initInstance()
 {
@@ -2686,6 +2718,11 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMETAGS))
 		return;
 	if (gRlvHandler.hasBehaviour(RLV_BHVR_CAMAVDIST) && (gAgent.getPosGlobalFromAgent(getCharacterPosition()) - gAgent.getPosGlobalFromAgent(gAgentAvatarp->getRenderPosition())).magVec() > gRlvHandler.camPole(RLV_BHVR_CAMAVDIST))
+	{
+		clearNameTag();
+		return;
+	}
+	if (shouldHideForFriendsOnly())
 	{
 		clearNameTag();
 		return;
@@ -6541,6 +6578,37 @@ bool LLVOAvatar::isTooComplex() const
 	}
 	return too_complex;
 }
+bool LLVOAvatar::shouldHideForFriendsOnly() const
+{
+	if (isSelf() || isControlAvatar() || isUIAvatar())
+	{
+		return false;
+	}
+	static LLCachedControl<bool> friends_only(gSavedPerAccountSettings, "AllynRenderFriendsOnly", false);
+	return friends_only && !LLAvatarTracker::instance().isBuddy(getID());
+}
+void LLVOAvatar::cacheAppearanceForFriendsOnly()
+{
+	if (isSelf() || isControlAvatar() || isUIAvatar() || getID().isNull())
+	{
+		return;
+	}
+	LLPointer<FriendsOnlyCachedAppearance> entry = getOrCreateFriendsOnlyAppearanceCache(getID());
+	if (mLastProcessedAppearance.notNull())
+	{
+		entry->contents = cloneAppearanceWithoutParams(*mLastProcessedAppearance);
+		entry->param_u8s.clear();
+	}
+	entry->animations = mSignaledAnimations;
+}
+void LLVOAvatar::cacheAnimationsForFriendsOnly(const LLUUID& id, const std::map<LLUUID, S32>& anims)
+{
+	if (id.isNull() || id == gAgentID)
+	{
+		return;
+	}
+	getOrCreateFriendsOnlyAppearanceCache(id)->animations = anims;
+}
 LLMotion* LLVOAvatar::findMotion(const LLUUID& id) const
 {
 	return mMotionController.findMotion(id);
@@ -7335,6 +7403,132 @@ bool resolve_appearance_version(const LLAppearanceMessageContents& contents, S32
 						<< " param: " << contents.mParamAppearanceVersion
 						<< " final: " << appearance_version << LL_ENDL;
 	return true;
+}
+void LLVOAvatar::cacheAppearanceMessageForFriendsOnly(const LLUUID& id, LLMessageSystem* mesgsys)
+{
+	if (!mesgsys || id.isNull() || id == gAgentID)
+	{
+		return;
+	}
+	LLPointer<FriendsOnlyCachedAppearance> entry = getOrCreateFriendsOnlyAppearanceCache(id);
+	LLPointer<LLAppearanceMessageContents> contents(new LLAppearanceMessageContents);
+	LLPrimitive te_parser;
+	te_parser.setNumTEs(TEX_NUM_INDICES);
+	te_parser.parseTEMessage(mesgsys, _PREHASH_ObjectData, -1, contents->mTEContents);
+	if (mesgsys->has(_PREHASH_AppearanceData))
+	{
+		U8 av_u8;
+		mesgsys->getU8Fast(_PREHASH_AppearanceData, _PREHASH_AppearanceVersion, av_u8, 0);
+		contents->mAppearanceVersion = av_u8;
+		mesgsys->getS32Fast(_PREHASH_AppearanceData, _PREHASH_CofVersion, contents->mCOFVersion, 0);
+	}
+	contents->mHoverOffsetWasSet = false;
+	if (mesgsys->has(_PREHASH_AppearanceHover))
+	{
+		LLVector3 hover;
+		mesgsys->getVector3Fast(_PREHASH_AppearanceHover, _PREHASH_HoverHeight, hover);
+		contents->mHoverOffset = hover;
+		contents->mHoverOffsetWasSet = true;
+	}
+	entry->param_u8s.clear();
+	S32 num_blocks = mesgsys->getNumberOfBlocksFast(_PREHASH_VisualParam);
+	for (S32 i = 0; i < num_blocks; i++)
+	{
+		U8 value;
+		mesgsys->getU8Fast(_PREHASH_VisualParam, _PREHASH_ParamValue, value, i);
+		entry->param_u8s.push_back(value);
+	}
+	entry->contents = contents;
+}
+static void bindCachedAppearanceToAvatar(LLVOAvatar* avatar, FriendsOnlyCachedAppearance& entry)
+{
+	if (!avatar || entry.contents.isNull())
+	{
+		return;
+	}
+	LLAppearanceMessageContents& contents = *entry.contents;
+	contents.mParams.clear();
+	LLVisualParam* param = avatar->getFirstVisualParam();
+	if (!entry.param_u8s.empty())
+	{
+		contents.mParamWeights.clear();
+		for (std::vector<U8>::const_iterator it = entry.param_u8s.begin(); it != entry.param_u8s.end(); ++it)
+		{
+			while (param && ((param->getGroup() != VISUAL_PARAM_GROUP_TWEAKABLE) &&
+							 (param->getGroup() != VISUAL_PARAM_GROUP_TRANSMIT_NOT_TWEAKABLE)))
+			{
+				param = avatar->getNextVisualParam();
+			}
+			if (!param)
+			{
+				break;
+			}
+			contents.mParamWeights.push_back(U8_to_F32(*it, param->getMinWeight(), param->getMaxWeight()));
+			contents.mParams.push_back(param);
+			param = avatar->getNextVisualParam();
+		}
+	}
+	else
+	{
+		const size_t n = contents.mParamWeights.size();
+		for (size_t i = 0; i < n; ++i)
+		{
+			while (param && ((param->getGroup() != VISUAL_PARAM_GROUP_TWEAKABLE) &&
+							 (param->getGroup() != VISUAL_PARAM_GROUP_TRANSMIT_NOT_TWEAKABLE)))
+			{
+				param = avatar->getNextVisualParam();
+			}
+			if (!param)
+			{
+				contents.mParamWeights.resize(contents.mParams.size());
+				break;
+			}
+			contents.mParams.push_back(param);
+			param = avatar->getNextVisualParam();
+		}
+	}
+	LLVisualParam* appearance_version_param = avatar->getVisualParam(11000);
+	if (appearance_version_param)
+	{
+		std::vector<LLVisualParam*>::iterator it = std::find(contents.mParams.begin(), contents.mParams.end(), appearance_version_param);
+		if (it != contents.mParams.end())
+		{
+			S32 index = static_cast<S32>(it - contents.mParams.begin());
+			contents.mParamAppearanceVersion = ll_round(contents.mParamWeights[index]);
+		}
+	}
+}
+bool LLVOAvatar::applyCachedFriendsOnlyAppearance(LLVOAvatar* avatar)
+{
+	if (!avatar || avatar->isDead() || avatar->isSelf() || avatar->isControlAvatar() || avatar->isUIAvatar())
+	{
+		return false;
+	}
+	friends_only_appearance_cache_t::iterator it = sFriendsOnlyAppearanceCache.find(avatar->getID());
+	if (it == sFriendsOnlyAppearanceCache.end() || it->second.isNull())
+	{
+		return false;
+	}
+	LLPointer<FriendsOnlyCachedAppearance> entry = it->second;
+	sFriendsOnlyAppearanceCache.erase(it);
+	if (entry->contents.notNull() && !avatar->mFirstAppearanceMessageReceived)
+	{
+		bindCachedAppearanceToAvatar(avatar, *entry);
+		S32 appearance_version;
+		if (resolve_appearance_version(*entry->contents, appearance_version))
+		{
+			avatar->setIsUsingServerBakes(appearance_version > 0);
+		}
+		avatar->mLastProcessedAppearance = entry->contents;
+		avatar->applyParsedAppearanceMessage(*entry->contents, true);
+		SHClientTagMgr::instance().updateAvatarTag(avatar);
+	}
+	if (!entry->animations.empty() && avatar->mSignaledAnimations.empty())
+	{
+		avatar->mSignaledAnimations = entry->animations;
+		avatar->processAnimationStateChanges();
+	}
+	return avatar->mFirstAppearanceMessageReceived;
 }
 void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 {

@@ -3,4 +3,21 @@
 	<string name="rotate_tooltip">Kamerayı Odak Etrafında Döndür</string>
 	<string name="zoom_tooltip">Kamerayı Odağa Doğru Yakınlaştır</string>
 	<string name="move_tooltip">Kamerayı Yukarı ve Aşağı, Sola ve Sağa Hareket Ettirin</string>
+	<button name="front_view_btn" tool_tip="Ön görünüm" />
+	<button name="side_view_btn" tool_tip="Yan görünüm" />
+	<button name="rear_view_btn" tool_tip="Arka görünüm" />
+	<button name="tpp_view_btn" tool_tip="TPP görünümü" />
+	<button name="object_view_btn" tool_tip="Nesne görünümü" />
+	<button name="mouselook_view_btn" tool_tip="Mouselook görünümü" />
+	<button name="reset_view_btn" tool_tip="Görünümü sıfırla" />
+	<button name="roll_left_btn" tool_tip="Kamerayı sola yatır" />
+	<button name="roll_right_btn" tool_tip="Kamerayı sağa yatır" />
+	<button name="turn left btn" tool_tip="Sola Dön" />
+	<button name="turn right btn" tool_tip="Sağa Dön" />
+	<button name="move up btn" tool_tip="Zıpla veya Uç" />
+	<button name="move down btn" tool_tip="Çömelin veya Aşağı Uçun" />
+	<joystick_slide name="slide left btn" tool_tip="Sola Taşı" />
+	<joystick_slide name="slide right btn" tool_tip="Sağa Taşı" />
+	<joystick_turn name="forward btn" tool_tip="İleriye Taşı" />
+	<joystick_turn name="backward btn" tool_tip="Geriye Taşı" />
 </floater>

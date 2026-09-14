@@ -289,6 +289,11 @@ public:
 public:
 	BOOL			isFullyLoaded() const;
 	bool			isTooComplex() const;
+	bool			shouldHideForFriendsOnly() const;
+	void			cacheAppearanceForFriendsOnly();
+	static void		cacheAppearanceMessageForFriendsOnly(const LLUUID& id, LLMessageSystem* mesgsys);
+	static void		cacheAnimationsForFriendsOnly(const LLUUID& id, const std::map<LLUUID, S32>& anims);
+	static bool		applyCachedFriendsOnlyAppearance(LLVOAvatar* avatar);
 	bool 			visualParamWeightsAreDefault();
 	virtual BOOL	getIsCloud() const;
 	BOOL			isFullyTextured() const;

@@ -81,6 +81,7 @@ public:
 	static BOOL sCheesyBeacon;
 	static const std::string& getLabel() { return instance()->mLabel; }
 	static const std::string& getToolTip() { return instance()->mToolTip; }
+	void drawMarker(const LLVector3d& pos_global, const LLColor4& color, bool is_iff = false);
 protected:
 	LLTracker();
 	~LLTracker();
@@ -92,7 +93,6 @@ protected:
 	void stopTrackingAvatar(BOOL clear_ui = FALSE);
 	void stopTrackingLocation(BOOL clear_ui = FALSE);
 	void stopTrackingLandmark(BOOL clear_ui = FALSE);
-	void drawMarker(const LLVector3d& pos_global, const LLColor4& color);
 	void setLandmarkVisited();
 	void cacheLandmarkPosition();
 	void purgeBeaconText();

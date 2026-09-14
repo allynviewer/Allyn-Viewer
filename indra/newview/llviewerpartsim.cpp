@@ -534,7 +534,7 @@ void LLViewerPartSim::updateSimulation()
 						else
 						{
 							LLVOAvatar *avatar = vvo->getAvatar();
-							if(avatar && avatar->isVisuallyMuted())
+							if(avatar && (avatar->isVisuallyMuted() || avatar->shouldHideForFriendsOnly()))
 								upd = FALSE;
 						}
 					}

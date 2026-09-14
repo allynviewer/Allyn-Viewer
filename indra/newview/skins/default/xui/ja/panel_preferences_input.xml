@@ -6,10 +6,11 @@
 			<icon name="mouselook_section_rule" />
 			<text name=" Mouse Sensitivity:">マウス感度:</text>
 			<slider_bar name="mouse_sensitivity" />
-			<check_box name="invert_mouse" label="マウス反転" />
+			<check_box name="invert_mouse" label="反転" />
 			<check_box name="instant_zoom" label="右クリックズームをスムーズではなく即時にする" />
 			<check_box name="AlchemyMouselookInstructions" label="位置とアバターの体力を表示" />
-			<check_box name="AlchemyMouselookIFF" label="照準下に対象アバターの名前を表示" />
+			<check_box name="AlchemyMouselookIFF" label="ターゲットマーカーを表示" />
+			<slider name="AlchemyMouselookIFFRange" label="範囲（m）:" />
 			<check_box name="first_person_avatar_visible" label="マウスルックでアバターを表示" />
 			<check_box name="UseRealisticMouselook" label="マウスルックで「リアル」なカメラ動作を使用" />
 			<text name="UI Hidden in mouselook:">マウスルックで隠すUI:</text>
@@ -34,6 +35,7 @@
 			<check_box name="unsit_on_camera_reset" label="カメラリセット時にアバターを起立" tool_tip="Escを押してカメラが三人称に切り替わるとき、自動で起立します" />
 			<check_box name="DisableCameraConstraints" label="カメラ制約を無効にする" tool_tip="壁やオブジェクトに近づいても、カメラが自動でズームしないようにします。" />
 			<check_box name="Limit Select Distance" label="選択距離を制限" tool_tip="オブジェクトを選択できる距離を制限します。" />
+			<check_box name="AllynRenderFriendsOnlyPersistsTP" label="テレポート後も「フレンドのみ表示」を維持する" tool_tip="「フレンドのみ表示」がテレポート後に自動でオフにならないようにします（デフォルトはオフ）。" />
 			<button name="joystick_setup_button" label="ジョイスティック設定" />
 		</panel>
 	</scroll_container>

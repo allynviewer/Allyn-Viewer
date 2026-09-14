@@ -402,6 +402,10 @@ void LLDrawPoolAvatar::renderShadow(S32 pass)
 	{
 		return;
 	}
+	if (avatarp->shouldHideForFriendsOnly())
+	{
+		return;
+	}
 	BOOL impostor = avatarp->isImpostor();
 	if (impostor)
 	{
@@ -954,6 +958,10 @@ void LLDrawPoolAvatar::renderAvatars(LLVOAvatar* single_avatar, S32 pass)
 		avatarp = (LLVOAvatar *)facep->getDrawable()->getVObj().get();
 	}
     if (avatarp->isDead() || avatarp->mDrawable.isNull())
+	{
+		return;
+	}
+	if (!single_avatar && avatarp->shouldHideForFriendsOnly())
 	{
 		return;
 	}

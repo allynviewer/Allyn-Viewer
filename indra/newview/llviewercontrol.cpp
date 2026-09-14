@@ -51,6 +51,8 @@
 #include "llviewerwindow.h"
 #include "llwindow.h"
 #include "llvoavatarself.h"
+#include "llavataractions.h"
+#include "llcharacter.h"
 #include "llvoiceclient.h"
 #include "llvosky.h"
 #include "llvotree.h"
@@ -578,6 +580,31 @@ void handleHighResChanged(const LLSD& val)
 		gSavedSettings.setBOOL("RenderUIInSnapshot", false);
 }
 void handleRenderAutoMuteByteLimitChanged(const LLSD& new_value);
+static bool handleRenderFriendsOnlyChanged(const LLSD& newvalue)
+{
+	if (!newvalue.asBoolean())
+	{
+		gObjectList.restoreSuppressedNonFriends();
+		return true;
+	}
+	std::vector<LLCharacter*> instances = LLCharacter::sInstances;
+	for (LLCharacter* character : instances)
+	{
+		LLVOAvatar* avatar = dynamic_cast<LLVOAvatar*>(character);
+		if (!avatar || avatar->isDead() || avatar->isSelf() || avatar->isControlAvatar())
+		{
+			continue;
+		}
+		if (!LLAvatarActions::isFriend(avatar->getID()))
+		{
+			avatar->cacheAppearanceForFriendsOnly();
+			gObjectList.rememberSuppressedNonFriend(avatar->getLocalID(), avatar->getRegion());
+			gObjectList.killObject(avatar);
+		}
+	}
+	gObjectList.cleanDeadObjects(FALSE);
+	return true;
+}
 void settings_setup_listeners()
 {
 	gSavedSettings.getControl("FirstPersonAvatarVisible")->getSignal()->connect(boost::bind(&handleRenderAvatarMouselookChanged, _2));
@@ -742,6 +769,7 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("AlchemyWLCloudTexture")->getSignal()->connect(boost::bind(&handleWindlightCloudChanged, _2));
 	gSavedSettings.getControl("RenderAutoMuteByteLimit")->getSignal()->connect(boost::bind(&handleRenderAutoMuteByteLimitChanged, _2));
 	gSavedPerAccountSettings.getControl("AvatarHoverOffsetZ")->getCommitSignal()->connect(boost::bind(&handleAvatarHoverOffsetChanged, _2));
+	gSavedPerAccountSettings.getControl("AllynRenderFriendsOnly")->getSignal()->connect(boost::bind(&handleRenderFriendsOnlyChanged, _2));
 	gSavedSettings.getControl("AscentAvatarXModifier")->getSignal()->connect(boost::bind(&handleAscentAvatarModifier, _2));
 	gSavedSettings.getControl("AscentAvatarYModifier")->getSignal()->connect(boost::bind(&handleAscentAvatarModifier, _2));
 	gSavedSettings.getControl("AscentAvatarZModifier")->getSignal()->connect(boost::bind(&handleAscentAvatarModifier, _2));

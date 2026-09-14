@@ -91,7 +91,6 @@
 		<menu_item_check name="Teleport History" label="История телепортов" />
 		<menu_item_separator name="separator2" label="-----------" />
 		<menu_item_check name="Camera Controls" label="Управление камерой" />
-		<menu_item_check name="Movement Controls" label="Управление движением" />
 		<menu_item_check name="World Map" label="Карта мира" />
 		<menu_item_check name="Mini-Map" label="Мини-карта" />
 		<menu_item_check name="Radar" label="Радар" />
@@ -184,6 +183,7 @@
 			<menu_item_call name="Day Cycle Editor" label="Редактор суток" />
 			<menu_item_call name="Post-Processing Effects" label="Эффекты постобработки" />
 		</menu>
+		<menu_item_check name="Render Friends Only" label="Показывать только друзей" />
 	</menu>
 	<menu name="Tools" label="Инструменты">
 		<menu name="Select Tool" label="Инструмент">

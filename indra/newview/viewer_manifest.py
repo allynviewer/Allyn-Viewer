@@ -511,6 +511,23 @@ class WindowsManifest(ViewerManifest):
             # Hunspell
             self.path("libhunspell.dll")
 
+            # Visual C++ runtime, staged by Copy3rdPartyLibs.cmake. Shipping it
+            # here lets installer_template.nsi skip downloading and executing
+            # vc_redist.exe (a Windows Defender / SmartScreen heuristic trigger)
+            # and makes the portable ZIP self-contained.
+            msvc_runtime_missing = [dll for dll in ("msvcp140.dll", "vcruntime140.dll", "vcruntime140_1.dll")
+                                    if self.path(dll) == 0]
+            self.path("msvcp140_*.dll")
+            self.path("vcruntime140_*.dll")
+            self.path("concrt140.dll")
+            if msvc_runtime_missing:
+                msg = ("Visual C++ runtime DLL(s) %s not found in sharedlibs; re-run the configure step "
+                       "so that Copy3rdPartyLibs.cmake stages them (MSVC_REDIST_DIR / VCToolsRedistDir)."
+                       % ", ".join(msvc_runtime_missing))
+                if self.is_packaging_viewer():
+                    raise Exception(msg)
+                print("WARNING: " + msg)
+
         # For crashpad
         with self.prefix(src=pkgbindir):
             self.path("crashpad_handler.exe")
@@ -743,18 +760,22 @@ class WindowsManifest(ViewerManifest):
 
         # We use the Unicode version of NSIS, available from
         # http://www.scratchpaper.com/
+        # installers/windows/lang_*.nsi are UTF-8 without BOM; makensis would
+        # otherwise read them as the ANSI codepage and garble every accented
+        # LangString ("área" -> "Ã¡rea", CJK/Cyrillic -> mojibake).
+        nsis_args = ['/INPUTCHARSET', 'UTF8', self.dst_path_of(tempfile)]
         try:
             import winreg as reg
             NSIS_path = reg.QueryValue(reg.HKEY_LOCAL_MACHINE, r"SOFTWARE\NSIS") + '\\makensis.exe'
-            self.run_command([proper_windows_path(NSIS_path), self.dst_path_of(tempfile)])
+            self.run_command([proper_windows_path(NSIS_path)] + nsis_args)
         except Exception:
             try:
                 NSIS_path = os.environ.get('ProgramFiles', '') + '\\NSIS\\makensis.exe'
-                self.run_command([proper_windows_path(NSIS_path), self.dst_path_of(tempfile)])
+                self.run_command([proper_windows_path(NSIS_path)] + nsis_args)
             except Exception:
                 try:
                     NSIS_path = os.environ.get('ProgramFiles(x86)', '') + '\\NSIS\\makensis.exe'
-                    self.run_command([proper_windows_path(NSIS_path),self.dst_path_of(tempfile)])
+                    self.run_command([proper_windows_path(NSIS_path)] + nsis_args)
                 except Exception as e:
                     print("WARNING: NSIS installer packaging failed (%s)." % e)
                     print("         Install NSIS (build.bat tools) to get the _Setup.exe; the portable ZIP %s was created." % zip_name)

@@ -56,9 +56,6 @@
 		<layout_panel name="panelcameracontrols">
 			<button name="camera_controls_btn" label="カメラ操作" />
 		</layout_panel>
-		<layout_panel name="panelmessagelog">
-			<button name="movement_controls_btn" label="移動操作" />
-		</layout_panel>
 		<layout_panel name="panelmouselook">
 			<button name="mouselook_btn" label="マウスルック" />
 		</layout_panel>

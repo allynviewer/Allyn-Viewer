@@ -9,7 +9,7 @@
 					<check_box name="quickstart_im_check" label="着信IMを通知" tool_tip="相手がIMの入力を始めた時点でIMウィンドウを開きます。送信前にIMが来ていることがわかります。" />
 					<check_box name="hide_typing_check" label="「[name]が入力中...」をIMで送信しない" tool_tip="返信中に相手へ「______が入力中...」が表示されなくなります。" />
 					<check_box name="InstantMessagesFriendsOnly" label="フレンドからのIMのみ受け付ける" />
-					<check_box name="allow_mu_pose_check" label="MUポーズ方式を許可" tool_tip="/me と : の両方でエモートを実行できます。" />
+					<check_box name="allow_mu_pose_check" label=": を /me として使う" tool_tip="行頭の : で /me と同じエモートができます。MU風ロールプレイでよく使われます。" />
 					<check_box name="close_ooc_check" label="OOCコメントを自動で閉じる" tool_tip="「((」で始まるメッセージに「))」を自動で付けます。逆も同様です。" />
 					<text name="objects_link_text_box2">チャット</text>
 					<icon name="section_chat_rule" />

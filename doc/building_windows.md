@@ -83,7 +83,7 @@ Official builds use **Visual Studio 2022**. Visual Studio 2026 also works (`buil
 
 ### NSIS (optional)
 
-Only needed if you want to produce the `Allyn_Viewer_*_Setup.exe` installer (`build.bat package`). `build.bat tools` installs NSIS 3 with `winget` and then runs `scripts\setup-nsis-plugins.ps1`, which adds the two plugins the installer script needs and stock NSIS does not ship (StdUtils and INetC; the script asks for UAC elevation to write into the NSIS folder). To do it by hand: install NSIS from the [NSIS website](https://nsis.sourceforge.io), then run `powershell -ExecutionPolicy Bypass -File scripts\setup-nsis-plugins.ps1`. Without NSIS the compiled viewer still runs normally and `build.bat package` still produces the portable ZIP; only the installer is skipped.
+Only needed if you want to produce the `Allyn_Viewer_*_Setup.exe` installer (`build.bat package`). `build.bat tools` installs NSIS 3 with `winget` and then runs `scripts\setup-nsis-plugins.ps1`, which adds the plugin the installer script needs and stock NSIS does not ship (StdUtils; the script asks for UAC elevation to write into the NSIS folder). The installer ships the Visual C++ runtime DLLs (`msvcp140.dll`, `vcruntime140*.dll`) taken from the compiler's redist folder at configure time, so no download of `vc_redist.exe` happens during installation. To do it by hand: install NSIS from the [NSIS website](https://nsis.sourceforge.io), then run `powershell -ExecutionPolicy Bypass -File scripts\setup-nsis-plugins.ps1`. Without NSIS the compiled viewer still runs normally and `build.bat package` still produces the portable ZIP; only the installer is skipped.
 
 ### Intermediate check
 

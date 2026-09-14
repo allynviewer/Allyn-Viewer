@@ -173,7 +173,11 @@ void LLTabContainer::reshape(S32 width, S32 height, BOOL called_from_parent)
 			S32 i = 0;
 			for (tuple_list_t::iterator iter = mTabList.begin(); iter != mTabList.end(); ++iter, ++i)
 			{
-				const S32 w = natural[i] + add + (rem-- > 0 ? 1 : 0);
+				S32 w = natural[i] + add + (rem-- > 0 ? 1 : 0);
+				if (mMaxTabWidth > 0)
+				{
+					w = llmin(w, mMaxTabWidth);
+				}
 				(*iter)->mButton->reshape(w, (*iter)->mButton->getRect().getHeight());
 				total += w;
 			}

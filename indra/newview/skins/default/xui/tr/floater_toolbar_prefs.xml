@@ -17,7 +17,6 @@
 	<check_box name="radar_list_btn" label="Radar" />
 	<check_box name="region_tracker_btn" label="Bölge Takibi" />
 	<check_box name="camera_controls_btn" label="Kamera Kontrolleri" />
-	<check_box name="movement_controls_btn" label="Hareket Kontrolleri" />
 	<check_box name="look_btn" label="Fare bakışı" />
 	<check_box name="fly_btn" label="Uç" />
 	<check_box name="sit_btn" label="Otur" />

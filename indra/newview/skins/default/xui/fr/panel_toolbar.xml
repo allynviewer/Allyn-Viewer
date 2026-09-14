@@ -57,9 +57,6 @@
  <layout_panel name="panelcameracontrols">
  <button label="Ctrl Camera" name="camera_controls_btn"/>
  </layout_panel>
- <layout_panel name="panelmessagelog">
- <button label="Ctrl déplacements" name="movement_controls_btn"/>
- </layout_panel>
  <layout_panel name="panelsit">
  <button label="S'assoir" label_selected="Stand" name="sit_btn"/>
  </layout_panel>

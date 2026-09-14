@@ -103,7 +103,6 @@
 #include "llfloaterworldmap.h"
 #include "llframestatview.h"
 #include "llmakeoutfitdialog.h"
-#include "llmoveview.h"
 #include "lltextureview.h"
 #include "lltoolgrab.h"
 #include "lltoolmgr.h"
@@ -207,6 +206,7 @@ struct MenuFloaterDict final : public LLSingleton<MenuFloaterDict>
 		registerFloater<LLFloaterAvatar>				("avatar");
 		registerFloater<LLFloaterBeacons>				("beacons");
 		registerFloater<LLFloaterCamera>				("camera controls");
+		registerFloater<LLFloaterCamera>				("movement controls");
 		registerFloater<LLFloaterChat>					("chat history");
 		registerFloater<LLFloaterChatterBox>			("communicate");
 		registerFloater<LLFloaterDestinations>			("destinations");
@@ -221,7 +221,6 @@ struct MenuFloaterDict final : public LLSingleton<MenuFloaterDict>
 		registerFloater<LLFloaterMediaFilter>			("media filter");
 		registerFloater<LLFloaterMap>					("mini map");
 		registerFloater<LLFloaterMarketplaceListings>	("marketplace_listings");
-		registerFloater<LLFloaterMove>					("movement controls");
 		registerFloater<LLFloaterMute>					("mute list");
 		registerFloater<LLFloaterNotificationConsole>	("notifications console");
 		registerFloater<LLFloaterPathfindingCharacters>	("pathfinding_characters");

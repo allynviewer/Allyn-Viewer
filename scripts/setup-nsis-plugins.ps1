@@ -1,7 +1,9 @@
 # Installs the NSIS plugins required by indra/newview/installers/windows/installer_template.nsi
 # that do not ship with a stock NSIS 3 install:
 #   - StdUtils (StdUtils.dll + StdUtils.nsh)  https://github.com/lordmulder/stdutils
-#   - INetC    (INetC.dll)                      https://github.com/DigitalMediaServer/NSIS-INetC-plugin
+#
+# INetC is no longer needed: the installer ships the Visual C++ runtime DLLs instead of
+# downloading vc_redist.exe at install time (see installer_template.nsi).
 #
 # Called by "build.bat install" / "build.bat tools". Safe to run repeatedly: files that
 # already exist are left alone. Writing to the NSIS folder under Program Files needs
@@ -17,7 +19,6 @@ $ErrorActionPreference = 'Stop'
 [Console]::OutputEncoding = [Text.Encoding]::UTF8
 
 $StdUtilsUrl = 'https://github.com/lordmulder/stdutils/releases/download/1.14/StdUtils.2018-10-27.zip'
-$InetcUrl    = 'https://github.com/DigitalMediaServer/NSIS-INetC-plugin/releases/download/v1.0.5.7/InetC.zip'
 
 function Find-Nsis {
     param([string]$Hint)
@@ -48,13 +49,12 @@ $pluginDir  = Join-Path $nsis 'Plugins\x86-unicode'
 $includeDir = Join-Path $nsis 'Include'
 $targets = @(
     @{ Path = (Join-Path $pluginDir  'StdUtils.dll'); Zip = 'StdUtils'; Entry = 'Plugins/Unicode/StdUtils.dll' },
-    @{ Path = (Join-Path $includeDir 'StdUtils.nsh'); Zip = 'StdUtils'; Entry = 'Include/StdUtils.nsh' },
-    @{ Path = (Join-Path $pluginDir  'INetC.dll');    Zip = 'Inetc';    Entry = 'x86-unicode/INetC.dll' }
+    @{ Path = (Join-Path $includeDir 'StdUtils.nsh'); Zip = 'StdUtils'; Entry = 'Include/StdUtils.nsh' }
 )
 
 $missing = @($targets | Where-Object { -not (Test-Path $_.Path) })
 if ($missing.Count -eq 0) {
-    Write-Host "[NSIS] Plugins already installed in $nsis (StdUtils, INetC)."
+    Write-Host "[NSIS] Plugins already installed in $nsis (StdUtils)."
     exit 0
 }
 
@@ -84,7 +84,7 @@ try {
     [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
     $zips = @{}
     foreach ($name in ($missing | ForEach-Object { $_.Zip } | Sort-Object -Unique)) {
-        $url = if ($name -eq 'StdUtils') { $StdUtilsUrl } else { $InetcUrl }
+        $url = $StdUtilsUrl
         $file = Join-Path $tmp "$name.zip"
         Write-Host "[NSIS] Downloading $url"
         Invoke-WebRequest -Uri $url -OutFile $file -UseBasicParsing

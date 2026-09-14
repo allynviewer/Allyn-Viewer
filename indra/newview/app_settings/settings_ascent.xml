@@ -203,7 +203,7 @@
     <key>AlchemyMouselookIFF</key>
     <map>
       <key>Comment</key>
-      <string>Display user that is currently focused upon by crosshair in mouselook</string>
+      <string>Draw tracking markers in mouselook for avatars in range, and show the targeted avatar name under the crosshair</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -214,7 +214,7 @@
     <key>AlchemyMouselookIFFRange</key>
     <map>
       <key>Comment</key>
-      <string>Range of IFF display</string>
+      <string>Range in meters for mouselook target markers</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>

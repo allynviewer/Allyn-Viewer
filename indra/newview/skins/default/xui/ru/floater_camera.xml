@@ -3,4 +3,21 @@
 	<string name="rotate_tooltip">Поворот камеры вокруг фокуса</string>
 	<string name="zoom_tooltip">Приблизить камеру к фокусу</string>
 	<string name="move_tooltip">Перемещайте камеру вверх и вниз, влево и вправо</string>
+	<button name="front_view_btn" tool_tip="Вид спереди" />
+	<button name="side_view_btn" tool_tip="Вид сбоку" />
+	<button name="rear_view_btn" tool_tip="Вид сзади" />
+	<button name="tpp_view_btn" tool_tip="Вид TPP" />
+	<button name="object_view_btn" tool_tip="Вид объекта" />
+	<button name="mouselook_view_btn" tool_tip="Мауслук" />
+	<button name="reset_view_btn" tool_tip="Сбросить вид" />
+	<button name="roll_left_btn" tool_tip="Крен камеры влево" />
+	<button name="roll_right_btn" tool_tip="Крен камеры вправо" />
+	<button name="turn left btn" tool_tip="Поверните налево" />
+	<button name="turn right btn" tool_tip="Поверните направо" />
+	<button name="move up btn" tool_tip="Прыгай или взлетай вверх" />
+	<button name="move down btn" tool_tip="Присесть или полететь вниз" />
+	<joystick_slide name="slide left btn" tool_tip="Двигаться влево" />
+	<joystick_slide name="slide right btn" tool_tip="Двигаться вправо" />
+	<joystick_turn name="forward btn" tool_tip="Двигаться вперед" />
+	<joystick_turn name="backward btn" tool_tip="Двигаться назад" />
 </floater>

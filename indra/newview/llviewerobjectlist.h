@@ -167,6 +167,11 @@ public:
 	static std::map<U64, LLUUID> sIndexAndLocalIDToUUID;
 	std::set<LLViewerObject *> mSelectPickList;
 	friend class LLViewerObject;
+	bool isNonFriendDerendered(const LLUUID& id, LLPCode pcode) const;
+	void rememberSuppressedNonFriend(U32 local_id, LLViewerRegion* regionp);
+	void restoreSuppressedNonFriends();
+private:
+	std::set<std::pair<U64, U32> > mSuppressedNonFriendAvatars;
 };
 class LLDebugBeacon
 {

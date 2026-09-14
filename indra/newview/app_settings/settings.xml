@@ -4202,6 +4202,21 @@ This should be as low as possible, but too low may break functionality</string>
         <real>0.5</real>
       </array>
     </map>
+    <key>CameraOffsetTPPView</key>
+    <map>
+      <key>Comment</key>
+      <string>Initial camera offset from avatar in TPP View (Penny Patton optimized camera)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Vector3</string>
+      <key>Value</key>
+      <array>
+        <real>-2.0</real>
+        <real>0.0</real>
+        <real>0.5</real>
+      </array>
+    </map>
     <key>CameraOffsetScale</key>
     <map>
       <key>Comment</key>
@@ -4242,7 +4257,7 @@ This should be as low as possible, but too low may break functionality</string>
     <key>CameraPreset</key>
     <map>
       <key>Comment</key>
-      <string>Preset camera position - view (0 - rear, 1 - front, 2 - group)</string>
+      <string>Preset camera position - view (0 - rear, 1 - front, 2 - group, 3 - tpp)</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -7425,7 +7440,7 @@ This should be as low as possible, but too low may break functionality</string>
       <key>Value</key>
       <array>
         <integer>0</integer>
-        <integer>64</integer>
+        <integer>158</integer>
         <integer>176</integer>
         <integer>0</integer>
       </array>
@@ -9031,6 +9046,21 @@ This should be as low as possible, but too low may break functionality</string>
         <real>1.5</real>
         <real>0.7</real>
         <real>1.0</real>
+      </array>
+    </map>
+    <key>FocusOffsetTPPView</key>
+    <map>
+      <key>Comment</key>
+      <string>Initial focus point offset relative to avatar for the camera preset TPP View</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Vector3D</string>
+      <key>Value</key>
+      <array>
+        <real>0.9</real>
+        <real>0.0</real>
+        <real>0.75</real>
       </array>
     </map>
     <key>FocusPosOnLogout</key>

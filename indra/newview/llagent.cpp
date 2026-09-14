@@ -49,7 +49,6 @@
 #include "llhudmanager.h"
 #include "lljoystickbutton.h"
 #include "llmorphview.h"
-#include "llmoveview.h"
 #include "llchatbar.h"
 #include "llnotificationsutil.h"
 #include "llnotify.h"
@@ -1369,17 +1368,9 @@ void LLAgent::autoPilot(F32 *delta_yaw)
 }
 void LLAgent::propagate(const F32 dt)
 {
-	LLFloaterMove *floater_move = LLFloaterMove::getInstance();
-	if (floater_move)
+	if (LLFloaterCamera* floater_camera = LLFloaterCamera::findInstance())
 	{
-		floater_move->mForwardButton   ->setToggleState( gAgentCamera.getAtKey() > 0 || gAgentCamera.getWalkKey() > 0 );
-		floater_move->mBackwardButton  ->setToggleState( gAgentCamera.getAtKey() < 0 || gAgentCamera.getWalkKey() < 0 );
-		floater_move->mTurnLeftButton  ->setToggleState( gAgentCamera.getYawKey() > 0.f );
-		floater_move->mTurnRightButton ->setToggleState( gAgentCamera.getYawKey() < 0.f );
-		floater_move->mSlideLeftButton  ->setToggleState( gAgentCamera.getLeftKey() > 0.f );
-		floater_move->mSlideRightButton ->setToggleState( gAgentCamera.getLeftKey() < 0.f );
-		floater_move->mMoveUpButton    ->setToggleState( gAgentCamera.getUpKey() > 0 );
-		floater_move->mMoveDownButton  ->setToggleState( gAgentCamera.getUpKey() < 0 );
+		floater_camera->updateMovementButtons();
 	}
 	const F32 YAW_RATE = 90.f * DEG_TO_RAD;
 	yaw(YAW_RATE * gAgentCamera.getYawKey() * dt);

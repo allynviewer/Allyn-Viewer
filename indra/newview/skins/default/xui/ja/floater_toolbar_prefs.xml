@@ -17,7 +17,6 @@
 	<check_box name="radar_list_btn" label="レーダー" />
 	<check_box name="region_tracker_btn" label="リージョントラッカー" />
 	<check_box name="camera_controls_btn" label="カメラ操作" />
-	<check_box name="movement_controls_btn" label="移動操作" />
 	<check_box name="look_btn" label="マウスルック" />
 	<check_box name="fly_btn" label="飛行" />
 	<check_box name="sit_btn" label="座る" />

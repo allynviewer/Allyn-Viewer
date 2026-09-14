@@ -1,6 +1,6 @@
 /** 
  * @file llfloatercamera.h
- * @brief Container for camera control buttons (zoom, pan, orbit)
+ * @brief Combined camera and movement controls
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
@@ -32,9 +32,12 @@
 #ifndef LLFLOATERCAMERA_H
 #define LLFLOATERCAMERA_H
 #include "llfloater.h"
+class LLButton;
 class LLJoystickCameraRotate;
 class LLJoystickCameraZoom;
 class LLJoystickCameraTrack;
+class LLJoystickAgentTurn;
+class LLJoystickAgentSlide;
 class LLFloaterCamera
 	:	public LLFloater,
 		public LLFloaterSingleton<LLFloaterCamera>
@@ -45,9 +48,32 @@ private:
 	~LLFloaterCamera() {};
 	void onOpen();
 	void onClose(bool app_quitting);
+	void draw();
+	void onClickCameraItem(const std::string& name);
+	void turnLeft();
+	void turnRight();
+	void moveUp();
+	void moveDown();
+	void rollLeft();
+	void rollRight();
+	void clearObjectView();
+	void toggleObjectView();
+	void applyCameraPreset(S32 preset);
+	void updatePresetButtons();
 public:
+	void updateMovementButtons();
 	LLJoystickCameraRotate* mRotate;
 	LLJoystickCameraZoom*	mZoom;
 	LLJoystickCameraTrack*	mTrack;
+	LLJoystickAgentTurn*	mForwardButton;
+	LLJoystickAgentTurn*	mBackwardButton;
+	LLJoystickAgentSlide*	mSlideLeftButton;
+	LLJoystickAgentSlide*	mSlideRightButton;
+	LLButton*				mTurnLeftButton;
+	LLButton*				mTurnRightButton;
+	LLButton*				mMoveUpButton;
+	LLButton*				mMoveDownButton;
+	LLButton*				mRollLeftButton;
+	LLButton*				mRollRightButton;
 };
 #endif

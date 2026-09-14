@@ -85,7 +85,6 @@
 		<menu_item_check label="Historique des téléports" name="Teleport History"/>
 		<menu_item_separator label="-----------" name="separator2"/>
 		<menu_item_check label="Contrôles de la caméra" name="Camera Controls"/>
-		<menu_item_check label="Contrôles de déplacement" name="Movement Controls"/>
 		<menu_item_check label="Carte du monde" name="World Map"/>
 		<menu_item_check label="Mini-carte" name="Mini-Map"/>
 		<menu_item_separator label="-----------" name="separator3"/>
@@ -154,6 +153,7 @@
 			<menu_item_call label="Éditeur de cycle jour" name="Day Cycle Editor"/>
 			<menu_item_call label="Effets de post-traitement" name="Post-Processing Effects"/>
 		</menu>
+		<menu_item_check label="N'afficher que les amis" name="Render Friends Only"/>
 	</menu>
 	<menu label="Outils" name="Tools">
 		<menu label="Choisir un outil" name="Select Tool">

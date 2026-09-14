@@ -5,10 +5,11 @@
 			<text bottom_delta="-20" height="12" left="10" name=" Mouselook Options:">Mouselook-Optionen:</text>
 			<text bottom_delta="-5" height="12" left="10" name=" Mouse Sensitivity:">Mausempfindlichkeit:</text>
 			<slider_bar bottom_delta="-5" name="mouse_sensitivity" />
-			<check_box bottom_delta="-18" left_delta="0" label="Maus umkehren" name="invert_mouse" />
+			<check_box bottom_delta="-18" left_delta="0" label="Umkehren" name="invert_mouse" />
 			<check_box bottom_delta="-18" label="Sofortiger Zoom bei Rechtsklick" name="instant_zoom" />
 			<check_box bottom_delta="-18" label="Avatar-Position und Gesundheit anzeigen" name="AlchemyMouselookInstructions" />
-			<check_box bottom_delta="-18" label="Namen des anvisierten Avatars unter dem Fadenkreuz anzeigen" name="AlchemyMouselookIFF" />
+			<check_box bottom_delta="-18" label="Ziel-Markierungen aktivieren" name="AlchemyMouselookIFF" />
+			<slider label="Reichweite (m):" name="AlchemyMouselookIFFRange" />
 			<check_box bottom_delta="-18" label="Realistisches Kameraverhalten in der Ich-Perspektive" control_name="UseRealisticMouselook" name="UseRealisticMouselook" />
 			<text bottom_delta="-5" height="12" name="UI Hidden in mouselook:">In Mouselook ausgeblendete UI:</text>
 			<check_box bottom_delta="-18" label="Fenster" name="mouselook_hides_floaters" />
@@ -31,6 +32,7 @@
 			<check_box bottom_delta="-18" label="Kamerabeschränkungen deaktivieren" name="DisableCameraConstraints" tool_tip="Verhindert automatisches Zoomen der Kamera beim Annähern an Wände oder Objekte." />
 			<check_box bottom_delta="-18" label="Avatar in Ich-Perspektive anzeigen" name="first_person_avatar_visible" />
 			<check_box bottom_delta="-18" label="Auswahlentfernung begrenzen" name="Limit Select Distance" tool_tip="Begrenzt die Entfernung, in der ein Objekt ausgewählt werden kann." />
+			<check_box bottom_delta="-18" label="Nach Teleports „Nur Freunde anzeigen“ aktiviert lassen" name="AllynRenderFriendsOnlyPersistsTP" tool_tip="Falls aktiviert bleibt die Einstellung „Nur Freunde anzeigen“ nach einem Teleport aktiviert (Standard: deaktiviert)." />
 			<button bottom_delta="-20" label="Joystick-Einrichtung" name="joystick_setup_button" width="175" />
 		</panel>
 	</scroll_container>

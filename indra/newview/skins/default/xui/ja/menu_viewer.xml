@@ -91,7 +91,6 @@
 		<menu_item_check name="Teleport History" label="テレポート履歴" />
 		<menu_item_separator name="separator2" label="-----------" />
 		<menu_item_check name="Camera Controls" label="カメラ操作" />
-		<menu_item_check name="Movement Controls" label="移動操作" />
 		<menu_item_check name="World Map" label="ワールドマップ" />
 		<menu_item_check name="Mini-Map" label="ミニマップ" />
 		<menu_item_check name="Radar" label="レーダー" />
@@ -184,6 +183,7 @@
 			<menu_item_call name="Day Cycle Editor" label="日周期エディタ" />
 			<menu_item_call name="Post-Processing Effects" label="ポストプロセス効果" />
 		</menu>
+		<menu_item_check name="Render Friends Only" label="フレンドのみ表示" />
 	</menu>
 	<menu name="Tools" label="ツール">
 		<menu name="Select Tool" label="ツールを選択">

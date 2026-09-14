@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="move floater">
-	<string name="rotate_tooltip">Rotate カメラ Around Focus</string>
-	<string name="zoom_tooltip">Zoom カメラ Towards Focus</string>
-	<string name="move_tooltip">カメラ 上 と 下, 左 と 右を移動</string>
+	<string name="rotate_tooltip">フォーカスの周りでカメラを回転</string>
+	<string name="zoom_tooltip">フォーカスに向かってカメラをズーム</string>
+	<string name="move_tooltip">カメラを上下・左右に移動</string>
+	<button name="front_view_btn" tool_tip="正面ビュー" />
+	<button name="side_view_btn" tool_tip="側面ビュー" />
+	<button name="rear_view_btn" tool_tip="背面ビュー" />
+	<button name="tpp_view_btn" tool_tip="TPPビュー" />
+	<button name="object_view_btn" tool_tip="オブジェクトビュー" />
+	<button name="mouselook_view_btn" tool_tip="マウスルック" />
+	<button name="reset_view_btn" tool_tip="ビューをリセット" />
+	<button name="roll_left_btn" tool_tip="カメラを左にロール" />
+	<button name="roll_right_btn" tool_tip="カメラを右にロール" />
+	<button name="turn left btn" tool_tip="左を向く" />
+	<button name="turn right btn" tool_tip="右を向く" />
+	<button name="move up btn" tool_tip="ジャンプまたは上昇" />
+	<button name="move down btn" tool_tip="しゃがむまたは下降" />
+	<joystick_slide name="slide left btn" tool_tip="左へ移動" />
+	<joystick_slide name="slide right btn" tool_tip="右へ移動" />
+	<joystick_turn name="forward btn" tool_tip="前進" />
+	<joystick_turn name="backward btn" tool_tip="後退" />
 </floater>

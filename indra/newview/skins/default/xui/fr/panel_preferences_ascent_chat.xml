@@ -12,7 +12,7 @@
 					<text left="250" name="objects_link_text_box2" width="300">Chat :</text>
 					<check_box label="Jouer le son typique pour le chat local" name="play_typing_sound_check" />
 					<check_box label="Ne pas afficher les notifs. de log dans le chat" name="hide_notifications_in_chat_check" />
-					<check_box label="Permet d'utiliser &quot;/me&quot; aussi bien que &quot;:&quot;" name="allow_mu_pose_check" />
+					<check_box label="Autoriser : comme /me" tool_tip="Permet de commencer une ligne par : pour faire un emote, comme avec /me. Courant en jeu de rôle de type MU." name="allow_mu_pose_check" />
 					<check_box label="Ajoute les fins des commentaires (RP mode)" tool_tip="Ajoute automatiquement &quot;))&quot; à chaque message commençant par &quot;((&quot;, et vice-versa." name="close_ooc_check" />
 					<check_box label="Montre les changements de nom d'affichage" tool_tip="Affiche un message dans le chat lorsqu'un avatar change son nom d'affichage." name="display_name_change" />
 					<check_box label="Signale, au dessus de la tête, si l'avatar écrit" name="use_typing_bubbles" />

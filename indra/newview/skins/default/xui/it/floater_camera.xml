@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="move floater" title="">
-	<string name="rotate_tooltip">
-		Ruota la telecamera Intorno all&apos;Inquadratura
-	</string>
-	<string name="zoom_tooltip">
-		Avvicina la telecamera nell&apos;inquadratura
-	</string>
-	<string name="move_tooltip">
-		Muovi la telecamera su e giù e a sinistra e destra
-	</string>
+	<string name="rotate_tooltip">Ruota la telecamera Intorno all&apos;Inquadratura</string>
+	<string name="zoom_tooltip">Avvicina la telecamera nell&apos;inquadratura</string>
+	<string name="move_tooltip">Muovi la telecamera su e giù e a sinistra e destra</string>
+	<button name="front_view_btn" tool_tip="Vista frontale"/>
+	<button name="side_view_btn" tool_tip="Vista laterale"/>
+	<button name="rear_view_btn" tool_tip="Vista posteriore"/>
+	<button name="tpp_view_btn" tool_tip="Vista TPP"/>
+	<button name="object_view_btn" tool_tip="Vista oggetto"/>
+	<button name="mouselook_view_btn" tool_tip="Vista mouselook"/>
+	<button name="reset_view_btn" tool_tip="Reimposta vista"/>
+	<button name="roll_left_btn" tool_tip="Rollio fotocamera a sinistra"/>
+	<button name="roll_right_btn" tool_tip="Rollio fotocamera a destra"/>
+	<button name="turn left btn" tool_tip="Gira a sinistra"/>
+	<button name="turn right btn" tool_tip="Gira a destra"/>
+	<button name="move up btn" tool_tip="Salta o vola in alto"/>
+	<button name="move down btn" tool_tip="Inchinati o vola in basso"/>
+	<joystick_slide name="slide left btn" tool_tip="Vai a sinistra"/>
+	<joystick_slide name="slide right btn" tool_tip="Vai a destra"/>
+	<joystick_turn name="forward btn" tool_tip="Vai avanti"/>
+	<joystick_turn name="backward btn" tool_tip="Vai indietro"/>
 </floater>

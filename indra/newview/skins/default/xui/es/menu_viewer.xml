@@ -73,7 +73,6 @@
 		<menu_item_check label="Lista de Ignorados" name="Mute List"/>
 		<menu_item_check label="Historial de teleports" name="Teleport History"/>
 		<menu_item_check label="Controles de Cámara" name="Camera Controls"/>
-		<menu_item_check label="Controles de Movimiento" name="Movement Controls"/>
 		<menu_item_check label="Mapa del Mundo" name="World Map"/>
 		<menu_item_check label="Mini Mapa" name="Mini-Map"/>
 		<menu_item_check label="Radar" name="Radar"/>
@@ -146,6 +145,7 @@
 			<menu_item_call label="Editor del Ciclo Diario" name="Day Cycle Editor"/>
 			<menu_item_call label="Efectos de Post-Procesado" name="Post-Processing Effects"/>
 		</menu>
+		<menu_item_check label="Mostrar solo amigos" name="Render Friends Only"/>
 	</menu>
 	<menu label="Herramientas" left="0" name="Tools" >
 		<menu label="Seleccionar Herramienta" name="Select Tool">

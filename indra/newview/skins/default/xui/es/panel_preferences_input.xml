@@ -9,10 +9,11 @@
 		Sensibilidad del Ratón:
 	</text>
 			<slider_bar bottom="-26" follows="top" height="16" increment="0.25" initial_val="2" left="276" max_val="15" min_val="0" name="mouse_sensitivity" width="128" />
-			<check_box label="Invertir el Ratón" name="invert_mouse" />
+			<check_box label="Invertir" name="invert_mouse" />
 			<check_box label="Acercamiento Instantáneo con Click derecho, no progresivo" name="instant_zoom" />
 			<check_box label="Mostrar posición y salud del Avatar" name="AlchemyMouselookInstructions" />
-			<check_box label="Mostrar nombres de avatares apuntados bajo el punto de mira" name="AlchemyMouselookIFF" />
+			<check_box label="Activar marcadores de objetivo" name="AlchemyMouselookIFF" />
+			<slider label="Alcance (m):" name="AlchemyMouselookIFFRange" />
 			<check_box label="Mostrar Avatar en mouselook" name="first_person_avatar_visible" />
 			<check_box label="Usar comportamiento de Cámara 'realistico' en mouselook" name="UseRealisticMouselook" />
 			<text name="UI Hidden in mouselook:">Esconder Interface en mouselook:</text>
@@ -43,6 +44,7 @@
 			<check_box label="Levantar el avatar al reiniciar la cámara" name="unsit_on_camera_reset" tool_tip="Levanta al avatar automárticamente cuando presiones la tecla ESC y la cámara cambie a modo de vista en tercera persona" />
 			<check_box label="Deshabilitar Restricciones de Cámara" name="DisableCameraConstraints" tool_tip="Prevenir el zoom automático de la cámara cuando estes muy cerca de paredes, objetos, etc.." />
 			<check_box label="Limitar Distancia de Selección" name="Limit Select Distance" tool_tip="Limita la distancia en la cual un objeto puede ser editado." />
+			<check_box name="AllynRenderFriendsOnlyPersistsTP" label="Mantener 'Mostrar solo amigos' activado al teleportar" tool_tip="Evita que la opción 'Mostrar solo amigos' se desactive automáticamente tras un teletransporte (por defecto: desactivado)." />
 			<button label="Configuración Joystick" name="joystick_setup_button" />
 		</panel>
 	</scroll_container>

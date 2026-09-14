@@ -8,7 +8,7 @@
 					<check_box label="Ankommende Nachrichten anzeigen" tool_tip="Öffnet ein IM-Fenster, wenn jemand anfängt, eine IM an Sie zu tippen. So wissen Sie Bescheid, dass jemand Ihnen schreibt, bevor er die Eingabetaste drückt." name="quickstart_im_check" />
 					<check_box label="'[name] tippt gerade...' in Nachrichten unterdrücken" tool_tip="Nachrichtenempfänger sehen nicht &quot;_______ tippt gerade...&quot; wenn du antwortest." name="hide_typing_check" />
 					<check_box label="IMs nur von Personen auf meiner Freundesliste annehmen" name="InstantMessagesFriendsOnly" />
-					<check_box label="MU Emotes erlauben" tool_tip="Erlaubt, /me und : für Emotes zu verwenden" name="allow_mu_pose_check" />
+					<check_box label="Doppelpunkt (:) als /me-Emote erlauben" tool_tip="Ermöglicht Emotes mit : am Zeilenanfang, genau wie mit /me. Üblich im MU-Rollenspiel." name="allow_mu_pose_check" />
 					<check_box label="OOC automatisch schliessen." tool_tip="Schliesst mit (( beginnende Nachrichten automatisch mit )) ab." name="close_ooc_check" />
 					<text name="objects_link_text_box2">Chat</text>
 					<check_box label="Tippgeräusche erzeugen" tool_tip="Unterdrückt die Tippgeräusche" name="play_typing_sound_check" />

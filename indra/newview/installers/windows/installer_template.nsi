@@ -98,6 +98,14 @@
   ;Verify CRC
   CRCCheck on
 
+  ; Dark license editor (RGB). Inner Edit/RichEdit are also painted at runtime.
+  LicenseBkColor 0x0A0B1E
+
+  ; Cyber-themed wizard chrome (title bar, buttons, fields, progress bar).
+  ; Emits Functions, so it must come after SetCompressor.
+  !define ALLYN_THEME_UNINSTALLER
+  !include "%%SOURCE%%\installers\windows\allyn_theme.nsh"
+
 ;--------------------------------
 ;Interface Settings
 
@@ -105,11 +113,24 @@
   ShowInstDetails hide
   ShowUninstDetails hide
 
+  ; Cyber skin palette (skins/cyber/colors.xml): navy + purple + light text
+  !define MUI_BGCOLOR "080916"
+  !define MUI_TEXTCOLOR "ECEEF8"
+  !define MUI_INSTFILESPAGE_COLORS "ECEEF8 0A0B1E"
+  !define MUI_INSTFILESPAGE_PROGRESSBAR "smooth"
+  !define MUI_LICENSEPAGE_BGCOLOR "0A0B1E"
+
   !define MUI_ICON "%%SOURCE%%\installers\windows\install_icon.ico"
   !define MUI_UNICON "%%SOURCE%%\installers\windows\uninstall_icon.ico"
+  !define MUI_HEADERIMAGE
+  !define MUI_HEADERIMAGE_RIGHT
+  !define MUI_HEADERIMAGE_BITMAP "%%SOURCE%%\installers\windows\install_header.bmp"
+  !define MUI_HEADERIMAGE_UNBITMAP "%%SOURCE%%\installers\windows\uninstall_header.bmp"
   !define MUI_WELCOMEFINISHPAGE_BITMAP "%%SOURCE%%\installers\windows\install_welcome.bmp"
   !define MUI_UNWELCOMEFINISHPAGE_BITMAP "%%SOURCE%%\installers\windows\uninstall_welcome.bmp"
   !define MUI_ABORTWARNING
+  !define MUI_CUSTOMFUNCTION_GUIINIT allyn_gui_init
+  !define MUI_CUSTOMFUNCTION_UNGUIINIT un.allyn_gui_init
 
 ;--------------------------------
 ;Language Selection Dialog Settings
@@ -129,14 +150,17 @@
 ;Install Pages
 
   !define MUI_PAGE_CUSTOMFUNCTION_PRE check_skip
+  !define MUI_PAGE_CUSTOMFUNCTION_SHOW allyn_page_show
   !insertmacro MUI_PAGE_WELCOME
   
   ;License Page
   !define MUI_PAGE_CUSTOMFUNCTION_PRE check_skip
-  !insertmacro MUI_PAGE_LICENSE "%%SOURCE%%\..\..\doc\GPL-license.txt"
+  !define MUI_PAGE_CUSTOMFUNCTION_SHOW allyn_page_show
+  !insertmacro MUI_PAGE_LICENSE "%%SOURCE%%\installers\windows\license.rtf"
 
   ;Directory Page
   !define MUI_PAGE_CUSTOMFUNCTION_PRE check_skip
+  !define MUI_PAGE_CUSTOMFUNCTION_SHOW allyn_page_show
   !insertmacro MUI_PAGE_DIRECTORY
 
   ;Start Menu Folder Page
@@ -144,6 +168,7 @@
   !define MUI_STARTMENUPAGE_REGISTRY_KEY "${INSTNAME_KEY}" 
   !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME "Start Menu Folder"
   !define MUI_PAGE_CUSTOMFUNCTION_PRE check_skip
+  !define MUI_PAGE_CUSTOMFUNCTION_SHOW allyn_page_show
 !ifdef WIN64_BIN_BUILD
   !define MUI_STARTMENUPAGE_DEFAULTFOLDER "${APPNAME} (64 bit) Viewer"
 !else
@@ -153,10 +178,12 @@
 
   ;Install Progress Page
   !define MUI_PAGE_CUSTOMFUNCTION_LEAVE CheckWindowsServPack
+  !define MUI_PAGE_CUSTOMFUNCTION_SHOW allyn_page_show
   !insertmacro MUI_PAGE_INSTFILES
 
   ; Finish Page
   !define MUI_PAGE_CUSTOMFUNCTION_PRE check_skip_finish
+  !define MUI_PAGE_CUSTOMFUNCTION_SHOW allyn_page_show
   !define MUI_FINISHPAGE_RUN
   !define MUI_FINISHPAGE_RUN_FUNCTION launch_viewer
   ; Empty string is required so MUI treats this as a checkbox, not a file to open.
@@ -170,9 +197,13 @@
 ;--------------------------------
 ;Uninstall Pages
 
+  !define MUI_PAGE_CUSTOMFUNCTION_SHOW un.allyn_page_show
   !insertmacro MUI_UNPAGE_WELCOME
+  !define MUI_PAGE_CUSTOMFUNCTION_SHOW un.allyn_page_show
   !insertmacro MUI_UNPAGE_CONFIRM
+  !define MUI_PAGE_CUSTOMFUNCTION_SHOW un.allyn_page_show
   !insertmacro MUI_UNPAGE_INSTFILES
+  !define MUI_PAGE_CUSTOMFUNCTION_SHOW un.allyn_page_show
   !insertmacro MUI_UNPAGE_FINISH
 
 ;--------------------------------
@@ -211,7 +242,6 @@
   ;because this will make your installer start faster.
   
   !insertmacro MUI_RESERVEFILE_LANGDLL
-  ReserveFile "${NSISDIR}\Plugins\x86-unicode\INetC.dll"
   ReserveFile "${NSISDIR}\Plugins\x86-unicode\nsDialogs.dll"
   ;ReserveFile "${NSISDIR}\Plugins\x86-unicode\nsis7z.dll" (removed - not bundled)
   ReserveFile "${NSISDIR}\Plugins\x86-unicode\StartMenu.dll"
@@ -227,6 +257,7 @@ Function check_skip
   StrCmp $SKIP_DIALOGS "true" 0 +2
   Abort
 FunctionEnd
+
 
 Function check_skip_finish
   StrCmp $SKIP_DIALOGS "true" 0 +4
@@ -415,38 +446,23 @@ Section "Viewer"
   SetOutPath "$INSTDIR"  
   ;Remove old shader files first so fallbacks will work.
   RMDir /r "$INSTDIR\app_settings\shaders\*"
-  ;Remove old Microsoft DLLs, reboot if needed
+  ;Remove obsolete Microsoft DLLs from old installs (UCRT is part of Windows now).
+  ;msvcp140*/vcruntime140*/concrt140 are shipped by this installer and simply
+  ;overwritten; do not schedule them for deletion at reboot.
   Delete /REBOOTOK "$INSTDIR\api-ms-win-*.dll"
-  Delete /REBOOTOK "$INSTDIR\concrt*.dll"
-  Delete /REBOOTOK "$INSTDIR\msvcp*.dll"
   Delete /REBOOTOK "$INSTDIR\ucrtbase.dll"
   Delete /REBOOTOK "$INSTDIR\vccorlib*.dll"
-  Delete /REBOOTOK "$INSTDIR\vcruntime*.dll"
 
   ;This placeholder is replaced by the complete list of all the files in the installer, by viewer_manifest.py
   %%INSTALL_FILES%%
 
-  ;Create temp dir and set out dir to it
-  CreateDirectory "$TEMP\AlchemyInst"
-  SetOutPath "$TEMP\AlchemyInst"
-
-  ;Download and install VC redist (VS2022 = MSVC 14.4x, compatÃ­vel com VS2015-2022)
-!ifdef WIN64_BIN_BUILD
-  inetc::get /RESUME "Failed to download VS2022 redistributable package. Retry?" "https://aka.ms/vs/17/release/vc_redist.x64.exe" "$TEMP\AlchemyInst\vc_redist_17.x64.exe" /END
-  ExecWait "$TEMP\AlchemyInst\vc_redist_17.x64.exe /install /passive /norestart"
-
-  inetc::get /RESUME "Failed to download VS2013 redistributable package. Retry?" "https://aka.ms/highdpimfc2013x64enu" "$TEMP\AlchemyInst\vc_redist_12.x64.exe" /END
-  ExecWait "$TEMP\AlchemyInst\vc_redist_12.x64.exe /install /passive /norestart"
-!else
-  inetc::get /RESUME "Failed to download VS2022 redistributable package. Retry?" "https://aka.ms/vs/17/release/vc_redist.x86.exe" "$TEMP\AlchemyInst\vc_redist_17.x86.exe" /END
-  ExecWait "$TEMP\AlchemyInst\vc_redist_17.x86.exe /install /passive /norestart"
-
-  inetc::get /RESUME "Failed to download VS2013 redistributable package. Retry?" "https://aka.ms/highdpimfc2013x86enu" "$TEMP\AlchemyInst\vc_redist_12.x86.exe" /END
-  ExecWait "$TEMP\AlchemyInst\vc_redist_12.x86.exe /install /passive /norestart"
-!endif
-
-  ;Remove temp dir and reset out to inst dir
-  RMDir /r "$TEMP\AlchemyInst\"
+  ;The Visual C++ runtime (msvcp140.dll, vcruntime140*.dll) is part of the
+  ;install file list above (staged by Copy3rdPartyLibs.cmake, listed in
+  ;viewer_manifest.py). Earlier versions downloaded vc_redist.exe from the
+  ;internet here and executed it; that "download and run a binary" pattern is a
+  ;well-known Windows Defender / SmartScreen heuristic trigger for unsigned
+  ;installers, needed the INetC plugin and broke offline installs. None of the
+  ;shipped binaries need the VS2013 runtime (msvcr120), so it is gone too.
   SetOutPath "$INSTDIR"
 
   ;Pass the installer's language to the client to use as a default
@@ -566,6 +582,11 @@ Function .onInit
 !ifdef WIN64_BIN_BUILD
   SetRegView 64
 !endif
+  ; Dark mode for Win10/11 must be set before any window is created.
+  ; uxtheme ordinal 135 = SetPreferredAppMode(ForceDark=2) on 1903+,
+  ; AllowDarkModeForApp on 1809.
+  !insertmacro ALLYN_THEME_INIT
+
   ;Don't install on unsupported operating systems
   Call CheckWindowsVersion
   ;Don't install if not administator
@@ -685,6 +706,7 @@ Function un.onInit
 !ifdef WIN64_BIN_BUILD
   SetRegView 64
 !endif
+  !insertmacro ALLYN_THEME_INIT
   Call un.CheckIfAdministrator
 
   !insertmacro MUI_UNGETLANGUAGE

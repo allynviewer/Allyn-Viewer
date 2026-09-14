@@ -79,20 +79,15 @@ bool ll::prefs::PanelData::hightlightAndHide(LLWString const& aFilter)
 	for (tPanelDataList::iterator itr = mChildPanel.begin(); itr != mChildPanel.end(); ++itr)
 		(*itr)->setNotHighlighted();
 
-	if (aFilter.empty())
-	{
-		return true;
-	}
-
 	bool label_match = false;
-	if (!mLabel.empty())
+	if (!aFilter.empty() && !mLabel.empty())
 	{
 		LLWString label = utf8str_to_wstring(mLabel);
 		LLWStringUtil::toLower(label);
 		label_match = label.find(aFilter) != LLWString::npos;
 	}
 
-	bool bVisible = label_match;
+	bool bVisible = aFilter.empty() || label_match;
 	for (tSearchableItemList::iterator itr = mChildren.begin(); itr != mChildren.end(); ++itr)
 		bVisible |= (*itr)->hightlightAndHide(aFilter);
 
@@ -116,13 +111,17 @@ bool ll::prefs::TabContainerData::hightlightAndHide(LLWString const& aFilter)
 	for (tSearchableItemList::iterator itr = mChildren.begin(); itr != mChildren.end(); ++itr)
 		(*itr)->setNotHighlighted();
 
-	bool bVisible(false);
+	bool bVisible(aFilter.empty());
 	for (tSearchableItemList::iterator itr = mChildren.begin(); itr != mChildren.end(); ++itr)
 		bVisible |= (*itr)->hightlightAndHide(aFilter);
 
 	for (tPanelDataList::iterator itr = mChildPanel.begin(); itr != mChildPanel.end(); ++itr)
 	{
 		bool bPanelVisible = (*itr)->hightlightAndHide(aFilter);
+		if (aFilter.empty())
+		{
+			bPanelVisible = true;
+		}
 		if ((*itr)->mPanel && mTabContainer)
 			mTabContainer->setTabVisibility((*itr)->mPanel, bPanelVisible);
 		bVisible |= bPanelVisible;

@@ -1,6 +1,6 @@
 /** 
  * @file llmoveview.h
- * @brief Container for buttons for walking, turning, flying
+ * @brief Shared movement helpers used by camera/movement controls and keyboard
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
@@ -31,37 +31,9 @@
  */
 #ifndef LL_LLMOVEVIEW_H
 #define LL_LLMOVEVIEW_H
-#include "llfloater.h"
-class LLButton;
-class LLJoystickAgentTurn;
-class LLJoystickAgentSlide;
 class LLFloaterMove
-:	public LLFloater,
-	public LLFloaterSingleton<LLFloaterMove>
 {
-	friend class LLUISingleton<LLFloaterMove, VisibilityPolicy<LLFloater> >;
-protected:
-	LLFloaterMove(const LLSD& key);
-	~LLFloaterMove() {}
 public:
-	void onOpen();
-	void onClose(bool app_quitting);
 	static F32	getYawRate(F32 time);
-protected:
-	static void turnLeftNudge(void* userdata);
-	static void turnLeft(void* userdata);
-	static void turnRightNudge(void* userdata);
-	static void turnRight(void* userdata);
-	static void moveUp(void* userdata);
-	static void moveDown(void* userdata);
-public:
-	LLJoystickAgentTurn*	mForwardButton;
-	LLJoystickAgentTurn*	mBackwardButton;
-	LLJoystickAgentSlide*	mSlideLeftButton;
-	LLJoystickAgentSlide*	mSlideRightButton;
-	LLButton*				mTurnLeftButton;
-	LLButton*				mTurnRightButton;
-	LLButton*				mMoveUpButton;
-	LLButton*				mMoveDownButton;
 };
 #endif

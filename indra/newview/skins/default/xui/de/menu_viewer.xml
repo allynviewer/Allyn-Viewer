@@ -90,7 +90,6 @@
 		<menu_item_check label="Teleport-Verlauf" name="Teleport History"/>
 		<menu_item_separator label="-----------" name="separator2"/>
 		<menu_item_check label="Kamerasteuerung" name="Camera Controls"/>
-		<menu_item_check label="Bewegungssteuerung" name="Movement Controls"/>
 		<menu_item_check label="Weltkarte" name="World Map"/>
 		<menu_item_check label="Minikarte" name="Mini-Map"/>
 		<menu_item_check label="Radar" name="Radar"/>
@@ -161,6 +160,7 @@
 			<menu_item_call label="Tageszyklus-Editor" name="Day Cycle Editor"/>
 			<menu_item_call label="Nachbearbeitung" name="Post-Processing Effects"/>
 		</menu>
+		<menu_item_check label="Nur Freunde anzeigen" name="Render Friends Only"/>
 	</menu>
 	<menu label="Werkzeuge" name="Tools">
 		<menu label="Werkzeug wählen" name="Select Tool">

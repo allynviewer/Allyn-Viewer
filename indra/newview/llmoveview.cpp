@@ -1,6 +1,6 @@
 /** 
  * @file llmoveview.cpp
- * @brief Container for movement buttons like forward, left, fly
+ * @brief Shared movement helpers used by camera/movement controls and keyboard
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
@@ -31,59 +31,8 @@
  */
 #include "llviewerprecompiledheaders.h"
 #include "llmoveview.h"
-#include "indra_constants.h"
-#include "llagent.h"
-#include "llagentcamera.h"
-#include "llviewercontrol.h"
-#include "llbutton.h"
-#include "llviewerwindow.h"
-#include "lljoystickbutton.h"
-#include "lluictrlfactory.h"
-const F32 MOVE_BUTTON_DELAY = 0.0f;
 const F32 YAW_NUDGE_RATE = 0.05f;
 const F32 NUDGE_TIME = 0.25f;
-LLFloaterMove::LLFloaterMove(const LLSD& key)
-:	LLFloater(std::string("move floater"))
-{
-	setIsChrome(TRUE);
-	const BOOL DONT_OPEN = FALSE;
-	LLUICtrlFactory::getInstance()->buildFloater(this,"floater_moveview.xml", NULL, DONT_OPEN);
-	mForwardButton = getChild<LLJoystickAgentTurn>("forward btn");
-	mForwardButton->setHeldDownDelay(MOVE_BUTTON_DELAY);
-	mBackwardButton = getChild<LLJoystickAgentTurn>("backward btn");
-	mBackwardButton->setHeldDownDelay(MOVE_BUTTON_DELAY);
-	mSlideLeftButton = getChild<LLJoystickAgentSlide>("slide left btn");
-	mSlideLeftButton->setHeldDownDelay(MOVE_BUTTON_DELAY);
-	mSlideRightButton = getChild<LLJoystickAgentSlide>("slide right btn");
-	mSlideRightButton->setHeldDownDelay(MOVE_BUTTON_DELAY);
-	mTurnLeftButton = getChild<LLButton>("turn left btn");
-	mTurnLeftButton->setHeldDownDelay(MOVE_BUTTON_DELAY);
-	mTurnLeftButton->setHeldDownCallback( boost::bind(&LLFloaterMove::turnLeft, this) );
-	mTurnRightButton = getChild<LLButton>("turn right btn");
-	mTurnRightButton->setHeldDownDelay(MOVE_BUTTON_DELAY);
-	mTurnRightButton->setHeldDownCallback( boost::bind(&LLFloaterMove::turnRight, this) );
-	mMoveUpButton = getChild<LLButton>("move up btn");
-	childSetAction("move up btn",moveUp,NULL);
-	mMoveUpButton->setHeldDownDelay(MOVE_BUTTON_DELAY);
-	mMoveUpButton->setHeldDownCallback( boost::bind(&LLFloaterMove::moveUp, this) );
-	mMoveDownButton = getChild<LLButton>("move down btn");
-	childSetAction("move down btn",moveDown,NULL);
-	mMoveDownButton->setHeldDownDelay(MOVE_BUTTON_DELAY);
-	mMoveDownButton->setHeldDownCallback( boost::bind(&LLFloaterMove::moveDown, this) );
-}
-void LLFloaterMove::onClose(bool app_quitting)
-{
-	LLFloater::onClose(app_quitting);
-	if (!app_quitting)
-	{
-		gSavedSettings.setBOOL("ShowMovementControls", FALSE);
-	}
-}
-void LLFloaterMove::onOpen()
-{
-	LLFloater::onOpen();
-	gSavedSettings.setBOOL("ShowMovementControls", TRUE);
-}
 F32 LLFloaterMove::getYawRate( F32 time )
 {
 	if( time < NUDGE_TIME )
@@ -95,22 +44,4 @@ F32 LLFloaterMove::getYawRate( F32 time )
 	{
 		return 1.f;
 	}
-}
-void LLFloaterMove::turnLeft(void *)
-{
-	F32 time = getInstance()->mTurnLeftButton->getHeldDownTime();
-	gAgent.moveYaw( getYawRate( time ) );
-}
-void LLFloaterMove::turnRight(void *)
-{
-	F32 time = getInstance()->mTurnRightButton->getHeldDownTime();
-	gAgent.moveYaw( -getYawRate( time ) );
-}
-void LLFloaterMove::moveUp(void *)
-{
-	gAgent.moveUp(1);
-}
-void LLFloaterMove::moveDown(void *)
-{
-	gAgent.moveUp(-1);
 }

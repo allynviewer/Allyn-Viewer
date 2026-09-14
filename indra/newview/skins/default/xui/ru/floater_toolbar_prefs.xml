@@ -17,7 +17,6 @@
 	<check_box name="radar_list_btn" label="Радар" />
 	<check_box name="region_tracker_btn" label="Трекер регионов" />
 	<check_box name="camera_controls_btn" label="Камера" />
-	<check_box name="movement_controls_btn" label="Движение" />
 	<check_box name="look_btn" label="Мауслук" />
 	<check_box name="fly_btn" label="Полёт" />
 	<check_box name="sit_btn" label="Сесть" />

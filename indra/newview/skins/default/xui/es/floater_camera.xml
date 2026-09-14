@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="move floater">
-	<string name="rotate_tooltip">
-		Girar la cámara alrededor de lo enfocado
-	</string>
-	<string name="zoom_tooltip">
-		Hacer zoom con la cámara en lo enfocado
-	</string>
-	<string name="move_tooltip">
-		Mover la cámara arriba y abajo, izquierda y derecha.
-	</string>
+	<string name="rotate_tooltip">Girar la cámara alrededor de lo enfocado</string>
+	<string name="zoom_tooltip">Hacer zoom con la cámara en lo enfocado</string>
+	<string name="move_tooltip">Mover la cámara arriba y abajo, izquierda y derecha.</string>
+	<button name="front_view_btn" tool_tip="Vista frontal"/>
+	<button name="side_view_btn" tool_tip="Vista lateral"/>
+	<button name="rear_view_btn" tool_tip="Vista trasera"/>
+	<button name="tpp_view_btn" tool_tip="Vista TPP"/>
+	<button name="object_view_btn" tool_tip="Vista de objeto"/>
+	<button name="mouselook_view_btn" tool_tip="Vista mouselook"/>
+	<button name="reset_view_btn" tool_tip="Restablecer vista"/>
+	<button name="roll_left_btn" tool_tip="Rotar cámara a la izquierda"/>
+	<button name="roll_right_btn" tool_tip="Rotar cámara a la derecha"/>
+	<button name="turn left btn" tool_tip="Girar a la Izquierda"/>
+	<button name="turn right btn" tool_tip="Girar a la Derecha"/>
+	<button name="move up btn" tool_tip="Saltar o iniciar vuelo"/>
+	<button name="move down btn" tool_tip="Agacharse o Descender"/>
+	<joystick_slide name="slide left btn" tool_tip="Moverse a la Izquierda"/>
+	<joystick_slide name="slide right btn" tool_tip="Moverse a la Derecha"/>
+	<joystick_turn name="forward btn" tool_tip="Avanzar"/>
+	<joystick_turn name="backward btn" tool_tip="Retroceder"/>
 </floater>

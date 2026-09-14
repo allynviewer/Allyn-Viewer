@@ -51,6 +51,39 @@ if(WINDOWS)
       list(APPEND release_files alut.dll OpenAL32.dll)
     endif(USE_OPENAL)
 
+    #*******************************
+    # Visual C++ runtime (msvcp140.dll, vcruntime140.dll, vcruntime140_1.dll, ...).
+    # Shipped next to the executables so that:
+    #  - the NSIS installer does not have to download vc_redist.exe from the
+    #    internet and execute it at install time. "Download a binary and run
+    #    it" is a classic Windows Defender / SmartScreen heuristic trigger for
+    #    unsigned installers, and it also made installs fail offline;
+    #  - the portable ZIP runs on a clean machine.
+    # InstallRequiredSystemLibraries knows the redist layout of every toolset
+    # (Microsoft.VC143.CRT for VS 2022, Microsoft.VC145.CRT for VS 2026).
+    # The UCRT (ucrtbase.dll, api-ms-win-crt-*.dll) is part of Windows 10+ and
+    # is not shipped.
+    set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP TRUE)
+    set(CMAKE_INSTALL_UCRT_LIBRARIES FALSE)
+    set(CMAKE_INSTALL_DEBUG_LIBRARIES FALSE)
+    include(InstallRequiredSystemLibraries)
+    set(msvc_runtime_files ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS})
+    if(NOT msvc_runtime_files AND DEFINED ENV{VCToolsRedistDir})
+      # Toolset newer than this CMake release: vcvars exports VCToolsRedistDir.
+      file(TO_CMAKE_PATH "$ENV{VCToolsRedistDir}" _vc_redist_dir)
+      file(GLOB msvc_runtime_files
+           "${_vc_redist_dir}/x64/Microsoft.VC*.CRT/msvcp140*.dll"
+           "${_vc_redist_dir}/x64/Microsoft.VC*.CRT/vcruntime140*.dll"
+           "${_vc_redist_dir}/x64/Microsoft.VC*.CRT/concrt140.dll")
+    endif()
+    if(msvc_runtime_files)
+      message(STATUS "Staging Visual C++ runtime: ${msvc_runtime_files}")
+    else()
+      message(WARNING "Visual C++ runtime DLLs not found (MSVC_REDIST_DIR / VCToolsRedistDir). "
+                      "msvcp140.dll / vcruntime140.dll will be missing from the package; "
+                      "viewer_manifest.py refuses to build an installer without them.")
+    endif()
+
 endif(WINDOWS)
 
 
@@ -85,6 +118,25 @@ copy_if_different(
     ${release_files}
     )
 set(third_party_targets ${third_party_targets} ${out_targets})
+
+# Visual C++ runtime: msvc_runtime_files holds absolute paths, so FROM_DIR is empty.
+if(WINDOWS AND msvc_runtime_files)
+  copy_if_different(
+      ""
+      "${SHARED_LIB_STAGING_DIR_RELEASE}"
+      out_targets
+      ${msvc_runtime_files}
+      )
+  set(third_party_targets ${third_party_targets} ${out_targets})
+
+  copy_if_different(
+      ""
+      "${SHARED_LIB_STAGING_DIR_RELWITHDEBINFO}"
+      out_targets
+      ${msvc_runtime_files}
+      )
+  set(third_party_targets ${third_party_targets} ${out_targets})
+endif()
 
 if(NOT USESYSTEMLIBS)
   add_custom_target(

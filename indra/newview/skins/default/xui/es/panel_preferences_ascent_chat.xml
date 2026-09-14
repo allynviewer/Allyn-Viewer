@@ -10,7 +10,7 @@
 					<check_box label="Anunciar Mensajes Instantáneos Entrantes" tool_tip="Abre una ventana de MI cuando alguien comienza a escribirte un MI. Esto te permite conocer cuando alguien te abre un MI antes de enviartelo." name="quickstart_im_check" />
 					<check_box label="No enviar '[nombre] está escribiendo...' en MIs" tool_tip="Tu contacto de MI no verá '______ está escribiendo...' cuando le respondes." name="hide_typing_check" />
 					<check_box label="Aceptar IMs sólo de los amigos" name="InstantMessagesFriendsOnly" />
-					<check_box label="Permitir Método MU pose." tool_tip="Permite el uso de /me y : para enviar emotes." name="allow_mu_pose_check" />
+					<check_box label="Permitir usar : como /me" tool_tip="Permite empezar una línea con : para hacer un emote, igual que /me. Típico del roleplay estilo MU." name="allow_mu_pose_check" />
 					<check_box label="Cerrar Automáticamente comentarios OOC." tool_tip="Agregar automáticamente al final '))' en cualquier mensaje que comience con '((', o viseversa." name="close_ooc_check" />
 					<text name="objects_link_text_box2" left="265">
 				Chat:

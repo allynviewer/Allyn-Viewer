@@ -2395,6 +2395,10 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 	bool is_teleport = gAgent.getTeleportState() == LLAgent::TELEPORT_MOVING;
 	if (is_teleport)
 	{
+		if (!gSavedPerAccountSettings.getBOOL("AllynRenderFriendsOnlyPersistsTP"))
+		{
+			gSavedPerAccountSettings.setBOOL("AllynRenderFriendsOnly", false);
+		}
 		if (gAgent.getTeleportKeepsLookAt())
 		{
 			look_at = LLViewerCamera::getInstance()->getAtAxis();
@@ -3314,7 +3318,22 @@ void process_avatar_animation(LLMessageSystem* mesgsys, void** user_data)
 	LLVOAvatar* avatarp = gObjectList.findAvatar(uuid);
 	if (!avatarp)
 	{
-		LL_WARNS("Messaging") << "Received animation state for unknown avatar " << uuid << LL_ENDL;
+		if (gSavedPerAccountSettings.getBOOL("AllynRenderFriendsOnly"))
+		{
+			std::map<LLUUID, S32> anims;
+			S32 num_blocks = mesgsys->getNumberOfBlocksFast(_PREHASH_AnimationList);
+			for (S32 i = 0; i < num_blocks; i++)
+			{
+				mesgsys->getUUIDFast(_PREHASH_AnimationList, _PREHASH_AnimID, animation_id, i);
+				mesgsys->getS32Fast(_PREHASH_AnimationList, _PREHASH_AnimSequenceID, anim_sequence_id, i);
+				anims[animation_id] = anim_sequence_id;
+			}
+			LLVOAvatar::cacheAnimationsForFriendsOnly(uuid, anims);
+		}
+		else
+		{
+			LL_WARNS("Messaging") << "Received animation state for unknown avatar " << uuid << LL_ENDL;
+		}
 		return;
 	}
 	S32 num_blocks = mesgsys->getNumberOfBlocksFast(_PREHASH_AnimationList);
@@ -3440,6 +3459,10 @@ void process_avatar_appearance(LLMessageSystem* mesgsys, void** user_data)
 	if (avatarp)
 	{
 		avatarp->processAvatarAppearance(mesgsys);
+	}
+	else if (gSavedPerAccountSettings.getBOOL("AllynRenderFriendsOnly"))
+	{
+		LLVOAvatar::cacheAppearanceMessageForFriendsOnly(uuid, mesgsys);
 	}
 	else
 	{

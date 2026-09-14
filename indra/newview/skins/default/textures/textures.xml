@@ -16,6 +16,16 @@
   <texture name="Cam_Preset_Front_On" file_name="Cam_Preset_Front_On.png" preload="false" />
   <texture name="Cam_Preset_Side_Off" file_name="Cam_Preset_Side_Off.png" preload="false" />
   <texture name="Cam_Preset_Side_On" file_name="Cam_Preset_Side_On.png" preload="false" />
+  <texture name="Cam_Preset_TPP_Off" file_name="Cam_Preset_TPP_Off.png" preload="false" />
+  <texture name="Cam_Preset_TPP_On" file_name="Cam_Preset_TPP_On.png" preload="false" />
+  <texture name="Cam_Roll_Left_Off" file_name="Cam_Roll_Left_Off.png" preload="false" />
+  <texture name="Cam_Roll_Left_On" file_name="Cam_Roll_Left_On.png" preload="false" />
+  <texture name="Cam_Roll_Right_Off" file_name="Cam_Roll_Right_Off.png" preload="false" />
+  <texture name="Cam_Roll_Right_On" file_name="Cam_Roll_Right_On.png" preload="false" />
+  <texture name="Object_View_Off" file_name="Object_View_Off.png" preload="false" />
+  <texture name="Object_View_On" file_name="Object_View_On.png" preload="false" />
+  <texture name="MouseLook_View_Off" file_name="MouseLook_View_Off.png" preload="false" />
+  <texture name="MouseLook_View_On" file_name="MouseLook_View_On.png" preload="false" />
 
   <texture name="Conv_toolbar_plus" file_name="Conv_toolbar_plus.png" preload="false" />
   <texture name="Conv_toolbar_sort" file_name="Conv_toolbar_sort.png" preload="false" />

@@ -79,6 +79,7 @@
 #include "object_flags.h"
 #include "llappviewer.h"
 #include "llfloaterblacklist.h"
+#include "llavataractions.h"
 #include "llviewerobjectbackup.h"
 extern F32 gMinObjectDistance;
 extern BOOL gAnimateTextures;
@@ -421,6 +422,11 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 			{
 				continue;
 			}
+			if (isNonFriendDerendered(fullid, pcode))
+			{
+				rememberSuppressedNonFriend(local_id, regionp);
+				continue;
+			}
 			objectp = createObject(pcode, regionp, fullid, local_id, gMessageSystem->getSender());
 			if (!objectp)
 			{
@@ -463,6 +469,10 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 				objectp->mLocalID = local_id;
 			}
 			processUpdateCore(objectp, user_data, i, update_type, NULL, justCreated);
+		}
+		if (justCreated && objectp->isAvatar())
+		{
+			LLVOAvatar::applyCachedFriendsOnlyAppearance((LLVOAvatar*)objectp);
 		}
 		recorder.objectUpdateEvent(local_id, update_type, objectp, msg_size);
 		objectp->setLastUpdateType(update_type);
@@ -1504,6 +1514,33 @@ LLViewerObject *LLViewerObjectList::createObjectViewer(const LLPCode pcode, LLVi
 	return objectp;
 }
 static LLTrace::BlockTimerStatHandle FTM_CREATE_OBJECT("Create Object");
+bool LLViewerObjectList::isNonFriendDerendered(const LLUUID& id, LLPCode pcode) const
+{
+	static LLCachedControl<bool> render_friends_only(gSavedPerAccountSettings, "AllynRenderFriendsOnly", false);
+	return pcode == LL_PCODE_LEGACY_AVATAR && render_friends_only && id != gAgentID && !LLAvatarActions::isFriend(id);
+}
+void LLViewerObjectList::rememberSuppressedNonFriend(U32 local_id, LLViewerRegion* regionp)
+{
+	if (!regionp || local_id == 0)
+	{
+		return;
+	}
+	mSuppressedNonFriendAvatars.insert(std::make_pair(regionp->getHandle(), local_id));
+}
+void LLViewerObjectList::restoreSuppressedNonFriends()
+{
+	cleanDeadObjects(FALSE);
+	for (const auto& entry : mSuppressedNonFriendAvatars)
+	{
+		LLViewerRegion* regionp = LLWorld::getInstance()->getRegionFromHandle(entry.first);
+		if (regionp)
+		{
+			regionp->addCacheMissFull(entry.second);
+		}
+	}
+	mSuppressedNonFriendAvatars.clear();
+	LLWorld::getInstance()->requestCacheMisses();
+}
 LLViewerObject *LLViewerObjectList::createObject(const LLPCode pcode, LLViewerRegion *regionp,
 												 const LLUUID &uuid, const U32 local_id, const LLHost &sender)
 {
@@ -1516,6 +1553,11 @@ LLViewerObject *LLViewerObjectList::createObject(const LLPCode pcode, LLViewerRe
 	else
 	{
 		fullid = uuid;
+	}
+	if (isNonFriendDerendered(fullid, pcode))
+	{
+		rememberSuppressedNonFriend(local_id, regionp);
+		return NULL;
 	}
 	LLViewerObject *objectp = LLViewerObject::createObject(fullid, pcode, regionp);
 	if (!objectp)

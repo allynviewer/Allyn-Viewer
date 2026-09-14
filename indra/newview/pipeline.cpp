@@ -2339,7 +2339,7 @@ void LLPipeline::markVisible(LLDrawable *drawablep, LLCamera& camera)
 					if (vobj)
 					{
 						const LLVOAvatar* av = vobj->asAvatar();
-						if (av && av->isImpostor() )
+						if (av && (av->isImpostor() || av->shouldHideForFriendsOnly()))
 						{
 							return;
 						}
@@ -6274,7 +6274,7 @@ void LLPipeline::renderDeferredLighting()
 					}
 					const LLViewerObject *vobj = drawablep->getVObj();
 					if(vobj && vobj->getAvatar()
-						&& (vobj->getAvatar()->isTooComplex()))
+						&& (vobj->getAvatar()->isTooComplex() || vobj->getAvatar()->shouldHideForFriendsOnly()))
 					{
 						continue;
 					}

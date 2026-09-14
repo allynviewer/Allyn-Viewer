@@ -10,10 +10,11 @@ in soggettiva:
 		Sensibilità del mouse:
 	</text>
 			<slider_bar name="mouse_sensitivity" width="128" />
-			<check_box label="Inverti i controlli del mouse" name="invert_mouse" />
+			<check_box label="Inverti" name="invert_mouse" />
 			<check_box label="Rendi lo zoom con clic destro istantaneo, non fluido" name="instant_zoom" />
 			<check_box label="Mostra posizione e salute dell'avatar" name="AlchemyMouselookInstructions" />
-			<check_box label="Mostra il nome dell'avatar mirato sotto il mirino" name="AlchemyMouselookIFF" />
+			<check_box label="Mostra marcatori bersaglio" name="AlchemyMouselookIFF" />
+			<slider label="Distanza (m):" name="AlchemyMouselookIFFRange" />
 			<check_box label="Usa comportamento fotocamera 'realistico' in Mouselook" name="UseRealisticMouselook" />
 			<text name="UI Hidden in mouselook:">UI nascosta in mouselook:</text>
 			<check_box label="Finestre mobili" name="mouselook_hides_floaters" />
@@ -42,6 +43,7 @@ in soggettiva:
 			<check_box label="Mostra l'avatar in prima persona" name="first_person_avatar_visible" />
 			<check_box label="Disabilita vincoli telecamera" name="DisableCameraConstraints" tool_tip="Impedisce alla telecamera di zoomare automaticamente quando ti avvicini troppo a muri, oggetti, ecc." />
 			<check_box label="Limita distanza selezione" name="Limit Select Distance" tool_tip="Limita la distanza alla quale un oggetto può essere selezionato." />
+			<check_box name="AllynRenderFriendsOnlyPersistsTP" label="Mantieni attiva 'Mostra solo amici' dopo un teleport" tool_tip="Disabilita l'annullamento automatico della funzione 'Mostra solo amici' dopo un teleport (predefinito: disattivato)." />
 			<button bottom_delta="-40" label="Installazione del joystick" name="joystick_setup_button" width="165" />
 		</panel>
 	</scroll_container>

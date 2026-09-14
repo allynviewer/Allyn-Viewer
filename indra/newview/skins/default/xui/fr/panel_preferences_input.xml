@@ -5,10 +5,11 @@
 			<text name=" Mouselook Options:">Vue subjective:</text>
 			<text name=" Mouse Sensitivity:">Sensibilité de la souris:</text>
 			<slider_bar name="mouse_sensitivity" />
-			<check_box label="Souris inversée" name="invert_mouse" />
+			<check_box label="Inverser" name="invert_mouse" />
 			<check_box label="Zoom click droit instantané" name="instant_zoom" />
 			<check_box label="Afficher la position et la santé de l'avatar" name="AlchemyMouselookInstructions" />
-			<check_box label="Afficher le nom de l'avatar ciblé sous le réticule" name="AlchemyMouselookIFF" />
+			<check_box label="Activer le suivi de cible" name="AlchemyMouselookIFF" />
+			<slider label="Distance (m) :" name="AlchemyMouselookIFFRange" />
 			<check_box control_name="UseRealisticMouselook" label="Comportement 'réaliste' de la caméra en vue subjective" name="UseRealisticMouselook" />
 			<text name="UI Hidden in mouselook:">Masquage UI en vue subjective:</text>
 			<check_box name="mouselook_hides_floaters" label="Menus Flottants" />
@@ -31,6 +32,7 @@
 			<check_box label="Désactiver les contraintes de la caméra" name="DisableCameraConstraints" tool_tip="" />
 			<check_box label="Montrer l'avatar en vue subjective" name="first_person_avatar_visible" />
 			<check_box label="Limite la distance de sélection d'un objet" name="Limit Select Distance" tool_tip="" />
+			<check_box name="AllynRenderFriendsOnlyPersistsTP" label="Garder 'N'afficher que les amis' activé après une téléportation" tool_tip="Désactive l'annulation automatique de la fonction 'N'afficher que les amis' après une téléportation (par défaut : désactivé)." />
 			<button label="Configuration du joystick" name="joystick_setup_button" width="175" />
 		</panel>
 	</scroll_container>

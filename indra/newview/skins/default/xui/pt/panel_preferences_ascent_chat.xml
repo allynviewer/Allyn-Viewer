@@ -8,7 +8,7 @@
 					<check_box initial_value="false" control_name="AscentInstantMessageAnnounceIncoming" label="Anunciar IMs recebidas" tool_tip="Abre uma janela de IM quando alguém começa a digitar um MI para você. Isso avisa que alguém está lhe enviando um MI antes deles apertarem Enter." name="quickstart_im_check" />
 					<check_box control_name="AscentHideTypingNotification" initial_value="false" label="Não enviar 'está digitando...' em IMs" tool_tip="Parceiros de IM não verão '______ está digitando...' quando você estiver respondendo." name="hide_typing_check" />
 					<check_box control_name="InstantMessagesFriendsOnly" label="Aceitar IMs apenas de Amigos" name="InstantMessagesFriendsOnly" />
-					<check_box control_name="AscentAllowMUpose" initial_value="false" label="Permitir método MU pose." tool_tip="Permite o uso de /me e : para realizar emotes." name="allow_mu_pose_check" />
+					<check_box control_name="AscentAllowMUpose" initial_value="false" label="Permitir usar : como /me" tool_tip="Permite começar a frase com : para fazer um emote, igual ao /me. Usado em roleplay estilo MU/MUSH." name="allow_mu_pose_check" />
 					<check_box control_name="AscentAutoCloseOOC" label="Fechar comentários OOC automaticamente" tool_tip="Adicionará automaticamente '))' a qualquer mensagem começando com '((', ou vice-versa." name="close_ooc_check" />
 					<text name="objects_link_text_box2">Chat:</text>
 					<check_box control_name="PlayTypingSound" initial_value="true" label="Som de digitação no chat local" tool_tip="Silencia o som de digitação, tornando-o mais suave para coisas como apresentações." name="play_typing_sound_check" />

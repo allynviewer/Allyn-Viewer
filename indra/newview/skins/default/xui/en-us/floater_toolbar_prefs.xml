@@ -19,8 +19,7 @@
   <check_box bottom_delta="-22" label="Radar" name="radar_list_btn" follows="left|right" control_name="ToolbarVisibleRadar"/>
   <check_box bottom_delta="-22" label="Region Tracker" name="region_tracker_btn" follows="left|right" control_name="ToolbarVisibleRegionTracker"/>
   <check_box bottom_delta="-22" label="Camera Controls" name="camera_controls_btn" follows="left|right" control_name="ToolbarVisibleCameraControls"/>
-  <check_box bottom="-68" label="Movement Controls" name="movement_controls_btn" follows="left|right" control_name="ToolbarVisibleMovementControls" left_delta="170"/>
-  <check_box bottom_delta="-22" label="Mouselook" name="look_btn" follows="left|right" control_name="ToolbarVisibleMouselook"/>
+  <check_box bottom="-68" label="Mouselook" name="look_btn" follows="left|right" control_name="ToolbarVisibleMouselook" left_delta="170"/>
   <check_box bottom_delta="-22" label="Fly" name="fly_btn" follows="left|right" control_name="ToolbarVisibleFly"/>
   <check_box bottom_delta="-22" label="Sit" name="sit_btn" follows="left|right" control_name="ToolbarVisibleSit"/>
   <check_box bottom_delta="-22" label="Run" name="run_btn" follows="left|right" control_name="ToolbarVisibleAlwaysRun"/>

@@ -17,7 +17,6 @@
 	<check_box label="Radar" name="radar_list_btn"/>
 	<check_box label="Monitor de Región" name="region_tracker_btn"/>
 	<check_box label="Controles de Cámara" name="camera_controls_btn"/>
-	<check_box label="Controles de Movimiento" name="movement_controls_btn"/>
 	<check_box label="mouselook" name="look_btn"/>
 	<check_box label="Volar" name="fly_btn"/>
 	<check_box label="Sentarse" name="sit_btn"/>

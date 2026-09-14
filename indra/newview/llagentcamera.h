@@ -42,7 +42,8 @@ enum ECameraPreset
 {
 	CAMERA_PRESET_REAR_VIEW,
 	CAMERA_PRESET_FRONT_VIEW,
-	CAMERA_PRESET_GROUP_VIEW
+	CAMERA_PRESET_GROUP_VIEW,
+	CAMERA_PRESET_TPP_VIEW
 };
 class LLAgentCamera
 {
@@ -187,6 +188,9 @@ public:
 	void			cameraOrbitAround(const F32 radians);
 	void			cameraOrbitOver(const F32 radians);
 	void			cameraOrbitIn(const F32 meters);
+	void			cameraRollOver(const F32 radians);
+	void			resetCameraRoll();
+	F32				getRollAngle() const { return mRollAngle; }
 public:
 	void			handleScrollWheel(S32 clicks);
 	void			cameraZoomIn(const F32 factor);
@@ -245,6 +249,10 @@ public:
 	void			setOrbitDownKey(F32 mag)	{ mOrbitDownKey = mag; }
 	void			setOrbitInKey(F32 mag)		{ mOrbitInKey = mag; }
 	void			setOrbitOutKey(F32 mag)		{ mOrbitOutKey = mag; }
+	F32				getRollLeftKey() const		{ return mRollLeftKey; }
+	F32				getRollRightKey() const		{ return mRollRightKey; }
+	void			setRollLeftKey(F32 mag)		{ mRollLeftKey = mag; }
+	void			setRollRightKey(F32 mag)	{ mRollRightKey = mag; }
 	void			clearOrbitKeys();
 private:
 	F32				mOrbitLeftKey;
@@ -253,6 +261,9 @@ private:
 	F32				mOrbitDownKey;
 	F32				mOrbitInKey;
 	F32				mOrbitOutKey;
+	F32				mRollLeftKey;
+	F32				mRollRightKey;
+	F32				mRollAngle;
 public:
 	F32				getPanLeftKey() const		{ return mPanLeftKey; }
 	F32				getPanRightKey() const	{ return mPanRightKey; }
