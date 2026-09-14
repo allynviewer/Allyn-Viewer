@@ -139,4 +139,12 @@
       <on_visible function="List.IsNearby"/>
     </menu_item_call>
   </menu>
+  <menu_item_call label="No Translation" name="No Translation">
+    <on_click function="List.NoTranslate"/>
+    <on_visible function="List.VisibleNoTranslate"/>
+  </menu_item_call>
+  <menu_item_call label="Reactivate Translation" name="Reactivate Translation">
+    <on_click function="List.ReactivateTranslate"/>
+    <on_visible function="List.VisibleReactivateTranslate"/>
+  </menu_item_call>
 </menu>

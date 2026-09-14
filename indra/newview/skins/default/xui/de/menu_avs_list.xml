@@ -17,4 +17,6 @@
  <menu label="Moderation" name="Moderation">
  <menu_item_call label="Stummschaltung" name="Mute/Unmute"/>
  </menu>
+ <menu_item_call label="Keine Übersetzung" name="No Translation"/>
+ <menu_item_call label="Übersetzung reaktivieren" name="Reactivate Translation"/>
 </menu>

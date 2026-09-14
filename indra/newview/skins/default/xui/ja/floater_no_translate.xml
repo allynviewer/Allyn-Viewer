@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="no translate floater" short_title="翻訳しない" title="翻訳しないリスト">
+	<name_list name="no_translate_list" tool_tip="メッセージを翻訳しない居住者">
+		<column label="名前" name="name" />
+	</name_list>
+	<button label="翻訳を再開" name="reactivate_btn"
+		 tool_tip="選択した居住者を翻訳しないリストから外します" />
+</floater>

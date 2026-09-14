@@ -92,6 +92,7 @@ set(viewer_SOURCE_FILES
     llprefstranslation.cpp
     llchataitranslate.cpp
     llfloaterimtranslationconfig.cpp
+    llfloaternotranslate.cpp
     awavefront.cpp
     chatbar_as_cmdline.cpp
     daeexport.cpp
@@ -651,6 +652,7 @@ set(viewer_HEADER_FILES
     llprefstranslation.h
     llchataitranslate.h
     llfloaterimtranslationconfig.h
+    llfloaternotranslate.h
     awavefront.h
     chatbar_as_cmdline.h
     daeexport.h

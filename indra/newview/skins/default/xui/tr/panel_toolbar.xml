@@ -35,6 +35,9 @@
 		<layout_panel name="panelmutelist">
 			<button name="mute_list_btn" label="Sessiz liste" />
 		</layout_panel>
+		<layout_panel name="panelnotranslate">
+			<button name="no_translate_btn" label="Çevirisiz" />
+		</layout_panel>
 		<layout_panel name="panelassetblacklist">
 			<button name="assetblack_list_btn" label="Varlık Kara Listesi" />
 		</layout_panel>

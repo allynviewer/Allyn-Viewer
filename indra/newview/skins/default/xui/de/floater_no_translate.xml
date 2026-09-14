@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="no translate floater" short_title="Keine Übersetzung" title="Liste ohne Übersetzung">
+	<name_list name="no_translate_list" tool_tip="Bewohner, deren Nachrichten nicht übersetzt werden">
+		<column label="Name" name="name" />
+	</name_list>
+	<button label="Übersetzung reaktivieren" name="reactivate_btn"
+		 tool_tip="Ausgewählte Bewohner aus der Liste ohne Übersetzung entfernen" />
+</floater>

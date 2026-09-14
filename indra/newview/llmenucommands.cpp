@@ -79,6 +79,7 @@
 #include "llfloatermemleak.h"
 #include "llfloatermessagelog.h"
 #include "llfloatermute.h"
+#include "llfloaternotranslate.h"
 #include "llfloaternotificationsconsole.h"
 #include "llfloaterpathfindingcharacters.h"
 #include "llfloaterpathfindinglinksets.h"
@@ -223,6 +224,7 @@ struct MenuFloaterDict final : public LLSingleton<MenuFloaterDict>
 		registerFloater<LLFloaterMap>					("mini map");
 		registerFloater<LLFloaterMarketplaceListings>	("marketplace_listings");
 		registerFloater<LLFloaterMute>					("mute list");
+		registerFloater<LLFloaterNoTranslate>			("no translate");
 		registerFloater<LLFloaterNotificationConsole>	("notifications console");
 		registerFloater<LLFloaterPathfindingCharacters>	("pathfinding_characters");
 		registerFloater<LLFloaterPathfindingLinksets>	("pathfinding_linksets");

@@ -32,5 +32,8 @@
  <layout_panel name="panel13">
  <button label="Inventário" name="inventory_btn" tool_tip="Seus itens. (Ctrl-I)"/>
  </layout_panel>
+ <layout_panel name="panelnotranslate">
+ <button label="Sem Tradução" name="no_translate_btn" tool_tip="Residentes excluídos da tradução"/>
+ </layout_panel>
 	</layout_stack>
 </panel>

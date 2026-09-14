@@ -29,5 +29,7 @@
 		<menu_item_call label="Expulsar/Prohibir en la Parcela" name="Eject/Ban from Parcel"/>
 		<menu_item_call label="Expulsar del Estado" name="Eject from estate"/>
 		<menu_item_call label="Expulsar y Prohibir en el Estado" name="Eject and ban from estate"/>
-	</menu>		
+	</menu>
+	<menu_item_call label="Sin traducción" name="No Translation"/>
+	<menu_item_call label="Reactivar traducción" name="Reactivate Translation"/>
 </menu>

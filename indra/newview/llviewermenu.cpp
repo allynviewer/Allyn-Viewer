@@ -77,6 +77,8 @@
 #include "llfloaterland.h"
 #include "llfloatermarketplacelistings.h"
 #include "llfloatermute.h"
+#include "llfloaternotranslate.h"
+#include "llchataitranslate.h"
 #include "llfloateropenobject.h"
 #include "llfloaterpathfindingcharacters.h"
 #include "llfloaterpathfindinglinksets.h"
@@ -1992,6 +1994,86 @@ class LLObjectMute final : public view_listener_t
 			LLMuteList::getInstance()->add(mute);
 			LLFloaterMute::showInstance()->selectMute(mute.mID);;
 		}
+		return true;
+	}
+};
+static LLVOAvatar* get_pie_no_translate_avatar()
+{
+	LLViewerObject* object = LLSelectMgr::getInstance()->getSelection()->getPrimaryObject();
+	LLVOAvatar* avatar = find_avatar_from_object(object);
+	if (!avatar || avatar->isSelf() || avatar->getID() == gAgentID)
+		return nullptr;
+	return avatar;
+}
+static std::string get_reactivate_translate_label()
+{
+	if (LLView* menu = gMenuHolder->findChild<LLView>("Avatar Menu"))
+	{
+		if (LLMenuItemGL* item = menu->findChild<LLMenuItemGL>("Reactivate Translation"))
+			return item->getLabel();
+	}
+	return "Reactivate Translation";
+}
+class LLAvatarNoTranslate final : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata) override
+	{
+		LLVOAvatar* avatar = get_pie_no_translate_avatar();
+		if (!avatar)
+			return true;
+		if (LLChatAITranslate::instance().isAgentNoTranslate(avatar->getID()))
+		{
+			uuid_vec_t ids;
+			ids.push_back(avatar->getID());
+			LLChatAITranslate::instance().removeAgentsNoTranslate(ids);
+			return true;
+		}
+		std::string name;
+		LLNameValue* firstname = avatar->getNVPair("FirstName");
+		LLNameValue* lastname = avatar->getNVPair("LastName");
+		if (firstname && lastname)
+		{
+			name = firstname->getString();
+			name += " ";
+			name += lastname->getString();
+		}
+		if (name.empty())
+			LLAvatarNameCache::getNSName(avatar->getID(), name);
+		LLChatAITranslate::instance().addAgentNoTranslate(avatar->getID(), name);
+		return true;
+	}
+};
+class LLAvatarEnableNoTranslate final : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata) override
+	{
+		LLVOAvatar* avatar = get_pie_no_translate_avatar();
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(avatar != nullptr);
+		LLMenuItemGL* item = dynamic_cast<LLMenuItemCallGL*>(event->getSource());
+		if (!item)
+		{
+			if (LLView* pie = gMenuHolder->findChild<LLView>("Avatar Pie"))
+				item = pie->findChild<LLMenuItemGL>("No Translation");
+		}
+		if (item)
+		{
+			static std::string sNoTranslateLabel;
+			static std::string sReactivateLabel;
+			if (sNoTranslateLabel.empty())
+				sNoTranslateLabel = item->getLabel();
+			if (sReactivateLabel.empty())
+				sReactivateLabel = get_reactivate_translate_label();
+			const bool on_list = avatar && LLChatAITranslate::instance().isAgentNoTranslate(avatar->getID());
+			item->setLabel(on_list ? sReactivateLabel : sNoTranslateLabel);
+		}
+		return true;
+	}
+};
+class LLAvatarVisibleNoTranslate final : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata) override
+	{
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(get_pie_no_translate_avatar() != nullptr);
 		return true;
 	}
 };
@@ -7716,6 +7798,74 @@ class ListToggleMute final : public view_listener_t
 		return true;
 	}
 };
+class ListNoTranslate final : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata) override
+	{
+		for (const auto& id : LFIDBearer::getActiveSelectedIDs())
+		{
+			if (id.isNull() || id == gAgentID)
+				continue;
+			std::string name;
+			LLAvatarNameCache::getNSName(id, name);
+			LLChatAITranslate::instance().addAgentNoTranslate(id, name);
+		}
+		return true;
+	}
+};
+class ListReactivateTranslate final : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata) override
+	{
+		uuid_vec_t ids;
+		for (const auto& id : LFIDBearer::getActiveSelectedIDs())
+		{
+			if (id.isNull() || id == gAgentID)
+				continue;
+			if (LLChatAITranslate::instance().isAgentNoTranslate(id))
+				ids.push_back(id);
+		}
+		if (!ids.empty())
+			LLChatAITranslate::instance().removeAgentsNoTranslate(ids);
+		return true;
+	}
+};
+class ListVisibleNoTranslate final : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata) override
+	{
+		bool show = false;
+		for (const auto& id : LFIDBearer::getActiveSelectedIDs())
+		{
+			if (id.notNull() && id != gAgentID
+				&& !LLChatAITranslate::instance().isAgentNoTranslate(id))
+			{
+				show = true;
+				break;
+			}
+		}
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(show);
+		return true;
+	}
+};
+class ListVisibleReactivateTranslate final : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata) override
+	{
+		bool show = false;
+		for (const auto& id : LFIDBearer::getActiveSelectedIDs())
+		{
+			if (id.notNull() && id != gAgentID
+				&& LLChatAITranslate::instance().isAgentNoTranslate(id))
+			{
+				show = true;
+				break;
+			}
+		}
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(show);
+		return true;
+	}
+};
 class ListIsInGroup final : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata) override
@@ -8045,6 +8195,9 @@ void initialize_menus()
 	addMenu(new LLSelfEnableRemoveAllAttachments(), "Self.EnableRemoveAllAttachments");
 	addMenu(new LLSelfVisibleScriptInfo(), "Self.VisibleScriptInfo");
 	addMenu(new LLObjectMute(), "Avatar.Mute");
+	addMenu(new LLAvatarNoTranslate(), "Avatar.NoTranslate");
+	addMenu(new LLAvatarEnableNoTranslate(), "Avatar.EnableNoTranslate");
+	addMenu(new LLAvatarVisibleNoTranslate(), "Avatar.VisibleNoTranslate");
 	addMenu(new LLAvatarAddFriend(), "Avatar.AddFriend");
 	addMenu(new LLAvatarFreeze(), "Avatar.Freeze");
 	addMenu(new LLAvatarDebug(), "Avatar.Debug");
@@ -8190,6 +8343,10 @@ void initialize_menus()
 	addMenu(new ListEstateBan(), "List.EstateBan");
 	addMenu(new ListEstateEject(), "List.EstateEject");
 	addMenu(new ListToggleMute(), "List.ToggleMute");
+	addMenu(new ListNoTranslate(), "List.NoTranslate");
+	addMenu(new ListReactivateTranslate(), "List.ReactivateTranslate");
+	addMenu(new ListVisibleNoTranslate(), "List.VisibleNoTranslate");
+	addMenu(new ListVisibleReactivateTranslate(), "List.VisibleReactivateTranslate");
 	addMenu(new ListIsInGroup, "List.IsInGroup");
 	addMenu(new ListNotInGroup, "List.NotInGroup");
 	addMenu(new ListLeave, "List.Leave");

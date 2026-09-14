@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="no translate floater" short_title="Sans traduction" title="Liste sans traduction">
+	<name_list name="no_translate_list" tool_tip="Résidents dont les messages ne seront pas traduits">
+		<column label="Nom" name="name" />
+	</name_list>
+	<button label="Réactiver la traduction" name="reactivate_btn"
+		 tool_tip="Retirer les résidents sélectionnés de la liste sans traduction" />
+</floater>

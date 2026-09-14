@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true"
+	 can_resize="true" height="400" left="80" min_height="400" min_width="400"
+	 name="no translate floater" rect_control="FloaterNoTranslateRect"
+	 short_title="No Translation" title="No Translation List" width="400">
+	<name_list name="no_translate_list"
+		   left="10" right="-10" top="-16" bottom="52"
+		   follows="left|top|bottom|right"
+		   draw_heading="true" multi_select="true" name_column_index="0"
+		   tool_tip="Residents whose messages will not be translated">
+		<column dynamicwidth="true" label="Name" name="name" />
+	</name_list>
+	<button bottom="12" enabled="false" follows="left|right|bottom" height="28"
+		 label="Reactivate Translation" left="10" right="-10"
+		 name="reactivate_btn"
+		 tool_tip="Remove the selected residents from the no-translation list" />
+</floater>

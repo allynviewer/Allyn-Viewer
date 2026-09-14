@@ -10,6 +10,7 @@
 	<check_box name="chat_history_btn" label="Lokaler Chat"/>
 	<check_box name="active_speakers_btn" label="Aktive Sprecher"/>
 	<check_box name="mute_list_btn" label="Mute-Liste"/>
+	<check_box name="no_translate_btn" label="Keine Übersetzung"/>
 	<check_box name="black_list_btn" label="Asset-Sperrliste"/>
 	<check_box name="voice_effects_btn" label="Stimmeffekte"/>
 	<check_box name="gestures_btn" label="Gesten"/>

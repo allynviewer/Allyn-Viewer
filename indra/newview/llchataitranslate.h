@@ -70,11 +70,18 @@ public:
 					const std::string& text, const std::string& translated);
 	static std::vector<LLUUID> parseGroupIdList(const std::string& csv);
 	static std::string joinGroupIdList(const std::vector<LLUUID>& ids);
+	bool isAgentNoTranslate(const LLUUID& id) const;
+	void addAgentNoTranslate(const LLUUID& id, const std::string& name);
+	void removeAgentsNoTranslate(const uuid_vec_t& ids);
+	LLSD getNoTranslateAgents() const;
 private:
 	LLChatAITranslate();
 	~LLChatAITranslate();
 	void loadSessionConfigs();
 	void saveSessionConfigs() const;
+	void loadNoTranslateAgents() const;
+	void saveNoTranslateAgents() const;
+	void notifyNoTranslateChanged() const;
 	void pumpQueue();
 	std::string buildRequestBody(const std::string& user_content, S32 max_tokens,
 								 const std::string& canary) const;
@@ -112,5 +119,7 @@ private:
 	S32 mLatencySamples;
 	LLSD mSessionConfigs;
 	bool mSessionConfigsLoaded;
+	mutable LLSD mNoTranslateAgents;
+	mutable bool mNoTranslateLoaded;
 };
 #endif

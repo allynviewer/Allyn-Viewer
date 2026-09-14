@@ -56,6 +56,11 @@
         <button.commit_callback function="ShowFloater" parameter="mute list"/>
       </button>
     </layout_panel>
+    <layout_panel name="panelnotranslate" height="29" width="50" user_resize="false" visibility_control="ToolbarVisibleNoTranslate">
+      <button font="SansSerif" font-style="BOLD" sound_flags="0" bottom="0" height="29" label="No Translation" image_overlay="icn_toolbar_im.tga" image_overlay_alignment="left" image_selected="toolbar_btn_selected.tga" image_unselected="toolbar_btn_enabled.tga" image_disabled="toolbar_btn_disabled.tga" scale_image="true" name="no_translate_btn" tool_tip="Residents excluded from translation" width="50" follows="left|right">
+        <button.commit_callback function="ShowFloater" parameter="no translate"/>
+      </button>
+    </layout_panel>
     <layout_panel name="panelassetblacklist" height="29" width="50" user_resize="false" visibility_control="ToolbarVisibleAssetBlacklist">
       <button font="SansSerif" font-style="BOLD" sound_flags="0" bottom="0" height="29" label="Asset Blacklist" image_overlay="icn_toolbar_asset_blacklist.tga" image_overlay_alignment="left" image_selected="toolbar_btn_selected.tga" image_unselected="toolbar_btn_enabled.tga" image_disabled="toolbar_btn_disabled.tga" scale_image="true" name="assetblack_list_btn" width="50" follows="left|right">
         <button.commit_callback function="ShowFloater" parameter="asset_blacklist"/>

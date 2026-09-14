@@ -7,6 +7,7 @@
  */
 #include "llviewerprecompiledheaders.h"
 #include "llchataitranslate.h"
+#include "llfloaternotranslate.h"
 #include "aihttpheaders.h"
 #include "llagent.h"
 #include "llagentui.h"
@@ -1563,12 +1564,16 @@ LLChatAITranslate::LLChatAITranslate()
 	, mLatencyPeak(0.f)
 	, mLatencySamples(0)
 	, mSessionConfigsLoaded(false)
+	, mNoTranslateAgents(LLSD::emptyMap())
+	, mNoTranslateLoaded(false)
 {
 }
 LLChatAITranslate::~LLChatAITranslate()
 {
 	if (mPhraseCacheDirty)
 		savePhraseCache();
+	if (mNoTranslateLoaded)
+		saveNoTranslateAgents();
 }
 bool LLChatAITranslate::isEnabled() const
 {
@@ -1702,6 +1707,101 @@ void LLChatAITranslate::saveSessionConfigs() const
 		return;
 	}
 	LLSDSerialize::toPrettyXML(mSessionConfigs, file);
+}
+void LLChatAITranslate::loadNoTranslateAgents() const
+{
+	if (mNoTranslateLoaded)
+		return;
+	if (!gDirUtilp || gDirUtilp->getLindenUserDir(true).empty())
+		return;
+	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "no_translate_agents.xml");
+	if (filename.empty())
+		return;
+	LLSD pending = mNoTranslateAgents;
+	mNoTranslateLoaded = true;
+	mNoTranslateAgents = LLSD::emptyMap();
+	llifstream file;
+	file.open(filename.c_str());
+	if (file.is_open())
+	{
+		LLSD data;
+		if (LLSDSerialize::fromXML(data, file) >= 0 && data.isMap())
+			mNoTranslateAgents = data;
+	}
+	if (pending.isMap())
+	{
+		for (LLSD::map_const_iterator it = pending.beginMap(); it != pending.endMap(); ++it)
+			mNoTranslateAgents[it->first] = it->second;
+	}
+}
+void LLChatAITranslate::saveNoTranslateAgents() const
+{
+	if (!gDirUtilp)
+		return;
+	std::string user_dir = gDirUtilp->getLindenUserDir(true);
+	if (user_dir.empty())
+		return;
+	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "no_translate_agents.xml");
+	if (filename.empty())
+		return;
+	llofstream file;
+	file.open(filename.c_str());
+	if (!file.is_open())
+	{
+		LL_WARNS("AITranslate") << "Failed to save " << filename << LL_ENDL;
+		return;
+	}
+	LLSDSerialize::toPrettyXML(mNoTranslateAgents, file);
+}
+void LLChatAITranslate::notifyNoTranslateChanged() const
+{
+	LLFloaterNoTranslate::refreshIfOpen();
+}
+bool LLChatAITranslate::isAgentNoTranslate(const LLUUID& id) const
+{
+	if (id.isNull())
+		return false;
+	loadNoTranslateAgents();
+	return mNoTranslateAgents.has(id.asString());
+}
+void LLChatAITranslate::addAgentNoTranslate(const LLUUID& id, const std::string& name)
+{
+	if (id.isNull() || id == gAgentID)
+		return;
+	loadNoTranslateAgents();
+	const std::string key = id.asString();
+	std::string stored = name;
+	LLStringUtil::trim(stored);
+	if (stored.empty() && mNoTranslateAgents.has(key))
+		stored = mNoTranslateAgents[key].asString();
+	mNoTranslateAgents[key] = stored;
+	saveNoTranslateAgents();
+	notifyNoTranslateChanged();
+}
+void LLChatAITranslate::removeAgentsNoTranslate(const uuid_vec_t& ids)
+{
+	if (ids.empty())
+		return;
+	loadNoTranslateAgents();
+	bool changed = false;
+	for (const LLUUID& id : ids)
+	{
+		const std::string key = id.asString();
+		if (mNoTranslateAgents.has(key))
+		{
+			mNoTranslateAgents.erase(key);
+			changed = true;
+		}
+	}
+	if (!changed)
+		return;
+	saveNoTranslateAgents();
+	notifyNoTranslateChanged();
+}
+LLSD LLChatAITranslate::getNoTranslateAgents() const
+{
+	loadNoTranslateAgents();
+	return mNoTranslateAgents;
 }
 bool LLChatAITranslate::getSessionTranslation(const LLUUID& key, bool& enabled,
 											  std::string& source, std::string& target,
@@ -2539,7 +2639,7 @@ void LLChatAITranslate::handleIncomingNearby(LLChat chat, bool only_history, con
 			from_self = true;
 	}
 	if (!isEnabled() || !translateIncoming() || !coversNearby() || chat.mSourceType != CHAT_SOURCE_AGENT
-		|| raw_mesg.empty() || chat.mMuted || from_self)
+		|| raw_mesg.empty() || chat.mMuted || from_self || isAgentNoTranslate(chat.mFromID))
 	{
 		add_floater_chat(chat, only_history);
 		return;
@@ -2580,6 +2680,12 @@ bool LLChatAITranslate::handleIncomingIM(LLFloaterIMPanel* floater, const std::s
 {
 	if (!floater || !sessionTranslateIncoming(floater) || msg.empty()
 		|| source_id == gAgent.getID())
+	{
+		return false;
+	}
+	if (isAgentNoTranslate(source_id)
+		|| (floater->getSessionType() == LLFloaterIMPanel::P2P_SESSION
+			&& isAgentNoTranslate(floater->getOtherParticipantID())))
 	{
 		return false;
 	}
@@ -2688,6 +2794,9 @@ bool LLChatAITranslate::maybeDeferOutgoingIM(LLFloaterIMPanel* panel, const std:
 {
 	if (!panel || mPassThroughOutgoing || !sessionTranslateOutgoing(panel)
 		|| utf8_text.empty())
+		return false;
+	if (panel->getSessionType() == LLFloaterIMPanel::P2P_SESSION
+		&& isAgentNoTranslate(panel->getOtherParticipantID()))
 		return false;
 	if (gKeyboard && (gKeyboard->currentMask(TRUE) & MASK_CONTROL))
 		return false;

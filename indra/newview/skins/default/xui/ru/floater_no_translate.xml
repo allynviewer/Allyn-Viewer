@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="no translate floater" short_title="Без перевода" title="Список без перевода">
+	<name_list name="no_translate_list" tool_tip="Жители, чьи сообщения не будут переводиться">
+		<column label="Имя" name="name" />
+	</name_list>
+	<button label="Возобновить перевод" name="reactivate_btn"
+		 tool_tip="Убрать выбранных жителей из списка без перевода" />
+</floater>

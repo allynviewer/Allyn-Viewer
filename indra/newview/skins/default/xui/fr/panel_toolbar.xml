@@ -51,6 +51,9 @@
  <layout_panel name="panelmutelist">
  <button label="Liste des mutes" name="mute_list_btn"/>
  </layout_panel>
+ <layout_panel name="panelnotranslate">
+ <button label="Sans traduction" name="no_translate_btn"/>
+ </layout_panel>
  <layout_panel name="panelbeacons">
  <button label="Balises" name="beacons_btn"/>
  </layout_panel>

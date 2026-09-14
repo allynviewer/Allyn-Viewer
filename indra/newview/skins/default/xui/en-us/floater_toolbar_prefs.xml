@@ -96,4 +96,5 @@
   <check_box bottom_delta="-22" label="About [SHORT_APP_NAME]" name="about_btn" follows="left|right" control_name="ToolbarVisibleAbout"/>
   <check_box bottom_delta="-22" label="Quit" name="quit_btn" follows="left|right" control_name="ToolbarVisibleQuit"/>
   <check_box bottom_delta="-22" label="Change Buttons" name="change_buttons_btn" follows="left|right" control_name="ToolbarVisibleToolbarPrefs"/>
+  <check_box bottom_delta="-22" label="No Translation" name="no_translate_btn" follows="left|right" control_name="ToolbarVisibleNoTranslate"/>
 </floater>

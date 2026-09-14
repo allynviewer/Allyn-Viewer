@@ -10,6 +10,7 @@
 	<check_box name="chat_history_btn" label="ローカルチャット" />
 	<check_box name="active_speakers_btn" label="アクティブスピーカー" />
 	<check_box name="mute_list_btn" label="ミュートリスト" />
+	<check_box name="no_translate_btn" label="翻訳しない" />
 	<check_box name="black_list_btn" label="アセットブラックリスト" />
 	<check_box name="voice_effects_btn" label="ボイス FX" />
 	<check_box name="gestures_btn" label="ジェスチャー" />

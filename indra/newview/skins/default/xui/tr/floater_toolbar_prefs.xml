@@ -10,6 +10,7 @@
 	<check_box name="chat_history_btn" label="Yerel Sohbet" />
 	<check_box name="active_speakers_btn" label="Konuşanlar" />
 	<check_box name="mute_list_btn" label="Sessiz liste" />
+	<check_box name="no_translate_btn" label="Çevirisiz" />
 	<check_box name="black_list_btn" label="Varlık Kara Listesi" />
 	<check_box name="voice_effects_btn" label="Ses FX" />
 	<check_box name="gestures_btn" label="Jestler" />

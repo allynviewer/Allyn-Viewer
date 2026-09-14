@@ -34,4 +34,6 @@
 		<menu_item_call name="Eject from estate" label="Выгнать с эстейта" />
 		<menu_item_call name="Eject and ban from estate" label="Выгнать и забанить с эстейта" />
 	</menu>
+	<menu_item_call name="No Translation" label="Без перевода" />
+	<menu_item_call name="Reactivate Translation" label="Возобновить перевод" />
 </context_menu>
