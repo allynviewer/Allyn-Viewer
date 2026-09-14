@@ -470,7 +470,7 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 			}
 			processUpdateCore(objectp, user_data, i, update_type, NULL, justCreated);
 		}
-		if (justCreated && objectp->isAvatar())
+		if (justCreated && !objectp->isDead() && objectp->isAvatar())
 		{
 			LLVOAvatar::applyCachedFriendsOnlyAppearance((LLVOAvatar*)objectp);
 		}
@@ -478,6 +478,7 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 		objectp->setLastUpdateType(update_type);
 		objectp->setLastUpdateCached(bCached);
 	}
+	killPendingNonFriendOrphans();
 	recorder.log(0.2f);
 	LLVOAvatar::cullAvatarsByPixelArea();
 }
@@ -1527,8 +1528,62 @@ void LLViewerObjectList::rememberSuppressedNonFriend(U32 local_id, LLViewerRegio
 	}
 	mSuppressedNonFriendAvatars.insert(std::make_pair(regionp->getHandle(), local_id));
 }
+void LLViewerObjectList::rememberSuppressedNonFriendTree(LLViewerObject* objectp)
+{
+	if (!objectp)
+	{
+		return;
+	}
+	rememberSuppressedNonFriend(objectp->getLocalID(), objectp->getRegion());
+	LLViewerObject::const_child_list_t children = objectp->getChildren();
+	for (LLViewerObject::const_child_list_t::const_iterator it = children.begin(); it != children.end(); ++it)
+	{
+		LLViewerObject* childp = *it;
+		if (childp && !childp->isAvatar())
+		{
+			rememberSuppressedNonFriendTree(childp);
+		}
+	}
+}
+bool LLViewerObjectList::isSuppressedNonFriendParent(U32 parent_id, U32 ip, U32 port) const
+{
+	if (parent_id == 0 || mSuppressedNonFriendAvatars.empty())
+	{
+		return false;
+	}
+	static LLCachedControl<bool> render_friends_only(gSavedPerAccountSettings, "AllynRenderFriendsOnly", false);
+	if (!render_friends_only)
+	{
+		return false;
+	}
+	LLViewerRegion* regionp = LLWorld::getInstance()->getRegion(LLHost(ip, port));
+	if (!regionp)
+	{
+		return false;
+	}
+	return mSuppressedNonFriendAvatars.count(std::make_pair(regionp->getHandle(), parent_id)) > 0;
+}
+void LLViewerObjectList::killPendingNonFriendOrphans()
+{
+	if (mPendingNonFriendOrphanKills.empty())
+	{
+		return;
+	}
+	std::vector<LLPointer<LLViewerObject> > pending;
+	pending.swap(mPendingNonFriendOrphanKills);
+	for (std::vector<LLPointer<LLViewerObject> >::iterator it = pending.begin(); it != pending.end(); ++it)
+	{
+		LLViewerObject* objectp = *it;
+		if (objectp && !objectp->isDead())
+		{
+			rememberSuppressedNonFriendTree(objectp);
+			killObject(objectp);
+		}
+	}
+}
 void LLViewerObjectList::restoreSuppressedNonFriends()
 {
+	mPendingNonFriendOrphanKills.clear();
 	cleanDeadObjects(FALSE);
 	for (const auto& entry : mSuppressedNonFriendAvatars)
 	{
@@ -1643,6 +1698,10 @@ void LLViewerObjectList::orphanize(LLViewerObject *childp, U32 parent_id, U32 ip
 	{
 		mOrphanChildren.push_back(oi);
 		mNumOrphans++;
+	}
+	if (isSuppressedNonFriendParent(parent_id, ip, port))
+	{
+		mPendingNonFriendOrphanKills.push_back(childp);
 	}
 }
 void LLViewerObjectList::findOrphans(LLViewerObject* objectp, U32 ip, U32 port)

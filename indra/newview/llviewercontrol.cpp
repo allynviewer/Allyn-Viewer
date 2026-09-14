@@ -598,7 +598,7 @@ static bool handleRenderFriendsOnlyChanged(const LLSD& newvalue)
 		if (!LLAvatarActions::isFriend(avatar->getID()))
 		{
 			avatar->cacheAppearanceForFriendsOnly();
-			gObjectList.rememberSuppressedNonFriend(avatar->getLocalID(), avatar->getRegion());
+			gObjectList.rememberSuppressedNonFriendTree(avatar);
 			gObjectList.killObject(avatar);
 		}
 	}

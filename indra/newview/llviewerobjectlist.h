@@ -169,9 +169,13 @@ public:
 	friend class LLViewerObject;
 	bool isNonFriendDerendered(const LLUUID& id, LLPCode pcode) const;
 	void rememberSuppressedNonFriend(U32 local_id, LLViewerRegion* regionp);
+	void rememberSuppressedNonFriendTree(LLViewerObject* objectp);
+	bool isSuppressedNonFriendParent(U32 parent_id, U32 ip, U32 port) const;
 	void restoreSuppressedNonFriends();
 private:
+	void killPendingNonFriendOrphans();
 	std::set<std::pair<U64, U32> > mSuppressedNonFriendAvatars;
+	std::vector<LLPointer<LLViewerObject> > mPendingNonFriendOrphanKills;
 };
 class LLDebugBeacon
 {
