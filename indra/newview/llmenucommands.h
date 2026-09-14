@@ -31,4 +31,6 @@
  */
 #ifndef LL_LLMENUCOMMANDS_H
 #define LL_LLMENUCOMMANDS_H
+#include <string>
+void show_floater(const std::string& floater_name);
 #endif

@@ -92,6 +92,7 @@ public:
 	void cancel();
 	virtual BOOL postBuild();
 	static void show(void*);
+	static LLFloaterPreference* findInstance() { return sInstance; }
 	static void updateUserInfo(const std::string& visibility, bool im_via_email, const std::string& email, bool is_verified = false);
 	static void switchTab(S32 i);
 	static void closeWithoutSaving();

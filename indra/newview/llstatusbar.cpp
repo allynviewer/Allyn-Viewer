@@ -38,6 +38,7 @@
 #include "llfloaterchat.h"
 #include "llfloaterinventory.h"
 #include "llfloaterland.h"
+#include "llmenucommands.h"
 #include "llfloaterregioninfo.h"
 #include "llfloaterscriptdebug.h"
 #include "llfloaterstats.h"
@@ -591,7 +592,7 @@ S32 LLStatusBar::getSquareMetersLeft() const
 static void onClickParcelInfo()
 {
 	LLViewerParcelMgr::getInstance()->selectParcelAt(gAgent.getPositionGlobal());
-	LLFloaterLand::showInstance();
+	show_floater("about land");
 }
 static bool rebakeRegionCallback(const LLSD& n, const LLSD& r)
 {

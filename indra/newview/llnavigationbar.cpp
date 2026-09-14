@@ -17,6 +17,7 @@
 #include "llfloaterland.h"
 #include "llfloatersearch.h"
 #include "llfloaterwindlight.h"
+#include "llmenucommands.h"
 #include "llfocusmgr.h"
 #include "llhudview.h"
 #include "lllandmarkactions.h"
@@ -679,11 +680,11 @@ void LLNavigationBar::onHomeClicked()
 }
 void LLNavigationBar::onLandClicked()
 {
-	LLFloaterLand::showInstance();
+	show_floater("about land");
 }
 void LLNavigationBar::onLightingClicked()
 {
-	LLFloaterWindLight::show();
+	show_floater("Windlight");
 }
 void LLNavigationBar::onAddLandmarkClicked()
 {
@@ -695,6 +696,11 @@ void LLNavigationBar::onSearch()
 	if (mSearchEditor)
 	{
 		query = mSearchEditor->getValue().asString();
+	}
+	if (query.empty())
+	{
+		show_floater("search");
+		return;
 	}
 	LLFloaterSearch::SearchQuery search;
 	search.query = query;

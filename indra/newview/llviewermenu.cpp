@@ -30,6 +30,8 @@
  */
 #include "llviewerprecompiledheaders.h"
 #include "llviewermenu.h"
+#include "llmenucommands.h"
+#include "llfloaterwebcontent.h"
 #include "lfidbearer.h"
 #include "llanimationstates.h"
 #include "llavatarnamecache.h"
@@ -206,6 +208,7 @@ void handle_dump_group_info(void *);
 void handle_dump_capabilities_info(void *);
 void handle_dump_focus(void*);
 void handle_show_notifications_console(void*);
+void handle_show_named_floater(void*);
 void handle_region_dump_settings(void*);
 void handle_region_dump_temp_asset_data(void*);
 void handle_region_clear_temp_asset_data(void*);
@@ -523,7 +526,7 @@ void init_menus()
 	menu = new LLMenuGL(CLIENT_MENU_NAME);
 	menu->setCanTearOff(FALSE);
 	menu->addChild(new LLMenuItemCallGL("Debug Settings...", handle_singleton_toggle<LLFloaterSettingsDebug>, nullptr, nullptr));
-	menu->addChild(new LLMenuItemCallGL("Notifications Console...", handle_show_notifications_console, nullptr, nullptr, '5', MASK_CONTROL|MASK_SHIFT));
+	menu->addChild(new LLMenuItemCallGL("Notifications Console...", handle_show_named_floater, nullptr, (void*)"notifications console", '5', MASK_CONTROL|MASK_SHIFT));
 	menu->addChild(new LLMenuItemCallGL("Load from XML...", handle_load_from_xml));
 	gLoginMenuBarView->addChild(menu);
 	menu->updateParent(LLMenuGL::sMenuContainer);
@@ -598,7 +601,7 @@ void init_client_menu(LLMenuGL* menu)
 										  '9', MASK_CONTROL|MASK_SHIFT ) );
 		sub->addSeparator();
 		sub->addChild(new LLMenuItemCallGL("Notifications Console...",
-						 &handle_show_notifications_console, nullptr, nullptr, '5', MASK_CONTROL|MASK_SHIFT ));
+						 &handle_show_named_floater, nullptr, (void*)"notifications console", '5', MASK_CONTROL|MASK_SHIFT ));
 		sub->addSeparator();
 		sub->addChild(new LLMenuItemCallGL("Region Info to Debug Console",
 			&handle_region_dump_settings, nullptr));
@@ -689,7 +692,7 @@ void init_client_menu(LLMenuGL* menu)
 		LLMenuGL* sub = nullptr;
 		sub = new LLMenuGL("Network");
 		sub->setCanTearOff(TRUE);
-		sub->addChild(new LLMenuItemCallGL("Message Log", handle_open_message_log, nullptr));
+		sub->addChild(new LLMenuItemCallGL("Message Log", handle_show_named_floater, nullptr, (void*)"messagelog"));
 		sub->addChild(new LLMenuItemCallGL("Enable Message Log",
 			&handle_viewer_enable_message_log,  nullptr));
 		sub->addChild(new LLMenuItemCallGL("Disable Message Log",
@@ -877,10 +880,10 @@ void init_debug_ui_menu(LLMenuGL* menu)
 }
 void init_debug_xui_menu(LLMenuGL* menu)
 {
-	menu->addChild(new LLMenuItemCallGL("Floater Test...", LLFloaterTest::show));
-	menu->addChild(new LLMenuItemCallGL("Font Test...", LLFloaterFontTest::show));
+	menu->addChild(new LLMenuItemCallGL("Floater Test...", handle_show_named_floater, nullptr, (void*)"test"));
+	menu->addChild(new LLMenuItemCallGL("Font Test...", handle_show_named_floater, nullptr, (void*)"font test"));
 	menu->addChild(new LLMenuItemCallGL("Export Menus to XML...", handle_export_menus_to_xml));
-	menu->addChild(new LLMenuItemCallGL("Edit UI...", LLFloaterEditUI::show));
+	menu->addChild(new LLMenuItemCallGL("Edit UI...", handle_show_named_floater, nullptr, (void*)"edit ui"));
 	menu->addChild(new LLMenuItemCallGL("Load from XML...", handle_load_from_xml));
 	menu->addChild(new LLMenuItemCallGL("Save to XML...", handle_save_to_xml, nullptr, nullptr, 'X', MASK_CONTROL | MASK_ALT | MASK_SHIFT));
 	menu->addChild(new LLMenuItemCheckGL("Show XUI Names", toggle_show_xui_names, nullptr, check_show_xui_names, nullptr));
@@ -1124,7 +1127,7 @@ void init_debug_rendering_menu(LLMenuGL* menu)
 	item = new LLMenuItemCheckGL("Audit Texture", menu_toggle_control, nullptr, menu_check_control, (void*)"AuditTexture");
 	menu->addChild(item);
 	menu->addSeparator();
-	menu->addChild(new LLMenuItemCallGL("Memory Leaking Simulation", LLFloaterMemLeak::show, nullptr, nullptr));
+	menu->addChild(new LLMenuItemCallGL("Memory Leaking Simulation", handle_show_named_floater, nullptr, (void*)"memleak"));
 	menu->createJumpKeys();
 }
 void init_debug_avatar_menu(LLMenuGL* menu)
@@ -1267,7 +1270,7 @@ void init_server_menu(LLMenuGL* menu)
 		sub->createJumpKeys();
 	}
 	menu->addChild(new LLMenuItemCallGL( "God Tools...",
-		&LLFloaterGodTools::show, &enable_god_basic, nullptr));
+		&handle_show_named_floater, &enable_god_basic, (void*)"god tools"));
 	{
 		LLMenuItemCallGL* item = new LLMenuItemCallGL("insert_admin", nullptr);
 		item->setVisible(false);
@@ -2756,9 +2759,14 @@ void handle_region_dump_settings(void*)
 		LL_INFOS() << "Water:     " << (regionp->getWaterHeight()) << LL_ENDL;
 	}
 }
+void handle_show_named_floater(void* data)
+{
+	if (data)
+		show_floater(static_cast<const char*>(data));
+}
 void handle_show_notifications_console(void *)
 {
-	LLFloaterNotificationConsole::showInstance();
+	show_floater("notifications console");
 }
 void handle_dump_group_info(void *)
 {
@@ -2910,7 +2918,7 @@ void process_grant_godlike_powers(LLMessageSystem* msg, void**)
 }
 void handle_open_message_log(void*)
 {
-	LLFloaterMessageLog::show();
+	show_floater("messagelog");
 }
 void handle_fake_away_status(void*)
 {
@@ -7032,6 +7040,17 @@ class VisibleInvFloaterType final : public view_listener_t
 };
 void show_web_floater(const std::string& type)
 {
+	if (!type.empty())
+	{
+		if (LLFloaterWebContent* existing = LLFloaterWebContent::getInstance(type))
+		{
+			if (existing->getVisible())
+			{
+				existing->close();
+				return;
+			}
+		}
+	}
 	auto p = LLFloaterWebContent::Params();
 	if (!type.empty()) p.id = type;
 	if (type == "marketplace")

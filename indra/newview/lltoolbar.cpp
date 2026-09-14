@@ -217,11 +217,11 @@ void LLToolBar::onClickCommunicate(const LLSD& selected_option)
 {
 	if (selected_option.asString() == "contacts")
 	{
-		LLFloaterMyFriends::showInstance();
+		show_floater("friends");
 	}
 	else if (selected_option.asString() == "local chat")
 	{
-		LLFloaterChat::showInstance();
+		show_floater("chat history");
 	}
 	else if (selected_option.asString() == "redock")
 	{
@@ -245,7 +245,7 @@ void LLToolBar::onClickCommunicate(const LLSD& selected_option)
 	}
 	else if (selected_option.asString() == "mute list")
 	{
-		LLFloaterMute::showInstance();
+		show_floater("mute list");
 	}
 	else if (selected_option.isUndefined())
 	{
@@ -265,7 +265,7 @@ void LLToolBar::onClickCommunicate(const LLSD& selected_option)
 }
 static void open_toolbar_prefs(void*)
 {
-	LLFloaterToolbarPrefs::showInstance();
+	show_floater("floater_toolbar_prefs.xml");
 }
 void LLToolBar::hookToolbarButtons(LLView* view)
 {

@@ -154,48 +154,49 @@ struct MenuFloaterDict final : public LLSingleton<MenuFloaterDict>
 			registerConsole("texture size console", gTextureSizeView);
 		}
 		registerConsole("velocity", gVelocityBar);
-		registerFloater("about", boost::bind(&LLFloaterAbout::show,nullptr));
+		registerWindow("about", boost::bind(&LLFloaterAbout::show,nullptr), "floater_about");
 		registerFloater("always run", boost::bind(toggle_always_run), boost::bind(&LLAgent::getAlwaysRun, &gAgent));
-		registerFloater("anims_explorer", boost::bind(LLFloaterExploreAnimations::show));
-		registerFloater("appearance", boost::bind(LLFloaterCustomize::show));
+		registerWindow("anims_explorer", boost::bind(LLFloaterExploreAnimations::show), "floater_explore_animations");
+		registerWindow("appearance", boost::bind(LLFloaterCustomize::show), "floater customize");
 		registerFloater("asset_blacklist", boost::bind(LLFloaterBlacklist::toggle), boost::bind(LLFloaterBlacklist::visible));
 		registerFloater("build", boost::bind(toggle_build));
-		registerFloater("buy currency", boost::bind(LLFloaterBuyCurrency::buyCurrency));
+		registerWindow("buy currency", boost::bind(LLFloaterBuyCurrency::buyCurrency), "buy currency");
 		registerFloater("buy land", boost::bind(&LLViewerParcelMgr::startBuyLand, boost::bind(LLViewerParcelMgr::getInstance), false));
-		registerFloater("complaint reporter", boost::bind(LLFloaterReporter::showFromMenu, COMPLAINT_REPORT));
-		registerFloater("DayCycle", boost::bind(LLFloaterDayCycle::show), boost::bind(LLFloaterDayCycle::isOpen));
+		registerWindow("complaint reporter", boost::bind(LLFloaterReporter::showFromMenu, COMPLAINT_REPORT), "floater_report_abuse");
+		registerWindow("DayCycle", boost::bind(LLFloaterDayCycle::show), "Day Cycle Floater");
 		registerFloater("debug avatar", boost::bind(handle_debug_avatar_textures, nullptr));
 		registerFloater("debug settings", boost::bind(handle_singleton_toggle<LLFloaterSettingsDebug>, nullptr));
-		registerFloater("edit ui", boost::bind(LLFloaterEditUI::show, nullptr));
-		registerFloater("EnvSettings", boost::bind(LLFloaterEnvSettings::show), boost::bind(LLFloaterEnvSettings::isOpen));
-		registerFloater("experience_search", boost::bind(show_xp_picker, LLSD()));
+		registerWindow("edit ui", boost::bind(LLFloaterEditUI::show, nullptr), "floater_ui_editor");
+		registerWindow("EnvSettings", boost::bind(LLFloaterEnvSettings::show), "Environment Editor Floater");
+		registerWindow("experience_search", boost::bind(show_xp_picker, LLSD()), "experiencepicker");
 		registerFloater("fly", boost::bind(LLAgent::toggleFlying));
-		registerFloater("font test", boost::bind(LLFloaterFontTest::show, nullptr));
-		registerFloater("god tools", boost::bind(LLFloaterGodTools::show, nullptr));
-		registerFloater("grid options", boost::bind(LLFloaterBuildOptions::show, nullptr));
+		registerWindow("font test", boost::bind(LLFloaterFontTest::show, nullptr), "contents");
+		registerWindow("god tools", boost::bind(LLFloaterGodTools::show, nullptr), "godtools floater");
+		registerWindow("grid options", boost::bind(LLFloaterBuildOptions::show, nullptr), "build options floater");
 		registerFloater("group titles", boost::bind(HBFloaterGroupTitles::toggle));
-		registerFloater("help tutorial", boost::bind(LLFloaterHUD::showHUD));
+		registerWindow("help tutorial", boost::bind(LLFloaterHUD::showHUD), "floater_hud");
 		registerFloater("inventory", boost::bind(LLPanelMainInventory::toggleVisibility, nullptr), boost::bind(is_visible_view, static_cast<std::function<LLView* ()> >(LLPanelMainInventory::getActiveInventory)));
-		registerFloater("local assets", boost::bind(FloaterLocalAssetBrowser::show, (void*)0));
-		registerFloater("mean events", boost::bind(LLFloaterBump::show, nullptr));
+		registerWindow("local assets", boost::bind(FloaterLocalAssetBrowser::show, (void*)0), "local_bitmap_browser_floater");
+		registerWindow("mean events", boost::bind(LLFloaterBump::show, nullptr), "floater_bumps");
 		registerFloater("media ticker", boost::bind(handle_ticker_toggle, nullptr), boost::bind(SHFloaterMediaTicker::instanceExists));
-		registerFloater("memleak", boost::bind(LLFloaterMemLeak::show, nullptr));
-		registerFloater("messagelog", boost::bind(LLFloaterMessageLog::show));
+		registerWindow("memleak", boost::bind(LLFloaterMemLeak::show, nullptr), "MemLeak");
+		registerWindow("messagelog", boost::bind(LLFloaterMessageLog::show), "Message Log");
 		registerFloater("mouselook", boost::bind(toggle_mouselook));
-		registerFloater("my land", boost::bind(LLFloaterLandHoldings::show, nullptr));
+		registerWindow("my land", boost::bind(LLFloaterLandHoldings::show, nullptr), "land holdings floater");
 		registerFloater("outfit", boost::bind(show_outfit_dialog));
-		registerFloater("preferences", boost::bind(LLFloaterPreference::show, nullptr));
+		registerWindow("preferences", boost::bind(LLFloaterPreference::show, nullptr),
+			[]() -> LLFloater* { return LLFloaterPreference::findInstance(); });
 		registerFloater("quit", boost::bind(&LLAppViewer::userQuit, LLAppViewer::instance()));
 		registerFloater("RegionDebugConsole", boost::bind(handle_singleton_toggle<LLFloaterRegionDebugConsole>, nullptr), boost::bind(LLFloaterRegionDebugConsole::instanceExists));
-		registerFloater("script errors", boost::bind(LLFloaterScriptDebug::show, LLUUID::null));
+		registerWindow("script errors", boost::bind(LLFloaterScriptDebug::show, LLUUID::null), "script debug floater");
 		registerFloater("search", boost::bind(toggle_search_floater));
-		registerFloater("show inspect", boost::bind(LLFloaterInspect::showInstance, LLSD()));
+		registerFloater("show inspect", boost::bind(LLFloaterInspect::toggleInstance, LLSD()), boost::bind(LLFloaterInspect::instanceVisible, LLSD()));
 		registerFloater("sit", boost::bind(toggle_sit));
-		registerFloater("snapshot", boost::bind(LLFloaterSnapshot::show, nullptr));
+		registerWindow("snapshot", boost::bind(LLFloaterSnapshot::show, nullptr), "Snapshot");
 		registerFloater("sound_explorer", boost::bind(LLFloaterExploreSounds::toggle), boost::bind(LLFloaterExploreSounds::visible));
-		registerFloater("test", boost::bind(LLFloaterTest::show, nullptr));
-		registerFloater("WaterSettings", boost::bind(LLFloaterWater::show), boost::bind(LLFloaterWater::isOpen));
-		registerFloater("Windlight", boost::bind(LLFloaterWindLight::show), boost::bind(LLFloaterWindLight::isOpen));
+		registerWindow("test", boost::bind(LLFloaterTest::show, nullptr), "test");
+		registerWindow("WaterSettings", boost::bind(LLFloaterWater::show), "Water Floater");
+		registerWindow("Windlight", boost::bind(LLFloaterWindLight::show), "WindLight floater");
 		registerFloater("world map", boost::bind(LLFloaterWorldMap::toggle));
 		registerFloater<LLFloaterLand>					("about land");
 		registerFloater<LLFloaterRegionInfo>			("about region");
@@ -253,6 +254,31 @@ public:
 	{
 		registerFloater(name, boost::bind(&T::toggleInstance,key), boost::bind(&T::instanceVisible,key));
 	}
+	void registerWindow(const std::string& name, std::function<void()> show, std::function<LLFloater*()> get)
+	{
+		registerFloater(name,
+			[show, get]() {
+				if (LLFloater* floater = get())
+				{
+					if (floater->getVisible())
+					{
+						floater->close();
+						return;
+					}
+				}
+				show();
+			},
+			[get]() {
+				LLFloater* floater = get();
+				return floater && floater->getVisible();
+			});
+	}
+	void registerWindow(const std::string& name, std::function<void()> show, const std::string& xml_name)
+	{
+		registerWindow(name, show, [xml_name]() -> LLFloater* {
+			return LLUICtrlFactory::getInstance()->getBuiltFloater(xml_name);
+		});
+	}
 };
 void show_floater(const std::string& floater_name)
 {
@@ -261,7 +287,7 @@ void show_floater(const std::string& floater_name)
 	if (it == MenuFloaterDict::instance().mEntries.end())
 	{
 		if (LLFloater* floater = LLUICtrlFactory::getInstance()->getBuiltFloater(floater_name))
-			floater->isFrontmost() ? floater->close() : gFloaterView->bringToFront(floater);
+			floater->getVisible() ? floater->close() : gFloaterView->bringToFront(floater);
 		else
 			LLUICtrlFactory::getInstance()->buildFloater(new LLFloater(), floater_name);
 	}
