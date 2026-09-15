@@ -82,6 +82,7 @@ set(viewer_SOURCE_FILES
     aixmllindengenepool.cpp
     alfloaterregiontracker.cpp
     allynpresence.cpp
+    allynupdate.cpp
     aoremotectrl.cpp
     aosystem.cpp
     ascentfloatercontactgroups.cpp
@@ -93,6 +94,7 @@ set(viewer_SOURCE_FILES
     llchataitranslate.cpp
     llfloaterimtranslationconfig.cpp
     llfloaternotranslate.cpp
+    llfloaterallynupdate.cpp
     awavefront.cpp
     chatbar_as_cmdline.cpp
     daeexport.cpp
@@ -641,6 +643,7 @@ set(viewer_HEADER_FILES
     aixmllindengenepool.h
     alfloaterregiontracker.h
     allynpresence.h
+    allynupdate.h
     aoremotectrl.h
     aostate.h
     aosystem.h
@@ -653,6 +656,7 @@ set(viewer_HEADER_FILES
     llchataitranslate.h
     llfloaterimtranslationconfig.h
     llfloaternotranslate.h
+    llfloaterallynupdate.h
     awavefront.h
     chatbar_as_cmdline.h
     daeexport.h

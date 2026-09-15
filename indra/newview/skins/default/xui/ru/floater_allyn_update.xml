@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="allyn update floater" title="Доступно обновление">
+	<string name="update_message">Доступна более новая версия [RECOMMENDED_VER] для [SHORT_APP_NAME].
+
+Ваша текущая версия: [CURRENT_VER].
+
+Нажмите «Обновить сейчас», чтобы скачать официальный установщик Windows и установить его автоматически.</string>
+	<string name="status_ready">Готово к загрузке.</string>
+	<string name="status_downloading">Загрузка установщика... [PERCENT]%</string>
+	<string name="status_stats">[DOWNLOADED] / [TOTAL]  ·  [SPEED]</string>
+	<string name="status_stats_unknown">[DOWNLOADED]  ·  [SPEED]</string>
+	<string name="status_launching">Загрузка завершена. Запуск установщика...</string>
+	<string name="status_failed">Ошибка загрузки: [ERROR]</string>
+	<string name="status_simulate">Симуляция завершена на 100%. Установщик не запускался (AllynUpdateSimulateDownload).</string>
+	<button name="update_now_btn" label="Обновить сейчас" />
+	<button name="update_later_btn" label="Обновить позже" />
+	<button name="close_btn" label="Закрыть" />
+</floater>

@@ -11791,9 +11791,10 @@ You have just entered a [SHORT_APP_NAME] support group chat. To help provide sup
     type="notify">
 A newer version, [RECOMMENDED_VER], is available for [SHORT_APP_NAME].
 
-Click [Visit Page] to open
+Your current version is [CURRENT_VER].
+
+Click [Visit Page] to open the official website and download the new version:
 [URL]
-for information and download links for this new version.
    <tag>confirm</tag>
    <usetemplate
     name="okcancelignorecanceldefault"

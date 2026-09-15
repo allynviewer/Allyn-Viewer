@@ -6162,9 +6162,10 @@ Votre forme, votre peau, vos cheveux ou vos yeux sont peut-être défectueux.
 	<notification label="Mise à jour disponible" name="RecommendedUpdate">
 		Une version plus récente, [RECOMMENDED_VER], est disponible pour [SHORT_APP_NAME].
 
-Cliquez sur [Visit Page] pour ouvrir
+Votre version actuelle est [CURRENT_VER].
+
+Cliquez sur [Visit Page] pour ouvrir le site officiel et télécharger la nouvelle version :
 [URL]
-afin d'obtenir des informations et des liens de téléchargement de cette nouvelle version.
 		<tag>confirm</tag>
 		<usetemplate name="okcancelignorecanceldefault" notext="Plus tard" yestext="Visiter la page" ignoretext="Ignorer la notification de mise à jour recommandée"/>
 	</notification>

@@ -960,6 +960,39 @@
 			<key>Value</key>
 			<boolean>0</boolean>
 		</map>
+		<key>AllynLastNotifiedVersion</key>
+		<map>
+			<key>Comment</key>
+			<string>Last site version the viewer already notified about (major.minor.patch.build).</string>
+			<key>Persist</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>String</string>
+			<key>Value</key>
+			<string></string>
+		</map>
+		<key>AllynUpdateForcePrompt</key>
+		<map>
+			<key>Comment</key>
+			<string>Show the Allyn update window even when the viewer is already current. Use with AllynUpdateSimulateDownload to test the UI.</string>
+			<key>Persist</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>Boolean</string>
+			<key>Value</key>
+			<integer>0</integer>
+		</map>
+		<key>AllynUpdateSimulateDownload</key>
+		<map>
+			<key>Comment</key>
+			<string>Simulate installer download progress without fetching the file, launching the installer, or quitting. Writes steps to logs/AllynUpdate.log.</string>
+			<key>Persist</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>Boolean</string>
+			<key>Value</key>
+			<integer>0</integer>
+		</map>
 		<key>SinguMotionResetsCamera</key>
 		<map>
 			<key>Comment</key>

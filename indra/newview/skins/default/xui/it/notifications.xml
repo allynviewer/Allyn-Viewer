@@ -5323,9 +5323,10 @@ La tua forma, pelle, capelli o occhi potrebbero essere difettosi.
 	<notification name="RecommendedUpdate" label="Aggiornamento disponibile">
 		È disponibile una versione più recente, [RECOMMENDED_VER], di [SHORT_APP_NAME].
 
-Fai clic su [Visit Page] per aprire
+La tua versione attuale è [CURRENT_VER].
+
+Fai clic su [Visit Page] per aprire il sito ufficiale e scaricare la nuova versione:
 [URL]
-per informazioni e link di download di questa nuova versione.
 		<tag>confirm</tag>
 		<usetemplate name="okcancelignorecanceldefault" notext="Più tardi" yestext="Visita pagina" ignoretext="Ignora avviso di aggiornamento consigliato"/>
 	</notification>

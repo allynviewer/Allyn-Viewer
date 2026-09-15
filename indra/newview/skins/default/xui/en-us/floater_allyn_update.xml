@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	can_close="true"
+	can_drag_on_left="false"
+	can_minimize="false"
+	can_resize="false"
+	height="220"
+	width="460"
+	name="allyn update floater"
+	title="Update available">
+	<string name="update_message">A newer version, [RECOMMENDED_VER], is available for [SHORT_APP_NAME].
+
+Your current version is [CURRENT_VER].
+
+Click Update Now to download the official Windows installer and install automatically.</string>
+	<string name="status_ready">Ready to download.</string>
+	<string name="status_downloading">Downloading installer... [PERCENT]%</string>
+	<string name="status_stats">[DOWNLOADED] / [TOTAL]  ·  [SPEED]</string>
+	<string name="status_stats_unknown">[DOWNLOADED]  ·  [SPEED]</string>
+	<string name="status_launching">Download complete. Starting the installer...</string>
+	<string name="status_failed">Download failed: [ERROR]</string>
+	<string name="status_simulate">Simulation finished at 100%. The installer was not started (AllynUpdateSimulateDownload).</string>
+	<text
+		name="message_text"
+		follows="left|right|top"
+		font="SansSerif"
+		halign="left"
+		bottom="110"
+		height="72"
+		left="16"
+		width="428"
+		word_wrap="true" />
+	<progress_bar
+		name="download_progress"
+		follows="left|right|bottom"
+		bottom="88"
+		height="14"
+		left="16"
+		width="428" />
+	<text
+		name="percent_text"
+		follows="left|right|bottom"
+		font="SansSerifBold"
+		halign="center"
+		bottom="66"
+		height="16"
+		left="16"
+		width="428">0%</text>
+	<text
+		name="stats_text"
+		follows="left|right|bottom"
+		font="SansSerif"
+		halign="center"
+		bottom="46"
+		height="16"
+		left="16"
+		width="428" />
+	<text
+		name="status_text"
+		follows="left|right|bottom"
+		font="SansSerif"
+		halign="left"
+		bottom="46"
+		height="16"
+		left="16"
+		width="428" />
+	<button
+		name="update_now_btn"
+		follows="left|bottom"
+		bottom="12"
+		height="28"
+		label="Update Now"
+		left="16"
+		width="140" />
+	<button
+		name="update_later_btn"
+		follows="left|bottom"
+		bottom="12"
+		height="28"
+		label="Update Later"
+		left="164"
+		width="140" />
+	<button
+		name="close_btn"
+		follows="left|bottom"
+		bottom="12"
+		height="28"
+		label="Close"
+		left="312"
+		width="132" />
+</floater>

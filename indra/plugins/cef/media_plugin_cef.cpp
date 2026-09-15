@@ -130,6 +130,10 @@ private:
 	void unicodeInput(std::string event, LLSD native_key_data);
 	void checkEditState();
     void setVolume();
+	bool cefErrorIsTransient(int status) const;
+	void scheduleLoadRetry();
+	void showLoadErrorPage(int status, const std::string& error_text, const std::string& error_url);
+	void pumpLoadRetry();
 	bool mEnableMediaPluginDebugging;
 	std::string mHostLanguage;
 	bool mCookiesEnabled;
@@ -165,6 +169,10 @@ private:
 #if LL_WINDOWS
 	S32 mHideChromeWindowsTicks;
 #endif
+	std::string mLastNavigateUrl;
+	int mLoadRetries;
+	bool mPendingRetry;
+	std::chrono::steady_clock::time_point mRetryAt;
 };
 MediaPluginCEF::MediaPluginCEF(LLPluginInstance::sendMessageFunction send_message_function, LLPluginInstance* plugin_instance) :
 	MediaPluginBase(send_message_function, plugin_instance)
@@ -203,6 +211,10 @@ MediaPluginCEF::MediaPluginCEF(LLPluginInstance::sendMessageFunction send_messag
 #if LL_WINDOWS
 	mHideChromeWindowsTicks = 0;
 #endif
+	mLastNavigateUrl.clear();
+	mLoadRetries = 0;
+	mPendingRetry = false;
+	mRetryAt = std::chrono::steady_clock::time_point();
 	mCEFLib = new dullahan();
 	setVolume();
 }
@@ -264,17 +276,77 @@ void MediaPluginCEF::onLoadStartCallback()
 	message.setValueBoolean("history_forward_available", mCEFLib->canGoForward());
 	sendMessage(message);
 }
-void MediaPluginCEF::onLoadError(int status, const std::string error_text, const std::string error_url)
+bool MediaPluginCEF::cefErrorIsTransient(int status) const
+{
+	switch (status)
+	{
+	case -7:   // ERR_TIMED_OUT
+	case -15:  // ERR_SOCKET_NOT_CONNECTED
+	case -21:  // ERR_NETWORK_CHANGED
+	case -100: // ERR_CONNECTION_CLOSED
+	case -101: // ERR_CONNECTION_RESET
+	case -103: // ERR_CONNECTION_ABORTED
+	case -104: // ERR_CONNECTION_FAILED
+	case -106: // ERR_INTERNET_DISCONNECTED
+	case -118: // ERR_CONNECTION_TIMED_OUT
+	case -130: // ERR_PROXY_CONNECTION_FAILED
+	case -331: // ERR_HTTP2_PROTOCOL_ERROR
+	case -337: // ERR_HTTP2_INADEQUATE_TRANSPORT_SECURITY
+	case -356: // ERR_QUIC_PROTOCOL_ERROR
+	case -358: // ERR_QUIC_HANDSHAKE_FAILED
+	case -379: // ERR_HTTP3_PROTOCOL_ERROR (Chromium 139+)
+		return true;
+	default:
+		return false;
+	}
+}
+
+void MediaPluginCEF::scheduleLoadRetry()
+{
+	mPendingRetry = true;
+	mRetryAt = std::chrono::steady_clock::now() + std::chrono::milliseconds(400);
+}
+
+void MediaPluginCEF::pumpLoadRetry()
+{
+	if (!mPendingRetry || std::chrono::steady_clock::now() < mRetryAt)
+	{
+		return;
+	}
+	mPendingRetry = false;
+	if (!mLastNavigateUrl.empty() && mCEFLib)
+	{
+		mCEFLib->navigate(mLastNavigateUrl);
+	}
+}
+
+void MediaPluginCEF::showLoadErrorPage(int status, const std::string& error_text, const std::string& error_url)
 {
 	std::stringstream msg;
-	msg << "<b>Loading error!</b>";
-	msg << "<p>";
-	msg << "Message: " << error_text;
-	msg << "<br>";
-	msg << "URL: " << error_url;
-	msg << "<br>";
-	msg << "Code: " << status;
+	msg << "<div style='margin:0;background:#050812;color:#9aa7bd;font-family:Segoe UI,sans-serif;"
+		<< "display:flex;align-items:center;justify-content:center;height:100vh'>";
+	msg << "<div style='text-align:center;max-width:32rem;padding:1.5rem'>";
+	msg << "<h2 style='color:#e8eef7;font-weight:600;margin:0 0 0.75rem'>Allyn Viewer</h2>";
+	msg << "<p style='margin:0 0 1rem'>The start page could not be loaded. You can still log in.</p>";
+	msg << "<p style='font-size:0.85rem;word-break:break-all;opacity:0.8'>";
+	msg << error_text << " (" << status << ")<br>" << error_url;
+	msg << "</p></div></div>";
 	mCEFLib->showBrowserMessage(msg.str());
+}
+
+void MediaPluginCEF::onLoadError(int status, const std::string error_text, const std::string error_url)
+{
+	const int kMaxLoadRetries = 2;
+	if (cefErrorIsTransient(status) && mLoadRetries < kMaxLoadRetries && !mLastNavigateUrl.empty())
+	{
+		++mLoadRetries;
+		std::stringstream debug;
+		debug << "Retrying CEF navigation after " << error_text << " (" << status << ") try " << mLoadRetries;
+		postDebugMessage(debug.str());
+		scheduleLoadRetry();
+		return;
+	}
+	showLoadErrorPage(status, error_text, error_url);
 }
 void MediaPluginCEF::onRequestExitCallback()
 {
@@ -284,6 +356,14 @@ void MediaPluginCEF::onRequestExitCallback()
 }
 void MediaPluginCEF::onLoadEndCallback(int httpStatusCode, const std::string )
 {
+	if (mPendingRetry)
+	{
+		return;
+	}
+	if (httpStatusCode >= 200 && httpStatusCode < 400)
+	{
+		mLoadRetries = 0;
+	}
 	LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA_BROWSER, "navigate_complete");
 	message.setValueS32("result_code", httpStatusCode);
 	message.setValueBoolean("history_back_available", mCEFLib->canGoBack());
@@ -429,6 +509,7 @@ void MediaPluginCEF::receiveMessage(const char* message_string)
 			{
 				mCEFLib->update();
                 mVolumeCatcher.pump();
+				pumpLoadRetry();
 #if LL_WINDOWS
 				if (mHideChromeWindowsTicks > 0)
 				{
@@ -612,6 +693,9 @@ void MediaPluginCEF::receiveMessage(const char* message_string)
 			else if (message_name == "load_uri")
 			{
 				std::string uri = message_in.getValue("uri");
+				mLastNavigateUrl = uri;
+				mLoadRetries = 0;
+				mPendingRetry = false;
 				mCEFLib->navigate(uri);
 			}
 			else if (message_name == "set_cookie")

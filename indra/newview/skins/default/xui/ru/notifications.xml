@@ -6904,9 +6904,10 @@ URL-адрес мультимедиа/аудио заблокирован для
   <notification icon="notifytip.tga" label="Доступно обновление" name="RecommendedUpdate" type="notify">
 Более новая версия [RECOMMENDED_VER] доступна для [SHORT_APP_NAME].
 
-Нажмите [Visit Page], чтобы открыть
+Ваша текущая версия: [CURRENT_VER].
+
+Нажмите [Visit Page], чтобы открыть официальный сайт и скачать новую версию:
 [URL]
-для получения информации и ссылок для загрузки этой новой версии.
    <tag>confirm</tag>
    <usetemplate name="okcancelignorecanceldefault" notext="Позже" yestext="Открыть страницу" ignoretext="Не показывать уведомление о рекомендуемом обновлении" />
   </notification>

@@ -6234,9 +6234,10 @@ XMLファイルが不正です。インポートを中止しました。
   <notification icon="notifytip.tga" label="アップデートがあります" name="RecommendedUpdate" type="notify">
 [SHORT_APP_NAME] の新しいバージョン [RECOMMENDED_VER] が利用可能です。
 
-[Visit Page] をクリックして
+現在のバージョンは [CURRENT_VER] です。
+
+[Visit Page] をクリックして公式サイトを開き、新しいバージョンをダウンロードしてください:
 [URL]
-を開き、この新バージョンの情報とダウンロードリンクをご確認ください。
     <tag>confirm</tag>
    <usetemplate name="okcancelignorecanceldefault" notext="後で" yestext="ページへ" ignoretext="推奨アップデート通知を無視する" />
   </notification>

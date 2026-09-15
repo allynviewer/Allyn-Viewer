@@ -272,6 +272,13 @@ void LLPluginProcessParent::idle(void)
 				std::stringstream stream;
 				stream << mBoundPort;
 				mProcess.addArgument(stream.str());
+				// CEF 139 + Cloudflare advertises HTTP/3 (Alt-Svc / HTTPS DNS).
+				// Dullahan then fails the login splash with ERR_SOCKET_NOT_CONNECTED (-15).
+				if (mPluginFile.find("cef") != std::string::npos)
+				{
+					mProcess.addArgument("--disable-quic");
+					mProcess.addArgument("--disable-features=UseDnsHttpsSvcb");
+				}
 				if(mProcess.launch() != 0)
 				{
 					errorState();

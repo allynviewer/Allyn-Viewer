@@ -231,7 +231,7 @@ void MediaPluginLibVLC::logCallback(void *data, int level, const libvlc_log_t *c
 }
 void MediaPluginLibVLC::playMedia()
 {
-	if (mURL.length() == 0 || mWidth == 0 || mHeight == 0)
+	if (mURL.length() == 0)
 	{
 		return;
 	}

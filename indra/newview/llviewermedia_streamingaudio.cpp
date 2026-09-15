@@ -61,13 +61,22 @@ void LLStreamingAudio_MediaPlugins::start(const std::string& url)
 	if (!url.empty()) {
 		LL_INFOS() << "Starting internet stream: " << url << LL_ENDL;
 		mURL = url;
-		mMediaPlugin->loadURI ( url );
+		std::string snt_url = url;
+		LLStringUtil::trim(snt_url);
+		size_t pos = snt_url.find(' ');
+		if (pos != std::string::npos)
+		{
+			snt_url = snt_url.substr(0, pos);
+		}
+		mMediaPlugin->loadURI(snt_url);
 		mMediaPlugin->start();
 		LL_INFOS() << "Playing stream..." << LL_ENDL;
 	} else {
 		LL_INFOS() << "setting stream to NULL"<< LL_ENDL;
 		mURL.clear();
 		mMediaPlugin->stop();
+		delete mMediaPlugin;
+		mMediaPlugin = NULL;
 	}
 }
 void LLStreamingAudio_MediaPlugins::stop()
@@ -76,6 +85,8 @@ void LLStreamingAudio_MediaPlugins::stop()
 	if(mMediaPlugin)
 	{
 		mMediaPlugin->stop();
+		delete mMediaPlugin;
+		mMediaPlugin = NULL;
 	}
 	mURL.clear();
 }

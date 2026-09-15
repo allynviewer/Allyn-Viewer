@@ -1,100 +1,185 @@
-﻿#include "llviewerprecompiledheaders.h"
+﻿/**
+ * @file shupdatechecker.cpp
+ * @brief Check the official Allyn site for a newer viewer version
+ *
+ * $LicenseInfo:firstyear=2026&license=viewerlgpl$
+ * $/LicenseInfo$
+ */
+#include "llviewerprecompiledheaders.h"
+#include "shupdatechecker.h"
+
+#include <cctype>
+#include <sstream>
+
+#include "aihttpheaders.h"
+#include "allynupdate.h"
 #include "llbufferstream.h"
+#include "llcontrol.h"
+#include "llfloaterallynupdate.h"
 #include "llhttpclient.h"
-#include "llnotificationsutil.h"
-#include "llversioninfo.h"
-#include "llviewerwindow.h"
 #include "llsdjson.h"
-#include "llweb.h"
-#include "llwindow.h"
-void onNotifyButtonPress(const LLSD& notification, const LLSD& response, std::string name, std::string url)
+#include "llversioninfo.h"
+#include "llviewercontrol.h"
+
+namespace
 {
-	S32 option = LLNotificationsUtil::getSelectedOption(notification, response);
-	if (option == 0)
+	const char* ALLYN_VERSION_URL = "https://allynviewer.discloud.app/api/version";
+}
+
+bool allyn_parse_version(const std::string& text, S32& major, S32& minor, S32& patch, S32& build)
+{
+	major = minor = patch = build = 0;
+	if (text.empty())
 	{
-		if (gViewerWindow)
+		return false;
+	}
+
+	const char* p = text.c_str();
+	while (*p && !isdigit(static_cast<unsigned char>(*p)))
+	{
+		++p;
+	}
+	if (!*p)
+	{
+		return false;
+	}
+
+	int n = sscanf(p, "%d.%d.%d.%d", &major, &minor, &patch, &build);
+	if (n == 3)
+	{
+		build = 0;
+		return true;
+	}
+	return n == 4;
+}
+
+bool allyn_version_is_newer(S32 remote_major, S32 remote_minor, S32 remote_patch, S32 remote_build,
+	S32 local_major, S32 local_minor, S32 local_patch, S32 local_build)
+{
+	if (remote_major != local_major) return remote_major > local_major;
+	if (remote_minor != local_minor) return remote_minor > local_minor;
+	if (remote_patch != local_patch) return remote_patch > local_patch;
+	return remote_build > local_build;
+}
+
+void onCompleted(const LLSD& data)
+{
+	if (!data.isMap())
+	{
+		allyn_update_log("version json is not a map");
+		return;
+	}
+	if (data.has("ok") && !data["ok"].asBoolean())
+	{
+		allyn_update_log("version json ok=false");
+		return;
+	}
+
+	S32 remote_major = data.has("major") ? data["major"].asInteger() : 0;
+	S32 remote_minor = data.has("minor") ? data["minor"].asInteger() : 0;
+	S32 remote_patch = data.has("patch") ? data["patch"].asInteger() : 0;
+	S32 remote_build = data.has("build") ? data["build"].asInteger() : 0;
+
+	if (remote_major == 0 && remote_minor == 0 && remote_patch == 0 && remote_build == 0)
+	{
+		if (!allyn_parse_version(data["version"].asString(), remote_major, remote_minor, remote_patch, remote_build)
+			&& !allyn_parse_version(data["label"].asString(), remote_major, remote_minor, remote_patch, remote_build))
 		{
-			gViewerWindow->getWindow()->spawnWebBrowser(LLWeb::escapeURL(url), true);
+			allyn_update_log("Could not parse version from site");
+			return;
 		}
 	}
-}
-void onCompleted(const LLSD& data, bool release)
-{
-	S32 build(LLVersionInfo::getBuild());
-	std::string viewer_version = llformat("%s (%i)", LLVersionInfo::getShortVersion().c_str(), build);
-	constexpr auto platform = "windows";
-	std::string recommended_version = data["recommended"][platform];
-	std::string minimum_version = data["minimum"][platform];
-	S32 minimum_build, recommended_build;
-	sscanf(recommended_version.c_str(), "%*i.%*i.%*i (%i)", &recommended_build);
-	sscanf(minimum_version.c_str(), "%*i.%*i.%*i (%i)", &minimum_build);
-	LL_INFOS("GetUpdateInfoResponder") << build << LL_ENDL;
-	LLSD args;
-	args["CURRENT_VER"] = viewer_version;
-	args["RECOMMENDED_VER"] = recommended_version;
-	args["MINIMUM_VER"] = minimum_version;
-	args["URL"] = data["url"].asString();
-	static LLCachedControl<S32> lastver(release ? "SinguLastKnownReleaseBuild" : "SinguLastKnownAlphaBuild", 0);
-	if (build < minimum_build || build < recommended_build)
+
+	std::string label = data["label"].asString();
+	if (label.empty())
 	{
-		if (lastver.get() < recommended_build)
-		{
-			lastver = recommended_build;
-			LLUI::sIgnoresGroup->setWarning("UrgentUpdateModal", true);
-			LLUI::sIgnoresGroup->setWarning("UrgentUpdate", true);
-			LLUI::sIgnoresGroup->setWarning("RecommendedUpdate", true);
-		}
-		const std::string&& notification = build < minimum_build ?
-			LLUI::sIgnoresGroup->getWarning("UrgentUpdateModal") ? "UrgentUpdateModal" : "UrgentUpdate" :
-			"RecommendedUpdate";
-		LLNotificationsUtil::add(notification, args, LLSD(), boost::bind(onNotifyButtonPress, _1, _2, notification, data["url"].asString()));
+		label = data["version"].asString();
 	}
+
+	const std::string current = LLVersionInfo::getVersion();
+	allyn_update_log("site version=" + label + " local=" + current);
+
+	const bool newer = allyn_version_is_newer(remote_major, remote_minor, remote_patch, remote_build,
+		LLVersionInfo::getMajor(), LLVersionInfo::getMinor(), LLVersionInfo::getPatch(), LLVersionInfo::getBuild());
+	const bool force = gSavedSettings.getBOOL("AllynUpdateForcePrompt")
+		|| gSavedSettings.getBOOL("AllynUpdateSimulateDownload");
+
+	if (!newer && !force)
+	{
+		allyn_update_log("viewer is up to date, no prompt");
+		return;
+	}
+
+	if (!newer && force)
+	{
+		allyn_update_log("forcing update prompt for test (AllynUpdateForcePrompt or AllynUpdateSimulateDownload)");
+	}
+
+	std::string installer_url = data["installerUrl"].asString();
+	if (installer_url.empty() && allyn_update_is_simulate())
+	{
+		installer_url = "https://github.com/allynviewer/Allyn-Viewer/releases/download/v1.0.0.11/Allyn_Viewer_1_0_0_11_x86_64_Setup.exe";
+		allyn_update_log("simulate using placeholder installer url");
+	}
+
+	std::string remote_key = llformat("%d.%d.%d.%d", remote_major, remote_minor, remote_patch, remote_build);
+	static LLCachedControl<std::string> last_notified("AllynLastNotifiedVersion", "");
+	if (last_notified.get() != remote_key)
+	{
+		last_notified = remote_key;
+	}
+
+	LLSD info;
+	info["label"] = label;
+	info["current"] = current;
+	info["installerUrl"] = installer_url;
+	LLFloaterAllynUpdate::offer(info);
 }
+
 extern AIHTTPTimeoutPolicy getUpdateInfoResponder_timeout;
+
 class GetUpdateInfoResponder final : public LLHTTPClient::ResponderWithCompleted
 {
 	LOG_CLASS(GetUpdateInfoResponder);
 public:
-	GetUpdateInfoResponder(std::string type) : mType(type) {}
 	void completedRaw(LLChannelDescriptors const& channels, buffer_ptr_t const& buffer) override
 	{
 		if (mStatus != HTTP_OK)
 		{
-			LL_WARNS() << "Failed to get update info (" << mStatus << ")" << LL_ENDL;
+			allyn_update_log(llformat("Failed to get update info HTTP %d", mStatus));
+			if (gSavedSettings.getBOOL("AllynUpdateForcePrompt")
+				|| gSavedSettings.getBOOL("AllynUpdateSimulateDownload"))
+			{
+				LLSD info;
+				info["label"] = "v0.0.0.0 Test";
+				info["current"] = LLVersionInfo::getVersion();
+				info["installerUrl"] = "https://github.com/allynviewer/Allyn-Viewer/releases/download/v1.0.0.11/Allyn_Viewer_1_0_0_11_x86_64_Setup.exe";
+				allyn_update_log("forcing test prompt because version API failed");
+				LLFloaterAllynUpdate::offer(info);
+			}
 			return;
 		}
 		LLBufferStream istr(channels, buffer.get());
 		std::stringstream strstrm;
 		strstrm << istr.rdbuf();
 		LLSD data = LlsdFromJsonString(strstrm.str());
-		if (data.isUndefined())
+		if (data.isUndefined() || !data.isMap())
 		{
-			LL_WARNS() << "Failed to parse json string from body." << LL_ENDL;
+			allyn_update_log("Failed to parse version json");
+			return;
 		}
-		else onCompleted(data[mType], mType == "release");
+		onCompleted(data);
 	}
 protected:
 	AIHTTPTimeoutPolicy const& getHTTPTimeoutPolicy() const override { return getUpdateInfoResponder_timeout; }
 	char const* getName() const override { return "GetUpdateInfoResponder"; }
-private:
-	std::string mType;
 };
+
 void check_for_updates()
 {
-	std::string url = "http://Allyn-viewer.github.io/pages/api/get_update_info.json";
-	if (!url.empty())
-	{
-		std::string type;
-		auto& channel = LLVersionInfo::getChannel();
-		if (channel == "Allyn")
-		{
-			type = "release";
-		}
-		else if (channel == "Allyn Test" || channel == "Allyn Alpha" || channel == "Allyn Beta")
-		{
-			type = "alpha";
-		}
-		else return;
-		LLHTTPClient::get(url, new GetUpdateInfoResponder(type));
-	}
+	allyn_update_run_self_tests();
+	allyn_update_log(std::string("checking ") + ALLYN_VERSION_URL);
+	AIHTTPHeaders headers;
+	headers.addHeader("Accept", "application/json");
+	LLHTTPClient::get(ALLYN_VERSION_URL, new GetUpdateInfoResponder(), headers);
 }

@@ -5829,9 +5829,10 @@ Sua forma, pele, cabelo ou olhos podem estar incompletos ou no padrão.
 	<notification name="RecommendedUpdate" label="Atualização disponível">
 		Há uma versão mais nova, [RECOMMENDED_VER], disponível para o [SHORT_APP_NAME].
 
-Clique em [Visit Page] para abrir
+Sua versão atual é [CURRENT_VER].
+
+Clique em [Visit Page] para abrir o site oficial e baixar a versão nova:
 [URL]
-com informações e links de download desta versão nova.
 		<tag>confirm</tag>
 		<usetemplate name="okcancelignorecanceldefault" notext="Depois" yestext="Visitar página" ignoretext="Ignorar notificação de atualização recomendada"/>
 	</notification>

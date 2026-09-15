@@ -4692,9 +4692,10 @@ die Region &quot;[REGION]&quot; verwenden?
 	<notification label="Update verf&#xFC;gbar" name="RecommendedUpdate">
 		Eine neuere Version, [RECOMMENDED_VER], ist f&#xFC;r [SHORT_APP_NAME] verf&#xFC;gbar.
 
-Klicken Sie auf [Visit Page], um
+Ihre aktuelle Version ist [CURRENT_VER].
+
+Klicken Sie auf [Visit Page], um die offizielle Website zu &#xF6;ffnen und die neue Version herunterzuladen:
 [URL]
-f&#xFC;r Informationen und Download-Links zu dieser neuen Version zu &#xF6;ffnen.
 		<tag>confirm</tag>
 		<usetemplate ignoretext="Empfohlenen Update-Hinweis ignorieren" name="okcancelignorecanceldefault" notext="Sp&#xE4;ter" yestext="Seite besuchen"/>
 	</notification>

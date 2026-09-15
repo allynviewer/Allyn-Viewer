@@ -1016,7 +1016,11 @@ void LLPanelLogin::loadLoginPage()
 	std::string Allyn_splash_uri = gSavedSettings.getString("AllynSplashPagePrefix");
 	if (!Allyn_splash_uri.empty())
 	{
-		params["original_page"] = login_uri.asString();
+		const LLURI overlay_base(Allyn_splash_uri);
+		if (overlay_base.hostName().empty() || overlay_base.hostName() != login_page.hostName())
+		{
+			params["original_page"] = login_uri.asString();
+		}
 		std::string splash_path = gSavedSettings.getString("AllynSplashPagePath");
 		if (!splash_path.empty() && splash_path.back() != '/')
 		{

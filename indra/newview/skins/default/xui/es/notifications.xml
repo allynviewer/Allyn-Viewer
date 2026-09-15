@@ -6246,11 +6246,12 @@ Tu cuerpo, piel, pelo u ojos podrían ser los predeterminados
 	</notification>
 
 	<notification label="Actualización Disponible" name="RecommendedUpdate">
-Una nueva versión, [RECOMMENDED_VER], para [SHORT_APP_NAME].
+Hay una versión más reciente, [RECOMMENDED_VER], disponible para [SHORT_APP_NAME].
 
-Pulsa [Visit Page] para abrir
+Tu versión actual es [CURRENT_VER].
+
+Pulsa [Visit Page] para abrir el sitio oficial y descargar la nueva versión:
 [URL]
-para mayor información y enlaces de descarga para esta nueva versión.
 		<usetemplate name="okcancelignorecanceldefault" notext="Luego" yestext="Visitar Página" ignoretext="Ignorar notificaciones de actualizaciones recomendadas"/>
 	</notification>
 	

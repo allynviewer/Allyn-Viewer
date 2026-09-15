@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="allyn update floater" title="Update verfügbar">
+	<string name="update_message">Eine neuere Version, [RECOMMENDED_VER], ist für [SHORT_APP_NAME] verfügbar.
+
+Ihre aktuelle Version ist [CURRENT_VER].
+
+Klicken Sie auf Jetzt aktualisieren, um den offiziellen Windows-Installer herunterzuladen und automatisch zu installieren.</string>
+	<string name="status_ready">Bereit zum Download.</string>
+	<string name="status_downloading">Installer wird heruntergeladen... [PERCENT]%</string>
+	<string name="status_stats">[DOWNLOADED] / [TOTAL]  ·  [SPEED]</string>
+	<string name="status_stats_unknown">[DOWNLOADED]  ·  [SPEED]</string>
+	<string name="status_launching">Download abgeschlossen. Installer wird gestartet...</string>
+	<string name="status_failed">Download fehlgeschlagen: [ERROR]</string>
+	<string name="status_simulate">Simulation bei 100% beendet. Der Installer wurde nicht gestartet (AllynUpdateSimulateDownload).</string>
+	<button name="update_now_btn" label="Jetzt aktualisieren" />
+	<button name="update_later_btn" label="Später aktualisieren" />
+	<button name="close_btn" label="Schließen" />
+</floater>

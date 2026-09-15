@@ -6902,9 +6902,10 @@ Az önce bir [SHORT_APP_NAME] destek grubu sohbetine girdiniz. Destek sağlamaya
   <notification icon="notifytip.tga" label="Güncelleme var" name="RecommendedUpdate" type="notify">
 [SHORT_APP_NAME] için daha yeni bir sürüm olan [RECOMMENDED_VER] mevcut.
 
-Açmak için [Visit Page] öğesine tıkla
+Mevcut sürümünüz: [CURRENT_VER].
+
+Resmi siteyi açmak ve yeni sürümü indirmek için [Visit Page] öğesine tıklayın:
 [URL]
-Bu yeni sürüme ilişkin bilgi ve indirme bağlantıları için.
    <tag>confirm</tag>
    <usetemplate name="okcancelignorecanceldefault" notext="Sonra" yestext="Sayfayı aç" ignoretext="Önerilen güncelleme bildirimini yoksay" />
   </notification>

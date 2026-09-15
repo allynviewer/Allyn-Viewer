@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="allyn update floater" title="アップデートがあります">
+	<string name="update_message">[SHORT_APP_NAME] の新しいバージョン [RECOMMENDED_VER] が利用可能です。
+
+現在のバージョンは [CURRENT_VER] です。
+
+「今すぐ更新」をクリックすると、公式 Windows インストーラーをダウンロードして自動的にインストールします。</string>
+	<string name="status_ready">ダウンロードの準備ができました。</string>
+	<string name="status_downloading">インストーラーをダウンロード中... [PERCENT]%</string>
+	<string name="status_stats">[DOWNLOADED] / [TOTAL]  ·  [SPEED]</string>
+	<string name="status_stats_unknown">[DOWNLOADED]  ·  [SPEED]</string>
+	<string name="status_launching">ダウンロードが完了しました。インストーラーを起動しています...</string>
+	<string name="status_failed">ダウンロードに失敗しました: [ERROR]</string>
+	<string name="status_simulate">シミュレーションが 100% で完了しました。インストーラーは起動していません (AllynUpdateSimulateDownload)。</string>
+	<button name="update_now_btn" label="今すぐ更新" />
+	<button name="update_later_btn" label="後で更新" />
+	<button name="close_btn" label="閉じる" />
+</floater>
