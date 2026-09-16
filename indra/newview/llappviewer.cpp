@@ -1143,11 +1143,32 @@ void LLAppViewer::flushVFSIO()
 	}
 }
 extern void cleanup_pose_stand(void);
+void LLAppViewer::persistInventoryCache()
+{
+	if (gNoRender)
+	{
+		return;
+	}
+	if (gInventory.getRootFolderID().isNull())
+	{
+		return;
+	}
+	LL_INFOS("Inventory") << "Persisting inventory cache to disk" << LL_ENDL;
+	gInventory.cache(gInventory.getRootFolderID(), gAgent.getID());
+	if (gInventory.getLibraryRootFolderID().notNull()
+		&& gInventory.getLibraryOwnerID().notNull())
+	{
+		gInventory.cache(
+			gInventory.getLibraryRootFolderID(),
+			gInventory.getLibraryOwnerID());
+	}
+}
 bool LLAppViewer::cleanup()
 {
 	LLHeapDiag::markImportant("cleanup_begin");
 	LLHeapDiag::validateHeaps("cleanup_begin");
-	gAgentAvatarp = nullptr;
+	persistInventoryCache();
+	LLHeapDiag::markImportant("inventory_cache_saved");
 	if (! isError())
 	{
 		std::string logdir = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "");
@@ -1157,6 +1178,7 @@ bool LLAppViewer::cleanup()
 	LLMortician::setZealous(TRUE);
 	LLVoiceClient::getInstance()->terminate();
 	disconnectViewer();
+	gAgentAvatarp = nullptr;
 	LL_INFOS() << "Viewer disconnected" << LL_ENDL;
 	display_cleanup();
 	release_start_screen();
@@ -3298,6 +3320,7 @@ void LLAppViewer::idleShutdown()
 	if( logoutRequestSent()
 		&& gLogoutTimer.getElapsedTimeF32() > gLogoutMaxTime )
 	{
+		persistInventoryCache();
 		forceQuit();
 		return;
 	}
@@ -3511,17 +3534,7 @@ void LLAppViewer::disconnectViewer()
 	{
 		LLSelectMgr::getInstance()->deselectAll();
 	}
-	if (!gNoRender)
-	{
-		gInventory.cache(gInventory.getRootFolderID(), gAgent.getID());
-		if (gInventory.getLibraryRootFolderID().notNull()
-			&& gInventory.getLibraryOwnerID().notNull())
-		{
-			gInventory.cache(
-				gInventory.getLibraryRootFolderID(),
-				gInventory.getLibraryOwnerID());
-		}
-	}
+	persistInventoryCache();
 	saveNameCache();
 	if (LLExperienceCache::instanceExists())
 	{

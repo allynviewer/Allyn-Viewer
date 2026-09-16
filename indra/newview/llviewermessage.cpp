@@ -388,6 +388,7 @@ void process_logout_reply(LLMessageSystem* msg, void**)
 			LL_INFOS("Messaging") << "process_logout_reply item not found: " << item_id << LL_ENDL;
 		}
 	}
+	LLAppViewer::instance()->persistInventoryCache();
     LLAppViewer::instance()->forceQuit();
 }
 void process_layer_data(LLMessageSystem* mesgsys, void** user_data)

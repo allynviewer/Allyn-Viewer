@@ -5434,6 +5434,10 @@ BOOL	LLViewerObject::isTempAttachment() const
 std::string LLViewerObject::getAttachmentPointName() const
 {
 	S32 point = ATTACHMENT_ID_FROM_STATE(mAttachmentState);
+	if (!gAgentAvatarp)
+	{
+		return llformat("unsupported point %d", point);
+	}
 	LLVOAvatar::attachment_map_t::iterator it = gAgentAvatarp->mAttachmentPoints.find(point);
 	if(it != gAgentAvatarp->mAttachmentPoints.end())
 	{

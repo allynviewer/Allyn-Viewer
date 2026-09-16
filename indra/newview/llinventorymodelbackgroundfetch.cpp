@@ -223,6 +223,10 @@ void LLInventoryModelBackgroundFetch::setAllFoldersFetched()
 	}
 	mBackgroundFetchActive = false;
 	LL_INFOS(LOG_INV) << "Inventory background fetch completed" << LL_ENDL;
+	if (LLAppViewer::instance())
+	{
+		LLAppViewer::instance()->persistInventoryCache();
+	}
 }
 void LLInventoryModelBackgroundFetch::backgroundFetchCB(void *)
 {

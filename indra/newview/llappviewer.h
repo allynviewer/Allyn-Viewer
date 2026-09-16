@@ -80,6 +80,7 @@ public:
 	void saveFinalSnapshot();
     void loadNameCache();
     void saveNameCache();
+	void persistInventoryCache();
 	void removeMarkerFiles();
 	void removeDumpDir();
     virtual void forceErrorLLError();
