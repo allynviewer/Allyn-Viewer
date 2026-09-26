@@ -4371,6 +4371,28 @@ If you continue to receive this message, please contact Second Life support for 
 	<string name="Snapshots"     value=" Snapshots," />
 	<string name="No Filters"    value="No " />
 	<string name="Since Logoff"  value=" - Since Logoff" />
+	<string name="InvFolder My Inventory" value="My Inventory"/>
+	<string name="InvFolder Animations" value="Animations"/>
+	<string name="InvFolder Body Parts" value="Body Parts"/>
+	<string name="InvFolder Calling Cards" value="Calling Cards"/>
+	<string name="InvFolder Clothing" value="Clothing"/>
+	<string name="InvFolder Current Outfit" value="Current Outfit"/>
+	<string name="InvFolder Favorites" value="Favorites"/>
+	<string name="InvFolder Gestures" value="Gestures"/>
+	<string name="InvFolder Landmarks" value="Landmarks"/>
+	<string name="InvFolder Lost And Found" value="Lost And Found"/>
+	<string name="InvFolder Marketplace Listings" value="Marketplace Listings"/>
+	<string name="InvFolder Materials" value="Materials"/>
+	<string name="InvFolder My Outfits" value="My Outfits"/>
+	<string name="InvFolder Notecards" value="Notecards"/>
+	<string name="InvFolder Objects" value="Objects"/>
+	<string name="InvFolder Photo Album" value="Photo Album"/>
+	<string name="InvFolder Received Items" value="Received Items"/>
+	<string name="InvFolder Scripts" value="Scripts"/>
+	<string name="InvFolder Settings" value="Settings"/>
+	<string name="InvFolder Sounds" value="Sounds"/>
+	<string name="InvFolder Textures" value="Textures"/>
+	<string name="InvFolder Trash" value="Trash"/>
 	<string name="Worn"          value=" - Worn" />
 	<string name="Buy">
 		Buy

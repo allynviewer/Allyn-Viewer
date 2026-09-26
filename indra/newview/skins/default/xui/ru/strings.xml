@@ -7651,6 +7651,28 @@ HTTP [STATUS]. Получен HTML или не-API ответ вместо JSON.
 	<string name="Saved_message" value="(Сохранено [LONG_TIMESTAMP]) " />
 	<string name="Scripts" value=" Скрипты," />
 	<string name="Since Logoff" value=" - С момента выхода" />
+	<string name="InvFolder My Inventory" value="Мой инвентарь"/>
+	<string name="InvFolder Animations" value="Анимации"/>
+	<string name="InvFolder Body Parts" value="Части тела"/>
+	<string name="InvFolder Calling Cards" value="Визитки"/>
+	<string name="InvFolder Clothing" value="Одежда"/>
+	<string name="InvFolder Current Outfit" value="Текущий наряд"/>
+	<string name="InvFolder Favorites" value="Избранное"/>
+	<string name="InvFolder Gestures" value="Жесты"/>
+	<string name="InvFolder Landmarks" value="Закладки"/>
+	<string name="InvFolder Lost And Found" value="Потерянное"/>
+	<string name="InvFolder Marketplace Listings" value="Объявления Marketplace"/>
+	<string name="InvFolder Materials" value="Материалы"/>
+	<string name="InvFolder My Outfits" value="Мои наряды"/>
+	<string name="InvFolder Notecards" value="Заметки"/>
+	<string name="InvFolder Objects" value="Объекты"/>
+	<string name="InvFolder Photo Album" value="Фотоальбом"/>
+	<string name="InvFolder Received Items" value="Полученные предметы"/>
+	<string name="InvFolder Scripts" value="Скрипты"/>
+	<string name="InvFolder Settings" value="Настройки"/>
+	<string name="InvFolder Sounds" value="Звуки"/>
+	<string name="InvFolder Textures" value="Текстуры"/>
+	<string name="InvFolder Trash" value="Корзина"/>
 	<string name="Snapshots" value=" Снимки," />
 	<string name="Sound" value=" Звук : " />
 	<string name="Sounds" value=" Звуки," />

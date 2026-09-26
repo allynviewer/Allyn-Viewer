@@ -1576,10 +1576,13 @@ Connection to Socks5 proxy [PROXY] was successful.
   </notification>
 
   <notification
-   icon="notify.tga"
+   icon="alertmodal.tga"
    name="ChangeSkin"
-   type="notfy">
-    The new skin will appear after you restart [APP_NAME].
+   type="alertmodal">
+    You need to close [APP_NAME] and open it again to apply the theme.
+    <usetemplate
+     name="okbutton"
+     yestext="OK"/>
   </notification>
 
   <notification

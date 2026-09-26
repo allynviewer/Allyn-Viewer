@@ -5123,6 +5123,28 @@ Si ce message continue d'apparaître, contactez le [SUPPORT_SITE].</string>
 		Masquer les alertes lors de la gestion des listes d'accès au domaine
 	</string>
 	<string name="Since Logoff" value=" - Depuis la déconnexion" />
+	<string name="InvFolder My Inventory" value="Mon inventaire"/>
+	<string name="InvFolder Animations" value="Animations"/>
+	<string name="InvFolder Body Parts" value="Parties du corps"/>
+	<string name="InvFolder Calling Cards" value="Cartes de visite"/>
+	<string name="InvFolder Clothing" value="Vêtements"/>
+	<string name="InvFolder Current Outfit" value="Tenue actuelle"/>
+	<string name="InvFolder Favorites" value="Favoris"/>
+	<string name="InvFolder Gestures" value="Gestes"/>
+	<string name="InvFolder Landmarks" value="Repères"/>
+	<string name="InvFolder Lost And Found" value="Objets trouvés"/>
+	<string name="InvFolder Marketplace Listings" value="Annonces Marketplace"/>
+	<string name="InvFolder Materials" value="Matériaux"/>
+	<string name="InvFolder My Outfits" value="Mes tenues"/>
+	<string name="InvFolder Notecards" value="Notes"/>
+	<string name="InvFolder Objects" value="Objets"/>
+	<string name="InvFolder Photo Album" value="Album photo"/>
+	<string name="InvFolder Received Items" value="Objets reçus"/>
+	<string name="InvFolder Scripts" value="Scripts"/>
+	<string name="InvFolder Settings" value="Paramètres"/>
+	<string name="InvFolder Sounds" value="Sons"/>
+	<string name="InvFolder Textures" value="Textures"/>
+	<string name="InvFolder Trash" value="Corbeille"/>
 	<string name="Skinny Neck">
 		Cou maigre
 	</string>

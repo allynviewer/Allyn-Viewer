@@ -149,10 +149,10 @@
   <texture name="UIImgBtnClosePressedUUID" file_name="close_in_blue.tga"/>
   <texture name="UIImgBtnForwardInUUID" file_name="move_forward_in.tga" preload="true"/>
   <texture name="UIImgBtnForwardOutUUID" file_name="move_forward_out.tga" preload="true"/>
-  <texture name="UIImgBtnJumpLeftInUUID" file_name="9cad3e6d-2d6d-107d-f8ab-5ba272b5bfe1.tga"/>
-  <texture name="UIImgBtnJumpLeftOutUUID" file_name="3c18c87e-5f50-14e2-e744-f44734aa365f.tga"/>
-  <texture name="UIImgBtnJumpRightInUUID" file_name="7dabc040-ec13-2309-ddf7-4f161f6de2f4.tga"/>
-  <texture name="UIImgBtnJumpRightOutUUID" file_name="ff9a71eb-7414-4cf8-866e-a701deb7c3cf.tga"/>
+  <texture name="UIImgBtnJumpLeftInUUID" file_name="tab_jump_left_in.tga"/>
+  <texture name="UIImgBtnJumpLeftOutUUID" file_name="tab_jump_left_out.tga"/>
+  <texture name="UIImgBtnJumpRightInUUID" file_name="tab_jump_right_in.tga"/>
+  <texture name="UIImgBtnJumpRightOutUUID" file_name="tab_jump_right_out.tga"/>
   <texture name="UIImgBtnLeftInUUID" file_name="move_turn_left_in.tga" preload="true"/>
   <texture name="UIImgBtnLeftOutUUID" file_name="move_turn_left_out.tga" preload="true"/>
   <texture name="UIImgBtnMinimizeActiveUUID" file_name="minimize.tga"/>
@@ -194,13 +194,13 @@
   <texture name="UIImgCheckboxActiveUUID"	file_name="checkbox_enabled_false.tga"/>
   <texture name="UIImgCheckboxInactiveSelectedUUID" file_name="checkbox_disabled_true.tga"/>
   <texture name="UIImgCheckboxInactiveUUID" file_name="checkbox_disabled_false.tga"/>
-  <texture name="UIImgCreateSelectedUUID"	file_name="0098b015-3daf-4cfe-a72f-915369ea97c2.tga"/>
-  <texture name="UIImgCreateUUID"	file_name="7a0b1bdb-b5d9-4df5-bac2-ba230da93b5b.tga"/>
+  <texture name="UIImgCreateSelectedUUID"	file_name="tool_create_selected.tga"/>
+  <texture name="UIImgCreateUUID"	file_name="ui_create.tga"/>
   <texture name="UIImgCrosshairsUUID" file_name="crosshairs.tga"/>
-  <texture name="UIImgFaceSelectedUUID"	file_name="b4870163-6208-42a9-9801-93133bf9a6cd.tga"/>
-  <texture name="UIImgFaceUUID"	file_name="ce15fd63-b0b6-463c-a37d-ea6393208b3e.tga"/>
-  <texture name="UIImgGrabSelectedUUID"	file_name="c1e21504-f136-451d-b8e9-929037812f1d.tga"/>
-  <texture name="UIImgGrabUUID"	file_name="c63f124c-6340-4fbf-b59e-0869a44adb64.tga"/>
+  <texture name="UIImgFaceSelectedUUID"	file_name="tool_face_selected.tga"/>
+  <texture name="UIImgFaceUUID"	file_name="tool_face.tga"/>
+  <texture name="UIImgGrabSelectedUUID"	file_name="tool_grab_selected.tga"/>
+  <texture name="UIImgGrabUUID"	file_name="tool_grab.tga"/>
   <texture name="UIImgRadioActiveSelectedUUID" file_name="radio_active_true.tga"/>
   <texture name="UIImgRadioActiveUUID"	file_name="radio_active_false.tga"/>
   <texture name="UIImgRadioInactiveSelectedUUID" file_name="radio_inactive_true.tga"/>
@@ -469,8 +469,6 @@
   <texture name="toolbar_tab.tga"	preload="true" scale.left="6" scale.top="42" scale.right="104" scale.bottom="8"/>
   
   <texture name="map_event_mature.tga"/>
-  <texture name="ProgressBar"	preload="true" scale.left="10" scale.top="7" scale.right="65" scale.bottom="7"/>
-  <texture name="ProgressTrack"	preload="true" scale.left="10" scale.top="7" scale.right="80" scale.bottom="7"/>
   <texture name="icn_slide-groove_dark.tga" scale.left="2" scale.top="5" scale.right="29" scale.bottom="4"/>
   <texture name="icn_slide-thumb_dark.tga" scale.left="2" scale.top="5" scale.right="29" scale.bottom="4"/>
   <texture name="map_avatar_you_8.tga"/>

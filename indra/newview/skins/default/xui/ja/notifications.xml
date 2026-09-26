@@ -787,8 +787,8 @@
 Socks5プロキシ[PROXY]への接続に成功しました。
   </notification>
 
-  <notification icon="notify.tga" name="ChangeSkin" type="notfy">
-    [APP_NAME]を再起動すると新しいスキンが適用されます。
+  <notification name="ChangeSkin">
+    テーマを適用するには、[APP_NAME]を終了してから再度開く必要があります。
   </notification>
 
   <notification icon="alertmodal.tga" name="GoToAuctionPage" type="alertmodal">

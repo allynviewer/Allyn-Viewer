@@ -897,8 +897,8 @@
 Подключение к прокси-серверу Socks5 [PROXY] выполнено успешно.
   </notification>
 
-  <notification icon="notify.tga" name="ChangeSkin" type="notfy">
-    Новый скин появится после перезапуска [APP_NAME].
+  <notification name="ChangeSkin">
+    Чтобы применить тему, закройте [APP_NAME] и откройте его снова.
   </notification>
 
   <notification icon="alertmodal.tga" name="GoToAuctionPage" type="alertmodal">

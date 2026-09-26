@@ -6301,6 +6301,28 @@ HTTP [STATUS]。JSON ではなく HTML または非 API の応答を受け取り
 	<string name="Saved_message" value="（保存済み [LONG_TIMESTAMP]） " />
 	<string name="Scripts" value=" スクリプト," />
 	<string name="Since Logoff" value=" - 前回のログアウト以降" />
+	<string name="InvFolder My Inventory" value="マイインベントリ"/>
+	<string name="InvFolder Animations" value="アニメーション"/>
+	<string name="InvFolder Body Parts" value="体のパーツ"/>
+	<string name="InvFolder Calling Cards" value="コーリングカード"/>
+	<string name="InvFolder Clothing" value="衣服"/>
+	<string name="InvFolder Current Outfit" value="現在のアウトフィット"/>
+	<string name="InvFolder Favorites" value="お気に入り"/>
+	<string name="InvFolder Gestures" value="ジェスチャー"/>
+	<string name="InvFolder Landmarks" value="ランドマーク"/>
+	<string name="InvFolder Lost And Found" value="落とし物"/>
+	<string name="InvFolder Marketplace Listings" value="マーケットプレイス掲載"/>
+	<string name="InvFolder Materials" value="マテリアル"/>
+	<string name="InvFolder My Outfits" value="マイアウトフィット"/>
+	<string name="InvFolder Notecards" value="ノートカード"/>
+	<string name="InvFolder Objects" value="オブジェクト"/>
+	<string name="InvFolder Photo Album" value="フォトアルバム"/>
+	<string name="InvFolder Received Items" value="受け取ったアイテム"/>
+	<string name="InvFolder Scripts" value="スクリプト"/>
+	<string name="InvFolder Settings" value="設定"/>
+	<string name="InvFolder Sounds" value="サウンド"/>
+	<string name="InvFolder Textures" value="テクスチャ"/>
+	<string name="InvFolder Trash" value="ゴミ箱"/>
 	<string name="Snapshots" value=" スナップショット," />
 	<string name="Sound" value=" サウンド : " />
 	<string name="Sounds" value=" サウンド," />

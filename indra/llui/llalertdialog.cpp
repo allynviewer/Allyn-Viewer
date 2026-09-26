@@ -406,10 +406,6 @@ void LLAlertDialog::draw()
 		mDefaultBtnTimer.stop();
 		setDefaultBtn(mDefaultButton);
 	}
-	static LLColor4 shadow_color = LLUI::sColorsGroup->getColor("ColorDropShadow");
-	static S32 shadow_lines = LLUI::sConfigGroup->getS32("DropShadowFloater");
-	gl_drop_shadow( 0, getRect().getHeight(), getRect().getWidth(), 0,
-		shadow_color, shadow_lines);
 	LLModalDialog::draw();
 }
 void LLAlertDialog::setEditTextArgs(const LLSD& edit_args)

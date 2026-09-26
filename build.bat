@@ -1112,7 +1112,9 @@ for %%D in ("!SKINS_DST_BUILD!" "!SKINS_DST_BIN!") do (
   mkdir %%D
   xcopy /E /Y /I /Q "!SKINS_SRC!\default" "%%D\default\" >nul 2>&1
   xcopy /E /Y /I /Q "!SKINS_SRC!\cyber" "%%D\cyber\" >nul 2>&1
+  xcopy /E /Y /I /Q "!SKINS_SRC!\dark" "%%D\dark\" >nul 2>&1
   copy /Y "!SKINS_SRC!\Cyber.xml" "%%D\" >nul 2>&1
+  copy /Y "!SKINS_SRC!\Dark.xml" "%%D\" >nul 2>&1
   copy /Y "!SKINS_SRC!\paths.xml" "%%D\" >nul 2>&1
 )
 call :fmt M_SKINS_COPIED_FROM "!SKINS_SRC!"

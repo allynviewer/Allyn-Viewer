@@ -4325,6 +4325,28 @@ Si sigues recibiendo el mismo mensaje, solicita ayuda al personal de asistencia 
 	<string name="Snapshots" value=" Fotos,"/>
 	<string name="No Filters" value="No "/>
 	<string name="Since Logoff" value=" - Desde Fin Sesión Anterior"/>
+	<string name="InvFolder My Inventory" value="Mi inventario"/>
+	<string name="InvFolder Animations" value="Animaciones"/>
+	<string name="InvFolder Body Parts" value="Partes del cuerpo"/>
+	<string name="InvFolder Calling Cards" value="Tarjetas de visita"/>
+	<string name="InvFolder Clothing" value="Ropa"/>
+	<string name="InvFolder Current Outfit" value="Aspecto actual"/>
+	<string name="InvFolder Favorites" value="Favoritos"/>
+	<string name="InvFolder Gestures" value="Gestos"/>
+	<string name="InvFolder Landmarks" value="Marcas"/>
+	<string name="InvFolder Lost And Found" value="Elementos perdidos"/>
+	<string name="InvFolder Marketplace Listings" value="Artículos del Mercado"/>
+	<string name="InvFolder Materials" value="Materiales"/>
+	<string name="InvFolder My Outfits" value="Mis outfits"/>
+	<string name="InvFolder Notecards" value="Notas"/>
+	<string name="InvFolder Objects" value="Objetos"/>
+	<string name="InvFolder Photo Album" value="Álbum de fotos"/>
+	<string name="InvFolder Received Items" value="Objetos recibidos"/>
+	<string name="InvFolder Scripts" value="Scripts"/>
+	<string name="InvFolder Settings" value="Ajustes"/>
+	<string name="InvFolder Sounds" value="Sonidos"/>
+	<string name="InvFolder Textures" value="Texturas"/>
+	<string name="InvFolder Trash" value="Papelera"/>
 	<string name="Worn" value=" - Vestido"/>
 	<string name="Buy">
 		Comprar

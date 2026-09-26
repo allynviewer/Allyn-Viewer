@@ -510,7 +510,7 @@ Hinweis: Der Cache wird dabei gel&#xF6;scht/geleert.
 	<notification name="SOCKS_AUTH_FAIL">Der Sock5 Proxy "[PROXY]" meldet das die logindaten fehlerhaft sind</notification>
 	<notification name="SOCKS_UDP_FWD_NOT_GRANTED">Der Socks5 proxy "[PROXY]" hat die UDP Verbindung abgelehnt</notification>
 	<notification name="SOCKS_HOST_CONNECT_FAILED">Konnte keine Verbindung zum Socks5 proxy server "[PROXY]" herstellen</notification>
-	<notification name="ChangeSkin">Die neue Benutzeroberfl&#xE4;che wird nach einem Neustart von [SECOND_LIFE] angewendet.</notification>
+	<notification name="ChangeSkin">Sie müssen [APP_NAME] schließen und erneut öffnen, um das Thema anzuwenden.</notification>
 	<notification name="GoToAuctionPage">
 		Zur [SECOND_LIFE]-Webseite, um Auktionen anzuzeigen oder ein Gebot abzugeben?
 		<usetemplate name="okcancelbuttons" yestext="OK"/>

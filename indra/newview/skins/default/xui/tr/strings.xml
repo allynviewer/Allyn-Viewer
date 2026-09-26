@@ -7574,6 +7574,28 @@ Sağlayıcı yanıtı bekleniyor.
 	<string name="Saved_message" value="(Kaydedildi [LONG_TIMESTAMP]) " />
 	<string name="Scripts" value=" Scriptler," />
 	<string name="Since Logoff" value=" - Çıkıştan beri" />
+	<string name="InvFolder My Inventory" value="Envanterim"/>
+	<string name="InvFolder Animations" value="Animasyonlar"/>
+	<string name="InvFolder Body Parts" value="Gövde parçaları"/>
+	<string name="InvFolder Calling Cards" value="Kartvizitler"/>
+	<string name="InvFolder Clothing" value="Giysiler"/>
+	<string name="InvFolder Current Outfit" value="Mevcut kıyafet"/>
+	<string name="InvFolder Favorites" value="Sık kullanılanlar"/>
+	<string name="InvFolder Gestures" value="Jestler"/>
+	<string name="InvFolder Landmarks" value="Yer imleri"/>
+	<string name="InvFolder Lost And Found" value="Kayıp eşya"/>
+	<string name="InvFolder Marketplace Listings" value="Marketplace listeleri"/>
+	<string name="InvFolder Materials" value="Materyaller"/>
+	<string name="InvFolder My Outfits" value="Kıyafetlerim"/>
+	<string name="InvFolder Notecards" value="Not kartları"/>
+	<string name="InvFolder Objects" value="Nesneler"/>
+	<string name="InvFolder Photo Album" value="Fotoğraf albümü"/>
+	<string name="InvFolder Received Items" value="Alınan öğeler"/>
+	<string name="InvFolder Scripts" value="Scriptler"/>
+	<string name="InvFolder Settings" value="Ayarlar"/>
+	<string name="InvFolder Sounds" value="Sesler"/>
+	<string name="InvFolder Textures" value="Dokular"/>
+	<string name="InvFolder Trash" value="Çöp kutusu"/>
 	<string name="Snapshots" value=" Anlık görüntüler," />
 	<string name="Sound" value=" Ses : " />
 	<string name="Sounds" value=" Sesler," />

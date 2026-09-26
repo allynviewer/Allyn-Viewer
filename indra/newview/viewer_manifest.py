@@ -43,26 +43,17 @@ import time
 import zipfile
 
 viewer_dir = os.path.dirname(__file__)
-# Add indra/lib/python to our path so we don't have to muck with PYTHONPATH.
-# Put it FIRST because some of our build hosts have an ancient install of
-# indra.util.llmanifest under their system Python!
-sys.path.insert(0, os.path.join(viewer_dir, os.pardir, "lib", "python"))
-from indra.util.llmanifest import LLManifest, main, proper_windows_path, path_ancestors, CHANNEL_VENDOR_BASE, RELEASE_CHANNEL, ManifestError
-import llsd
+sys.path.insert(0, os.path.abspath(os.path.join(viewer_dir, os.pardir, os.pardir)))
+from indra.lib.python.indra.util.llmanifest import LLManifest, main, proper_windows_path, path_ancestors, CHANNEL_VENDOR_BASE, RELEASE_CHANNEL, ManifestError
 
 class ViewerManifest(LLManifest):
     def is_packaging_viewer(self):
-        # Some commands, files will only be included
-        # if we are packaging the viewer on windows.
-        # This manifest is also used to copy
-        # files during the build (see copy_w_viewer_manifest
-        # and copy_l_viewer_manifest targets)
         return 'package' in self.args['actions']
 
     def package_skin(self, xml, skin_dir):
         self.path(xml)
         self.path(skin_dir + "/*")
-        # include the entire textures directory recursively
+        self.path(skin_dir + "/xui/*/*.xml")
         with self.prefix(src_dst=skin_dir+"/textures"):
             self.path("*/*.tga")
             self.path("*/*.j2c")
@@ -79,7 +70,7 @@ class ViewerManifest(LLManifest):
         self.path(src="../../scripts/messages/message_template.msg", dst="app_settings/message_template.msg")
         self.path(src="../../etc/message.xml", dst="app_settings/message.xml")
 
-        if True: #self.is_packaging_viewer():
+        if True:
             with self.prefix(src_dst="app_settings"):
                 self.exclude("logcontrol.xml")
                 self.exclude("logcontrol-dev.xml")
@@ -88,18 +79,14 @@ class ViewerManifest(LLManifest):
                 self.path("*.xml")
                 self.path("*.db2")
 
-                # include the entire shaders directory recursively
                 self.path("shaders")
 
-                # ... and the entire windlight directory
                 self.path("windlight")
 
-                # ... and the included spell checking dictionaries
                 pkgdir = os.path.join(self.args['build'], os.pardir, 'packages')
                 with self.prefix(src=pkgdir):
                     self.path("dictionaries")
 
-                # include the extracted packages information (see BuildPackagesInfo.cmake)
                 self.path(src=os.path.join(self.args['build'],"packages-info.txt"), dst="packages-info.txt")
 
 
@@ -108,7 +95,6 @@ class ViewerManifest(LLManifest):
                 self.path("*.xml")
                 self.path("*.tga")
 
-            # Include our fonts (3p-viewer-fonts package)
             with self.prefix(src=os.path.join(pkgdir, "fonts"), dst="fonts"):
                 self.path("DejaVuSans.ttf")
                 self.path("DejaVuSans-Bold.ttf")
@@ -117,15 +103,12 @@ class ViewerManifest(LLManifest):
                 self.path("DejaVuSansMono.ttf")
                 self.path("TwemojiSVG.ttf")
 
-            # Include our font licenses
             with self.prefix(src_dst="fonts"):
                 self.path("*.txt")
 
-            # skins
             with self.prefix(src_dst="skins"):
                 self.path("paths.xml")
                 self.path("default/xui/*/*.xml")
-                # default folder: base XUI fallback assets (not a selectable skin)
                 self.path("default/colors.xml")
                 self.path("default/colors_base.xml")
                 with self.prefix(src_dst="default/textures"):
@@ -139,18 +122,15 @@ class ViewerManifest(LLManifest):
                     self.path("*.png")
                     self.path("*.xml")
                 self.package_skin("Cyber.xml", "cyber")
+                self.package_skin("Dark.xml", "dark")
 
-                # Local HTML files (e.g. loading screen)
                 with self.prefix(src_dst="*/html"):
                     self.path("*.png")
                     self.path("*/*/*.html")
                     self.path("*/*/*.gif")
 
-            # File in the newview/ directory
             self.path("gpu_table.txt")
 
-            #build_data.json.  Standard with exception handling is fine.  If we can't open a new file for writing, we have worse problems
-            #platform is computed above with other arg parsing
             build_data_dict = {"Type":"viewer","Version":'.'.join(self.args['version']),
                             "Channel Base": CHANNEL_VENDOR_BASE,
                             "Channel":self.channel_with_pkg_suffix(),
@@ -162,8 +142,6 @@ class ViewerManifest(LLManifest):
             with open(os.path.join(os.pardir,'build_data.json'), 'w') as build_data_handle:
                 json.dump(build_data_dict,build_data_handle)
 
-            #we likely no longer need the test, since we will throw an exception above, but belt and suspenders and we get the
-            #return code for free.
             if not self.path2basename(os.pardir, "build_data.json"):
                 print("No build_data.json file")
 
@@ -193,7 +171,7 @@ class ViewerManifest(LLManifest):
         global CHANNEL_VENDOR_BASE
         return self.channel().replace(CHANNEL_VENDOR_BASE, "").strip()
 
-    def channel_type(self): # returns 'release', 'beta', 'project', or 'test'
+    def channel_type(self):
         channel_qualifier=self.channel_variant().lower()
         if channel_qualifier.startswith('release'):
             channel_type='release'
@@ -208,23 +186,16 @@ class ViewerManifest(LLManifest):
         return channel_type
 
     def channel_variant_app_suffix(self):
-        # get any part of the channel name after the CHANNEL_VENDOR_BASE
         suffix=self.channel_variant()
-        # by ancient convention, we don't use Release in the app name
         if self.channel_type() == 'release':
             suffix=suffix.replace('Release', '').strip()
-        # for the base release viewer, suffix will now be null - for any other, append what remains
         if suffix:
             suffix = "_".join([''] + suffix.split())
-        # the additional_packages mechanism adds more to the installer name (but not to the app name itself)
-        # ''.split() produces empty list, so suffix only changes if
-        # channel_suffix is non-empty
         suffix = "_".join([suffix] + self.args.get('channel_suffix', '').split())
         return suffix
 
     def installer_base_name(self):
         global CHANNEL_VENDOR_BASE
-        # a standard map of strings for replacing in the templates
         substitution_strings = {
             'channel_vendor_base' : '_'.join(CHANNEL_VENDOR_BASE.split()),
             'channel_variant_underscores':self.channel_variant_app_suffix(),
@@ -257,17 +228,14 @@ class ViewerManifest(LLManifest):
         lines = contrib_file.readlines()
         contrib_file.close()
 
-        # All lines up to and including the first blank line are the file header; skip them
-        lines.reverse() # so that pop will pull from first to last line
+        lines.reverse()
         while not re.match(r"\s*$", lines.pop()) :
-            pass # do nothing
+            pass
 
-        # A line that starts with a non-whitespace character is a name; all others describe contributions, so collect the names
         names = []
         for line in lines :
             if re.match(r"\S", line) :
                 names.append(line.rstrip())
-        # It's not fair to always put the same people at the head of the list
         random.shuffle(names)
         return ', '.join(names)
 
@@ -280,8 +248,6 @@ class ViewerManifest(LLManifest):
         """
         dstdir, dst = self._symlinkf_prep_dst(src, dst)
 
-        # Determine the relative path starting from the directory containing
-        # dst to the intended src.
         src = self.relpath(src, dstdir)
 
         self._symlinkf(src, dst, catch)
@@ -314,42 +280,27 @@ class ViewerManifest(LLManifest):
         return dst
 
     def _symlinkf_prep_dst(self, src, dst):
-        # helper for relsymlinkf() and symlinkf()
         if dst is None:
             dst = os.path.basename(src)
         dst = os.path.join(self.get_dst_prefix(), dst)
-        # Seems silly to prepend get_dst_prefix() to dst only to call
-        # os.path.dirname() on it again, but this works even when the passed
-        # 'dst' is itself a pathname.
         dstdir = os.path.dirname(dst)
         self.cmakedirs(dstdir)
         return (dstdir, dst)
 
     def _symlinkf(self, src, dst, catch):
-        # helper for relsymlinkf() and symlinkf()
-        # the passed src must be relative
         if os.path.isabs(src):
             raise ManifestError("Do not symlinkf(absolute %r, asis=True)" % src)
 
-        # The outer catch is the one that reports failure even after attempted
-        # recovery.
         try:
-            # At the inner layer, recovery may be possible.
             try:
                 os.symlink(src, dst)
             except OSError as err:
                 if err.errno != errno.EEXIST:
                     raise
-                # We could just blithely attempt to remove and recreate the target
-                # file, but that strategy doesn't work so well if we don't have
-                # permissions to remove it. Check to see if it's already the
-                # symlink we want, which is the usual reason for EEXIST.
                 elif os.path.islink(dst):
                     if os.readlink(dst) == src:
-                        # the requested link already exists
                         pass
                     else:
-                        # dst is the wrong symlink; attempt to remove and recreate it
                         os.remove(dst)
                         os.symlink(src, dst)
                 elif os.path.isdir(dst):
@@ -361,12 +312,9 @@ class ViewerManifest(LLManifest):
                     os.remove(dst)
                     os.symlink(src, dst)
                 else:
-                    # out of ideas
                     raise
         except Exception as err:
-            # report
             print("Can't symlink %r -> %r: %s: %s" %  (dst, src, err.__class__.__name__, err))
-            # if caller asked us not to catch, re-raise this exception
             if not catch:
                 raise
 
@@ -381,42 +329,28 @@ class ViewerManifest(LLManifest):
         if base is None:
             base = self.get_dst_prefix()
 
-        # Since we use os.path.relpath() for this, which is purely textual, we
-        # must ensure that both pathnames are absolute.
         if symlink:
-            # symlink=True means: we know path is (or indirects through) a
-            # symlink, don't resolve, we want to use the symlink.
             abspath = os.path.abspath
         else:
-            # symlink=False means to resolve any symlinks we may find
             abspath = os.path.realpath
 
         return os.path.relpath(abspath(path), abspath(base))
 
 
 class WindowsManifest(ViewerManifest):
-    # We want the platform, per se, for every Windows build to be 'win'. The
-    # VMP will concatenate that with the address_size.
     build_data_json_platform = 'win'
 
     def final_exe(self):
-        # "AllynViewer.exe" for the release channel, "AllynViewerBeta.exe" etc. otherwise.
         return self.app_name_oneword()+".exe"
 
     def finish_build_data_dict(self, build_data_dict):
-        #MAINT-7294: Windows exe names depend on channel name, so write that in also
         build_data_dict['Executable'] = self.final_exe()
         build_data_dict['AppName']    = self.app_name()
         return build_data_dict
 
     def test_msvcrt_and_copy_action(self, src, dst):
-        # This is used to test a dll manifest.
-        # It is used as a temporary override during the construct method
-        from test_win32_manifest import test_assembly_binding
-        # TODO: This is redundant with LLManifest.copy_action(). Why aren't we
-        # calling copy_action() in conjunction with test_assembly_binding()?
+        from indra.lib.python.indra.util.test_win32_manifest import test_assembly_binding
         if src and (os.path.exists(src) or os.path.islink(src)):
-            # ensure that destination path exists
             self.cmakedirs(os.path.dirname(dst))
             self.created_paths.append(dst)
             if not os.path.isdir(src):
@@ -431,14 +365,9 @@ class WindowsManifest(ViewerManifest):
             print("Doesn't exist:", src)
 
     def test_for_no_msvcrt_manifest_and_copy_action(self, src, dst):
-        # This is used to test that no manifest for the msvcrt exists.
-        # It is used as a temporary override during the construct method
-        from test_win32_manifest import test_assembly_binding
-        from test_win32_manifest import NoManifestException, NoMatchingAssemblyException
-        # TODO: This is redundant with LLManifest.copy_action(). Why aren't we
-        # calling copy_action() in conjunction with test_assembly_binding()?
+        from indra.lib.python.indra.util.test_win32_manifest import test_assembly_binding
+        from indra.lib.python.indra.util.test_win32_manifest import NoManifestException, NoMatchingAssemblyException
         if src and (os.path.exists(src) or os.path.islink(src)):
-            # ensure that destination path exists
             self.cmakedirs(os.path.dirname(dst))
             self.created_paths.append(dst)
             if not os.path.isdir(src):
@@ -471,20 +400,16 @@ class WindowsManifest(ViewerManifest):
         debpkgdir = os.path.join(pkgdir, "lib", "debug")
         pkgbindir = os.path.join(pkgdir, "bin", config)
 
-        if True: #self.is_packaging_viewer():
-            # Find Allyn-bin.exe in the 'configuration' dir, then rename it to the result of final_exe.
+        if True:
             self.path(src=os.path.join(self.args['dest'], ('%s-bin.exe' % self.viewer_branding_id())), dst=self.final_exe())
 
-        # Plugin host application
         self.path2basename(os.path.join(os.pardir,
                                         'llplugin', 'slplugin', config),
                            "SLplugin.exe")
 
-        # Get shared libs from the shared libs staging directory
         with self.prefix(src=os.path.join(self.args['build'], os.pardir,
                                           'sharedlibs', config)):
 
-            # Get llcommon and deps. If missing assume static linkage and continue.
             if self.path('llcommon.dll') == 0:
                 print("Skipping llcommon.dll (assuming llcommon was linked statically)")
 
@@ -492,29 +417,19 @@ class WindowsManifest(ViewerManifest):
             self.path('libaprutil-1.dll')
             self.path('libapriconv-1.dll')
 
-            # Mesh 3rd party libs needed for auto LOD and collada reading
             if self.path("glod.dll") == 0:
                 print("Skipping GLOD library (assumming linked statically)")
 
-            # Get OpenAL dlls, continue if missing
             if self.path("alut.dll") == 0 or self.path("OpenAL32.dll") == 0:
                 print("Skipping OpenAL audio library (assuming other audio engine)")
 
-            # Vivox runtimes
             self.path("llwebrtc.dll")
-            #self.path("libsndfile-1.dll")
             
-            # Security
             self.path("libcrypto-1_1-x64.dll")
             self.path("libssl-1_1-x64.dll")
 
-            # Hunspell
             self.path("libhunspell.dll")
 
-            # Visual C++ runtime, staged by Copy3rdPartyLibs.cmake. Shipping it
-            # here lets installer_template.nsi skip downloading and executing
-            # vc_redist.exe (a Windows Defender / SmartScreen heuristic trigger)
-            # and makes the portable ZIP self-contained.
             msvc_runtime_missing = [dll for dll in ("msvcp140.dll", "vcruntime140.dll", "vcruntime140_1.dll")
                                     if self.path(dll) == 0]
             self.path("msvcp140_*.dll")
@@ -528,7 +443,6 @@ class WindowsManifest(ViewerManifest):
                     raise Exception(msg)
                 print("WARNING: " + msg)
 
-        # For crashpad
         with self.prefix(src=pkgbindir):
             self.path("crashpad_handler.exe")
             if not self.is_packaging_viewer():
@@ -537,25 +451,18 @@ class WindowsManifest(ViewerManifest):
         self.path(src="licenses-windows.txt", dst="licenses.txt")
         self.path("featuretable.txt")
 
-        # Plugins
         with self.prefix(dst="llplugin"):
             with self.prefix(src=os.path.join(self.args['build'], os.pardir, 'plugins')):
 
-                # Plugins - FilePicker
                 with self.prefix(src=os.path.join('filepicker', config)):
                     self.path("basic_plugin_filepicker.dll")
 
-                # Media plugins - LibVLC
                 with self.prefix(src=os.path.join('libvlc', config)):
                     self.path("media_plugin_libvlc.dll")
 
-                # Media plugins - CEF
                 with self.prefix(src=os.path.join('cef', config)):
                     self.path("media_plugin_cef.dll")
 
-            # CEF runtime files - debug
-            # CEF runtime files - not debug (release, relwithdebinfo etc.)
-            # CEF 139+: pak names are chrome_*/resources.pak; GPU needs Vulkan/DXC runtime.
             with self.prefix(src=pkgbindir):
                 self.path("chrome_elf.dll")
                 self.path("d3dcompiler_47.dll")
@@ -570,7 +477,6 @@ class WindowsManifest(ViewerManifest):
                 self.path("vulkan-1.dll")
                 self.path("dullahan_host.exe")
 
-            # CEF files common to all configurations
             with self.prefix(src=os.path.join(pkgdir, 'resources')):
                 self.path("chrome_100_percent.pak")
                 self.path("chrome_200_percent.pak")
@@ -619,7 +525,6 @@ class WindowsManifest(ViewerManifest):
 
         result = ""
         dest_files = [pair[1] for pair in self.file_list if pair[0] and os.path.isfile(pair[1])]
-        # sort deepest hierarchy first
         dest_files.sort(key=lambda a: (-a.count(os.path.sep), a))
         out_path = None
         for pkg_file in dest_files:
@@ -635,18 +540,15 @@ class WindowsManifest(ViewerManifest):
             else:
                 result += 'Delete "' + wpath(os.path.join('$INSTDIR', rel_file)) + '"\n'
 
-        # at the end of a delete, just rmdir all the directories
         if not install:
             deleted_file_dirs = [os.path.dirname(pair[1].replace(self.get_dst_prefix()+os.path.sep,'')) for pair in self.file_list]
-            # find all ancestors so that we don't skip any dirs that happened to have no non-dir children
             deleted_dirs = []
             for d in deleted_file_dirs:
                 deleted_dirs.extend(path_ancestors(d))
-            # sort deepest hierarchy first
             deleted_dirs.sort(key=lambda a: (-a.count(os.path.sep), a))
             prev = None
             for d in deleted_dirs:
-                if d != prev:   # skip duplicates
+                if d != prev:
                     result += 'RMDir ' + wpath(os.path.join('$INSTDIR', os.path.normpath(d))) + '\n'
                 prev = d
 
@@ -689,11 +591,9 @@ class WindowsManifest(ViewerManifest):
             try:
                 self.sign(self.args['dest']+"\\"+self.final_exe())
                 self.sign(self.args['dest']+"\\SLPlugin.exe")
-                # SLVoice removed (WebRTC)
             except:
                 print("Couldn't sign binaries. Tried to sign %s" % self.args['dest'] + "\\" + self.final_exe())
 		
-        # a standard map of strings for replacing in the templates
         substitution_strings = {
             'version' : '.'.join(self.args['version']),
             'version_short' : '.'.join(self.args['version'][:-1]),
@@ -709,7 +609,6 @@ class WindowsManifest(ViewerManifest):
         installer_file = self.installer_base_name() + '_Setup.exe'
         substitution_strings['installer_file'] = installer_file
 
-        # Packaging the installer takes forever, dodge it if we can.
         installer_path = os.path.join(self.args['dest'], installer_file);
         if os.path.isfile(installer_path):
             binary_mod = os.path.getmtime(os.path.join(self.args['dest'], self.final_exe()))
@@ -718,7 +617,6 @@ class WindowsManifest(ViewerManifest):
                 print("Binary is unchanged since last package, touch the binary or delete installer to trigger repackage.")
                 exit();
 
-        # Portable ZIP first: it does not depend on NSIS.
         zip_name = self.zip_file_name()
         self.package_zip()
 
@@ -748,8 +646,6 @@ class WindowsManifest(ViewerManifest):
             """
 
         tempfile = "%s_setup_tmp.nsi" % self.viewer_branding_id()
-        # the following replaces strings in the nsi template
-        # it also does python-style % substitution
         self.replace_in("installers/windows/installer_template.nsi", tempfile, {
                 "%%VERSION%%":version_vars,
                 "%%SOURCE%%":self.get_src_prefix(),
@@ -758,11 +654,6 @@ class WindowsManifest(ViewerManifest):
                 "%%DELETE_FILES%%":self.nsi_file_commands(False),
                 "%%WIN64_BIN_BUILD%%":"!define WIN64_BIN_BUILD 1",})
 
-        # We use the Unicode version of NSIS, available from
-        # http://www.scratchpaper.com/
-        # installers/windows/lang_*.nsi are UTF-8 without BOM; makensis would
-        # otherwise read them as the ANSI codepage and garble every accented
-        # LangString ("área" -> "Ã¡rea", CJK/Cyrillic -> mojibake).
         nsis_args = ['/INPUTCHARSET', 'UTF8', self.dst_path_of(tempfile)]
         try:
             import winreg as reg
@@ -802,7 +693,6 @@ class Windows_x86_64_Manifest(WindowsManifest):
 
 
 
-################################################################
 
 if __name__ == "__main__":
     extra_arguments = [

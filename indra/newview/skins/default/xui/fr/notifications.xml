@@ -469,7 +469,7 @@ Les paramètres du port prendront effet après le redémarrage de [APP_NAME].
 	</notification>
 
 	<notification name="ChangeSkin">
-Le nouveau thème apparaîtra après le redémarrage de [APP_NAME].
+Vous devez fermer [APP_NAME] et le rouvrir pour appliquer le thème.
 	</notification>
 
 	<notification name="GoToAuctionPage">

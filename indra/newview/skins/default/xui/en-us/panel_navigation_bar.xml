@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel background_opaque="true" background_visible="true"
-     bg_opaque_color="0.25 0.25 0.25 1.0" bottom="0" enabled="true"
+     bg_opaque_color="MenuBarBgColor" bottom="0" enabled="true"
      follows="top|left|right" height="29" left="0" mouse_opaque="true"
      name="navigation_bar" width="1000">
 	<button bottom="1" enabled="true" follows="left|bottom" font="SansSerifSmall"
@@ -34,9 +34,10 @@
 	     name="add_landmark_btn" tool_tip="Create a landmark here" width="22" />
 	<line_editor bevel_style="none" border_style="line" border_thickness="0"
 	     border_drop_shadow_visible="false" bottom="1"
-	     bg_writeable_color="1 1 1 1" bg_readonly_color="1 1 1 1"
-	     text_color="1 1 1 1" text_tentative_color="1 1 1 1"
-	     cursor_color="1 1 1 1"
+	     bg_writeable_color="TextBgWriteableColor" bg_readonly_color="TextBgReadOnlyColor"
+	     bg_focus_color="TextBgFocusColor"
+	     text_color="TextFgColor" text_tentative_color="TextFgTentativeColor"
+	     cursor_color="TextCursorColor"
 	     commit_on_focus_lost="false" enabled="true" follows="right|bottom"
 	     font="SansSerifSmall" height="27" image="button_enabled_32x128.tga"
 	     label="Search" left="-247" max_length="254" mouse_opaque="true"

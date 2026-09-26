@@ -30,6 +30,7 @@
 #include "lltrans.h"
 #include "llurldispatcher.h"
 #include "lluictrlfactory.h"
+#include "llui.h"
 #include "llviewercontrol.h"
 #include "llviewerinventory.h"
 #include "llviewermenu.h"
@@ -122,26 +123,32 @@ LLNavigationBar::LLNavigationBar(const std::string& name, const LLRect& rect)
 	mLocationCombo->setSuppressTentative(true);
 	mLocationCombo->setCommitCallback(boost::bind(&LLNavigationBar::onLocationSelection, this));
 	mLocationCombo->setPrearrangeCallback(boost::bind(&LLNavigationBar::onLocationPrearrange, this, _2));
+	setBackgroundColor(LLUI::sColorsGroup->getColor("MenuBarBgColor"));
+	const LLColor4& text = LLUI::sColorsGroup->getColor("TextFgColor");
+	const LLColor4& tentative = LLUI::sColorsGroup->getColor("TextFgTentativeColor");
+	const LLColor4& cursor = LLUI::sColorsGroup->getColor("TextCursorColor");
+	const LLColor4& field = LLUI::sColorsGroup->getColor("TextBgWriteableColor");
+	const LLColor4& field_focus = LLUI::sColorsGroup->getColor("TextBgFocusColor");
 	if (LLLineEditor* search = getChild<LLLineEditor>("search_editor", TRUE, FALSE))
 	{
 		search->setVAlign(LLFontGL::VCENTER);
-		const LLColor4 white(1.f, 1.f, 1.f, 1.f);
-		search->setFgColor(white);
-		search->setReadOnlyFgColor(white);
-		search->setTentativeFgColor(white);
-		search->setCursorColor(white);
+		search->setFgColor(text);
+		search->setReadOnlyFgColor(text);
+		search->setTentativeFgColor(tentative);
+		search->setCursorColor(cursor);
+		search->setWriteableBgColor(field);
+		search->setReadOnlyBgColor(LLUI::sColorsGroup->getColor("TextBgReadOnlyColor"));
+		search->setFocusBgColor(field_focus);
 	}
 	if (LLLineEditor* location = mLocationCombo->getChild<LLLineEditor>("combo_text_entry", TRUE, FALSE))
 	{
 		location->setVAlign(LLFontGL::VCENTER);
-		const LLColor4 white(1.f, 1.f, 1.f, 1.f);
-		const LLColor4 field(16.f / 255.f, 18.f / 255.f, 42.f / 255.f, 1.f);
-		location->setFgColor(white);
-		location->setReadOnlyFgColor(white);
-		location->setTentativeFgColor(white);
-		location->setCursorColor(white);
+		location->setFgColor(text);
+		location->setReadOnlyFgColor(text);
+		location->setTentativeFgColor(tentative);
+		location->setCursorColor(cursor);
 		location->setWriteableBgColor(field);
-		location->setFocusBgColor(field);
+		location->setFocusBgColor(field_focus);
 		location->setSelectAllonFocusReceived(TRUE);
 		location->setTentative(FALSE);
 		location->setFocusReceivedCallback(boost::bind(&LLNavigationBar::onLocationFocusReceived, this));

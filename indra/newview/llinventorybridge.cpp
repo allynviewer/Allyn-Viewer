@@ -1711,8 +1711,42 @@ void LLFolderBridge::selectItem()
 {
 	LLInventoryModelBackgroundFetch::instance().start(getUUID(), true);
 }
+namespace
+{
+std::string localizedInventoryFolderName(const LLInventoryCategory* cat)
+{
+	if (!cat)
+	{
+		return std::string();
+	}
+	const LLFolderType::EType preferred = cat->getPreferredType();
+	if (preferred != LLFolderType::FT_NONE &&
+		LLFolderType::lookupIsProtectedType(preferred))
+	{
+		std::string localized;
+		const std::string& canonical = LLViewerFolderType::lookupNewCategoryName(preferred);
+		if (!canonical.empty() &&
+			canonical != LLViewerFolderType::badLookup() &&
+			LLTrans::findString(localized, std::string("InvFolder ") + canonical))
+		{
+			return localized;
+		}
+		if (LLTrans::findString(localized, std::string("InvFolder ") + cat->getName()))
+		{
+			return localized;
+		}
+	}
+	return cat->getName();
+}
+}
 void LLFolderBridge::buildDisplayName() const
 {
+	const LLInventoryCategory* cat = getCategory();
+	if (cat)
+	{
+		mDisplayName.assign(localizedInventoryFolderName(cat));
+		return;
+	}
 	mDisplayName.assign(getName());
 }
 std::string LLFolderBridge::getLabelSuffix() const
@@ -2343,7 +2377,7 @@ void LLFolderBridge::performAction(LLInventoryModel* model, std::string action)
 		LLInventoryModel* model = getInventoryModel();
 		LLViewerInventoryCategory* cat = getCategory();
 		if (!model || !cat) return;
-		LFFloaterInvPanel::show(LLSD().with("id", mUUID), cat->getName(), model);
+		LFFloaterInvPanel::show(LLSD().with("id", mUUID), localizedInventoryFolderName(cat), model);
 		return;
 	}
 	else if ("copy_folder_uuid" == action)
@@ -2661,7 +2695,7 @@ BOOL LLFolderBridge::removeItem()
 	const LLViewerInventoryCategory *cat = getCategory();
 	LLSD payload;
 	LLSD args;
-	args["FOLDERNAME"] = cat->getName();
+	args["FOLDERNAME"] = localizedInventoryFolderName(cat);
 	LLNotification::Params params("ConfirmDeleteProtectedCategory");
 	params.payload(payload).substitutions(args).functor(boost::bind(&LLFolderBridge::removeItemResponse, this, _1, _2));
 	LLNotifications::instance().forceResponse(params, 0);
@@ -2676,7 +2710,7 @@ BOOL LLFolderBridge::removeSystemFolder()
 	}
 	LLSD payload;
 	LLSD args;
-	args["FOLDERNAME"] = cat->getName();
+	args["FOLDERNAME"] = localizedInventoryFolderName(cat);
 	LLNotification::Params params("ConfirmDeleteProtectedCategory");
 	params.payload(payload).substitutions(args).functor(boost::bind(&LLFolderBridge::removeItemResponse, this, _1, _2));
 	{

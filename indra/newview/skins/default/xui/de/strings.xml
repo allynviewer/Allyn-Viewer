@@ -3719,6 +3719,28 @@ im [GROUP]
 	<string name="Snapshots" value=" Fotos,"/>
 	<string name="No Filters" value="Keine "/>
 	<string name="Since Logoff" value=" - Seit Abmeldung"/>
+	<string name="InvFolder My Inventory" value="Mein Inventar"/>
+	<string name="InvFolder Animations" value="Animationen"/>
+	<string name="InvFolder Body Parts" value="Körperteile"/>
+	<string name="InvFolder Calling Cards" value="Visitenkarten"/>
+	<string name="InvFolder Clothing" value="Kleidung"/>
+	<string name="InvFolder Current Outfit" value="Aktuelles Outfit"/>
+	<string name="InvFolder Favorites" value="Favoriten"/>
+	<string name="InvFolder Gestures" value="Gesten"/>
+	<string name="InvFolder Landmarks" value="Landmarken"/>
+	<string name="InvFolder Lost And Found" value="Fundstücke"/>
+	<string name="InvFolder Marketplace Listings" value="Marktplatz-Angebote"/>
+	<string name="InvFolder Materials" value="Materialien"/>
+	<string name="InvFolder My Outfits" value="Meine Outfits"/>
+	<string name="InvFolder Notecards" value="Notizkarten"/>
+	<string name="InvFolder Objects" value="Objekte"/>
+	<string name="InvFolder Photo Album" value="Fotoalbum"/>
+	<string name="InvFolder Received Items" value="Erhaltene Objekte"/>
+	<string name="InvFolder Scripts" value="Skripte"/>
+	<string name="InvFolder Settings" value="Einstellungen"/>
+	<string name="InvFolder Sounds" value="Sounds"/>
+	<string name="InvFolder Textures" value="Texturen"/>
+	<string name="InvFolder Trash" value="Papierkorb"/>
 	<string name="Worn" value=" - Getragen"/>
 	<string name="Buy">
 		Kaufen

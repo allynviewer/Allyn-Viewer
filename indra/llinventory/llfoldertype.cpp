@@ -91,6 +91,7 @@ LLFolderDictionary::LLFolderDictionary()
 	addEntry(LLFolderType::FT_MARKETPLACE_STOCK,    new FolderEntry("stock",    FALSE));
 	addEntry(LLFolderType::FT_MARKETPLACE_VERSION,  new FolderEntry("version",    FALSE));
     addEntry(LLFolderType::FT_SETTINGS,             new FolderEntry("settings", TRUE));
+	addEntry(LLFolderType::FT_MATERIAL,             new FolderEntry("material", TRUE));
 	addEntry(LLFolderType::FT_SUITCASE,				new FolderEntry("suitcase",	TRUE));
 	addEntry(LLFolderType::FT_NONE, 				new FolderEntry("-1",		FALSE));
 };

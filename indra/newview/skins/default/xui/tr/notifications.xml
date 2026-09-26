@@ -897,8 +897,8 @@ Bağlantı noktası ayarları [APP_NAME] yeniden başlatıldıktan sonra etkili 
 Socks5 proxy [PROXY] ile bağlantı başarılı oldu.
   </notification>
 
-  <notification icon="notify.tga" name="ChangeSkin" type="notfy">
-    [APP_NAME] yeniden başlattığınızda yeni görünüm görünecektir.
+  <notification name="ChangeSkin">
+    Temayı uygulamak için [APP_NAME] uygulamasını kapatıp yeniden açmanız gerekir.
   </notification>
 
   <notification icon="alertmodal.tga" name="GoToAuctionPage" type="alertmodal">

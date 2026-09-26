@@ -454,7 +454,7 @@ Nota: Questo pulirà la cache.
 		Le impostazioni delle porte avranno effetto dopo il riavvio di [SECOND_LIFE].
 	</notification>
 	<notification name="ChangeSkin">
-		La nuova pelle apparità dopo il riavvio di [SECOND_LIFE].
+		Devi chiudere [APP_NAME] e riaprirlo per applicare il tema.
 	</notification>
 	<notification name="GoToAuctionPage">
 		Vai alla pagina web [SECOND_LIFE] per vedere i dettagli dell&apos;asta oppure fai un&apos;offerta?

@@ -806,7 +806,7 @@ No se reembolsan las cuotas pagadas.
 	</notification>	
 	
 	<notification name="ChangeSkin">
-		La nueva Apariencia se aplicará al reiniciar [APP_NAME].
+		Debe cerrar [APP_NAME] y volver a abrirlo para aplicar el tema.
 	</notification>
 	
 	<notification name="GoToAuctionPage">

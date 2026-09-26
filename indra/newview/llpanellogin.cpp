@@ -231,6 +231,7 @@ static void setChildRect(LLView* child, S32 left, S32 top, S32 width, S32 height
 	child->reshape(width, height, FALSE);
 }
 LLPanelLogin* LLPanelLogin::sInstance = NULL;
+static std::string sLoginSplashSkin;
 static bool nameSplit(const std::string& full, std::string& first, std::string& last)
 {
 	std::vector<std::string> fragments;
@@ -1006,6 +1007,11 @@ void LLPanelLogin::loadLoginPage()
 	params["splash_w"] = sInstance->mSplashColumnWidth;
 	params["splash_h"] = sInstance->mBrowserLayoutH;
 	params["viewer_embed"] = "1";
+	if (sLoginSplashSkin.empty())
+	{
+		sLoginSplashSkin = gSavedSettings.getString("SkinCurrent");
+	}
+	params["skin"] = sLoginSplashSkin;
 	auto&& uri_with_params = [](const LLURI& uri, const LLSD& params) {
 		return LLURI(uri.scheme(), uri.userName(), uri.password(), uri.hostName(), uri.hostPort(), uri.path(),
 			LLURI::mapToQueryString(params));

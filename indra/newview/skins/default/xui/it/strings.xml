@@ -5275,6 +5275,28 @@ Se il messaggio continua a comparire, contatta il [SUPPORT_SITE].</string>
 		Non mostrare avvisi quando gestisci le liste di accesso della proprietà
 	</string>
 	<string name="Since Logoff" value=" - Dall'ultima disconnessione" />
+	<string name="InvFolder My Inventory" value="Il mio inventario"/>
+	<string name="InvFolder Animations" value="Animazioni"/>
+	<string name="InvFolder Body Parts" value="Parti del corpo"/>
+	<string name="InvFolder Calling Cards" value="Biglietti da visita"/>
+	<string name="InvFolder Clothing" value="Vestiti"/>
+	<string name="InvFolder Current Outfit" value="Outfit attuale"/>
+	<string name="InvFolder Favorites" value="Preferiti"/>
+	<string name="InvFolder Gestures" value="Gesti"/>
+	<string name="InvFolder Landmarks" value="Luoghi salvati"/>
+	<string name="InvFolder Lost And Found" value="Oggetti persi e ritrovati"/>
+	<string name="InvFolder Marketplace Listings" value="Inserzioni Marketplace"/>
+	<string name="InvFolder Materials" value="Materiali"/>
+	<string name="InvFolder My Outfits" value="I miei outfit"/>
+	<string name="InvFolder Notecards" value="Notecard"/>
+	<string name="InvFolder Objects" value="Oggetti"/>
+	<string name="InvFolder Photo Album" value="Album fotografico"/>
+	<string name="InvFolder Received Items" value="Oggetti ricevuti"/>
+	<string name="InvFolder Scripts" value="Script"/>
+	<string name="InvFolder Settings" value="Impostazioni"/>
+	<string name="InvFolder Sounds" value="Suoni"/>
+	<string name="InvFolder Textures" value="Texture"/>
+	<string name="InvFolder Trash" value="Cestino"/>
 	<string name="Skinny Neck">
 		Collo sottile
 	</string>

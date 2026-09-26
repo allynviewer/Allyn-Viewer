@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-"""Generate Allyn Cyber UI chrome textures (navy / purple / blue, no neon)."""
+"""Generate Allyn UI chrome textures.
+
+Default palette is Cyber (navy / purple / blue). Pass "dark" to write the
+graphite / cyan skin into skins/dark/textures without touching Cyber.
+"""
 
 import math
 import os
 import struct
 import sys
-
-# Design tokens (match skins/cyber/colors.xml)
+import zlib
 BG_DEEP = (10, 11, 30)
 BG_PANEL = (18, 20, 43)
 BG_SURFACE = (24, 26, 52)
@@ -19,6 +22,60 @@ TEXT = (236, 238, 248)
 GRAY = (110, 116, 150)
 BORDER = (55, 60, 100)
 DISABLED = (50, 54, 78)
+THUMB = (90, 96, 150)
+GRAPHITE_BUTTONS = False
+BTN_PRESSED = (54, 54, 60)
+BTN_BORDER_ON = (120, 120, 128)
+NAV_BG = (20, 20, 22)
+NAV_EDGE = (70, 70, 78)
+
+PALETTES = {
+    "cyber": {
+        "BG_DEEP": (10, 11, 30),
+        "BG_PANEL": (18, 20, 43),
+        "BG_SURFACE": (24, 26, 52),
+        "BG_FIELD": (16, 18, 40),
+        "PURPLE": (139, 92, 246),
+        "BLUE": (99, 102, 241),
+        "LAVENDER": (167, 139, 250),
+        "WHITE": (255, 255, 255),
+        "TEXT": (236, 238, 248),
+        "GRAY": (110, 116, 150),
+        "BORDER": (55, 60, 100),
+        "DISABLED": (50, 54, 78),
+        "THUMB": (90, 96, 150),
+        "GRAPHITE_BUTTONS": False,
+    },
+    "dark": {
+        "BG_DEEP": (14, 14, 16),
+        "BG_PANEL": (28, 28, 32),
+        "BG_SURFACE": (62, 62, 70),
+        "BG_FIELD": (24, 24, 28),
+        "PURPLE": (160, 160, 168),
+        "BLUE": (120, 120, 128),
+        "LAVENDER": (200, 200, 208),
+        "WHITE": (244, 244, 245),
+        "TEXT": (228, 228, 231),
+        "GRAY": (113, 113, 122),
+        "BORDER": (138, 138, 148),
+        "DISABLED": (48, 48, 54),
+        "THUMB": (140, 140, 148),
+        "GRAPHITE_BUTTONS": True,
+        "BTN_PRESSED": (82, 82, 90),
+        "BTN_BORDER_ON": (176, 176, 184),
+        "NAV_BG": (32, 32, 36),
+        "NAV_EDGE": (148, 148, 156),
+    },
+}
+
+
+def apply_palette(name):
+    global BG_DEEP, BG_PANEL, BG_SURFACE, BG_FIELD
+    global PURPLE, BLUE, LAVENDER, WHITE, TEXT, GRAY, BORDER, DISABLED, THUMB
+    if name not in PALETTES:
+        raise SystemExit(f"Unknown palette '{name}'. Use: {', '.join(PALETTES)}")
+    for key, value in PALETTES[name].items():
+        globals()[key] = value
 
 
 def clamp(v, lo=0, hi=255):
@@ -173,12 +230,20 @@ def make_button(w=128, h=32, selected=False, disabled=False):
     if disabled:
         fill_rounded(pixels, w, h, 1, 1, w - 2, h - 2, (*DISABLED, 255), radius)
         stroke_rounded(pixels, w, h, 1, 1, w - 2, h - 2, (*GRAY, 140), radius)
+    elif selected and GRAPHITE_BUTTONS:
+        fill_rounded(pixels, w, h, 1, 1, w - 2, h - 2, (*BTN_PRESSED, 255), radius)
+        stroke_rounded(pixels, w, h, 1, 1, w - 2, h - 2, (*BTN_BORDER_ON, 255), radius, bw=2)
     elif selected:
         fill_rounded_gradient_h(pixels, w, h, 1, 1, w - 2, h - 2, PURPLE, BLUE, radius)
         stroke_rounded(pixels, w, h, 1, 1, w - 2, h - 2, (*LAVENDER, 80), radius)
     else:
         fill_rounded(pixels, w, h, 1, 1, w - 2, h - 2, (*BG_SURFACE, 255), radius)
-        stroke_rounded(pixels, w, h, 1, 1, w - 2, h - 2, (*BORDER, 220), radius)
+        stroke_rounded(
+            pixels, w, h, 1, 1, w - 2, h - 2,
+            (*BORDER, 255 if GRAPHITE_BUTTONS else 220),
+            radius,
+            bw=2 if GRAPHITE_BUTTONS else 1,
+        )
     return pixels
 
 
@@ -188,7 +253,10 @@ def make_square_button(w=128, h=32, selected=False):
 
 def make_tab(w=64, h=16, selected=False, horizontal=True):
     pixels = blank(w, h)
-    if selected:
+    if selected and GRAPHITE_BUTTONS:
+        fill_rounded(pixels, w, h, 0, 0, w - 1, h - 1, (*BTN_PRESSED, 255), 3)
+        stroke_rounded(pixels, w, h, 0, 0, w - 1, h - 1, (*BTN_BORDER_ON, 255), 3, bw=2)
+    elif selected:
         fill_rounded_gradient_h(pixels, w, h, 0, 0, w - 1, h - 1, PURPLE, BLUE, 3)
         stroke_rounded(pixels, w, h, 0, 0, w - 1, h - 1, (*LAVENDER, 60), 3)
     else:
@@ -213,6 +281,11 @@ def make_sidebar_tab(w=172, h=28, selected=False):
     if not selected:
         return pixels
     x0, y0, x1, y1 = 1, 1, w - 2, h - 2
+    if GRAPHITE_BUTTONS:
+        fill_rounded(pixels, w, h, x0, y0, x1, y1, (*BTN_PRESSED, 255), 11)
+        stroke_rounded(pixels, w, h, x0, y0, x1, y1, (*BTN_BORDER_ON, 255), 11, bw=2)
+        _draw_chevron(pixels, w, h, w - 14, (*TEXT, 230))
+        return pixels
     # soft outer glow
     for y in range(h):
         for x in range(w):
@@ -229,7 +302,8 @@ def make_section_rule(w=256, h=2):
     pixels = blank(w, h)
     for x in range(w):
         t = x / max(w - 1, 1)
-        c = lerp_color(PURPLE, (55, 60, 100), min(1.0, t * 1.15))
+        start = BORDER if GRAPHITE_BUTTONS else PURPLE
+        c = lerp_color(start, BG_DEEP if GRAPHITE_BUTTONS else BORDER, min(1.0, t * 1.15))
         a = 200 if x < w * 0.75 else clamp(200 * (1.0 - (x / w - 0.75) / 0.25))
         set_px(pixels, w, x, 0, (*c, a))
         set_px(pixels, w, x, 1, (*c, clamp(a * 0.55)))
@@ -519,7 +593,12 @@ def make_rounded_template(w=32, h=32, radius=6):
 def make_textfield(w=32, h=24):
     pixels = blank(w, h)
     fill_rounded(pixels, w, h, 0, 0, w - 1, h - 1, (*BG_FIELD, 255), 4)
-    stroke_rounded(pixels, w, h, 0, 0, w - 1, h - 1, (*BORDER, 220), 4)
+    stroke_rounded(
+        pixels, w, h, 0, 0, w - 1, h - 1,
+        (*BORDER, 255 if GRAPHITE_BUTTONS else 220),
+        4,
+        bw=2 if GRAPHITE_BUTTONS else 1,
+    )
     return pixels
 
 
@@ -531,12 +610,16 @@ def make_scrollbar_bg(w=16, h=64):
 
 def make_scrollbar_thumb(w=16, h=64):
     pixels = blank(w, h)
-    fill_rounded(pixels, w, h, 2, 2, w - 3, h - 3, (90, 96, 150, 255), 4)
+    fill_rounded(pixels, w, h, 2, 2, w - 3, h - 3, (*THUMB, 255), 4)
     return pixels
 
 
 def make_toolbar_bg(w=128, h=32):
     pixels = blank(w, h)
+    if GRAPHITE_BUTTONS:
+        fill_rect(pixels, w, 0, 0, w - 1, h - 1, (*NAV_BG, 255))
+        draw_hline(pixels, w, 0, 0, w - 1, (*NAV_EDGE, 255), 2)
+        return pixels
     fill_gradient_v(pixels, w, h, BG_PANEL, BG_DEEP)
     draw_hline(pixels, w, 0, 0, w - 1, (*BORDER, 160), 1)
     return pixels
@@ -607,13 +690,53 @@ def make_combobox_arrow(w=20, h=24):
     return pixels
 
 
-def write_named(out_dir, name, pixels, ww, hh):
+def save_png(path, width, height, pixels):
+    def chunk(tag, data):
+        crc = zlib.crc32(tag + data) & 0xFFFFFFFF
+        return struct.pack(">I", len(data)) + tag + data + struct.pack(">I", crc)
+
+    raw = bytearray()
+    for y in range(height):
+        raw.append(0)
+        row = pixels[y * width:(y + 1) * width]
+        for r, g, b, a in row:
+            raw.extend((r, g, b, a))
+    ihdr = struct.pack(">IIBBBBB", width, height, 8, 6, 0, 0, 0)
+    png = (
+        b"\x89PNG\r\n\x1a\n"
+        + chunk(b"IHDR", ihdr)
+        + chunk(b"IDAT", zlib.compress(bytes(raw), 9))
+        + chunk(b"IEND", b"")
+    )
+    with open(path, "wb") as f:
+        f.write(png)
+
+
+def write_named(out_dir, name, pixels, ww, hh, export_png=False):
     path = os.path.join(out_dir, name)
     save_tga(path, ww, hh, pixels)
     print(f"  wrote {name}")
+    if export_png and name.lower().endswith(".tga"):
+        png_name = name[:-4] + ".png"
+        save_png(os.path.join(out_dir, png_name), ww, hh, pixels)
+        print(f"  wrote {png_name}")
 
 
-def write_all(out_dir):
+def write_preview(out_dir):
+    w, h = 256, 144
+    pixels = blank(w, h, (*BG_DEEP, 255))
+    fill_rounded(pixels, w, h, 12, 16, w - 13, h - 17, (*BG_PANEL, 255), 8)
+    fill_rect(pixels, w, 12, 16, w - 13, 36, (*NAV_BG, 255))
+    draw_hline(pixels, w, 16, 12, w - 13, (*NAV_EDGE, 255), 1)
+    fill_rounded(pixels, w, h, 24, 52, 150, 68, (*BG_FIELD, 255), 4)
+    stroke_rounded(pixels, w, h, 24, 52, 150, 68, (*BORDER, 220), 4)
+    fill_rounded(pixels, w, h, 24, 86, 118, 114, (*BG_SURFACE, 255), 5)
+    stroke_rounded(pixels, w, h, 24, 86, 118, 114, (*BTN_BORDER_ON, 230), 5)
+    save_png(os.path.join(out_dir, "preview.png"), w, h, pixels)
+    print("  wrote preview.png")
+
+
+def write_all(out_dir, export_png=False):
     os.makedirs(out_dir, exist_ok=True)
 
     specs = [
@@ -704,15 +827,43 @@ def write_all(out_dir):
         ("combobox_arrow.tga", lambda: make_combobox_arrow(), 20, 24),
     ]
 
+    made = {}
     for name, factory, ww, hh in specs:
         pixels = factory()
-        write_named(out_dir, name, pixels, ww, hh)
+        made[name] = (pixels, ww, hh)
+        write_named(out_dir, name, pixels, ww, hh, export_png=export_png)
+
+    if export_png:
+        aliases = {
+            "button_enabled_selected_32x128.tga": (
+                "button_primary_32x128.png",
+                "button_primary_pressed_32x128.png",
+            ),
+            "tab_left_selected.tga": ("tab_left_selected_hover.png",),
+        }
+        for src, names in aliases.items():
+            pixels, ww, hh = made[src]
+            for alias in names:
+                save_png(os.path.join(out_dir, alias), ww, hh, pixels)
+                print(f"  wrote {alias}")
+        hover = blank(172, 28)
+        fill_rounded(hover, 172, 28, 1, 1, 170, 26, (*BG_SURFACE, 210), 11)
+        stroke_rounded(hover, 172, 28, 1, 1, 170, 26, (*BORDER, 160), 11)
+        save_png(os.path.join(out_dir, "tab_left_hover.png"), 172, 28, hover)
+        print("  wrote tab_left_hover.png")
+        write_preview(out_dir)
 
     print(f"Done: {len(specs)} textures -> {out_dir}")
 
 
 if __name__ == "__main__":
-    target = sys.argv[1] if len(sys.argv) > 1 else os.path.join(
-        os.path.dirname(__file__), "..", "indra", "newview", "skins", "cyber", "textures"
+    palette = "cyber"
+    args = sys.argv[1:]
+    if args and args[0] in PALETTES:
+        palette = args.pop(0)
+    skin = "dark" if palette == "dark" else "cyber"
+    target = args[0] if args else os.path.join(
+        os.path.dirname(__file__), "..", "indra", "newview", "skins", skin, "textures"
     )
-    write_all(os.path.normpath(target))
+    apply_palette(palette)
+    write_all(os.path.normpath(target), export_png=(palette == "dark"))

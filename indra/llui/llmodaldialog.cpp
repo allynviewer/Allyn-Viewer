@@ -213,10 +213,6 @@ void LLModalDialog::onClose(bool app_quitting)
 }
 void LLModalDialog::draw()
 {
-	static LLColor4 shadow_color = LLUI::sColorsGroup->getColor("ColorDropShadow");
-	static S32 shadow_lines = LLUI::sConfigGroup->getS32("DropShadowFloater");
-	gl_drop_shadow( 0, getRect().getHeight(), getRect().getWidth(), 0,
-		shadow_color, shadow_lines);
 	LLFloater::draw();
 	if (mModal)
 	{

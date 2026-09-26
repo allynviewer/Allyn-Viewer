@@ -1403,105 +1403,42 @@ en [GROUP]
 	<string name="Snapshots" value=" Fotografias,"/>
 	<string name="No Filters" value="Sem "/>
 	<string name="Since Logoff" value=" - Desde o logout"/>
-	<string name="InvFolder My Inventory">
-		Meu inventário
-	</string>
-	<string name="InvFolder Library">
-		Biblioteca
-	</string>
-	<string name="InvFolder Textures">
-		Texturas
-	</string>
-	<string name="InvFolder Sounds">
-		Sons
-	</string>
-	<string name="InvFolder Calling Cards">
-		Cartões de visita
-	</string>
-	<string name="InvFolder Landmarks">
-		Landmarks
-	</string>
-	<string name="InvFolder Scripts">
-		Scripts
-	</string>
-	<string name="InvFolder Clothing">
-		Vestuário
-	</string>
-	<string name="InvFolder Objects">
-		Objetos
-	</string>
-	<string name="InvFolder Notecards">
-		Anotações
-	</string>
-	<string name="InvFolder New Folder">
-		Nova pasta
-	</string>
-	<string name="InvFolder Inventory">
-		Inventário
-	</string>
-	<string name="InvFolder Uncompressed Images">
-		Imagens descompactadas
-	</string>
-	<string name="InvFolder Body Parts">
-		Corpo
-	</string>
-	<string name="InvFolder Trash">
-		Lixo
-	</string>
-	<string name="InvFolder Photo Album">
-		Álbum de fotografias
-	</string>
-	<string name="InvFolder Lost And Found">
-		Achados e Perdidos
-	</string>
-	<string name="InvFolder Uncompressed Sounds">
-		Sons descompactados
-	</string>
-	<string name="InvFolder Animations">
-		Animações
-	</string>
-	<string name="InvFolder Gestures">
-		Gestos
-	</string>
-	<string name="InvFolder Favorite">
-		Meus favoritos
-	</string>
-	<string name="InvFolder favorite">
-		Meus favoritos
-	</string>
-	<string name="InvFolder Favorites">
-		Meus favoritos
-	</string>
-	<string name="InvFolder favorites">
-		Meus favoritos
-	</string>
-	<string name="InvFolder Current Outfit">
-		Look atual
-	</string>
-	<string name="InvFolder Initial Outfits">
-		Visuais iniciais
-	</string>
-	<string name="InvFolder My Outfits">
-		Meus visuais
-	</string>
-	<string name="InvFolder Accessories">
-		Acessórios
-	</string>
-	<string name="InvFolder Meshes">
-		Meshes:
-	</string>
-	<string name="InvFolder Received Items">
-		Itens recebidos
-	</string>
-	<string name="InvFolder Merchant Outbox">
-		Caixa de saída do lojista
-	</string>
-	<string name="InvFolder Friends">
-		Amigos
-	</string>
-	<string name="InvFolder All">
-		Tudo
-	</string>
+	<string name="InvFolder My Inventory" value="Meu inventário"/>
+	<string name="InvFolder Library" value="Biblioteca"/>
+	<string name="InvFolder Textures" value="Texturas"/>
+	<string name="InvFolder Sounds" value="Sons"/>
+	<string name="InvFolder Calling Cards" value="Cartões de visita"/>
+	<string name="InvFolder Landmarks" value="Landmarks"/>
+	<string name="InvFolder Scripts" value="Scripts"/>
+	<string name="InvFolder Clothing" value="Vestuário"/>
+	<string name="InvFolder Objects" value="Objetos"/>
+	<string name="InvFolder Notecards" value="Anotações"/>
+	<string name="InvFolder New Folder" value="Nova pasta"/>
+	<string name="InvFolder Inventory" value="Inventário"/>
+	<string name="InvFolder Uncompressed Images" value="Imagens descompactadas"/>
+	<string name="InvFolder Body Parts" value="Partes do corpo"/>
+	<string name="InvFolder Trash" value="Lixo"/>
+	<string name="InvFolder Photo Album" value="Álbum de fotografias"/>
+	<string name="InvFolder Lost And Found" value="Achados e Perdidos"/>
+	<string name="InvFolder Uncompressed Sounds" value="Sons descompactados"/>
+	<string name="InvFolder Animations" value="Animações"/>
+	<string name="InvFolder Gestures" value="Gestos"/>
+	<string name="InvFolder Favorite" value="Meus favoritos"/>
+	<string name="InvFolder favorite" value="Meus favoritos"/>
+	<string name="InvFolder Favorites" value="Meus favoritos"/>
+	<string name="InvFolder favorites" value="Meus favoritos"/>
+	<string name="InvFolder Current Outfit" value="Look atual"/>
+	<string name="InvFolder Initial Outfits" value="Visuais iniciais"/>
+	<string name="InvFolder My Outfits" value="Meus visuais"/>
+	<string name="InvFolder Accessories" value="Acessórios"/>
+	<string name="InvFolder Meshes" value="Meshes"/>
+	<string name="InvFolder Received Items" value="Itens recebidos"/>
+	<string name="InvFolder Merchant Outbox" value="Caixa de saída do lojista"/>
+	<string name="InvFolder Friends" value="Amigos"/>
+	<string name="InvFolder All" value="Tudo"/>
+	<string name="InvFolder Marketplace Listings" value="Anúncios do Marketplace"/>
+	<string name="InvFolder Materials" value="Materiais"/>
+	<string name="InvFolder Settings" value="Configurações"/>
 	<string name="no_attachments">
 		Nenhum anexo vestido
 	</string>

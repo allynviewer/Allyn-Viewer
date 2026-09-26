@@ -1435,7 +1435,8 @@ void LLFloater::draw()
 			if(!getIsChrome() && !getCurrentTitle().empty() && chrome.notNull())
 			{
 				static auto titlebar_focus_color = LLUI::sColorsGroup->getColor("TitleBarFocusColor");
-				LLColor4 title_bg(14.f/255.f, 16.f/255.f, 38.f/255.f, color.mV[VALPHA]);
+				LLColor4 title_bg = LLUI::sColorsGroup->getColor("FocusBackgroundColor");
+				title_bg.mV[VALPHA] = color.mV[VALPHA];
 				{
 					LLLocalClipRect header_clip(LLRect(0, h, w, h - LLFLOATER_HEADER_SIZE));
 					chrome->drawSolid(1, 1, w - 2, h - 2, title_bg % alpha);
@@ -1446,12 +1447,20 @@ void LLFloater::draw()
 				}
 				LLColor4 divider = outlineColor;
 				divider.mV[VALPHA] *= 0.55f;
-				gl_line_2d(1, h - LLFLOATER_HEADER_SIZE, w - 1, h - LLFLOATER_HEADER_SIZE, divider % alpha);
+				const S32 inset = llclamp(LLFLOATER_CORNER_RADIUS / 2, 6, 12);
+				if (w > inset * 2 + 4)
+				{
+					LLColor4 soft = divider;
+					soft.mV[VALPHA] *= 0.4f;
+					gl_rect_2d(inset - 3, h - LLFLOATER_HEADER_SIZE + 1, w - inset + 3, h - LLFLOATER_HEADER_SIZE, soft % alpha);
+					gl_rect_2d(inset, h - LLFLOATER_HEADER_SIZE + 1, w - inset, h - LLFLOATER_HEADER_SIZE, divider % alpha);
+				}
 			}
 			else if(!getIsChrome() && !getCurrentTitle().empty())
 			{
 				static auto titlebar_focus_color = LLUI::sColorsGroup->getColor("TitleBarFocusColor");
-				LLColor4 title_bg(14.f/255.f, 16.f/255.f, 38.f/255.f, color.mV[VALPHA]);
+				LLColor4 title_bg = LLUI::sColorsGroup->getColor("FocusBackgroundColor");
+				title_bg.mV[VALPHA] = color.mV[VALPHA];
 				gl_rect_2d(left, top, right, h - LLFLOATER_HEADER_SIZE, title_bg % alpha);
 				if (focused)
 				{
@@ -1510,21 +1519,34 @@ void LLFloater::draw()
 }
 void	LLFloater::drawShadow(LLPanel* panel)
 {
-	S32 left = LLPANEL_BORDER_WIDTH;
-	S32 top = panel->getRect().getHeight() - LLPANEL_BORDER_WIDTH;
-	S32 right = panel->getRect().getWidth() - LLPANEL_BORDER_WIDTH;
-	S32 bottom = LLPANEL_BORDER_WIDTH;
 	static LLUICachedControl<S32> shadow_offset_S32 ("DropShadowFloater", 0);
-	static LLColor4 shadow_color = LLUI::sColorsGroup->getColor("ColorDropShadow");
+	static LLColor4 shadow_color_base = LLUI::sColorsGroup->getColor("ColorDropShadow");
+	LLColor4 shadow_color = shadow_color_base;
 	F32 shadow_offset = (F32)shadow_offset_S32;
 	if (!panel->isBackgroundOpaque())
 	{
 		shadow_offset *= 0.2f;
 		shadow_color.mV[VALPHA] *= 0.5f;
 	}
-	gl_drop_shadow(left, top, right, bottom,
-		shadow_color % getCurrentTransparency(),
-		ll_round(shadow_offset));
+	const S32 lines = ll_round(shadow_offset);
+	if (lines <= 0)
+	{
+		return;
+	}
+	// Rounded chrome already defines the window silhouette. A filled
+	// Rounded_Square drop-shadow reads as a solid shaded block behind
+	// the floater, so skip it and keep only the legacy rectangular path
+	// when rounded chrome is unavailable.
+	if (LLUI::getUIImage("Rounded_Square").notNull())
+	{
+		return;
+	}
+	const LLColor4 color = shadow_color % getCurrentTransparency();
+	S32 left = LLPANEL_BORDER_WIDTH;
+	S32 top = panel->getRect().getHeight() - LLPANEL_BORDER_WIDTH;
+	S32 right = panel->getRect().getWidth() - LLPANEL_BORDER_WIDTH;
+	S32 bottom = LLPANEL_BORDER_WIDTH;
+	gl_drop_shadow(left, top, right, bottom, color, lines);
 }
 void LLFloater::updateTransparency(LLView* view, ETypeTransparency transparency_type)
 {

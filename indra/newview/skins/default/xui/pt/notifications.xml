@@ -564,7 +564,7 @@ Nota: Isto limpará o cache.
 	</notification>
 
 	<notification name="ChangeSkin">
-		A nova pele será exibida após reiniciar [APP_NAME].
+		É preciso fechar o [APP_NAME] e abrir novamente para aplicar o tema.
 	</notification>
 	<notification name="ChangeLanguage">
 		Reinicie o [APP_NAME] para exibir o idioma selecionado.

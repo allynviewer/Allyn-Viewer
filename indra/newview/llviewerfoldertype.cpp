@@ -119,6 +119,8 @@ LLViewerFolderDictionary::LLViewerFolderDictionary()
 	addEntry(LLFolderType::FT_OUTBOX, 				new ViewerFolderEntry("Merchant Outbox",		"inv_folder_outbox.tga",			"inv_folder_outbox.tga",		FALSE,		true));
 	addEntry(LLFolderType::FT_BASIC_ROOT, 			new ViewerFolderEntry("Basic Root",				"inv_folder_plain_open.tga",		"inv_folder_plain_closed.tga",	FALSE,		false));
 	addEntry(LLFolderType::FT_MARKETPLACE_LISTINGS,	new ViewerFolderEntry("Marketplace Listings",	"inv_folder_plain_open.tga",		"inv_folder_plain_closed.tga",	FALSE,		true));
+	addEntry(LLFolderType::FT_SETTINGS,				new ViewerFolderEntry("Settings",				"inv_folder_plain_open.tga",		"inv_folder_plain_closed.tga",	FALSE,		false));
+	addEntry(LLFolderType::FT_MATERIAL,				new ViewerFolderEntry("Materials",				"inv_folder_plain_open.tga",		"inv_folder_plain_closed.tga",	FALSE,		false));
 	addEntry(LLFolderType::FT_MARKETPLACE_STOCK,	new ViewerFolderEntry("New Stock",				"Inv_StockFolderOpen",				"Inv_StockFolderClosed",		FALSE,		false,	"default"));
 	addEntry(LLFolderType::FT_MARKETPLACE_VERSION,	new ViewerFolderEntry("New Version",			"Inv_VersionFolderOpen",			"Inv_VersionFolderClosed",		FALSE,		false,	"default"));
 	addEntry(LLFolderType::FT_SUITCASE,				new ViewerFolderEntry("My Suitcase",			"inv_folder_plain_open.tga",		"inv_folder_plain_closed.tga",	FALSE,		false));
