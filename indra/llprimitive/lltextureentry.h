@@ -30,6 +30,7 @@
 #include "llsd.h"
 #include "llmaterialid.h"
 #include "llmaterial.h"
+#include "llgltfmaterial.h"
 const S32 TEM_CHANGE_NONE = 0x0;
 const S32 TEM_CHANGE_COLOR = 0x1;
 const S32 TEM_CHANGE_TEXTURE = 0x2;
@@ -118,6 +119,10 @@ public:
     F32  getGlow() const { return mGlow; }
 	const LLMaterialID& getMaterialID() const { return mMaterialID; };
 	const LLMaterialPtr getMaterialParams() const { return mMaterial; };
+	const LLUUID& getGLTFMaterialId() const { return mGLTFMaterialId; }
+	void setGLTFMaterialId(const LLUUID& id) { mGLTFMaterialId = id; }
+	LLGLTFMaterial* getGLTFMaterial() const { return mGLTFMaterial; }
+	void setGLTFMaterial(LLGLTFMaterial* mat) { mGLTFMaterial = mat; }
 	bool hasMedia() const { return (bool)(mMediaFlags & MF_HAS_MEDIA); }
 	LLMediaEntry* getMediaData() const { return mMediaEntry; }
     void setMediaData(const LLMediaEntry &media_entry);
@@ -151,6 +156,8 @@ protected:
 	bool                mMaterialUpdatePending;
 	LLMaterialID        mMaterialID;
 	LLMaterialPtr		mMaterial;
+	LLUUID				mGLTFMaterialId;
+	LLGLTFMaterialPtr	mGLTFMaterial;
 	LLMediaEntry*		mMediaEntry;
 };
 #endif

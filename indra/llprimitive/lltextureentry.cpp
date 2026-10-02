@@ -78,6 +78,8 @@ LLTextureEntry::LLTextureEntry(const LLTextureEntry &rhs)
 	mGlow = rhs.mGlow;
 	mMaterialID = rhs.mMaterialID;
 	mMaterial = rhs.mMaterial;
+	mGLTFMaterialId = rhs.mGLTFMaterialId;
+	mGLTFMaterial = rhs.mGLTFMaterial;
 	if (rhs.mMediaEntry != NULL) {
 		mMediaEntry = new LLMediaEntry(*rhs.mMediaEntry);
 	}
@@ -98,6 +100,8 @@ LLTextureEntry &LLTextureEntry::operator=(const LLTextureEntry &rhs)
 		mGlow = rhs.mGlow;
 		mMaterialID = rhs.mMaterialID;
 		mMaterial = rhs.mMaterial;
+		mGLTFMaterialId = rhs.mGLTFMaterialId;
+		mGLTFMaterial = rhs.mGLTFMaterial;
 		if (mMediaEntry != NULL) {
 			delete mMediaEntry;
 		}
@@ -122,6 +126,8 @@ void LLTextureEntry::init(const LLUUID& tex_id, F32 scale_s, F32 scale_t, F32 of
 	mMediaFlags = 0x0;
     mGlow = 0;
 	mMaterialID.clear();
+	mGLTFMaterialId.setNull();
+	mGLTFMaterial = NULL;
 	setColor(LLColor4(1.f, 1.f, 1.f, 1.f));
 	if (mMediaEntry != NULL) {
 	    delete mMediaEntry;

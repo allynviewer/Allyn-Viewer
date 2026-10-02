@@ -4747,6 +4747,12 @@ LLViewerObject::ExtraParameter* LLViewerObject::createNewParameterEntry(U16 para
 			in_use = &mExtendedMeshParamsInUse;
 			break;
 		}
+		case LLNetworkData::PARAMS_RENDER_MATERIAL:
+		{
+			new_block = &mRenderMaterialParams;
+			in_use = &mRenderMaterialParamsInUse;
+			break;
+		}
 		default:
 		{
 			LL_INFOS() << "Unknown param type. (" << llformat("0x%2x", param_type) << ")" << LL_ENDL;
@@ -4811,8 +4817,37 @@ void LLViewerObject::parameterChanged(U16 param_type, bool local_origin)
 		}
 	}
 }
+void LLViewerObject::applyRenderMaterials()
+{
+	for (S32 te = 0; te < getNumTEs(); ++te)
+	{
+		LLTextureEntry* entry = getTE((U8)te);
+		if (!entry)
+		{
+			continue;
+		}
+		LLUUID id;
+		if (mRenderMaterialParamsInUse)
+		{
+			id = mRenderMaterialParams.getMaterial((U8)te);
+		}
+		if (entry->getGLTFMaterialId() != id)
+		{
+			entry->setGLTFMaterialId(id);
+			entry->setGLTFMaterial(NULL);
+		}
+	}
+}
 void LLViewerObject::parameterChanged(U16 param_type, LLNetworkData* data, BOOL in_use, bool local_origin)
 {
+	if (param_type == LLNetworkData::PARAMS_RENDER_MATERIAL)
+	{
+		applyRenderMaterials();
+		if (local_origin)
+		{
+			return;
+		}
+	}
 	if (local_origin)
 	{
 		LLViewerRegion* regionp = getRegion();

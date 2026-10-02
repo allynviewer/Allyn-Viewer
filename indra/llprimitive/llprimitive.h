@@ -27,6 +27,7 @@
 #define LL_LLPRIMITIVE_H
 #include "lluuid.h"
 #include "v3math.h"
+#include <vector>
 #include "xform.h"
 #include "message.h"
 #include "llpointer.h"
@@ -83,7 +84,8 @@ public:
 		PARAMS_RESERVED = 0x50,
 		PARAMS_MESH     = 0x60,
 		PARAMS_EXTENDED_MESH = 0x70,
-		PARAMS_MAX = PARAMS_EXTENDED_MESH
+		PARAMS_RENDER_MATERIAL = 0x80,
+		PARAMS_MAX = PARAMS_RENDER_MATERIAL
 	};
 public:
 	U16 mType;
@@ -235,6 +237,25 @@ public:
 	bool fromLLSD(LLSD& sd);
 	void setFlags(const U32& flags) { mFlags = flags; }
 	U32 getFlags() const { return mFlags; }
+};
+class LLRenderMaterialParams : public LLNetworkData
+{
+private:
+	struct Entry
+	{
+		U8 te_idx;
+		LLUUID id;
+	};
+	std::vector<Entry> mEntries;
+public:
+	LLRenderMaterialParams();
+	BOOL pack(LLDataPacker& dp) const;
+	BOOL unpack(LLDataPacker& dp);
+	bool operator==(const LLNetworkData& data) const;
+	void copy(const LLNetworkData& data);
+	void setMaterial(U8 te_idx, const LLUUID& id);
+	const LLUUID& getMaterial(U8 te_idx) const;
+	bool isEmpty() const { return mEntries.empty(); }
 };
 struct LLTEContents
 {

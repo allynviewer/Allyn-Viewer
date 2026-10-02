@@ -80,6 +80,7 @@ LLViewerAssetDictionary::LLViewerAssetDictionary()
 	addEntry(LLViewerAssetType::AT_UNKNOWN,				new ViewerAssetEntry(DAD_NONE));
 	addEntry(LLViewerAssetType::AT_NONE, 				new ViewerAssetEntry(DAD_NONE));
 	addEntry(LLViewerAssetType::AT_SETTINGS,			new ViewerAssetEntry(DAD_NONE));
+	addEntry(LLViewerAssetType::AT_MATERIAL,			new ViewerAssetEntry(DAD_NONE));
 };
 EDragAndDropType LLViewerAssetType::lookupDragAndDropType(EType asset_type)
 {

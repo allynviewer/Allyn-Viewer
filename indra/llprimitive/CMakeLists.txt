@@ -27,6 +27,7 @@ include_directories(SYSTEM
 
 set(llprimitive_SOURCE_FILES
     lldaeloader.cpp
+    llgltfmaterial.cpp
     llmaterialid.cpp
     llmaterial.cpp
     llmaterialtable.cpp
@@ -47,6 +48,7 @@ set(llprimitive_HEADER_FILES
     CMakeLists.txt
     lldaeloader.h
     legacy_object_types.h
+    llgltfmaterial.h
     llmaterial.h
     llmaterialid.h
     llmaterialtable.h
@@ -76,4 +78,5 @@ target_link_libraries(
     llprimitive
     PUBLIC
     llcommon
+    nlohmann_json::nlohmann_json
     )

@@ -1159,6 +1159,8 @@ BOOL LLNetworkData::isValid(U16 param_type, U32 size)
 		return (size == 28);
 	case PARAMS_EXTENDED_MESH:
 		return (size == 4);
+	case PARAMS_RENDER_MATERIAL:
+		return (size > 1);
 	}
 	return FALSE;
 }
@@ -1555,4 +1557,96 @@ bool LLExtendedMeshParams::fromLLSD(LLSD& sd)
 		return true;
 	}
 	return false;
+}
+LLRenderMaterialParams::LLRenderMaterialParams()
+{
+	mType = PARAMS_RENDER_MATERIAL;
+}
+BOOL LLRenderMaterialParams::pack(LLDataPacker& dp) const
+{
+	U8 count = (U8)llmin((S32)mEntries.size(), 14);
+	dp.packU8(count, "count");
+	for (size_t i = 0; i < count; ++i)
+	{
+		dp.packU8(mEntries[i].te_idx, "te_idx");
+		dp.packUUID(mEntries[i].id, "id");
+	}
+	return TRUE;
+}
+BOOL LLRenderMaterialParams::unpack(LLDataPacker& dp)
+{
+	U8 count = 0;
+	dp.unpackU8(count, "count");
+	if (count > 45)
+	{
+		count = 45;
+	}
+	mEntries.resize(count);
+	for (size_t i = 0; i < mEntries.size(); ++i)
+	{
+		dp.unpackU8(mEntries[i].te_idx, "te_idx");
+		dp.unpackUUID(mEntries[i].id, "te_id");
+	}
+	return TRUE;
+}
+bool LLRenderMaterialParams::operator==(const LLNetworkData& data) const
+{
+	if (data.mType != PARAMS_RENDER_MATERIAL)
+	{
+		return false;
+	}
+	const LLRenderMaterialParams& param = (const LLRenderMaterialParams&)data;
+	if (param.mEntries.size() != mEntries.size())
+	{
+		return false;
+	}
+	for (size_t i = 0; i < mEntries.size(); ++i)
+	{
+		if (param.getMaterial(mEntries[i].te_idx) != mEntries[i].id)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+void LLRenderMaterialParams::copy(const LLNetworkData& data)
+{
+	const LLRenderMaterialParams& param = (const LLRenderMaterialParams&)data;
+	mEntries = param.mEntries;
+}
+void LLRenderMaterialParams::setMaterial(U8 te, const LLUUID& id)
+{
+	for (size_t i = 0; i < mEntries.size(); ++i)
+	{
+		if (mEntries[i].te_idx == te)
+		{
+			if (id.isNull())
+			{
+				mEntries.erase(mEntries.begin() + (S32)i);
+			}
+			else
+			{
+				mEntries[i].id = id;
+			}
+			return;
+		}
+	}
+	if (id.notNull())
+	{
+		Entry entry;
+		entry.te_idx = te;
+		entry.id = id;
+		mEntries.push_back(entry);
+	}
+}
+const LLUUID& LLRenderMaterialParams::getMaterial(U8 te) const
+{
+	for (size_t i = 0; i < mEntries.size(); ++i)
+	{
+		if (mEntries[i].te_idx == te)
+		{
+			return mEntries[i].id;
+		}
+	}
+	return LLUUID::null;
 }

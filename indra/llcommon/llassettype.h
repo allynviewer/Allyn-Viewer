@@ -65,7 +65,8 @@ public:
 		AT_RESERVED_5 = 54,
 		AT_RESERVED_6 = 55,
 		AT_SETTINGS = 56,
-		AT_COUNT = 57,
+		AT_MATERIAL = 57,
+		AT_COUNT = 58,
 		AT_UNKNOWN = 255,
 		AT_NONE = -1
 	};

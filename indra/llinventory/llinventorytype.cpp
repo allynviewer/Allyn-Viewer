@@ -136,6 +136,7 @@ DEFAULT_ASSET_FOR_INV_TYPE[LLAssetType::AT_COUNT] =
 	LLInventoryType::IT_NONE,
 	LLInventoryType::IT_NONE,
 	LLInventoryType::IT_SETTINGS,
+	LLInventoryType::IT_NONE,
 };
 const std::string &LLInventoryType::lookup(EType type)
 {
