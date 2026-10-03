@@ -381,6 +381,20 @@ if defined MT_EXE (
 )
 exit /b 0
 
+:cache_is_current
+if not exist "%BUILD_DIR%\CMakeCache.txt" exit /b 1
+"!PYTHON_EXE!" -c "import os,sys; lines=open(sys.argv[1],encoding='utf-8',errors='replace').read().splitlines(); d=dict(ln.split('=',1) for ln in lines if '=' in ln); home=os.path.normcase(os.path.normpath(d.get('CMAKE_HOME_DIRECTORY:INTERNAL',''))); cache=os.path.normcase(os.path.normpath(d.get('CMAKE_CACHEFILE_DIR:INTERNAL',''))); gen=d.get('CMAKE_GENERATOR:INTERNAL',''); inst=d.get('CMAKE_GENERATOR_INSTANCE:INTERNAL','').replace('/',os.sep); exp_home=os.path.normcase(os.path.normpath(sys.argv[2])); exp_cache=os.path.normcase(os.path.normpath(sys.argv[3])); exp_gen=sys.argv[4]; ok=(home==exp_home) and (cache==exp_cache) and (gen==exp_gen) and bool(inst) and os.path.isdir(inst); sys.exit(0 if ok else 1)" "%BUILD_DIR%\CMakeCache.txt" "%REPO_ROOT%indra" "%REPO_ROOT%%BUILD_DIR%" "!AUTOBUILD_WIN_CMAKE_GEN!"
+exit /b !errorlevel!
+
+:ensure_fresh_cache
+if not exist "%BUILD_DIR%\CMakeCache.txt" exit /b 0
+call :cache_is_current
+if not errorlevel 1 exit /b 0
+echo.
+echo  !M_CACHE_STALE!
+call :do_clean
+exit /b !errorlevel!
+
 :find_sln
 if exist "%BUILD_DIR%\Allyn.sln" (
   set "SLN=%BUILD_DIR%\Allyn.sln"
@@ -743,6 +757,10 @@ if exist "%SLN%" (
 ) else (
   echo   !M_INFO! !M_SOLUTION_NOT_GENERATED!
 )
+if exist "%BUILD_DIR%\CMakeCache.txt" if defined PYTHON_EXE (
+  call :cache_is_current
+  if errorlevel 1 echo   !M_WARN! !M_CACHE_STALE_CHECK!
+)
 if exist "%VIEWER_EXE%" (
   call :fmt M_EXECUTABLE "%VIEWER_EXE%"
   echo   !M_OK! !_F!
@@ -928,6 +946,8 @@ exit /b 0
 :do_configure_only
 call :ensure_ready
 if errorlevel 1 exit /b 1
+call :ensure_fresh_cache
+if errorlevel 1 exit /b 1
 echo.
 echo  !M_CONFIGURE_HEADER!
 echo.
@@ -952,6 +972,8 @@ exit /b 0
 :do_build_only
 call :ensure_ready
 if errorlevel 1 exit /b 1
+call :ensure_fresh_cache
+if errorlevel 1 exit /b 1
 call :find_sln
 if errorlevel 1 (
   echo !M_SLN_MISSING_CONFIGURE!
@@ -974,6 +996,8 @@ exit /b 0
 
 :do_build_viewer
 call :ensure_ready
+if errorlevel 1 exit /b 1
+call :ensure_fresh_cache
 if errorlevel 1 exit /b 1
 call :find_sln
 if errorlevel 1 (

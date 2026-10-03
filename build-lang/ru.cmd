@@ -114,6 +114,8 @@ set "M_CONFIGURE_FAIL=ОШИБКА: configure завершился с кодом
 set "M_CONFIGURE_OK=Configure OK: {0}"
 set "M_SLN_NOT_GENERATED=ОШИБКА: Allyn.sln / Allyn.slnx не был создан."
 set "M_SLN_MISSING_CONFIGURE=Решение не найдено. Сначала выполняется configure..."
+set "M_CACHE_STALE=Кэш CMake создан в другом пути или другим Visual Studio. Очистка сборки и повторная настройка..."
+set "M_CACHE_STALE_CHECK=Кэш CMake недействителен: другой путь или другой Visual Studio. Следующая сборка очистит и настроит заново."
 set "M_BUILD_HEADER==== Компиляция всего проекта (autobuild build) ==="
 set "M_BUILD_TAKES_TIME=Это может занять много времени..."
 set "M_BUILD_FAIL=ОШИБКА: сборка завершилась с кодом {0}"

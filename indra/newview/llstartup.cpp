@@ -739,7 +739,10 @@ bool idle_startup()
 			LLTrans::setDefaultArg("[GRID_OWNER]", gHippoGridManager->getConnectedGrid()->getGridOwner());
 			LLScriptEdCore::parseFunctions("lsl_functions_os.xml");
 		}
-		AIPerService::setNoHTTPBandwidthThrottling(gHippoGridManager->getConnectedGrid()->isAvination());
+		AIPerService::configureDownloadThrottle(
+			gSavedSettings.getF32("ThrottleBandwidthKBPS"),
+			gSavedSettings.getF32("HTTPThrottleBandwidth"),
+			gHippoGridManager->getConnectedGrid()->isAvination());
 		if (gHippoGridManager->getCurrentGrid()->isSecondLife())
 		{
 			gDirUtilp->setLindenUserDir(LLStringUtil::null, firstname, lastname);
@@ -1227,6 +1230,7 @@ bool idle_startup()
 	{
 		LLStartUp::fontInit();
 		LLStartUp::setStartupState( STATE_SEED_GRANTED_WAIT );
+		timeout.reset();
 		display_startup();
 		return FALSE;
 	}
@@ -1235,6 +1239,11 @@ bool idle_startup()
 		LLViewerRegion *regionp = LLWorld::getInstance()->getRegionFromHandle(gFirstSimHandle);
 		if (regionp->capabilitiesReceived())
 		{
+			LLStartUp::setStartupState( STATE_SEED_CAP_GRANTED );
+		}
+		else if (timeout.getElapsedTimeF32() > 90.f)
+		{
+			LL_WARNS("AppInit") << "Seed capability wait exceeded 90s, continuing" << LL_ENDL;
 			LLStartUp::setStartupState( STATE_SEED_CAP_GRANTED );
 		}
 		else
@@ -1449,6 +1458,12 @@ bool idle_startup()
 		{
 			LLStartUp::setStartupState( STATE_INVENTORY_SEND );
 		}
+		else if (timeout.getElapsedTimeF32() > 90.f)
+		{
+			LL_WARNS("AppInit") << "Agent movement wait exceeded 90s" << LL_ENDL;
+			LLNotificationsUtil::add("LoginPacketNeverReceived", LLSD(), LLSD(), login_alert_status);
+			reset_login();
+		}
 		display_startup();
 		return FALSE;
 	}
@@ -1628,7 +1643,8 @@ bool idle_startup()
 	}
 	if (STATE_MISC == LLStartUp::getStartupState())
 	{
-		if (gSavedSettings.getBOOL("FirstLoginThisInstall"))
+		if (gSavedSettings.getBOOL("FirstLoginThisInstall")
+			&& gSavedSettings.getF32("ThrottleBandwidthKBPS") > 0.f)
 		{
 			F64 rate_bps = LLUserAuth::getInstance()->getLastTransferRateBPS();
 			const F32 FAST_RATE_BPS = 600.f * 1024.f;
@@ -2457,6 +2473,7 @@ void LLStartUp::setStartupState( EStartupState state )
 		startupStateToString(state) << LL_ENDL;
 	getPhases().stopPhase(getStartupStateString());
 	gStartupState = state;
+	gDebugInfo["StartupState"] = startupStateToString(state);
 	getPhases().startPhase(getStartupStateString());
 	postStartupState();
 }

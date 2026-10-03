@@ -4090,13 +4090,13 @@ This should be as low as possible, but too low may break functionality</string>
     <key>CacheSize</key>
     <map>
       <key>Comment</key>
-      <string>Disk cache size in MB for textures/VFS (prefs Disk Cache Size). CEF browser cache is separate and cleared each launch like Firestorm.</string>
+      <string>Disk cache size in MB for textures/VFS (prefs Disk Cache Size). New installs use 10240 (10 GB). Values above 20480 are clamped to 20 GB. CEF browser cache is separate.</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
       <string>U32</string>
       <key>Value</key>
-      <integer>2048</integer>
+      <integer>10240</integer>
     </map>
     <key>CacheValidateCounter</key>
     <map>
@@ -17097,13 +17097,13 @@ This should be as low as possible, but too low may break functionality</string>
     <key>ThrottleBandwidthKBPS</key>
     <map>
       <key>Comment</key>
-      <string>Maximum allowable downstream bandwidth (kilo bits per second)</string>
+      <string>Maximum allowable downstream bandwidth in kbps. 0 means unlimited and disables the HTTP asset/texture throttle. A saved value above 0 is kept.</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>2000.0</real>
+      <real>0.0</real>
     </map>
     <key>ToolHelpRect</key>
     <map>

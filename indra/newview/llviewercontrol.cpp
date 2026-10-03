@@ -288,7 +288,9 @@ static bool handleVideoMemoryChanged(const LLSD& newvalue)
 }
 static bool handleBandwidthChanged(const LLSD& newvalue)
 {
-	gViewerThrottle.setMaxBandwidth((F32) newvalue.asReal());
+	F32 kbps = (F32)newvalue.asReal();
+	AIPerService::configureDownloadThrottle(kbps, kbps <= 0.f ? 0.f : gSavedSettings.getF32("HTTPThrottleBandwidth"), false);
+	gViewerThrottle.setMaxBandwidth(kbps, TRUE);
 	return true;
 }
 static bool handleHTTPBandwidthChanged(const LLSD& newvalue)

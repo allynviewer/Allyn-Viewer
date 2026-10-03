@@ -215,6 +215,20 @@ class AIPerService {
 	AIAverage const& bandwidth(void) const { return mHTTPBandwidth; }
 	static void setNoHTTPBandwidthThrottling(bool nb) { sNoHTTPBandwidthThrottling = nb; }
 	static void setHTTPThrottleBandwidth(F32 max_kbps) { sHTTPThrottleBandwidth125 = 125.f * max_kbps; }
+	static void configureDownloadThrottle(F32 max_kbps, F32 http_kbps, bool force_unlimited)
+	{
+		if (force_unlimited || max_kbps <= 0.f)
+		{
+			setNoHTTPBandwidthThrottling(true);
+			return;
+		}
+		setNoHTTPBandwidthThrottling(false);
+		if (http_kbps < max_kbps)
+		{
+			http_kbps = max_kbps;
+		}
+		setHTTPThrottleBandwidth(http_kbps);
+	}
 	static size_t getHTTPThrottleBandwidth125(void) { return sHTTPThrottleBandwidth125; }
 	static F32 throttleFraction(void) { return ThrottleFraction_wat(sThrottleFraction)->fraction / 1024.f; }
 	static void adjust_concurrent_connections(int increment);

@@ -41,7 +41,7 @@ using namespace LLOldEvents;
 const F32 MAX_FRACTIONAL = 1.5f;
 const F32 MIN_FRACTIONAL = 0.2f;
 const F32 MIN_BANDWIDTH = 50.f;
-const F32 MAX_BANDWIDTH = 5000.f;
+const F32 UNLIMITED_BANDWIDTH_KBPS = 10000.f;
 const F32 STEP_FRACTIONAL = 0.1f;
 const F32 TIGHTEN_THROTTLE_THRESHOLD = 3.0f;
 const F32 EASE_THROTTLE_THRESHOLD = 0.5f;
@@ -179,13 +179,27 @@ void LLViewerThrottle::setMaxBandwidth(F32 kbits_per_second, BOOL from_event)
 }
 void LLViewerThrottle::load()
 {
-	mMaxBandwidth = gSavedSettings.getF32("ThrottleBandwidthKBPS")*1024;
+	F32 kbps = gSavedSettings.getF32("ThrottleBandwidthKBPS");
+	if (kbps <= 0.f)
+	{
+		kbps = UNLIMITED_BANDWIDTH_KBPS;
+	}
+	mMaxBandwidth = kbps * 1024.f;
 	resetDynamicThrottle();
 	mCurrent.dump();
 }
 void LLViewerThrottle::save() const
 {
+	if (isUnlimited())
+	{
+		gSavedSettings.setF32("ThrottleBandwidthKBPS", 0.f);
+		return;
+	}
 	gSavedSettings.setF32("ThrottleBandwidthKBPS", mMaxBandwidth/1024);
+}
+bool LLViewerThrottle::isUnlimited() const
+{
+	return gSavedSettings.getF32("ThrottleBandwidthKBPS") <= 0.f;
 }
 void LLViewerThrottle::sendToSim() const
 {
@@ -193,7 +207,7 @@ void LLViewerThrottle::sendToSim() const
 }
 LLViewerThrottleGroup LLViewerThrottle::getThrottleGroup(const F32 bandwidth_kbps)
 {
-	F32 set_bandwidth = llclamp(bandwidth_kbps, MIN_BANDWIDTH, MAX_BANDWIDTH);
+	F32 set_bandwidth = llmax(bandwidth_kbps, MIN_BANDWIDTH);
 	S32 count = mPresets.size();
 	S32 i;
 	for (i = 0; i < count; i++)
@@ -254,7 +268,7 @@ void LLViewerThrottle::updateDynamicThrottle()
 	}
 	else if (LLViewerStats::getInstance()->mPacketsLostPercentStat.getMean() <= EASE_THROTTLE_THRESHOLD)
 	{
-		if (mThrottleFrac >= MAX_FRACTIONAL || mCurrentBandwidth / 1024.0f >= MAX_BANDWIDTH)
+		if (mThrottleFrac >= MAX_FRACTIONAL || mCurrentBandwidth >= mMaxBandwidth * MAX_FRACTIONAL)
 		{
 			return;
 		}

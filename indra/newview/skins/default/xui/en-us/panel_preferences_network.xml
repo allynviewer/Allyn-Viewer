@@ -5,7 +5,8 @@
 	<text bottom="-20" follows="top" font="SansSerifSmall" height="12" left="20" name="section_bw" text_color="LabelSelectedColor">BANDWIDTH</text>
 	<icon bottom="-26" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_bw_rule" width="588"/>
 	<text bottom="-48" follows="top" height="12" left="20" name="text_box">Maximum Bandwidth:</text>
-	<slider bottom="-72" can_edit_text="true" decimal_digits="0" follows="top" height="15" increment="10" initial_val="50" left="20" max_val="10000" min_val="50" name="max_bandwidth" show_text="true" value="500" width="400"/>
+	<check_box bottom="-48" follows="top" height="16" label="Unlimited" left="220" name="max_bandwidth_unlimited" tool_tip="No viewer-side cap on asset and texture downloads"/>
+	<slider bottom="-72" can_edit_text="true" decimal_digits="0" follows="top" height="15" increment="10" initial_val="50" left="20" max_val="100000" min_val="50" name="max_bandwidth" show_text="true" value="500" width="400"/>
 	<text bottom="-70" follows="top" height="12" left="432" name="text_box2">kbps</text>
 	<text bottom="-100" follows="top" height="12" left="20" name="text_box3">Texture Bandwidth:</text>
 	<slider bottom="-124" can_edit_text="true" decimal_digits="0" follows="top" height="15" increment="10" initial_val="50" left="20" max_val="10000" min_val="50" name="tex_bandwidth" show_text="true" value="500" width="400"/>
@@ -17,7 +18,7 @@
 	<text bottom="-164" follows="top" font="SansSerifSmall" height="12" left="20" name="section_cache" text_color="LabelSelectedColor">DISK CACHE</text>
 	<icon bottom="-170" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_cache_rule" width="588"/>
 	<text bottom="-192" follows="top" height="12" left="20" name="cache_size_label_l">Disk Cache Size:</text>
-	<slider bottom="-216" can_edit_text="true" decimal_digits="0" follows="top" height="15" increment="64" initial_val="1024" left="20" max_val="9984" min_val="64" name="cache_size" show_text="true" width="400"/>
+	<slider bottom="-216" can_edit_text="true" decimal_digits="0" follows="top" height="15" increment="64" initial_val="10240" left="20" max_val="20480" min_val="64" name="cache_size" show_text="true" width="400"/>
 	<text bottom="-214" follows="top" height="12" left="432" name="text_box5">MB</text>
 	<button bottom="-248" follows="top" height="24" label="Clear Cache" left="20" name="clear_cache" scale_image="true" width="160"/>
 	<text bottom="-284" follows="top" height="12" left="20" name="cache_location_label">Disk Cache Location:</text>

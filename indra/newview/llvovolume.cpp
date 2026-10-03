@@ -207,6 +207,7 @@ LLVOVolume::LLVOVolume(const LLUUID &id, const LLPCode pcode, LLViewerRegion *re
 	memset(&mIndexInTex, 0, sizeof(S32) * LLRender::NUM_VOLUME_TEXTURE_CHANNELS);
 	mMDCImplCount = 0;
 	mLastRiggingInfoLOD = -1;
+	mPBRMaterialGeneration = -1;
 }
 LLVOVolume::~LLVOVolume()
 {
@@ -549,10 +550,17 @@ void LLVOVolume::animateTextures()
 void LLVOVolume::updateTextures()
 {
 	const F32 TEXTURE_AREA_REFRESH_TIME = 5.f;
-	if (mTextureUpdateTimer.getElapsedTimeF32() > TEXTURE_AREA_REFRESH_TIME)
+	S32 generation = 0;
+	if (LLGLTFMaterialList::instanceExists())
 	{
+		generation = LLGLTFMaterialList::instance().getReadyGeneration();
+	}
+	bool timer_elapsed = mTextureUpdateTimer.getElapsedTimeF32() > TEXTURE_AREA_REFRESH_TIME;
+	if (timer_elapsed || generation != mPBRMaterialGeneration)
+	{
+		mPBRMaterialGeneration = generation;
 		updateTextureVirtualSize();
-		if (mDrawable.notNull() && !isVisible() && !mDrawable->isActive())
+		if (timer_elapsed && mDrawable.notNull() && !isVisible() && !mDrawable->isActive())
 		{
 			LLSpatialGroup* group  = mDrawable->getSpatialGroup();
 			if (group)
@@ -581,18 +589,77 @@ BOOL LLVOVolume::isVisible() const
 	return FALSE ;
 }
 static const LLUUID kNoClassicTexture("5748decc-f629-461c-9a36-a35a221fe21f");
-static bool faceHasNoClassicTexture(const LLTextureEntry* te)
+static bool isReservedClassicId(const LLUUID& id)
+{
+	return id.isNull()
+		|| id == kNoClassicTexture
+		|| id == IMG_DEFAULT
+		|| id == IMG_INVISIBLE
+		|| id == IMG_DEFAULT_AVATAR;
+}
+static bool isSentinelTexture(const LLViewerTexture* image)
+{
+	if (!image)
+	{
+		return true;
+	}
+	if (image == LLViewerFetchedTexture::sDefaultImagep.get()
+		|| image == LLViewerFetchedTexture::sWhiteImagep.get()
+		|| image == LLViewerTexture::sNullImagep.get())
+	{
+		return true;
+	}
+	return isReservedClassicId(image->getID());
+}
+static bool faceHasValidClassicTexture(const LLTextureEntry* te, const LLViewerTexture* classic)
+{
+	if (!te)
+	{
+		return false;
+	}
+	const LLUUID& id = te->getID();
+	if (isReservedClassicId(id))
+	{
+		return false;
+	}
+	if (te->getGLTFMaterialId().notNull() && id == te->getGLTFMaterialId())
+	{
+		return false;
+	}
+	if (isSentinelTexture(classic))
+	{
+		return false;
+	}
+	LLViewerFetchedTexture* fetched = LLViewerTextureManager::staticCastToFetchedTexture(const_cast<LLViewerTexture*>(classic), FALSE);
+	if (fetched && fetched->isMissingAsset())
+	{
+		return false;
+	}
+	return true;
+}
+static bool faceHasNoClassicTexture(const LLTextureEntry* te, const LLViewerTexture* classic)
 {
 	if (!te || te->getGLTFMaterialId().isNull())
 	{
 		return false;
 	}
-	const LLUUID& id = te->getID();
-	return id.isNull() || id == kNoClassicTexture || id == IMG_INVISIBLE || id == te->getGLTFMaterialId();
+	return !faceHasValidClassicTexture(te, classic);
+}
+static bool pbrMapUsable(const LLUUID& tex_id, const LLUUID& material_id)
+{
+	if (isReservedClassicId(tex_id))
+	{
+		return false;
+	}
+	if (material_id.notNull() && tex_id == material_id)
+	{
+		return false;
+	}
+	return true;
 }
 static void queuePBRMap(LLVOVolume* vol, const LLUUID& tex_id, const LLUUID& material_id, F32 vsize)
 {
-	if (!vol || tex_id.isNull() || tex_id == kNoClassicTexture || tex_id == IMG_INVISIBLE || tex_id == material_id)
+	if (!vol || !pbrMapUsable(tex_id, material_id))
 	{
 		return;
 	}
@@ -631,7 +698,7 @@ static void queuePBRMap(LLVOVolume* vol, const LLUUID& tex_id, const LLUUID& mat
 }
 static LLViewerTexture* pbrDrawTexture(LLVOVolume* vol, LLTextureEntry* te, LLViewerTexture* classic, F32 vsize)
 {
-	if (!faceHasNoClassicTexture(te))
+	if (!faceHasNoClassicTexture(te, classic))
 	{
 		return classic;
 	}
@@ -649,7 +716,7 @@ static LLViewerTexture* pbrDrawTexture(LLVOVolume* vol, LLTextureEntry* te, LLVi
 		}
 	}
 	const LLUUID& base_id = mat->getTextureId(LLGLTFMaterial::BASE_COLOR);
-	if (base_id.isNull() || base_id == kNoClassicTexture || base_id == te->getGLTFMaterialId())
+	if (!pbrMapUsable(base_id, te->getGLTFMaterialId()))
 	{
 		return classic;
 	}
@@ -700,12 +767,17 @@ static void applyPBRFallback(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize
 	{
 		return;
 	}
-	if (!faceHasNoClassicTexture(te))
+	if (!faceHasNoClassicTexture(te, classic))
 	{
 		restoreClassicFace(vol, face, te, classic);
 		return;
 	}
-	LLViewerTexture* draw = pbrDrawTexture(vol, te, classic, vsize);
+	F32 fetch_size = vsize;
+	if (fetch_size <= 0.f && vol->isVisible())
+	{
+		fetch_size = 4096.f;
+	}
+	LLViewerTexture* draw = pbrDrawTexture(vol, te, classic, fetch_size);
 	if (!draw)
 	{
 		draw = classic;
@@ -727,7 +799,7 @@ static void applyPBRFallback(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize
 		{
 			const LLUUID& normal_id = mat->getTextureId(LLGLTFMaterial::NORMAL);
 			const LLUUID& orm_id = mat->getTextureId(LLGLTFMaterial::METALLIC_ROUGHNESS);
-			if (normal_id.notNull() && normal_id != kNoClassicTexture && normal_id != te->getGLTFMaterialId())
+			if (pbrMapUsable(normal_id, te->getGLTFMaterialId()))
 			{
 				normal = vol->getBakedTextureForMagicId(normal_id);
 				if (!normal)
@@ -735,7 +807,7 @@ static void applyPBRFallback(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize
 					normal = LLViewerTextureManager::getFetchedTexture(normal_id, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE);
 				}
 			}
-			if (orm_id.notNull() && orm_id != kNoClassicTexture && orm_id != te->getGLTFMaterialId())
+			if (pbrMapUsable(orm_id, te->getGLTFMaterialId()))
 			{
 				orm = vol->getBakedTextureForMagicId(orm_id);
 				if (!orm)
@@ -1833,6 +1905,14 @@ void LLVOVolume::setTEImage(const U8 te, LLViewerTexture *imagep)
 	{
 		gPipeline.markTextured(mDrawable);
 		mFaceMappingChanged = TRUE;
+		if (mDrawable.notNull())
+		{
+			LLFace* face = mDrawable->getFace(te);
+			if (face)
+			{
+				applyPBRFallback(this, face, te, face->getVirtualSize());
+			}
+		}
 	}
 }
 S32 LLVOVolume::setTETexture(const U8 te, const LLUUID &uuid)
@@ -1842,6 +1922,14 @@ S32 LLVOVolume::setTETexture(const U8 te, const LLUUID &uuid)
 	{
 		gPipeline.markTextured(mDrawable);
 		mFaceMappingChanged = TRUE;
+		if (mDrawable.notNull())
+		{
+			LLFace* face = mDrawable->getFace(te);
+			if (face)
+			{
+				applyPBRFallback(this, face, te, face->getVirtualSize());
+			}
+		}
 	}
 	return res;
 }

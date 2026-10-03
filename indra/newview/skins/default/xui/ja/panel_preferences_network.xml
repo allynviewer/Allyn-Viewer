@@ -6,6 +6,7 @@
 			<icon name="section_bw_rule" />
 			<text name="text_box">最大帯域幅:</text>
 			<slider name="max_bandwidth" />
+			<check_box label="無制限" name="max_bandwidth_unlimited" tool_tip="アセットとテクスチャのダウンロードにビューア側の上限を設けない"/>
 			<text name="text_box2">kbps</text>
 			<text name="text_box3">テクスチャ帯域幅:</text>
 			<slider name="tex_bandwidth" />

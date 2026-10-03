@@ -4819,6 +4819,7 @@ void LLViewerObject::parameterChanged(U16 param_type, bool local_origin)
 }
 void LLViewerObject::applyRenderMaterials()
 {
+	bool changed = false;
 	for (S32 te = 0; te < getNumTEs(); ++te)
 	{
 		LLTextureEntry* entry = getTE((U8)te);
@@ -4835,6 +4836,14 @@ void LLViewerObject::applyRenderMaterials()
 		{
 			entry->setGLTFMaterialId(id);
 			entry->setGLTFMaterial(NULL);
+			changed = true;
+		}
+	}
+	if (changed && mDrawable.notNull())
+	{
+		if (LLVOVolume* vol = asVolume())
+		{
+			vol->updateTextureVirtualSize(true);
 		}
 	}
 }

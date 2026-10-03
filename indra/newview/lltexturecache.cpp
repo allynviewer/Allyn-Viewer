@@ -755,9 +755,9 @@ U64 LLTextureCache::initCache(ELLPath location, U64 max_size, BOOL texture_cache
 	header_size = sCacheMaxEntries * (TEXTURE_CACHE_ENTRY_SIZE + TEXTURE_FAST_CACHE_ENTRY_SIZE);
 	max_size -= header_size;
 	if (sCacheMaxTexturesSize > 0)
-		sCacheMaxTexturesSize = (U32)llmin((U64)sCacheMaxTexturesSize, max_size);
+		sCacheMaxTexturesSize = (S64)llmin((U64)sCacheMaxTexturesSize, max_size);
 	else
-		sCacheMaxTexturesSize = max_size;
+		sCacheMaxTexturesSize = (S64)max_size;
 	max_size -= sCacheMaxTexturesSize;
 	LL_INFOS("TextureCache") << "Headers: " << sCacheMaxEntries
 			<< " Textures size: " << sCacheMaxTexturesSize / (1024 * 1024) << " MB" << LL_ENDL;

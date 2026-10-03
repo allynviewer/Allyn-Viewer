@@ -251,6 +251,11 @@ void LLStatusBar::refresh()
 	if(gDisconnected)
 	return;
 	F32 bwtotal = gViewerThrottle.getMaxBandwidth() / 1000.f;
+	if (gViewerThrottle.isUnlimited())
+	{
+		F32 used = LLViewerStats::getInstance()->mKBitStat.getCurrentPerSec();
+		bwtotal = llmax(used, 10000.f);
+	}
 	mSGBandwidth->setMin(0.f);
 	mSGBandwidth->setMax(bwtotal*1.25f);
 	mSGBandwidth->setThreshold(0, bwtotal*0.75f);

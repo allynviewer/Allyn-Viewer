@@ -2619,10 +2619,19 @@ bool LLAppViewer::initCache()
         LLSplashScreen::update(LLTrans::getString(
             llformat("StartupInitializingTextureCache%d", dist(rng))));
     }
-	const U64Bytes MIN_CACHE_SIZE = U32Megabytes(64);
-	const U64Bytes MAX_CACHE_SIZE = U32Megabytes(9984);
+	const U32 DISK_CACHE_MIN_MB = 64;
+	const U32 DISK_CACHE_MAX_MB = 20480;
+	U32 cache_mb = gSavedSettings.getU32("CacheSize");
+	if (cache_mb > DISK_CACHE_MAX_MB)
+	{
+		LL_INFOS("AppCache") << "Clamping disk cache from " << cache_mb << " MB to " << DISK_CACHE_MAX_MB << " MB" << LL_ENDL;
+		cache_mb = DISK_CACHE_MAX_MB;
+		gSavedSettings.setU32("CacheSize", cache_mb);
+	}
+	const U64Bytes MIN_CACHE_SIZE = U32Megabytes(DISK_CACHE_MIN_MB);
+	const U64Bytes MAX_CACHE_SIZE = U32Megabytes(DISK_CACHE_MAX_MB);
 	const U64Bytes MAX_VFS_SIZE = U32Gigabytes(1);
-	U64Bytes cache_size = U32Megabytes(gSavedSettings.getU32("CacheSize"));
+	U64Bytes cache_size = U32Megabytes(cache_mb);
 	cache_size = llclamp(cache_size, MIN_CACHE_SIZE, MAX_CACHE_SIZE);
 	U64Bytes texture_cache_size = ((cache_size * 8) / 10);
 	U64Bytes vfs_size = U64Bytes(cache_size) - U64Bytes(texture_cache_size);

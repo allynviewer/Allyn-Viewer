@@ -6,6 +6,7 @@
 			<icon name="section_bw_rule" />
 			<text name="text_box">Maksimum Bant Genişliği:</text>
 			<slider name="max_bandwidth" />
+			<check_box label="Sınırsız" name="max_bandwidth_unlimited" tool_tip="Varlık ve doku indirmelerinde görüntüleyici sınırı yok"/>
 			<text name="text_box2">kbps</text>
 			<text name="text_box3">Doku Bant Genişliği:</text>
 			<slider name="tex_bandwidth" />

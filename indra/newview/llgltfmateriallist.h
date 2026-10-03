@@ -10,9 +10,10 @@ class LLGLTFMaterialList : public LLSingleton<LLGLTFMaterialList>
 {
 	friend class LLSingleton<LLGLTFMaterialList>;
 protected:
-	LLGLTFMaterialList() {}
+	LLGLTFMaterialList() : mReadyGeneration(0) {}
 public:
 	LLGLTFMaterial* getMaterial(const LLUUID& id);
+	S32 getReadyGeneration() const { return mReadyGeneration; }
 
 private:
 	struct Entry
@@ -28,6 +29,7 @@ private:
 	void onAssetArrived(LLVFS* vfs, const LLUUID& asset_id, S32 status);
 
 	std::map<LLUUID, Entry> mEntries;
+	S32 mReadyGeneration;
 };
 
 #endif

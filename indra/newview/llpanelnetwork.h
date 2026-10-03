@@ -47,6 +47,8 @@ private:
 	static void onClickSetCache_continued(void* user_data, AIDirPicker* dirpicker);
 	static void onClickResetCache(void*);
 	static void onCommitPort(LLUICtrl* ctrl, void*);
+	static void onCommitBandwidthUnlimited(LLUICtrl* ctrl, void* data);
+	void updateBandwidthControls(bool unlimited);
 	static void onCommitSocks5ProxyEnabled(LLUICtrl* ctrl, void* data);
 	static void onClickTestProxy(void* user_data);
 	static void onSocksSettingsModified(LLUICtrl* ctrl, void* data);

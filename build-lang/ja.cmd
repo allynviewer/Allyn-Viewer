@@ -116,6 +116,8 @@ set "M_CONFIGURE_FAIL=エラー: configure がコード {0} で失敗しまし�
 set "M_CONFIGURE_OK=Configure OK: {0}"
 set "M_SLN_NOT_GENERATED=エラー: Allyn.sln / Allyn.slnx が生成されませんでした。"
 set "M_SLN_MISSING_CONFIGURE=ソリューションが見つかりません。先に configure を実行します..."
+set "M_CACHE_STALE=CMake キャッシュは別のパスまたは別の Visual Studio で生成されました。ビルドを削除して再構成します..."
+set "M_CACHE_STALE_CHECK=CMake キャッシュが無効です。別のパスまたは別の Visual Studio です。次のビルドで削除して再構成します。"
 set "M_BUILD_HEADER==== プロジェクト全体をコンパイルしています (autobuild build) ==="
 set "M_BUILD_TAKES_TIME=かなり時間がかかることがあります..."
 set "M_BUILD_FAIL=エラー: ビルドがコード {0} で失敗しました"

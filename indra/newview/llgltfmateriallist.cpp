@@ -32,6 +32,7 @@ void LLGLTFMaterialList::onAssetArrived(LLVFS* vfs, const LLUUID& asset_id, S32 
 		else
 		{
 			entry.mat->mReady = true;
+			++mReadyGeneration;
 			LL_WARNS("GLTF") << "material " << asset_id << " status " << status << LL_ENDL;
 		}
 		return;
@@ -48,6 +49,7 @@ void LLGLTFMaterialList::onAssetArrived(LLVFS* vfs, const LLUUID& asset_id, S32 
 		else
 		{
 			entry.mat->mReady = true;
+			++mReadyGeneration;
 		}
 		return;
 	}
@@ -62,6 +64,7 @@ void LLGLTFMaterialList::onAssetArrived(LLVFS* vfs, const LLUUID& asset_id, S32 
 		else
 		{
 			entry.mat->mReady = true;
+			++mReadyGeneration;
 		}
 		return;
 	}
@@ -75,9 +78,12 @@ void LLGLTFMaterialList::onAssetArrived(LLVFS* vfs, const LLUUID& asset_id, S32 
 		else
 		{
 			entry.mat->mReady = true;
+			++mReadyGeneration;
 		}
 		LL_WARNS("GLTF") << "material " << asset_id << " " << entry.mat->mParseError << LL_ENDL;
+		return;
 	}
+	++mReadyGeneration;
 }
 
 LLGLTFMaterial* LLGLTFMaterialList::getMaterial(const LLUUID& id)

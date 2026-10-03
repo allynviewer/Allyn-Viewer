@@ -10,6 +10,7 @@
 		<panel name="network_scroll_inner">
 			<text name="text_box">Banda máxima:</text>
 			<slider name="max_bandwidth"/>
+			<check_box label="Ilimitado" name="max_bandwidth_unlimited" tool_tip="Sem limite do viewer no download de assets e texturas"/>
 			<text name="text_box2">kbps</text>
 			<text name="text_box4">kbps</text>
 			<text name="text_box3">Banda de texturas:</text>

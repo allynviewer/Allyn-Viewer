@@ -1916,7 +1916,7 @@ void startCurlThread(LLControlGroup* control_group)
   CurlConcurrentConnectionsPerService = (U16)sConfigGroup->getU32("CurlConcurrentConnectionsPerService");
   gNoVerifySSLCert = sConfigGroup->getBOOL("NoVerifySSLCert");
   AIPerService::setMaxPipelinedRequests(curl_max_total_concurrent_connections);
-  AIPerService::setHTTPThrottleBandwidth(sConfigGroup->getF32("HTTPThrottleBandwidth"));
+  AIPerService::configureDownloadThrottle(sConfigGroup->getF32("ThrottleBandwidthKBPS"), sConfigGroup->getF32("HTTPThrottleBandwidth"), false);
   AICurlThread::sInstance = new AICurlThread;
   AICurlThread::sInstance->start();
 }

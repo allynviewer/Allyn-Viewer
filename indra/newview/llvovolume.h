@@ -304,6 +304,7 @@ private:
 	friend class LLFace;
 	BOOL		mFaceMappingChanged;
 	LLFrameTimer mTextureUpdateTimer;
+	S32			mPBRMaterialGeneration;
 	S32			mLOD;
 	BOOL		mLODChanged;
 	BOOL		mSculptChanged;

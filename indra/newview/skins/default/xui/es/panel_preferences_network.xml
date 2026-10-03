@@ -6,6 +6,7 @@
 		Ancho de banda UDP Máximo:
 	</text>
 			<slider left_delta="160" name="max_bandwidth" />
+			<check_box label="Ilimitado" name="max_bandwidth_unlimited" tool_tip="Sin límite del viewer en la descarga de assets y texturas"/>
 			<text name="text_box2" left_delta="186">
 		kbps (kilobits por segundo)
 	</text>

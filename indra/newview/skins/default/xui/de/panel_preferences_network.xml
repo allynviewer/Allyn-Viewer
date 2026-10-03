@@ -3,7 +3,8 @@
 	<scroll_container name="network_scroll">
 		<panel name="network_scroll_inner">
 			<text bottom="-20" follows="top" height="10" left="12" name="text_box">Maximale Bandbreite:</text>
-			<slider bottom_delta="-4" left_delta="110" can_edit_text="true" decimal_digits="0" follows="top" height="15" increment="10" initial_val="50" max_val="10000" min_val="50" name="max_bandwidth" show_text="true" value="500" width="180" />
+			<check_box label="Unbegrenzt" name="max_bandwidth_unlimited" tool_tip="Kein Viewer-Limit für Asset- und Texturdownloads"/>
+			<slider bottom_delta="-4" left_delta="110" can_edit_text="true" decimal_digits="0" follows="top" height="15" increment="10" initial_val="50" max_val="100000" min_val="50" name="max_bandwidth" show_text="true" value="500" width="180" />
 			<text bottom_delta="4" follows="top" height="10" left_delta="186" name="text_box2">kbit/s (Kilobit pro Sekunde)</text>
 			<text bottom_delta="-20" follows="top" height="10" left="12" name="text_box3">Textur-Bandbreite:</text>
 			<slider bottom_delta="-4" left_delta="110" can_edit_text="true" decimal_digits="0" follows="top" height="15" increment="10" initial_val="50" max_val="10000" min_val="50" name="tex_bandwidth" show_text="true" value="500" width="180" />
@@ -12,7 +13,7 @@
 			<check_box bottom_delta="-5" follows="top" left_delta="90" label="Texturen" name="http_textures" visible="false" />
 			<check_box bottom_delta="0" follows="top" left_delta="90" label="Inventar" name="http_inventory" visible="false" />
 			<text bottom_delta="-20" follows="top" height="10" left="12" name="cache_size_label_l">Festplatten-Cache-Größe:</text>
-			<slider bottom_delta="-4" left_delta="110" can_edit_text="true" decimal_digits="0" follows="top" height="15" increment="64" initial_val="1024" max_val="9984" min_val="64" name="cache_size" show_text="true" width="180" />
+			<slider bottom_delta="-4" left_delta="110" can_edit_text="true" decimal_digits="0" follows="top" height="15" increment="64" initial_val="10240" max_val="20480" min_val="64" name="cache_size" show_text="true" width="180" />
 			<text bottom_delta="4" follows="top" height="10" left_delta="186" name="text_box5">MB</text>
 			<button bottom_delta="-8" follows="top" height="22" label="Cache leeren" left_delta="30" name="clear_cache" scale_image="true" width="100" />
 			<text bottom_delta="-17" follows="top" height="10" left="12" name="cache_location_label">Festplatten-Cache-Verzeichnis:</text>

@@ -57,10 +57,23 @@ BOOL LLPanelNetwork::postBuild()
 	childSetCommitCallback("connection_port_enabled", onCommitPort, this);
 	if (LLUICtrl* ctrl = getChild<LLUICtrl>("cache_size"))
 	{
-		ctrl->setValue((F32)gSavedSettings.getU32("CacheSize"));
+		U32 cache_mb = gSavedSettings.getU32("CacheSize");
+		if (cache_mb > 20480)
+		{
+			cache_mb = 20480;
+		}
+		ctrl->setValue((F32)cache_mb);
 		ctrl->setCommitCallback(boost::bind(LLPanelNetwork::onClickClearCache, (void*)NULL));
 	}
-	childSetValue("max_bandwidth", gSavedSettings.getF32("ThrottleBandwidthKBPS"));
+	F32 kbps = gSavedSettings.getF32("ThrottleBandwidthKBPS");
+	bool unlimited = kbps <= 0.f;
+	childSetValue("max_bandwidth_unlimited", LLSD(unlimited));
+	if (!unlimited)
+	{
+		childSetValue("max_bandwidth", kbps);
+	}
+	updateBandwidthControls(unlimited);
+	childSetCommitCallback("max_bandwidth_unlimited", onCommitBandwidthUnlimited, this);
 	childSetValue("tex_bandwidth", gSavedSettings.getF32("HTTPThrottleBandwidth"));
 	childSetValue("connection_port_enabled", gSavedSettings.getBOOL("ConnectionPortEnabled"));
 	childSetValue("connection_port", (F32)gSavedSettings.getU32("ConnectionPort"));
@@ -108,11 +121,31 @@ LLPanelNetwork::~LLPanelNetwork()
 }
 void LLPanelNetwork::apply()
 {
-	gSavedSettings.setU32("CacheSize", childGetValue("cache_size").asInteger());
-	gSavedSettings.setF32("ThrottleBandwidthKBPS", childGetValue("max_bandwidth").asReal());
-	if (const auto& view = getChildView("tex_bandwidth"))
-		if (view->getVisible())
-			gSavedSettings.setF32("HTTPThrottleBandwidth", view->getValue().asReal());
+	S32 cache_mb = childGetValue("cache_size").asInteger();
+	if (cache_mb < 64)
+	{
+		cache_mb = 64;
+	}
+	if (cache_mb > 20480)
+	{
+		cache_mb = 20480;
+	}
+	gSavedSettings.setU32("CacheSize", (U32)cache_mb);
+	bool unlimited = childGetValue("max_bandwidth_unlimited").asBoolean();
+	if (unlimited)
+	{
+		gSavedSettings.setF32("ThrottleBandwidthKBPS", 0.f);
+	}
+	else
+	{
+		F32 kbps = childGetValue("max_bandwidth").asReal();
+		if (kbps < 50.f)
+		{
+			kbps = 50.f;
+		}
+		gSavedSettings.setF32("HTTPThrottleBandwidth", kbps);
+		gSavedSettings.setF32("ThrottleBandwidthKBPS", kbps);
+	}
 	if (const auto& view = getChildView("http_textures"))
 		if (view->getVisible())
 			gSavedSettings.setBOOL("ImagePipelineUseHTTP", view->getValue());
@@ -189,6 +222,24 @@ void LLPanelNetwork::onClickResetCache(void* user_data)
 	LLNotificationsUtil::add("CacheWillBeMoved");
 	std::string cache_location = gDirUtilp->getCacheDir(false);
 	self->childSetText("cache_location", cache_location);
+}
+void LLPanelNetwork::updateBandwidthControls(bool unlimited)
+{
+	childSetEnabled("max_bandwidth", !unlimited);
+	childSetEnabled("text_box2", !unlimited);
+	childSetEnabled("tex_bandwidth", !unlimited);
+	childSetEnabled("text_box3", !unlimited);
+	childSetEnabled("text_box4", !unlimited);
+}
+void LLPanelNetwork::onCommitBandwidthUnlimited(LLUICtrl* ctrl, void* data)
+{
+	LLPanelNetwork* self = (LLPanelNetwork*)data;
+	LLCheckBoxCtrl* check = (LLCheckBoxCtrl*)ctrl;
+	if (!self || !check)
+	{
+		return;
+	}
+	self->updateBandwidthControls(check->get());
 }
 void LLPanelNetwork::onCommitPort(LLUICtrl* ctrl, void* data)
 {

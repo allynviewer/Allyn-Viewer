@@ -6,6 +6,7 @@
 			<icon name="section_bw_rule" />
 			<text name="text_box">Максимальная пропускная способность:</text>
 			<slider name="max_bandwidth" />
+			<check_box label="Без ограничений" name="max_bandwidth_unlimited" tool_tip="Без ограничения вьюера на загрузку ассетов и текстур"/>
 			<text name="text_box2">кбит/с</text>
 			<text name="text_box3">Пропускная способность текстуры:</text>
 			<slider name="tex_bandwidth" />

@@ -57,6 +57,7 @@ public:
 	void setMaxBandwidth(F32 kbits_per_second, BOOL from_event = FALSE);
 	void load();
 	void save() const;
+	bool isUnlimited() const;
 	void sendToSim() const;
 	F32 getMaxBandwidth()const			{ return mMaxBandwidth; }
 	F32 getCurrentBandwidth() const		{ return mCurrentBandwidth; }
