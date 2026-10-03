@@ -5850,6 +5850,23 @@ LLViewerJointAttachment* LLVOAvatar::getTargetAttachmentPoint(LLViewerObject* vi
 	}
 	return attachment;
 }
+static void refreshWornPBR(LLViewerObject* object)
+{
+	if (!object || object->isDead())
+	{
+		return;
+	}
+	LLVOVolume* vol = object->asVolume();
+	if (vol && vol->mDrawable.notNull())
+	{
+		vol->updateTextureVirtualSize(true);
+	}
+	LLViewerObject::const_child_list_t& children = object->getChildren();
+	for (LLViewerObject::const_child_list_t::const_iterator it = children.begin(); it != children.end(); ++it)
+	{
+		refreshWornPBR(*it);
+	}
+}
 const LLViewerJointAttachment *LLVOAvatar::attachObject(LLViewerObject *viewer_object)
 {
 	if (isSelf())
@@ -5893,6 +5910,7 @@ const LLViewerJointAttachment *LLVOAvatar::attachObject(LLViewerObject *viewer_o
 			objectp->refreshBakeTexture();
 		}
 	}
+	refreshWornPBR(viewer_object);
 	updateMeshVisibility();
 	return attachment;
 }
