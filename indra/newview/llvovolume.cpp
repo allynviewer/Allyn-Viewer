@@ -856,6 +856,11 @@ static void applyPBRFallback(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize
 	{
 		fetch_size = 4096.f;
 	}
+	F32 pixels = face->getPixelArea();
+	if (pixels > fetch_size)
+	{
+		fetch_size = pixels;
+	}
 	LLViewerTexture* draw = pbrDrawTexture(vol, te, classic, fetch_size);
 	if (!draw)
 	{

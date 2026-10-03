@@ -25,6 +25,7 @@
  */
 #include "linden_common.h"
 #include "llgltexture.h"
+#include "llimage.h"
 S32 LLGLTexture::getTotalNumOfCategories()
 {
 	return MAX_GL_IMAGE_CATEGORY - (BOOST_HIGH - BOOST_SCULPTED) + 2 ;
@@ -93,6 +94,10 @@ void LLGLTexture::setBoostLevel(S32 level)
 		if(mBoostLevel != LLGLTexture::BOOST_NONE)
 		{
 			setNoDelete() ;
+		}
+		if (mFullWidth > 0 && mFullHeight > 0)
+		{
+			setTexelsPerImage();
 		}
 		if(gAuditTexture)
 		{
@@ -289,7 +294,12 @@ void LLGLTexture::destroyGLTexture()
 }
 void LLGLTexture::setTexelsPerImage()
 {
-	S32 fullwidth = llmin(mFullWidth,(S32)MAX_IMAGE_SIZE_DEFAULT);
-	S32 fullheight = llmin(mFullHeight,(S32)MAX_IMAGE_SIZE_DEFAULT);
+	S32 cap = (S32)MAX_IMAGE_SIZE_DEFAULT;
+	if (mBoostLevel >= BOOST_HIGH)
+	{
+		cap = MAX_IMAGE_SIZE;
+	}
+	S32 fullwidth = llmin(mFullWidth, cap);
+	S32 fullheight = llmin(mFullHeight, cap);
 	mTexelsPerImage = (F32)fullwidth * fullheight;
 }
