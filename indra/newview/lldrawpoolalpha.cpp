@@ -31,6 +31,8 @@
  */
 #include "llviewerprecompiledheaders.h"
 #include "lldrawpoolalpha.h"
+#include "llgltfmateriallist.h"
+#include "llface.h"
 #include "llglheaders.h"
 #include "llviewercontrol.h"
 #include "llcriticaldamp.h"
@@ -373,9 +375,14 @@ void LLDrawPoolAlpha::renderAlpha(U32 mask, S32 pass)
 					current_shader = target_shader;
 					if(mat)
 					{
-						current_shader->uniform4f(LLShaderMgr::SPECULAR_COLOR, params.mSpecColor.mV[0], params.mSpecColor.mV[1], params.mSpecColor.mV[2], params.mSpecColor.mV[3]);
-						current_shader->uniform1f(LLShaderMgr::ENVIRONMENT_INTENSITY, params.mEnvIntensity);
-						current_shader->uniform1f(LLShaderMgr::EMISSIVE_BRIGHTNESS, params.mFullbright ? 1.f : 0.f);
+						LLColor4 spec(params.mSpecColor.mV[0], params.mSpecColor.mV[1], params.mSpecColor.mV[2], params.mSpecColor.mV[3]);
+						F32 env = params.mEnvIntensity;
+						F32 emissive = params.mFullbright ? 1.f : 0.f;
+						const LLTextureEntry* te = (params.mFace && params.mFace->getViewerObject()) ? params.mFace->getTextureEntry() : NULL;
+						LLPBRGraphics::apply(te, spec, env, emissive);
+						current_shader->uniform4f(LLShaderMgr::SPECULAR_COLOR, spec.mV[0], spec.mV[1], spec.mV[2], spec.mV[3]);
+						current_shader->uniform1f(LLShaderMgr::ENVIRONMENT_INTENSITY, env);
+						current_shader->uniform1f(LLShaderMgr::EMISSIVE_BRIGHTNESS, emissive);
 						if (params.mNormalMap)
 						{
 							params.mNormalMap->addTextureStats(params.mVSize);
@@ -425,6 +432,10 @@ void LLDrawPoolAlpha::renderAlpha(U32 mask, S32 pass)
 					{
 						gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 					}
+				}
+				if (current_shader)
+				{
+					LLPBRGraphics::bindDraw(current_shader, params.mFace);
 				}
 				static LLTrace::BlockTimerStatHandle FTM_RENDER_ALPHA_PUSH("Alpha Push Verts");
 				{

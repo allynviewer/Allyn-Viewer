@@ -31,6 +31,7 @@
  */
 #include "llviewerprecompiledheaders.h"
 #include "lldrawpoolavatar.h"
+#include "llgltfmateriallist.h"
 #include "llskinningutil.h"
 #include "llrender.h"
 #include "llvoavatar.h"
@@ -1425,8 +1426,11 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 					spec = env;
 				}
 				BOOL fullbright = te->getFullbright();
-				sVertexProgram->uniform1f(LLShaderMgr::EMISSIVE_BRIGHTNESS, fullbright ? 1.f : 0.f);
-				sVertexProgram->uniform4f(LLShaderMgr::SPECULAR_COLOR, col.mV[0], col.mV[1], col.mV[2], spec);
+				F32 emissive = fullbright ? 1.f : 0.f;
+				LLColor4 spec_color(col.mV[0], col.mV[1], col.mV[2], spec);
+				LLPBRGraphics::apply(te, spec_color, env, emissive);
+				sVertexProgram->uniform1f(LLShaderMgr::EMISSIVE_BRIGHTNESS, emissive);
+				sVertexProgram->uniform4f(LLShaderMgr::SPECULAR_COLOR, spec_color.mV[0], spec_color.mV[1], spec_color.mV[2], spec_color.mV[3]);
 				sVertexProgram->uniform1f(LLShaderMgr::ENVIRONMENT_INTENSITY, env);
 				if (mat->getDiffuseAlphaMode() == LLMaterial::DIFFUSE_ALPHA_MODE_MASK)
 				{
@@ -1471,6 +1475,10 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 				{
 					LLDrawPoolBump::bindBumpMap(face, normal_channel);
 				}
+			}
+			if (sVertexProgram)
+			{
+				LLPBRGraphics::bindDraw(sVertexProgram, face);
 			}
 			if (face->mTextureMatrix && vobj->mTexAnimMode)
 			{

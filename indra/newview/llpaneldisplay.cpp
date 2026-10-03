@@ -291,6 +291,51 @@ LLPanelDisplay::~LLPanelDisplay()
 		mCtrlWindowSize->setCurrentByIndex(i);
 	}
 }
+static S32 persistedS32(const char* name)
+{
+	LLControlVariable* control = gSavedSettings.getControl(name);
+	if (!control)
+		return 0;
+	S32 saved = control->getSaveValue().asInteger();
+	if (control->get().asInteger() != saved)
+		control->setValue(LLSD(saved));
+	return saved;
+}
+static BOOL persistedBOOL(const char* name)
+{
+	LLControlVariable* control = gSavedSettings.getControl(name);
+	if (!control)
+		return FALSE;
+	BOOL saved = control->getSaveValue().asBoolean();
+	if (control->get().asBoolean() != (bool)saved)
+		control->setValue(LLSD((bool)saved));
+	return saved;
+}
+static F32 persistedF32(const char* name)
+{
+	LLControlVariable* control = gSavedSettings.getControl(name);
+	if (!control)
+		return 0.f;
+	F32 saved = (F32)control->getSaveValue().asReal();
+	if ((F32)control->get().asReal() != saved)
+		control->setValue(LLSD((F64)saved));
+	return saved;
+}
+static void showComboInt(LLPanel* panel, const char* name, S32 value)
+{
+	LLComboBox* combo = panel->findChild<LLComboBox>(name);
+	if (!combo)
+		return;
+	S32 previous = combo->getCurrentIndex();
+	S32 count = combo->getItemCount();
+	for (S32 i = 0; i < count; ++i)
+	{
+		if (combo->setCurrentByIndex(i) && combo->getValue().asInteger() == value)
+			return;
+	}
+	if (previous >= 0)
+		combo->setCurrentByIndex(previous);
+}
 void LLPanelDisplay::refresh()
 {
 	LLPanel::refresh();
@@ -311,7 +356,7 @@ void LLPanelDisplay::refresh()
 	mAvatarImpostors = gSavedSettings.getBOOL("RenderUseImpostors");
 	mNonImpostors = gSavedSettings.getS32("RenderAvatarMaxVisible");
 	mAvatarCloth = gSavedSettings.getBOOL("RenderAvatarCloth");
-	mAvatarMode = gSavedSettings.getS32("AlwaysRenderFriends");
+	mAvatarMode = persistedS32("AlwaysRenderFriends");
 	mMaxComplexity = gSavedSettings.getU32("RenderAvatarMaxComplexity");
 	mShowComplexity = gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_SHAME);
 	getChild<LLCheckBoxCtrl>("ShowAvatarComplexity")->set(mShowComplexity);
@@ -342,6 +387,25 @@ void LLPanelDisplay::refresh()
 	mMaxCoF = gSavedSettings.getF32("CameraMaxCoF");
 	mFocusTrans = gSavedSettings.getF32("CameraFocusTransitionTime");
 	mDoFRes = gSavedSettings.getF32("CameraDoFResScale");
+	mProbeDetail = persistedS32("RenderReflectionProbeDetail");
+	mProbeLevel = persistedS32("RenderReflectionProbeLevel");
+	mProbeCount = persistedS32("RenderReflectionProbeCount");
+	mHDREmissive = persistedBOOL("RenderDisableVintageMode");
+	mExposure = persistedF32("RenderExposure");
+	mScreenSpaceReflections = persistedBOOL("RenderScreenSpaceReflections");
+	mMirrors = persistedBOOL("RenderMirrors");
+	mTonemapType = persistedS32("RenderTonemapType");
+	mTonemapMix = persistedF32("RenderTonemapMix");
+	showComboInt(this, "AvatarDisplayCombo", mAvatarMode);
+	showComboInt(this, "PBRReflectionDetail", mProbeDetail);
+	showComboInt(this, "PBRReflectionLevel", mProbeLevel);
+	showComboInt(this, "PBRProbeCount", mProbeCount);
+	childSetValue("PBRHDR", (bool)mHDREmissive);
+	childSetValue("PBRExposure", (F64)mExposure);
+	childSetValue("PBRScreenSpaceReflections", (bool)mScreenSpaceReflections);
+	childSetValue("PBRMirrors", (bool)mMirrors);
+	showComboInt(this, "PBRTonemapType", mTonemapType);
+	childSetValue("PBRTonemapMix", (F64)mTonemapMix);
 	refreshEnabledState();
 }
 void LLPanelDisplay::refreshEnabledState()
@@ -521,9 +585,38 @@ void LLPanelDisplay::cancel()
 	gSavedSettings.setF32("CameraMaxCoF", mMaxCoF);
 	gSavedSettings.setF32("CameraFocusTransitionTime", mFocusTrans);
 	gSavedSettings.setF32("CameraDoFResScale", mDoFRes);
+	gSavedSettings.setS32("RenderReflectionProbeDetail", mProbeDetail);
+	gSavedSettings.setS32("RenderReflectionProbeLevel", mProbeLevel);
+	gSavedSettings.setS32("RenderReflectionProbeCount", mProbeCount);
+	gSavedSettings.setBOOL("RenderDisableVintageMode", mHDREmissive);
+	gSavedSettings.setF32("RenderExposure", mExposure);
+	gSavedSettings.setBOOL("RenderScreenSpaceReflections", mScreenSpaceReflections);
+	gSavedSettings.setBOOL("RenderMirrors", mMirrors);
+	gSavedSettings.setS32("RenderTonemapType", mTonemapType);
+	gSavedSettings.setF32("RenderTonemapMix", mTonemapMix);
 }
 void LLPanelDisplay::apply()
 {
+	mAvatarMode = childGetValue("AvatarDisplayCombo").asInteger();
+	gSavedSettings.setS32("AlwaysRenderFriends", mAvatarMode);
+	mProbeDetail = childGetValue("PBRReflectionDetail").asInteger();
+	gSavedSettings.setS32("RenderReflectionProbeDetail", mProbeDetail);
+	mProbeLevel = childGetValue("PBRReflectionLevel").asInteger();
+	gSavedSettings.setS32("RenderReflectionProbeLevel", mProbeLevel);
+	mProbeCount = childGetValue("PBRProbeCount").asInteger();
+	gSavedSettings.setS32("RenderReflectionProbeCount", mProbeCount);
+	mHDREmissive = childGetValue("PBRHDR").asBoolean();
+	gSavedSettings.setBOOL("RenderDisableVintageMode", mHDREmissive);
+	mExposure = (F32)childGetValue("PBRExposure").asReal();
+	gSavedSettings.setF32("RenderExposure", mExposure);
+	mScreenSpaceReflections = childGetValue("PBRScreenSpaceReflections").asBoolean();
+	gSavedSettings.setBOOL("RenderScreenSpaceReflections", mScreenSpaceReflections);
+	mMirrors = childGetValue("PBRMirrors").asBoolean();
+	gSavedSettings.setBOOL("RenderMirrors", mMirrors);
+	mTonemapType = childGetValue("PBRTonemapType").asInteger();
+	gSavedSettings.setS32("RenderTonemapType", mTonemapType);
+	mTonemapMix = (F32)childGetValue("PBRTonemapMix").asReal();
+	gSavedSettings.setF32("RenderTonemapMix", mTonemapMix);
 	bool can_defer = LLFeatureManager::getInstance()->isFeatureAvailable("RenderDeferred");
 	S32 vsync_value = childGetValue("vsync").asInteger();
 	bool fbo_value = childGetValue("fbo").asBoolean() || (can_defer && mCtrlDeferred->getValue().asBoolean());

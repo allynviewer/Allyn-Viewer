@@ -224,6 +224,7 @@ public:
 	void unbindDeferredShader(LLGLSLShader& shader, LLRenderTarget* diffuse_source = NULL, LLRenderTarget* light_source = NULL);
 	void renderDeferredLighting();
 	void renderDeferredLightingToRT(LLRenderTarget* target);
+	void applyPBRDisplay();
 	void generateWaterReflection(LLCamera& camera);
 	void generateSunShadow(LLCamera& camera);
 	void renderShadow(const LLMatrix4a& view, const LLMatrix4a& proj, LLCamera& camera, LLCullResult& result, BOOL use_shader, BOOL use_occlusion, U32 target_width);

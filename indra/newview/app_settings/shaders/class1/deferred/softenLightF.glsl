@@ -40,6 +40,9 @@ uniform sampler2D	  lightFunc;
 
 uniform float blur_size;
 uniform float blur_fidelity;
+uniform float pbr_refl_detail;
+uniform float pbr_ssr;
+uniform float pbr_mirrors;
 
 // Inputs
 uniform vec4 morphFactor;
@@ -382,13 +385,23 @@ void main()
 		
 		col = mix(col.rgb, diffuse.rgb, diffuse.a);
 				
+		float pbr_lod = (2.0 - clamp(pbr_refl_detail, 0.0, 2.0)) * 3.0;
+		if (pbr_mirrors > 0.5 && spec.a > 0.7)
+		{
+			pbr_lod = 0.0;
+		}
 		if (envIntensity > 0.0)
-		{ //add environmentmap
+		{
 			vec3 env_vec = env_mat * refnormpersp;
-			vec3 refcol = textureCube(environmentMap, env_vec).rgb;
+			vec3 refcol = textureCube(environmentMap, env_vec, pbr_lod).rgb;
 			bloom = (luminance(refcol) - .45)*.25;
-			col = mix(col.rgb, refcol, 
-				envIntensity);
+			col = mix(col.rgb, refcol, envIntensity);
+		}
+		if (pbr_ssr > 0.5 && spec.a > 0.15 && envIntensity > 0.0)
+		{
+			vec2 ssr_uv = clamp(vary_fragcoord.xy + refnormpersp.xy * (0.03 + spec.a * 0.07), 0.001, 0.999);
+			vec3 ssr_col = texture2D(diffuseRect, ssr_uv).rgb;
+			col = mix(col, ssr_col, spec.a * envIntensity);
 		}
 				
 		//if (norm.w < 0.5)

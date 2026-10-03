@@ -178,6 +178,7 @@ private:
 	LLButton*						mJumpNextArrowBtn;
 	S32								mRightTabBtnOffset;
 	S32								mMaxTabWidth;
+	BOOL							mFillTabWidth;
 	S32								mTotalTabWidth;
 	BOOL							mUserResize;
 	BOOL							mResizingTabs;

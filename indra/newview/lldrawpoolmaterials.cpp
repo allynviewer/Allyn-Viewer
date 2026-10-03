@@ -28,6 +28,8 @@
 #include "lldrawpoolmaterials.h"
 #include "llviewershadermgr.h"
 #include "pipeline.h"
+#include "llgltfmateriallist.h"
+#include "llface.h"
 S32 diffuse_channel = -1;
 LLDrawPoolMaterials::LLDrawPoolMaterials()
 :  LLRenderPass(LLDrawPool::POOL_MATERIALS)
@@ -98,8 +100,14 @@ void LLDrawPoolMaterials::renderDeferred(S32 pass)
 	for (LLCullResult::drawinfo_iterator i = begin; i != end; ++i)
 	{
 		LLDrawInfo& params = **i;
-		mShader->uniform4f(LLShaderMgr::SPECULAR_COLOR, params.mSpecColor.mV[0], params.mSpecColor.mV[1], params.mSpecColor.mV[2], params.mSpecColor.mV[3]);
-		mShader->uniform1f(LLShaderMgr::ENVIRONMENT_INTENSITY, params.mEnvIntensity);
+		LLColor4 spec(params.mSpecColor.mV[0], params.mSpecColor.mV[1], params.mSpecColor.mV[2], params.mSpecColor.mV[3]);
+		F32 env = params.mEnvIntensity;
+		F32 emissive = params.mFullbright ? 1.f : 0.f;
+		const LLTextureEntry* te = (params.mFace && params.mFace->getViewerObject()) ? params.mFace->getTextureEntry() : NULL;
+		LLPBRGraphics::apply(te, spec, env, emissive);
+		LLPBRGraphics::bindDraw(mShader, params.mFace);
+		mShader->uniform4f(LLShaderMgr::SPECULAR_COLOR, spec.mV[0], spec.mV[1], spec.mV[2], spec.mV[3]);
+		mShader->uniform1f(LLShaderMgr::ENVIRONMENT_INTENSITY, env);
 		if (params.mNormalMap)
 		{
 			params.mNormalMap->addTextureStats(params.mVSize);
@@ -111,7 +119,7 @@ void LLDrawPoolMaterials::renderDeferred(S32 pass)
 			bindSpecularMap(params.mSpecularMap);
 		}
 		mShader->setMinimumAlpha(params.mAlphaMaskCutoff);
-		mShader->uniform1f(LLShaderMgr::EMISSIVE_BRIGHTNESS, params.mFullbright ? 1.f : 0.f);
+		mShader->uniform1f(LLShaderMgr::EMISSIVE_BRIGHTNESS, emissive);
 		pushBatch(params, mask, TRUE);
 	}
 }
@@ -125,6 +133,10 @@ void LLDrawPoolMaterials::bindNormalMap(LLViewerTexture* tex)
 }
 void LLDrawPoolMaterials::pushBatch(LLDrawInfo& params, U32 mask, BOOL texture, BOOL batch_textures)
 {
+	if (mShader)
+	{
+		LLPBRGraphics::bindDraw(mShader, params.mFace);
+	}
 	applyModelMatrix(params);
 	bool tex_setup = false;
 	if (batch_textures && params.mTextureList.size() > 1)

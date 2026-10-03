@@ -32,4 +32,21 @@ private:
 	S32 mReadyGeneration;
 };
 
+class LLGLSLShader;
+class LLTextureEntry;
+class LLColor4;
+class LLFace;
+
+class LLPBRGraphics
+{
+public:
+	static void update();
+	static void bindGlobals(LLGLSLShader* shader);
+	static void bindFace(LLGLSLShader* shader, const LLTextureEntry* te);
+	static void bindDraw(LLGLSLShader* shader, LLFace* face);
+	static bool apply(const LLTextureEntry* te, LLColor4& spec, F32& env, F32& emissive);
+	static bool gradeActive();
+	static void bindGrade(LLGLSLShader& shader, bool grade, F32 scale_x, F32 scale_y);
+};
+
 #endif

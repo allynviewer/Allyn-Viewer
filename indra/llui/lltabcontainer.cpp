@@ -107,6 +107,7 @@ LLTabContainer::LLTabContainer(const std::string& name, const LLRect& rect, TabP
 	mLockedTabCount(0),
 	mMinTabWidth(TABCNTR_TAB_MIN_WIDTH),
 	mMaxTabWidth(TABCNTR_TAB_MAX_WIDTH),
+	mFillTabWidth(TRUE),
 	mPrevArrowBtn(NULL),
 	mNextArrowBtn(NULL),
 	mIsVertical(is_vertical),
@@ -163,7 +164,7 @@ void LLTabContainer::reshape(S32 width, S32 height, BOOL called_from_parent)
 			total += w;
 		}
 		const S32 available = getRect().getWidth() - 2 * (LLPANEL_BORDER_WIDTH + TABCNTR_TAB_H_PAD);
-		if (total > 0 && total < available)
+		if (mFillTabWidth && total > 0 && total < available)
 		{
 			const S32 extra = available - total;
 			const S32 n = (S32)natural.size();
@@ -1632,6 +1633,12 @@ LLView* LLTabContainer::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFacto
 	}
 	tab_container->setMinTabWidth(tab_min_width);
 	tab_container->setMaxTabWidth(tab_max_width);
+	BOOL fill_tabs = TRUE;
+	if (node->hasAttribute("tabs_fill"))
+	{
+		node->getAttributeBOOL("tabs_fill", fill_tabs);
+	}
+	tab_container->mFillTabWidth = fill_tabs;
 	BOOL user_resize = FALSE;
 	if (node->hasAttribute("user_resize"))
 	{

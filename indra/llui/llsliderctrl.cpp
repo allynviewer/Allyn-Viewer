@@ -284,6 +284,7 @@ void LLSliderCtrl::onCommit()
 	{
 		mEditor->setTentative(FALSE);
 	}
+	setControlValue(getValue());
 	LLUICtrl::onCommit();
 }
 void LLSliderCtrl::setPrecision(S32 precision)

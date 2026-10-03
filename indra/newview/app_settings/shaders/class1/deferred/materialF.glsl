@@ -29,6 +29,11 @@
 #define DIFFUSE_ALPHA_MODE_EMISSIVE 3
 
 uniform float emissive_brightness;
+uniform float pbr_emissive;
+uniform vec3 pbr_emit_color;
+uniform float pbr_refl_detail;
+uniform float pbr_ssr;
+uniform float pbr_mirrors;
 
 vec2 encode_normal(vec3 n);
 vec3 decode_normal(vec2 enc);
@@ -517,6 +522,8 @@ void main()
 #else
 	final_color.a = max(final_color.a, emissive_brightness);
 #endif
+	final_color.rgb = mix(final_color.rgb, pbr_emit_color, pbr_emissive);
+	final_color.a = max(final_color.a, pbr_emissive);
 
 	vec4 final_specular = spec;
 #if HAS_SPECULAR_MAP
@@ -663,11 +670,19 @@ void main()
 	{
 		//add environmentmap
 		vec3 env_vec = env_mat * refnormpersp;
-		
-		vec3 refcol = textureCube(environmentMap, env_vec).rgb;
+		float pbr_lod = (2.0 - clamp(pbr_refl_detail, 0.0, 2.0)) * 3.0;
+		if (pbr_mirrors > 0.5 && spec.a > 0.7)
+		{
+			pbr_lod = 0.0;
+		}
+		vec3 refcol = textureCube(environmentMap, env_vec, pbr_lod).rgb;
 
 		col = mix(col.rgb, refcol, 
-			envIntensity);  
+			envIntensity);
+		if (pbr_ssr > 0.5 && spec.a > 0.15)
+		{
+			col = mix(col, refcol, spec.a * envIntensity * 0.35);
+		}  
 
 		float cur_glare = max(refcol.r, refcol.g);
 		cur_glare = max(cur_glare, refcol.b);

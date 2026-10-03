@@ -137,6 +137,15 @@ protected:
 	F32 mMaxCoF;
 	F32 mFocusTrans;
 	F32 mDoFRes;
+	S32 mProbeDetail;
+	S32 mProbeLevel;
+	S32 mProbeCount;
+	BOOL mHDREmissive;
+	F32 mExposure;
+	BOOL mScreenSpaceReflections;
+	BOOL mMirrors;
+	S32 mTonemapType;
+	F32 mTonemapMix;
 	void onChangeQuality(LLUICtrl* caller);
 	void onCommitAutoDetectAspect(const LLSD& value);
 	void onCommitWindowedMode();

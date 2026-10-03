@@ -47,6 +47,7 @@
 #include "llviewercamera.h"
 #include "llviewertexturelist.h"
 #include "pipeline.h"
+#include "llgltfmateriallist.h"
 #include "llspatialpartition.h"
 #include "llviewershadermgr.h"
 LLStandardBumpmap gStandardBumpmapList[TEM_BUMPMAP_COUNT];
@@ -286,6 +287,7 @@ void LLDrawPoolBump::beginShiny()
 	{
 		shader = &gObjectSimpleProgram[LLPipeline::sUnderWaterRender<<SHD_WATER_BIT | 1<<SHD_SHINY_BIT];
 		shader->bind();
+		LLPBRGraphics::bindGlobals(shader);
 	}
 	else
 	{
@@ -423,6 +425,7 @@ void LLDrawPoolBump::beginFullbrightShiny()
 	{
 		LLMatrix4 mat(gGLModelView.getF32ptr());
 		shader->bind();
+		LLPBRGraphics::bindGlobals(shader);
 		LLVector3 vec = LLVector3(gShinyOrigin) * mat;
 		LLVector4 vec4(vec, gShinyOrigin.mV[3]);
 		shader->uniform4fv(LLViewerShaderMgr::SHINY_ORIGIN, 1, vec4.mV);
@@ -1142,6 +1145,10 @@ void LLDrawPoolBump::renderBump(U32 type, U32 mask)
 }
 void LLDrawPoolBump::pushBatch(LLDrawInfo& params, U32 mask, BOOL texture, BOOL batch_textures)
 {
+	if (LLGLSLShader::sCurBoundShaderPtr)
+	{
+		LLPBRGraphics::bindDraw(LLGLSLShader::sCurBoundShaderPtr, params.mFace);
+	}
 	applyModelMatrix(params);
 	bool tex_setup = false;
 	if (batch_textures && params.mTextureList.size() > 1)

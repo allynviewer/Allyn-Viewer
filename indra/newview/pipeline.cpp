@@ -84,6 +84,7 @@
 #include "llviewerregion.h"
 #include "llviewerstats.h"
 #include "llviewerwindow.h"
+#include "llgltfmateriallist.h"
 #include "llvoavatar.h"
 #include "llvoground.h"
 #include "llvosky.h"
@@ -6205,6 +6206,7 @@ void LLPipeline::renderDeferredLighting()
 		{
 			LL_RECORD_BLOCK_TIME(FTM_ATMOSPHERICS);
 			bindDeferredShader(LLPipeline::sUnderWaterRender ? gDeferredSoftenWaterProgram : gDeferredSoftenProgram);
+			LLPBRGraphics::bindGlobals(LLPipeline::sUnderWaterRender ? &gDeferredSoftenWaterProgram : &gDeferredSoftenProgram);
 			{
 				LLGLDepthTest depth(GL_FALSE);
 				LLGLDisable<GL_BLEND> blend;
@@ -6443,6 +6445,7 @@ void LLPipeline::renderDeferredLighting()
 		LLGLDepthTest depth(GL_FALSE, GL_FALSE);
 		mFinalScreen.bindTarget();
 		gDeferredPostGammaCorrectProgram.bind();
+		LLPBRGraphics::bindGrade(gDeferredPostGammaCorrectProgram, false, 1.f, 1.f);
 		S32 channel = gDeferredPostGammaCorrectProgram.enableTexture(LLShaderMgr::DEFERRED_DIFFUSE, mScreen.getUsage());
 		if (channel > -1)
 		{
@@ -6619,6 +6622,7 @@ void LLPipeline::renderDeferredLightingToRT(LLRenderTarget* target)
 		{
 			LL_RECORD_BLOCK_TIME(FTM_ATMOSPHERICS);
 			bindDeferredShader(gDeferredSoftenProgram);
+			LLPBRGraphics::bindGlobals(&gDeferredSoftenProgram);
 			{
 				LLGLDepthTest depth(GL_FALSE);
 				LLGLDisable<GL_BLEND> blend;
@@ -6850,6 +6854,7 @@ void LLPipeline::renderDeferredLightingToRT(LLRenderTarget* target)
 		LLGLDepthTest depth(GL_FALSE, GL_FALSE);
 		mFinalScreen.bindTarget();
 		gDeferredPostGammaCorrectProgram.bind();
+		LLPBRGraphics::bindGrade(gDeferredPostGammaCorrectProgram, false, 1.f, 1.f);
 		S32 channel = 0;
 		channel = gDeferredPostGammaCorrectProgram.enableTexture(LLShaderMgr::DEFERRED_DIFFUSE, mScreen.getUsage());
 		if (channel > -1)
@@ -6894,6 +6899,67 @@ void LLPipeline::renderDeferredLightingToRT(LLRenderTarget* target)
 		renderGeomPostDeferred(*LLViewerCamera::getInstance());
 		popRenderTypeMask();
 	}
+}
+void LLPipeline::applyPBRDisplay()
+{
+	if (!LLPBRGraphics::gradeActive())
+	{
+		return;
+	}
+	if (gDeferredPostGammaCorrectProgram.mProgramObject == 0)
+	{
+		return;
+	}
+	S32 width = gViewerWindow->getWindowWidthRaw();
+	S32 height = gViewerWindow->getWindowHeightRaw();
+	if (width < 1 || height < 1 || mScreen.getWidth() < 1 || mScreen.getHeight() < 1)
+	{
+		return;
+	}
+	S32 copy_w = width;
+	S32 copy_h = height;
+	if ((U32)copy_w > mScreen.getWidth())
+	{
+		copy_w = (S32)mScreen.getWidth();
+	}
+	if ((U32)copy_h > mScreen.getHeight())
+	{
+		copy_h = (S32)mScreen.getHeight();
+	}
+	gGL.flush();
+	glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+	gGL.getTexUnit(0)->bind(&mScreen);
+	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, copy_w, copy_h);
+	stop_glerror();
+	LLGLDepthTest depth(GL_FALSE, GL_FALSE);
+	LLGLDisable<GL_BLEND> blend;
+	gGL.matrixMode(LLRender::MM_PROJECTION);
+	gGL.pushMatrix();
+	gGL.loadIdentity();
+	gGL.matrixMode(LLRender::MM_MODELVIEW);
+	gGL.pushMatrix();
+	gGL.loadIdentity();
+	gGL.setViewport(0, 0, copy_w, copy_h);
+	gDeferredPostGammaCorrectProgram.bind();
+	LLPBRGraphics::bindGrade(gDeferredPostGammaCorrectProgram, true, (F32)copy_w / (F32)mScreen.getWidth(), (F32)copy_h / (F32)mScreen.getHeight());
+	S32 channel = gDeferredPostGammaCorrectProgram.enableTexture(LLShaderMgr::DEFERRED_DIFFUSE, mScreen.getUsage());
+	if (channel > -1)
+	{
+		mScreen.bindTexture(0, channel);
+		gGL.getTexUnit(channel)->setTextureFilteringOption(LLTexUnit::TFO_POINT);
+	}
+	drawFullScreenRect();
+	if (channel > -1)
+	{
+		gGL.getTexUnit(channel)->unbind(mScreen.getUsage());
+	}
+	gDeferredPostGammaCorrectProgram.unbind();
+	gGL.matrixMode(LLRender::MM_PROJECTION);
+	gGL.popMatrix();
+	gGL.matrixMode(LLRender::MM_MODELVIEW);
+	gGL.popMatrix();
+	gGLViewport = gViewerWindow->getWorldViewRectRaw();
+	gGL.setViewport(gGLViewport);
 }
 void LLPipeline::setupSpotLight(LLGLSLShader& shader, LLDrawable* drawablep)
 {

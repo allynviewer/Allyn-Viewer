@@ -40,6 +40,7 @@
 #include "lldrawpoolterrain.h"
 #include "lldrawpoolwater.h"
 #include "llface.h"
+#include "llgltfmateriallist.h"
 #include "llviewerobjectlist.h"
 #include "pipeline.h"
 #include "llspatialpartition.h"
@@ -348,6 +349,10 @@ void LLRenderPass::applyModelMatrix(LLDrawInfo& params)
 }
 void LLRenderPass::pushBatch(LLDrawInfo& params, U32 mask, BOOL texture, BOOL batch_textures)
 {
+	if (LLGLSLShader::sCurBoundShaderPtr)
+	{
+		LLPBRGraphics::bindDraw(LLGLSLShader::sCurBoundShaderPtr, params.mFace);
+	}
 	applyModelMatrix(params);
 	bool tex_setup = false;
 	if (texture)

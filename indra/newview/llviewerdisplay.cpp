@@ -1035,6 +1035,7 @@ void render_ui(F32 zoom_factor, int subfield, bool tiling)
 		}
 		render_hud_elements();
 		render_hud_attachments();
+		gPipeline.applyPBRDisplay();
 	}
 	LLGLSDefault gls_default;
 	LLGLSUIDefault gls_ui;

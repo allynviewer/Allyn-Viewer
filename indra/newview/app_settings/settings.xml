@@ -15058,6 +15058,105 @@ This should be as low as possible, but too low may break functionality</string>
       <key>Value</key>
       <integer>1</integer>
     </map>
+    <key>RenderReflectionProbeDetail</key>
+    <map>
+      <key>Comment</key>
+      <string>Detail of reflections. (0 - Static Only, 1 - Static + Dynamic, 2 - Realtime)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>RenderReflectionProbeLevel</key>
+    <map>
+      <key>Comment</key>
+      <string>Reflection probes control.  0 - disable (one probe to rule them all), 1 - manual probes only, 2 - manual + terrain/water, 3 - Manual + Terrain/water + objects.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>3</integer>
+    </map>
+    <key>RenderReflectionProbeCount</key>
+    <map>
+      <key>Comment</key>
+      <string>Number of probes to render.  Maximum of 256.  Clamps to the nearest power of 2.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>256</integer>
+    </map>
+    <key>RenderDisableVintageMode</key>
+    <map>
+      <key>Comment</key>
+      <string>Enables additional rendering pipeline features on newer machines such as HDR and emissive textures on PBR content.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>RenderExposure</key>
+    <map>
+      <key>Comment</key>
+      <string>Exposure value to send to tonemapper.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>1.0</real>
+    </map>
+    <key>RenderScreenSpaceReflections</key>
+    <map>
+      <key>Comment</key>
+      <string>Renders screen space reflections to better account for dynamic objects with reflection probes.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>RenderMirrors</key>
+    <map>
+      <key>Comment</key>
+      <string>Renders realtime mirrors.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>RenderTonemapType</key>
+    <map>
+      <key>Comment</key>
+      <string>What tonemapper to use: 0 = Khronos Neutral, 1 = ACES</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>RenderTonemapMix</key>
+    <map>
+      <key>Comment</key>
+      <string>Mix between linear and tonemapped colors (0.0(Linear) - 1.0(Tonemapped)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>0.7</real>
+    </map>
     <key>RenderVolumeLODFactor</key>
     <map>
       <key>Comment</key>

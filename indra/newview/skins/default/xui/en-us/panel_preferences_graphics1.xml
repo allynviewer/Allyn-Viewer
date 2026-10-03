@@ -28,7 +28,7 @@
    <combo_item name="16:9(Widescreen)" value="1.7777777">16:9 (Widescreen TV)</combo_item>
  </combo_box>
  <check_box bottom="-92" follows="top|left" control_name="FullScreenAutoDetectAspectRatio" height="16" label="Auto-detect ratio" left="400" name="aspect_auto_detect"/>
- <tab_container bottom="0" border="false" follows="all" left="2" height="500" name="graphics_tab" tab_position="bottom" tab_min_width="80" tab_max_width="220" width="644">
+ <tab_container bottom="0" border="false" follows="all" left="2" height="500" name="graphics_tab" tab_position="bottom" tab_min_width="0" tab_max_width="220" tabs_fill="false" width="644">
   <panel border="false" height="470" label="Main" left="0" name="Main" width="640">
     <scroll_container bottom="-470" follows="all" height="470" left="0" name="main_gfx_scroll" opaque="false" width="640">
     <panel border="false" bottom="-1220" follows="top|left" height="1220" left="0" name="main_gfx_inner" width="620">
@@ -181,6 +181,43 @@ when the Atmospheric Shaders are enabled.
     <button bottom="-232" left="20" follows="top|left" height="24" width="400" name="reset_dof" label="Reset All Depth of Field Settings">
       <button.commit_callback function="Graphics.ResetTab" parameter="DoF"/>
     </button>
+    </panel>
+    </scroll_container>
+  </panel>
+  <panel border="false" height="470" left="0" name="PBR" label="PBR" width="640">
+    <scroll_container bottom="-470" follows="all" height="470" left="0" name="pbr_gfx_scroll" opaque="false" width="640">
+    <panel border="false" bottom="-236" follows="top|left" height="236" left="0" name="pbr_gfx_inner" width="420">
+    <text bottom="-23" follows="top|left" height="12" left="20" name="PBRReflectionDetailText" width="185">Reflection Detail:</text>
+    <combo_box bottom="-27" follows="top|left" control_name="RenderReflectionProbeDetail" height="23" left="209" name="PBRReflectionDetail" width="185">
+      <combo_item name="0" value="0">Static Only</combo_item>
+      <combo_item name="1" value="1">Static &amp; Dynamic</combo_item>
+      <combo_item name="2" value="2">Realtime</combo_item>
+    </combo_box>
+    <text bottom="-50" follows="top|left" height="12" left="20" name="PBRReflectionLevelText" width="185">Reflection Coverage:</text>
+    <combo_box bottom="-54" follows="top|left" control_name="RenderReflectionProbeLevel" height="23" left="209" name="PBRReflectionLevel" width="185">
+      <combo_item name="0" value="0">None</combo_item>
+      <combo_item name="1" value="1">Manual only</combo_item>
+      <combo_item name="2" value="2">Manual &amp; terrain</combo_item>
+      <combo_item name="3" value="3">Full scene</combo_item>
+    </combo_box>
+    <text bottom="-74" follows="top|left" height="12" left="20" name="PBRProbeCountText" width="185">Max. Reflection Probes:</text>
+    <combo_box bottom="-78" follows="top|left" control_name="RenderReflectionProbeCount" height="20" left="209" name="PBRProbeCount" width="150">
+      <combo_item name="1" value="1">None</combo_item>
+      <combo_item name="32" value="32">Low</combo_item>
+      <combo_item name="64" value="64">Medium</combo_item>
+      <combo_item name="128" value="128">High</combo_item>
+      <combo_item name="256" value="256">Ultra</combo_item>
+    </combo_box>
+    <check_box bottom="-98" follows="top|left" control_name="RenderDisableVintageMode" height="16" label="HDR and Emissive" left="20" name="PBRHDR" tool_tip="Enables additional rendering pipeline features on newer machines such as HDR and emissive textures on PBR content." width="256"/>
+    <slider bottom="-118" follows="top|left" control_name="RenderExposure" enabled_control="RenderDisableVintageMode" decimal_digits="1" height="16" increment="0.1" initial_val="1" label="Exposure" label_width="185" left="20" max_val="4.0" min_val="0.5" name="PBRExposure" show_text="true" width="317"/>
+    <check_box bottom="-138" follows="top|left" control_name="RenderScreenSpaceReflections" height="16" label="Screen Space Reflections" left="20" name="PBRScreenSpaceReflections" width="256"/>
+    <check_box bottom="-158" follows="top|left" control_name="RenderMirrors" height="16" label="Mirrors" left="20" name="PBRMirrors" width="280"/>
+    <text bottom="-178" follows="top|left" height="12" left="20" name="PBRTonemapTypeText" width="185">Tone Mapper:</text>
+    <combo_box bottom="-182" follows="top|left" control_name="RenderTonemapType" height="20" left="209" name="PBRTonemapType" width="150">
+      <combo_item name="0" value="0">Khronos Neutral</combo_item>
+      <combo_item name="1" value="1">ACES</combo_item>
+    </combo_box>
+    <slider bottom="-202" follows="top|left" control_name="RenderTonemapMix" decimal_digits="1" height="16" increment="0.1" initial_val="0.7" label="Tone Mapping Mix:" label_width="185" left="20" max_val="1.0" min_val="0.0" name="PBRTonemapMix" show_text="true" tool_tip="Mix between linear and tone mapped colors" width="345"/>
     </panel>
     </scroll_container>
   </panel>

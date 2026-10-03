@@ -38,6 +38,13 @@ VARYING vec2 vary_texcoord0;
 
 vec2 encode_normal(vec3 n);
 
+uniform float pbr_active;
+uniform vec3 pbr_spec;
+uniform float pbr_gloss;
+uniform float pbr_env;
+uniform float pbr_emissive;
+uniform vec3 pbr_emit_color;
+
 void main() 
 {
 	vec4 col = diffuseLookup(vary_texcoord0.xy) * vertex_color;
@@ -46,9 +53,23 @@ void main()
 	{
 		discard;
 	}
+
+	vec3 spec = vec3(0.0);
+	float gloss = 0.0;
+	float env = 0.0;
+	float emissive = 0.0;
+	vec3 rgb = col.rgb;
+	if (pbr_active > 0.5)
+	{
+		spec = pbr_spec;
+		gloss = pbr_gloss;
+		env = pbr_env;
+		emissive = pbr_emissive;
+		rgb = mix(rgb, pbr_emit_color, emissive);
+	}
 	
-	frag_data[0] = vec4(col.rgb, 0.0);
-	frag_data[1] = vec4(0,0,0,0);
+	frag_data[0] = vec4(rgb, emissive);
+	frag_data[1] = vec4(spec, gloss);
 	vec3 nvn = normalize(vary_normal);
-	frag_data[2] = vec4(encode_normal(nvn.xyz), 0.0, 0.0);
+	frag_data[2] = vec4(encode_normal(nvn.xyz), env, 0.0);
 }
