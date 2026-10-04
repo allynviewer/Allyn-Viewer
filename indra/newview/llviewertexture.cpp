@@ -83,6 +83,15 @@ void diagPBRClassic(const char* stage, LLViewerTexture* image, const char* extra
 	S32 desired = -2;
 	S32 max_discard = -2;
 	S32 full = 0;
+	S32 inactive = 0;
+	S32 candidate = 0;
+	S32 listed = 0;
+	S32 refs = 0;
+	S32 comps = 0;
+	S32 missing = 0;
+	S32 fw = 0;
+	S32 fh = 0;
+	S32 raw = -2;
 	if (image)
 	{
 		boost = image->getBoostLevel();
@@ -90,6 +99,13 @@ void diagPBRClassic(const char* stage, LLViewerTexture* image, const char* extra
 		faces = image->getTotalNumFaces();
 		gl = image->hasGLTexture() ? 1 : 0;
 		discard = image->getDiscardLevel();
+		refs = image->getNumRefs();
+		fw = image->getFullWidth();
+		fh = image->getFullHeight();
+		if (gl)
+		{
+			comps = image->getComponents();
+		}
 		LLViewerFetchedTexture* fetched = LLViewerTextureManager::staticCastToFetchedTexture(image, FALSE);
 		if (fetched)
 		{
@@ -99,10 +115,15 @@ void diagPBRClassic(const char* stage, LLViewerTexture* image, const char* extra
 			desired = fetched->getDesiredDiscardLevel();
 			max_discard = fetched->getMaxDiscardLevel();
 			full = fetched->isFullyLoaded() ? 1 : 0;
+			inactive = fetched->isInactive() ? 1 : 0;
+			candidate = fetched->isDeletionCandidate() ? 1 : 0;
+			listed = fetched->isInImageList() ? 1 : 0;
+			missing = fetched->isMissingAsset() ? 1 : 0;
+			raw = fetched->getRawImageLevel();
 		}
 	}
-	std::string val = llformat("boost=%d pri=%.3f vsize=%.1f faces=%d gl=%d fetcher=%d fetching=%d deleted=%d discard=%d desired=%d max=%d full=%d %s",
-		boost, pri, vsize, faces, gl, fetcher, fetching, deleted, discard, desired, max_discard, full, extra ? extra : "");
+	std::string val = llformat("boost=%d pri=%.3f vsize=%.1f faces=%d gl=%d fetcher=%d fetching=%d deleted=%d inactive=%d candidate=%d listed=%d refs=%d comps=%d missing=%d fw=%d fh=%d raw=%d discard=%d desired=%d max=%d full=%d %s",
+		boost, pri, vsize, faces, gl, fetcher, fetching, deleted, inactive, candidate, listed, refs, comps, missing, fw, fh, raw, discard, desired, max_discard, full, extra ? extra : "");
 	std::map<std::string, std::string>::iterator it = gDiagClassicSeen.find(key);
 	if (it != gDiagClassicSeen.end() && it->second == val)
 	{
@@ -1636,7 +1657,7 @@ void LLViewerFetchedTexture::updateVirtualSize()
 				LLDrawable* drawable = facep->getDrawable();
 				if (drawable)
 				{
-					if(drawable->isRecentlyVisible())
+					if(drawable->isRecentlyVisible() || (!hasGLTexture() && facep->getVirtualSize() > 10.f))
 					{
 					if ((getBoostLevel() == LLViewerTexture::BOOST_NONE || getBoostLevel() == LLViewerTexture::BOOST_ALM)
 						&& drawable->getVObj()

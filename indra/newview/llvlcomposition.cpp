@@ -42,6 +42,8 @@
 #include "llperlin.h"
 #include "llregionhandle.h"
 #include "llviewercontrol.h"
+#include "llgltfmaterial.h"
+#include "llgltfmateriallist.h"
 F32 bilinear(const F32 v00, const F32 v01, const F32 v10, const F32 v11, const F32 x_frac, const F32 y_frac)
 {
 	F32 result;
@@ -84,11 +86,59 @@ void LLVLComposition::setDetailTextureID(S32 corner, const LLUUID& id)
 {
 	if(id.isNull())
 	{
+		diagPBRClassic("terrain_assign", NULL, llformat("corner=%d id=none", corner).c_str());
 		return;
 	}
+	mDetailAssetIDs[corner] = id;
 	mDetailTextures[corner] = LLViewerTextureManager::getFetchedTexture(id);
 	mDetailTextures[corner]->setNoDelete() ;
+	if (LLGLTFMaterialList::instanceExists())
+	{
+		LLGLTFMaterialList::instance().getMaterial(id);
+	}
+	diagPBRClassicMark(id);
+	diagPBRClassic("terrain_assign", mDetailTextures[corner], llformat("corner=%d", corner).c_str());
 	mRawImages[corner] = NULL;
+}
+void LLVLComposition::resolveDetailTextures()
+{
+	if (!LLGLTFMaterialList::instanceExists())
+	{
+		return;
+	}
+	for (S32 i = 0; i < CORNER_COUNT; ++i)
+	{
+		LLViewerFetchedTexture* tex = mDetailTextures[i];
+		if (!tex || !tex->isMissingAsset())
+		{
+			continue;
+		}
+		const LLUUID asset = mDetailAssetIDs[i].isNull() ? tex->getID() : mDetailAssetIDs[i];
+		LLGLTFMaterial* mat = LLGLTFMaterialList::instance().getMaterial(asset);
+		if (!mat || !mat->mReady)
+		{
+			diagPBRClassic("terrain_material", tex, llformat("corner=%d asset=%s reason=wait", i, asset.asString().c_str()).c_str());
+			continue;
+		}
+		const LLUUID& base = mat->getTextureId(LLGLTFMaterial::BASE_COLOR);
+		if (base.isNull() || base == tex->getID())
+		{
+			diagPBRClassic("terrain_material", tex, llformat("corner=%d asset=%s reason=no_base", i, asset.asString().c_str()).c_str());
+			continue;
+		}
+		LLViewerFetchedTexture* albedo = LLViewerTextureManager::getFetchedTexture(base);
+		if (!albedo)
+		{
+			continue;
+		}
+		albedo->setNoDelete();
+		albedo->setBoostLevel(LLGLTexture::BOOST_TERRAIN);
+		albedo->addTextureStats(1024.f * 1024.f);
+		mDetailTextures[i] = albedo;
+		mRawImages[i] = NULL;
+		diagPBRClassicMark(base);
+		diagPBRClassic("terrain_material", albedo, llformat("corner=%d asset=%s", i, asset.asString().c_str()).c_str());
+	}
 }
 BOOL LLVLComposition::generateHeights(const F32 x, const F32 y,
 									  const F32 width, const F32 height)
@@ -160,12 +210,20 @@ BOOL LLVLComposition::generateComposition()
 	{
 		return FALSE;
 	}
+	resolveDetailTextures();
 	for (S32 i = 0; i < 4; i++)
 	{
+		if (mDetailTextures[i].isNull())
+		{
+			diagPBRClassic("terrain_compose", NULL, llformat("corner=%d reason=null", i).c_str());
+			return FALSE;
+		}
+		diagPBRClassicMark(mDetailTextures[i]->getID());
 		if (mDetailTextures[i]->getDiscardLevel() < 0)
 		{
 			mDetailTextures[i]->setBoostLevel(LLGLTexture::BOOST_TERRAIN);
 			mDetailTextures[i]->addTextureStats(BASE_SIZE*BASE_SIZE);
+			diagPBRClassic("terrain_compose", mDetailTextures[i], llformat("corner=%d reason=discard", i).c_str());
 			return FALSE;
 		}
 		if ((mDetailTextures[i]->getDiscardLevel() != 0 &&
@@ -183,9 +241,11 @@ BOOL LLVLComposition::generateComposition()
 			}
 			mDetailTextures[i]->setBoostLevel(LLGLTexture::BOOST_TERRAIN);
 			mDetailTextures[i]->setMinDiscardLevel(ddiscard);
+			diagPBRClassic("terrain_compose", mDetailTextures[i], llformat("corner=%d reason=size ddiscard=%d", i, ddiscard).c_str());
 			return FALSE;
 		}
 	}
+	diagPBRClassic("terrain_compose", mDetailTextures[0], "reason=ready");
 	return TRUE;
 }
 BOOL LLVLComposition::generateTexture(const F32 x, const F32 y,
@@ -215,6 +275,8 @@ BOOL LLVLComposition::generateTexture(const F32 x, const F32 y,
 				{
 					mDetailTextures[i]->destroyRawImage() ;
 				}
+				diagPBRClassicMark(mDetailTextures[i]->getID());
+				diagPBRClassic("terrain_bake", mDetailTextures[i], llformat("corner=%d reason=raw ddiscard=%d", i, ddiscard).c_str());
 				LL_DEBUGS() << "cached raw data for terrain detail texture is not ready yet: " << mDetailTextures[i]->getID() << LL_ENDL;
 				return FALSE;
 			}
@@ -266,6 +328,7 @@ BOOL LLVLComposition::generateTexture(const F32 x, const F32 y,
 	U32 st_height = BASE_SIZE;
 	if (tex_comps != st_comps)
 	{
+		diagPBRClassic("terrain_bake", texturep, llformat("reason=comps tex=%u st=%u", tex_comps, st_comps).c_str());
 		LL_WARNS() << "Base texture comps != input texture comps" << LL_ENDL;
 		return FALSE;
 	}
@@ -338,9 +401,11 @@ BOOL LLVLComposition::generateTexture(const F32 x, const F32 y,
 	LLSurface::sTexelsUpdated += (tex_x_end - tex_x_begin) * (tex_y_end - tex_y_begin);
 	for (S32 i = 0; i < 4; i++)
 	{
+		diagPBRClassic("terrain_unboost", mDetailTextures[i], llformat("corner=%d", i).c_str());
 		mDetailTextures[i]->setBoostLevel(LLGLTexture::BOOST_NONE);
 		mDetailTextures[i]->setMinDiscardLevel(MAX_DISCARD_LEVEL + 1);
 	}
+	diagPBRClassic("terrain_bake", texturep, "reason=ok");
 	return TRUE;
 }
 LLUUID LLVLComposition::getDetailTextureID(S32 corner)

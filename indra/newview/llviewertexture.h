@@ -569,4 +569,7 @@ private:
 	void compareTestSessions(std::ofstream* os) ;
 };
 #endif
+void diagPBRClassic(const char* stage, LLViewerTexture* image, const char* extra);
+void diagPBRClassicMark(const LLUUID& id);
+bool diagPBRClassicMarked(const LLUUID& id);
 #endif

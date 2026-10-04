@@ -56,6 +56,7 @@ public:
 	F32 getStartHeight(S32 corner);
 	F32 getHeightRange(S32 corner);
 	void setDetailTextureID(S32 corner, const LLUUID& id);
+	void resolveDetailTextures();
 	void setStartHeight(S32 corner, F32 start_height);
 	void setHeightRange(S32 corner, F32 range);
 	friend class LLVOSurfacePatch;
@@ -67,6 +68,7 @@ protected:
 	LLSurface *mSurfacep;
 	BOOL mTexturesLoaded;
 	LLPointer<LLViewerFetchedTexture> mDetailTextures[CORNER_COUNT];
+	LLUUID mDetailAssetIDs[CORNER_COUNT];
 	LLPointer<LLImageRaw> mRawImages[CORNER_COUNT];
 	F32 mStartHeight[CORNER_COUNT];
 	F32 mHeightRange[CORNER_COUNT];
