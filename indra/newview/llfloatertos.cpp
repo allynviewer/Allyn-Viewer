@@ -177,7 +177,11 @@ void LLFloaterTOS::onContinue(void* userdata)
 	}
 	else
 #endif
-	if (!voice || state == STATE_LOGIN_VOICE_LICENSE)
+	if (!voice && LLStartUp::mfaTokenPending())
+	{
+		LLStartUp::repeatMFAChallenge();
+	}
+	else if (!voice || state == STATE_LOGIN_VOICE_LICENSE)
 	{
 		LLStartUp::setStartupState(STATE_LOGIN_AUTH_INIT);
 	}

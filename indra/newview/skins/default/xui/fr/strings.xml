@@ -782,6 +782,10 @@ Réessayez dans une minute.</string>
 Réessayez dans une minute.</string>
 	<string name="LoginFailedLoggingOutSession">Le système déconnecte votre dernière session.
 Réessayez dans une minute.</string>
+	<string name="LoginFailedAuthenticationMFARequired">
+		Entrez un nouveau jeton à partir de votre application d'authentification pour pouvoir vous connecter.
+Si vous pensez qu'il s'agit d'une erreur, veuillez contacter support@secondlife.com.
+	</string>
 	<string name="ViewerDownloadURL">
 		https://www.AllynViewer.org/
 	</string>

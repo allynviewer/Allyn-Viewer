@@ -6267,4 +6267,23 @@ XMLファイルが不正です。インポートを中止しました。
 [SHORT_APP_NAME] の Issue Tracker を開き、バグや問題を報告します。既存の報告と重複しないか確認してください。
     <usetemplate ignoretext="[SHORT_APP_NAME] Issue Trackerをブラウザで表示するとき" name="okcancelignore" notext="キャンセル" yestext="ページへ" />
   </notification>
+  <notification icon="alertmodal.tga" label="多段階認証トークンプロンプト" name="PromptMFAToken" type="alertmodal">
+[MESSAGE]
+    <tag>confirm</tag>
+    <form name="form">
+      <input name="token" type="text" width="400"/>
+      <button default="true" index="0" name="continue" text="確認"/>
+      <button index="1" name="cancel" text="キャンセル"/>
+    </form>
+  </notification>
+  <notification icon="alertmodal.tga" label="多段階認証トークンプロンプト" name="PromptMFATokenWithSave" type="alertmodal">
+[MESSAGE]
+    <tag>confirm</tag>
+    <form name="form">
+      <input name="token" type="text" width="400"/>
+      <ignore checkbox_only="true" name="ignore" text="このコンピューターを３０日間記録する"/>
+      <button default="true" index="0" name="continue" text="続ける"/>
+      <button index="1" name="cancel" text="キャンセル"/>
+    </form>
+  </notification>
 </notifications>

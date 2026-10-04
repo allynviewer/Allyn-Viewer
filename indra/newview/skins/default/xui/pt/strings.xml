@@ -193,6 +193,10 @@ Pessoas com contas gratuitas não poderão acessar o Second Life no momento para
 	<string name="LoginFailedLastNameNotAlphanumeric">
 		O parâmetro de sobrenome deve ser alfanumérico. Se você acredita que houve algum equívoco, contate support@secondlife.com.
 	</string>
+	<string name="LoginFailedAuthenticationMFARequired">
+		Para continuar o login, informe um novo token do seu app de autenticação multifator.
+Se você acredita que isso é um erro, entre em contato com support@secondlife.com.
+	</string>
 	<string name="LogoutFailedRegionGoingOffline">
 		Região passando para modo offline. Tente novamente dentro de alguns instantes.
 	</string>

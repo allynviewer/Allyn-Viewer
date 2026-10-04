@@ -244,6 +244,10 @@ Lütfen bir dakika sonra tekrar giriş yapmayı deneyin.</string>
 Lütfen bir dakika sonra tekrar giriş yapmayı deneyin.</string>
 	<string name="LoginFailedLoggingOutSession">Sistem son oturumunuzdan çıkış yapmaya başladı.
 Lütfen bir dakika sonra tekrar giriş yapmayı deneyin.</string>
+	<string name="LoginFailedAuthenticationMFARequired">
+		Oturum açmaya devam etmek için çok faktörlü kimlik doğrulama uygulamanızdan yeni bir kod girin.
+Bunun bir hata olduğunu düşünüyorsanız support@secondlife.com ile iletişime geçin.
+	</string>
 	<string name="AgentLostConnection">
 		Bu bölgede sorun yaşanıyor olabilir.  Lütfen İnternet bağlantınızı kontrol edin.
 	</string>

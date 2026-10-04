@@ -274,6 +274,10 @@ Intenta iniciar sesión de nuevo en unos instantes.
 		El sistema ha comenzado a cerrar la última sesión.
 Intenta iniciar sesión de nuevo en unos instantes.
 	</string>
+	<string name="LoginFailedAuthenticationMFARequired">
+		Para continuar con el inicio de sesión, introduce un token nuevo de tu aplicación de autenticación multifactor.
+Si crees que esto es un error, contacta con support@secondlife.com
+	</string>
 	<string name="ViewerDownloadURL">
 		https://www.AllynViewer.org/
 	</string>

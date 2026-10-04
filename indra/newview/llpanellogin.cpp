@@ -1258,6 +1258,7 @@ void LLPanelLogin::removeLogin(bool knot)
 	if (!selected.isUndefined())
 	{
 		mLoginHistoryData.deleteEntry(selected.get("firstname").asString(), selected.get("lastname").asString(), selected.get("grid").asString());
+		LLStartUp::removeMFAHash(selected.get("grid").asString(), selected.get("firstname").asString(), selected.get("lastname").asString());
 		combo->remove(label);
 		saveSavedLogins();
 		if (combo->selectFirstItem())

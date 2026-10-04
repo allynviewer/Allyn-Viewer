@@ -234,19 +234,28 @@ LLNotificationForm::LLNotificationForm(const std::string& name, const LLXMLNodeP
 		std::string element_name = child->getName()->mString;
 		if (element_name == "ignore")
 		{
-			bool save_option = false;
-			child->getAttribute_bool("save_option", save_option);
-			if (!save_option)
+			bool checkbox_only = false;
+			child->getAttribute_bool("checkbox_only", checkbox_only);
+			child->getAttributeString("text", mIgnoreMsg);
+			if (checkbox_only)
 			{
-				mIgnore = IGNORE_WITH_DEFAULT_RESPONSE;
+				mIgnore = IGNORE_CHECKBOX_ONLY;
 			}
 			else
 			{
-				mIgnore = IGNORE_WITH_LAST_RESPONSE;
-				LLUI::sIgnoresGroup->declareLLSD(std::string("Default") + name, "", std::string("Default response for notification " + name));
+				bool save_option = false;
+				child->getAttribute_bool("save_option", save_option);
+				if (!save_option)
+				{
+					mIgnore = IGNORE_WITH_DEFAULT_RESPONSE;
+				}
+				else
+				{
+					mIgnore = IGNORE_WITH_LAST_RESPONSE;
+					LLUI::sIgnoresGroup->declareLLSD(std::string("Default") + name, "", std::string("Default response for notification " + name));
+				}
+				mIgnoreSetting = LLUI::sIgnoresGroup->addWarning(name);
 			}
-			child->getAttributeString("text", mIgnoreMsg);
-			mIgnoreSetting = LLUI::sIgnoresGroup->addWarning(name);
 		}
 		else
 		{
@@ -521,7 +530,8 @@ void LLNotification::respond(const LLSD& response)
 		mResponseFunctorName = "";
 		mTemporaryResponder = false;
 	}
-	if (mForm->getIgnoreType() != LLNotificationForm::IGNORE_NO)
+	if (mForm->getIgnoreType() != LLNotificationForm::IGNORE_NO
+		&& mForm->getIgnoreType() != LLNotificationForm::IGNORE_CHECKBOX_ONLY)
 	{
 		mForm->setIgnored(mIgnored);
 		if (mIgnored && mForm->getIgnoreType() == LLNotificationForm::IGNORE_WITH_LAST_RESPONSE)

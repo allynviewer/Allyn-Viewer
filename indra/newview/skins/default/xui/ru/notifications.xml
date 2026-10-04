@@ -6939,4 +6939,23 @@ URL-адрес мультимедиа/аудио заблокирован для
 Убедитесь, что ваш отчет не будет дубликатом существующего.
     <usetemplate ignoretext="При открытии трекера ошибок [SHORT_APP_NAME]" name="okcancelignore" notext="Отмена" yestext="Перейти" />
   </notification>
+  <notification icon="alertmodal.tga" label="Запрос на ввод токена MFA" name="PromptMFAToken" type="alertmodal">
+[MESSAGE]
+    <tag>confirm</tag>
+    <form name="form">
+      <input name="token" type="text" width="400"/>
+      <button default="true" index="0" name="continue" text="Продолжить"/>
+      <button index="1" name="cancel" text="Отмена"/>
+    </form>
+  </notification>
+  <notification icon="alertmodal.tga" label="Запрос на ввод токена MFA" name="PromptMFATokenWithSave" type="alertmodal">
+[MESSAGE]
+    <tag>confirm</tag>
+    <form name="form">
+      <input name="token" type="text" width="400"/>
+      <ignore checkbox_only="true" name="ignore" text="Запомнить этот компьютер на 30 дней."/>
+      <button default="true" index="0" name="continue" text="Продолжить"/>
+      <button index="1" name="cancel" text="Отмена"/>
+    </form>
+  </notification>
 </notifications>

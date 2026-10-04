@@ -92,6 +92,9 @@ public:
 	static std::string loadPasswordFromDisk();
 	static void savePasswordToDisk(const std::string& hashed_password);
 	static void deletePasswordFromDisk();
+	static bool mfaTokenPending();
+	static void repeatMFAChallenge();
+	static void removeMFAHash(const std::string& grid, const std::string& first, const std::string& last);
 	static bool dispatchURL();
 	static void postStartupState();
 	static void setStartSLURL(const LLSLURL& slurl);

@@ -6937,4 +6937,23 @@ Daha yeni sürümler için bilgi ve indirme bağlantıları için.
 Lütfen raporunuzun mevcut bir raporun kopyası olmayacağından emin olun.
     <usetemplate ignoretext="[SHORT_APP_NAME] sorun takibini tarayıcıda açarken" name="okcancelignore" notext="İptal" yestext="Sayfaya git" />
   </notification>
+  <notification icon="alertmodal.tga" label="MFA kodu" name="PromptMFAToken" type="alertmodal">
+[MESSAGE]
+    <tag>confirm</tag>
+    <form name="form">
+      <input name="token" type="text" width="400"/>
+      <button default="true" index="0" name="continue" text="Devam et"/>
+      <button index="1" name="cancel" text="İptal"/>
+    </form>
+  </notification>
+  <notification icon="alertmodal.tga" label="MFA kodu" name="PromptMFATokenWithSave" type="alertmodal">
+[MESSAGE]
+    <tag>confirm</tag>
+    <form name="form">
+      <input name="token" type="text" width="400"/>
+      <ignore checkbox_only="true" name="ignore" text="Bu bilgisayarı 30 gün hatırla."/>
+      <button default="true" index="0" name="continue" text="Devam et"/>
+      <button index="1" name="cancel" text="İptal"/>
+    </form>
+  </notification>
 </notifications>

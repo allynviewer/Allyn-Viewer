@@ -6180,4 +6180,31 @@ afin d'obtenir des informations et des liens de téléchargement des versions pl
 		<tag>confirm</tag>
 		<usetemplate name="okcancelignorecanceldefault" notext="Plus tard" yestext="Visiter la page" ignoretext="Ignorer la notification de mise à jour critique"/>
 	</notification>
+	<notification
+	 icon="alertmodal.tga"
+	 label="Demande de jeton MFA"
+	 name="PromptMFAToken"
+	 type="alertmodal">
+[MESSAGE]
+		<tag>confirm</tag>
+		<form name="form">
+			<input name="token" type="text" width="400"/>
+			<button default="true" index="0" name="continue" text="Continuer"/>
+			<button index="1" name="cancel" text="Annuler"/>
+		</form>
+	</notification>
+	<notification
+	 icon="alertmodal.tga"
+	 label="Demande de jeton MFA"
+	 name="PromptMFATokenWithSave"
+	 type="alertmodal">
+[MESSAGE]
+		<tag>confirm</tag>
+		<form name="form">
+			<input name="token" type="text" width="400"/>
+			<ignore checkbox_only="true" name="ignore" text="Mémoriser cet ordinateur pendant 30 jours."/>
+			<button default="true" index="0" name="continue" text="Continuer"/>
+			<button index="1" name="cancel" text="Annuler"/>
+		</form>
+	</notification>
 </notifications>

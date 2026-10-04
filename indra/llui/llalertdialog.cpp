@@ -255,6 +255,16 @@ LLAlertDialog::LLAlertDialog( LLNotificationPtr notification, bool modal)
 	{
 		setCheckBox(LLNotificationTemplates::instance().getGlobalString("alwayschoose"), ignore_label);
 	}
+	else if (form->getIgnoreType() == LLNotificationForm::IGNORE_CHECKBOX_ONLY)
+	{
+		setCheckBox(form->getIgnoreMessage(), ignore_label);
+		if (mLineEditor)
+		{
+			LLRect editor_rect = mLineEditor->getRect();
+			editor_rect.translate(0, LINE_HEIGHT + LINE_HEIGHT / 2);
+			mLineEditor->setRect(editor_rect);
+		}
+	}
 }
 bool LLAlertDialog::show()
 {
@@ -428,6 +438,10 @@ void LLAlertDialog::onButtonPressed( LLUICtrl* ctrl, const std::string url )
 		response[mLineEditor->getName()] = mLineEditor->getValue();
 	}
 	response[ctrl->getName()] = true;
+	if (mCheck && mNote->getForm()->getIgnoreType() == LLNotificationForm::IGNORE_CHECKBOX_ONLY)
+	{
+		response["ignore"] = mCheck->getValue().asBoolean();
+	}
 	if (!url.empty() && sURLLoader != NULL)
 	{
 		sURLLoader->load(url, false);
@@ -437,6 +451,10 @@ void LLAlertDialog::onButtonPressed( LLUICtrl* ctrl, const std::string url )
 }
 void LLAlertDialog::onClickIgnore(LLUICtrl* ctrl)
 {
+	if (mNote->getForm()->getIgnoreType() == LLNotificationForm::IGNORE_CHECKBOX_ONLY)
+	{
+		return;
+	}
 	BOOL check = ctrl->getValue();
 	if (mNote->getForm()->getIgnoreType() == LLNotificationForm::IGNORE_SHOW_AGAIN)
 	{

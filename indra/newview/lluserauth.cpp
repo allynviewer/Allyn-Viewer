@@ -114,6 +114,7 @@ void LLUserAuth::authenticate(
 		XMLRPC_VectorAppendString(params, "read_critical", "true", 0);
 	}
 	XMLRPC_VectorAppendInt(params, "last_exec_event", (int) last_exec_froze);
+	appendMFA(params);
 	XMLRPC_VALUE options = XMLRPC_CreateVector("options", xmlrpc_vector_array);
 	std::vector<const char*>::const_iterator it = requested_options.begin();
 	std::vector<const char*>::const_iterator end = requested_options.end();
@@ -184,6 +185,7 @@ void LLUserAuth::authenticate(
 		XMLRPC_VectorAppendString(params, "read_critical", "true", 0);
 	}
 	XMLRPC_VectorAppendInt(params, "last_exec_event", (int) last_exec_froze);
+	appendMFA(params);
 	XMLRPC_VALUE options = XMLRPC_CreateVector("options", xmlrpc_vector_array);
 	std::vector<const char*>::const_iterator it = requested_options.begin();
 	std::vector<const char*>::const_iterator end = requested_options.end();
@@ -196,6 +198,17 @@ void LLUserAuth::authenticate(
 	mResponder = new XMLRPCResponder;
 	LLHTTPClient::postXMLRPC(auth_uri, request, mResponder);
 	LL_INFOS("AppInit", "Authentication") << "LLUserAuth::authenticate: uri=" << auth_uri << LL_ENDL;
+}
+void LLUserAuth::setMFA(const std::string& mfa_hash, const std::string& token)
+{
+	mMFAHash = mfa_hash;
+	mMFAToken = token;
+}
+void LLUserAuth::appendMFA(XMLRPC_VALUE params)
+{
+	XMLRPC_VectorAppendString(params, "mfa_hash", mMFAHash.c_str(), 0);
+	XMLRPC_VectorAppendString(params, "token", mMFAToken.c_str(), 0);
+	XMLRPC_VectorAppendString(params, "extended_errors", "true", 0);
 }
 LLUserAuth::UserAuthcode LLUserAuth::authResponse()
 {

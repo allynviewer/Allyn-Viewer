@@ -170,6 +170,10 @@ Riprova ad accedere tra un minuto.</string>
 Riprova ad accedere tra un minuto.</string>
 	<string name="LoginFailedLoggingOutSession">Il sistema ha avviato la disconnessione della tua ultima sessione.
 Riprova ad accedere tra un minuto.</string>
+	<string name="LoginFailedAuthenticationMFARequired">
+		Per accedere, inserisci un nuovo token dalla tua app di autenticazione multi-fattore.
+Se ritieni che si tratti di un errore, contatta support@secondlife.com
+	</string>
 	<string name="LoginInProgress">
 		In connessione. [APP_NAME] può sembrare rallentata. Attendi.
 	</string>

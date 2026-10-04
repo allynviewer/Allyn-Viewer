@@ -82,6 +82,7 @@ public:
 		const std::vector<const char*>& requested_options,
 		const std::string& hashed_mac,
 		const std::string& hashed_volume_serial);
+	void setMFA(const std::string& mfa_hash, const std::string& token);
 	UserAuthcode authResponse();
 	LLSD mResult;
 	UserAuthcode mAuthResponse;
@@ -96,6 +97,9 @@ private:
 	LLSD mResponses;
 	UserAuthcode parseResponse();
 	LLSD parseValues(UserAuthcode &auth_code, const std::string& key_pfx, XMLRPC_VALUE param);
+	void appendMFA(XMLRPC_VALUE params);
 	F64 mLastTransferRateBPS;
+	std::string mMFAHash;
+	std::string mMFAToken;
 };
 #endif

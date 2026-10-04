@@ -6333,5 +6333,31 @@ Ya existe un grid con el mismo apodo.
 (Puedes cambiar tu respuesta en Preferencias -&gt; General -&gt; Informes de fallos)
 		<usetemplate name="okcancelbuttons" notext="No" yestext="Sí"/>
 	</notification>
-	
+	<notification
+	 icon="alertmodal.tga"
+	 label="Solicitud de token MFA"
+	 name="PromptMFAToken"
+	 type="alertmodal">
+[MESSAGE]
+		<tag>confirm</tag>
+		<form name="form">
+			<input name="token" type="text" width="400"/>
+			<button default="true" index="0" name="continue" text="Continuar"/>
+			<button index="1" name="cancel" text="Cancelar"/>
+		</form>
+	</notification>
+	<notification
+	 icon="alertmodal.tga"
+	 label="Solicitud de token MFA"
+	 name="PromptMFATokenWithSave"
+	 type="alertmodal">
+[MESSAGE]
+		<tag>confirm</tag>
+		<form name="form">
+			<input name="token" type="text" width="400"/>
+			<ignore checkbox_only="true" name="ignore" text="Recordar este equipo durante 30 días."/>
+			<button default="true" index="0" name="continue" text="Continuar"/>
+			<button index="1" name="cancel" text="Cancelar"/>
+		</form>
+	</notification>
 </notifications>

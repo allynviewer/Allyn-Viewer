@@ -240,6 +240,10 @@ static LLHost gFirstSim;
 static std::string gFirstSimSeedCap;
 static LLVector3 gAgentStartLookAt(1.0f, 0.f, 0.f);
 static std::string gAgentStartLocation = "safe";
+static std::string sMFAHash;
+static std::string sMFAToken;
+static bool sSaveMFA = false;
+static bool sMFAOpenConnectBox = false;
 static bool mBenefitsSuccessfullyInit = false;
 boost::scoped_ptr<LLEventPump> LLStartUp::sStateWatcher(new LLEventStream("StartupState"));
 boost::scoped_ptr<LLViewerStats::PhaseMap> LLStartUp::sPhases(new LLViewerStats::PhaseMap);
@@ -381,6 +385,178 @@ void init_audio()
 		}
 	}
 	LL_INFOS("AppInit") << "Audio Engine Initialized." << LL_ENDL;
+}
+static std::string mfaUserKey(const std::string& first, const std::string& last)
+{
+	std::string id = first + "_" + last;
+	LLStringUtil::toLower(id);
+	return id;
+}
+static std::string mfaStorePath()
+{
+	return gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "mfa_hash.dat");
+}
+static LLSD loadMFAMap()
+{
+	std::string path = mfaStorePath();
+	LLFILE* fp = LLFile::fopen(path, "rb");
+	if (!fp)
+	{
+		return LLSD::emptyMap();
+	}
+	fseek(fp, 0, SEEK_END);
+	long n = ftell(fp);
+	if (n <= 0)
+	{
+		fclose(fp);
+		return LLSD::emptyMap();
+	}
+	fseek(fp, 0, SEEK_SET);
+	std::vector<U8> buf((size_t)n);
+	size_t got = fread(&buf[0], 1, buf.size(), fp);
+	fclose(fp);
+	if (got != buf.size())
+	{
+		return LLSD::emptyMap();
+	}
+	LLXORCipher cipher(gMACAddress, 6);
+	cipher.decrypt(&buf[0], (U32)buf.size());
+	std::string raw((const char*)&buf[0], buf.size());
+	std::istringstream iss(raw);
+	LLSD map;
+	if (LLSDSerialize::fromBinary(map, iss, (S32)raw.size()) <= 0 || !map.isMap())
+	{
+		return LLSD::emptyMap();
+	}
+	return map;
+}
+static void saveMFAMap(const LLSD& map)
+{
+	std::ostringstream oss;
+	if (LLSDSerialize::toBinary(map, oss) <= 0)
+	{
+		return;
+	}
+	std::string raw = oss.str();
+	std::vector<U8> buf(raw.begin(), raw.end());
+	if (buf.empty())
+	{
+		return;
+	}
+	LLXORCipher cipher(gMACAddress, 6);
+	cipher.encrypt(&buf[0], (U32)buf.size());
+	LLFILE* fp = LLFile::fopen(mfaStorePath(), "wb");
+	if (!fp)
+	{
+		return;
+	}
+	fwrite(&buf[0], 1, buf.size(), fp);
+	fclose(fp);
+}
+static std::string storedMFAHash(const std::string& grid, const std::string& user)
+{
+	LLSD map = loadMFAMap();
+	if (map.has(grid) && map[grid].isMap() && map[grid].has(user))
+	{
+		return map[grid][user].asString();
+	}
+	return std::string();
+}
+static void writeMFAHash(const std::string& grid, const std::string& user, const std::string& hash)
+{
+	LLSD map = loadMFAMap();
+	if (!map.isMap())
+	{
+		map = LLSD::emptyMap();
+	}
+	if (!map.has(grid) || !map[grid].isMap())
+	{
+		map[grid] = LLSD::emptyMap();
+	}
+	map[grid][user] = hash;
+	saveMFAMap(map);
+}
+static void eraseMFAHash(const std::string& grid, const std::string& user)
+{
+	LLSD map = loadMFAMap();
+	if (!map.isMap() || !map.has(grid) || !map[grid].isMap() || !map[grid].has(user))
+	{
+		return;
+	}
+	map[grid].erase(user);
+	saveMFAMap(map);
+}
+static void persistMFAHash(const LLSD& response, const std::string& grid, const std::string& user)
+{
+	if (response.has("mfa_hash") && gSavedSettings.getBOOL("RememberName") && sSaveMFA)
+	{
+		writeMFAHash(grid, user, response["mfa_hash"].asString());
+	}
+	else if (!sSaveMFA)
+	{
+		eraseMFAHash(grid, user);
+	}
+}
+static std::string stripMFAToken(const std::string& token)
+{
+	std::string out;
+	out.reserve(token.size());
+	for (std::string::const_iterator it = token.begin(); it != token.end(); ++it)
+	{
+		if (*it != ' ' && *it != '\t' && *it != '\n' && *it != '\r')
+		{
+			out.push_back(*it);
+		}
+	}
+	return out;
+}
+static void showMFAChallenge(const std::string& message);
+static bool handle_mfa_challenge(const LLSD&, const LLSD& response)
+{
+	bool cont = response["continue"].asBoolean();
+	std::string token = stripMFAToken(response["token"].asString());
+	if (cont && !token.empty())
+	{
+		sMFAToken = token;
+		sSaveMFA = response.has("ignore") ? response["ignore"].asBoolean() : false;
+		if (gViewerWindow)
+		{
+			gViewerWindow->setShowProgress(TRUE);
+		}
+		LLStartUp::setStartupState(STATE_LOGIN_AUTH_INIT);
+	}
+	else
+	{
+		sMFAToken.clear();
+		sMFAOpenConnectBox = true;
+		transition_back_to_login_panel(std::string());
+	}
+	return false;
+}
+static void showMFAChallenge(const std::string& message)
+{
+	if (gViewerWindow)
+	{
+		gViewerWindow->setShowProgress(FALSE);
+	}
+	LLStartUp::setStartupState(STATE_UPDATE_CHECK);
+	LLSD args;
+	args["MESSAGE"] = message;
+	std::string name = gSavedSettings.getBOOL("RememberName") ? "PromptMFATokenWithSave" : "PromptMFAToken";
+	LLNotificationsUtil::add(name, args, LLSD(), handle_mfa_challenge);
+}
+bool LLStartUp::mfaTokenPending()
+{
+	return !sMFAToken.empty();
+}
+void LLStartUp::repeatMFAChallenge()
+{
+	sMFAToken.clear();
+	showMFAChallenge(LLTrans::getString("LoginFailedAuthenticationMFARequired"));
+}
+void LLStartUp::removeMFAHash(const std::string& grid, const std::string& first, const std::string& last)
+{
+	eraseMFAHash(grid, mfaUserKey(first, last));
 }
 bool idle_startup()
 {
@@ -624,6 +800,11 @@ bool idle_startup()
 	}
 	if (STATE_LOGIN_SHOW == LLStartUp::getStartupState())
 	{
+		if (sMFAOpenConnectBox)
+		{
+			show_connect_box = true;
+			sMFAOpenConnectBox = false;
+		}
 		LL_DEBUGS("AppInit") << "Initializing Window" << LL_ENDL;
 		gViewerWindow->getWindow()->setCursor(UI_CURSOR_ARROW);
 		gGenericHandlers = new GenericHandlers();
@@ -696,6 +877,8 @@ bool idle_startup()
 	}
 	if (STATE_LOGIN_CLEANUP == LLStartUp::getStartupState())
 	{
+		gAcceptTOS = FALSE;
+		gAcceptCriticalMessage = FALSE;
 		if (!LLStartUp::startLLProxy())
 		{
 			LLStartUp::setStartupState(STATE_LOGIN_SHOW);
@@ -821,6 +1004,26 @@ bool idle_startup()
 		display_startup();
 		gVFS->pokeFiles();
 		init_colors();
+		sMFAToken.clear();
+		sSaveMFA = false;
+		{
+			std::string grid = gHippoGridManager->getConnectedGrid()->getGridName();
+			std::string user = mfaUserKey(firstname, lastname);
+			std::string override_hash;
+			if (gSavedSettings.getControl("MFAHash"))
+			{
+				override_hash = gSavedSettings.getString("MFAHash");
+			}
+			if (!override_hash.empty())
+			{
+				sMFAHash = override_hash;
+				writeMFAHash(grid, user, override_hash);
+			}
+			else
+			{
+				sMFAHash = storedMFAHash(grid, user);
+			}
+		}
 		if (gSavedSettings.getString("VoiceServerType") != "vivox" ||
 			gSavedSettings.getBOOL("VivoxLicenseAccepted"))
 		{
@@ -923,6 +1126,7 @@ bool idle_startup()
 			grid_uri = redirect_uri;
 		LL_INFOS() << "Authenticating with " << grid_uri << LL_ENDL;
 		Debug(gCurlIo = dc::curl.is_on() && !dc::curlio.is_on(); if (gCurlIo) dc::curlio.on());
+		LLUserAuth::getInstance()->setMFA(sMFAHash, sMFAToken);
 		LLUserAuth::getInstance()->authenticate(
 			grid_uri,
 			auth_method,
@@ -938,8 +1142,6 @@ bool idle_startup()
 			hashed_mac_string,
 			LLAppViewer::instance()->getSerialNumber());
 		gAuthString = hashed_mac_string;
-		gAcceptTOS = FALSE;
-		gAcceptCriticalMessage = FALSE;
 		LLStartUp::setStartupState( STATE_LOGIN_NO_DATA_YET );
 		return FALSE;
 	}
@@ -990,8 +1192,6 @@ bool idle_startup()
 		bool quit = false;
 		bool successful_login = false;
 		LLUserAuth::UserAuthcode error = LLUserAuth::getInstance()->authResponse();
-		gAcceptTOS = FALSE;
-		gAcceptCriticalMessage = FALSE;
 		std::string login_response;
 		std::string reason_response;
 		std::string message_response;
@@ -1032,6 +1232,26 @@ bool idle_startup()
 				}
 				set_startup_status(progress, auth_desc, auth_message);
 				LLStartUp::setStartupState(STATE_XMLRPC_LEGACY_LOGIN );
+				return false;
+			}
+			else if (reason_response == "mfa_challenge")
+			{
+				if (response.has("mfa_hash"))
+				{
+					sMFAHash = response["mfa_hash"].asString();
+					sMFAToken.clear();
+					persistMFAHash(response, gHippoGridManager->getCurrentGrid()->getGridName(), mfaUserKey(firstname, lastname));
+				}
+				std::string message;
+				if (message_id.empty() || !LLTrans::findString(message, message_id))
+				{
+					message = message_response;
+				}
+				if (message.empty())
+				{
+					message = LLTrans::getString("LoginFailedAuthenticationMFARequired");
+				}
+				showMFAChallenge(message);
 				return false;
 			}
 			else
@@ -2822,6 +3042,8 @@ bool process_login_success_response(std::string& password, U32& first_sim_size_x
 		LLStartUp::deletePasswordFromDisk();
 		password.assign("");
 	}
+	persistMFAHash(response, gHippoGridManager->getConnectedGrid()->getGridName(), mfaUserKey(firstname, lastname));
+	sMFAToken.clear();
 	{
 		std::string history_file = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "saved_logins_sg2.xml");
 		LLSavedLogins history_data = LLSavedLogins::loadFile(history_file);

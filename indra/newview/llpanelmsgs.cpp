@@ -78,7 +78,7 @@ void LLPanelMsgs::buildPopupLists()
 		LLNotificationTemplatePtr templatep = iter->second;
 		LLNotificationFormPtr formp = templatep->mForm;
 		LLNotificationForm::EIgnoreType ignore = formp->getIgnoreType();
-		if (ignore == LLNotificationForm::IGNORE_NO)
+		if (ignore == LLNotificationForm::IGNORE_NO || ignore == LLNotificationForm::IGNORE_CHECKBOX_ONLY)
 				continue;
 		LLSD params;
 		params["name"] = (*iter).first;
@@ -163,7 +163,8 @@ void LLPanelMsgs::resetAllIgnored()
 		iter != LLNotificationTemplates::instance().templatesEnd();
 		++iter)
 	{
-		if (iter->second->mForm->getIgnoreType() != LLNotificationForm::IGNORE_NO)
+		if (iter->second->mForm->getIgnoreType() != LLNotificationForm::IGNORE_NO
+			&& iter->second->mForm->getIgnoreType() != LLNotificationForm::IGNORE_CHECKBOX_ONLY)
 		{
 			gSavedSettings.setWarning(iter->first, TRUE);
 		}
@@ -175,7 +176,8 @@ void LLPanelMsgs::setAllIgnored()
 		iter != LLNotificationTemplates::instance().templatesEnd();
 		++iter)
 	{
-		if (iter->second->mForm->getIgnoreType() != LLNotificationForm::IGNORE_NO)
+		if (iter->second->mForm->getIgnoreType() != LLNotificationForm::IGNORE_NO
+			&& iter->second->mForm->getIgnoreType() != LLNotificationForm::IGNORE_CHECKBOX_ONLY)
 		{
 			gSavedSettings.setWarning(iter->first, FALSE);
 		}

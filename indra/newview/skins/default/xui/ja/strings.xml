@@ -248,6 +248,10 @@
 	<string name="LoginFailedLoggingOutSession">
 		システムは前回のセッションのログアウトを開始しました。1分後に再度ログインしてください。
 	</string>
+	<string name="LoginFailedAuthenticationMFARequired">
+		ログインするには多段階認証アプリから新しいトークンを入力する必要があります。
+それでもこのエラーが発生する場合は、support@secondlife.comにお問い合わせください。
+	</string>
 	<string name="AgentLostConnection">
 		このリージョンで障害が起きている可能性があります。インターネット接続を確認してください。
 	</string>

@@ -4710,4 +4710,31 @@ f&#xFC;r Informationen und Download-Links zu neueren Versionen zu &#xF6;ffnen.
 		<tag>confirm</tag>
 		<usetemplate ignoretext="Kritischen Update-Hinweis ignorieren" name="okcancelignorecanceldefault" notext="Sp&#xE4;ter" yestext="Seite besuchen"/>
 	</notification>
+	<notification
+	 icon="alertmodal.tga"
+	 label="Eingabe MFA-Token"
+	 name="PromptMFAToken"
+	 type="alertmodal">
+[MESSAGE]
+		<tag>confirm</tag>
+		<form name="form">
+			<input name="token" type="text" width="400"/>
+			<button default="true" index="0" name="continue" text="Fortsetzen"/>
+			<button index="1" name="cancel" text="Abbrechen"/>
+		</form>
+	</notification>
+	<notification
+	 icon="alertmodal.tga"
+	 label="Eingabe MFA-Token"
+	 name="PromptMFATokenWithSave"
+	 type="alertmodal">
+[MESSAGE]
+		<tag>confirm</tag>
+		<form name="form">
+			<input name="token" type="text" width="400"/>
+			<ignore checkbox_only="true" name="ignore" text="Diesen Computer f&#xFC;r 30 Tage merken."/>
+			<button default="true" index="0" name="continue" text="Fortsetzen"/>
+			<button index="1" name="cancel" text="Abbrechen"/>
+		</form>
+	</notification>
 </notifications>

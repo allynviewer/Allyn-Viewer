@@ -5847,4 +5847,31 @@ com informações e links de download das versões novas.
 		<tag>confirm</tag>
 		<usetemplate name="okcancelignorecanceldefault" notext="Depois" yestext="Visitar página" ignoretext="Ignorar notificação de atualização crítica"/>
 	</notification>
+	<notification
+	 icon="alertmodal.tga"
+	 label="Token de autenticação"
+	 name="PromptMFAToken"
+	 type="alertmodal">
+[MESSAGE]
+		<tag>confirm</tag>
+		<form name="form">
+			<input name="token" type="text" width="400"/>
+			<button default="true" index="0" name="continue" text="Continuar"/>
+			<button index="1" name="cancel" text="Cancelar"/>
+		</form>
+	</notification>
+	<notification
+	 icon="alertmodal.tga"
+	 label="Token de autenticação"
+	 name="PromptMFATokenWithSave"
+	 type="alertmodal">
+[MESSAGE]
+		<tag>confirm</tag>
+		<form name="form">
+			<input name="token" type="text" width="400"/>
+			<ignore checkbox_only="true" name="ignore" text="Lembrar deste computador por 30 dias."/>
+			<button default="true" index="0" name="continue" text="Continuar"/>
+			<button index="1" name="cancel" text="Cancelar"/>
+		</form>
+	</notification>
 </notifications>

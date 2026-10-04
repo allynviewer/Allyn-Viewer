@@ -264,6 +264,10 @@ If you feel this is an error, please contact support@secondlife.com.
 		Last name parameter must be alphanumeric.
 If you feel this is an error, please contact support@secondlife.com.
 	</string>
+	<string name="LoginFailedAuthenticationMFARequired">
+		To continue logging in, enter a new token from your multifactor authentication app.
+If you feel this is an error, please contact support@secondlife.com
+	</string>
 	<string name="LogoutFailedRegionGoingOffline">
 		Region is going offline.
 Please try logging in again in a minute.
