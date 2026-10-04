@@ -110,6 +110,7 @@ public:
 	void dirtyImage(LLViewerFetchedTexture *image);
 	void updateImages(F32 max_time);
 	void forceImmediateUpdate(LLViewerFetchedTexture* imagep) ;
+	void clearImageDecodePriority(LLViewerFetchedTexture* imagep) ;
 	void decodeAllImages(F32 max_decode_time);
 	void handleIRCallback(void **data, const S32 number);
 	void setUpdateStats(BOOL b)			{ mUpdateStats = b; }

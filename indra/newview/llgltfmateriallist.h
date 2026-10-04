@@ -13,6 +13,7 @@ protected:
 	LLGLTFMaterialList() : mReadyGeneration(0) {}
 public:
 	LLGLTFMaterial* getMaterial(const LLUUID& id);
+	LLGLTFMaterial* findMaterial(const LLUUID& id) const;
 	S32 getReadyGeneration() const { return mReadyGeneration; }
 
 private:

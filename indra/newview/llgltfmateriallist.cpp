@@ -90,6 +90,19 @@ void LLGLTFMaterialList::onAssetArrived(LLVFS* vfs, const LLUUID& asset_id, S32 
 	++mReadyGeneration;
 }
 
+LLGLTFMaterial* LLGLTFMaterialList::findMaterial(const LLUUID& id) const
+{
+	if (id.isNull())
+	{
+		return NULL;
+	}
+	std::map<LLUUID, Entry>::const_iterator it = mEntries.find(id);
+	if (it == mEntries.end())
+	{
+		return NULL;
+	}
+	return it->second.mat;
+}
 LLGLTFMaterial* LLGLTFMaterialList::getMaterial(const LLUUID& id)
 {
 	if (id.isNull())

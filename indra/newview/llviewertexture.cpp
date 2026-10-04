@@ -25,7 +25,92 @@
  */
 #include "llviewerprecompiledheaders.h"
 #include "llviewertexture.h"
+#include "lldir.h"
+#include "llfile.h"
+#include <map>
+#include <set>
+#include <string>
 #include "imageids.h"
+namespace
+{
+	std::set<LLUUID> gDiagClassicIds;
+	std::map<std::string, std::string> gDiagClassicSeen;
+	void diagWrite(const std::string& line)
+	{
+		if (!gDirUtilp)
+		{
+			return;
+		}
+		static std::string path;
+		if (path.empty())
+		{
+			path = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "pbr_classic_diag.log");
+		}
+		LLFILE* fp = LLFile::fopen(path, "a");
+		if (!fp)
+		{
+			return;
+		}
+		fprintf(fp, "%s\n", line.c_str());
+		fflush(fp);
+		fclose(fp);
+	}
+}
+void diagPBRClassicMark(const LLUUID& id)
+{
+	if (id.notNull())
+	{
+		gDiagClassicIds.insert(id);
+	}
+}
+bool diagPBRClassicMarked(const LLUUID& id)
+{
+	return gDiagClassicIds.find(id) != gDiagClassicIds.end();
+}
+void diagPBRClassic(const char* stage, LLViewerTexture* image, const char* extra)
+{
+	std::string id = image ? image->getID().asString() : std::string("none");
+	std::string key = std::string(stage ? stage : "") + "|" + id;
+	S32 boost = -1;
+	F32 pri = 0.f;
+	F32 vsize = 0.f;
+	S32 faces = -1;
+	S32 gl = 0;
+	S32 fetcher = 0;
+	S32 fetching = 0;
+	S32 deleted = 0;
+	S32 discard = -2;
+	S32 desired = -2;
+	S32 max_discard = -2;
+	S32 full = 0;
+	if (image)
+	{
+		boost = image->getBoostLevel();
+		vsize = image->getMaxVirtualSize();
+		faces = image->getTotalNumFaces();
+		gl = image->hasGLTexture() ? 1 : 0;
+		discard = image->getDiscardLevel();
+		LLViewerFetchedTexture* fetched = LLViewerTextureManager::staticCastToFetchedTexture(image, FALSE);
+		if (fetched)
+		{
+			pri = fetched->getDecodePriority();
+			fetcher = fetched->hasFetcher() ? 1 : 0;
+			deleted = fetched->isDeleted() ? 1 : 0;
+			desired = fetched->getDesiredDiscardLevel();
+			max_discard = fetched->getMaxDiscardLevel();
+			full = fetched->isFullyLoaded() ? 1 : 0;
+		}
+	}
+	std::string val = llformat("boost=%d pri=%.3f vsize=%.1f faces=%d gl=%d fetcher=%d fetching=%d deleted=%d discard=%d desired=%d max=%d full=%d %s",
+		boost, pri, vsize, faces, gl, fetcher, fetching, deleted, discard, desired, max_discard, full, extra ? extra : "");
+	std::map<std::string, std::string>::iterator it = gDiagClassicSeen.find(key);
+	if (it != gDiagClassicSeen.end() && it->second == val)
+	{
+		return;
+	}
+	gDiagClassicSeen[key] = val;
+	diagWrite(llformat("PBRClassicDiag stage=%s uuid=%s %s", stage ? stage : "", id.c_str(), val.c_str()));
+}
 #include "llmath.h"
 #include "llerror.h"
 #include "llgl.h"
@@ -637,6 +722,7 @@ void LLViewerTexture::forceImmediateUpdate()
 }
 void LLViewerTexture::addTextureStats(F32 virtual_size, BOOL needs_gltexture) const
 {
+	F32 added = virtual_size;
 	if(needs_gltexture)
 	{
 		mNeedsGLTexture = TRUE;
@@ -653,9 +739,17 @@ void LLViewerTexture::addTextureStats(F32 virtual_size, BOOL needs_gltexture) co
 	{
 		mMaxVirtualSize = virtual_size;
 	}
+	if (diagPBRClassicMarked(getID()))
+	{
+		diagPBRClassic("addTextureStats", const_cast<LLViewerTexture*>(this), llformat("add=%.1f", added).c_str());
+	}
 }
 void LLViewerTexture::resetTextureStats()
 {
+	if (diagPBRClassicMarked(getID()))
+	{
+		diagPBRClassic("resetTextureStats", this, "vsize_zeroed");
+	}
 	mMaxVirtualSize = 0.0f;
 	mAdditionalDecodePriority = 0.f;
 	mMaxVirtualSizeResetCounter = 0;
@@ -1037,13 +1131,41 @@ void LLViewerFetchedTexture::dump()
 }
 void LLViewerFetchedTexture::destroyTexture()
 {
-	if(LLImageGL::sGlobalTextureMemory < sMaxDesiredTextureMem * 0.95f)
-	{
-		return ;
-	}
 	if (mNeedsCreateTexture)
 	{
 		return;
+	}
+	bool idle_unused = isDeletionCandidate()
+		&& getTotalNumFaces() == 0
+		&& !hasParcelMedia()
+		&& mLoadedCallbackList.empty()
+		&& !mHasFetcher
+		&& !mIsFetching
+		&& !getBoundRecently()
+		&& mBoostLevel == (S32)LLGLTexture::BOOST_NONE;
+	if (idle_unused)
+	{
+		for (U32 ch = 0; ch < LLRender::NUM_VOLUME_TEXTURE_CHANNELS; ++ch)
+		{
+			if (getNumVolumes(ch) > 0)
+			{
+				idle_unused = false;
+				break;
+			}
+		}
+	}
+	const bool pressured = LLImageGL::sGlobalTextureMemory >= sMaxDesiredTextureMem * 0.95f;
+	if (diagPBRClassicMarked(getID()))
+	{
+		diagPBRClassic("destroyTexture_enter", this, llformat("idle=%d pressured=%d bound=%d", idle_unused ? 1 : 0, pressured ? 1 : 0, getBoundRecently() ? 1 : 0).c_str());
+	}
+	if (!pressured && !idle_unused)
+	{
+		return;
+	}
+	if (diagPBRClassicMarked(getID()))
+	{
+		diagPBRClassic("destroyTexture_gl", this, llformat("idle=%d pressured=%d", idle_unused ? 1 : 0, pressured ? 1 : 0).c_str());
 	}
 	destroyGLTexture();
 	mFullyLoaded = FALSE;
@@ -1529,6 +1651,10 @@ void LLViewerFetchedTexture::updateVirtualSize()
 			}
 		}
 	}
+	if (diagPBRClassicMarked(getID()))
+	{
+		diagPBRClassic("updateVirtualSize", this, llformat("counter=%d", (S32)mMaxVirtualSizeResetCounter).c_str());
+	}
 	const F32 SELECTION_RESET_TIME = 10.f;
 	if (getBoostLevel() ==  LLViewerTexture::BOOST_SELECTED &&
 		gFrameTimeSeconds - mSelectedTime > SELECTION_RESET_TIME)
@@ -1596,15 +1722,27 @@ bool LLViewerFetchedTexture::updateFetch()
 #endif
 	if (mNeedsCreateTexture)
 	{
+		if (diagPBRClassicMarked(getID()))
+		{
+			diagPBRClassic("updateFetch", this, "return_needsCreate");
+		}
 		return false;
 	}
 	if (mIsMissingAsset)
 	{
 		llassert(!mHasFetcher);
+		if (diagPBRClassicMarked(getID()))
+		{
+			diagPBRClassic("updateFetch", this, "return_missing");
+		}
 		return false;
 	}
 	if (!mLoadedCallbackList.empty() && mRawImage.notNull())
 	{
+		if (diagPBRClassicMarked(getID()))
+		{
+			diagPBRClassic("updateFetch", this, "return_callback_raw");
+		}
 		return false;
 	}
 	S32 current_discard = getCurrentDiscardLevelForFetching();
@@ -1783,6 +1921,43 @@ bool LLViewerFetchedTexture::updateFetch()
 			}
 		}
 	}
+	if (diagPBRClassicMarked(getID()))
+	{
+		const char* why = "createRequest";
+		if (decode_priority <= 0)
+		{
+			why = "blocked_priority<=0";
+		}
+		else if (mDesiredDiscardLevel > getMaxDiscardLevel())
+		{
+			why = "blocked_desired>max";
+		}
+		else if (mNeedsCreateTexture)
+		{
+			why = "blocked_needsCreate";
+		}
+		else if (mIsMissingAsset)
+		{
+			why = "blocked_missing";
+		}
+		else if (current_discard >= 0 && current_discard <= mMinDiscardLevel)
+		{
+			why = "blocked_minDiscard";
+		}
+		else if (!make_request && mCachedRawImage.notNull() && mCachedRawImageReady)
+		{
+			why = "blocked_cached_raw";
+		}
+		else if (!make_request && mIsFetching)
+		{
+			why = "blocked_inflight";
+		}
+		else if (!make_request)
+		{
+			why = "blocked_have_discard";
+		}
+		diagPBRClassic("updateFetch", this, llformat("%s fetching=%d minDiscard=%d", why, (S32)mIsFetching, (S32)mMinDiscardLevel).c_str());
+	}
 	if (make_request)
 	{
 		S32 w=0, h=0, c=0;
@@ -1802,6 +1977,10 @@ bool LLViewerFetchedTexture::updateFetch()
 																			  w, h, c, desired_discard, needsAux(), mCanUseHTTP);
 		if (fetch_request_created)
 		{
+			if (diagPBRClassicMarked(getID()))
+			{
+				diagPBRClassic("createRequest", this, llformat("ok desired=%d w=%d h=%d", desired_discard, w, h).c_str());
+			}
 			mHasFetcher = TRUE;
 			mIsFetching = TRUE;
 			mRequestedDiscardLevel = desired_discard;
@@ -2222,6 +2401,19 @@ bool LLViewerFetchedTexture::doLoadedCallbacks()
 }
 void LLViewerFetchedTexture::forceImmediateUpdate()
 {
+	if (diagPBRClassicMarked(getID()))
+	{
+		const char* why = "run";
+		if (!isDeleted())
+		{
+			why = "skip_not_deleted";
+		}
+		else if (mInImageList && mDecodePriority == LLViewerFetchedTexture::maxDecodePriority())
+		{
+			why = "skip_already_max";
+		}
+		diagPBRClassic("forceImmediateUpdate", this, why);
+	}
 	if(!isDeleted())
 	{
 		return;
@@ -2691,6 +2883,10 @@ void LLViewerLODTexture::processTextureStats()
 		{
 			mDesiredDiscardLevel = mCachedRawDiscardLevel;
 		}
+	}
+	if (diagPBRClassicMarked(getID()))
+	{
+		diagPBRClassic("processTextureStats", this, llformat("minDesired=%d", (S32)mMinDesiredDiscardLevel).c_str());
 	}
 }
 bool LLViewerLODTexture::scaleDown()
