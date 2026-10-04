@@ -1235,7 +1235,8 @@ if not defined ZIP_FOUND exit /b 1
 exit /b 0
 
 :read_version
-REM VERSION = "1.0.0.N" from viewer_version.txt (written by CMake), VER_US = "1_0_0_N",
+REM VERSION = "1.0.0.N" from viewer_version.txt (filenames and tags). The visible
+REM version is "1.0.0 (N)". VER_US = "1_0_0_N".
 REM CHANNEL_TYPE = Beta/Release/... from the CMake cache (VIEWER_CHANNEL_TYPE).
 set "VERSION="
 set "VERSION_FILE=%BUILD_DIR%\newview\viewer_version.txt"

@@ -9,7 +9,7 @@ LangString SelectInstallerLanguage  ${LANG_SPANISH} "Por favor seleccione el idi
 
 ; installation directory text
 LangString DirectoryChooseTitle ${LANG_SPANISH} "Directorio de instalación" 
-LangString DirectoryChooseUpdate ${LANG_SPANISH} "Seleccione el directorio de ${APPNAME} para actualizar el programa a la versión ${VERSION_LONG}.(XXX):"
+LangString DirectoryChooseUpdate ${LANG_SPANISH} "Seleccione el directorio de ${APPNAME} para actualizar el programa a la versión ${VERSION_LONG}:"
 LangString DirectoryChooseSetup ${LANG_SPANISH} "Seleccione el directorio en el que instalar ${APPNAME}:"
 
 ; CheckStartupParams message box

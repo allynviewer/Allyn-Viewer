@@ -9,7 +9,7 @@ LangString SelectInstallerLanguage  ${LANG_DANISH} "Vælg venligst sprog til ins
 
 ; installation directory text
 LangString DirectoryChooseTitle ${LANG_DANISH} "Installationsmappe" 
-LangString DirectoryChooseUpdate ${LANG_DANISH} "Vælg ${APPNAME} mappe til opdatering til version ${VERSION_LONG}.(XXX):"
+LangString DirectoryChooseUpdate ${LANG_DANISH} "Vælg ${APPNAME} mappe til opdatering til version ${VERSION_LONG}:"
 LangString DirectoryChooseSetup ${LANG_DANISH} "Vælg mappe hvor ${APPNAME} skal installeres:"
 
 ; CheckStartupParams message box

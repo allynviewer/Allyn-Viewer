@@ -21,9 +21,9 @@ Agent-oriented notes for the **current** Windows 64-bit tree. Contributor-facing
  - Install missing tools (Git, CMake, Python, VS 2022 Build Tools, NSIS) via winget: `build.bat tools` (offered automatically in interactive mode)
   - `build.bat check` also warns about paths with spaces / long paths / cloud-synced folders and < 20 GB free disk
   - Run: `build.bat run`
-- Executable: `build-vc-64\newview\Release\allyn-viewer-bin.exe` (mirrored to `build-vc-64\bin\Release\` by `build.bat`); packaged copies are renamed to `AllynViewer<Type>.exe` (`final_exe()` in `viewer_manifest.py`)
+- Executable: `build-vc-64\newview\Release\allyn-viewer-bin.exe` (mirrored to `build-vc-64\bin\Release\` by `build.bat`). The manifest keeps that name (`final_exe()` in `viewer_manifest.py`); it does not write `AllynViewer<Type>.exe` beside the build.
 - Branding: `VIEWER_CHANNEL_BASE` (`Variables.cmake`) and `CHANNEL_VENDOR_BASE` (`llmanifest.py`) must both be `Allyn Viewer`; channel = `"Allyn Viewer <Type>"`, branding id `allyn-viewer`
-- Build number = `git rev-list --count HEAD` (`-i` to autobuild); version = `indra/newview/VIEWER_VERSION.txt` + build number → `build-vc-64\newview\viewer_version.txt`. CI tag builds (`v<major>.<minor>.<patch>.<build>`) take the build number from the tag and fail if `major.minor.patch` differs from `VIEWER_VERSION.txt`, so a tag `v1.0.0.2` always yields `Allyn_Viewer_*_1_0_0_2_*` packages.
+- Build number = `git rev-list --count HEAD` (`-i` to autobuild). `indra/newview/VIEWER_VERSION.txt` is `major.minor.patch`; the visible version is `major.minor.patch (build)`, for example `1.0.0 (17)`. `build-vc-64\newview\viewer_version.txt` stays `major.minor.patch.build` because filenames, git tags and the Windows version resource cannot contain spaces. CI tag builds (`v<major>.<minor>.<patch>.<build>`) take the build number from the tag and fail if `major.minor.patch` differs from `VIEWER_VERSION.txt`, so a tag `v1.0.0.2` always yields `Allyn_Viewer_*_1_0_0_2_*` packages and a release titled `Allyn Viewer 1.0.0 (2)`.
 - Solution: `build-vc-64\Allyn.sln` (VS 2022) or `build-vc-64\Allyn.slnx` (VS 2026)
 - Force one-file recompile: delete `build-vc-64\newview\allyn-viewer-bin.dir\Release\llappviewer.obj`
 - Always drive builds through `build.bat` / autobuild (vcvars). Plain MSBuild from a normal shell can force a full viewer recompile.

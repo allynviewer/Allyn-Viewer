@@ -9,7 +9,7 @@ LangString SelectInstallerLanguage  ${LANG_ITALIAN} "Scegliere per favore il lin
 
 ; installation directory text
 LangString DirectoryChooseTitle ${LANG_ITALIAN} "Directory di installazione" 
-LangString DirectoryChooseUpdate ${LANG_ITALIAN} "Scegli la directory di ${APPNAME} per l’update alla versione ${VERSION_LONG}.(XXX):"
+LangString DirectoryChooseUpdate ${LANG_ITALIAN} "Scegli la directory di ${APPNAME} per l’update alla versione ${VERSION_LONG}:"
 LangString DirectoryChooseSetup ${LANG_ITALIAN} "Scegli la directory dove installare ${APPNAME}:"
 
 ; CheckStartupParams message box

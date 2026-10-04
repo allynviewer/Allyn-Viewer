@@ -9,7 +9,7 @@ LangString SelectInstallerLanguage ${LANG_TRADCHINESE} "請選擇安裝時使用
 
 ; installation directory text
 LangString DirectoryChooseTitle ${LANG_TRADCHINESE} "安裝目錄"
-LangString DirectoryChooseUpdate ${LANG_TRADCHINESE} "請選擇 ${APPNAME} 的安裝目錄，以便於將軟體更新成 ${VERSION_LONG} 版本（XXX）:"
+LangString DirectoryChooseUpdate ${LANG_TRADCHINESE} "請選擇 ${APPNAME} 的安裝目錄，以便於將軟體更新成 ${VERSION_LONG} 版本:"
 LangString DirectoryChooseSetup ${LANG_TRADCHINESE} "請選擇安裝 ${APPNAME} 的目錄："
 
 ; CheckStartupParams message box

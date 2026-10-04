@@ -44,13 +44,23 @@ bool allyn_parse_version(const std::string& text, S32& major, S32& minor, S32& p
 		return false;
 	}
 
-	int n = sscanf(p, "%d.%d.%d.%d", &major, &minor, &patch, &build);
+	int n = sscanf(p, "%d.%d.%d (%d)", &major, &minor, &patch, &build);
+	if (n == 4)
+	{
+		return true;
+	}
+	n = sscanf(p, "%d.%d.%d.%d", &major, &minor, &patch, &build);
+	if (n == 4)
+	{
+		return true;
+	}
+	n = sscanf(p, "%d.%d.%d", &major, &minor, &patch, &build);
 	if (n == 3)
 	{
 		build = 0;
 		return true;
 	}
-	return n == 4;
+	return false;
 }
 
 bool allyn_version_is_newer(S32 remote_major, S32 remote_minor, S32 remote_patch, S32 remote_build,

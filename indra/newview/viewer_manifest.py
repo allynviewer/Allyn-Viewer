@@ -341,7 +341,7 @@ class WindowsManifest(ViewerManifest):
     build_data_json_platform = 'win'
 
     def final_exe(self):
-        return self.app_name_oneword()+".exe"
+        return '%s-bin.exe' % self.viewer_branding_id()
 
     def finish_build_data_dict(self, build_data_dict):
         build_data_dict['Executable'] = self.final_exe()
@@ -401,7 +401,10 @@ class WindowsManifest(ViewerManifest):
         pkgbindir = os.path.join(pkgdir, "bin", config)
 
         if True:
-            self.path(src=os.path.join(self.args['dest'], ('%s-bin.exe' % self.viewer_branding_id())), dst=self.final_exe())
+            self.path(src=os.path.join(self.args['dest'], self.final_exe()), dst=self.final_exe())
+            branded = os.path.join(self.args['dest'], self.app_name_oneword() + '.exe')
+            if os.path.normcase(branded) != os.path.normcase(os.path.join(self.args['dest'], self.final_exe())) and os.path.isfile(branded):
+                os.remove(branded)
 
         self.path2basename(os.path.join(os.pardir,
                                         'llplugin', 'slplugin', config),
@@ -594,12 +597,19 @@ class WindowsManifest(ViewerManifest):
             except:
                 print("Couldn't sign binaries. Tried to sign %s" % self.args['dest'] + "\\" + self.final_exe())
 		
+        version_parts = self.args['version']
+        version_dotted = '.'.join(version_parts)
+        if len(version_parts) >= 2:
+            version_display = '%s (%s)' % ('.'.join(version_parts[:-1]), version_parts[-1])
+        else:
+            version_display = version_dotted
         substitution_strings = {
-            'version' : '.'.join(self.args['version']),
-            'version_short' : '.'.join(self.args['version'][:-1]),
-            'version_dashes' : '-'.join(self.args['version']),
+            'version' : version_dotted,
+            'version_display' : version_display,
+            'version_short' : '.'.join(version_parts[:-1]),
+            'version_dashes' : '-'.join(version_parts),
             'version_registry' : '%s(%s)' %
-            ('.'.join(self.args['version']), self.address_size),
+            (version_dotted, self.address_size),
             'final_exe' : self.final_exe(),
             'flags':'',
             'app_name':self.app_name(),
@@ -623,7 +633,8 @@ class WindowsManifest(ViewerManifest):
         version_vars = """
         !define INSTEXE  "%(final_exe)s"
         !define VERSION "%(version_short)s"
-        !define VERSION_LONG "%(version)s"
+        !define VERSION_LONG "%(version_display)s"
+        !define VERSION_QUAD "%(version)s"
         !define VERSION_DASHES "%(version_dashes)s"
         """ % substitution_strings
 
@@ -641,7 +652,8 @@ class WindowsManifest(ViewerManifest):
             !define CAPTIONSTR "%(caption)s"
             !define VENDORSTR "Allyn Viewer Project"
             !define VERSION "%(version_short)s"
-            !define VERSION_LONG "%(version)s"
+            !define VERSION_LONG "%(version_display)s"
+            !define VERSION_QUAD "%(version)s"
             !define VERSION_DASHES "%(version_dashes)s"
             """
 

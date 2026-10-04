@@ -70,6 +70,7 @@ jobs:
       PYTHONUTF8: "1"
     outputs:
       version: ${{ steps.version.outputs.version }}
+      display_version: ${{ steps.version.outputs.display }}
       channel_type: ${{ env.VIEWER_CHANNEL_TYPE }}
       signed: ${{ env.SIGN }}
       packages_artifact: ${{ steps.packages.outputs.name }}
@@ -110,8 +111,9 @@ jobs:
       # Build number (fourth version component). Normal builds use the commit
       # count, like build.bat. Tag builds take it from the tag itself so that
       # the packages and the GitHub Release carry exactly the tagged version:
-      # tag v1.0.0.2 must produce Allyn_Viewer_*_1_0_0_2_*, not whatever the
-      # commit count happens to be at that commit.
+      # tag v1.0.0.2 must produce Allyn_Viewer_*_1_0_0_2_* and the release
+      # title "Allyn Viewer 1.0.0 (2)", not whatever the commit count happens
+      # to be at that commit.
       - name: Build number
         id: revision
         shell: bash
@@ -136,7 +138,7 @@ jobs:
             revision="$count"
           fi
           echo "revision=$revision" >> "$GITHUB_OUTPUT"
-          echo "Build number: $revision -> version ${base}.${revision} (commit count: ${count})"
+          echo "Build number: $revision -> ${base} (${revision}) [package ${base}.${revision}] (commit count: ${count})"
 
       - name: Configure (autobuild configure)
         shell: cmd
@@ -177,8 +179,14 @@ jobs:
             echo "::error::Built version $version does not match tag $REF_NAME"
             exit 1
           fi
+          if [[ "$version" =~ ^([0-9]+\.[0-9]+\.[0-9]+)\.([0-9]+)$ ]]; then
+            display="${BASH_REMATCH[1]} (${BASH_REMATCH[2]})"
+          else
+            display="$version"
+          fi
           echo "version=$version" >> "$GITHUB_OUTPUT"
-          echo "Version: $version"
+          echo "display=$display" >> "$GITHUB_OUTPUT"
+          echo "Version: $display"
 
       # ------------------------------------------------------------------
       # Code signing, request 1: the executables built from this repository.
@@ -362,7 +370,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.ref_name }}
-          VERSION: ${{ needs.build-windows.outputs.version }}
+          VERSION: ${{ needs.build-windows.outputs.display_version }}
           CHANNEL_TYPE: ${{ needs.build-windows.outputs.channel_type }}
           SIGNED: ${{ needs.build-windows.outputs.signed }}
         run: |

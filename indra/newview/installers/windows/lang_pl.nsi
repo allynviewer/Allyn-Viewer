@@ -9,7 +9,7 @@ LangString SelectInstallerLanguage  ${LANG_POLISH} "Proszę wybrać język insta
 
 ; installation directory text
 LangString DirectoryChooseTitle ${LANG_POLISH} "Katalog instalacji" 
-LangString DirectoryChooseUpdate ${LANG_POLISH} "Wybierz katalog instalacji ${APPNAME} w celu aktualizacji wersji ${VERSION_LONG}.(XXX):"
+LangString DirectoryChooseUpdate ${LANG_POLISH} "Wybierz katalog instalacji ${APPNAME} w celu aktualizacji wersji ${VERSION_LONG}:"
 LangString DirectoryChooseSetup ${LANG_POLISH} "Wybierz katalog instalacji ${APPNAME} w:"
 
 ; CheckStartupParams message box

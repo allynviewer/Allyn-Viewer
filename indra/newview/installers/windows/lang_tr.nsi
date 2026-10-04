@@ -9,7 +9,7 @@ LangString SelectInstallerLanguage  ${LANG_TURKISH} "Lütfen yükleyicinin dilin
 
 ; installation directory text
 LangString DirectoryChooseTitle ${LANG_TURKISH} "Yükleme Dizini" 
-LangString DirectoryChooseUpdate ${LANG_TURKISH} "${VERSION_LONG}.(XXX) sürümüne güncelleştirme yapmak için ${APPNAME} dizinini seçin:"
+LangString DirectoryChooseUpdate ${LANG_TURKISH} "${VERSION_LONG} sürümüne güncelleştirme yapmak için ${APPNAME} dizinini seçin:"
 LangString DirectoryChooseSetup ${LANG_TURKISH} "${APPNAME}'ın yükleneceği dizini seçin:"
 
 ; CheckStartupParams message box

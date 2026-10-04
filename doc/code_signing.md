@@ -35,7 +35,7 @@ SignPath enforces file metadata on every signed binary ([conditions](https://sig
 | Requirement | Where it is implemented |
 | ----------- | ----------------------- |
 | `ProductName` = `Allyn Viewer` on every signed file | `indra/newview/res/viewerRes.rc.in`, `indra/llplugin/slplugin/slplugin.rc.in`, `indra/newview/installers/windows/installer_template.nsi` |
-| `ProductVersion` identical on every signed file of a build | all three use `<major>.<minor>.<patch>.<build>` = content of `build-vc-64\newview\viewer_version.txt`; the workflow passes it as the `version` parameter |
+| `ProductVersion` identical on every signed file of a build | all three use `<major>.<minor>.<patch>.<build>` = content of `build-vc-64\newview\viewer_version.txt`; the workflow passes it as the `version` parameter. The string shown to the user is `<major>.<minor>.<patch> (<build>)`; the file resource stays the dotted form so SignPath can match it |
 | Binaries built from source in a verifiable way | GitHub Actions + SignPath GitHub connector (origin verification) |
 | *Code signing policy* section with the required sentence, team roles and privacy statement | `README.md` and the release notes footer written by the `release` job |
 | Uninstaller available, no silent system changes | NSIS installer registers an uninstaller; the portable ZIP writes nothing to the registry |
@@ -136,7 +136,7 @@ git push origin v1.0.0.5
 
 The tag **is** the version: the workflow takes the build number (fourth component) from the tag and fails early if the first three components differ from `indra/newview/VIEWER_VERSION.txt` or if the tag has a different shape. Pick any build number you like (the commit count `git rev-list --count HEAD` is the convention used by local builds), but it must be greater than the previous release so the viewer's update logic orders versions correctly.
 
-The workflow builds, waits for the two approvals and creates the GitHub Release `v1.0.0.5` titled `Allyn Viewer 1.0.0.5 <channel type>` (pre-release unless the channel type is `Release`). Release notes come from GitHub's generated notes unless the release already exists (in that case title and notes are left untouched); the *Code signing policy* footer is always appended when the job creates the release.
+The workflow builds, waits for the two approvals and creates the GitHub Release `v1.0.0.5` titled `Allyn Viewer 1.0.0 (5) <channel type>` (pre-release unless the channel type is `Release`). The tag and the file names stay `1.0.0.5` / `1_0_0_5`; the title and the viewer UI use `1.0.0 (5)`. Release notes come from GitHub's generated notes unless the release already exists (in that case title and notes are left untouched); the *Code signing policy* footer is always appended when the job creates the release.
 
 If the release already exists, the job only uploads the signed packages with `--clobber`, so the unsigned assets are replaced as long as the file names match — i.e. the channel type used locally (`VIEWER_CHANNEL_TYPE` in the CMake cache, default `Beta`) equals `RELEASE_CHANNEL_TYPE` in CI. The release title and notes are left untouched in that case.
 

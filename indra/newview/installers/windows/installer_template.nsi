@@ -225,14 +225,14 @@
 ;--------------------------------
 ;Version Information
 
-  VIProductVersion "${VERSION_LONG}"
+  VIProductVersion "${VERSION_QUAD}"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "Allyn Viewer"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "Comments" "A viewer for the meta-verse!"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName" "${VENDORSTR}"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "Copyright Â© 2010-2020, ${VENDORSTR}"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "${APPNAME} Installer"
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductVersion" "${VERSION_LONG}"
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "${VERSION_LONG}"
+  VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductVersion" "${VERSION_QUAD}"
+  VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "${VERSION_QUAD}"
 
 ;--------------------------------
 ;Reserve Files
@@ -357,7 +357,7 @@ Function CheckIfAlreadyCurrent
 !endif
   Push $0
   ReadRegStr $0 HKLM "SOFTWARE\${VENDORSTR}\$INSTPROG" "Version"
-  StrCmp $0 ${VERSION_LONG} 0 continue_install
+  StrCmp $0 "${VERSION_LONG}" 0 continue_install
   StrCmp $SKIP_DIALOGS "true" continue_install
   MessageBox MB_OKCANCEL $(CheckIfCurrentMB) /SD IDOK IDOK continue_install
   Quit

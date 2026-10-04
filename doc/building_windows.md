@@ -187,7 +187,7 @@ build.bat smoke       REM make sure it still starts
 | `Allyn_Viewer_<Type>_<version>_x86_64.zip` | Portable build: a single `AllynViewer<Type>` folder with `AllynViewer<Type>.exe` and everything it needs. Unzip anywhere and run the `.exe`; no installation, no registry changes. |
 | `Allyn_Viewer_<Type>_<version>_x86_64_Setup.exe` | NSIS installer (only when NSIS and its plugins are installed). Installs to `Program Files`, creates shortcuts and an uninstaller. Supports `/S` (silent), `/D=<dir>`, `/SKIP_AUTORUN`. |
 
-`<Type>` is the channel type from the CMake cache (`Beta` by default, `Release` for release builds — see `VIEWER_CHANNEL_TYPE` under [Configuration switches](#configuration-switches)); `<version>` is `viewer_version.txt` with underscores (e.g. `1_0_0_1`). The ZIP and the installer contain the same file list, so testing the ZIP is a valid test of the installer's payload.
+`<Type>` is the channel type from the CMake cache (`Beta` by default, `Release` for release builds — see `VIEWER_CHANNEL_TYPE` under [Configuration switches](#configuration-switches)); `<version>` is `viewer_version.txt` with underscores (e.g. `1_0_0_1`). The name shown in the viewer and in the installer is `1.0.0 (1)`: `1.0.0` comes from `indra/newview/VIEWER_VERSION.txt` and the number in parentheses is the build. The ZIP and the installer contain the same file list, so testing the ZIP is a valid test of the installer's payload.
 
 The script sets `AUTOBUILD_VSVER` (170 for VS 2022, 180 for VS 2026), `AUTOBUILD_WIN_CMAKE_GEN`, `AUTOBUILD_ADDRSIZE=64` and stores downloaded packages in `.cache\autobuild` inside the repository so a `rebuild` does not download them again.
 

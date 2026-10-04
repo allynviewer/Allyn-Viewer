@@ -58,7 +58,7 @@ const std::string &LLVersionInfo::getVersion()
 	if (version.empty())
 	{
 		std::ostringstream stream;
-		stream << LLVersionInfo::getShortVersion() << "." << LLVersionInfo::getBuild();
+		stream << LLVersionInfo::getShortVersion() << " (" << LLVersionInfo::getBuild() << ")";
 		version = stream.str();
 	}
 	return version;

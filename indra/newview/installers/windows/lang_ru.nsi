@@ -9,7 +9,7 @@ LangString SelectInstallerLanguage  ${LANG_RUSSIAN} "Выберите язык �
 
 ; installation directory text
 LangString DirectoryChooseTitle ${LANG_RUSSIAN} "Каталог установки" 
-LangString DirectoryChooseUpdate ${LANG_RUSSIAN} "Выберите каталог ${APPNAME} для обновления до версии ${VERSION_LONG}.(XXX):"
+LangString DirectoryChooseUpdate ${LANG_RUSSIAN} "Выберите каталог ${APPNAME} для обновления до версии ${VERSION_LONG}:"
 LangString DirectoryChooseSetup ${LANG_RUSSIAN} "Выберите каталог для установки ${APPNAME}:"
 
 ; CheckStartupParams message box
