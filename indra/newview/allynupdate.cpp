@@ -198,7 +198,6 @@ std::string allyn_update_filename_from_url(const std::string& url)
 
 void allyn_update_run_self_tests()
 {
-	allyn_update_log("self-test start");
 	bool ok = true;
 	if (allyn_update_percent(0, 100) != 0) { allyn_update_log("FAIL percent 0/100"); ok = false; }
 	if (allyn_update_percent(50, 100) != 50) { allyn_update_log("FAIL percent 50/100"); ok = false; }
@@ -236,7 +235,6 @@ void allyn_update_run_self_tests()
 			ok = false;
 			return;
 		}
-		allyn_update_log(llformat("OK compare %s vs %s newer=%d", remote, local, static_cast<int>(newer)));
 	};
 
 	// Iguais: não é mais nova.
@@ -254,7 +252,8 @@ void allyn_update_run_self_tests()
 	expect_newer("v2.0.0.0 Beta", "v1.0.0.0 Beta", true);
 	expect_newer("v1.0.0.0 Beta", "v2.0.0.0 Beta", false);
 
-	allyn_update_log(ok ? "self-test PASS" : "self-test FAIL");
+	if (!ok)
+		allyn_update_log("self-test FAIL");
 }
 
 AllynUpdateDownloadState allyn_update_download_state()

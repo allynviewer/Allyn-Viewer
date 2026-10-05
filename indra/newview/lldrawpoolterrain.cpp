@@ -124,35 +124,11 @@ S32 LLDrawPoolTerrain::getDetailMode()
 {
 	return sDetailMode;
 }
-static void diagTerrainFrame(LLViewerTexture* base, LLViewerFetchedTexture* const* details, const char* path, S32 shader_level)
-{
-	static LLCachedControl<bool> windlight("WindLightUseAtmosShaders", false);
-	diagPBRClassic("terrain_path", base, llformat("path=%s detail=%d shader=%d deferred=%d windlight=%d",
-		path ? path : "none",
-		LLDrawPoolTerrain::getDetailMode(),
-		shader_level,
-		LLPipeline::sRenderDeferred ? 1 : 0,
-		windlight ? 1 : 0).c_str());
-	if (!details)
-	{
-		return;
-	}
-	for (S32 i = 0; i < 4; ++i)
-	{
-		LLViewerFetchedTexture* tex = details[i];
-		if (tex)
-		{
-			diagPBRClassicMark(tex->getID());
-		}
-		diagPBRClassic("terrain_detail", tex, llformat("corner=%d path=%s", i, path ? path : "none").c_str());
-	}
-}
 void LLDrawPoolTerrain::render(S32 pass)
 {
 	LL_RECORD_BLOCK_TIME(FTM_RENDER_TERRAIN);
 	if (mDrawFace.empty())
 	{
-		diagTerrainFrame(mTexturep, NULL, "empty", mVertexShaderLevel);
 		return;
 	}
 	LLViewerRegion *regionp = mDrawFace[0]->getDrawable()->getVObj()->getRegion();
@@ -194,7 +170,6 @@ void LLDrawPoolTerrain::render(S32 pass)
 		{
 			details[i] = compp ? compp->mDetailTextures[i] : NULL;
 		}
-		diagTerrainFrame(mTexturep, details, path, mVertexShaderLevel);
 		if (mVertexShaderLevel > 1 && sShader && sShader->mShaderLevel > 0)
 		{
 			gPipeline.enableLightsDynamic(light_state);
@@ -242,7 +217,6 @@ void LLDrawPoolTerrain::renderDeferred(S32 pass)
 	LL_RECORD_BLOCK_TIME(FTM_RENDER_TERRAIN);
 	if (mDrawFace.empty())
 	{
-		diagTerrainFrame(mTexturep, NULL, "deferred_empty", mVertexShaderLevel);
 		return;
 	}
 	LLViewerRegion *regionp = mDrawFace[0]->getDrawable()->getVObj()->getRegion();
@@ -256,7 +230,6 @@ void LLDrawPoolTerrain::renderDeferred(S32 pass)
 	{
 		details[i] = compp ? compp->mDetailTextures[i] : NULL;
 	}
-	diagTerrainFrame(mTexturep, details, "deferred", mVertexShaderLevel);
 	for (S32 i = 0; i < 4; i++)
 	{
 		compp->mDetailTextures[i]->setBoostLevel(LLGLTexture::BOOST_TERRAIN);

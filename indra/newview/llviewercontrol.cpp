@@ -66,7 +66,6 @@
 #include "llparcel.h"
 #include "llnotify.h"
 #include "llkeyboard.h"
-#include "llerrorcontrol.h"
 #include "llappviewer.h"
 #include "llvosurfacepatch.h"
 #include "llvowlsky.h"
@@ -460,7 +459,6 @@ static bool handleDebugViewsChanged(const LLSD& newvalue)
 static bool handleLogFileChanged(const LLSD& newvalue)
 {
 	(void)newvalue;
-	LLError::logToFile(LLStringUtil::null);
 	return true;
 }
 bool handleHideGroupTitleChanged(const LLSD& newvalue)

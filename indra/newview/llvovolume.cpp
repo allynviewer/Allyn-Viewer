@@ -548,15 +548,9 @@ void LLVOVolume::animateTextures()
 		}
 	}
 }
-void diagPBRClassicMark(const LLUUID& id);
-bool diagPBRClassicMarked(const LLUUID& id);
-void diagPBRClassic(const char* stage, LLViewerTexture* image, const char* extra);
-static bool sDiagPBRRefresh = false;
 static bool renderPBREnabled();
 void LLVOVolume::refreshPBRFaces()
 {
-	sDiagPBRRefresh = true;
-	diagPBRClassic("toggle", NULL, llformat("RenderUsePBR=%d", renderPBREnabled() ? 1 : 0).c_str());
 	for (LLViewerObjectList::vobj_list_t::iterator it = gObjectList.mObjects.begin(), end = gObjectList.mObjects.end(); it != end; ++it)
 	{
 		LLViewerObject* obj = it->get();
@@ -582,7 +576,6 @@ void LLVOVolume::refreshPBRFaces()
 			}
 		}
 	}
-	sDiagPBRRefresh = false;
 }
 void LLVOVolume::updateTextures()
 {
@@ -847,10 +840,6 @@ static void releaseFetchIfUnused(LLViewerTexture* image)
 	}
 	if (image->getTotalNumFaces() > 0)
 	{
-		if (sDiagPBRRefresh)
-		{
-			diagPBRClassic("release_kept_faces", image, "faces>0");
-		}
 		return;
 	}
 	S32 boost = image->getBoostLevel();
@@ -859,23 +848,15 @@ static void releaseFetchIfUnused(LLViewerTexture* image)
 		|| boost == (S32)LLGLTexture::BOOST_SELECTED
 		|| boost == (S32)LLGLTexture::BOOST_HUD)
 	{
-		diagPBRClassicMark(image->getID());
-		diagPBRClassic("release_before", image, "drop_boost");
 		image->setBoostLevel((S32)LLGLTexture::BOOST_NONE);
 		image->resetTextureStats();
 	}
 	else if (boost == (S32)LLGLTexture::BOOST_NONE)
 	{
-		diagPBRClassicMark(image->getID());
-		diagPBRClassic("release_before", image, "already_none");
 		image->resetTextureStats();
 	}
 	else
 	{
-		if (sDiagPBRRefresh)
-		{
-			diagPBRClassic("release_boost_ignored", image, "boost_untouched");
-		}
 		return;
 	}
 	LLViewerFetchedTexture* fetched = LLViewerTextureManager::staticCastToFetchedTexture(image, FALSE);
@@ -883,7 +864,6 @@ static void releaseFetchIfUnused(LLViewerTexture* image)
 	{
 		gTextureList.clearImageDecodePriority(fetched);
 	}
-	diagPBRClassic("release_after", image, fetched ? "priority_cleared" : "not_fetched");
 }
 static bool faceKeepsPBRMaps(const LLTextureEntry* te, LLVOVolume* vol, S32 index)
 {
@@ -1127,11 +1107,6 @@ static void reactivateBoundClassic(LLVOVolume* vol, LLFace* face, LLViewerTextur
 	fetched->setActive();
 	fetched->addTextureStats(face->getVirtualSize());
 	gTextureList.forceImmediateUpdate(fetched);
-	if (diagPBRClassicMarked(fetched->getID()) || sDiagPBRRefresh)
-	{
-		diagPBRClassicMark(fetched->getID());
-		diagPBRClassic("classic_reactivated", fetched, llformat("face_vsize=%.1f", face->getVirtualSize()).c_str());
-	}
 }
 static void rebuildWornFace(LLVOVolume* vol, bool changed)
 {
@@ -1170,54 +1145,6 @@ static F32 wornFaceArea(const LLVOVolume* vol)
 	}
 	return 4096.f;
 }
-static std::string faceLinkDiag(LLVOVolume* vol, LLFace* face, LLTextureEntry* te, S32 index)
-{
-	LLUUID parent_id;
-	LLUUID root_id;
-	S32 link = 1;
-	LLViewerObject* parent = (LLViewerObject*)vol->getParent();
-	if (parent && !parent->isAvatar())
-	{
-		parent_id = parent->getID();
-	}
-	LLViewerObject* root = vol->getRootEdit();
-	if (root)
-	{
-		root_id = root->getID();
-		if (root != vol)
-		{
-			link = 0;
-			S32 next = 2;
-			LLViewerObject::const_child_list_t::const_iterator it = root->getChildren().begin();
-			LLViewerObject::const_child_list_t::const_iterator end = root->getChildren().end();
-			for (; it != end; ++it, ++next)
-			{
-				if (it->get() == vol)
-				{
-					link = next;
-					break;
-				}
-			}
-		}
-	}
-	LLViewerTexture* bound = face ? face->getTexture() : NULL;
-	LLViewerTexture* slot = vol->getTEImage((U8)index);
-	S32 children = root ? root->numChildren() : 0;
-	return llformat("obj=%s local=%u root=%s parent=%s link=%d children=%d face=%d te=%s mat=%s bound=%s pbr=%d valid=%d mat_ptr=%d",
-		vol->getID().asString().c_str(),
-		vol->getLocalID(),
-		root_id.asString().c_str(),
-		parent_id.isNull() ? "none" : parent_id.asString().c_str(),
-		link,
-		children,
-		index,
-		te ? te->getID().asString().c_str() : "none",
-		(te && te->getGLTFMaterialId().notNull()) ? te->getGLTFMaterialId().asString().c_str() : "none",
-		bound ? bound->getID().asString().c_str() : "none",
-		renderPBREnabled() ? 1 : 0,
-		faceHasValidClassicTexture(te, slot) ? 1 : 0,
-		(te && te->getGLTFMaterial() != NULL) ? 1 : 0);
-}
 static void applyPBRFallback(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize)
 {
 	if (!vol || !face)
@@ -1230,21 +1157,6 @@ static void applyPBRFallback(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize
 	{
 		return;
 	}
-	std::string diag_extra;
-	if (sDiagPBRRefresh)
-	{
-		LLViewerObject* parent = (LLViewerObject*)vol->getParent();
-		bool in_link = (parent && !parent->isAvatar()) || vol->numChildren() > 0;
-		if (in_link || te->getGLTFMaterialId().notNull())
-		{
-			diag_extra = faceLinkDiag(vol, face, te, index);
-			diagPBRClassic("face_link", classic, diag_extra.c_str());
-		}
-	}
-	if (sDiagPBRRefresh && !te->getGLTFMaterialId().isNull() && faceHasValidClassicTexture(te, classic))
-	{
-		diagPBRClassic("fallback_enter", classic, diag_extra.c_str());
-	}
 	if (te->getGLTFMaterialId().isNull())
 	{
 		rebuildWornFace(vol, restoreClassicFace(vol, face, te, classic));
@@ -1254,40 +1166,10 @@ static void applyPBRFallback(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize
 	if (!renderPBREnabled() && faceHasValidClassicTexture(te, classic) && !classicTextureIsSolid(classic_fetched))
 	{
 		bool changed = restoreClassicFace(vol, face, te, classic);
-		if (sDiagPBRRefresh)
-		{
-			diagPBRClassicMark(classic->getID());
-			diagPBRClassic("off_after_setTexture", classic, llformat("%s changed=%d bound=%s",
-				diag_extra.c_str(),
-				changed ? 1 : 0,
-				face->getTexture() ? face->getTexture()->getID().asString().c_str() : "none").c_str());
-		}
 		reactivateBoundClassic(vol, face, classic, vsize);
-		if (sDiagPBRRefresh && classic_fetched && !classic_fetched->isFullyLoaded()
-			&& (!classic_fetched->hasGLTexture() || classic_fetched->getDecodePriority() <= 0.f))
-		{
-			diagPBRClassic("face_not_ready", classic, diag_extra.c_str());
-		}
 		releaseUnusedPBRMaps(vol, te);
 		rebuildWornFace(vol, changed);
 		return;
-	}
-	if (sDiagPBRRefresh && !renderPBREnabled() && te->getGLTFMaterialId().notNull())
-	{
-		const char* why = "other";
-		if (!faceHasValidClassicTexture(te, classic))
-		{
-			why = "no_valid_classic";
-		}
-		else if (classicTextureIsSolid(classic_fetched))
-		{
-			why = "solid";
-		}
-		if (diag_extra.empty())
-		{
-			diag_extra = faceLinkDiag(vol, face, te, index);
-		}
-		diagPBRClassic("face_kept_pbr", classic, llformat("%s why=%s", diag_extra.c_str(), why).c_str());
 	}
 	F32 fetch_size = vsize;
 	if (fetch_size <= 0.f && vol->isVisible())
@@ -1324,22 +1206,10 @@ static void applyPBRFallback(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize
 	}
 	if (draw != classic && faceHasValidClassicTexture(te, classic))
 	{
-		if (sDiagPBRRefresh)
-		{
-			diagPBRClassic("on_before_release", classic, diag_extra.c_str());
-		}
 		if (!textureStillNeeded(classic->getID()))
 		{
 			releaseFetchIfUnused(classic);
 		}
-		if (sDiagPBRRefresh)
-		{
-			diagPBRClassic("on_after_release", classic, diag_extra.c_str());
-		}
-	}
-	else if (sDiagPBRRefresh && faceHasValidClassicTexture(te, classic))
-	{
-		diagPBRClassic("on_release_not_called", classic, diag_extra.c_str());
 	}
 	LLGLTFMaterial* mat = te->getGLTFMaterial();
 	if (te->getMaterialParams().isNull())

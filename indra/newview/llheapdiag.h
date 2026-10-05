@@ -19,7 +19,7 @@ public:
 	static void markImportant(const char* tag);
 	static void idle();
 	static bool validateHeaps(const char* reason);
-	static void onFatalCrash(unsigned long code, const void* address);
+	static void onFatalCrash(unsigned long code, const void* address, const char* detail);
 private:
 	LLHeapDiag() = delete;
 };

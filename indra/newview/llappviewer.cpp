@@ -32,6 +32,7 @@
 #include <thread>
 #include "llappviewer.h"
 #include "allynpresence.h"
+#include "allyncrashreport.h"
 #include "llheapdiag.h"
 #include "hippogridmanager.h"
 #include "hippolimits.h"
@@ -450,6 +451,7 @@ LLAppViewer::LLAppViewer() :
 	sInstance = this;
 	initLoggingAndGetLastDuration();
 	processMarkerFiles();
+	AllynCrashReport::prepararSessao(mSecondInstance);
 #if !defined(USE_CRASHPAD)
 	std::string logdir = gDirUtilp->getExpandedFilename(LL_PATH_DUMP, "");
 	setDebugFileNames(logdir);
@@ -900,6 +902,7 @@ bool LLAppViewer::mainLoop()
 	mMainloopTimeout = new LLWatchdogTimeout();
 	gServicePump = new LLPumpIO;
 	LLCurl::setCAFile(gDirUtilp->getCAFile());
+	AllynCrashReport::enviarSePendente();
 	LLVoiceChannel::initClass();
 	LLVoiceClient::getInstance()->init(gServicePump);
 	LLTimer frameTimer,idleTimer,periodicRenderingTimer;
@@ -1531,7 +1534,6 @@ void LLAppViewer::initLoggingInternal()
 		recordMarkerVersion(start_marker_file);
 		start_marker_file.close();
 	}
-	LLError::logToFile(LLStringUtil::null);
 	if (!duration_log_msg.empty())
 	{
 		LL_WARNS("MarkerFile") << duration_log_msg << LL_ENDL;

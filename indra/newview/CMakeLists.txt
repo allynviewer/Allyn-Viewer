@@ -82,6 +82,7 @@ set(viewer_SOURCE_FILES
     aixmllindengenepool.cpp
     alfloaterregiontracker.cpp
     allynpresence.cpp
+    allyncrashreport.cpp
     allynupdate.cpp
     aoremotectrl.cpp
     aosystem.cpp

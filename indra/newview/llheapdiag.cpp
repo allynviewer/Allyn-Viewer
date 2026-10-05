@@ -19,7 +19,9 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <psapi.h>
+#include <dbghelp.h>
 #pragma comment(lib, "psapi.lib")
+#pragma comment(lib, "dbghelp.lib")
 #endif
 namespace
 {
@@ -40,6 +42,8 @@ bool gCorruptionLogged = false;
 std::string gLogPath;
 std::string gLastPath;
 char gMainloopState[128] = "boot";
+char gLastMark[kLineMax] = "";
+unsigned long long gLastStateWriteMs = 0;
 TrailEntry gTrail[kTrailCap];
 size_t gTrailNext = 0;
 size_t gTrailCount = 0;
@@ -55,6 +59,8 @@ void append_trail_locked(const char* text)
 	e.time_s = now_s();
 	strncpy(e.text, text, kLineMax - 1);
 	e.text[kLineMax - 1] = '\0';
+	strncpy(gLastMark, text, kLineMax - 1);
+	gLastMark[kLineMax - 1] = '\0';
 	gTrailNext = (gTrailNext + 1) % kTrailCap;
 	if (gTrailCount < kTrailCap)
 		++gTrailCount;
@@ -100,16 +106,90 @@ void flush_trail_unlocked(const char* header)
 	flush_last_unlocked(header);
 }
 #if LL_WINDOWS
+std::string module_at(const void* addr);
 LONG WINAPI heapdiag_unhandled_filter(EXCEPTION_POINTERS* info)
 {
 	unsigned long code = 0;
 	const void* addr = nullptr;
+	char detail[1800];
+	detail[0] = '\0';
 	if (info && info->ExceptionRecord)
 	{
 		code = info->ExceptionRecord->ExceptionCode;
 		addr = info->ExceptionRecord->ExceptionAddress;
+		int used = std::snprintf(detail, sizeof(detail), " thread=%lu", GetCurrentThreadId());
+		if (used < 0)
+			used = 0;
+		if (code == 0xC0000005 && info->ExceptionRecord->NumberParameters >= 2)
+		{
+			unsigned long long kind = info->ExceptionRecord->ExceptionInformation[0];
+			const char* access = "exec";
+			if (kind == 0)
+				access = "read";
+			else if (kind == 1)
+				access = "write";
+			int n = std::snprintf(detail + used, sizeof(detail) - (size_t)used,
+								  " access=%s fault=0x%p",
+								  access,
+								  (void*)info->ExceptionRecord->ExceptionInformation[1]);
+			if (n > 0)
+			{
+				int room = (int)sizeof(detail) - used;
+				used = (n >= room) ? (int)sizeof(detail) - 1 : used + n;
+			}
+		}
+		if (info->ContextRecord && used < (int)sizeof(detail) - 2)
+		{
+			int nl = std::snprintf(detail + used, sizeof(detail) - (size_t)used, "\n");
+			if (nl > 0)
+				used += nl;
+			HANDLE process = GetCurrentProcess();
+			HANDLE thread = GetCurrentThread();
+			CONTEXT context = *info->ContextRecord;
+			STACKFRAME64 frame;
+			std::memset(&frame, 0, sizeof(frame));
+#if defined(_M_X64)
+			DWORD machine = IMAGE_FILE_MACHINE_AMD64;
+			frame.AddrPC.Offset = context.Rip;
+			frame.AddrFrame.Offset = context.Rbp;
+			frame.AddrStack.Offset = context.Rsp;
+#else
+			DWORD machine = IMAGE_FILE_MACHINE_I386;
+			frame.AddrPC.Offset = context.Eip;
+			frame.AddrFrame.Offset = context.Ebp;
+			frame.AddrStack.Offset = context.Esp;
+#endif
+			frame.AddrPC.Mode = AddrModeFlat;
+			frame.AddrFrame.Mode = AddrModeFlat;
+			frame.AddrStack.Mode = AddrModeFlat;
+			static bool symbols = false;
+			if (!symbols)
+			{
+				symbols = SymInitialize(process, nullptr, TRUE) == TRUE;
+			}
+			for (int i = 0; i < 16 && used < (int)sizeof(detail) - 80; ++i)
+			{
+				if (!StackWalk64(machine, process, thread, &frame, &context, nullptr,
+								 SymFunctionTableAccess64, SymGetModuleBase64, nullptr))
+				{
+					break;
+				}
+				if (frame.AddrPC.Offset == 0)
+					break;
+				std::string mod = module_at((const void*)frame.AddrPC.Offset);
+				int n = std::snprintf(detail + used, sizeof(detail) - (size_t)used, " frame %s\n", mod.c_str());
+				if (n <= 0)
+					break;
+				{
+					int room = (int)sizeof(detail) - used;
+					if (n >= room)
+						break;
+					used += n;
+				}
+			}
+		}
 	}
-	LLHeapDiag::onFatalCrash(code, addr);
+	LLHeapDiag::onFatalCrash(code, addr, detail);
 	return EXCEPTION_CONTINUE_SEARCH;
 }
 bool validate_heaps_unlocked(std::string& detail)
@@ -149,7 +229,13 @@ std::string module_at(const void* addr)
 						   (LPCSTR)addr, &mod)
 		&& mod && GetModuleFileNameA(mod, path, MAX_PATH))
 	{
-		return llformat("%s+0x%llX", path, (unsigned long long)((const char*)addr - (const char*)mod));
+		const char* base = path;
+		for (const char* p = path; *p; ++p)
+		{
+			if (*p == '\\' || *p == '/')
+				base = p + 1;
+		}
+		return llformat("%s+0x%llX", base, (unsigned long long)((const char*)addr - (const char*)mod));
 	}
 	return llformat("addr=0x%p", addr);
 }
@@ -201,9 +287,37 @@ void LLHeapDiag::setMainloopState(const char* state)
 {
 	if (!state)
 		return;
-	std::lock_guard<std::mutex> lock(gMutex);
-	strncpy(gMainloopState, state, sizeof(gMainloopState) - 1);
-	gMainloopState[sizeof(gMainloopState) - 1] = '\0';
+	std::string path;
+	char phase[128] = "";
+	char mark[kLineMax] = "";
+	bool write = false;
+	{
+		std::lock_guard<std::mutex> lock(gMutex);
+		strncpy(gMainloopState, state, sizeof(gMainloopState) - 1);
+		gMainloopState[sizeof(gMainloopState) - 1] = '\0';
+#if LL_WINDOWS
+		if (!gInited || gLastPath.empty())
+			return;
+		unsigned long long now = GetTickCount64();
+		if (gLastStateWriteMs != 0 && now - gLastStateWriteMs < 1000ull)
+			return;
+		gLastStateWriteMs = now;
+		path = gLastPath;
+		strncpy(phase, gMainloopState, sizeof(phase) - 1);
+		phase[sizeof(phase) - 1] = '\0';
+		strncpy(mark, gLastMark, sizeof(mark) - 1);
+		mark[sizeof(mark) - 1] = '\0';
+		write = true;
+#endif
+	}
+	if (!write || path.empty())
+		return;
+	FILE* fp = std::fopen(path.c_str(), "wb");
+	if (!fp)
+		return;
+	std::fprintf(fp, "mainloop=%s mark=%s\n", phase, mark);
+	std::fflush(fp);
+	std::fclose(fp);
 }
 void LLHeapDiag::mark(const char* tag, bool flush)
 {
@@ -283,7 +397,7 @@ void LLHeapDiag::idle()
 	mark(snap, false);
 	validateHeaps("idle");
 }
-void LLHeapDiag::onFatalCrash(unsigned long code, const void* address)
+void LLHeapDiag::onFatalCrash(unsigned long code, const void* address, const char* detail)
 {
 	char buf[kLineMax];
 	std::snprintf(buf, sizeof(buf),
@@ -301,6 +415,26 @@ void LLHeapDiag::onFatalCrash(unsigned long code, const void* address)
 		if (fp)
 		{
 			std::fprintf(fp, "%.3f %s (no-lock)\n", now_s(), buf);
+			std::fflush(fp);
+			std::fclose(fp);
+		}
+	}
+	if (detail && detail[0] && !gLogPath.empty())
+	{
+		FILE* fp = std::fopen(gLogPath.c_str(), "ab");
+		if (fp)
+		{
+			std::fprintf(fp, "%s\n", detail);
+			std::fflush(fp);
+			std::fclose(fp);
+		}
+	}
+	if (detail && detail[0] && !gLastPath.empty())
+	{
+		FILE* fp = std::fopen(gLastPath.c_str(), "wb");
+		if (fp)
+		{
+			std::fprintf(fp, "%s%s\n", buf, detail);
 			std::fflush(fp);
 			std::fclose(fp);
 		}

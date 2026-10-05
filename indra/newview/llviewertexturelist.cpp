@@ -33,9 +33,6 @@
 #include "llviewerprecompiledheaders.h"
 #include <sys/stat.h>
 #include "llviewertexturelist.h"
-void diagPBRClassicMark(const LLUUID& id);
-bool diagPBRClassicMarked(const LLUUID& id);
-void diagPBRClassic(const char* stage, LLViewerTexture* image, const char* extra);
 #include "imageids.h"
 #include "llgl.h"
 #include "llimagegl.h"
@@ -778,16 +775,8 @@ void LLViewerTextureList::updateImagesDecodePriorities()
 				}
 				else if (imagep->getLastReferencedTimer()->getElapsedTimeF32() > lazy_flush_timeout)
 				{
-					if (diagPBRClassicMarked(imagep->getID()))
-					{
-						diagPBRClassic("deleteImage_refs3", imagep, "lazy_flush");
-					}
 					deleteImage(imagep);
 					imagep = NULL;
-				}
-				else if (diagPBRClassicMarked(imagep->getID()))
-				{
-					diagPBRClassic("priority_walk_refs3", imagep, "no_processTextureStats");
 				}
 				continue;
 			}
@@ -802,10 +791,6 @@ void LLViewerTextureList::updateImagesDecodePriorities()
 				}
 				if(imagep->isDeleted())
 				{
-					if (diagPBRClassicMarked(imagep->getID()))
-					{
-						diagPBRClassic("priority_walk_deleted", imagep, "skip_processTextureStats");
-					}
 					continue ;
 				}
 				else if(imagep->isDeletionCandidate())
@@ -903,10 +888,6 @@ void LLViewerTextureList::clearImageDecodePriority(LLViewerFetchedTexture* image
 		return;
 	}
 	const BOOL was_listed = imagep->isInImageList();
-	if (diagPBRClassicMarked(imagep->getID()))
-	{
-		diagPBRClassic("clearDecodePriority_before", imagep, llformat("listed=%d", was_listed ? 1 : 0).c_str());
-	}
 	if (was_listed)
 	{
 		removeImageFromList(imagep);
@@ -915,10 +896,6 @@ void LLViewerTextureList::clearImageDecodePriority(LLViewerFetchedTexture* image
 	if (was_listed)
 	{
 		addImageToList(imagep);
-	}
-	if (diagPBRClassicMarked(imagep->getID()))
-	{
-		diagPBRClassic("clearDecodePriority_after", imagep, "set_-1");
 	}
 }
 void LLViewerTextureList::forceImmediateUpdate(LLViewerFetchedTexture* imagep)
@@ -976,10 +953,6 @@ F32 LLViewerTextureList::updateImagesFetchTextures(F32 max_time)
                 entries.push_back(imagep);
                 update_counter--;
             }
-			else if (diagPBRClassicMarked(imagep->getID()))
-			{
-				diagPBRClassic("updateFetch_skipped", imagep, llformat("priority<=%.3f", MIN_PRIORITY_THRESHOLD).c_str());
-			}
 			iter2++;
 			total_update_count--;
 		}
