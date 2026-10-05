@@ -68,7 +68,6 @@
 #include "pipeline.h"
 #include "llspatialpartition.h"
 #include "llappviewer.h"
-#include "llheapdiag.h"
 #include "llstartup.h"
 #include "llviewershadermgr.h"
 #include "llfasttimer.h"
@@ -821,12 +820,6 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot, boo
 	}
 	display_stats();
 	LLAppViewer::instance()->pingMainloopTimeout("Display:Done");
-	static U32 sDisplayDoneFrames = 0;
-	if ((++sDisplayDoneFrames % 600u) == 0u)
-	{
-		LLHeapDiag::markImportant("display_done_sample");
-		LLHeapDiag::validateHeaps("display_done_sample");
-	}
 	gShiftFrame = false;
 	LLVBOPool::deleteReleasedBuffers();
 }

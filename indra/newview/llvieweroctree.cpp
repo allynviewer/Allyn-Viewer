@@ -25,7 +25,6 @@
  */
 #include "llviewerprecompiledheaders.h"
 #include "llvieweroctree.h"
-#include "llheapdiag.h"
 #include "llviewerregion.h"
 #include "pipeline.h"
 #include "llviewercontrol.h"
@@ -1060,15 +1059,6 @@ LLViewerOctreePartition::~LLViewerOctreePartition()
 	if (!mGroups.empty())
 	{
 		LL_WARNS_ONCE("OCTREE") << "LLViewerOctreePartition destroyed with " << mGroups.size() << " groups remaining" << LL_ENDL;
-		static U32 sOctreeDirtyDtors = 0;
-		++sOctreeDirtyDtors;
-		if (sOctreeDirtyDtors == 1 || (sOctreeDirtyDtors % 100u) == 0u)
-		{
-			LLHeapDiag::markImportant(
-				llformat("octree_dtor_groups=%u count=%u", (unsigned)mGroups.size(), (unsigned)sOctreeDirtyDtors).c_str());
-			if ((sOctreeDirtyDtors % 500u) == 0u)
-				LLHeapDiag::validateHeaps("octree_dirty_dtor");
-		}
 	}
 	for (auto& entry : mGroups)
 	{

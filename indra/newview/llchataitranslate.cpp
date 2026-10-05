@@ -14,7 +14,6 @@
 #include "llcallbacklist.h"
 #include "llchat.h"
 #include "llfloaterchat.h"
-#include "llheapdiag.h"
 #include "llhttpclient.h"
 #include "llimpanel.h"
 #include "llimview.h"
@@ -1370,7 +1369,6 @@ public:
 		const bool connection_test = mConnectionTest;
 		S32 retries = mRetriesLeft;
 		doOnIdleOneTime([cb, ok, out, src, from, to, connection_test, retries]() {
-			LLHeapDiag::mark(ok ? "aitranslate_deliver_ok" : "aitranslate_deliver_fail", true);
 			if (!ok && !connection_test && retries > 0 && !src.empty()
 				&& !from.empty() && !to.empty()
 				&& LLChatAITranslate::instanceExists())
@@ -2156,8 +2154,6 @@ void LLChatAITranslate::onRequestFinished()
 }
 void LLChatAITranslate::pumpQueue()
 {
-	if (!gAITranslateQueue.empty())
-		LLHeapDiag::mark("aitranslate_pump", false);
 	while (mInFlight < MAX_IN_FLIGHT && !gAITranslateQueue.empty())
 	{
 		if (gSavedSettings.getString("AITranslateApiKey").empty())

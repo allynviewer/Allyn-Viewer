@@ -224,23 +224,6 @@ void LLFloaterAllynUpdate::updateProgressUi()
 		return;
 	}
 
-	if (state == ALLYN_UPDATE_SIMULATED)
-	{
-		mHandledState = state;
-		setButtonsEnabled(true);
-		if (mStatsText)
-		{
-			mStatsText->setVisible(FALSE);
-		}
-		if (mStatusText)
-		{
-			mStatusText->setVisible(TRUE);
-		}
-		setStatusFromTemplate("status_simulate", LLStringUtil::format_map_t());
-		allyn_update_log("UI received simulated download complete");
-		return;
-	}
-
 	if (state == ALLYN_UPDATE_FAILED)
 	{
 		mHandledState = state;
@@ -270,7 +253,7 @@ void LLFloaterAllynUpdate::updateProgressUi()
 void LLFloaterAllynUpdate::onUpdateNow()
 {
 	allyn_update_log("user clicked Update Now");
-	if (mInstallerUrl.empty() && !allyn_update_is_simulate())
+	if (mInstallerUrl.empty())
 	{
 		LLStringUtil::format_map_t extra;
 		extra["[ERROR]"] = std::string("Missing installer URL");

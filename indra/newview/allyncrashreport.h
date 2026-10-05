@@ -5,6 +5,7 @@ class AllynCrashReport
 {
 public:
 	static void prepararSessao(bool segundaInstancia);
+	static void descartarSessaoLimpa();
 	static void enviarSePendente();
 
 private:

@@ -33,7 +33,6 @@
 #include "llappviewer.h"
 #include "allynpresence.h"
 #include "allyncrashreport.h"
-#include "llheapdiag.h"
 #include "hippogridmanager.h"
 #include "hippolimits.h"
 #include "llversioninfo.h"
@@ -615,13 +614,9 @@ static void safeJoystickInit()
 	if (gGLManager.mIsATI)
 	{
 		LL_INFOS("InitInfo") << "Skipping joystick init on AMD GPU (driver heap corruption issue)" << LL_ENDL;
-		LLHeapDiag::markImportant("joystick_skipped_amd");
 		return;
 	}
-	LLHeapDiag::markImportant("joystick_init_begin");
 	doJoystickInit();
-	LLHeapDiag::markImportant("joystick_init_end");
-	LLHeapDiag::validateHeaps("after_joystick_init");
 }
 bool LLAppViewer::init()
 {
@@ -760,11 +755,7 @@ bool LLAppViewer::init()
 	LL_INFOS("InitInfo") << "Cache initialization is done." << LL_ENDL ;
 	LLMainLoopRepeater::instance().start();
 	gGLActive = TRUE;
-	LLHeapDiag::init();
-	LLHeapDiag::markImportant("before_init_window");
 	initWindow();
-	LLHeapDiag::markImportant("after_init_window");
-	LLHeapDiag::validateHeaps("after_init_window");
 	LL_INFOS("InitInfo") << "Window is initialized." << LL_ENDL ;
 	LLCubeMap::sUseCubeMaps = LLFeatureManager::getInstance()->isFeatureAvailable("RenderCubeMap");
 	LLInitClassList::instance().fireCallbacks();
@@ -842,11 +833,7 @@ bool LLAppViewer::init()
 							 LLVersionInfo::getChannelAndVersion());
 	gSimLastTime = gRenderStartTime.getElapsedTimeF32();
 	gSimFrames = (F32)gFrameCount;
-	LLHeapDiag::init();
-	LLHeapDiag::markImportant("before_joystick_init");
-	LLHeapDiag::validateHeaps("before_joystick_init");
 	safeJoystickInit();
-	LLHeapDiag::validateHeaps("after_safe_joystick");
 	LLWLParamManager::instance().initHack();
 	LLEnvManagerNew::instance().usePrefs();
 	gGLActive = FALSE;
@@ -1168,10 +1155,7 @@ void LLAppViewer::persistInventoryCache()
 }
 bool LLAppViewer::cleanup()
 {
-	LLHeapDiag::markImportant("cleanup_begin");
-	LLHeapDiag::validateHeaps("cleanup_begin");
 	persistInventoryCache();
-	LLHeapDiag::markImportant("inventory_cache_saved");
 	if (! isError())
 	{
 		std::string logdir = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "");
@@ -1383,7 +1367,7 @@ bool LLAppViewer::cleanup()
 	removeMarkerFiles();
 	MEM_TRACK_RELEASE
 	LL_INFOS() << "Goodbye!" << LL_ENDL;
-	LLHeapDiag::shutdown();
+	AllynCrashReport::descartarSessaoLimpa();
 	return true;
 }
 void watchdog_llerrs_callback(const std::string &error_string)
@@ -2927,7 +2911,6 @@ void LLAppViewer::idle()
 #define LAZY_FT(str) static LLTrace::BlockTimerStatHandle ftm(str); LL_RECORD_BLOCK_TIME(ftm)
 	pingMainloopTimeout("Main:Idle");
 	AllynPresence::idle();
-	LLHeapDiag::idle();
 	static LLTimer idle_timer;
 	{
 		LAZY_FT("updateFrameTimeAndCount");
@@ -3356,10 +3339,10 @@ void LLAppViewer::sendLogoutRequest()
 		}
 		gLogoutInProgress = TRUE;
 		mLogoutMarkerFileName = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,LOGOUT_MARKER_FILE_NAME);
-		if (mLogoutMarkerFile.open(mLogoutMarkerFileName, LL_APR_W) == APR_SUCCESS)
+		if (mLogoutMarkerFile.open(mLogoutMarkerFileName, LL_APR_WB) == APR_SUCCESS)
 		{
 			LL_INFOS() << "Created logout marker file " << mLogoutMarkerFileName << LL_ENDL;
-			mLogoutMarkerFile.close();
+			recordMarkerVersion(mLogoutMarkerFile);
 		}
 		else
 		{
@@ -3653,14 +3636,10 @@ void LLAppViewer::pingMainloopTimeout(const std::string& state, F32 secs)
 		mMainloopTimeout->setTimeout(secs);
 		mMainloopTimeout->ping(state);
 	}
-	LLHeapDiag::setMainloopState(state.c_str());
 }
 void LLAppViewer::handleLoginComplete()
 {
 	initMainloopTimeout("Mainloop Init");
-	LLHeapDiag::init();
-	LLHeapDiag::markImportant("login_complete");
-	LLHeapDiag::validateHeaps("login_complete");
 	gDebugInfo["ClientInfo"]["Name"] = LLVersionInfo::getChannel();
 	gDebugInfo["ClientInfo"]["MajorVersion"] = LLVersionInfo::getMajor();
 	gDebugInfo["ClientInfo"]["MinorVersion"] = LLVersionInfo::getMinor();

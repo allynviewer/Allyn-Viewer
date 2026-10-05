@@ -54,7 +54,7 @@ bool allyn_parse_version(const std::string& text, S32& major, S32& minor, S32& p
 	{
 		return true;
 	}
-	n = sscanf(p, "%d.%d.%d", &major, &minor, &patch, &build);
+	n = sscanf(p, "%d.%d.%d", &major, &minor, &patch);
 	if (n == 3)
 	{
 		build = 0;
@@ -111,26 +111,14 @@ void onCompleted(const LLSD& data)
 
 	const bool newer = allyn_version_is_newer(remote_major, remote_minor, remote_patch, remote_build,
 		LLVersionInfo::getMajor(), LLVersionInfo::getMinor(), LLVersionInfo::getPatch(), LLVersionInfo::getBuild());
-	const bool force = gSavedSettings.getBOOL("AllynUpdateForcePrompt")
-		|| gSavedSettings.getBOOL("AllynUpdateSimulateDownload");
 
-	if (!newer && !force)
+	if (!newer)
 	{
 		allyn_update_log("viewer is up to date, no prompt");
 		return;
 	}
 
-	if (!newer && force)
-	{
-		allyn_update_log("forcing update prompt for test (AllynUpdateForcePrompt or AllynUpdateSimulateDownload)");
-	}
-
 	std::string installer_url = data["installerUrl"].asString();
-	if (installer_url.empty() && allyn_update_is_simulate())
-	{
-		installer_url = "https://github.com/allynviewer/Allyn-Viewer/releases/download/v1.0.0.11/Allyn_Viewer_1_0_0_11_x86_64_Setup.exe";
-		allyn_update_log("simulate using placeholder installer url");
-	}
 
 	std::string remote_key = llformat("%d.%d.%d.%d", remote_major, remote_minor, remote_patch, remote_build);
 	static LLCachedControl<std::string> last_notified("AllynLastNotifiedVersion", "");
@@ -157,16 +145,6 @@ public:
 		if (mStatus != HTTP_OK)
 		{
 			allyn_update_log(llformat("Failed to get update info HTTP %d", mStatus));
-			if (gSavedSettings.getBOOL("AllynUpdateForcePrompt")
-				|| gSavedSettings.getBOOL("AllynUpdateSimulateDownload"))
-			{
-				LLSD info;
-				info["label"] = "v0.0.0.0 Test";
-				info["current"] = LLVersionInfo::getVersion();
-				info["installerUrl"] = "https://github.com/allynviewer/Allyn-Viewer/releases/download/v1.0.0.11/Allyn_Viewer_1_0_0_11_x86_64_Setup.exe";
-				allyn_update_log("forcing test prompt because version API failed");
-				LLFloaterAllynUpdate::offer(info);
-			}
 			return;
 		}
 		LLBufferStream istr(channels, buffer.get());
@@ -187,7 +165,6 @@ protected:
 
 void check_for_updates()
 {
-	allyn_update_run_self_tests();
 	allyn_update_log(std::string("checking ") + ALLYN_VERSION_URL);
 	AIHTTPHeaders headers;
 	headers.addHeader("Accept", "application/json");

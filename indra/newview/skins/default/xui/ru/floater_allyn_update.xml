@@ -11,7 +11,6 @@
 	<string name="status_stats_unknown">[DOWNLOADED]  ·  [SPEED]</string>
 	<string name="status_launching">Загрузка завершена. Запуск установщика...</string>
 	<string name="status_failed">Ошибка загрузки: [ERROR]</string>
-	<string name="status_simulate">Симуляция завершена на 100%. Установщик не запускался (AllynUpdateSimulateDownload).</string>
 	<button name="update_now_btn" label="Обновить сейчас" />
 	<button name="update_later_btn" label="Обновить позже" />
 	<button name="close_btn" label="Закрыть" />

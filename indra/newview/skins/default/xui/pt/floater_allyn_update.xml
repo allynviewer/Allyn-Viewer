@@ -11,7 +11,6 @@ Clique em Atualizar agora para baixar o instalador oficial do Windows e instalar
 	<string name="status_stats_unknown">[DOWNLOADED]  ·  [SPEED]</string>
 	<string name="status_launching">Download concluído. Iniciando o instalador...</string>
 	<string name="status_failed">Falha no download: [ERROR]</string>
-	<string name="status_simulate">Simulação concluída em 100%. O instalador não foi iniciado (AllynUpdateSimulateDownload).</string>
 	<button name="update_now_btn" label="Atualizar agora" />
 	<button name="update_later_btn" label="Atualizar depois" />
 	<button name="close_btn" label="Fechar" />

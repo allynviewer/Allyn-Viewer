@@ -16,17 +16,14 @@ enum AllynUpdateDownloadState
 	ALLYN_UPDATE_IDLE = 0,
 	ALLYN_UPDATE_DOWNLOADING,
 	ALLYN_UPDATE_DONE,
-	ALLYN_UPDATE_FAILED,
-	ALLYN_UPDATE_SIMULATED
+	ALLYN_UPDATE_FAILED
 };
 
 void allyn_update_log(const std::string& msg);
-void allyn_update_run_self_tests();
 
 bool allyn_update_url_allowed(const std::string& url);
 std::string allyn_update_filename_from_url(const std::string& url);
 int allyn_update_percent(S64 downloaded, S64 total);
-bool allyn_update_is_simulate();
 
 void allyn_update_start_download(const std::string& url);
 void allyn_update_cancel_download();

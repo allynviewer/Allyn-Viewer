@@ -19,7 +19,6 @@ Click Update Now to download the official Windows installer and install automati
 	<string name="status_stats_unknown">[DOWNLOADED]  ·  [SPEED]</string>
 	<string name="status_launching">Download complete. Starting the installer...</string>
 	<string name="status_failed">Download failed: [ERROR]</string>
-	<string name="status_simulate">Simulation finished at 100%. The installer was not started (AllynUpdateSimulateDownload).</string>
 	<text
 		name="message_text"
 		follows="left|right|top"

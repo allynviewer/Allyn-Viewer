@@ -129,7 +129,6 @@ set(viewer_SOURCE_FILES
     llanimstatelabels.cpp
     llappearancemgr.cpp
     llappviewer.cpp
-    llheapdiag.cpp
     llassetuploadqueue.cpp
     llassetuploadresponders.cpp
     llattachmentsmgr.cpp
@@ -693,7 +692,6 @@ set(viewer_HEADER_FILES
     llappearance.h
     llappearancemgr.h
     llappviewer.h
-    llheapdiag.h
     llassetuploadqueue.h
     llassetuploadresponders.h
     llattachmentsmgr.h

@@ -374,8 +374,30 @@ namespace
 	{
 		apagarSeExistir(arquivoLog("Allyn-session.pending.log"));
 		apagarSeExistir(arquivoLog("Allyn-debug-static.pending.xml"));
-		apagarSeExistir(arquivoLog("Allyn-heap.pending.txt"));
 		apagarSeExistir(arquivoLog("Allyn-crash.event"));
+	}
+
+	void apagarNaoEssenciais()
+	{
+		const char* nomes[] = {
+			"AllynUpdate.log",
+			"Allyn-heap-diag.log",
+			"Allyn-heap-diag.last",
+			"Allyn-heap.pending.txt",
+			"pbr_classic_diag.log",
+			"texture_white.log"
+		};
+		for (size_t i = 0; i < sizeof(nomes) / sizeof(nomes[0]); ++i)
+		{
+			apagarSeExistir(arquivoLog(nomes[i]));
+			apagarSeExistir(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, nomes[i]));
+		}
+	}
+
+	void apagarSessaoSemCrash()
+	{
+		apagarNaoEssenciais();
+		apagarSeExistir(arquivoLog("Allyn-session.log"));
 	}
 
 	void gravarEvento()
@@ -475,6 +497,7 @@ void AllynCrashReport::prepararSessao(bool segundaInstancia)
 		return;
 	if (segundaInstancia)
 		return;
+	apagarNaoEssenciais();
 	bool anormal = gLastExecEvent != LAST_EXEC_NORMAL;
 	std::string session = arquivoLog("Allyn-session.log");
 	if (anormal)
@@ -488,30 +511,22 @@ void AllynCrashReport::prepararSessao(bool segundaInstancia)
 		std::string estatico = arquivoDebug("static_debug_info.log");
 		if (existe(estatico))
 			copiarArquivo(estatico, arquivoLog("Allyn-debug-static.pending.xml"));
-		std::string heapLast = arquivoLog("Allyn-heap-diag.last");
-		std::string heapLog = arquivoLog("Allyn-heap-diag.log");
-		std::string heapPending;
-		if (existe(heapLast))
-			heapPending = lerFinal(heapLast, 8 * 1024);
-		if (existe(heapLog))
-		{
-			if (!heapPending.empty())
-				heapPending += "\n";
-			heapPending += lerFinal(heapLog, 48 * 1024);
-		}
-		if (!heapPending.empty())
-		{
-			std::ofstream out(arquivoLog("Allyn-heap.pending.txt").c_str(), std::ios::binary | std::ios::trunc);
-			if (out)
-				out << heapPending;
-		}
 		gravarEvento();
 		abrirLogSessao(false);
 	}
 	else
 	{
-		abrirLogSessao(true);
+		apagarSessaoSemCrash();
+		abrirLogSessao(false);
 	}
+}
+
+void AllynCrashReport::descartarSessaoLimpa()
+{
+	if (sSegunda || !gDirUtilp)
+		return;
+	LLError::logToFile(std::string());
+	apagarSessaoSemCrash();
 }
 
 void AllynCrashReport::enviarSePendente()
@@ -522,18 +537,10 @@ void AllynCrashReport::enviarSePendente()
 		return;
 	std::string sessionPending = arquivoLog("Allyn-session.pending.log");
 	std::string staticPending = arquivoLog("Allyn-debug-static.pending.xml");
-	std::string heapPending = arquivoLog("Allyn-heap.pending.txt");
-	if (!existe(sessionPending) && !existe(staticPending) && !existe(heapPending))
+	if (!existe(sessionPending) && !existe(staticPending))
 		return;
 
 	std::string log = limparTexto(lerFinal(sessionPending, 150 * 1024));
-	std::string heap = limparTexto(lerFinal(heapPending, 48 * 1024));
-	if (!heap.empty())
-	{
-		if (!log.empty())
-			log += "---- heap ----\n";
-		log += heap;
-	}
 	if (log.size() > kLogMax)
 		log.resize(kLogMax);
 
@@ -594,15 +601,7 @@ void AllynCrashReport::enviarSePendente()
 	if (motivo.empty())
 		motivo = blocoFatal(log);
 	if (motivo.empty())
-	{
 		motivo = "encerrou sem exceção";
-		std::string fase = ultimaLinhaCom(heap, "mainloop=");
-		if (!fase.empty())
-		{
-			motivo += " ";
-			motivo += fase;
-		}
-	}
 	if (motivo.size() > 1000)
 		motivo.resize(1000);
 

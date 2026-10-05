@@ -13,18 +13,15 @@
 #include <cctype>
 #include <cstdio>
 #include <cstdlib>
-#include <ctime>
 #include <mutex>
 #include <thread>
 
 #include <curl/curl.h>
 
 #include "llappviewer.h"
-#include "llcontrol.h"
 #include "lldir.h"
 #include "llfile.h"
 #include "llstring.h"
-#include "llviewercontrol.h"
 #include "shupdatechecker.h"
 
 #if LL_WINDOWS
@@ -34,7 +31,6 @@
 
 namespace
 {
-	std::mutex sLogMutex;
 	std::mutex sErrorMutex;
 	std::atomic<AllynUpdateDownloadState> sState{ALLYN_UPDATE_IDLE};
 	std::atomic<int> sPercent{0};
@@ -48,43 +44,11 @@ namespace
 	S64 sSpeedSampleBytes = 0;
 	S64 sSpeedEma = 0;
 	std::chrono::steady_clock::time_point sSpeedSampleTime;
-
-	std::string timestamp_now()
-	{
-		time_t now = time(NULL);
-		struct tm t;
-#if LL_WINDOWS
-		localtime_s(&t, &now);
-#else
-		localtime_r(&now, &t);
-#endif
-		return llformat("%04d-%02d-%02d %02d:%02d:%02d",
-			t.tm_year + 1900, t.tm_mon + 1, t.tm_mday, t.tm_hour, t.tm_min, t.tm_sec);
-	}
 }
 
 void allyn_update_log(const std::string& msg)
 {
 	LL_INFOS("AllynUpdate") << msg << LL_ENDL;
-	if (!gDirUtilp)
-	{
-		return;
-	}
-	std::lock_guard<std::mutex> lock(sLogMutex);
-	const std::string path = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "AllynUpdate.log");
-	LLFILE* file = LLFile::fopen(path, "ab");
-	if (!file)
-	{
-		return;
-	}
-	const std::string line = timestamp_now() + " " + msg + "\n";
-	fwrite(line.c_str(), 1, line.size(), file);
-	fclose(file);
-}
-
-bool allyn_update_is_simulate()
-{
-	return gSavedSettings.getBOOL("AllynUpdateSimulateDownload");
 }
 
 int allyn_update_percent(S64 downloaded, S64 total)
@@ -194,66 +158,6 @@ std::string allyn_update_filename_from_url(const std::string& url)
 		}
 	}
 	return name;
-}
-
-void allyn_update_run_self_tests()
-{
-	bool ok = true;
-	if (allyn_update_percent(0, 100) != 0) { allyn_update_log("FAIL percent 0/100"); ok = false; }
-	if (allyn_update_percent(50, 100) != 50) { allyn_update_log("FAIL percent 50/100"); ok = false; }
-	if (allyn_update_percent(100, 100) != 100) { allyn_update_log("FAIL percent 100/100"); ok = false; }
-	if (allyn_update_percent(10, 0) != 0) { allyn_update_log("FAIL percent 10/0"); ok = false; }
-
-	const std::string good = "https://github.com/allynviewer/Allyn-Viewer/releases/download/v1.0.0.11/Allyn_Viewer_1_0_0_11_x86_64_Setup.exe";
-	if (!allyn_update_url_allowed(good)) { allyn_update_log("FAIL allow official github url"); ok = false; }
-	if (allyn_update_url_allowed("http://github.com/allynviewer/Allyn-Viewer/x.exe")) { allyn_update_log("FAIL reject http"); ok = false; }
-	if (allyn_update_url_allowed("https://evil.example/setup.exe")) { allyn_update_log("FAIL reject unknown host"); ok = false; }
-	if (allyn_update_filename_from_url(good) != "Allyn_Viewer_1_0_0_11_x86_64_Setup.exe")
-	{
-		allyn_update_log("FAIL filename from url");
-		ok = false;
-	}
-	if (allyn_update_format_bytes(0) != "0 B") { allyn_update_log("FAIL format 0 B"); ok = false; }
-	if (allyn_update_format_bytes(512) != "512 B") { allyn_update_log("FAIL format 512 B"); ok = false; }
-	if (allyn_update_format_speed(0) != "0 B/s") { allyn_update_log("FAIL format 0 B/s"); ok = false; }
-
-	auto expect_newer = [&ok](const char* remote, const char* local, bool expected)
-	{
-		S32 rm = 0, ri = 0, rp = 0, rb = 0, lm = 0, li = 0, lp = 0, lb = 0;
-		if (!allyn_parse_version(remote, rm, ri, rp, rb) || !allyn_parse_version(local, lm, li, lp, lb))
-		{
-			allyn_update_log(llformat("FAIL parse %s or %s", remote, local));
-			ok = false;
-			return;
-		}
-		const bool newer = allyn_version_is_newer(rm, ri, rp, rb, lm, li, lp, lb);
-		if (newer != expected)
-		{
-			allyn_update_log(llformat("FAIL compare %s vs %s expected_newer=%d got=%d (%d.%d.%d.%d vs %d.%d.%d.%d)",
-				remote, local, static_cast<int>(expected), static_cast<int>(newer),
-				rm, ri, rp, rb, lm, li, lp, lb));
-			ok = false;
-			return;
-		}
-	};
-
-	// Iguais: não é mais nova.
-	expect_newer("v1.0.0.11 Beta", "v1.0.0.11 Beta", false);
-	// Build: 1.0.0.10 < 1.0.0.11
-	expect_newer("v1.0.0.11 Beta", "v1.0.0.10 Beta", true);
-	expect_newer("v1.0.0.10 Beta", "v1.0.0.11 Beta", false);
-	// Patch: 1.0.0.11 < 1.0.1.11
-	expect_newer("v1.0.1.11 Beta", "v1.0.0.11 Beta", true);
-	expect_newer("v1.0.0.11 Beta", "v1.0.1.11 Beta", false);
-	// Minor: 1.0.1.11 < 1.1.1.11
-	expect_newer("v1.1.1.11 Beta", "v1.0.1.11 Beta", true);
-	expect_newer("v1.0.1.11 Beta", "v1.1.1.11 Beta", false);
-	// Major: 2.0.0.0 > 1.0.0.0
-	expect_newer("v2.0.0.0 Beta", "v1.0.0.0 Beta", true);
-	expect_newer("v1.0.0.0 Beta", "v2.0.0.0 Beta", false);
-
-	if (!ok)
-		allyn_update_log("self-test FAIL");
 }
 
 AllynUpdateDownloadState allyn_update_download_state()
@@ -415,34 +319,6 @@ namespace
 		return xfer_progress(nullptr, static_cast<curl_off_t>(dltotal), static_cast<curl_off_t>(dlnow), 0, 0);
 	}
 
-	void run_simulated_download()
-	{
-		const S64 fake_total = 80LL * 1024 * 1024;
-		allyn_update_log("simulate download start");
-		sState.store(ALLYN_UPDATE_DOWNLOADING);
-		sPercent.store(0);
-		sBytes.store(0);
-		sTotal.store(fake_total);
-		sLastFileLogPercent = -1;
-		reset_speed_meter();
-		for (int percent = 0; percent <= 100; ++percent)
-		{
-			if (sCancel.load())
-			{
-				sState.store(ALLYN_UPDATE_IDLE);
-				allyn_update_log("simulate download cancelled");
-				return;
-			}
-			apply_progress((fake_total * percent) / 100, fake_total);
-			log_percent_if_needed(percent);
-			std::this_thread::sleep_for(std::chrono::milliseconds(80));
-		}
-		sPercent.store(100);
-		sBytes.store(fake_total);
-		sState.store(ALLYN_UPDATE_SIMULATED);
-		allyn_update_log("simulate download complete (installer will not start)");
-	}
-
 	void run_real_download(const std::string url, const std::string dest, const std::string ca_file)
 	{
 		allyn_update_log("real download start url=" + url);
@@ -565,13 +441,6 @@ void allyn_update_start_download(const std::string& url)
 	sSpeedBps.store(0);
 	sState.store(ALLYN_UPDATE_DOWNLOADING);
 
-	if (allyn_update_is_simulate())
-	{
-		set_dest("");
-		std::thread(run_simulated_download).detach();
-		return;
-	}
-
 	if (!allyn_update_url_allowed(url))
 	{
 		set_error("Installer URL is not allowed");
@@ -590,12 +459,6 @@ void allyn_update_start_download(const std::string& url)
 
 bool allyn_update_launch_installer_and_quit()
 {
-	if (allyn_update_is_simulate())
-	{
-		allyn_update_log("simulate skip installer launch and viewer quit");
-		return true;
-	}
-
 	const std::string path = allyn_update_download_path();
 	if (path.empty() || !LLFile::isfile(path))
 	{
