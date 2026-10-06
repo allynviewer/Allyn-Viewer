@@ -111,6 +111,7 @@ protected:
 	S32 mNonImpostors;
 	BOOL mAvatarCloth;
 	S32 mAvatarMode;
+	S32 mShowAvatarNameTag;
 	BOOL mLocalLights;
 	S32 mTerrainDetail;
 	U32 mMaxComplexity;

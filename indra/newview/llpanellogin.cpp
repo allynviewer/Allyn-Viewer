@@ -79,6 +79,7 @@
 #include <cctype>
 const S32 MAX_PASSWORD = 16;
 static const S32 LOGIN_FORM_COLUMN_WIDTH = 300;
+static const S32 LOGIN_FORM_SCALE_WINDOW = 670;
 static const S32 LOGIN_VERSION_PAD = 6;
 static const S32 LOGIN_VERSION_HEIGHT = 20;
 static const S32 LOGIN_VERSION_RESERVE =
@@ -239,14 +240,29 @@ static void setChildRect(LLView* child, S32 left, S32 top, S32 width, S32 height
 	child->setRect(r);
 	child->reshape(width, height, FALSE);
 }
-static void moverFilhoVertical(LLView* parent, const char* name, S32 design_bottom, S32 design_height, S32 shift)
+static void caixaEscala(S32 design_left, S32 design_width, S32 design_span, S32 atual_span, S32& left, S32& width)
 {
+	const F32 s = (F32)atual_span / (F32)llmax(1, design_span);
+	left = ll_round((F32)design_left * s);
+	S32 right = ll_round((F32)(design_left + design_width) * s);
+	if (right > atual_span)
+		right = atual_span;
+	if (right <= left)
+		right = llmin(atual_span, left + 1);
+	width = llmax(1, right - left);
+}
+static void posicionarFilhoLogin(LLView* parent, const char* name, S32 design_left, S32 design_bottom, S32 design_width, S32 design_height, S32 design_span, S32 vshift)
+{
+	if (!parent)
+		return;
 	LLView* child = parent->getChildView(name, FALSE, FALSE);
 	if (!child)
 		return;
-	const LLRect& r = child->getRect();
-	const S32 bottom = design_bottom + shift;
-	setChildRect(child, r.mLeft, bottom + design_height, r.getWidth(), design_height);
+	S32 left = 0;
+	S32 width = 1;
+	caixaEscala(design_left, design_width, design_span, parent->getRect().getWidth(), left, width);
+	const S32 bottom = design_bottom + vshift;
+	setChildRect(child, left, bottom + design_height, width, design_height);
 }
 LLPanelLogin* LLPanelLogin::sInstance = NULL;
 static std::string sLoginSplashSkin;
@@ -587,7 +603,12 @@ void LLPanelLogin::reshapeBrowser()
 		return;
 	mBrowserLayoutW = panel_width;
 	mBrowserLayoutH = panel_height;
-	mFormColumnWidth = llmin(LOGIN_FORM_COLUMN_WIDTH, llmax(1, panel_width / 3));
+	F32 form_scale = 1.f;
+	if (panel_width < LOGIN_FORM_SCALE_WINDOW)
+		form_scale = (F32)panel_width / (F32)LOGIN_FORM_SCALE_WINDOW;
+	mFormColumnWidth = llmax(1, ll_round((F32)LOGIN_FORM_COLUMN_WIDTH * form_scale));
+	if (mFormColumnWidth > panel_width)
+		mFormColumnWidth = panel_width;
 	mSplashColumnWidth = llmax(1, panel_width - mFormColumnWidth);
 	const S32 menu_h = loginMenuBarHeight();
 	const S32 content_top = llmax(1, panel_height - menu_h);
@@ -623,11 +644,13 @@ void LLPanelLogin::reshapeBrowser()
 				setChildRect(inner, 0, scroll_h, mFormColumnWidth, inner_h);
 				if (LLView* card = inner->getChildView("login_form_card", FALSE, FALSE))
 				{
-					const LLRect& r = card->getRect();
 					const S32 bottom = LOGIN_FORM_CARD_BOTTOM + local_shift;
 					const S32 top = inner_h - LOGIN_FORM_CARD_TOP_INSET;
+					S32 card_left = 0;
+					S32 card_w = 1;
+					caixaEscala(8, 284, LOGIN_FORM_COLUMN_WIDTH, mFormColumnWidth, card_left, card_w);
 					card->setFollows(FOLLOWS_LEFT | FOLLOWS_TOP | FOLLOWS_RIGHT);
-					setChildRect(card, r.mLeft, top, r.getWidth(), llmax(1, top - bottom));
+					setChildRect(card, card_left, top, card_w, llmax(1, top - bottom));
 				}
 				if (LLView* logo = inner->getChildView("login_logo", FALSE, FALSE))
 				{
@@ -637,28 +660,51 @@ void LLPanelLogin::reshapeBrowser()
 				static const struct
 				{
 					const char* name;
+					S32 left;
 					S32 bottom;
+					S32 width;
 					S32 height;
 				} itens[] = {
-					{ "login_title", 456, 40 },
-					{ "login_subtitle", 435, 15 },
-					{ "login_section_rule", 426, 1 },
-					{ "name_label", 395, 20 },
-					{ "username_combo", 367, 24 },
-					{ "password_text", 335, 20 },
-					{ "password_edit", 307, 24 },
-					{ "location_panel", 243, 52 },
-					{ "connect_btn", 191, 36 },
-					{ "remember_name_check", 168, 15 },
-					{ "remove_login", 168, 15 },
-					{ "remember_check", 149, 15 },
-					{ "create_new_account_text", 126, 15 },
-					{ "forgot_password_text", 107, 15 },
-					{ "grids_panel", 136, 80 },
-					{ "online_users_panel", 8, 80 }
+					{ "login_title", 16, 456, 268, 40 },
+					{ "login_subtitle", 16, 435, 268, 15 },
+					{ "login_section_rule", 16, 426, 268, 1 },
+					{ "name_label", 16, 395, 268, 20 },
+					{ "username_combo", 16, 367, 268, 24 },
+					{ "password_text", 16, 335, 268, 20 },
+					{ "password_edit", 16, 307, 268, 24 },
+					{ "location_panel", 16, 243, 268, 52 },
+					{ "connect_btn", 16, 191, 268, 36 },
+					{ "remember_name_check", 16, 168, 180, 15 },
+					{ "remove_login", 268, 168, 16, 15 },
+					{ "remember_check", 16, 149, 180, 15 },
+					{ "create_new_account_text", 16, 126, 268, 15 },
+					{ "forgot_password_text", 16, 107, 268, 15 },
+					{ "grids_panel", 16, 136, 268, 80 },
+					{ "online_users_panel", 8, 8, 284, 80 }
 				};
 				for (size_t i = 0; i < sizeof(itens) / sizeof(itens[0]); ++i)
-					moverFilhoVertical(inner, itens[i].name, itens[i].bottom, itens[i].height, local_shift);
+					posicionarFilhoLogin(inner, itens[i].name, itens[i].left, itens[i].bottom, itens[i].width, itens[i].height, LOGIN_FORM_COLUMN_WIDTH, local_shift);
+				if (LLView* location = inner->getChildView("location_panel", FALSE, FALSE))
+				{
+					posicionarFilhoLogin(location, "start_location_text", 0, 32, 268, 20, 268, 0);
+					posicionarFilhoLogin(location, "start_location_combo", 0, 4, 268, 24, 268, 0);
+				}
+				if (LLView* grids = inner->getChildView("grids_panel", FALSE, FALSE))
+				{
+					posicionarFilhoLogin(grids, "grids_combo_text", 0, 64, 268, 15, 268, 0);
+					posicionarFilhoLogin(grids, "grids_combo", 0, 36, 268, 24, 268, 0);
+					posicionarFilhoLogin(grids, "grids_btn", 0, 6, 268, 22, 268, 0);
+				}
+				if (LLView* online = inner->getChildView("online_users_panel", FALSE, FALSE))
+				{
+					posicionarFilhoLogin(online, "online_users_card", 0, 0, 284, 80, 284, 0);
+					posicionarFilhoLogin(online, "online_users_title", 8, 58, 268, 16, 284, 0);
+					posicionarFilhoLogin(online, "online_users_rule", 16, 54, 252, 1, 284, 0);
+					posicionarFilhoLogin(online, "online_allyn_text", 12, 30, 160, 16, 284, 0);
+					posicionarFilhoLogin(online, "online_allyn_count", 166, 30, 106, 16, 284, 0);
+					posicionarFilhoLogin(online, "online_sl_text", 12, 10, 160, 16, 284, 0);
+					posicionarFilhoLogin(online, "online_sl_count", 166, 10, 106, 16, 284, 0);
+				}
 			}
 			scroll->goToTop();
 		}

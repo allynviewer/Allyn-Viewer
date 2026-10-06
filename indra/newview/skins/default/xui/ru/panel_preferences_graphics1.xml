@@ -103,6 +103,11 @@
 						<combo_item name="2" value="2">Только друзья</combo_item>
 						<combo_item name="3" value="3">Только себя</combo_item>
 					</combo_box>
+					<text name="AvatarNameTagLabel">Показывать тег имени:</text>
+					<combo_box name="AvatarNameTagCombo" tool_tip="Показывает или скрывает тег с именем и группой над аватарами. Не меняет, какие аватары отображаются.">
+						<combo_item name="1" value="1">Вкл</combo_item>
+						<combo_item name="0" value="0">Выкл</combo_item>
+					</combo_box>
 					<slider label="Макс. сложность аватара:" label_width="200" name="IndirectMaxComplexity" tool_tip="Более сложные аватары становятся желе. Крайнее правое положение — без лимита." />
 					<text name="IndirectMaxComplexityText">Без лимита</text>
 					<check_box label="Показывать значения сложности" name="ShowAvatarComplexity" tool_tip="Показывать визуальную сложность над именем аватара (Ctrl+Alt+Shift+C)." />

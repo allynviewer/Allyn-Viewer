@@ -471,6 +471,7 @@ SHClientTagMgr::SHClientTagMgr()
 	gSavedSettings.getControl("AscentCustomTagColor")->getSignal()->connect(boost::bind(&SHClientTagMgr::updateAgentAvatarTag, this));
 	gSavedSettings.getControl("AscentCustomTagLabel")->getSignal()->connect(boost::bind(&SHClientTagMgr::updateAgentAvatarTag, this));
 	gSavedSettings.getControl("AscentShowSelfTag")->getSignal()->connect(boost::bind(&LLVOAvatar::invalidateNameTags));
+	gSavedSettings.getControl("AllynShowAvatarNameTag")->getSignal()->connect(boost::bind(&LLVOAvatar::invalidateNameTags));
 	if(!getIsEnabled())
 		return;
 	if (gSavedSettings.getBOOL("AscentUpdateTagsOnLoad"))
@@ -2715,6 +2716,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 	static const LLCachedControl<bool> use_typing_bubbles("UseTypingBubbles");
 	static const LLCachedControl<bool> render_name_hide_self("RenderNameHideSelf",false);
 	static const LLCachedControl<bool> allow_nameplate_override ("CCSAllowNameplateOverride", true);
+	static const LLCachedControl<S32> show_avatar_name_tag("AllynShowAvatarNameTag", 1);
 	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMETAGS))
 		return;
 	if (gRlvHandler.hasBehaviour(RLV_BHVR_CAMAVDIST) && (gAgent.getPosGlobalFromAgent(getCharacterPosition()) - gAgent.getPosGlobalFromAgent(gAgentAvatarp->getRenderPosition())).magVec() > gRlvHandler.camPole(RLV_BHVR_CAMAVDIST))
@@ -2742,6 +2744,14 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 		render_name = render_name
 						&& !gAgentCamera.cameraMouselook()
 						&& (visible_chat || !render_name_hide_self);
+	}
+	if (!show_avatar_name_tag)
+	{
+		render_name = visible_chat || visible_typing;
+		if (isSelf())
+		{
+			render_name = render_name && !gAgentCamera.cameraMouselook();
+		}
 	}
 	if ( !render_name )
 	{
@@ -2922,7 +2932,16 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 		}
 	}
 	std::string idle_string = getIdleTime(is_away, is_busy, is_appearance);
-	if (mNameString.empty()
+	static const LLCachedControl<S32> show_avatar_name_tag("AllynShowAvatarNameTag", 1);
+	if (!show_avatar_name_tag)
+	{
+		mNameString.clear();
+		if (mNameText)
+		{
+			mNameText->setLabel("");
+		}
+	}
+	else if (mNameString.empty()
 		|| new_name
 		|| (!title && !mTitle.empty())
 		|| (title && mTitle != title->getString())
@@ -8444,11 +8463,10 @@ void LLVOAvatar::updateSoftwareSkinnedVertices(const LLMeshSkinInfo* skin, const
 	bind_shape_matrix.loadu(skin->mBindShapeMatrix);
 	LLVector4a av_pos;
 	av_pos.load3(getPosition().mV);
-	const U32 max_joints = LLSkinningUtil::getMaxJointCount();
 	for (U32 j = 0; j < (U32)buffer->getNumVerts(); ++j)
 	{
 		LLMatrix4a final_mat;
-		LLSkinningUtil::getPerVertexSkinMatrix(weight[j].getF32ptr(), mat, false, final_mat, max_joints);
+		LLSkinningUtil::getPerVertexSkinMatrix(weight[j].getF32ptr(), mat, false, final_mat, count);
 		LLVector4a& v = vol_face.mPositions[j];
 		LLVector4a t;
 		bind_shape_matrix.affineTransform(v, t);

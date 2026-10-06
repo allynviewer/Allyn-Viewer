@@ -4532,11 +4532,10 @@ void LLRiggedVolume::update(const LLMeshSkinInfo* skin, LLVOAvatar* avatar, cons
 		if( pos && dst_face.mExtents )
 		{
 			LL_RECORD_BLOCK_TIME(FTM_SKIN_RIGGED);
-			U32 max_joints = LLSkinningUtil::getMaxJointCount();
 			for (U32 j = 0; j < (U32)dst_face.mNumVertices; ++j)
 			{
 				LLMatrix4a final_mat;
-				LLSkinningUtil::getPerVertexSkinMatrix(weight[j].getF32ptr(), mat, false, final_mat, max_joints);
+				LLSkinningUtil::getPerVertexSkinMatrix(weight[j].getF32ptr(), mat, false, final_mat, maxJoints);
 				LLVector4a& v = vol_face.mPositions[j];
 				LLVector4a t;
 				bind_shape_matrix.affineTransform(v, t);

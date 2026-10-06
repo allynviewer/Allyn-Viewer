@@ -99,6 +99,11 @@
 						<combo_item name="2" value="2">Afficher seulement les amis</combo_item>
 						<combo_item name="3" value="3">Afficher seulement soi</combo_item>
 					</combo_box>
+					<text name="AvatarNameTagLabel">Afficher l'étiquette de nom :</text>
+					<combo_box name="AvatarNameTagCombo" tool_tip="Affiche ou masque l'étiquette de nom et de groupe au-dessus des avatars. Ne change pas quels avatars sont affichés.">
+						<combo_item name="1" value="1">Oui</combo_item>
+						<combo_item name="0" value="0">Non</combo_item>
+					</combo_box>
 					<slider label="Complexité max. d'avatar :" label_width="200" name="IndirectMaxComplexity" tool_tip="Les avatars plus complexes deviennent des poupées de gelée. Tout à droite = sans limite." />
 					<text name="IndirectMaxComplexityText">Sans limite</text>
 					<check_box label="Afficher les valeurs de complexité" name="ShowAvatarComplexity" tool_tip="Affiche la complexité visuelle au-dessus du nom (Ctrl+Alt+Maj+C)." />

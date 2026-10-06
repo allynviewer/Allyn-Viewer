@@ -317,6 +317,21 @@ void init_default_trans_args()
 }
 const char *VFS_DATA_FILE_BASE = "data.db2.x.";
 const char *VFS_INDEX_FILE_BASE = "index.db2.x.";
+static std::string s_instance_vfs_data;
+static std::string s_instance_vfs_index;
+static void removeInstanceVfsFiles()
+{
+	if (!s_instance_vfs_data.empty())
+	{
+		LLFile::remove(s_instance_vfs_data);
+		s_instance_vfs_data.clear();
+	}
+	if (!s_instance_vfs_index.empty())
+	{
+		LLFile::remove(s_instance_vfs_index);
+		s_instance_vfs_index.clear();
+	}
+}
 std::string gWindowTitle;
 std::string gLoginPage;
 std::vector<std::string> gLoginURIs;
@@ -460,6 +475,7 @@ LLAppViewer::~LLAppViewer()
 {
 	destroyMainloopTimeout();
 	removeMarkerFiles();
+	removeInstanceVfsFiles();
 }
 class LLUITranslationBridge : public LLTranslationBridge
 {
@@ -750,7 +766,9 @@ bool LLAppViewer::init()
 		std::ostringstream msg;
 		msg << LLTrans::getString("MBUnableToAccessFile");
 		OSMessageBox(msg.str(),LLStringUtil::null,OSMB_OK);
-		return true;
+		AllynCrashReport::descartarSessaoLimpa();
+		removeMarkerFiles();
+		return false;
 	}
 	LL_INFOS("InitInfo") << "Cache initialization is done." << LL_ENDL ;
 	LLMainLoopRepeater::instance().start();
@@ -851,21 +869,35 @@ void LLAppViewer::initMaxHeapSize()
 void LLAppViewer::checkMemory()
 {
 	const static F32 MEMORY_CHECK_INTERVAL = 1.0f ;
-	if(!gGLManager.mDebugGPU)
-	{
-		return ;
-	}
 	if(MEMORY_CHECK_INTERVAL > mMemCheckTimer.getElapsedTimeF32())
 	{
 		return ;
 	}
 	mMemCheckTimer.reset() ;
-		LLMemory::updateMemoryInfo() ;
-	bool is_low = LLMemory::isMemoryPoolLow() ;
-	LLPipeline::throttleNewMemoryAllocation(is_low) ;
-	if(is_low)
+#if LL_WINDOWS
+	MEMORYSTATUSEX ms = { sizeof(ms) };
+	if (GlobalMemoryStatusEx(&ms))
 	{
-		LLMemory::logMemoryInfo() ;
+		static bool low = false;
+		const U64 avail_mb = ms.ullAvailPhys >> 20;
+		if (!low && avail_mb < 1024)
+		{
+			low = true;
+		}
+		else if (low && avail_mb > 1536)
+		{
+			low = false;
+		}
+		LLPipeline::throttleNewMemoryAllocation(low);
+	}
+#endif
+	if (gGLManager.mDebugGPU)
+	{
+		LLMemory::updateMemoryInfo() ;
+		if (LLMemory::isMemoryPoolLow())
+		{
+			LLMemory::logMemoryInfo() ;
+		}
 	}
 }
 static LLTrace::BlockTimerStatHandle FTM_MESSAGES("System Messages");
@@ -1241,13 +1273,17 @@ bool LLAppViewer::cleanup()
 	LLUI::cleanupClass();
 	LL_INFOS() << "Cleaning up VFS" << LL_ENDL;
 	LLVFile::cleanupClass();
+	removeInstanceVfsFiles();
 	LL_INFOS() << "Saving Data" << LL_ENDL;
 	if (!gSavedSettings.getBOOL("RememberPassword"))
 	{
 		LLStartUp::deletePasswordFromDisk();
 	}
 	gSavedPerAccountSettings.setU32("LastLogoff", time_corrected());
-	gSavedSettings.saveToFile(gSavedSettings.getString("ClientSettingsFile"), TRUE);
+	if (!mSecondInstance)
+	{
+		gSavedSettings.saveToFile(gSavedSettings.getString("ClientSettingsFile"), TRUE);
+	}
 	if (gSavedSettings.getString("PerAccountSettingsFile").empty())
 	{
 		LL_INFOS() << "Not saving per-account settings; don't know the account name yet." << LL_ENDL;
@@ -1262,7 +1298,7 @@ bool LLAppViewer::cleanup()
 	LLFloaterTeleportHistory::saveFile("teleport_history.xml");
 	LocalAssetBrowser::deleteSingleton();
 	LLMuteList::getInstance()->cache(gAgent.getID());
-	if (mPurgeOnExit)
+	if (mPurgeOnExit && !mSecondInstance)
 	{
 		LL_INFOS() << "Purging all cache files on exit" << LL_ENDL;
 		gDirUtilp->deleteFilesInDir(gDirUtilp->getExpandedFilename(LL_PATH_CACHE,""),"*.*");
@@ -1897,15 +1933,22 @@ bool LLAppViewer::initWindow()
 	}
 	if (!gNoRender)
 	{
-		gSavedSettings.setBOOL("RenderInitError", TRUE);
-		gSavedSettings.saveToFile( gSavedSettings.getString("ClientSettingsFile"), TRUE );
+		const bool primary = !isSecondInstance();
+		if (primary)
+		{
+			gSavedSettings.setBOOL("RenderInitError", TRUE);
+			gSavedSettings.saveToFile( gSavedSettings.getString("ClientSettingsFile"), TRUE );
+		}
 		gPipeline.init();
 		LL_INFOS("AppInit") << "gPipeline Initialized" << LL_ENDL;
 		stop_glerror();
 		gGL.restoreVertexBuffers();
 		gViewerWindow->initGLDefaults();
-		gSavedSettings.setBOOL("RenderInitError", FALSE);
-		gSavedSettings.saveToFile( gSavedSettings.getString("ClientSettingsFile"), TRUE );
+		if (primary)
+		{
+			gSavedSettings.setBOOL("RenderInitError", FALSE);
+			gSavedSettings.saveToFile( gSavedSettings.getString("ClientSettingsFile"), TRUE );
+		}
 	}
 	if(gCrashOnStartup)
 	{
@@ -1963,7 +2006,7 @@ void LLAppViewer::cleanupSavedSettings()
 	}
 	gSavedSettings.setF32("MapScale", LLWorldMapView::sMapScale );
 	gSavedSettings.setBOOL("ShowHoverTips", LLHoverView::sShowHoverTips);
-	if (gAgentCamera.isInitialized())
+	if (gAgentCamera.isInitialized() && !mSecondInstance)
 	{
 		gSavedSettings.setF32("RenderFarClip", gAgentCamera.mDrawDistance);
 	}
@@ -2344,6 +2387,8 @@ void LLAppViewer::fastQuit(S32 error_code)
 	end_messaging_system();
 	S32 final_error_code = error_code ? error_code : (S32)isError();
 	removeMarkerFiles();
+	AllynCrashReport::descartarSessaoLimpa();
+	removeInstanceVfsFiles();
 	_exit(final_error_code);
 }
 void LLAppViewer::requestQuit()
@@ -2591,7 +2636,10 @@ bool LLAppViewer::initCache()
 		gSavedSettings.setString("CacheLocation", "");
 		gSavedSettings.setString("NewCacheLocation", "");
 	}
-	purgeCefCachesOnStartup();
+	if (!mSecondInstance)
+	{
+		purgeCefCachesOnStartup();
+	}
 	if (mPurgeCache && !read_only)
 	{
 		LLSplashScreen::update(LLTrans::getString("StartupClearingCache"));
@@ -2633,7 +2681,7 @@ bool LLAppViewer::initCache()
 	vfs_size = llmin(vfs_size + extra, MAX_VFS_SIZE);
 	vfs_size = U32Megabytes(vfs_size + U32Bytes(1048575));
 	U32Megabytes old_vfs_size(gSavedSettings.getU32("VFSOldSize"));
-	bool resize_vfs = (vfs_size != old_vfs_size);
+	bool resize_vfs = !mSecondInstance && (vfs_size != old_vfs_size);
 	if (resize_vfs)
 	{
 		gSavedSettings.setU32("VFSOldSize", U32Megabytes(vfs_size));
@@ -2648,77 +2696,92 @@ bool LLAppViewer::initCache()
 	std::string new_vfs_index_file;
 	std::string static_vfs_index_file;
 	std::string static_vfs_data_file;
-	if (gSavedSettings.getBOOL("AllowMultipleViewers"))
+	U64Bytes open_vfs_size = vfs_size;
+	if (mSecondInstance)
 	{
-		new_salt = old_salt;
+		const std::string pid = llformat("%u", (U32)LLApp::getPid());
+		new_vfs_data_file = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, std::string("data.db2.inst.") + pid);
+		new_vfs_index_file = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, std::string("index.db2.inst.") + pid);
+		LLFile::remove(new_vfs_data_file);
+		LLFile::remove(new_vfs_index_file);
+		s_instance_vfs_data = new_vfs_data_file;
+		s_instance_vfs_index = new_vfs_index_file;
+		open_vfs_size = llmin(vfs_size, U64Bytes(U32Megabytes(64)));
 	}
 	else
 	{
-		do
+		if (gSavedSettings.getBOOL("AllowMultipleViewers"))
 		{
-			new_salt = rand();
-		} while(new_salt == old_salt);
-	}
-	old_vfs_data_file = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, VFS_DATA_FILE_BASE) + llformat("%u",old_salt);
-	llstat s;
-	S32 stat_result = LLFile::stat(old_vfs_data_file, &s);
-	if (stat_result)
-	{
-		std::string mask;
-		mask = VFS_DATA_FILE_BASE;
-		mask += "*";
-		std::string dir;
-		dir = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, "");
-		std::string found_file;
-		LLDirIterator iter(dir, mask);
-		if (iter.next(found_file))
-		{
-			old_vfs_data_file = gDirUtilp->add(dir, found_file);
-			size_t start_pos = found_file.find_last_of('.');
-			if (start_pos != std::string::npos && start_pos != 0)
-			{
-				sscanf(found_file.substr(start_pos+1).c_str(), "%d", &old_salt);
-			}
-			LL_DEBUGS("AppCache") << "Default vfs data file not present, found: " << old_vfs_data_file << " Old salt: " << old_salt << LL_ENDL;
+			new_salt = old_salt;
 		}
+		else
+		{
+			do
+			{
+				new_salt = rand();
+			} while(new_salt == old_salt);
+		}
+		old_vfs_data_file = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, VFS_DATA_FILE_BASE) + llformat("%u",old_salt);
+		llstat s;
+		S32 stat_result = LLFile::stat(old_vfs_data_file, &s);
+		if (stat_result)
+		{
+			std::string mask;
+			mask = VFS_DATA_FILE_BASE;
+			mask += "*";
+			std::string dir;
+			dir = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, "");
+			std::string found_file;
+			LLDirIterator iter(dir, mask);
+			if (iter.next(found_file))
+			{
+				old_vfs_data_file = gDirUtilp->add(dir, found_file);
+				size_t start_pos = found_file.find_last_of('.');
+				if (start_pos != std::string::npos && start_pos != 0)
+				{
+					sscanf(found_file.substr(start_pos+1).c_str(), "%d", &old_salt);
+				}
+				LL_DEBUGS("AppCache") << "Default vfs data file not present, found: " << old_vfs_data_file << " Old salt: " << old_salt << LL_ENDL;
+			}
+		}
+		old_vfs_index_file = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, VFS_INDEX_FILE_BASE) + llformat("%u",old_salt);
+		stat_result = LLFile::stat(old_vfs_index_file, &s);
+		if (stat_result)
+		{
+			LL_WARNS("AppCache") << "Bad or missing vfx index file " << old_vfs_index_file << LL_ENDL;
+			LL_WARNS("AppCache") << "Removing old vfs data file " << old_vfs_data_file << LL_ENDL;
+			LLFile::remove(old_vfs_data_file);
+			LLFile::remove(old_vfs_index_file);
+			std::string dir;
+			dir = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, "");
+			std::string mask;
+			mask = VFS_DATA_FILE_BASE;
+			mask += "*";
+			gDirUtilp->deleteFilesInDir(dir, mask);
+			mask = VFS_INDEX_FILE_BASE;
+			mask += "*";
+			gDirUtilp->deleteFilesInDir(dir, mask);
+		}
+		new_vfs_data_file = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, VFS_DATA_FILE_BASE) + llformat("%u", new_salt);
+		new_vfs_index_file = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, VFS_INDEX_FILE_BASE) + llformat("%u", new_salt);
+		if (resize_vfs)
+		{
+			LL_DEBUGS("AppCache") << "Removing old vfs and re-sizing" << LL_ENDL;
+			LLFile::remove(old_vfs_data_file);
+			LLFile::remove(old_vfs_index_file);
+		}
+		else if (old_salt != new_salt)
+		{
+			LL_DEBUGS("AppCache") << "Renaming " << old_vfs_data_file << " to " << new_vfs_data_file << LL_ENDL;
+			LL_DEBUGS("AppCache") << "Renaming " << old_vfs_index_file << " to " << new_vfs_index_file << LL_ENDL;
+			LLFile::rename(old_vfs_data_file, new_vfs_data_file);
+			LLFile::rename(old_vfs_index_file, new_vfs_index_file);
+		}
+		gSavedSettings.setU32("VFSSalt", new_salt);
 	}
-	old_vfs_index_file = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, VFS_INDEX_FILE_BASE) + llformat("%u",old_salt);
-	stat_result = LLFile::stat(old_vfs_index_file, &s);
-	if (stat_result)
-	{
-		LL_WARNS("AppCache") << "Bad or missing vfx index file " << old_vfs_index_file << LL_ENDL;
-		LL_WARNS("AppCache") << "Removing old vfs data file " << old_vfs_data_file << LL_ENDL;
-		LLFile::remove(old_vfs_data_file);
-		LLFile::remove(old_vfs_index_file);
-		std::string dir;
-		dir = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, "");
-		std::string mask;
-		mask = VFS_DATA_FILE_BASE;
-		mask += "*";
-		gDirUtilp->deleteFilesInDir(dir, mask);
-		mask = VFS_INDEX_FILE_BASE;
-		mask += "*";
-		gDirUtilp->deleteFilesInDir(dir, mask);
-	}
-	new_vfs_data_file = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, VFS_DATA_FILE_BASE) + llformat("%u", new_salt);
-	new_vfs_index_file = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, VFS_INDEX_FILE_BASE) + llformat("%u", new_salt);
 	static_vfs_data_file = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "static_data.db2");
 	static_vfs_index_file = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "static_index.db2");
-	if (resize_vfs)
-	{
-		LL_DEBUGS("AppCache") << "Removing old vfs and re-sizing" << LL_ENDL;
-		LLFile::remove(old_vfs_data_file);
-		LLFile::remove(old_vfs_index_file);
-	}
-	else if (old_salt != new_salt)
-	{
-		LL_DEBUGS("AppCache") << "Renaming " << old_vfs_data_file << " to " << new_vfs_data_file << LL_ENDL;
-		LL_DEBUGS("AppCache") << "Renaming " << old_vfs_index_file << " to " << new_vfs_index_file << LL_ENDL;
-		LLFile::rename(old_vfs_data_file, new_vfs_data_file);
-		LLFile::rename(old_vfs_index_file, new_vfs_index_file);
-	}
-	gSavedSettings.setU32("VFSSalt", new_salt);
-	gVFS = LLVFS::createLLVFS(new_vfs_index_file, new_vfs_data_file, false, U32Bytes(vfs_size), false);
+	gVFS = LLVFS::createLLVFS(new_vfs_index_file, new_vfs_data_file, false, U32Bytes(open_vfs_size), false);
 	if (!gVFS)
 	{
 		return false;
@@ -2754,7 +2817,10 @@ void LLAppViewer::purgeCache()
 	LL_INFOS("AppCache") << "Purging Cache and Texture Cache..." << LL_ENDL;
 	LLAppViewer::getTextureCache()->purgeCache(LL_PATH_CACHE);
 	LLVOCache::getInstance()->removeCache(LL_PATH_CACHE);
-	purgeCefCachesOnStartup();
+	if (!mSecondInstance)
+	{
+		purgeCefCachesOnStartup();
+	}
 	std::string mask = "*.*";
 	gDirUtilp->deleteFilesInDir(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, ""), mask);
 }

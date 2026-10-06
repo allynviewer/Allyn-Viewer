@@ -31,6 +31,7 @@
  */
 #include "llviewerprecompiledheaders.h"
 #include "pipeline.h"
+#include "llappviewer.h"
 #include "llaudioengine.h"
 #include "imageids.h"
 #include "llerror.h"
@@ -538,7 +539,7 @@ void LLPipeline::allocatePhysicsBuffer()
 bool LLPipeline::allocateScreenBuffer(U32 resX, U32 resY)
 {
 	refreshCachedSettings();
-	bool save_settings = sRenderDeferred;
+	bool save_settings = sRenderDeferred && LLAppViewer::instance() && !LLAppViewer::instance()->isSecondInstance();
 	if (save_settings)
 	{
 		gSavedSettings.setBOOL("RenderInitError", TRUE);
@@ -2108,6 +2109,10 @@ void LLPipeline::clearRebuildGroups()
 		 iter != mGroupQ1.end(); ++iter)
 	{
 		LLSpatialGroup* group = *iter;
+		if (!group)
+		{
+			continue;
+		}
 		if (group->isHUDGroup())
 		{
 			hudGroups.push_back(group);
@@ -2125,8 +2130,10 @@ void LLPipeline::clearRebuildGroups()
 		 iter != mGroupQ2.end(); ++iter)
 	{
 		LLSpatialGroup* group = *iter;
-		if (group == nullptr) {
-			LL_WARNS() << "Null spatial group in Pipeline::mGroupQ2." << LL_ENDL;
+		if (!group)
+		{
+			LL_WARNS_ONCE() << "Null spatial group in Pipeline::mGroupQ2." << LL_ENDL;
+			continue;
 		}
 		if (group->isHUDGroup())
 		{
@@ -2190,6 +2197,10 @@ void LLPipeline::rebuildPriorityGroups()
 		 iter != mGroupQ1.end(); ++iter)
 	{
 		LLSpatialGroup* group = *iter;
+		if (!group)
+		{
+			continue;
+		}
 		group->rebuildGeom();
 		group->clearState(LLSpatialGroup::IN_BUILD_Q1);
 	}
@@ -2205,29 +2216,36 @@ void LLPipeline::rebuildGroups()
 		return;
 	}
 	LL_RECORD_BLOCK_TIME(FTM_REBUILD_GROUPS);
-	mGroupQ2Locked = true;
-	S32 size = (S32) mGroupQ2.size();
-	S32 min_count = llclamp((S32) ((F32) (size * size)/4096*0.25f), 1, size);
-	S32 count = 0;
-	std::sort(mGroupQ2.begin(), mGroupQ2.end(), LLSpatialGroup::CompareUpdateUrgency());
-	LLSpatialGroup::sg_vector_t::iterator iter;
-	LLSpatialGroup::sg_vector_t::iterator last_iter = mGroupQ2.begin();
-	for (iter = mGroupQ2.begin();
-		 iter != mGroupQ2.end() && count <= min_count; ++iter)
+	LLSpatialGroup::sg_vector_t work;
+	work.swap(mGroupQ2);
+	work.erase(std::remove_if(work.begin(), work.end(),
+		[](const LLPointer<LLSpatialGroup>& g) { return g.isNull(); }), work.end());
+	if (work.empty())
 	{
-		LLSpatialGroup* group = *iter;
-		last_iter = iter;
+		return;
+	}
+	mGroupQ2Locked = true;
+	S32 size = (S32) work.size();
+	S32 min_count = llclamp((S32) ((F32) size * (F32) size / 4096.f * 0.25f), 1, size);
+	S32 count = 0;
+	std::sort(work.begin(), work.end(), LLSpatialGroup::CompareUpdateUrgency());
+	size_t processed = 0;
+	for (size_t i = 0; i < work.size() && count <= min_count; ++i)
+	{
+		LLSpatialGroup* group = work[i];
+		processed = i + 1;
 		if (!group->isDead())
 		{
 			group->rebuildGeom();
-			if (group->getSpatialPartition()->mRenderByGroup)
+			LLSpatialPartition* part = group->getSpatialPartition();
+			if (part && part->mRenderByGroup)
 			{
 				count++;
 			}
 		}
 		group->clearState(LLSpatialGroup::IN_BUILD_Q2);
 	}
-	mGroupQ2.erase(mGroupQ2.begin(), ++last_iter);
+	mGroupQ2.insert(mGroupQ2.begin(), work.begin() + processed, work.end());
 	mGroupQ2Locked = false;
 	updateMovedList(mMovedBridge);
 }
@@ -2626,7 +2644,7 @@ void LLPipeline::stateSort(LLCamera& camera, LLCullResult &result)
 				stateSort(bridge, camera);
 			}
 			if (LLViewerCamera::sCurCameraID == LLViewerCamera::CAMERA_WORLD &&
-				last_group != group && last_group->changeLOD())
+				last_group && last_group != group && last_group->changeLOD())
 			{
 				last_group->mLastUpdateDistance = last_group->mDistance;
 			}
@@ -2688,7 +2706,8 @@ void LLPipeline::stateSort(LLSpatialGroup* group, LLCamera& camera)
 }
 void LLPipeline::stateSort(LLSpatialBridge* bridge, LLCamera& camera)
 {
-	if (!sSkipUpdate && bridge->getSpatialGroup()->changeLOD())
+	LLSpatialGroup* group = bridge->getSpatialGroup();
+	if (!sSkipUpdate && group && group->changeLOD())
 	{
 		bool force_update = false;
 		bridge->updateDistance(camera, force_update);
@@ -3043,7 +3062,11 @@ void LLPipeline::postSort(LLCamera& camera)
 	LLVOPartGroup::sVB->flush();
 	for (LLSpatialGroup::sg_vector_t::iterator iter = mMeshDirtyGroup.begin(); iter != mMeshDirtyGroup.end(); ++iter)
 	{
-		(*iter)->rebuildMesh();
+		LLSpatialGroup* g = *iter;
+		if (g && !g->isDead())
+		{
+			g->rebuildMesh();
+		}
 	}
 	mMeshDirtyGroup.clear();
 	if (!sShadowRender)
@@ -3914,7 +3937,7 @@ void LLPipeline::renderDebug()
 		for (LLSpatialGroup::sg_vector_t::iterator iter = mGroupQ2.begin(); iter != mGroupQ2.end(); ++iter)
 		{
 			LLSpatialGroup* group = *iter;
-			if (group->isDead())
+			if (!group || group->isDead() || !group->getSpatialPartition())
 			{
 				continue;
 			}

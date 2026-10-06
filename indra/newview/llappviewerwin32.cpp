@@ -32,6 +32,7 @@
 #include "llviewerprecompiledheaders.h"
 #include "llwindowwin32.h"
 #include "llappviewerwin32.h"
+#include "allyncrashreport.h"
 #include "llgl.h"
 #include "res/resource.h"
 #include <fcntl.h>
@@ -173,6 +174,9 @@ int APIENTRY WINMAIN(HINSTANCE hInstance,
 	if(!ok)
 	{
 		LL_WARNS() << "Application init failed." << LL_ENDL;
+		AllynCrashReport::descartarSessaoLimpa();
+		delete viewer_app_ptr;
+		viewer_app_ptr = nullptr;
 		return -1;
 	}
 #ifdef USE_NVAPI

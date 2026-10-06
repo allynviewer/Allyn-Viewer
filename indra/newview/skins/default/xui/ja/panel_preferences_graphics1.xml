@@ -103,6 +103,11 @@
 						<combo_item name="2" value="2">フレンドのみ表示</combo_item>
 						<combo_item name="3" value="3">自分のみ表示</combo_item>
 					</combo_box>
+					<text name="AvatarNameTagLabel">アバター名タグを表示:</text>
+					<combo_box name="AvatarNameTagCombo" tool_tip="アバター上の名前とグループのタグを表示または非表示にします。表示するアバターは変わりません。">
+						<combo_item name="1" value="1">オン</combo_item>
+						<combo_item name="0" value="0">オフ</combo_item>
+					</combo_box>
 					<slider label="アバター最大複雑度:" label_width="200" name="IndirectMaxComplexity" tool_tip="これより複雑なアバターはゼリー人形になります。右端で無制限。" />
 					<text name="IndirectMaxComplexityText">無制限</text>
 					<check_box label="複雑度の値を表示" name="ShowAvatarComplexity" tool_tip="各アバターの視覚的複雑度を名前の上に表示します（Ctrl+Alt+Shift+C）。" />

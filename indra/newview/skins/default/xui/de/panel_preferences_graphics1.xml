@@ -99,6 +99,11 @@
 						<combo_item name="2" value="2">Nur Freunde anzeigen</combo_item>
 						<combo_item name="3" value="3">Nur sich selbst anzeigen</combo_item>
 					</combo_box>
+					<text name="AvatarNameTagLabel">Avatar-Namensschild anzeigen:</text>
+					<combo_box name="AvatarNameTagCombo" tool_tip="Zeigt oder verbirgt das Namens- und Gruppenschild über Avataren. Ändert nicht, welche Avatare angezeigt werden.">
+						<combo_item name="1" value="1">Ein</combo_item>
+						<combo_item name="0" value="0">Aus</combo_item>
+					</combo_box>
 					<slider label="Max. Avatar-Komplexität:" label_width="200" name="IndirectMaxComplexity" tool_tip="Komplexere Avatare werden zu Jelly Dolls. Ganz rechts = kein Limit." />
 					<text name="IndirectMaxComplexityText">Kein Limit</text>
 					<check_box label="Komplexitätswerte anzeigen" name="ShowAvatarComplexity" tool_tip="Visuelle Komplexität über dem Namen anzeigen (Strg+Alt+Umschalt+C)." />

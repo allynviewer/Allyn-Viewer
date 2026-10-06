@@ -396,37 +396,35 @@ bool LLViewerTexture::isMemoryForTextureLow()
 	}
 	timer.reset();
 	LL_RECORD_BLOCK_TIME(FTM_TEXTURE_MEMORY_CHECK);
-	static const S32Megabytes MIN_FREE_TEXTURE_MEMORY(20);
-	static const S32Megabytes MIN_FREE_MAIN_MEMORY(100);
+	static const S32 MIN_FREE_VRAM_MB = 128;
+	static const S32Megabytes MIN_FREE_MAIN_MEMORY(512);
 	bool low_mem = false;
 	if (gGLManager.mHasATIMemInfo)
 	{
 		S32 meminfo[4];
 		glGetIntegerv(GL_TEXTURE_FREE_MEMORY_ATI, meminfo);
-		if((S32Megabytes)meminfo[0] < MIN_FREE_TEXTURE_MEMORY)
+		if ((meminfo[0] >> 10) < MIN_FREE_VRAM_MB)
 		{
 			low_mem = true;
 		}
-		if(!low_mem)
-		{
-			LLMemory::updateMemoryInfo();
-			if(LLMemory::getAvailableMemKB() < MIN_FREE_TEXTURE_MEMORY)
-			{
-				low_mem = true;
-			}
-		}
 	}
-#if 0
 	else if (gGLManager.mHasNVXMemInfo)
 	{
-		S32 free_memory;
-		glGetIntegerv(GL_GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX, &free_memory);
-		if(free_memory / 1024 < MIN_FREE_TEXTURE_MEMORY)
+		S32 free_kb = 0;
+		glGetIntegerv(GL_GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX, &free_kb);
+		if ((free_kb >> 10) < MIN_FREE_VRAM_MB)
 		{
 			low_mem = true;
 		}
 	}
-#endif
+	if (!low_mem)
+	{
+		LLMemory::updateMemoryInfo();
+		if (LLMemory::getAvailableMemKB() < MIN_FREE_MAIN_MEMORY)
+		{
+			low_mem = true;
+		}
+	}
 	return low_mem;
 }
 static LLTrace::BlockTimerStatHandle FTM_TEXTURE_UPDATE_MEDIA("Media");
@@ -2355,7 +2353,7 @@ void LLViewerFetchedTexture::setCachedRawImage(S32 discard_level, LLImageRaw* im
 		{
 			S32 expected_width = mKnownDrawWidth > 0 ? mKnownDrawWidth : DEFAULT_ICON_DIMENTIONS;
 			S32 expected_height = mKnownDrawHeight > 0 ? mKnownDrawHeight : DEFAULT_ICON_DIMENTIONS;
-			if (mRawImage->getWidth() > expected_width || mRawImage->getHeight() > expected_height)
+			if (imageraw && (imageraw->getWidth() > expected_width || imageraw->getHeight() > expected_height))
 			{
 				mCachedRawImage = new LLImageRaw(expected_width, expected_height, imageraw->getComponents());
 				mCachedRawImage->copyScaled(imageraw);
@@ -3117,7 +3115,7 @@ F32 LLViewerMediaTexture::getMaxVirtualSize()
 			for(U32 i = 0; i < mNumFaces[ch]; i++)
 			{
 				LLFace* facep = mFaceList[ch][i];
-				if(facep->getDrawable()->isRecentlyVisible())
+				if (facep && facep->getDrawable() && facep->getDrawable()->isRecentlyVisible())
 				{
 					addTextureStats(facep->getVirtualSize());
 				}
@@ -3132,7 +3130,7 @@ F32 LLViewerMediaTexture::getMaxVirtualSize()
 			for(std::list< LLFace* >::iterator iter = mMediaFaceList.begin(); iter!= mMediaFaceList.end(); ++iter)
 			{
 				LLFace* facep = *iter;
-				if(facep->getDrawable()->isRecentlyVisible())
+				if (facep && facep->getDrawable() && facep->getDrawable()->isRecentlyVisible())
 				{
 					addTextureStats(facep->getVirtualSize());
 				}

@@ -9016,6 +9016,28 @@ We cannot apply this texture immediately because it is no-copy and/or no-transfe
 
 
   <notification
+   icon="alertmodal.tga"
+   label="Low memory"
+   name="LowMemory"
+   type="alertmodal">
+Your memory pool is low. Some features were disabled to avoid a crash. Close other applications. Restart the viewer if this continues.
+   <usetemplate
+    name="okbutton"
+    yestext="OK"/>
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   label="Out of memory"
+   name="ForceQuitDueToLowMemory"
+   type="alertmodal">
+The viewer will close in 30 seconds because it is out of memory.
+   <usetemplate
+    name="okbutton"
+    yestext="OK"/>
+  </notification>
+
+  <notification
   name="PopupAttempt"
   icon="alertmodal.tga"
   type="browser">

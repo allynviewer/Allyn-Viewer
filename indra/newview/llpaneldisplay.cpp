@@ -357,6 +357,7 @@ void LLPanelDisplay::refresh()
 	mNonImpostors = gSavedSettings.getS32("RenderAvatarMaxVisible");
 	mAvatarCloth = gSavedSettings.getBOOL("RenderAvatarCloth");
 	mAvatarMode = persistedS32("AlwaysRenderFriends");
+	mShowAvatarNameTag = persistedS32("AllynShowAvatarNameTag");
 	mMaxComplexity = gSavedSettings.getU32("RenderAvatarMaxComplexity");
 	mShowComplexity = gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_SHAME);
 	getChild<LLCheckBoxCtrl>("ShowAvatarComplexity")->set(mShowComplexity);
@@ -397,6 +398,7 @@ void LLPanelDisplay::refresh()
 	mTonemapType = persistedS32("RenderTonemapType");
 	mTonemapMix = persistedF32("RenderTonemapMix");
 	showComboInt(this, "AvatarDisplayCombo", mAvatarMode);
+	showComboInt(this, "AvatarNameTagCombo", mShowAvatarNameTag);
 	showComboInt(this, "PBRReflectionDetail", mProbeDetail);
 	showComboInt(this, "PBRReflectionLevel", mProbeLevel);
 	showComboInt(this, "PBRProbeCount", mProbeCount);
@@ -556,6 +558,7 @@ void LLPanelDisplay::cancel()
 	gSavedSettings.setS32("RenderAvatarMaxVisible", mNonImpostors);
 	gSavedSettings.setBOOL("RenderAvatarCloth", mAvatarCloth);
 	gSavedSettings.setS32("AlwaysRenderFriends", mAvatarMode);
+	gSavedSettings.setS32("AllynShowAvatarNameTag", mShowAvatarNameTag);
 	gSavedSettings.setU32("RenderAvatarMaxComplexity", mMaxComplexity);
 	if (mShowComplexity != gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_SHAME))
 	{
@@ -599,6 +602,8 @@ void LLPanelDisplay::apply()
 {
 	mAvatarMode = childGetValue("AvatarDisplayCombo").asInteger();
 	gSavedSettings.setS32("AlwaysRenderFriends", mAvatarMode);
+	mShowAvatarNameTag = childGetValue("AvatarNameTagCombo").asInteger();
+	gSavedSettings.setS32("AllynShowAvatarNameTag", mShowAvatarNameTag);
 	mProbeDetail = childGetValue("PBRReflectionDetail").asInteger();
 	gSavedSettings.setS32("RenderReflectionProbeDetail", mProbeDetail);
 	mProbeLevel = childGetValue("PBRReflectionLevel").asInteger();
@@ -786,6 +791,10 @@ void LLPanelDisplay::setHardwareDefaults()
 	if (LLControlVariable* friends = gSavedSettings.getControl("AlwaysRenderFriends"))
 	{
 		friends->resetToDefault(true);
+	}
+	if (LLControlVariable* name_tag = gSavedSettings.getControl("AllynShowAvatarNameTag"))
+	{
+		name_tag->resetToDefault(true);
 	}
 	syncIndirectMaxComplexity();
 	refreshEnabledState();

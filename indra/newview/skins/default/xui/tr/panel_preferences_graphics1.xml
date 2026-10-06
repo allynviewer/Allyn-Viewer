@@ -103,6 +103,11 @@
 						<combo_item name="2" value="2">Yalnızca arkadaşları göster</combo_item>
 						<combo_item name="3" value="3">Yalnızca kendini göster</combo_item>
 					</combo_box>
+					<text name="AvatarNameTagLabel">Avatar isim etiketini göster:</text>
+					<combo_box name="AvatarNameTagCombo" tool_tip="Avatarların üstündeki ad ve grup etiketini gösterir veya gizler. Hangi avatarların göründüğünü değiştirmez.">
+						<combo_item name="1" value="1">Açık</combo_item>
+						<combo_item name="0" value="0">Kapalı</combo_item>
+					</combo_box>
 					<slider label="Maks. avatar karmaşıklığı:" label_width="200" name="IndirectMaxComplexity" tool_tip="Bundan daha karmaşık avatarlar jöle bebek olur. En sağ sınırsızdır." />
 					<text name="IndirectMaxComplexityText">Sınırsız</text>
 					<check_box label="Karmaşıklık değerlerini göster" name="ShowAvatarComplexity" tool_tip="Her avatarın görsel karmaşıklığını adının üstünde gösterir (Ctrl+Alt+Shift+C)." />

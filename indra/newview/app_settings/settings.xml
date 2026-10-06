@@ -13154,6 +13154,17 @@ This should be as low as possible, but too low may break functionality</string>
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>AllynShowAvatarNameTag</key>
+    <map>
+      <key>Comment</key>
+      <string>1 shows the name and group tag above avatars. 0 hides that tag. Does not change Avatar Display.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
     <key>RenderAvatarCloth</key>
     <map>
       <key>Comment</key>

@@ -842,7 +842,7 @@ LLWindowCallbacks::DragNDropResult LLViewerWindow::handleDragNDrop( LLWindow *wi
 					if (obj && !obj->getRegion()->getCapability("ObjectMedia").empty())
 					{
 						LLTextureEntry *te = obj->getTE(object_face);
-						bool allow_modify_url = obj->permModify() || obj->hasMediaPermission( te->getMediaData(), LLVOVolume::MEDIA_PERM_INTERACT );
+						bool allow_modify_url = te && (obj->permModify() || obj->hasMediaPermission( te->getMediaData(), LLVOVolume::MEDIA_PERM_INTERACT ));
 						if (te && allow_modify_url )
 						{
 							if (drop)
@@ -4471,9 +4471,10 @@ void LLPickInfo::updateXYCoords()
 {
 	if (mObjectFace > -1)
 	{
-		const LLTextureEntry* tep = getObject()->getTE(mObjectFace);
-		LLPointer<LLViewerTexture> imagep = LLViewerTextureManager::getFetchedTexture(tep->getID());
-		if(mUVCoords.mV[VX] >= 0.f && mUVCoords.mV[VY] >= 0.f && imagep.notNull())
+		LLPointer<LLViewerObject> objectp = getObject();
+		const LLTextureEntry* tep = objectp ? objectp->getTE(mObjectFace) : nullptr;
+		LLPointer<LLViewerTexture> imagep = tep ? LLViewerTextureManager::getFetchedTexture(tep->getID()) : nullptr;
+		if (tep && mUVCoords.mV[VX] >= 0.f && mUVCoords.mV[VY] >= 0.f && imagep.notNull())
 		{
 			mXYCoords.mX = ll_round(mUVCoords.mV[VX] * (F32)imagep->getWidth());
 			mXYCoords.mY = ll_round((1.f - mUVCoords.mV[VY]) * (F32)imagep->getHeight());

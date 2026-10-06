@@ -31,7 +31,7 @@
  <tab_container bottom="0" border="false" follows="all" left="2" height="500" name="graphics_tab" tab_position="bottom" tab_min_width="0" tab_max_width="220" tabs_fill="false" width="644">
   <panel border="false" height="470" label="Main" left="0" name="Main" width="640">
     <scroll_container bottom="-470" follows="all" height="470" left="0" name="main_gfx_scroll" opaque="false" width="640">
-    <panel border="false" bottom="-1220" follows="top|left" height="1220" left="0" name="main_gfx_inner" width="620">
+    <panel border="false" bottom="-1256" follows="top|left" height="1256" left="0" name="main_gfx_inner" width="620">
     <text bottom="-20" follows="top|left" height="12" left="20" name="QualityText" text_color="LabelSelectedColor">QUALITY &amp; PERFORMANCE</text>
     <icon bottom="-26" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_quality_rule" width="580"/>
     <text bottom="-52" follows="top|left" height="12" left="20" name="FasterText">Faster</text>
@@ -49,68 +49,73 @@
       <combo_item name="2" value="2">Only show friends</combo_item>
       <combo_item name="3" value="3">Only show self</combo_item>
     </combo_box>
-    <slider bottom="-176" left="20" follows="top|left" control_name="IndirectMaxComplexity" decimal_digits="0" height="16" increment="1" initial_val="101" label="Max. Avatar Complexity:" label_width="200" max_val="101" min_val="1" name="IndirectMaxComplexity" show_text="false" width="400" tool_tip="Avatars more complex than this become jelly dolls. Slide all the way right for no limit."/>
-    <text bottom="-174" left="432" follows="top|left" height="12" name="IndirectMaxComplexityText">No limit</text>
-    <check_box bottom="-208" left="20" follows="top|left" label="Display complexity values" name="ShowAvatarComplexity" tool_tip="Show each avatar's visual complexity over their name (Ctrl+Alt+Shift+C)."/>
-    <text bottom="-248" follows="top|left" height="12" left="20" visibility_control="RenderCustomSettings" name="ShadersText" text_color="LabelSelectedColor">SHADERS</text>
-    <icon bottom="-254" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_shaders_rule" visibility_control="RenderCustomSettings" width="580"/>
-    <check_box bottom="-280" control_name="RenderTransparentWater" follows="top|left" visibility_control="RenderCustomSettings" height="16" label="Transparent water" left="20" name="TransparentWater"/>
-    <check_box bottom="-304" control_name="RenderObjectBump" follows="top|left" visibility_control="RenderCustomSettings" height="16" label="Bump mapping and shiny" left="20" name="BumpShiny"/>
-    <check_box bottom="-328" control_name="RenderLocalLights" follows="top|left" visibility_control="RenderCustomSettings" height="16" label="Local Lights" left="20" name="LightingDetailRadio"/>
-    <check_box bottom="-352" control_name="VertexShaderEnable" follows="top|left" visibility_control="RenderCustomSettings" height="16" label="Basic shaders" left="20" name="BasicShaders" tool_tip="Disabling this option may prevent some graphics card drivers from crashing."/>
-    <check_box bottom="-376" control_name="WindLightUseAtmosShaders" follows="top|left" visibility_control="RenderCustomSettings" label="Atmospheric shaders" left="20" name="WindLightUseAtmosShaders"/>
-    <check_box bottom="-400" control_name="RenderDeferred" follows="top|left" visibility_control="RenderCustomSettings" label="Advanced Lighting Model" tool_tip="Deferred Shading" left="20" name="RenderDeferred"/>
-    <check_box bottom="-424" control_name="RenderDeferredSSAO" follows="top|left" visibility_control="RenderCustomSettings" height="16" label="Ambient Occlusion" left="20" name="UseSSAO"/>
-    <text bottom="-456" follows="top|left" height="12" left="20" visibility_control="RenderCustomSettings" name="TerrainScaleText">Terrain Scale:</text>
-    <combo_box bottom="-460" control_name="RenderTerrainScale" follows="top|left" visibility_control="RenderCustomSettings" label="Terrain Scale" left="200" name="TerrainScaleCombo" width="200" height="22">
+    <text bottom="-172" height="12" left="20" follows="top|left" name="AvatarNameTagLabel">Show Avatar Name Tag:</text>
+    <combo_box bottom="-176" left="200" follows="top|left" control_name="AllynShowAvatarNameTag" height="22" name="AvatarNameTagCombo" width="280" tool_tip="Shows or hides the name and group tag above avatars. Does not change which avatars are displayed.">
+      <combo_item name="1" value="1">On</combo_item>
+      <combo_item name="0" value="0">Off</combo_item>
+    </combo_box>
+    <slider bottom="-212" left="20" follows="top|left" control_name="IndirectMaxComplexity" decimal_digits="0" height="16" increment="1" initial_val="101" label="Max. Avatar Complexity:" label_width="200" max_val="101" min_val="1" name="IndirectMaxComplexity" show_text="false" width="400" tool_tip="Avatars more complex than this become jelly dolls. Slide all the way right for no limit."/>
+    <text bottom="-210" left="432" follows="top|left" height="12" name="IndirectMaxComplexityText">No limit</text>
+    <check_box bottom="-244" left="20" follows="top|left" label="Display complexity values" name="ShowAvatarComplexity" tool_tip="Show each avatar's visual complexity over their name (Ctrl+Alt+Shift+C)."/>
+    <text bottom="-284" follows="top|left" height="12" left="20" visibility_control="RenderCustomSettings" name="ShadersText" text_color="LabelSelectedColor">SHADERS</text>
+    <icon bottom="-290" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_shaders_rule" visibility_control="RenderCustomSettings" width="580"/>
+    <check_box bottom="-316" control_name="RenderTransparentWater" follows="top|left" visibility_control="RenderCustomSettings" height="16" label="Transparent water" left="20" name="TransparentWater"/>
+    <check_box bottom="-340" control_name="RenderObjectBump" follows="top|left" visibility_control="RenderCustomSettings" height="16" label="Bump mapping and shiny" left="20" name="BumpShiny"/>
+    <check_box bottom="-364" control_name="RenderLocalLights" follows="top|left" visibility_control="RenderCustomSettings" height="16" label="Local Lights" left="20" name="LightingDetailRadio"/>
+    <check_box bottom="-388" control_name="VertexShaderEnable" follows="top|left" visibility_control="RenderCustomSettings" height="16" label="Basic shaders" left="20" name="BasicShaders" tool_tip="Disabling this option may prevent some graphics card drivers from crashing."/>
+    <check_box bottom="-412" control_name="WindLightUseAtmosShaders" follows="top|left" visibility_control="RenderCustomSettings" label="Atmospheric shaders" left="20" name="WindLightUseAtmosShaders"/>
+    <check_box bottom="-436" control_name="RenderDeferred" follows="top|left" visibility_control="RenderCustomSettings" label="Advanced Lighting Model" tool_tip="Deferred Shading" left="20" name="RenderDeferred"/>
+    <check_box bottom="-460" control_name="RenderDeferredSSAO" follows="top|left" visibility_control="RenderCustomSettings" height="16" label="Ambient Occlusion" left="20" name="UseSSAO"/>
+    <text bottom="-492" follows="top|left" height="12" left="20" visibility_control="RenderCustomSettings" name="TerrainScaleText">Terrain Scale:</text>
+    <combo_box bottom="-496" control_name="RenderTerrainScale" follows="top|left" visibility_control="RenderCustomSettings" label="Terrain Scale" left="200" name="TerrainScaleCombo" width="200" height="22">
       <combo_item name="Low" value="12">Low</combo_item>
       <combo_item name="Medium" value="9">Medium</combo_item>
       <combo_item name="High" value="7">High</combo_item>
       <combo_item name="Ultra" value="5">Ultra</combo_item>
     </combo_box>
-    <text bottom="-488" follows="top|left" height="12" left="20" visibility_control="RenderCustomSettings" name="ShadowDetailText">Shadows:</text>
-    <combo_box bottom="-492" control_name="RenderShadowDetail" follows="top|left" visibility_control="RenderCustomSettings" label="Shadow Detail" left="200" name="ShadowDetailCombo" width="200" height="22">
+    <text bottom="-524" follows="top|left" height="12" left="20" visibility_control="RenderCustomSettings" name="ShadowDetailText">Shadows:</text>
+    <combo_box bottom="-528" control_name="RenderShadowDetail" follows="top|left" visibility_control="RenderCustomSettings" label="Shadow Detail" left="200" name="ShadowDetailCombo" width="200" height="22">
       <combo_item name="0" value="0">Disabled</combo_item>
       <combo_item name="1" value="1">Sun/Moon</combo_item>
       <combo_item name="2" value="2">Sun/Moon + Projectors</combo_item>
     </combo_box>
-    <text bottom="-520" follows="top|left" height="12" left="20" visibility_control="RenderCustomSettings" name="ReflectionDetailText">Water Reflections:</text>
-    <combo_box bottom="-524" control_name="RenderReflectionDetail" follows="top|left" visibility_control="RenderCustomSettings" label="Reflection Detail" left="200" name="ReflectionDetailCombo" width="200" height="22">
+    <text bottom="-556" follows="top|left" height="12" left="20" visibility_control="RenderCustomSettings" name="ReflectionDetailText">Water Reflections:</text>
+    <combo_box bottom="-560" control_name="RenderReflectionDetail" follows="top|left" visibility_control="RenderCustomSettings" label="Reflection Detail" left="200" name="ReflectionDetailCombo" width="200" height="22">
       <combo_item name="0" value="0">Minimal</combo_item>
       <combo_item name="1" value="1">Terrain and trees</combo_item>
       <combo_item name="2" value="2">All static objects</combo_item>
       <combo_item name="3" value="3">All avatars and objects</combo_item>
       <combo_item name="4" value="4">Everything</combo_item>
     </combo_box>
-    <slider bottom="-560" left="20" follows="top|left" control_name="RenderAvatarPhysicsLODFactor" visibility_control="RenderCustomSettings" increment="0.1" label="Avatar Physics:" label_width="160" max_val="1" min_val="0" name="AvatarPhysicsDetail" show_text="false" width="400"/>
-    <text bottom="-558" left="432" follows="top|left" height="12" visibility_control="RenderCustomSettings" name="AvatarPhysicsDetailText">Off</text>
-    <slider bottom="-588" left="20" follows="top|left" control_name="RenderFarClip" visibility_control="RenderCustomSettings" decimal_digits="0" height="16" increment="8" initial_val="160" label="Draw Distance:" label_width="160" max_val="1024" min_val="24" name="DrawDistance" width="400"/>
-    <text bottom="-586" left="432" follows="top|left" height="12" visibility_control="RenderCustomSettings" name="DrawDistanceMeterText">m</text>
-    <slider bottom="-616" left="20" follows="top|left" control_name="RenderMaxPartCount" visibility_control="RenderCustomSettings" decimal_digits="0" height="16" increment="256" initial_val="4096" label="Max. Particle Count:" label_width="160" max_val="8192" min_val="0" name="MaxParticleCount" width="400"/>
-    <slider bottom="-644" left="20" follows="top|left" control_name="RenderAvatarMaxVisible" visibility_control="RenderCustomSettings" enabled_control="RenderUseImpostors" decimal_digits="0" height="16" increment="1" initial_val="35" label="Max. non-impostors:" label_width="160" max_val="50" min_val="1" name="AvatarMaxVisible" width="400"/>
-    <slider bottom="-672" left="20" follows="top|left" control_name="RenderGlowResolutionPow" visibility_control="RenderCustomSettings" decimal_digits="0" height="16" increment="1" initial_val="8" label="Post Process Quality:" label_width="160" max_val="9" min_val="8" name="RenderPostProcess" show_text="false" width="400"/>
-    <text bottom="-670" height="12" left="432" follows="top|left" visibility_control="RenderCustomSettings" name="PostProcessText">Low</text>
-    <text bottom="-708" height="12" left="20" follows="top|left" visibility_control="RenderCustomSettings" name="MeshDetailText" text_color="LabelSelectedColor">LEVEL OF DETAIL</text>
-    <icon bottom="-714" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_lod_rule" visibility_control="RenderCustomSettings" width="580"/>
-    <slider bottom="-744" left="20" follows="top|left" control_name="RenderVolumeLODFactor" visibility_control="RenderCustomSettings" height="16" increment="0.09375" label="Objects:" label_width="120" max_val="4" min_val="0.5" name="ObjectMeshDetail" show_text="false" width="400"/>
-    <text bottom="-742" left="432" follows="top|left" height="12" visibility_control="RenderCustomSettings" name="ObjectMeshDetailText">Low</text>
-    <slider bottom="-772" left="20" follows="top|left" control_name="RenderFlexTimeFactor" visibility_control="RenderCustomSettings" height="16" increment="0.1" label="Flexiprims:" label_width="120" max_val="1" min_val="0" name="FlexibleMeshDetail" show_text="false" width="400"/>
-    <text bottom="-770" left="432" follows="top|left" height="12" visibility_control="RenderCustomSettings" name="FlexibleMeshDetailText">Low</text>
-    <slider bottom="-800" left="20" follows="top|left" control_name="RenderTreeLODFactor" visibility_control="RenderCustomSettings" height="16" increment="0.125" label="Trees:" label_width="120" max_val="2" min_val="0" name="TreeMeshDetail" show_text="false" width="400"/>
-    <text bottom="-798" left="432" follows="top|left" height="12" visibility_control="RenderCustomSettings" name="TreeMeshDetailText">Low</text>
-    <slider bottom="-828" left="20" follows="top|left" control_name="RenderAvatarLODFactor" visibility_control="RenderCustomSettings" height="16" increment="0.125" label="Avatars:" label_width="120" max_val="1" min_val="0" name="AvatarMeshDetail" show_text="false" width="400"/>
-    <text bottom="-826" left="432" follows="top|left" height="12" visibility_control="RenderCustomSettings" name="AvatarMeshDetailText">Low</text>
-    <slider bottom="-856" left="20" follows="top|left" control_name="RenderTerrainLODFactor" visibility_control="RenderCustomSettings" height="16" increment="0.125" label="Terrain:" label_width="120" max_val="2" min_val="1" name="TerrainMeshDetail" show_text="false" width="400"/>
-    <text bottom="-854" left="432" follows="top|left" height="12" visibility_control="RenderCustomSettings" name="TerrainMeshDetailText">Low</text>
-    <slider bottom="-884" left="20" follows="top|left" control_name="WLSkyDetail" visibility_control="RenderCustomSettings" enabled_control="WindLightUseAtmosShaders" height="16" decimal_digits="0" increment="8" label="Sky:" label_width="120" max_val="128" min_val="16" name="SkyMeshDetail" show_text="false" width="400"/>
-    <text bottom="-882" left="432" follows="top|left" height="12" visibility_control="RenderCustomSettings" enabled_control="WindLightUseAtmosShaders" name="SkyMeshDetailText">Low</text>
-    <text bottom="-920" height="12" left="20" follows="top|left" visibility_control="RenderCustomSettings" name="AvatarRenderingText" text_color="LabelSelectedColor">AVATAR RENDERING</text>
-    <icon bottom="-926" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_av_rule" visibility_control="RenderCustomSettings" width="580"/>
-    <check_box bottom="-952" left="20" follows="top|left" control_name="RenderUseImpostors" visibility_control="RenderCustomSettings" label="Avatar impostors" name="AvatarImpostors"/>
-    <check_box bottom="-976" left="20" follows="top|left" control_name="RenderAvatarVP" visibility_control="RenderCustomSettings" label="Hardware skinning" name="AvatarVertexProgram"/>
-    <check_box bottom="-1000" left="20" follows="top|left" control_name="RenderAvatarCloth" visibility_control="RenderCustomSettings" label="Avatar cloth" name="AvatarCloth"/>
-    <text bottom="-1036" height="12" left="20" follows="top|left" visibility_control="RenderCustomSettings" name="TerrainDetailText">Terrain detail:</text>
-    <radio_group bottom="-1104" left="20" follows="top|left" control_name="RenderTerrainDetail" visibility_control="RenderCustomSettings" draw_border="false" height="52" name="TerrainDetailRadio" width="400" tool_tip="Low uses a simpler terrain texture. High uses full detail.">
+    <slider bottom="-596" left="20" follows="top|left" control_name="RenderAvatarPhysicsLODFactor" visibility_control="RenderCustomSettings" increment="0.1" label="Avatar Physics:" label_width="160" max_val="1" min_val="0" name="AvatarPhysicsDetail" show_text="false" width="400"/>
+    <text bottom="-594" left="432" follows="top|left" height="12" visibility_control="RenderCustomSettings" name="AvatarPhysicsDetailText">Off</text>
+    <slider bottom="-624" left="20" follows="top|left" control_name="RenderFarClip" visibility_control="RenderCustomSettings" decimal_digits="0" height="16" increment="8" initial_val="160" label="Draw Distance:" label_width="160" max_val="1024" min_val="24" name="DrawDistance" width="400"/>
+    <text bottom="-622" left="432" follows="top|left" height="12" visibility_control="RenderCustomSettings" name="DrawDistanceMeterText">m</text>
+    <slider bottom="-652" left="20" follows="top|left" control_name="RenderMaxPartCount" visibility_control="RenderCustomSettings" decimal_digits="0" height="16" increment="256" initial_val="4096" label="Max. Particle Count:" label_width="160" max_val="8192" min_val="0" name="MaxParticleCount" width="400"/>
+    <slider bottom="-680" left="20" follows="top|left" control_name="RenderAvatarMaxVisible" visibility_control="RenderCustomSettings" enabled_control="RenderUseImpostors" decimal_digits="0" height="16" increment="1" initial_val="35" label="Max. non-impostors:" label_width="160" max_val="50" min_val="1" name="AvatarMaxVisible" width="400"/>
+    <slider bottom="-708" left="20" follows="top|left" control_name="RenderGlowResolutionPow" visibility_control="RenderCustomSettings" decimal_digits="0" height="16" increment="1" initial_val="8" label="Post Process Quality:" label_width="160" max_val="9" min_val="8" name="RenderPostProcess" show_text="false" width="400"/>
+    <text bottom="-706" height="12" left="432" follows="top|left" visibility_control="RenderCustomSettings" name="PostProcessText">Low</text>
+    <text bottom="-744" height="12" left="20" follows="top|left" visibility_control="RenderCustomSettings" name="MeshDetailText" text_color="LabelSelectedColor">LEVEL OF DETAIL</text>
+    <icon bottom="-750" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_lod_rule" visibility_control="RenderCustomSettings" width="580"/>
+    <slider bottom="-780" left="20" follows="top|left" control_name="RenderVolumeLODFactor" visibility_control="RenderCustomSettings" height="16" increment="0.09375" label="Objects:" label_width="120" max_val="4" min_val="0.5" name="ObjectMeshDetail" show_text="false" width="400"/>
+    <text bottom="-778" left="432" follows="top|left" height="12" visibility_control="RenderCustomSettings" name="ObjectMeshDetailText">Low</text>
+    <slider bottom="-808" left="20" follows="top|left" control_name="RenderFlexTimeFactor" visibility_control="RenderCustomSettings" height="16" increment="0.1" label="Flexiprims:" label_width="120" max_val="1" min_val="0" name="FlexibleMeshDetail" show_text="false" width="400"/>
+    <text bottom="-806" left="432" follows="top|left" height="12" visibility_control="RenderCustomSettings" name="FlexibleMeshDetailText">Low</text>
+    <slider bottom="-836" left="20" follows="top|left" control_name="RenderTreeLODFactor" visibility_control="RenderCustomSettings" height="16" increment="0.125" label="Trees:" label_width="120" max_val="2" min_val="0" name="TreeMeshDetail" show_text="false" width="400"/>
+    <text bottom="-834" left="432" follows="top|left" height="12" visibility_control="RenderCustomSettings" name="TreeMeshDetailText">Low</text>
+    <slider bottom="-864" left="20" follows="top|left" control_name="RenderAvatarLODFactor" visibility_control="RenderCustomSettings" height="16" increment="0.125" label="Avatars:" label_width="120" max_val="1" min_val="0" name="AvatarMeshDetail" show_text="false" width="400"/>
+    <text bottom="-862" left="432" follows="top|left" height="12" visibility_control="RenderCustomSettings" name="AvatarMeshDetailText">Low</text>
+    <slider bottom="-892" left="20" follows="top|left" control_name="RenderTerrainLODFactor" visibility_control="RenderCustomSettings" height="16" increment="0.125" label="Terrain:" label_width="120" max_val="2" min_val="1" name="TerrainMeshDetail" show_text="false" width="400"/>
+    <text bottom="-890" left="432" follows="top|left" height="12" visibility_control="RenderCustomSettings" name="TerrainMeshDetailText">Low</text>
+    <slider bottom="-920" left="20" follows="top|left" control_name="WLSkyDetail" visibility_control="RenderCustomSettings" enabled_control="WindLightUseAtmosShaders" height="16" decimal_digits="0" increment="8" label="Sky:" label_width="120" max_val="128" min_val="16" name="SkyMeshDetail" show_text="false" width="400"/>
+    <text bottom="-918" left="432" follows="top|left" height="12" visibility_control="RenderCustomSettings" enabled_control="WindLightUseAtmosShaders" name="SkyMeshDetailText">Low</text>
+    <text bottom="-956" height="12" left="20" follows="top|left" visibility_control="RenderCustomSettings" name="AvatarRenderingText" text_color="LabelSelectedColor">AVATAR RENDERING</text>
+    <icon bottom="-962" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_av_rule" visibility_control="RenderCustomSettings" width="580"/>
+    <check_box bottom="-988" left="20" follows="top|left" control_name="RenderUseImpostors" visibility_control="RenderCustomSettings" label="Avatar impostors" name="AvatarImpostors"/>
+    <check_box bottom="-1012" left="20" follows="top|left" control_name="RenderAvatarVP" visibility_control="RenderCustomSettings" label="Hardware skinning" name="AvatarVertexProgram"/>
+    <check_box bottom="-1036" left="20" follows="top|left" control_name="RenderAvatarCloth" visibility_control="RenderCustomSettings" label="Avatar cloth" name="AvatarCloth"/>
+    <text bottom="-1072" height="12" left="20" follows="top|left" visibility_control="RenderCustomSettings" name="TerrainDetailText">Terrain detail:</text>
+    <radio_group bottom="-1140" left="20" follows="top|left" control_name="RenderTerrainDetail" visibility_control="RenderCustomSettings" draw_border="false" height="52" name="TerrainDetailRadio" width="400" tool_tip="Low uses a simpler terrain texture. High uses full detail.">
       <radio_item bottom="-18" height="16" left="0" name="0" width="200">Low</radio_item>
       <radio_item bottom="-46" height="16" left="0" name="2" width="200">High</radio_item>
     </radio_group>

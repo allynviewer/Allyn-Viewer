@@ -213,6 +213,10 @@ public:
 	{
 		bool operator()(const LLPointer<LLSpatialGroup> lhs, const LLPointer<LLSpatialGroup> rhs)
 		{
+			if (!lhs || !rhs)
+			{
+				return lhs.notNull() && rhs.isNull();
+			}
 			return lhs->getUpdateUrgency() > rhs->getUpdateUrgency();
 		}
 	};
