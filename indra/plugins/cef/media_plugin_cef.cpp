@@ -133,6 +133,7 @@ private:
 	bool cefErrorIsTransient(int status) const;
 	void scheduleLoadRetry();
 	void showLoadErrorPage(int status, const std::string& error_text, const std::string& error_url);
+	void showQuietPlaceholder();
 	void pumpLoadRetry();
 	bool mEnableMediaPluginDebugging;
 	std::string mHostLanguage;
@@ -320,6 +321,16 @@ void MediaPluginCEF::pumpLoadRetry()
 	}
 }
 
+void MediaPluginCEF::showQuietPlaceholder()
+{
+	if (!mCEFLib)
+	{
+		return;
+	}
+	mCEFLib->showBrowserMessage(
+		"<div style='margin:0;background:#050812;height:100vh'></div>");
+}
+
 void MediaPluginCEF::showLoadErrorPage(int status, const std::string& error_text, const std::string& error_url)
 {
 	std::stringstream msg;
@@ -336,6 +347,14 @@ void MediaPluginCEF::showLoadErrorPage(int status, const std::string& error_text
 
 void MediaPluginCEF::onLoadError(int status, const std::string error_text, const std::string error_url)
 {
+	if (status == -3)
+	{
+		return;
+	}
+	if (error_url.compare(0, 5, "data:") == 0)
+	{
+		return;
+	}
 	const int kMaxLoadRetries = 2;
 	if (cefErrorIsTransient(status) && mLoadRetries < kMaxLoadRetries && !mLastNavigateUrl.empty())
 	{
@@ -343,6 +362,7 @@ void MediaPluginCEF::onLoadError(int status, const std::string error_text, const
 		std::stringstream debug;
 		debug << "Retrying CEF navigation after " << error_text << " (" << status << ") try " << mLoadRetries;
 		postDebugMessage(debug.str());
+		showQuietPlaceholder();
 		scheduleLoadRetry();
 		return;
 	}
@@ -622,7 +642,10 @@ void MediaPluginCEF::receiveMessage(const char* message_string)
 					mHideChromeWindowsTicks = 60;
 				}
 #endif
-				mCEFLib->setPageZoom(message_in.getValueReal("factor"));
+				if (message_in.hasValue("factor"))
+				{
+					mCEFLib->setPageZoom(message_in.getValueReal("factor"));
+				}
 				mDepth = 4;
 				LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA, "texture_params");
 				message.setValueS32("default_width", 1024);

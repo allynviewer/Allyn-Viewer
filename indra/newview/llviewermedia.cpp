@@ -1281,6 +1281,7 @@ LLPluginClassMedia* LLViewerMediaImpl::newSourceFromMediaType(std::string media_
 			const std::string plugin_dir = gDirUtilp->getLLPluginDir();
 			if (media_source->init(launcher_name, plugin_dir, plugin_name, gSavedSettings.getBOOL("PluginAttachDebuggerToPlugins")))
 			{
+				media_source->set_page_zoom_factor(zoom_factor);
 				return media_source;
 			}
 			else

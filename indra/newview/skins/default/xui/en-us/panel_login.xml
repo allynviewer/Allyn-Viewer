@@ -5,7 +5,6 @@
 	     follows="top|right|bottom" left="300"
 	     tab_stop="false" trusted_content="true" focus_on_click="false"
 	     name="login_html" right="-1"
-	     start_url="data:text/html,%3Chtml%3E%3Chead%3E%3C/head%3E%3Cbody bgcolor=%22%23050812%22 text=%22ffffff%22%3E%3Ch1%3E%3Ctt%3Eloading...%3C/tt%3E%3C/h1%3E %3C/body%3E %3C/html%3E"
 	     top="-1" />
 	<string name="real_url">
 		http://secondlife.com/app/login/

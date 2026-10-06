@@ -85,6 +85,15 @@ static const S32 LOGIN_VERSION_RESERVE =
 	LOGIN_VERSION_PAD + LOGIN_VERSION_HEIGHT + 8;
 static const F32 LOGIN_SPLASH_DESIGN_WIDTH = 1400.f;
 static const F32 LOGIN_SPLASH_DESIGN_HEIGHT = 850.f;
+static const F32 LOGIN_LOGO_REF_SIZE = 180.f;
+static const F32 LOGIN_LOGO_REF_WIDTH = 1920.f;
+static const F32 LOGIN_LOGO_REF_HEIGHT = 1080.f;
+static const S32 LOGIN_LOGO_BOTTOM = 504;
+static const S32 LOGIN_LOGO_TOP_INSET = 24;
+static const S32 LOGIN_FORM_INNER_HEIGHT = 728;
+static const S32 LOGIN_FORM_CARD_BOTTOM = 96;
+static const S32 LOGIN_FORM_CARD_TOP_INSET = 8;
+static const S32 LOGIN_FORM_LOWEST_BOTTOM = 8;
 static void showLoginMenuBar()
 {
 	if (!gLoginMenuBarView)
@@ -230,6 +239,15 @@ static void setChildRect(LLView* child, S32 left, S32 top, S32 width, S32 height
 	child->setRect(r);
 	child->reshape(width, height, FALSE);
 }
+static void moverFilhoVertical(LLView* parent, const char* name, S32 design_bottom, S32 design_height, S32 shift)
+{
+	LLView* child = parent->getChildView(name, FALSE, FALSE);
+	if (!child)
+		return;
+	const LLRect& r = child->getRect();
+	const S32 bottom = design_bottom + shift;
+	setChildRect(child, r.mLeft, bottom + design_height, r.getWidth(), design_height);
+}
 LLPanelLogin* LLPanelLogin::sInstance = NULL;
 static std::string sLoginSplashSkin;
 static bool nameSplit(const std::string& full, std::string& first, std::string& last)
@@ -367,6 +385,7 @@ LLPanelLogin::LLPanelLogin(const LLRect& rect)
 	if (LLScrollContainer* scroll = findChild<LLScrollContainer>("login_form_scroll"))
 	{
 		scroll->setBorderVisible(FALSE);
+		scroll->setHideScrollbar(true);
 		scroll->setFollows(FOLLOWS_LEFT | FOLLOWS_TOP | FOLLOWS_RIGHT | FOLLOWS_BOTTOM);
 	}
 	updateLoginVersionLabel();
@@ -583,12 +602,63 @@ void LLPanelLogin::reshapeBrowser()
 		{
 			const S32 scroll_h = llmax(1, content_h - LOGIN_VERSION_RESERVE);
 			scroll->setFollows(FOLLOWS_LEFT | FOLLOWS_TOP | FOLLOWS_RIGHT | FOLLOWS_BOTTOM);
+			scroll->setHideScrollbar(true);
 			setChildRect(scroll, 0, content_h, mFormColumnWidth, scroll_h);
 			if (LLView* inner = scroll->getChildView("login_form_inner", FALSE, FALSE))
 			{
-				const S32 inner_h = inner->getRect().getHeight();
+				const F32 window_scale = llmin(
+					(F32)panel_width / LOGIN_LOGO_REF_WIDTH,
+					(F32)panel_height / LOGIN_LOGO_REF_HEIGHT);
+				S32 logo_size = llmax(1, ll_round(LOGIN_LOGO_REF_SIZE * window_scale));
+				if (logo_size > mFormColumnWidth)
+					logo_size = llmax(1, mFormColumnWidth);
+				const S32 shift = (LOGIN_FORM_INNER_HEIGHT - LOGIN_LOGO_TOP_INSET - logo_size) - LOGIN_LOGO_BOTTOM;
+				S32 grow = 0;
+				const S32 lowest = LOGIN_FORM_LOWEST_BOTTOM + shift;
+				if (lowest < LOGIN_FORM_LOWEST_BOTTOM)
+					grow = LOGIN_FORM_LOWEST_BOTTOM - lowest;
+				const S32 inner_h = LOGIN_FORM_INNER_HEIGHT + grow;
+				const S32 local_shift = shift + grow;
 				inner->setFollows(FOLLOWS_LEFT | FOLLOWS_TOP | FOLLOWS_RIGHT);
 				setChildRect(inner, 0, scroll_h, mFormColumnWidth, inner_h);
+				if (LLView* card = inner->getChildView("login_form_card", FALSE, FALSE))
+				{
+					const LLRect& r = card->getRect();
+					const S32 bottom = LOGIN_FORM_CARD_BOTTOM + local_shift;
+					const S32 top = inner_h - LOGIN_FORM_CARD_TOP_INSET;
+					card->setFollows(FOLLOWS_LEFT | FOLLOWS_TOP | FOLLOWS_RIGHT);
+					setChildRect(card, r.mLeft, top, r.getWidth(), llmax(1, top - bottom));
+				}
+				if (LLView* logo = inner->getChildView("login_logo", FALSE, FALSE))
+				{
+					logo->setFollowsNone();
+					setChildRect(logo, (mFormColumnWidth - logo_size) / 2, inner_h - LOGIN_LOGO_TOP_INSET, logo_size, logo_size);
+				}
+				static const struct
+				{
+					const char* name;
+					S32 bottom;
+					S32 height;
+				} itens[] = {
+					{ "login_title", 456, 40 },
+					{ "login_subtitle", 435, 15 },
+					{ "login_section_rule", 426, 1 },
+					{ "name_label", 395, 20 },
+					{ "username_combo", 367, 24 },
+					{ "password_text", 335, 20 },
+					{ "password_edit", 307, 24 },
+					{ "location_panel", 243, 52 },
+					{ "connect_btn", 191, 36 },
+					{ "remember_name_check", 168, 15 },
+					{ "remove_login", 168, 15 },
+					{ "remember_check", 149, 15 },
+					{ "create_new_account_text", 126, 15 },
+					{ "forgot_password_text", 107, 15 },
+					{ "grids_panel", 136, 80 },
+					{ "online_users_panel", 8, 80 }
+				};
+				for (size_t i = 0; i < sizeof(itens) / sizeof(itens[0]); ++i)
+					moverFilhoVertical(inner, itens[i].name, itens[i].bottom, itens[i].height, local_shift);
 			}
 			scroll->goToTop();
 		}

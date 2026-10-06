@@ -45,6 +45,7 @@ public:
 	void setScrolledView(LLView* view) { mScrolledView = view; }
 	virtual void setValue(const LLSD& value) { mInnerRect.setValue(value); }
 	void			setBorderVisible( BOOL b );
+	void			setHideScrollbar(bool hide) { mHideScrollbar = hide; }
 	void			setPassBackToChildren(bool b) { mPassBackToChildren = b; }
 	void			scrollToShowRect( const LLRect& rect, const LLRect& constraint);
 	void			scrollToShowRect( const LLRect& rect) { scrollToShowRect(rect, LLRect(0, mInnerRect.getHeight(), mInnerRect.getWidth(), 0)); }
