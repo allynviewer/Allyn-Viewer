@@ -53,6 +53,7 @@
 #include "llvoavatarself.h"
 #include "llavataractions.h"
 #include "llcharacter.h"
+#include "llcallingcard.h"
 #include "llvoiceclient.h"
 #include "llvosky.h"
 #include "llvotree.h"
@@ -580,6 +581,22 @@ void handleHighResChanged(const LLSD& val)
 		gSavedSettings.setBOOL("RenderUIInSnapshot", false);
 }
 void handleRenderAutoMuteByteLimitChanged(const LLSD& new_value);
+static void handleAvatarDisplayChanged(const LLSD&)
+{
+	gObjectList.syncAvatarDisplaySuppression();
+}
+class LLAvatarDisplayFriendObserver : public LLFriendObserver
+{
+public:
+	void changed(U32 mask) override
+	{
+		if (mask & (LLFriendObserver::ADD | LLFriendObserver::REMOVE))
+		{
+			gObjectList.syncAvatarDisplaySuppression();
+		}
+	}
+};
+static LLAvatarDisplayFriendObserver sAvatarDisplayFriendObserver;
 static bool handleRenderFriendsOnlyChanged(const LLSD& newvalue)
 {
 	if (!newvalue.asBoolean())
@@ -770,6 +787,11 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("RenderAutoMuteByteLimit")->getSignal()->connect(boost::bind(&handleRenderAutoMuteByteLimitChanged, _2));
 	gSavedPerAccountSettings.getControl("AvatarHoverOffsetZ")->getCommitSignal()->connect(boost::bind(&handleAvatarHoverOffsetChanged, _2));
 	gSavedPerAccountSettings.getControl("AllynRenderFriendsOnly")->getSignal()->connect(boost::bind(&handleRenderFriendsOnlyChanged, _2));
+	if (LLControlVariable* avatar_display = gSavedSettings.getControl("AlwaysRenderFriends"))
+	{
+		avatar_display->getSignal()->connect(boost::bind(&handleAvatarDisplayChanged, _2));
+	}
+	LLAvatarTracker::instance().addObserver(&sAvatarDisplayFriendObserver);
 	gSavedSettings.getControl("AscentAvatarXModifier")->getSignal()->connect(boost::bind(&handleAscentAvatarModifier, _2));
 	gSavedSettings.getControl("AscentAvatarYModifier")->getSignal()->connect(boost::bind(&handleAscentAvatarModifier, _2));
 	gSavedSettings.getControl("AscentAvatarZModifier")->getSignal()->connect(boost::bind(&handleAscentAvatarModifier, _2));

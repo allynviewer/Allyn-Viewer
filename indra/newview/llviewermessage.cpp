@@ -2854,11 +2854,15 @@ void process_kill_object(LLMessageSystem* mesgsys, void** user_data)
 	{
 		U32 local_id;
 		mesgsys->getU32Fast(_PREHASH_ObjectData, _PREHASH_ID, local_id, i);
+		bool suppressed_display = gObjectList.forgetSuppressedAvatarDisplayLocal(ip, port, local_id);
 		LLViewerObjectList::getUUIDFromLocal(id, local_id, ip, port);
 		if (id == LLUUID::null)
 		{
-			LL_DEBUGS("Messaging") << "Unknown kill for local " << local_id << LL_ENDL;
-			++gObjectList.mNumUnknownKills;
+			if (!suppressed_display)
+			{
+				LL_DEBUGS("Messaging") << "Unknown kill for local " << local_id << LL_ENDL;
+				++gObjectList.mNumUnknownKills;
+			}
 			continue;
 		}
 		else
@@ -3319,7 +3323,9 @@ void process_avatar_animation(LLMessageSystem* mesgsys, void** user_data)
 	LLVOAvatar* avatarp = gObjectList.findAvatar(uuid);
 	if (!avatarp)
 	{
-		if (gSavedPerAccountSettings.getBOOL("AllynRenderFriendsOnly"))
+		bool suppress_display = LLVOAvatar::shouldSuppressForAvatarDisplay(uuid);
+		bool friends_only = gSavedPerAccountSettings.getBOOL("AllynRenderFriendsOnly");
+		if (suppress_display || friends_only)
 		{
 			std::map<LLUUID, S32> anims;
 			S32 num_blocks = mesgsys->getNumberOfBlocksFast(_PREHASH_AnimationList);
@@ -3329,7 +3335,14 @@ void process_avatar_animation(LLMessageSystem* mesgsys, void** user_data)
 				mesgsys->getS32Fast(_PREHASH_AnimationList, _PREHASH_AnimSequenceID, anim_sequence_id, i);
 				anims[animation_id] = anim_sequence_id;
 			}
-			LLVOAvatar::cacheAnimationsForFriendsOnly(uuid, anims);
+			if (suppress_display)
+			{
+				LLVOAvatar::saveSuppressedAnimations(uuid, anims);
+			}
+			if (friends_only)
+			{
+				LLVOAvatar::cacheAnimationsForFriendsOnly(uuid, anims);
+			}
 		}
 		else
 		{
@@ -3461,13 +3474,22 @@ void process_avatar_appearance(LLMessageSystem* mesgsys, void** user_data)
 	{
 		avatarp->processAvatarAppearance(mesgsys);
 	}
-	else if (gSavedPerAccountSettings.getBOOL("AllynRenderFriendsOnly"))
-	{
-		LLVOAvatar::cacheAppearanceMessageForFriendsOnly(uuid, mesgsys);
-	}
 	else
 	{
-		LL_WARNS("Messaging") << "avatar_appearance sent for unknown avatar " << uuid << LL_ENDL;
+		bool suppress_display = LLVOAvatar::shouldSuppressForAvatarDisplay(uuid);
+		bool friends_only = gSavedPerAccountSettings.getBOOL("AllynRenderFriendsOnly");
+		if (suppress_display)
+		{
+			LLVOAvatar::saveSuppressedAppearanceMessage(uuid, mesgsys);
+		}
+		if (friends_only)
+		{
+			LLVOAvatar::cacheAppearanceMessageForFriendsOnly(uuid, mesgsys);
+		}
+		else if (!suppress_display)
+		{
+			LL_WARNS("Messaging") << "avatar_appearance sent for unknown avatar " << uuid << LL_ENDL;
+		}
 	}
 }
 void process_camera_constraint(LLMessageSystem* mesgsys, void** user_data)

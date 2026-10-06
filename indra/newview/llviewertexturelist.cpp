@@ -645,6 +645,40 @@ void LLViewerTextureList::addImage(LLViewerFetchedTexture *new_image, ETexListTy
 	mUUIDDict.insert_or_assign(key, new_image);
 	new_image->setTextureListType(tex_type);
 }
+void LLViewerTextureList::flushUnreferenced(const std::vector<LLPointer<LLViewerFetchedTexture> >& images)
+{
+	std::map<LLViewerFetchedTexture*, S32> copies;
+	for (size_t i = 0; i < images.size(); ++i)
+	{
+		LLViewerFetchedTexture* image = images[i].get();
+		if (!image
+			|| image == LLViewerFetchedTexture::sDefaultImagep
+			|| image == LLViewerFetchedTexture::sMissingAssetImagep)
+		{
+			continue;
+		}
+		copies[image] += 1;
+	}
+	for (std::map<LLViewerFetchedTexture*, S32>::iterator it = copies.begin(); it != copies.end(); ++it)
+	{
+		LLViewerFetchedTexture* image = it->first;
+		if (!image || image->isDeleted())
+		{
+			continue;
+		}
+		S32 outside = image->getNumRefs() - it->second;
+		if (outside > 2)
+		{
+			continue;
+		}
+		image->destroySavedRawImage();
+		image->destroyTexture();
+		if (findImage(LLTextureKey(image->getID(), (ETexListType)image->getTextureListType())) == image)
+		{
+			deleteImage(image);
+		}
+	}
+}
 void LLViewerTextureList::deleteImage(LLViewerFetchedTexture *image)
 {
 	if( image)

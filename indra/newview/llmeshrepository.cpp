@@ -1985,6 +1985,22 @@ void LLMeshRepository::shutdown()
 	}
 	LLConvexDecomposition::quitSystem();
 }
+void LLMeshRepository::releaseMesh(const LLUUID& mesh_id)
+{
+	if (mesh_id.isNull())
+	{
+		return;
+	}
+	mSkinMap.erase(mesh_id);
+	mLoadingSkins.erase(mesh_id);
+	decomposition_map::iterator decomp = mDecompositionMap.find(mesh_id);
+	if (decomp != mDecompositionMap.end())
+	{
+		delete decomp->second;
+		mDecompositionMap.erase(decomp);
+	}
+	mLoadingDecompositions.erase(mesh_id);
+}
 void LLMeshRepository::unregisterMesh(LLVOVolume* vobj)
 {
 	for (auto& lod : mLoadingMeshes)

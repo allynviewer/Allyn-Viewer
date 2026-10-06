@@ -172,10 +172,27 @@ public:
 	void rememberSuppressedNonFriendTree(LLViewerObject* objectp);
 	bool isSuppressedNonFriendParent(U32 parent_id, U32 ip, U32 port) const;
 	void restoreSuppressedNonFriends();
+	void syncAvatarDisplaySuppression();
+	void forgetSuppressedAvatarDisplayRegion(LLViewerRegion* regionp);
+	bool forgetSuppressedAvatarDisplayLocal(U32 ip, U32 port, U32 local_id);
 private:
 	void killPendingNonFriendOrphans();
 	std::set<std::pair<U64, U32> > mSuppressedNonFriendAvatars;
 	std::vector<LLPointer<LLViewerObject> > mPendingNonFriendOrphanKills;
+	struct AvatarDisplaySuppressed
+	{
+		U64 mRegionHandle;
+		U32 mRootLocalId;
+		std::vector<U32> mLocalIds;
+	};
+	void rememberAvatarDisplayObject(LLViewerRegion* regionp, LLViewerObject* objectp, const LLUUID& avatar_id, bool is_root);
+	void rememberAvatarDisplayLocalId(LLViewerRegion* regionp, U32 local_id, const LLUUID& avatar_id, bool is_root);
+	void killSuppressedAvatarOrphans(LLViewerRegion* regionp, U32 local_id, const LLUUID& avatar_id);
+	void killPendingAvatarDisplayOrphans();
+	bool isSuppressedAvatarDisplayParent(U32 parent_id, U32 ip, U32 port) const;
+	std::map<LLUUID, AvatarDisplaySuppressed> mAvatarDisplaySuppressed;
+	std::map<std::pair<U64, U32>, LLUUID> mAvatarDisplaySuppressedLocals;
+	std::vector<LLPointer<LLViewerObject> > mPendingAvatarDisplayOrphanKills;
 };
 class LLDebugBeacon
 {

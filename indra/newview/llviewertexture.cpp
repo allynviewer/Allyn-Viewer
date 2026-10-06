@@ -635,7 +635,6 @@ void LLViewerTexture::forceImmediateUpdate()
 }
 void LLViewerTexture::addTextureStats(F32 virtual_size, BOOL needs_gltexture) const
 {
-	F32 added = virtual_size;
 	if(needs_gltexture)
 	{
 		mNeedsGLTexture = TRUE;

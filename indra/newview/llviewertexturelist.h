@@ -109,6 +109,7 @@ public:
 	LLViewerFetchedTexture *findImage(const LLTextureKey &search_key);
 	void dirtyImage(LLViewerFetchedTexture *image);
 	void updateImages(F32 max_time);
+	void flushUnreferenced(const std::vector<LLPointer<LLViewerFetchedTexture> >& images);
 	void forceImmediateUpdate(LLViewerFetchedTexture* imagep) ;
 	void clearImageDecodePriority(LLViewerFetchedTexture* imagep) ;
 	void decodeAllImages(F32 max_decode_time);

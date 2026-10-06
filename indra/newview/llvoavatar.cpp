@@ -7567,6 +7567,339 @@ bool LLVOAvatar::applyCachedFriendsOnlyAppearance(LLVOAvatar* avatar)
 	}
 	return avatar->mFirstAppearanceMessageReceived;
 }
+static const char AVATAR_DISPLAY_RECIPE_MAGIC[4] = {'A', 'V', 'D', '1'};
+static std::string avatarDisplayRecipePath(const LLUUID& id)
+{
+	return gDirUtilp->getExpandedFilename(LL_PATH_CACHE, "avdisplay-" + id.asString() + ".bin");
+}
+static bool writeAll(LLFILE* fp, const void* data, size_t size)
+{
+	return size == 0 || fwrite(data, size, 1, fp) == 1;
+}
+static bool readAll(LLFILE* fp, void* data, size_t size)
+{
+	return size == 0 || fread(data, size, 1, fp) == 1;
+}
+static bool saveAvatarDisplayRecipeFile(const LLUUID& id, const FriendsOnlyCachedAppearance& entry)
+{
+	if (id.isNull() || !gDirUtilp)
+	{
+		return false;
+	}
+	bool has_appearance = entry.contents.notNull();
+	if (has_appearance && entry.contents->mTEContents.face_count > LLTEContents::MAX_TES)
+	{
+		return false;
+	}
+	std::string path = avatarDisplayRecipePath(id);
+	LLFILE* fp = LLFile::fopen(path, "wb");
+	if (!fp)
+	{
+		return false;
+	}
+	bool ok = writeAll(fp, AVATAR_DISPLAY_RECIPE_MAGIC, 4);
+	U8 flag = has_appearance ? 1 : 0;
+	ok = ok && writeAll(fp, &flag, 1);
+	if (ok && has_appearance)
+	{
+		const LLAppearanceMessageContents& contents = *entry.contents;
+		S32 appearance_version = contents.mAppearanceVersion;
+		S32 param_appearance_version = contents.mParamAppearanceVersion;
+		S32 cof_version = contents.mCOFVersion;
+		U8 hover_set = contents.mHoverOffsetWasSet ? 1 : 0;
+		F32 hover[3];
+		hover[0] = contents.mHoverOffset.mV[0];
+		hover[1] = contents.mHoverOffset.mV[1];
+		hover[2] = contents.mHoverOffset.mV[2];
+		ok = ok && writeAll(fp, &appearance_version, sizeof(S32));
+		ok = ok && writeAll(fp, &param_appearance_version, sizeof(S32));
+		ok = ok && writeAll(fp, &cof_version, sizeof(S32));
+		ok = ok && writeAll(fp, &hover_set, 1);
+		ok = ok && writeAll(fp, hover, sizeof(hover));
+		S32 u8_count = (S32)entry.param_u8s.size();
+		ok = ok && writeAll(fp, &u8_count, sizeof(S32));
+		if (ok && u8_count > 0)
+		{
+			ok = writeAll(fp, &entry.param_u8s[0], (size_t)u8_count);
+		}
+		S32 weight_count = (S32)contents.mParamWeights.size();
+		ok = ok && writeAll(fp, &weight_count, sizeof(S32));
+		if (ok && weight_count > 0)
+		{
+			ok = writeAll(fp, &contents.mParamWeights[0], sizeof(F32) * (size_t)weight_count);
+		}
+		U32 face_count = contents.mTEContents.face_count;
+		ok = ok && writeAll(fp, &face_count, sizeof(U32));
+		if (ok && face_count > 0)
+		{
+			const LLTEContents& tec = contents.mTEContents;
+			std::vector<U8> materials((size_t)face_count * 16);
+			for (U32 i = 0; i < face_count; ++i)
+			{
+				memcpy(&materials[(size_t)i * 16], tec.material_ids[i].get(), 16);
+			}
+			ok = ok && writeAll(fp, tec.image_data, (size_t)face_count * 16);
+			ok = ok && writeAll(fp, tec.colors, (size_t)face_count * 4);
+			ok = ok && writeAll(fp, tec.scale_s, sizeof(F32) * face_count);
+			ok = ok && writeAll(fp, tec.scale_t, sizeof(F32) * face_count);
+			ok = ok && writeAll(fp, tec.offset_s, sizeof(S16) * face_count);
+			ok = ok && writeAll(fp, tec.offset_t, sizeof(S16) * face_count);
+			ok = ok && writeAll(fp, tec.image_rot, sizeof(S16) * face_count);
+			ok = ok && writeAll(fp, tec.bump, face_count);
+			ok = ok && writeAll(fp, tec.media_flags, face_count);
+			ok = ok && writeAll(fp, tec.glow, face_count);
+			ok = ok && writeAll(fp, &materials[0], materials.size());
+		}
+	}
+	S32 anim_count = (S32)entry.animations.size();
+	ok = ok && writeAll(fp, &anim_count, sizeof(S32));
+	for (std::map<LLUUID, S32>::const_iterator it = entry.animations.begin(); ok && it != entry.animations.end(); ++it)
+	{
+		S32 seq = it->second;
+		ok = writeAll(fp, it->first.mData, UUID_BYTES) && writeAll(fp, &seq, sizeof(S32));
+	}
+	LLFile::close(fp);
+	if (!ok)
+	{
+		LLFile::remove(path, 1);
+	}
+	return ok;
+}
+static bool loadAvatarDisplayRecipeFile(const LLUUID& id, FriendsOnlyCachedAppearance& entry)
+{
+	entry.contents = NULL;
+	entry.param_u8s.clear();
+	entry.animations.clear();
+	if (id.isNull() || !gDirUtilp)
+	{
+		return false;
+	}
+	std::string path = avatarDisplayRecipePath(id);
+	if (!LLFile::isfile(path))
+	{
+		return false;
+	}
+	LLFILE* fp = LLFile::fopen(path, "rb");
+	if (!fp)
+	{
+		return false;
+	}
+	char magic[4];
+	bool ok = readAll(fp, magic, 4) && memcmp(magic, AVATAR_DISPLAY_RECIPE_MAGIC, 4) == 0;
+	U8 flag = 0;
+	ok = ok && readAll(fp, &flag, 1);
+	if (ok && flag)
+	{
+		LLPointer<LLAppearanceMessageContents> contents = new LLAppearanceMessageContents;
+		S32 appearance_version = 0;
+		S32 param_appearance_version = 0;
+		S32 cof_version = 0;
+		U8 hover_set = 0;
+		F32 hover[3];
+		ok = ok && readAll(fp, &appearance_version, sizeof(S32));
+		ok = ok && readAll(fp, &param_appearance_version, sizeof(S32));
+		ok = ok && readAll(fp, &cof_version, sizeof(S32));
+		ok = ok && readAll(fp, &hover_set, 1);
+		ok = ok && readAll(fp, hover, sizeof(hover));
+		S32 u8_count = 0;
+		ok = ok && readAll(fp, &u8_count, sizeof(S32));
+		ok = ok && u8_count >= 0 && u8_count <= 4096;
+		if (ok && u8_count > 0)
+		{
+			entry.param_u8s.resize((size_t)u8_count);
+			ok = readAll(fp, &entry.param_u8s[0], (size_t)u8_count);
+		}
+		S32 weight_count = 0;
+		ok = ok && readAll(fp, &weight_count, sizeof(S32));
+		ok = ok && weight_count >= 0 && weight_count <= 4096;
+		if (ok && weight_count > 0)
+		{
+			contents->mParamWeights.resize((size_t)weight_count);
+			ok = readAll(fp, &contents->mParamWeights[0], sizeof(F32) * (size_t)weight_count);
+		}
+		U32 face_count = 0;
+		ok = ok && readAll(fp, &face_count, sizeof(U32));
+		ok = ok && face_count <= LLTEContents::MAX_TES;
+		if (ok && face_count > 0)
+		{
+			LLTEContents& tec = contents->mTEContents;
+			tec.face_count = face_count;
+			std::vector<U8> materials((size_t)face_count * 16);
+			ok = ok && readAll(fp, tec.image_data, (size_t)face_count * 16);
+			ok = ok && readAll(fp, tec.colors, (size_t)face_count * 4);
+			ok = ok && readAll(fp, tec.scale_s, sizeof(F32) * face_count);
+			ok = ok && readAll(fp, tec.scale_t, sizeof(F32) * face_count);
+			ok = ok && readAll(fp, tec.offset_s, sizeof(S16) * face_count);
+			ok = ok && readAll(fp, tec.offset_t, sizeof(S16) * face_count);
+			ok = ok && readAll(fp, tec.image_rot, sizeof(S16) * face_count);
+			ok = ok && readAll(fp, tec.bump, face_count);
+			ok = ok && readAll(fp, tec.media_flags, face_count);
+			ok = ok && readAll(fp, tec.glow, face_count);
+			ok = ok && readAll(fp, &materials[0], materials.size());
+			if (ok)
+			{
+				for (U32 i = 0; i < face_count; ++i)
+				{
+					tec.material_ids[i].set(&materials[(size_t)i * 16]);
+				}
+			}
+		}
+		if (ok)
+		{
+			contents->mAppearanceVersion = appearance_version;
+			contents->mParamAppearanceVersion = param_appearance_version;
+			contents->mCOFVersion = cof_version;
+			contents->mHoverOffset.set(hover);
+			contents->mHoverOffsetWasSet = hover_set != 0;
+			entry.contents = contents;
+		}
+	}
+	S32 anim_count = 0;
+	ok = ok && readAll(fp, &anim_count, sizeof(S32));
+	ok = ok && anim_count >= 0 && anim_count <= 256;
+	for (S32 i = 0; ok && i < anim_count; ++i)
+	{
+		LLUUID anim_id;
+		S32 seq = 0;
+		ok = readAll(fp, anim_id.mData, UUID_BYTES) && readAll(fp, &seq, sizeof(S32));
+		if (ok)
+		{
+			entry.animations[anim_id] = seq;
+		}
+	}
+	LLFile::close(fp);
+	if (!ok)
+	{
+		entry.contents = NULL;
+		entry.param_u8s.clear();
+		entry.animations.clear();
+		LLFile::remove(path, 1);
+	}
+	return ok;
+}
+bool LLVOAvatar::shouldSuppressForAvatarDisplay(const LLUUID& id)
+{
+	if (id.isNull() || id == gAgentID)
+	{
+		return false;
+	}
+	S32 mode = gSavedSettings.getS32("AlwaysRenderFriends");
+	if (mode == 3)
+	{
+		return true;
+	}
+	if (mode == 2)
+	{
+		return !LLAvatarTracker::instance().isBuddy(id);
+	}
+	return false;
+}
+void LLVOAvatar::saveAvatarDisplayRecipe() const
+{
+	FriendsOnlyCachedAppearance entry;
+	if (mLastProcessedAppearance.notNull())
+	{
+		entry.contents = cloneAppearanceWithoutParams(*mLastProcessedAppearance);
+	}
+	entry.animations = mSignaledAnimations;
+	if (entry.contents.isNull() && entry.animations.empty())
+	{
+		return;
+	}
+	saveAvatarDisplayRecipeFile(getID(), entry);
+}
+void LLVOAvatar::saveSuppressedAppearanceMessage(const LLUUID& id, LLMessageSystem* mesgsys)
+{
+	if (!mesgsys || !shouldSuppressForAvatarDisplay(id))
+	{
+		return;
+	}
+	FriendsOnlyCachedAppearance entry;
+	loadAvatarDisplayRecipeFile(id, entry);
+	LLPointer<LLAppearanceMessageContents> contents(new LLAppearanceMessageContents);
+	LLPrimitive te_parser;
+	te_parser.setNumTEs(TEX_NUM_INDICES);
+	te_parser.parseTEMessage(mesgsys, _PREHASH_ObjectData, -1, contents->mTEContents);
+	if (mesgsys->has(_PREHASH_AppearanceData))
+	{
+		U8 av_u8;
+		mesgsys->getU8Fast(_PREHASH_AppearanceData, _PREHASH_AppearanceVersion, av_u8, 0);
+		contents->mAppearanceVersion = av_u8;
+		mesgsys->getS32Fast(_PREHASH_AppearanceData, _PREHASH_CofVersion, contents->mCOFVersion, 0);
+	}
+	contents->mHoverOffsetWasSet = false;
+	if (mesgsys->has(_PREHASH_AppearanceHover))
+	{
+		LLVector3 hover;
+		mesgsys->getVector3Fast(_PREHASH_AppearanceHover, _PREHASH_HoverHeight, hover);
+		contents->mHoverOffset = hover;
+		contents->mHoverOffsetWasSet = true;
+	}
+	entry.param_u8s.clear();
+	S32 num_blocks = mesgsys->getNumberOfBlocksFast(_PREHASH_VisualParam);
+	for (S32 i = 0; i < num_blocks; i++)
+	{
+		U8 value;
+		mesgsys->getU8Fast(_PREHASH_VisualParam, _PREHASH_ParamValue, value, i);
+		entry.param_u8s.push_back(value);
+	}
+	entry.contents = contents;
+	saveAvatarDisplayRecipeFile(id, entry);
+}
+void LLVOAvatar::saveSuppressedAnimations(const LLUUID& id, const std::map<LLUUID, S32>& anims)
+{
+	if (!shouldSuppressForAvatarDisplay(id))
+	{
+		return;
+	}
+	FriendsOnlyCachedAppearance entry;
+	loadAvatarDisplayRecipeFile(id, entry);
+	entry.animations = anims;
+	saveAvatarDisplayRecipeFile(id, entry);
+}
+void LLVOAvatar::discardAvatarDisplayRecipe(const LLUUID& id)
+{
+	if (id.isNull() || !gDirUtilp)
+	{
+		return;
+	}
+	LLFile::remove(avatarDisplayRecipePath(id), 1);
+}
+bool LLVOAvatar::applyAvatarDisplayRecipe(LLVOAvatar* avatar)
+{
+	if (!avatar || avatar->isDead() || avatar->isSelf() || avatar->isControlAvatar() || avatar->isUIAvatar())
+	{
+		return false;
+	}
+	FriendsOnlyCachedAppearance entry;
+	if (!loadAvatarDisplayRecipeFile(avatar->getID(), entry))
+	{
+		return false;
+	}
+	discardAvatarDisplayRecipe(avatar->getID());
+	if (entry.contents.notNull() && !avatar->mFirstAppearanceMessageReceived)
+	{
+		if ((U32)avatar->getNumTEs() < entry.contents->mTEContents.face_count)
+		{
+			entry.contents->mTEContents.face_count = (U32)avatar->getNumTEs();
+		}
+		bindCachedAppearanceToAvatar(avatar, entry);
+		S32 appearance_version;
+		if (resolve_appearance_version(*entry.contents, appearance_version))
+		{
+			avatar->setIsUsingServerBakes(appearance_version > 0);
+		}
+		avatar->mLastProcessedAppearance = entry.contents;
+		avatar->applyParsedAppearanceMessage(*entry.contents, true);
+		SHClientTagMgr::instance().updateAvatarTag(avatar);
+	}
+	if (!entry.animations.empty() && avatar->mSignaledAnimations.empty())
+	{
+		avatar->mSignaledAnimations = entry.animations;
+		avatar->processAnimationStateChanges();
+	}
+	return avatar->mFirstAppearanceMessageReceived || !entry.animations.empty();
+}
 void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 {
     static S32 largestSelfCOFSeen(LLViewerInventoryCategory::VERSION_UNKNOWN);

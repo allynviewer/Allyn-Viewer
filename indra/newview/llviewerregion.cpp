@@ -1297,6 +1297,21 @@ void LLViewerRegion::addCacheMissFull(const U32 local_id)
 {
 	mCacheMissFull.push_back(local_id);
 }
+void LLViewerRegion::removeCacheEntry(U32 local_id)
+{
+	if (!mImpl || local_id == 0)
+	{
+		return;
+	}
+	LLVOCacheEntry* entry = get_if_there(mImpl->mCacheMap, local_id, (LLVOCacheEntry*)NULL);
+	if (!entry)
+	{
+		return;
+	}
+	mImpl->mCacheMap.erase(local_id);
+	delete entry;
+	mCacheDirty = TRUE;
+}
 void LLViewerRegion::requestCacheMisses()
 {
 	S32 full_count = mCacheMissFull.size();

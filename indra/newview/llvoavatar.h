@@ -294,6 +294,12 @@ public:
 	static void		cacheAppearanceMessageForFriendsOnly(const LLUUID& id, LLMessageSystem* mesgsys);
 	static void		cacheAnimationsForFriendsOnly(const LLUUID& id, const std::map<LLUUID, S32>& anims);
 	static bool		applyCachedFriendsOnlyAppearance(LLVOAvatar* avatar);
+	static bool		shouldSuppressForAvatarDisplay(const LLUUID& id);
+	void			saveAvatarDisplayRecipe() const;
+	static void		saveSuppressedAppearanceMessage(const LLUUID& id, LLMessageSystem* mesgsys);
+	static void		saveSuppressedAnimations(const LLUUID& id, const std::map<LLUUID, S32>& anims);
+	static void		discardAvatarDisplayRecipe(const LLUUID& id);
+	static bool		applyAvatarDisplayRecipe(LLVOAvatar* avatar);
 	bool 			visualParamWeightsAreDefault();
 	virtual BOOL	getIsCloud() const;
 	BOOL			isFullyTextured() const;

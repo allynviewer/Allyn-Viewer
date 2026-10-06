@@ -243,6 +243,7 @@ public:
 	LLDataPacker *getDP(U32 local_id, U32 crc, U8 &cache_miss_type);
 	void requestCacheMisses();
 	void addCacheMissFull(const U32 local_id);
+	void removeCacheEntry(U32 local_id);
 	void clearCachedVisibleObjects();
 	void dumpCache();
 	void unpackRegionHandshake();
