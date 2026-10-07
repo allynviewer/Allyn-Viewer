@@ -193,6 +193,7 @@ private:
 	void dropPendingAvatarDisplayLocal(LLViewerRegion* regionp, U32 local_id);
 	bool requestPendingAvatarDisplayLocals(LLViewerRegion* regionp, U32 parent_local_id);
 	bool requestAllPendingAvatarDisplayLocals();
+	bool releaseLiveAvatarDisplayPending(LLViewerRegion* regionp);
 	S32 blockClosedAvatarDisplayCreate(LLViewerRegion* regionp, U32 local_id, const LLUUID& full_id, LLPCode pcode, U32 parent_id, U8 state);
 	bool avatarDisplayParentIsLive(LLViewerRegion* regionp, U32 parent_id) const;
 	void killSuppressedAvatarOrphans(LLViewerRegion* regionp, U32 local_id, const LLUUID& avatar_id);

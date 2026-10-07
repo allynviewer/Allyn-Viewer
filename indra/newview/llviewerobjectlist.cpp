@@ -538,6 +538,10 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 	}
 	killPendingNonFriendOrphans();
 	killPendingAvatarDisplayOrphans();
+	if (releaseLiveAvatarDisplayPending(regionp))
+	{
+		request_pending_objects = true;
+	}
 	if (request_pending_objects)
 	{
 		LLWorld::getInstance()->requestCacheMisses();
@@ -1925,6 +1929,35 @@ bool LLViewerObjectList::requestAllPendingAvatarDisplayLocals()
 	if (requested)
 	{
 		LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS STARTED ids=%u mode=%d reason=pending_attachment_ids_requested", (U32)ids.size(), gSavedSettings.getS32("AlwaysRenderFriends")));
+	}
+	return requested;
+}
+bool LLViewerObjectList::releaseLiveAvatarDisplayPending(LLViewerRegion* regionp)
+{
+	if (!regionp || mAvatarDisplayPendingParent.empty() || gSavedSettings.getS32("AlwaysRenderFriends") < 2)
+	{
+		return false;
+	}
+	U64 handle = regionp->getHandle();
+	std::set<U32> parents;
+	for (std::map<std::pair<U64, U32>, U32>::iterator it = mAvatarDisplayPendingParent.begin(); it != mAvatarDisplayPendingParent.end(); ++it)
+	{
+		if (it->first.first == handle)
+		{
+			parents.insert(it->second);
+		}
+	}
+	bool requested = false;
+	for (std::set<U32>::iterator it = parents.begin(); it != parents.end(); ++it)
+	{
+		if (!avatarDisplayParentIsLive(regionp, *it))
+		{
+			continue;
+		}
+		if (requestPendingAvatarDisplayLocals(regionp, *it))
+		{
+			requested = true;
+		}
 	}
 	return requested;
 }

@@ -3486,15 +3486,12 @@ void process_avatar_appearance(LLMessageSystem* mesgsys, void** user_data)
 		{
 			LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED id=%s mode=%d reason=appearance_ignored_avatar_does_not_exist", uuid.asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
 		}
-		if (friends_only)
-		{
-			LLVOAvatar::cacheAppearanceMessageForFriendsOnly(uuid, mesgsys);
-		}
-		else if (!suppress_display)
+		else if (!friends_only)
 		{
 			LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED id=%s mode=%d reason=appearance_arrived_before_object", uuid.asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
 			LL_WARNS("Messaging") << "avatar_appearance sent for unknown avatar " << uuid << LL_ENDL;
 		}
+		LLVOAvatar::cacheAppearanceMessageForFriendsOnly(uuid, mesgsys);
 	}
 }
 void process_camera_constraint(LLMessageSystem* mesgsys, void** user_data)
