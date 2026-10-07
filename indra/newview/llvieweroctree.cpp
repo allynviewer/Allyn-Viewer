@@ -654,7 +654,6 @@ LLOcclusionCullingGroup::LLOcclusionCullingGroup(OctreeNode* node, LLSpatialPart
 	mSpatialPartition(part)
 {
 	llassert(part);
-	mSpatialPartition->mGroups.push_back(this);
 	part->mLODSeed = (part->mLODSeed+1)%part->mLODPeriod;
 	mLODHash = part->mLODSeed;
 	OctreeNode* oct_parent = node->getOctParent();
@@ -669,15 +668,6 @@ LLOcclusionCullingGroup::LLOcclusionCullingGroup(OctreeNode* node, LLSpatialPart
 }
 LLOcclusionCullingGroup::~LLOcclusionCullingGroup()
 {
-	if (mSpatialPartition)
-	{
-		auto it = std::find_if(mSpatialPartition->mGroups.begin(), mSpatialPartition->mGroups.end(), [this](LLOcclusionCullingGroup* rhs) {return rhs == this; });
-		llassert(it != mSpatialPartition->mGroups.end());
-		if (it != mSpatialPartition->mGroups.end())
-		{
-			mSpatialPartition->mGroups.erase(it);
-		}
-	}
 	releaseOcclusionQueryObjectNames();
 }
 BOOL LLOcclusionCullingGroup::needsUpdate()
@@ -1056,14 +1046,6 @@ LLViewerOctreePartition::LLViewerOctreePartition() :
 }
 LLViewerOctreePartition::~LLViewerOctreePartition()
 {
-	if (!mGroups.empty())
-	{
-		LL_WARNS_ONCE("OCTREE") << "LLViewerOctreePartition destroyed with " << mGroups.size() << " groups remaining" << LL_ENDL;
-	}
-	for (auto& entry : mGroups)
-	{
-		entry->mSpatialPartition = nullptr;
-	}
 	delete mOctree;
 	mOctree = NULL;
 }

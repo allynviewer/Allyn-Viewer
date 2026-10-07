@@ -7,6 +7,7 @@ public:
 	static void prepararSessao(bool segundaInstancia);
 	static void descartarSessaoLimpa();
 	static void enviarSePendente();
+	static void gravarPendenteDeExcecao(unsigned long codigo);
 
 private:
 	AllynCrashReport() = delete;

@@ -1293,6 +1293,19 @@ LLDataPacker *LLViewerRegion::getDP(U32 local_id, U32 crc, U8 &cache_miss_type)
 	}
 	return NULL;
 }
+LLDataPacker *LLViewerRegion::peekDP(U32 local_id, U32 crc)
+{
+	if (!mImpl || local_id == 0)
+	{
+		return NULL;
+	}
+	LLVOCacheEntry* entry = get_if_there(mImpl->mCacheMap, local_id, (LLVOCacheEntry*)NULL);
+	if (!entry)
+	{
+		return NULL;
+	}
+	return entry->getDP(crc);
+}
 void LLViewerRegion::addCacheMissFull(const U32 local_id)
 {
 	mCacheMissFull.push_back(local_id);

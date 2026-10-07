@@ -28,6 +28,19 @@ namespace
 	LLFrameTimer sStatusTimer;
 }
 
+class AllynPresenceResponder : public LLHTTPClient::ResponderHeadersOnly
+{
+	AIHTTPTimeoutPolicy const& getHTTPTimeoutPolicy() const override
+	{
+		return responderIgnore_timeout;
+	}
+
+	char const* getName() const override
+	{
+		return "AllynPresenceResponder";
+	}
+};
+
 class AllynStatusResponder : public LLHTTPClient::ResponderWithCompleted
 {
 public:
@@ -98,7 +111,7 @@ void AllynPresence::enviar(const char* acao)
 	headers.addHeader("X-Allyn-Token", ALLYN_PRESENCE_TOKEN);
 	headers.addHeader("Accept", "application/json");
 
-	LLHTTPClient::post(ALLYN_PRESENCE_URL, corpo, new LLHTTPClient::ResponderIgnore(), headers);
+	LLHTTPClient::post(ALLYN_PRESENCE_URL, corpo, new AllynPresenceResponder(), headers);
 }
 
 void AllynPresence::requestStatus()

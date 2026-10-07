@@ -241,6 +241,7 @@ public:
 	} eCacheUpdateResult;
 	eCacheUpdateResult cacheFullUpdate(LLViewerObject* objectp, LLDataPackerBinaryBuffer &dp);
 	LLDataPacker *getDP(U32 local_id, U32 crc, U8 &cache_miss_type);
+	LLDataPacker *peekDP(U32 local_id, U32 crc);
 	void requestCacheMisses();
 	void addCacheMissFull(const U32 local_id);
 	void removeCacheEntry(U32 local_id);

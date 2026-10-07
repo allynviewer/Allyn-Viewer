@@ -173,6 +173,7 @@ public:
 	bool isSuppressedNonFriendParent(U32 parent_id, U32 ip, U32 port) const;
 	void restoreSuppressedNonFriends();
 	void syncAvatarDisplaySuppression();
+	S32 notifyVolumesUsingMesh(const LLUUID& mesh_id);
 	void forgetSuppressedAvatarDisplayRegion(LLViewerRegion* regionp);
 	bool forgetSuppressedAvatarDisplayLocal(U32 ip, U32 port, U32 local_id);
 private:
@@ -186,12 +187,22 @@ private:
 		std::vector<U32> mLocalIds;
 	};
 	void rememberAvatarDisplayObject(LLViewerRegion* regionp, LLViewerObject* objectp, const LLUUID& avatar_id, bool is_root);
-	void rememberAvatarDisplayLocalId(LLViewerRegion* regionp, U32 local_id, const LLUUID& avatar_id, bool is_root);
+	bool rememberAvatarDisplayLocalId(LLViewerRegion* regionp, U32 local_id, const LLUUID& avatar_id, bool is_root);
+	void holdAvatarDisplayLocalId(LLViewerRegion* regionp, U32 local_id, U32 parent_id);
+	void adoptPendingAvatarDisplayLocals(LLViewerRegion* regionp, U32 local_id, const LLUUID& avatar_id);
+	void dropPendingAvatarDisplayLocal(LLViewerRegion* regionp, U32 local_id);
+	bool requestPendingAvatarDisplayLocals(LLViewerRegion* regionp, U32 parent_local_id);
+	bool requestAllPendingAvatarDisplayLocals();
+	S32 blockClosedAvatarDisplayCreate(LLViewerRegion* regionp, U32 local_id, const LLUUID& full_id, LLPCode pcode, U32 parent_id, U8 state);
+	bool avatarDisplayParentIsLive(LLViewerRegion* regionp, U32 parent_id) const;
 	void killSuppressedAvatarOrphans(LLViewerRegion* regionp, U32 local_id, const LLUUID& avatar_id);
 	void killPendingAvatarDisplayOrphans();
+	void noteClosedAvatarDisplayGate(LLMessageSystem* mesgsys, LLViewerRegion* regionp, EObjectUpdateType update_type, bool cached, bool compressed);
 	bool isSuppressedAvatarDisplayParent(U32 parent_id, U32 ip, U32 port) const;
 	std::map<LLUUID, AvatarDisplaySuppressed> mAvatarDisplaySuppressed;
 	std::map<std::pair<U64, U32>, LLUUID> mAvatarDisplaySuppressedLocals;
+	std::map<std::pair<U64, U32>, U32> mAvatarDisplayPendingParent;
+	std::map<std::pair<U64, U32>, std::vector<U32> > mAvatarDisplayPendingChildren;
 	std::vector<LLPointer<LLViewerObject> > mPendingAvatarDisplayOrphanKills;
 };
 class LLDebugBeacon

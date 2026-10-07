@@ -389,7 +389,7 @@ public:
 	void init();
 	void shutdown();
 	void unregisterMesh(LLVOVolume* volume);
-	void releaseMesh(const LLUUID& mesh_id);
+	void dropUnreferencedCache(const LLUUID& mesh_id);
 	S32 loadMesh(LLVOVolume* volume, const LLVolumeParams& mesh_params, S32 detail = 0, S32 last_lod = -1);
 	void notifyLoadedMeshes();
 	void notifyMeshLoaded(const LLVolumeParams& mesh_params, LLVolume* volume);
@@ -445,6 +445,7 @@ public:
 	void uploadError(LLSD& args);
 	void updateInventory(inventory_data data);
 	std::string mGetMeshCapability;
+	uuid_set_t mUnreferencedMeshes;
 };
 extern LLMeshRepository gMeshRepo;
 const F32 ANIMATED_OBJECT_BASE_COST = 15.0f;

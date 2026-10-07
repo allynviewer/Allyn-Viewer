@@ -461,11 +461,6 @@ void LLViewerTexture::updateClass(const F32 velocity, const F32 angular_velocity
 			sEvaluationTimer.reset();
 		}
 	}
-	else if(sEvaluationTimer.getElapsedTimeF32() > discard_delta_time && isMemoryForTextureLow())
-	{
-		sDesiredDiscardBias += discard_bias_delta;
-		sEvaluationTimer.reset();
-	}
 	else if (sDesiredDiscardBias > 0.0f &&
 			 sBoundTextureMemory < sMaxBoundTextureMemory * texmem_lower_bound_scale &&
 			 sTotalTextureMemory < sMaxTotalTextureMem * texmem_lower_bound_scale)
@@ -2702,13 +2697,6 @@ void LLViewerLODTexture::processTextureStats()
 	if(mForceToSaveRawImage && mDesiredSavedRawDiscardLevel >= 0)
 	{
 		mDesiredDiscardLevel = llmin(mDesiredDiscardLevel, (S8)mDesiredSavedRawDiscardLevel);
-	}
-	else if(LLPipeline::sMemAllocationThrottled)
-	{
-		if(scaleDown())
-		{
-			mDesiredDiscardLevel = mCachedRawDiscardLevel;
-		}
 	}
 }
 bool LLViewerLODTexture::scaleDown()

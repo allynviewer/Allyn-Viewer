@@ -25,6 +25,7 @@
  */
 #include "llviewerprecompiledheaders.h"
 #include "llwindebug.h"
+#include "allyncrashreport.h"
 #include "lldir.h"
 #pragma warning(disable: 4200)
 #pragma warning(disable: 4100)
@@ -64,17 +65,33 @@ void LLMemoryReserve::release()
 	mReserve = NULL;
 };
 static LLMemoryReserve gEmergencyMemoryReserve;
+static bool excecaoFatalImediata(DWORD codigo)
+{
+	return codigo == 0xC0000374 || codigo == 0xC0000409 || codigo == 0xC000041D;
+}
 LONG NTAPI vectoredHandler(PEXCEPTION_POINTERS exception_infop)
 {
-	LLWinDebug::instance().generateMinidump(exception_infop);
+	if (exception_infop && exception_infop->ExceptionRecord && excecaoFatalImediata(exception_infop->ExceptionRecord->ExceptionCode))
+		AllynCrashReport::gravarPendenteDeExcecao(exception_infop->ExceptionRecord->ExceptionCode);
+	return EXCEPTION_CONTINUE_SEARCH;
+}
+static LONG WINAPI filtroNaoTratado(EXCEPTION_POINTERS* exception_infop)
+{
+	if (exception_infop && exception_infop->ExceptionRecord)
+		AllynCrashReport::gravarPendenteDeExcecao(exception_infop->ExceptionRecord->ExceptionCode);
 	return EXCEPTION_CONTINUE_SEARCH;
 }
 void  LLWinDebug::init()
 {
 	static bool s_first_run = true;
-	if(IsDebuggerPresent()) return;
 	if (s_first_run)
 	{
+		s_first_run = false;
+#if !defined(USE_CRASHPAD)
+		AddVectoredExceptionHandler(1, &vectoredHandler);
+		SetUnhandledExceptionFilter(&filtroNaoTratado);
+#endif
+	if(IsDebuggerPresent()) return;
 		std::string local_dll_name = gDirUtilp->findFile("dbghelp.dll", gDirUtilp->getWorkingDir(), gDirUtilp->getExecutableDir());
 		HMODULE hDll = NULL;
 		hDll = LoadLibraryA(local_dll_name.c_str());
@@ -96,8 +113,6 @@ void  LLWinDebug::init()
 			}
 		}
 		gEmergencyMemoryReserve.reserve();
-		s_first_run = false;
-		AddVectoredExceptionHandler(0, &vectoredHandler);
 	}
 }
 void LLWinDebug::writeDumpToFile(MINIDUMP_TYPE type, MINIDUMP_EXCEPTION_INFORMATION *ExInfop, const std::string& filename)

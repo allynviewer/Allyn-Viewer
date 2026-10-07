@@ -645,39 +645,25 @@ void LLViewerTextureList::addImage(LLViewerFetchedTexture *new_image, ETexListTy
 	mUUIDDict.insert_or_assign(key, new_image);
 	new_image->setTextureListType(tex_type);
 }
-void LLViewerTextureList::flushUnreferenced(const std::vector<LLPointer<LLViewerFetchedTexture> >& images)
+void LLViewerTextureList::releaseIfCacheOnly(const LLUUID& image_id)
 {
-	std::map<LLViewerFetchedTexture*, S32> copies;
-	for (size_t i = 0; i < images.size(); ++i)
+	if (!mInitialized || image_id.isNull() || image_id == IMG_DEFAULT || image_id == IMG_DEFAULT_AVATAR || image_id == IMG_INVISIBLE)
 	{
-		LLViewerFetchedTexture* image = images[i].get();
-		if (!image
-			|| image == LLViewerFetchedTexture::sDefaultImagep
-			|| image == LLViewerFetchedTexture::sMissingAssetImagep)
-		{
-			continue;
-		}
-		copies[image] += 1;
+		return;
 	}
-	for (std::map<LLViewerFetchedTexture*, S32>::iterator it = copies.begin(); it != copies.end(); ++it)
+	LLPointer<LLViewerFetchedTexture> image = findImage(image_id, TEX_LIST_STANDARD);
+	if (!image || image->getNumRefs() != 3 || image->getTotalNumFaces() != 0 || image->hasCallbacks() || image->hasFetcher() || image->hasParcelMedia() || image->isDeleted())
 	{
-		LLViewerFetchedTexture* image = it->first;
-		if (!image || image->isDeleted())
+		return;
+	}
+	for (U32 channel = 0; channel < LLRender::NUM_VOLUME_TEXTURE_CHANNELS; ++channel)
+	{
+		if (image->getNumVolumes(channel) > 0)
 		{
-			continue;
-		}
-		S32 outside = image->getNumRefs() - it->second;
-		if (outside > 2)
-		{
-			continue;
-		}
-		image->destroySavedRawImage();
-		image->destroyTexture();
-		if (findImage(LLTextureKey(image->getID(), (ETexListType)image->getTextureListType())) == image)
-		{
-			deleteImage(image);
+			return;
 		}
 	}
+	deleteImage(image.get());
 }
 void LLViewerTextureList::deleteImage(LLViewerFetchedTexture *image)
 {

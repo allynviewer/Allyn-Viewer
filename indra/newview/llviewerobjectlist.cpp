@@ -64,13 +64,13 @@
 #include "llviewerstats.h"
 #include "llviewerstatsrecorder.h"
 #include "llvovolume.h"
+#include "llmeshrepository.h"
 #include "llvoavatarself.h"
 #include "lltoolmgr.h"
 #include "lltoolpie.h"
 #include "llkeyboard.h"
 #include "u64.h"
 #include "llviewertexturelist.h"
-#include "llmeshrepository.h"
 #include "llapp.h"
 #include "lldatapacker.h"
 #ifdef LL_STANDALONE
@@ -289,6 +289,8 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 		LL_WARNS() << "Object update from unknown region! " << region_handle << LL_ENDL;
 		return;
 	}
+	noteClosedAvatarDisplayGate(mesgsys, regionp, update_type, cached, compressed);
+	bool request_pending_objects = false;
 	U8 compressed_dpbuffer[2048];
 	LLDataPackerBinaryBuffer compressed_dp(compressed_dpbuffer, 2048);
 	LLDataPacker *cached_dpp = NULL;
@@ -298,6 +300,7 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 		LLTimer update_timer;
 		BOOL justCreated = FALSE;
 		S32	msg_size = 0;
+		local_id = 0;
 		if (cached)
 		{
 			U32 id;
@@ -305,6 +308,11 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 			mesgsys->getU32Fast(_PREHASH_ObjectData, _PREHASH_ID, id, i);
 			mesgsys->getU32Fast(_PREHASH_ObjectData, _PREHASH_CRC, crc, i);
 			msg_size += sizeof(U32) * 2;
+			if (mAvatarDisplaySuppressedLocals.count(std::make_pair(regionp->getHandle(), id)) != 0
+				|| mAvatarDisplayPendingParent.count(std::make_pair(regionp->getHandle(), id)) != 0)
+			{
+				continue;
+			}
 			U8 cache_miss_type = LLViewerRegion::CACHE_MISS_TYPE_NONE;
 			cached_dpp = regionp->getDP(id, crc, cache_miss_type);
 			if (cached_dpp)
@@ -369,6 +377,12 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 			msg_size += sizeof(LLUUID);
 			msg_size += sizeof(U32);
 		}
+		if (local_id != 0
+			&& (mAvatarDisplaySuppressedLocals.count(std::make_pair(regionp->getHandle(), local_id)) != 0
+				|| mAvatarDisplayPendingParent.count(std::make_pair(regionp->getHandle(), local_id)) != 0))
+		{
+			continue;
+		}
 		objectp = findObject(fullid);
 		if (objectp &&
 			((objectp->mLocalID != local_id) ||
@@ -429,10 +443,39 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 				rememberSuppressedNonFriend(local_id, regionp);
 				continue;
 			}
-			if (pcode == LL_PCODE_LEGACY_AVATAR && LLVOAvatar::shouldSuppressForAvatarDisplay(fullid))
+			U32 parent_id = 0;
+			U8 state = 0;
+			LLDataPackerBinaryBuffer* sequential_dp = NULL;
+			S32 sequential_cursor = -1;
+			if (gSavedSettings.getS32("AlwaysRenderFriends") >= 2)
 			{
-				rememberAvatarDisplayLocalId(regionp, local_id, fullid, true);
+				if (compressed && update_type != OUT_TERSE_IMPROVED)
+				{
+					sequential_dp = &compressed_dp;
+					sequential_cursor = compressed_dp.getCurrentSize();
+					LLViewerObject::unpackParentID(&compressed_dp, parent_id);
+					LLViewerObject::unpackU8(&compressed_dp, state, "State");
+				}
+				else if (cached && cached_dpp)
+				{
+					sequential_dp = (LLDataPackerBinaryBuffer*)cached_dpp;
+					sequential_cursor = sequential_dp->getCurrentSize();
+					LLViewerObject::unpackParentID(sequential_dp, parent_id);
+					LLViewerObject::unpackU8(sequential_dp, state, "State");
+				}
+				else if (!compressed && !cached && update_type == OUT_FULL)
+				{
+					mesgsys->getU32Fast(_PREHASH_ObjectData, _PREHASH_ParentID, parent_id, i);
+					mesgsys->getU8Fast(_PREHASH_ObjectData, _PREHASH_State, state, i);
+				}
+			}
+			if (blockClosedAvatarDisplayCreate(regionp, local_id, fullid, pcode, parent_id, state) > 0)
+			{
 				continue;
+			}
+			if (sequential_dp && sequential_cursor >= 0)
+			{
+				sequential_dp->shift(sequential_cursor);
 			}
 			objectp = createObject(pcode, regionp, fullid, local_id, gMessageSystem->getSender());
 			if (!objectp)
@@ -479,8 +522,15 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 		}
 		if (justCreated && !objectp->isDead() && objectp->isAvatar())
 		{
-			LLVOAvatar::applyCachedFriendsOnlyAppearance((LLVOAvatar*)objectp);
-			LLVOAvatar::applyAvatarDisplayRecipe((LLVOAvatar*)objectp);
+			LLVOAvatar* avatar = (LLVOAvatar*)objectp;
+			LLVOAvatar::applyCachedFriendsOnlyAppearance(avatar);
+			LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR WAS CREATED id=%s local=%u mode=%d reason=object_update_allowed", avatar->getID().asString().c_str(), avatar->getLocalID(), gSavedSettings.getS32("AlwaysRenderFriends")));
+			avatar->requestInitialAppearance();
+			if (!LLVOAvatar::shouldSuppressForAvatarDisplay(avatar->getID())
+				&& requestPendingAvatarDisplayLocals(avatar->getRegion(), avatar->getLocalID()))
+			{
+				request_pending_objects = true;
+			}
 		}
 		recorder.objectUpdateEvent(local_id, update_type, objectp, msg_size);
 		objectp->setLastUpdateType(update_type);
@@ -488,6 +538,10 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 	}
 	killPendingNonFriendOrphans();
 	killPendingAvatarDisplayOrphans();
+	if (request_pending_objects)
+	{
+		LLWorld::getInstance()->requestCacheMisses();
+	}
 	recorder.log(0.2f);
 	LLVOAvatar::cullAvatarsByPixelArea();
 }
@@ -1606,102 +1660,6 @@ void LLViewerObjectList::restoreSuppressedNonFriends()
 	mSuppressedNonFriendAvatars.clear();
 	LLWorld::getInstance()->requestCacheMisses();
 }
-static void addAvatarDisplayTexture(std::vector<LLPointer<LLViewerFetchedTexture> >& textures, LLViewerTexture* image)
-{
-	LLViewerFetchedTexture* fetched = dynamic_cast<LLViewerFetchedTexture*>(image);
-	if (!fetched
-		|| fetched == LLViewerFetchedTexture::sDefaultImagep
-		|| fetched == LLViewerFetchedTexture::sMissingAssetImagep)
-	{
-		return;
-	}
-	for (size_t i = 0; i < textures.size(); ++i)
-	{
-		if (textures[i] == fetched)
-		{
-			return;
-		}
-	}
-	textures.push_back(fetched);
-}
-static void collectAvatarDisplayResources(LLViewerObject* objectp, std::vector<LLPointer<LLViewerFetchedTexture> >& textures, std::vector<LLUUID>& mesh_ids)
-{
-	if (!objectp)
-	{
-		return;
-	}
-	S32 faces = objectp->getNumTEs();
-	for (S32 i = 0; i < faces; ++i)
-	{
-		addAvatarDisplayTexture(textures, objectp->getTEImage((U8)i));
-		addAvatarDisplayTexture(textures, objectp->getTENormalMap((U8)i));
-		addAvatarDisplayTexture(textures, objectp->getTESpecularMap((U8)i));
-	}
-	LLVOVolume* vol = objectp->asVolume();
-	if (vol && vol->isSculpted())
-	{
-		const LLSculptParams* sculpt = vol->getSculptParams();
-		if (sculpt)
-		{
-			LLUUID sculpt_id = sculpt->getSculptTexture();
-			if (sculpt_id.notNull())
-			{
-				addAvatarDisplayTexture(textures, gTextureList.findImage(sculpt_id, TEX_LIST_STANDARD));
-				if (vol->isMesh())
-				{
-					mesh_ids.push_back(sculpt_id);
-				}
-			}
-		}
-	}
-	LLViewerObject::const_child_list_t children = objectp->getChildren();
-	for (LLViewerObject::const_child_list_t::const_iterator it = children.begin(); it != children.end(); ++it)
-	{
-		LLViewerObject* childp = *it;
-		if (childp && !childp->isAvatar())
-		{
-			collectAvatarDisplayResources(childp, textures, mesh_ids);
-		}
-	}
-}
-static void releaseUnusedAvatarMeshes(const std::vector<LLUUID>& mesh_ids)
-{
-	if (mesh_ids.empty())
-	{
-		return;
-	}
-	std::set<LLUUID> live;
-	for (LLViewerObjectList::vobj_list_t::const_iterator it = gObjectList.mObjects.begin(); it != gObjectList.mObjects.end(); ++it)
-	{
-		LLViewerObject* objectp = *it;
-		if (!objectp || objectp->isDead())
-		{
-			continue;
-		}
-		LLVOVolume* vol = objectp->asVolume();
-		if (!vol || !vol->isMesh())
-		{
-			continue;
-		}
-		const LLSculptParams* sculpt = vol->getSculptParams();
-		if (!sculpt)
-		{
-			continue;
-		}
-		LLUUID sculpt_id = sculpt->getSculptTexture();
-		if (sculpt_id.notNull())
-		{
-			live.insert(sculpt_id);
-		}
-	}
-	for (size_t i = 0; i < mesh_ids.size(); ++i)
-	{
-		if (!live.count(mesh_ids[i]))
-		{
-			gMeshRepo.releaseMesh(mesh_ids[i]);
-		}
-	}
-}
 static bool avatarDisplayKeepsLoaded(LLVOAvatar* avatar)
 {
 	if (!avatar || avatar->isDead() || avatar->isSelf() || avatar->isControlAvatar() || avatar->isUIAvatar() || !avatar->getRegion())
@@ -1745,11 +1703,11 @@ void LLViewerObjectList::rememberAvatarDisplayObject(LLViewerRegion* regionp, LL
 		}
 	}
 }
-void LLViewerObjectList::rememberAvatarDisplayLocalId(LLViewerRegion* regionp, U32 local_id, const LLUUID& avatar_id, bool is_root)
+bool LLViewerObjectList::rememberAvatarDisplayLocalId(LLViewerRegion* regionp, U32 local_id, const LLUUID& avatar_id, bool is_root)
 {
 	if (!regionp || local_id == 0 || avatar_id.isNull())
 	{
-		return;
+		return false;
 	}
 	U64 handle = regionp->getHandle();
 	AvatarDisplaySuppressed& entry = mAvatarDisplaySuppressed[avatar_id];
@@ -1766,16 +1724,266 @@ void LLViewerObjectList::rememberAvatarDisplayLocalId(LLViewerRegion* regionp, U
 	{
 		entry.mRootLocalId = local_id;
 	}
-	if (std::find(entry.mLocalIds.begin(), entry.mLocalIds.end(), local_id) == entry.mLocalIds.end())
+	bool inserted = std::find(entry.mLocalIds.begin(), entry.mLocalIds.end(), local_id) == entry.mLocalIds.end();
+	if (inserted)
 	{
 		entry.mLocalIds.push_back(local_id);
+		if (is_root)
+		{
+			LLViewerObject* existing = findObject(avatar_id);
+			if (existing && existing->isAvatar())
+			{
+				LLVOAvatar::traceAvatarDisplay(llformat("AVATAR LOCAL ID RETAINED id=%s local=%u mode=%d tracked=%u reason=existing_avatar_removed", avatar_id.asString().c_str(), local_id, gSavedSettings.getS32("AlwaysRenderFriends"), (U32)entry.mLocalIds.size()));
+			}
+			else
+			{
+				LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR WAS NOT CREATED id=%s local=%u mode=%d tracked=%u reason=display_gate_closed", avatar_id.asString().c_str(), local_id, gSavedSettings.getS32("AlwaysRenderFriends"), (U32)entry.mLocalIds.size()));
+			}
+		}
+		else
+		{
+			LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED avatar=%s local=%u mode=%d tracked=%u reason=attachment_not_created_gate_closed", avatar_id.asString().c_str(), local_id, gSavedSettings.getS32("AlwaysRenderFriends"), (U32)entry.mLocalIds.size()));
+		}
 	}
 	mAvatarDisplaySuppressedLocals[std::make_pair(handle, local_id)] = avatar_id;
 	regionp->removeCacheEntry(local_id);
-	if (is_root)
+	std::map<std::pair<U64, U32>, U32>::iterator pending_parent = mAvatarDisplayPendingParent.find(std::make_pair(handle, local_id));
+	if (pending_parent != mAvatarDisplayPendingParent.end())
 	{
-		killSuppressedAvatarOrphans(regionp, local_id, avatar_id);
+		U32 pending_parent_id = pending_parent->second;
+		mAvatarDisplayPendingParent.erase(pending_parent);
+		std::map<std::pair<U64, U32>, std::vector<U32> >::iterator pending_children = mAvatarDisplayPendingChildren.find(std::make_pair(handle, pending_parent_id));
+		if (pending_children != mAvatarDisplayPendingChildren.end())
+		{
+			std::vector<U32>& children = pending_children->second;
+			for (std::vector<U32>::iterator child = children.begin(); child != children.end(); )
+			{
+				if (*child == local_id)
+				{
+					child = children.erase(child);
+				}
+				else
+				{
+					++child;
+				}
+			}
+			if (children.empty())
+			{
+				mAvatarDisplayPendingChildren.erase(pending_children);
+			}
+		}
 	}
+	adoptPendingAvatarDisplayLocals(regionp, local_id, avatar_id);
+	killSuppressedAvatarOrphans(regionp, local_id, avatar_id);
+	return inserted;
+}
+void LLViewerObjectList::holdAvatarDisplayLocalId(LLViewerRegion* regionp, U32 local_id, U32 parent_id)
+{
+	if (!regionp || local_id == 0 || parent_id == 0 || local_id == parent_id)
+	{
+		return;
+	}
+	U64 handle = regionp->getHandle();
+	std::pair<U64, U32> child_key(handle, local_id);
+	if (mAvatarDisplaySuppressedLocals.count(child_key) != 0 || mAvatarDisplayPendingParent.count(child_key) != 0)
+	{
+		return;
+	}
+	mAvatarDisplayPendingParent[child_key] = parent_id;
+	mAvatarDisplayPendingChildren[std::make_pair(handle, parent_id)].push_back(local_id);
+	regionp->removeCacheEntry(local_id);
+	LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED local=%u parent=%u mode=%d reason=attachment_local_id_retained", local_id, parent_id, gSavedSettings.getS32("AlwaysRenderFriends")));
+}
+void LLViewerObjectList::adoptPendingAvatarDisplayLocals(LLViewerRegion* regionp, U32 local_id, const LLUUID& avatar_id)
+{
+	if (!regionp || local_id == 0 || avatar_id.isNull())
+	{
+		return;
+	}
+	std::pair<U64, U32> key(regionp->getHandle(), local_id);
+	std::map<std::pair<U64, U32>, std::vector<U32> >::iterator it = mAvatarDisplayPendingChildren.find(key);
+	if (it == mAvatarDisplayPendingChildren.end())
+	{
+		return;
+	}
+	std::vector<U32> children;
+	children.swap(it->second);
+	mAvatarDisplayPendingChildren.erase(it);
+	for (size_t i = 0; i < children.size(); ++i)
+	{
+		mAvatarDisplayPendingParent.erase(std::make_pair(regionp->getHandle(), children[i]));
+		rememberAvatarDisplayLocalId(regionp, children[i], avatar_id, false);
+	}
+}
+void LLViewerObjectList::dropPendingAvatarDisplayLocal(LLViewerRegion* regionp, U32 local_id)
+{
+	if (!regionp || local_id == 0)
+	{
+		return;
+	}
+	U64 handle = regionp->getHandle();
+	std::pair<U64, U32> key(handle, local_id);
+	std::map<std::pair<U64, U32>, U32>::iterator parent_it = mAvatarDisplayPendingParent.find(key);
+	if (parent_it != mAvatarDisplayPendingParent.end())
+	{
+		U32 parent_id = parent_it->second;
+		mAvatarDisplayPendingParent.erase(parent_it);
+		std::map<std::pair<U64, U32>, std::vector<U32> >::iterator children_it = mAvatarDisplayPendingChildren.find(std::make_pair(handle, parent_id));
+		if (children_it != mAvatarDisplayPendingChildren.end())
+		{
+			std::vector<U32>& children = children_it->second;
+			for (std::vector<U32>::iterator child = children.begin(); child != children.end(); )
+			{
+				if (*child == local_id)
+				{
+					child = children.erase(child);
+				}
+				else
+				{
+					++child;
+				}
+			}
+			if (children.empty())
+			{
+				mAvatarDisplayPendingChildren.erase(children_it);
+			}
+		}
+	}
+	std::map<std::pair<U64, U32>, std::vector<U32> >::iterator owned = mAvatarDisplayPendingChildren.find(key);
+	if (owned == mAvatarDisplayPendingChildren.end())
+	{
+		return;
+	}
+	std::vector<U32> children;
+	children.swap(owned->second);
+	mAvatarDisplayPendingChildren.erase(owned);
+	for (size_t i = 0; i < children.size(); ++i)
+	{
+		dropPendingAvatarDisplayLocal(regionp, children[i]);
+	}
+}
+bool LLViewerObjectList::requestPendingAvatarDisplayLocals(LLViewerRegion* regionp, U32 parent_local_id)
+{
+	if (!regionp || parent_local_id == 0)
+	{
+		return false;
+	}
+	std::vector<U32> ids;
+	std::vector<U32> pending_parents;
+	pending_parents.push_back(parent_local_id);
+	for (size_t i = 0; i < pending_parents.size(); ++i)
+	{
+		std::map<std::pair<U64, U32>, std::vector<U32> >::iterator it = mAvatarDisplayPendingChildren.find(std::make_pair(regionp->getHandle(), pending_parents[i]));
+		if (it == mAvatarDisplayPendingChildren.end())
+		{
+			continue;
+		}
+		for (size_t child_index = 0; child_index < it->second.size(); ++child_index)
+		{
+			ids.push_back(it->second[child_index]);
+			pending_parents.push_back(it->second[child_index]);
+		}
+	}
+	if (ids.empty())
+	{
+		return false;
+	}
+	for (size_t i = 0; i < ids.size(); ++i)
+	{
+		regionp->removeCacheEntry(ids[i]);
+		regionp->addCacheMissFull(ids[i]);
+		dropPendingAvatarDisplayLocal(regionp, ids[i]);
+	}
+	LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS STARTED local=%u ids=%u mode=%d reason=pending_attachment_ids_requested", parent_local_id, (U32)ids.size(), gSavedSettings.getS32("AlwaysRenderFriends")));
+	return true;
+}
+bool LLViewerObjectList::requestAllPendingAvatarDisplayLocals()
+{
+	if (mAvatarDisplayPendingParent.empty())
+	{
+		return false;
+	}
+	bool requested = false;
+	std::vector<std::pair<U64, U32> > ids;
+	for (std::map<std::pair<U64, U32>, U32>::iterator it = mAvatarDisplayPendingParent.begin(); it != mAvatarDisplayPendingParent.end(); ++it)
+	{
+		ids.push_back(it->first);
+	}
+	for (size_t i = 0; i < ids.size(); ++i)
+	{
+		LLViewerRegion* regionp = LLWorld::getInstance()->getRegionFromHandle(ids[i].first);
+		if (!regionp)
+		{
+			continue;
+		}
+		regionp->removeCacheEntry(ids[i].second);
+		regionp->addCacheMissFull(ids[i].second);
+		requested = true;
+	}
+	mAvatarDisplayPendingParent.clear();
+	mAvatarDisplayPendingChildren.clear();
+	if (requested)
+	{
+		LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS STARTED ids=%u mode=%d reason=pending_attachment_ids_requested", (U32)ids.size(), gSavedSettings.getS32("AlwaysRenderFriends")));
+	}
+	return requested;
+}
+bool LLViewerObjectList::avatarDisplayParentIsLive(LLViewerRegion* regionp, U32 parent_id) const
+{
+	if (!regionp || parent_id == 0)
+	{
+		return false;
+	}
+	LLUUID parent_uuid;
+	getUUIDFromLocal(parent_uuid, parent_id, regionp->getHost().getAddress(), regionp->getHost().getPort());
+	if (parent_uuid.isNull())
+	{
+		return false;
+	}
+	LLViewerObject* parentp = findObject(parent_uuid);
+	return parentp && !parentp->isDead();
+}
+S32 LLViewerObjectList::blockClosedAvatarDisplayCreate(LLViewerRegion* regionp, U32 local_id, const LLUUID& full_id, LLPCode pcode, U32 parent_id, U8 state)
+{
+	if (!regionp || local_id == 0 || gSavedSettings.getS32("AlwaysRenderFriends") < 2)
+	{
+		return 0;
+	}
+	std::pair<U64, U32> key(regionp->getHandle(), local_id);
+	if (mAvatarDisplaySuppressedLocals.count(key) != 0 || mAvatarDisplayPendingParent.count(key) != 0)
+	{
+		return 1;
+	}
+	if (pcode == LL_PCODE_LEGACY_AVATAR && LLVOAvatar::shouldSuppressForAvatarDisplay(full_id))
+	{
+		LLViewerObject* existing = findObject(full_id);
+		if (existing && existing->isAvatar() && avatarDisplayKeepsLoaded((LLVOAvatar*)existing))
+		{
+			return 0;
+		}
+		if (existing)
+		{
+			return 0;
+		}
+		return rememberAvatarDisplayLocalId(regionp, local_id, full_id, true) ? 2 : 1;
+	}
+	if (parent_id != 0)
+	{
+		std::map<std::pair<U64, U32>, LLUUID>::iterator parent_it = mAvatarDisplaySuppressedLocals.find(std::make_pair(regionp->getHandle(), parent_id));
+		if (parent_it != mAvatarDisplaySuppressedLocals.end() && full_id.notNull() && !findObject(full_id))
+		{
+			return rememberAvatarDisplayLocalId(regionp, local_id, parent_it->second, false) ? 2 : 1;
+		}
+	}
+	bool attachment_root = (state & AGENT_ATTACH_MASK) != 0;
+	bool parent_pending = parent_id != 0 && mAvatarDisplayPendingParent.count(std::make_pair(regionp->getHandle(), parent_id)) != 0;
+	if (parent_id != 0 && (attachment_root || parent_pending) && !avatarDisplayParentIsLive(regionp, parent_id) && (full_id.isNull() || !findObject(full_id)))
+	{
+		size_t before = mAvatarDisplayPendingParent.size();
+		holdAvatarDisplayLocalId(regionp, local_id, parent_id);
+		return mAvatarDisplayPendingParent.size() != before ? 2 : 0;
+	}
+	return 0;
 }
 void LLViewerObjectList::killSuppressedAvatarOrphans(LLViewerRegion* regionp, U32 local_id, const LLUUID& avatar_id)
 {
@@ -1830,29 +2038,277 @@ bool LLViewerObjectList::isSuppressedAvatarDisplayParent(U32 parent_id, U32 ip, 
 	}
 	return mAvatarDisplaySuppressedLocals.count(std::make_pair(regionp->getHandle(), parent_id)) > 0;
 }
+static void collectAvatarDisplayFaces(LLViewerObject* objectp, uuid_set_t& textures)
+{
+	S32 faces = objectp->getNumTEs();
+	for (S32 face = 0; face < faces; ++face)
+	{
+		LLViewerTexture* image = objectp->getTEImage((U8)face);
+		if (image && image->getID().notNull())
+		{
+			textures.insert(image->getID());
+		}
+		const LLTextureEntry* entry = objectp->getTE((U8)face);
+		if (!entry)
+		{
+			continue;
+		}
+		LLMaterialPtr material = entry->getMaterialParams();
+		if (!material)
+		{
+			continue;
+		}
+		if (material->getNormalID().notNull())
+		{
+			textures.insert(material->getNormalID());
+		}
+		if (material->getSpecularID().notNull())
+		{
+			textures.insert(material->getSpecularID());
+		}
+	}
+}
+static void collectAvatarDisplayResource(LLViewerObject* objectp, uuid_set_t& meshes, uuid_set_t& textures)
+{
+	if (!objectp)
+	{
+		return;
+	}
+	collectAvatarDisplayFaces(objectp, textures);
+	if (!objectp->isAvatar())
+	{
+		LLVOVolume* volume = objectp->asVolume();
+		if (volume)
+		{
+			if (volume->isMesh() && volume->getVolume())
+			{
+				const LLUUID& mesh_id = volume->getVolume()->getParams().getSculptID();
+				if (mesh_id.notNull())
+				{
+					meshes.insert(mesh_id);
+				}
+			}
+			LLUUID light_id = volume->getLightTextureID();
+			if (light_id.notNull())
+			{
+				textures.insert(light_id);
+			}
+		}
+		if (const LLSculptParams* sculpt = objectp->getSculptParams())
+		{
+			LLUUID sculpt_id = sculpt->getSculptTexture();
+			if (sculpt_id.notNull())
+			{
+				textures.insert(sculpt_id);
+			}
+		}
+	}
+	LLViewerObject::const_child_list_t children = objectp->getChildren();
+	for (LLViewerObject::const_child_list_t::const_iterator it = children.begin(); it != children.end(); ++it)
+	{
+		collectAvatarDisplayResource(*it, meshes, textures);
+	}
+}
+static void collectLiveAvatarDisplayMeshes(const LLViewerObjectList& list, uuid_set_t& live)
+{
+	for (LLViewerObjectList::vobj_list_t::const_iterator it = list.mObjects.begin(); it != list.mObjects.end(); ++it)
+	{
+		LLViewerObject* objectp = *it;
+		if (!objectp || objectp->isDead())
+		{
+			continue;
+		}
+		LLVOVolume* volume = objectp->asVolume();
+		if (!volume || !volume->isMesh() || !volume->getVolume())
+		{
+			continue;
+		}
+		const LLUUID& mesh_id = volume->getVolume()->getParams().getSculptID();
+		if (mesh_id.notNull())
+		{
+			live.insert(mesh_id);
+		}
+	}
+}
+static void releaseUnreferencedAvatarDisplayResources(const LLViewerObjectList& list, const uuid_set_t& meshes, const uuid_set_t& textures)
+{
+	if (LLApp::isQuitting())
+	{
+		return;
+	}
+	if (!meshes.empty())
+	{
+		uuid_set_t live;
+		collectLiveAvatarDisplayMeshes(list, live);
+		for (uuid_set_t::const_iterator it = meshes.begin(); it != meshes.end(); ++it)
+		{
+			if (live.find(*it) == live.end())
+			{
+				gMeshRepo.dropUnreferencedCache(*it);
+			}
+		}
+	}
+	for (uuid_set_t::const_iterator it = textures.begin(); it != textures.end(); ++it)
+	{
+		gTextureList.releaseIfCacheOnly(*it);
+	}
+}
+S32 LLViewerObjectList::notifyVolumesUsingMesh(const LLUUID& mesh_id)
+{
+	if (mesh_id.isNull())
+	{
+		return 0;
+	}
+	S32 count = 0;
+	for (vobj_list_t::const_iterator it = mObjects.begin(); it != mObjects.end(); ++it)
+	{
+		LLViewerObject* objectp = *it;
+		if (!objectp || objectp->isDead())
+		{
+			continue;
+		}
+		LLVOVolume* volume = objectp->asVolume();
+		if (!volume || !volume->isMesh() || !volume->getVolume())
+		{
+			continue;
+		}
+		if (volume->getVolume()->getParams().getSculptID() != mesh_id)
+		{
+			continue;
+		}
+		volume->notifyMeshLoaded();
+		++count;
+	}
+	return count;
+}
+void LLViewerObjectList::noteClosedAvatarDisplayGate(LLMessageSystem* mesgsys, LLViewerRegion* regionp, EObjectUpdateType update_type, bool cached, bool compressed)
+{
+	if (!mesgsys || !regionp)
+	{
+		return;
+	}
+	if (gSavedSettings.getS32("AlwaysRenderFriends") < 2)
+	{
+		return;
+	}
+	if (compressed && update_type == OUT_TERSE_IMPROVED)
+	{
+		return;
+	}
+	if (!cached && !compressed && update_type != OUT_FULL)
+	{
+		return;
+	}
+	S32 num_objects = mesgsys->getNumberOfBlocksFast(_PREHASH_ObjectData);
+	bool changed = true;
+	for (S32 pass = 0; changed && pass < 8; ++pass)
+	{
+		changed = false;
+		for (S32 block = 0; block < num_objects; ++block)
+		{
+			LLUUID full_id;
+			U32 object_local_id = 0;
+			U8 object_pcode = 0;
+			U8 object_state = 0;
+			U32 parent_id = 0;
+			bool have_parent = false;
+			if (cached)
+			{
+				U32 id = 0;
+				U32 crc = 0;
+				mesgsys->getU32Fast(_PREHASH_ObjectData, _PREHASH_ID, id, block);
+				if (id == 0
+					|| mAvatarDisplaySuppressedLocals.count(std::make_pair(regionp->getHandle(), id)) != 0
+					|| mAvatarDisplayPendingParent.count(std::make_pair(regionp->getHandle(), id)) != 0)
+				{
+					continue;
+				}
+				mesgsys->getU32Fast(_PREHASH_ObjectData, _PREHASH_CRC, crc, block);
+				LLDataPackerBinaryBuffer* dp = (LLDataPackerBinaryBuffer*)regionp->peekDP(id, crc);
+				if (!dp)
+				{
+					continue;
+				}
+				dp->reset();
+				dp->unpackUUID(full_id, "ID");
+				dp->unpackU32(object_local_id, "LocalID");
+				dp->unpackU8(object_pcode, "PCode");
+				LLViewerObject::unpackParentID(dp, parent_id);
+				have_parent = true;
+				LLViewerObject::unpackU8(dp, object_state, "State");
+			}
+			else if (compressed)
+			{
+				S32 len = mesgsys->getSizeFast(_PREHASH_ObjectData, block, _PREHASH_Data);
+				if (len <= 0 || len > 2048)
+				{
+					continue;
+				}
+				U8 buffer[2048];
+				mesgsys->getBinaryDataFast(_PREHASH_ObjectData, _PREHASH_Data, buffer, 0, block, 2048);
+				LLDataPackerBinaryBuffer dp(buffer, 2048);
+				dp.assignBuffer(buffer, len);
+				dp.unpackUUID(full_id, "ID");
+				dp.unpackU32(object_local_id, "LocalID");
+				dp.unpackU8(object_pcode, "PCode");
+				LLViewerObject::unpackParentID(&dp, parent_id);
+				have_parent = true;
+				LLViewerObject::unpackU8(&dp, object_state, "State");
+			}
+			else if (update_type == OUT_FULL)
+			{
+				mesgsys->getUUIDFast(_PREHASH_ObjectData, _PREHASH_FullID, full_id, block);
+				mesgsys->getU32Fast(_PREHASH_ObjectData, _PREHASH_ID, object_local_id, block);
+				mesgsys->getU8Fast(_PREHASH_ObjectData, _PREHASH_PCode, object_pcode, block);
+				mesgsys->getU32Fast(_PREHASH_ObjectData, _PREHASH_ParentID, parent_id, block);
+				mesgsys->getU8Fast(_PREHASH_ObjectData, _PREHASH_State, object_state, block);
+				have_parent = true;
+			}
+			else
+			{
+				continue;
+			}
+			if (object_local_id == 0
+				|| mAvatarDisplaySuppressedLocals.count(std::make_pair(regionp->getHandle(), object_local_id)) != 0
+				|| mAvatarDisplayPendingParent.count(std::make_pair(regionp->getHandle(), object_local_id)) != 0)
+			{
+				continue;
+			}
+			S32 blocked = blockClosedAvatarDisplayCreate(regionp, object_local_id, full_id, object_pcode, have_parent ? parent_id : 0, object_state);
+			if (blocked == 2)
+			{
+				changed = true;
+			}
+		}
+	}
+}
 void LLViewerObjectList::killPendingAvatarDisplayOrphans()
 {
 	if (mPendingAvatarDisplayOrphanKills.empty())
 	{
 		return;
 	}
-	std::vector<LLPointer<LLViewerObject> > pending;
-	pending.swap(mPendingAvatarDisplayOrphanKills);
-	std::vector<LLPointer<LLViewerFetchedTexture> > textures;
-	std::vector<LLUUID> mesh_ids;
-	for (size_t i = 0; i < pending.size(); ++i)
+	uuid_set_t meshes;
+	uuid_set_t textures;
 	{
-		LLViewerObject* objectp = pending[i];
-		if (!objectp || objectp->isDead() || objectp->isAvatar())
+		std::vector<LLPointer<LLViewerObject> > pending;
+		pending.swap(mPendingAvatarDisplayOrphanKills);
+		for (size_t i = 0; i < pending.size(); ++i)
 		{
-			continue;
+			LLViewerObject* objectp = pending[i];
+			if (!objectp || objectp->isAvatar())
+			{
+				continue;
+			}
+			collectAvatarDisplayResource(objectp, meshes, textures);
+			if (!objectp->isDead())
+			{
+				killObject(objectp);
+			}
 		}
-		collectAvatarDisplayResources(objectp, textures, mesh_ids);
-		killObject(objectp);
+		cleanDeadObjects(FALSE);
 	}
-	cleanDeadObjects(FALSE);
-	gTextureList.flushUnreferenced(textures);
-	releaseUnusedAvatarMeshes(mesh_ids);
+	releaseUnreferencedAvatarDisplayResources(*this, meshes, textures);
 }
 void LLViewerObjectList::forgetSuppressedAvatarDisplayRegion(LLViewerRegion* regionp)
 {
@@ -1882,7 +2338,18 @@ void LLViewerObjectList::forgetSuppressedAvatarDisplayRegion(LLViewerRegion* reg
 			regionp->removeCacheEntry(it->second.mLocalIds[local_index]);
 		}
 		mAvatarDisplaySuppressed.erase(it);
-		LLVOAvatar::discardAvatarDisplayRecipe(drop[i]);
+	}
+	std::vector<U32> pending_ids;
+	for (std::map<std::pair<U64, U32>, U32>::iterator pending = mAvatarDisplayPendingParent.begin(); pending != mAvatarDisplayPendingParent.end(); ++pending)
+	{
+		if (pending->first.first == handle)
+		{
+			pending_ids.push_back(pending->first.second);
+		}
+	}
+	for (size_t i = 0; i < pending_ids.size(); ++i)
+	{
+		dropPendingAvatarDisplayLocal(regionp, pending_ids[i]);
 	}
 }
 bool LLViewerObjectList::forgetSuppressedAvatarDisplayLocal(U32 ip, U32 port, U32 local_id)
@@ -1893,29 +2360,33 @@ bool LLViewerObjectList::forgetSuppressedAvatarDisplayLocal(U32 ip, U32 port, U3
 		return false;
 	}
 	std::pair<U64, U32> key(regionp->getHandle(), local_id);
+	bool was_pending = mAvatarDisplayPendingParent.count(key) != 0 || mAvatarDisplayPendingChildren.count(key) != 0;
+	dropPendingAvatarDisplayLocal(regionp, local_id);
 	std::map<std::pair<U64, U32>, LLUUID>::iterator found = mAvatarDisplaySuppressedLocals.find(key);
 	if (found == mAvatarDisplaySuppressedLocals.end())
 	{
-		return false;
+		return was_pending;
 	}
 	LLUUID avatar_id = found->second;
 	mAvatarDisplaySuppressedLocals.erase(found);
 	std::map<LLUUID, AvatarDisplaySuppressed>::iterator avatar = mAvatarDisplaySuppressed.find(avatar_id);
 	if (avatar == mAvatarDisplaySuppressed.end())
 	{
-		return true;
+		return was_pending;
 	}
 	if (avatar->second.mRootLocalId == local_id)
 	{
 		for (size_t i = 0; i < avatar->second.mLocalIds.size(); ++i)
 		{
-			mAvatarDisplaySuppressedLocals.erase(std::make_pair(avatar->second.mRegionHandle, avatar->second.mLocalIds[i]));
+			U32 drop_id = avatar->second.mLocalIds[i];
+			mAvatarDisplaySuppressedLocals.erase(std::make_pair(avatar->second.mRegionHandle, drop_id));
+			regionp->removeCacheEntry(drop_id);
 		}
 		mAvatarDisplaySuppressed.erase(avatar);
-		LLVOAvatar::discardAvatarDisplayRecipe(avatar_id);
 	}
 	else
 	{
+		regionp->removeCacheEntry(local_id);
 		std::vector<U32>& ids = avatar->second.mLocalIds;
 		for (std::vector<U32>::iterator it = ids.begin(); it != ids.end(); )
 		{
@@ -1939,8 +2410,9 @@ void LLViewerObjectList::syncAvatarDisplaySuppression()
 		return;
 	}
 	syncing = true;
-	std::vector<LLPointer<LLViewerFetchedTexture> > textures;
-	std::vector<LLUUID> mesh_ids;
+	LLVOAvatar::traceAvatarDisplay(llformat("display_gate_sync mode=%d tracked=%u", gSavedSettings.getS32("AlwaysRenderFriends"), (U32)mAvatarDisplaySuppressed.size()));
+	uuid_set_t meshes;
+	uuid_set_t textures;
 	std::vector<LLCharacter*> characters = LLCharacter::sInstances;
 	for (size_t i = 0; i < characters.size(); ++i)
 	{
@@ -1953,15 +2425,14 @@ void LLViewerObjectList::syncAvatarDisplaySuppression()
 		{
 			continue;
 		}
-		avatar->saveAvatarDisplayRecipe();
-		collectAvatarDisplayResources(avatar, textures, mesh_ids);
+		collectAvatarDisplayResource(avatar, meshes, textures);
+		LLVOAvatar::traceAvatarDisplay(llformat("AVATAR DESTROYED id=%s local=%u mode=%d reason=display_gate_closed", avatar->getID().asString().c_str(), avatar->getLocalID(), gSavedSettings.getS32("AlwaysRenderFriends")));
 		rememberAvatarDisplayObject(avatar->getRegion(), avatar, avatar->getID(), true);
 		killObject(avatar);
 	}
 	cleanDeadObjects(FALSE);
 	killPendingAvatarDisplayOrphans();
-	gTextureList.flushUnreferenced(textures);
-	releaseUnusedAvatarMeshes(mesh_ids);
+	releaseUnreferencedAvatarDisplayResources(*this, meshes, textures);
 	std::vector<LLUUID> bring_back;
 	for (std::map<LLUUID, AvatarDisplaySuppressed>::iterator it = mAvatarDisplaySuppressed.begin(); it != mAvatarDisplaySuppressed.end(); ++it)
 	{
@@ -1979,20 +2450,34 @@ void LLViewerObjectList::syncAvatarDisplaySuppression()
 			continue;
 		}
 		LLViewerRegion* regionp = LLWorld::getInstance()->getRegionFromHandle(found->second.mRegionHandle);
-		if (regionp)
+		if (regionp && !found->second.mLocalIds.empty())
 		{
+			LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS STARTED id=%s locals=%u mode=%d reason=gate_opened_request_full_objects", bring_back[i].asString().c_str(), (U32)found->second.mLocalIds.size(), gSavedSettings.getS32("AlwaysRenderFriends")));
 			for (size_t local_index = 0; local_index < found->second.mLocalIds.size(); ++local_index)
 			{
+				regionp->removeCacheEntry(found->second.mLocalIds[local_index]);
 				regionp->addCacheMissFull(found->second.mLocalIds[local_index]);
 				mAvatarDisplaySuppressedLocals.erase(std::make_pair(found->second.mRegionHandle, found->second.mLocalIds[local_index]));
 				requested = true;
 			}
 		}
+		else if (!regionp)
+		{
+			LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED id=%s mode=%d reason=region_gone", bring_back[i].asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
+			for (size_t local_index = 0; local_index < found->second.mLocalIds.size(); ++local_index)
+			{
+				mAvatarDisplaySuppressedLocals.erase(std::make_pair(found->second.mRegionHandle, found->second.mLocalIds[local_index]));
+			}
+		}
 		else
 		{
-			LLVOAvatar::discardAvatarDisplayRecipe(bring_back[i]);
+			LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED id=%s mode=%d reason=no_simulator_local_id", bring_back[i].asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
 		}
 		mAvatarDisplaySuppressed.erase(found);
+	}
+	if (gSavedSettings.getS32("AlwaysRenderFriends") < 2 && requestAllPendingAvatarDisplayLocals())
+	{
+		requested = true;
 	}
 	if (requested)
 	{

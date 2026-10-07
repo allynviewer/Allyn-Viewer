@@ -33,6 +33,7 @@
 #include "llappviewer.h"
 #include "allynpresence.h"
 #include "allyncrashreport.h"
+#include "llwindebug.h"
 #include "hippogridmanager.h"
 #include "hippolimits.h"
 #include "llversioninfo.h"
@@ -642,6 +643,7 @@ bool LLAppViewer::init()
 	writeDebugInfo();
 	AICurlInterface::initCurl();
 	setupErrorHandling();
+	LLWinDebug::init();
 	{
 		auto fn = boost::bind<bool>([](const LLSD& stateInfo) -> bool {
 			SET_CRASHPAD_ANNOTATION_VALUE(startup_state, stateInfo["str"].asString());
@@ -874,23 +876,6 @@ void LLAppViewer::checkMemory()
 		return ;
 	}
 	mMemCheckTimer.reset() ;
-#if LL_WINDOWS
-	MEMORYSTATUSEX ms = { sizeof(ms) };
-	if (GlobalMemoryStatusEx(&ms))
-	{
-		static bool low = false;
-		const U64 avail_mb = ms.ullAvailPhys >> 20;
-		if (!low && avail_mb < 1024)
-		{
-			low = true;
-		}
-		else if (low && avail_mb > 1536)
-		{
-			low = false;
-		}
-		LLPipeline::throttleNewMemoryAllocation(low);
-	}
-#endif
 	if (gGLManager.mDebugGPU)
 	{
 		LLMemory::updateMemoryInfo() ;
@@ -2361,7 +2346,7 @@ void LLAppViewer::removeMarkerFiles()
 		}
 		else
 		{
-			LL_WARNS("MarkerFile") << "logout marker '"<<mLogoutMarkerFileName<<"' not open"<< LL_ENDL;
+			LLAPRFile::remove(gDirUtilp->getExpandedFilename(LL_PATH_LOGS, LOGOUT_MARKER_FILE_NAME));
 		}
 	}
 	else
@@ -3404,15 +3389,18 @@ void LLAppViewer::sendLogoutRequest()
 			LLVoiceClient::getInstance()->leaveChannel();
 		}
 		gLogoutInProgress = TRUE;
-		mLogoutMarkerFileName = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,LOGOUT_MARKER_FILE_NAME);
-		if (mLogoutMarkerFile.open(mLogoutMarkerFileName, LL_APR_WB) == APR_SUCCESS)
+		if (!mSecondInstance)
 		{
-			LL_INFOS() << "Created logout marker file " << mLogoutMarkerFileName << LL_ENDL;
-			recordMarkerVersion(mLogoutMarkerFile);
-		}
-		else
-		{
-			LL_WARNS() << "Cannot create logout marker file " << mLogoutMarkerFileName << LL_ENDL;
+			mLogoutMarkerFileName = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,LOGOUT_MARKER_FILE_NAME);
+			if (mLogoutMarkerFile.open(mLogoutMarkerFileName, LL_APR_WB) == APR_SUCCESS)
+			{
+				LL_INFOS() << "Created logout marker file " << mLogoutMarkerFileName << LL_ENDL;
+				recordMarkerVersion(mLogoutMarkerFile);
+			}
+			else
+			{
+				LL_WARNS() << "Cannot create logout marker file " << mLogoutMarkerFileName << LL_ENDL;
+			}
 		}
 	}
 }

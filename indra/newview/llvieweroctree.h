@@ -276,7 +276,6 @@ public:
 	BOOL             mOcclusionEnabled;
 	U32              mLODSeed;
 	U32              mLODPeriod;
-	std::vector<LLOcclusionCullingGroup*> mGroups;
 };
 class LLViewerOctreeCull : public OctreeTraveler
 {

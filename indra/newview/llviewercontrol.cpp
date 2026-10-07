@@ -596,7 +596,7 @@ public:
 		}
 	}
 };
-static LLAvatarDisplayFriendObserver sAvatarDisplayFriendObserver;
+static LLAvatarDisplayFriendObserver* sAvatarDisplayFriendObserver = NULL;
 static bool handleRenderFriendsOnlyChanged(const LLSD& newvalue)
 {
 	if (!newvalue.asBoolean())
@@ -791,7 +791,11 @@ void settings_setup_listeners()
 	{
 		avatar_display->getSignal()->connect(boost::bind(&handleAvatarDisplayChanged, _2));
 	}
-	LLAvatarTracker::instance().addObserver(&sAvatarDisplayFriendObserver);
+	if (!sAvatarDisplayFriendObserver)
+	{
+		sAvatarDisplayFriendObserver = new LLAvatarDisplayFriendObserver();
+		LLAvatarTracker::instance().addObserver(sAvatarDisplayFriendObserver);
+	}
 	gSavedSettings.getControl("AscentAvatarXModifier")->getSignal()->connect(boost::bind(&handleAscentAvatarModifier, _2));
 	gSavedSettings.getControl("AscentAvatarYModifier")->getSignal()->connect(boost::bind(&handleAscentAvatarModifier, _2));
 	gSavedSettings.getControl("AscentAvatarZModifier")->getSignal()->connect(boost::bind(&handleAscentAvatarModifier, _2));

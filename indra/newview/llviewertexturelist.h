@@ -109,7 +109,6 @@ public:
 	LLViewerFetchedTexture *findImage(const LLTextureKey &search_key);
 	void dirtyImage(LLViewerFetchedTexture *image);
 	void updateImages(F32 max_time);
-	void flushUnreferenced(const std::vector<LLPointer<LLViewerFetchedTexture> >& images);
 	void forceImmediateUpdate(LLViewerFetchedTexture* imagep) ;
 	void clearImageDecodePriority(LLViewerFetchedTexture* imagep) ;
 	void decodeAllImages(F32 max_decode_time);
@@ -124,6 +123,7 @@ public:
 	void clearFetchingRequests();
 	static S32Megabytes getMinVideoRamSetting();
 	static S32Megabytes getMaxVideoRamSetting(bool get_recommended, float mem_multiplier);
+	void releaseIfCacheOnly(const LLUUID& image_id);
 private:
 	void updateImagesDecodePriorities();
 	F32  updateImagesCreateTextures(F32 max_time);

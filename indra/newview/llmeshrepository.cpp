@@ -1985,29 +1985,50 @@ void LLMeshRepository::shutdown()
 	}
 	LLConvexDecomposition::quitSystem();
 }
-void LLMeshRepository::releaseMesh(const LLUUID& mesh_id)
-{
-	if (mesh_id.isNull())
-	{
-		return;
-	}
-	mSkinMap.erase(mesh_id);
-	mLoadingSkins.erase(mesh_id);
-	decomposition_map::iterator decomp = mDecompositionMap.find(mesh_id);
-	if (decomp != mDecompositionMap.end())
-	{
-		delete decomp->second;
-		mDecompositionMap.erase(decomp);
-	}
-	mLoadingDecompositions.erase(mesh_id);
-}
 void LLMeshRepository::unregisterMesh(LLVOVolume* vobj)
 {
 	for (auto& lod : mLoadingMeshes)
 	{
-		for (auto& param : lod)
+		for (mesh_load_map::iterator param = lod.begin(); param != lod.end(); )
 		{
-			vector_replace_with_last(param.second, vobj);
+			vector_replace_with_last(param->second, vobj);
+			if (param->second.empty())
+			{
+				param = lod.erase(param);
+			}
+			else
+			{
+				++param;
+			}
+		}
+	}
+}
+void LLMeshRepository::dropUnreferencedCache(const LLUUID& mesh_id)
+{
+	if (mesh_id.isNull() || !mMeshMutex || LLApp::isQuitting())
+	{
+		return;
+	}
+	mUnreferencedMeshes.insert(mesh_id);
+	bool skin_busy = false;
+	bool decomp_busy = false;
+	{
+		LLMutexLock lock(mMeshMutex);
+		skin_busy = mLoadingSkins.count(mesh_id) != 0;
+		decomp_busy = mLoadingDecompositions.count(mesh_id) != 0 || mLoadingPhysicsShapes.count(mesh_id) != 0;
+	}
+	if (!skin_busy)
+	{
+		mSkinMap.erase(mesh_id);
+	}
+	if (!decomp_busy)
+	{
+		decomposition_map::iterator iter = mDecompositionMap.find(mesh_id);
+		if (iter != mDecompositionMap.end())
+		{
+			LLModel::Decomposition* decomp = iter->second;
+			mDecompositionMap.erase(iter);
+			delete decomp;
 		}
 	}
 }
@@ -2017,10 +2038,11 @@ S32 LLMeshRepository::loadMesh(LLVOVolume* vobj, const LLVolumeParams& mesh_para
 	{
 		return detail;
 	}
+	mUnreferencedMeshes.erase(mesh_params.getSculptID());
 	{
 		LLMutexLock lock(mMeshMutex);
 		mesh_load_map::iterator iter = mLoadingMeshes[detail].find(mesh_params);
-		if (iter != mLoadingMeshes[detail].end())
+		if (iter != mLoadingMeshes[detail].end() && !iter->second.empty())
 		{
 			auto it = std::find(iter->second.begin(), iter->second.end(), vobj);
 			if (it == iter->second.end()) {
@@ -2229,6 +2251,7 @@ void LLMeshRepository::notifyLoadedMeshes()
 void LLMeshRepository::notifySkinInfoReceived(LLMeshSkinInfo& info)
 {
 	mSkinMap.insert_or_assign(info.mMeshID, info);
+	bool any_live = false;
 	skin_load_map::iterator iter = mLoadingSkins.find(info.mMeshID);
 	if (iter != mLoadingSkins.end())
 	{
@@ -2237,25 +2260,51 @@ void LLMeshRepository::notifySkinInfoReceived(LLMeshSkinInfo& info)
 			LLVOVolume* vobj = (LLVOVolume*) gObjectList.findObject(*obj_id);
 			if (vobj)
 			{
+				any_live = true;
 				vobj->notifyMeshLoaded();
 			}
 		}
 		mLoadingSkins.erase(info.mMeshID);
 	}
+	if (mUnreferencedMeshes.count(info.mMeshID))
+	{
+		S32 live_volumes = gObjectList.notifyVolumesUsingMesh(info.mMeshID);
+		if (!any_live && live_volumes == 0)
+		{
+			mSkinMap.erase(info.mMeshID);
+		}
+		mUnreferencedMeshes.erase(info.mMeshID);
+	}
 }
 void LLMeshRepository::notifyDecompositionReceived(LLModel::Decomposition* decomp)
 {
-	decomposition_map::iterator iter = mDecompositionMap.find(decomp->mMeshID);
+	LLUUID mesh_id = decomp->mMeshID;
+	decomposition_map::iterator iter = mDecompositionMap.find(mesh_id);
 	if (iter == mDecompositionMap.end())
 	{
-		mDecompositionMap[decomp->mMeshID] = decomp;
-		mLoadingDecompositions.erase(decomp->mMeshID);
+		mDecompositionMap[mesh_id] = decomp;
+		mLoadingDecompositions.erase(mesh_id);
 	}
 	else
 	{
 		iter->second->merge(decomp);
-		mLoadingDecompositions.erase(decomp->mMeshID);
+		mLoadingDecompositions.erase(mesh_id);
 		delete decomp;
+	}
+	if (mUnreferencedMeshes.count(mesh_id))
+	{
+		S32 live_volumes = gObjectList.notifyVolumesUsingMesh(mesh_id);
+		if (live_volumes == 0)
+		{
+			iter = mDecompositionMap.find(mesh_id);
+			if (iter != mDecompositionMap.end())
+			{
+				LLModel::Decomposition* stored = iter->second;
+				mDecompositionMap.erase(iter);
+				delete stored;
+			}
+		}
+		mUnreferencedMeshes.erase(mesh_id);
 	}
 }
 void LLMeshRepository::notifyMeshLoaded(const LLVolumeParams& mesh_params, LLVolume* volume)
@@ -2317,6 +2366,7 @@ const LLMeshSkinInfo* LLMeshRepository::getSkinInfo(const LLUUID& mesh_id, const
 {
 	if (mesh_id.notNull())
 	{
+		mUnreferencedMeshes.erase(mesh_id);
 		const auto iter = mSkinMap.find(mesh_id);
 		if (iter != mSkinMap.cend())
 		{
@@ -2338,6 +2388,7 @@ void LLMeshRepository::fetchPhysicsShape(const LLUUID& mesh_id)
 {
 	if (mesh_id.notNull())
 	{
+		mUnreferencedMeshes.erase(mesh_id);
 		LLModel::Decomposition* decomp = NULL;
 		decomposition_map::iterator iter = mDecompositionMap.find(mesh_id);
 		if (iter != mDecompositionMap.end())
@@ -2361,6 +2412,7 @@ LLModel::Decomposition* LLMeshRepository::getDecomposition(const LLUUID& mesh_id
 	LLModel::Decomposition* ret = NULL;
 	if (mesh_id.notNull())
 	{
+		mUnreferencedMeshes.erase(mesh_id);
 		decomposition_map::iterator iter = mDecompositionMap.find(mesh_id);
 		if (iter != mDecompositionMap.end())
 		{

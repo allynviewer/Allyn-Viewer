@@ -577,10 +577,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot, boo
 				const LLMatrix4a saved_mod = glh_get_current_modelview();
 				gGL.setViewport(0,0,512,512);
 				LLVOAvatar::updateFreezeCounter() ;
-				if(!LLPipeline::sMemAllocationThrottled)
-				{
-					LLVOAvatar::updateImpostors();
-				}
+				LLVOAvatar::updateImpostors();
 				glh_set_current_projection(saved_proj);
 				glh_set_current_modelview(saved_mod);
 				gGL.matrixMode(LLRender::MM_PROJECTION);

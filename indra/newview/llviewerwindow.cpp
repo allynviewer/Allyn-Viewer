@@ -1147,11 +1147,23 @@ BOOL LLViewerWindow::handleTimerEvent(LLWindow *window)
 	}
 	return FALSE;
 }
+static void doJoystickDeviceInit()
+{
+	__try {
+		LLViewerJoystick::getInstance()->init(true);
+	} __except(EXCEPTION_EXECUTE_HANDLER) {
+	}
+}
+static bool sJoystickDeviceInitTentou = false;
 BOOL LLViewerWindow::handleDeviceChange(LLWindow *window)
 {
 	if (!LLViewerJoystick::getInstance()->isJoystickInitialized() )
 	{
-		LLViewerJoystick::getInstance()->init(true);
+		if (!sJoystickDeviceInitTentou)
+		{
+			sJoystickDeviceInitTentou = true;
+			doJoystickDeviceInit();
+		}
 		return TRUE;
 	}
 	return FALSE;
@@ -3394,10 +3406,6 @@ bool LLViewerWindow::rawRawSnapshot(LLImageRaw *raw,
 	BOOL do_rebuild, ESnapshotType type, S32 max_size, F32 supersample, bool uncrop)
 {
 	if (!raw)
-	{
-		return false;
-	}
-	if(LLPipeline::sMemAllocationThrottled)
 	{
 		return false;
 	}

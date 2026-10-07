@@ -30,6 +30,12 @@ namespace
 	const size_t kSessionKeep = 1024 * 1024;
 	bool sSegunda = false;
 	bool sEnvioPedido = false;
+	char sSessionLog[MAX_PATH];
+	char sPendingLog[MAX_PATH];
+	char sEvento[MAX_PATH];
+	char sStaticSrc[MAX_PATH];
+	char sStaticDst[MAX_PATH];
+	volatile LONG sPendenteEscrito = 0;
 
 	std::string arquivoLog(const char* nome)
 	{
@@ -39,6 +45,25 @@ namespace
 	std::string arquivoDebug(const char* nome)
 	{
 		return gDirUtilp->getExpandedFilename(LL_PATH_DUMP, nome);
+	}
+
+	void copiarCaminho(char* dst, const std::string& src)
+	{
+		if (src.empty() || src.size() >= MAX_PATH)
+		{
+			dst[0] = 0;
+			return;
+		}
+		memcpy(dst, src.c_str(), src.size() + 1);
+	}
+
+	void guardarCaminhos()
+	{
+		copiarCaminho(sSessionLog, arquivoLog("Allyn-session.log"));
+		copiarCaminho(sPendingLog, arquivoLog("Allyn-session.pending.log"));
+		copiarCaminho(sEvento, arquivoLog("Allyn-crash.event"));
+		copiarCaminho(sStaticSrc, arquivoDebug("static_debug_info.log"));
+		copiarCaminho(sStaticDst, arquivoLog("Allyn-debug-static.pending.xml"));
 	}
 
 	bool existe(const std::string& path)
@@ -490,11 +515,57 @@ private:
 	std::string mHash;
 };
 
+void AllynCrashReport::gravarPendenteDeExcecao(unsigned long codigo)
+{
+	if (sPendingLog[0] == 0)
+		return;
+	if (InterlockedCompareExchange(&sPendenteEscrito, 1, 0) != 0)
+		return;
+	HANDLE mutex = CreateMutexA(NULL, FALSE, "Local\\AllynViewerCrashPending");
+	bool dono = false;
+	if (mutex)
+	{
+		DWORD espera = WaitForSingleObject(mutex, 2000);
+		dono = espera == WAIT_OBJECT_0 || espera == WAIT_ABANDONED;
+	}
+	CopyFileA(sSessionLog, sPendingLog, FALSE);
+	CopyFileA(sStaticSrc, sStaticDst, FALSE);
+	HANDLE arquivo = CreateFileA(sPendingLog, FILE_APPEND_DATA, FILE_SHARE_READ, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	if (arquivo != INVALID_HANDLE_VALUE)
+	{
+		char linha[40];
+		memcpy(linha, "Excecao Windows 0x", 17);
+		unsigned long valor = codigo;
+		for (int i = 7; i >= 0; --i)
+		{
+			linha[17 + i] = "0123456789ABCDEF"[valor & 0xF];
+			valor >>= 4;
+		}
+		linha[25] = '\r';
+		linha[26] = '\n';
+		DWORD escrito = 0;
+		WriteFile(arquivo, linha, 27, &escrito, NULL);
+		CloseHandle(arquivo);
+	}
+	HANDLE evento = CreateFileA(sEvento, GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	if (evento != INVALID_HANDLE_VALUE)
+	{
+		DWORD escrito = 0;
+		WriteFile(evento, "OTHER_CRASH", 11, &escrito, NULL);
+		CloseHandle(evento);
+	}
+	if (dono)
+		ReleaseMutex(mutex);
+	if (mutex)
+		CloseHandle(mutex);
+}
+
 void AllynCrashReport::prepararSessao(bool segundaInstancia)
 {
 	sSegunda = segundaInstancia;
 	if (!gDirUtilp)
 		return;
+	guardarCaminhos();
 	if (segundaInstancia)
 		return;
 	apagarNaoEssenciais();
@@ -505,8 +576,23 @@ void AllynCrashReport::prepararSessao(bool segundaInstancia)
 		std::string pending = arquivoLog("Allyn-session.pending.log");
 		if (existe(session))
 		{
-			apagarSeExistir(pending);
-			LLFile::rename(session, pending);
+			llstat stPending;
+			llstat stSession;
+			bool pendingMaior = LLFile::stat(pending, &stPending) == 0 && LLFile::stat(session, &stSession) == 0 && stPending.st_size >= stSession.st_size && stPending.st_size > 64;
+			if (pendingMaior)
+				apagarSeExistir(session);
+			else
+			{
+				std::string extra = existe(pending) ? lerFinal(pending, 128) : std::string();
+				apagarSeExistir(pending);
+				LLFile::rename(session, pending);
+				if (!extra.empty())
+				{
+					std::ofstream out(pending.c_str(), std::ios::binary | std::ios::app);
+					if (out)
+						out << extra;
+				}
+			}
 		}
 		std::string estatico = arquivoDebug("static_debug_info.log");
 		if (existe(estatico))
@@ -531,14 +617,38 @@ void AllynCrashReport::descartarSessaoLimpa()
 
 void AllynCrashReport::enviarSePendente()
 {
-	if (sSegunda || sEnvioPedido || !gDirUtilp)
+	if (sEnvioPedido || !gDirUtilp)
 		return;
+	HANDLE mutex = CreateMutexA(NULL, FALSE, "Local\\AllynViewerCrashSend");
+	if (mutex)
+	{
+		DWORD espera = WaitForSingleObject(mutex, 0);
+		if (espera != WAIT_OBJECT_0 && espera != WAIT_ABANDONED)
+		{
+			CloseHandle(mutex);
+			return;
+		}
+	}
 	if (gSavedSettings.getS32("CrashSubmitBehavior") == 0)
+	{
+		if (mutex)
+		{
+			ReleaseMutex(mutex);
+			CloseHandle(mutex);
+		}
 		return;
+	}
 	std::string sessionPending = arquivoLog("Allyn-session.pending.log");
 	std::string staticPending = arquivoLog("Allyn-debug-static.pending.xml");
 	if (!existe(sessionPending) && !existe(staticPending))
+	{
+		if (mutex)
+		{
+			ReleaseMutex(mutex);
+			CloseHandle(mutex);
+		}
 		return;
+	}
 
 	std::string log = limparTexto(lerFinal(sessionPending, 150 * 1024));
 	if (log.size() > kLogMax)
@@ -597,7 +707,9 @@ void AllynCrashReport::enviarSePendente()
 	if (!gl.empty() && gl[gl.size() - 1] == '\n')
 		gl.erase(gl.size() - 1);
 
-	std::string motivo = ultimaLinhaCom(log, "ERROR:");
+	std::string motivo = ultimaLinhaCom(log, "Excecao Windows");
+	if (motivo.empty())
+		motivo = ultimaLinhaCom(log, "ERROR:");
 	if (motivo.empty())
 		motivo = blocoFatal(log);
 	if (motivo.empty())
@@ -636,6 +748,11 @@ void AllynCrashReport::enviarSePendente()
 	if (lerEnviado() == hash)
 	{
 		limparPendentes();
+		if (mutex)
+		{
+			ReleaseMutex(mutex);
+			CloseHandle(mutex);
+		}
 		return;
 	}
 	U8* raw = new U8[payload.size()];
