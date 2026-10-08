@@ -96,7 +96,10 @@ void LLFloaterGroupBulkBan::showForGroup(const LLUUID& group_id, uuid_vec_t* age
 	{
 		fgb->mImpl->mBulkBanPanelp->addUsers(*agent_ids);
 	}
-	fgb->center();
+	if (!fgb->hasUserGeometry())
+	{
+		fgb->center();
+	}
 	fgb->open();
 	fgb->mImpl->mBulkBanPanelp->update();
 }

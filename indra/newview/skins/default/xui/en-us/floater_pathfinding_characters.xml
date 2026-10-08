@@ -13,7 +13,6 @@
     name="floater_pathfinding_characters"
     help_topic="floater_pathfinding_characters"
     reuse_instance="true"
-    save_rect="false"
     single_instance="true"
     title="Pathfinding characters">
   <string name="messaging_initial"></string>

@@ -78,7 +78,10 @@ LLFloaterBuyCurrencyUI* LLFloaterBuyCurrencyUI::soleInstance(bool createIfNeeded
 	{
 		sInstance = new LLFloaterBuyCurrencyUI();
 		LLUICtrlFactory::getInstance()->buildFloater(sInstance, "floater_buy_currency.xml");
-		sInstance->center();
+		if (!sInstance->hasUserGeometry())
+		{
+			sInstance->center();
+		}
 	}
 	return sInstance;
 }

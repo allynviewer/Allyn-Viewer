@@ -255,7 +255,10 @@ static void on_avatar_name_show_profile(const LLUUID& agent_id, const LLAvatarNa
 		if(!floater)
 		{
 			floater = new LLFloaterAvatarInfo(av_name.getCompleteName()+" - "+LLTrans::getString("Command_Profile_Label"), agent_id);
-			floater->center();
+			if (!floater->hasUserGeometry())
+			{
+				floater->center();
+			}
 		}
 		floater->open();
 	}
@@ -738,7 +741,10 @@ void LLAvatarActions::inviteToGroup(const uuid_vec_t& ids)
 	LLFloaterGroupPicker* widget = LLFloaterGroupPicker::showInstance(LLSD(ids.front()));
 	if (widget)
 	{
-		widget->center();
+		if (!widget->hasUserGeometry())
+		{
+			widget->center();
+		}
 		widget->setPowersMask(GP_MEMBER_INVITE);
 		widget->removeNoneOption();
 		widget->setSelectGroupCallback(boost::bind(callback_invite_to_group, _1, ids));
@@ -794,7 +800,10 @@ void ban_from_group(const uuid_vec_t& ids)
 {
 	if (LLFloaterGroupPicker* widget = LLFloaterGroupPicker::showInstance(ids.front()))
 	{
-		widget->center();
+		if (!widget->hasUserGeometry())
+		{
+			widget->center();
+		}
 		widget->setPowersMask(GP_GROUP_BAN_ACCESS);
 		widget->removeNoneOption();
 		widget->setSelectGroupCallback(boost::bind(callback_ban_from_group, _1, ids));

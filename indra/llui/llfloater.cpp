@@ -344,6 +344,10 @@ void LLFloater::initFloater(const std::string& title,
 	setBackgroundVisible(TRUE);
 	mMinimized = FALSE;
 	mExpandedRect.set(0,0,0,0);
+	mSaveRect = TRUE;
+	mSuppressAutoRect = FALSE;
+	mGeometryCommitted = FALSE;
+	mHasUserGeometry = false;
 	S32 close_box_size;
 	if (close_btn)
 	{
@@ -493,6 +497,14 @@ LLFloater::~LLFloater()
 	mFloaterControls.clear();
 	releaseFocus();
 	setMinimized( FALSE );
+	if (getHost())
+	{
+		setRectControl(std::string());
+	}
+	else
+	{
+		storeRectControl();
+	}
 	sFloaterMap.erase(getHandle());
 	delete mDragHandle;
 	for (S32 i = 0; i < 4; i++)
@@ -532,6 +544,10 @@ void LLFloater::setVisible( BOOL visible )
 }
 void LLFloater::open()
 {
+	if (!mGeometryCommitted)
+	{
+		commitGeometryPersistence();
+	}
 	if (getSoundFlags() != SILENT
 		&& !getHost()
 		&& !getFloaterHost()
@@ -623,6 +639,10 @@ void LLFloater::close(bool app_quitting)
 		cleanupHandles();
 		if (!app_quitting && !getControlName().empty())
 			setControlValue(false);
+		if (!getHost())
+		{
+			storeRectControl();
+		}
 		onClose(app_quitting);
 	}
 }
@@ -678,16 +698,156 @@ void LLFloater::center()
 }
 void LLFloater::applyRectControl()
 {
-	if (!getRectControl().empty())
+	if (getRectControl().empty() || getHost() || !LLUI::sConfigGroup
+		|| !LLUI::sConfigGroup->controlExists(getRectControl()))
 	{
-		const LLRect& rect = LLUI::sConfigGroup->getRect(getRectControl());
-		translate( rect.mLeft - getRect().mLeft, rect.mBottom - getRect().mBottom);
-		if (mResizable)
+		applyRoundedContentInsets();
+		return;
+	}
+	const LLRect saved = LLUI::sConfigGroup->getRect(getRectControl());
+	if (saved.getWidth() <= 0 || saved.getHeight() <= 0)
+	{
+		applyRoundedContentInsets();
+		return;
+	}
+	if (mResizable && !isMinimized())
+	{
+		S32 width = llmax(mMinWidth, saved.getWidth());
+		S32 height = llmax(mMinHeight, saved.getHeight());
+		if (LLView* parent = getParent())
 		{
-			reshape(llmax(mMinWidth, rect.getWidth()), llmax(mMinHeight, rect.getHeight()));
+			const LLRect limit = parent->getLocalSnapRect();
+			if (limit.getWidth() > 0)
+			{
+				width = llmin(width, llmax(mMinWidth, limit.getWidth()));
+			}
+			if (limit.getHeight() > 0)
+			{
+				height = llmin(height, llmax(mMinHeight, limit.getHeight()));
+			}
+		}
+		reshape(width, height);
+	}
+	const S32 bottom = saved.mTop - getRect().getHeight();
+	translate(saved.mLeft - getRect().mLeft, bottom - getRect().mBottom);
+	keepInsideParent();
+	applyRoundedContentInsets();
+}
+void LLFloater::storeRectControl()
+{
+	if (getHost() || getRectControl().empty() || !LLUI::sConfigGroup
+		|| !LLUI::sConfigGroup->controlExists(getRectControl()))
+	{
+		return;
+	}
+	LLRect rect = getRect();
+	if (isMinimized())
+	{
+		if (mExpandedRect.getWidth() <= 0 || mExpandedRect.getHeight() <= 0)
+		{
+			return;
+		}
+		rect = mExpandedRect;
+	}
+	if (rect.getWidth() <= 0 || rect.getHeight() <= 0)
+	{
+		return;
+	}
+	if (mResizable && (rect.getWidth() < mMinWidth || rect.getHeight() < mMinHeight))
+	{
+		return;
+	}
+	LLUI::sConfigGroup->setRect(getRectControl(), rect);
+	mHasUserGeometry = true;
+}
+std::string LLFloater::defaultRectControlName() const
+{
+	std::string out(automaticRectPrefix());
+	const std::string& raw = getName();
+	for (std::string::size_type i = 0; i < raw.size() && out.size() < 96; ++i)
+	{
+		const char c = raw[i];
+		if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
+		{
+			out.push_back(c);
+		}
+		else
+		{
+			out.push_back('_');
 		}
 	}
-	applyRoundedContentInsets();
+	return out;
+}
+void LLFloater::keepInsideParent()
+{
+	if (getHost() || isMinimized())
+	{
+		return;
+	}
+	LLView* parent = getParent();
+	if (!parent)
+	{
+		return;
+	}
+	const LLRect area = parent->getLocalSnapRect();
+	if (area.getWidth() <= 0 || area.getHeight() <= 0)
+	{
+		return;
+	}
+	if (!area.overlaps(getRect()))
+	{
+		translateIntoRect(area, TRUE);
+	}
+}
+bool LLFloater::commitGeometryPersistence()
+{
+	if (mGeometryCommitted)
+	{
+		return mHasUserGeometry;
+	}
+	mGeometryCommitted = TRUE;
+	mHasUserGeometry = false;
+	if (getHost() || !LLUI::sConfigGroup)
+	{
+		applyRoundedContentInsets();
+		return false;
+	}
+	if (getRectControl().empty())
+	{
+		if (!mSaveRect || mSuppressAutoRect || !canPersistGeometry() || getName().empty())
+		{
+			applyRoundedContentInsets();
+			return false;
+		}
+		const std::string name = defaultRectControlName();
+		const bool existed = LLUI::sConfigGroup->controlExists(name);
+		LLUI::sConfigGroup->declareRect(name, getRect(), std::string("Saved geometry for ") + getName());
+		setRectControl(name);
+		if (!existed)
+		{
+			applyRoundedContentInsets();
+			return false;
+		}
+		mHasUserGeometry = true;
+	}
+	else if (!LLUI::sConfigGroup->controlExists(getRectControl()))
+	{
+		LLUI::sConfigGroup->declareRect(getRectControl(), getRect(), std::string("Saved geometry for ") + getName());
+		applyRoundedContentInsets();
+		return false;
+	}
+	else if (LLControlVariable* control = LLUI::sConfigGroup->getControl(getRectControl()))
+	{
+		const std::string& comment = control->getComment();
+		const std::string marker("Saved geometry");
+		if (comment.compare(0, marker.size(), marker) == 0)
+		{
+			LLUI::sConfigGroup->declareRect(getRectControl(), getRect(), comment);
+		}
+		mHasUserGeometry = !control->isSaveValueDefault();
+	}
+	applyRectControl();
+	return mHasUserGeometry;
 }
 bool LLFloater::isFloaterChromeChild(LLView* child) const
 {
@@ -1396,6 +1556,11 @@ void LLFloater::onClickClose()
 }
 void LLFloater::draw()
 {
+	if (!getHost() && !isMinimized() && getParent() && getParent() != gFloaterView
+		&& !gFocusMgr.getMouseCapture())
+	{
+		keepInsideParent();
+	}
 	const F32 alpha = getCurrentTransparency();
 	bool drew_rounded_chrome = false;
 	if( isBackgroundVisible() )
@@ -2344,7 +2509,10 @@ void LLFloater::initFloaterXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactor
 	node->getAttributeString("name", name);
 	node->getAttributeString("title", title);
 	node->getAttributeString("short_title", short_title);
+	const bool saw_rect_control = node->hasAttribute("rect_control");
+	BOOL save_rect = TRUE;
 	node->getAttributeString("rect_control", rect_control);
+	node->getAttributeBOOL("save_rect", save_rect);
 	node->getAttributeBOOL("can_resize", resizable);
 	node->getAttributeBOOL("can_minimize", minimizable);
 	node->getAttributeBOOL("can_close", close_btn);
@@ -2365,6 +2533,8 @@ void LLFloater::initFloaterXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactor
 			drag_on_left,
 			minimizable,
 			close_btn);
+	mSaveRect = save_rect;
+	mSuppressAutoRect = saw_rect_control && rect_control.empty();
 	setTitle(title);
 	applyTitle ();
 	setShortTitle(short_title);
@@ -2399,7 +2569,15 @@ void LLFloater::initFloaterXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactor
 	{
 		LL_ERRS() << "Failed to construct floater " << name << LL_ENDL;
 	}
-	applyRectControl();
+	if (!parent || !getRectControl().empty())
+	{
+		commitGeometryPersistence();
+	}
+	else
+	{
+		mGeometryCommitted = TRUE;
+		applyRoundedContentInsets();
+	}
 	if (open)
 	{
 		this->open();

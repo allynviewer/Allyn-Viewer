@@ -36,6 +36,7 @@
 #include "llmenugl.h"
 #include "llfocusmgr.h"
 #include "llwindow.h"
+#include "llfloater.h"
 LLResizeBar::LLResizeBar(const LLResizeBar::Params& p)
 :	LLView(p),
 	mDragLastScreenX( 0 ),
@@ -91,6 +92,10 @@ BOOL LLResizeBar::handleMouseUp(S32 x, S32 y, MASK mask)
 	BOOL	handled = FALSE;
 	if( hasMouseCapture() )
 	{
+		if (LLFloater* floater = dynamic_cast<LLFloater*>(getParent()))
+		{
+			floater->storeRectControl();
+		}
 		gFocusMgr.setMouseCapture( NULL );
 		handled = TRUE;
 	}

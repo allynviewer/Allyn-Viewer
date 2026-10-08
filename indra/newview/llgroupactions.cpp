@@ -414,7 +414,10 @@ LLFloaterGroupInfo* LLGroupActions::openGroupProfile(const LLUUID& group_id)
 {
 	LLFloaterGroupInfo* fgi = LLFloaterGroupInfo::getInstance(group_id);
 	if (!fgi) fgi = new LLFloaterGroupInfo(group_id);
-	fgi->center();
+	if (!fgi->hasUserGeometry())
+	{
+		fgi->center();
+	}
 	fgi->open();
 	return fgi;
 }

@@ -2,13 +2,13 @@
 <floater
  can_close="true"
  can_tear_off="false"
- height="290"
+ height="340"
  help_topic="object_weights"
  name="object_weights"
  save_rect="true"
  single_instance="true"
  title="Advanced Object Weights"
- width="200">
+ width="280">
     <floater.string
      name="nothing_selected"
      value="--"/>
@@ -21,7 +21,7 @@
      font-style="BOLD"
      bottom="-36"
      value="SELECTED"
-     width="180" />
+     width="250" />
     <text
      follows="left|top"
      halign="right"
@@ -38,7 +38,7 @@
      name="objects_label"
      bottom_delta="0"
      value="Objects"
-     width="130" />
+     width="190" />
     <text
      follows="left|top"
      halign="right"
@@ -55,7 +55,7 @@
      name="prims_label"
      bottom_delta="0"
      value="Prims"
-     width="130" />
+     width="190" />
     <view_border
      bevel_style="none"
      follows="top|left"
@@ -63,7 +63,7 @@
      left="10"
      name="selected_text_border"
      bottom_delta="-6"
-     width="180"/>
+     width="250"/>
 
 
     <text
@@ -74,7 +74,7 @@
      font-style="BOLD"
      bottom_delta="-22"
      value="WEIGHTS OF SELECTED"
-     width="180" />
+     width="250" />
     <text
      follows="left|top"
      halign="right"
@@ -91,7 +91,7 @@
      name="download_label"
      bottom_delta="0"
      value="Download"
-     width="130" />
+     width="190" />
     <text
      follows="left|top"
      halign="right"
@@ -108,7 +108,7 @@
      name="physics_label"
      bottom_delta="0"
      value="Physics"
-     width="130" />
+     width="190" />
     <text
      follows="left|top"
      halign="right"
@@ -125,7 +125,7 @@
      name="server_label"
      bottom_delta="0"
      value="Server"
-     width="130" />
+     width="190" />
     <text
      follows="left|top"
      halign="right"
@@ -142,7 +142,7 @@
      name="display_label"
      bottom_delta="0"
      value="Display"
-     width="130" />
+     width="190" />
     <view_border
      bevel_style="none"
      follows="top|left"
@@ -150,7 +150,7 @@
      left="10"
      name="weights_text_border"
      bottom_delta="-6"
-     width="180"/>
+     width="250"/>
 
 
     <text
@@ -161,7 +161,7 @@
      font-style="BOLD"
      bottom_delta="-24"
      value="LAND IMPACTS"
-     width="180" />
+     width="250" />
     <text
      follows="left|top"
      halign="right"
@@ -178,7 +178,7 @@
      name="selected_label"
      bottom_delta="0"
      value="Selected"
-     width="130" />
+     width="190" />
     <text
      follows="left|top"
      halign="right"
@@ -195,7 +195,7 @@
      name="rezzed_on_land_label"
      bottom_delta="0"
      value="Rezzed on land"
-     width="130" />
+     width="190" />
     <text
      follows="left|top"
      halign="right"
@@ -212,7 +212,7 @@
      name="remaining_capacity_label"
      bottom_delta="0"
      value="Remaining capacity"
-     width="130" />
+     width="190" />
     <text
      follows="left|top"
      halign="right"
@@ -229,5 +229,5 @@
      name="total_capacity_label"
      bottom_delta="0"
      value="Total capacity"
-     width="130" />
+     width="190" />
 </floater>

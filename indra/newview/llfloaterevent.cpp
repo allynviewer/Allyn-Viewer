@@ -72,7 +72,10 @@ LLFloaterEventInfo* LLFloaterEventInfo::show(const U32 event_id)
 	else
 	{
 		floater =  new LLFloaterEventInfo("eventinfo", event_id );
-		floater->center();
+		if (!floater->hasUserGeometry())
+		{
+			floater->center();
+		}
 		floater->open();
 		floater->displayEventInfo(event_id);
 		floater->setFrontmost(true);

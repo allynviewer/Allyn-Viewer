@@ -25,7 +25,10 @@ void LLFloaterAllynUpdate::offer(const LLSD& info)
 	if (floater)
 	{
 		floater->setUpdateInfo(info);
-		floater->center();
+		if (!floater->hasUserGeometry())
+		{
+			floater->center();
+		}
 	}
 }
 

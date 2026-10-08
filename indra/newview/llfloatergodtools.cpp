@@ -70,7 +70,10 @@
 const F32 SECONDS_BETWEEN_UPDATE_REQUESTS = 5.0f;
 void LLFloaterGodTools::onOpen()
 {
-	center();
+	if (!hasUserGeometry())
+	{
+		center();
+	}
 	setFocus(TRUE);
 	LLPanel *panel = childGetVisibleTab("GodTools Tabs");
 	if (panel) panel->setFocus(TRUE);

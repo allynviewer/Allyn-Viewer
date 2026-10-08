@@ -88,6 +88,10 @@ BOOL LLResizeHandle::handleMouseUp(S32 x, S32 y, MASK mask)
 	BOOL	handled = FALSE;
 	if( hasMouseCapture() )
 	{
+		if (LLFloater* floater = dynamic_cast<LLFloater*>(getParent()))
+		{
+			floater->storeRectControl();
+		}
 		gFocusMgr.setMouseCapture( NULL );
 		handled = TRUE;
 	}

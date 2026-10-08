@@ -77,7 +77,10 @@ void LLFloaterAuction::show()
 	if(!sInstance)
 	{
 		sInstance = new LLFloaterAuction();
-		sInstance->center();
+		if (!sInstance->hasUserGeometry())
+		{
+			sInstance->center();
+		}
 		sInstance->setFocus(TRUE);
 	}
 	sInstance->open();

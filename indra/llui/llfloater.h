@@ -123,6 +123,9 @@ public:
 	void			releaseFocus();
 	void			center();
 	void			applyRectControl();
+	void			storeRectControl();
+	bool			commitGeometryPersistence();
+	bool			hasUserGeometry() const { return mHasUserGeometry; }
 	LLMultiFloater* getHost() { return (LLMultiFloater*)mHostHandle.get(); }
 	void			applyTitle();
 	const std::string&	getCurrentTitle() const;
@@ -184,7 +187,9 @@ public:
 	static LLMultiFloater*		getFloaterHost() {return sHostp; }
 	void			updateTransparency(ETypeTransparency transparency_type);
 	void			enableResizeCtrls(bool enable, bool width = true, bool height = true);
+	static const char* automaticRectPrefix() { return "FloaterSavedRect_"; }
 protected:
+	virtual bool	canPersistGeometry() const { return true; }
 	virtual void	bringToFront(S32 x, S32 y);
 	virtual void	setVisibleAndFrontmost(BOOL take_focus=TRUE);
 	void		setExpandedRect(const LLRect& rect) { mExpandedRect = rect; }
@@ -203,6 +208,8 @@ private:
 	void			layoutResizeCtrls();
 	void			applyRoundedContentInsets();
 	bool			isFloaterChromeChild(LLView* child) const;
+	void			keepInsideParent();
+	std::string		defaultRectControlName() const;
 	static void		updateActiveFloaterTransparency();
 	static void		updateInactiveFloaterTransparency();
 	void			updateTransparency(LLView* view, ETypeTransparency transparency_type);
@@ -252,6 +259,10 @@ private:
 	S32				mPreviousMinimizedBottom;
 	S32				mPreviousMinimizedLeft;
 	LLFloaterNotificationContext* mNotificationContext;
+	BOOL			mSaveRect;
+	BOOL			mSuppressAutoRect;
+	BOOL			mGeometryCommitted;
+	bool			mHasUserGeometry;
 };
 class LLFloaterView : public LLUICtrl
 {

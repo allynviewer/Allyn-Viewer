@@ -74,7 +74,10 @@ void LLFloaterOpenObject::show()
 	if (!sInstance)
 	{
 		sInstance = new LLFloaterOpenObject();
-		sInstance->center();
+		if (!sInstance->hasUserGeometry())
+		{
+			sInstance->center();
+		}
 	}
 	sInstance->open();
 	sInstance->setFocus(TRUE);

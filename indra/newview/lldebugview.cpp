@@ -67,6 +67,7 @@ LLDebugView::LLDebugView(const std::string& name, const LLRect &rect)
 	mFastTimerView->setFollowsLeft();
 	mFastTimerView->setVisible(FALSE);
 	addChild(mFastTimerView);
+	mFastTimerView->applyRectControl();
 	r.set(150, rect.getHeight() - 50, 970, 100);
 	LLTextureView::Params tvp;
 	tvp.name("gTextureView");

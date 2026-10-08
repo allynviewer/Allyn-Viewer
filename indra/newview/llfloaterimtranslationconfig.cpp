@@ -54,7 +54,10 @@ void LLFloaterIMTranslationConfig::show(LLFloaterIMPanel* panel)
 		old->close();
 	}
 	sInstance = new LLFloaterIMTranslationConfig(panel);
-	sInstance->center();
+	if (!sInstance->hasUserGeometry())
+	{
+		sInstance->center();
+	}
 	sInstance->open();
 }
 BOOL LLFloaterIMTranslationConfig::postBuild()

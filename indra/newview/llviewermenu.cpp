@@ -6746,7 +6746,10 @@ void handle_buy_currency_test(void*)
 	LL_INFOS() << "buy currency url " << url << LL_ENDL;
 	LLFloaterHtmlCurrency* floater = LLFloaterHtmlCurrency::showInstance(url);
 	floater->setTrusted(true);
-	floater->center();
+	if (!floater->hasUserGeometry())
+	{
+		floater->center();
+	}
 }
 void handle_rebake_textures(void*)
 {

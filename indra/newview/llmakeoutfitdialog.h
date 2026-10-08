@@ -39,6 +39,7 @@ private:
 	std::vector<std::pair<std::string,S32> > mCheckBoxList;
 public:
 	LLMakeOutfitDialog(bool modal = true);
+	void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 	void draw();
 	BOOL postBuild();
 	void refresh();

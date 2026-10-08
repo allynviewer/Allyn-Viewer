@@ -87,6 +87,32 @@ BOOL LLFloaterWebContent::postBuild()
 	getChildView("popexternal")->setEnabled( true );
 	mSecureLockIcon = getChild< LLIconCtrl >("media_secure_lock_flag");
 	initializeURLHistory();
+	Params params(mKey);
+	if (params.validateBlock() && params.show_chrome.getValue())
+	{
+		const std::string window_class = params.window_class.getValue();
+		if (window_class.empty() || window_class == "web_content")
+		{
+			setRectControl("FloaterMediaRect");
+		}
+		else if (window_class != "search")
+		{
+			std::string control = "FloaterWebRect_";
+			for (std::string::size_type i = 0; i < window_class.size() && control.size() < 96; ++i)
+			{
+				const char c = window_class[i];
+				if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
+				{
+					control.push_back(c);
+				}
+				else
+				{
+					control.push_back('_');
+				}
+			}
+			setRectControl(control);
+		}
+	}
 	return TRUE;
 }
 void LLFloaterWebContent::initializeURLHistory()
@@ -240,11 +266,6 @@ void LLFloaterWebContent::open_media(const Params& p)
 	if (!p.show_chrome)
 	{
 		setResizeLimits(100, 100);
-	}
-	else
-	{
-		setRectControl("FloaterMediaRect");
-		applyRectControl();
 	}
 	if (!p.preferred_media_size().isEmpty())
 	{

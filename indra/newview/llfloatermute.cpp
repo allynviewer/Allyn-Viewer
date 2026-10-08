@@ -90,7 +90,7 @@ LLFloaterMuteObjectUI* LLFloaterMuteObjectUI::show(callback_t callback,
 	sInstance->mCallback = callback;
 	sInstance->mCallbackUserData = userdata;
 	sInstance->open();
-	if (firstInstantiation)
+	if (firstInstantiation && !sInstance->hasUserGeometry())
 	{
 		sInstance->center();
 	}

@@ -85,7 +85,10 @@ void LLFloaterBuy::show(const LLSaleInfo& sale_info)
 	sInstance->setFocus(TRUE);
 	sInstance->mSaleInfo = sale_info;
 	sInstance->mObjectSelection = LLSelectMgr::getInstance()->getEditSelection();
-	sInstance->center();
+	if (!sInstance->hasUserGeometry())
+	{
+		sInstance->center();
+	}
 	LLSelectNode* node = selection->getFirstRootNode();
 	if (!node)
 		return;

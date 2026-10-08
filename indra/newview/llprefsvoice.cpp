@@ -138,7 +138,10 @@ void LLPrefsVoice::apply()
 	{
 		auto inst = LLFloaterTOS::show(LLFloaterTOS::TOS_VOICE);
 		inst->open();
-		inst->center();
+		if (!inst->hasUserGeometry())
+		{
+			inst->center();
+		}
 	}
 	else
 	{

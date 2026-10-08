@@ -39,16 +39,17 @@
 	     text_color="TextFgColor" text_tentative_color="TextFgTentativeColor"
 	     cursor_color="TextCursorColor"
 	     commit_on_focus_lost="false" enabled="true" follows="right|bottom"
-	     font="SansSerifSmall" height="27" image="button_enabled_32x128.tga"
+	     font="SansSerifSmall" height="27" image="sm_rounded_corners_simple.tga"
 	     label="Search" left="-247" max_length="254" mouse_opaque="true"
 	     name="search_editor" select_all_on_focus_received="false" valign="center"
 	     select_on_focus="false" tool_tip="Search" width="226"
 	     spell_check="true"/>
-	<button bottom="7" enabled="true" follows="right|bottom" font="SansSerifSmall"
-	     height="16" image_unselected="status_search_btn.png"
-	     image_selected="status_search_btn_pressed.png"
-	     image_disabled_selected="status_search_btn_pressed.png"
-	     image_disabled="status_search_btn.png" label="" left="-20"
-	     mouse_opaque="true" name="search_btn" tool_tip="Search" width="16"
-	     scale_image="false"/>
+	<button bottom="1" enabled="true" follows="left|bottom" font="SansSerifSmall"
+	     height="27" image_unselected="square_btn_32x128.tga"
+	     image_selected="square_btn_selected_32x128.tga"
+	     image_disabled="square_btn_32x128.tga"
+	     image_disabled_selected="square_btn_selected_32x128.tga"
+	     image_overlay="nav_search_icon.png" label="" left="0"
+	     mouse_opaque="true" name="search_btn" scale_image="true"
+	     tool_tip="Search" width="16"/>
 </panel>

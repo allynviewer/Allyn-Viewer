@@ -255,7 +255,11 @@ void LLFloaterEditUI::refreshButton(LLView* view)
 void LLFloaterEditUI::show(void*)
 {
 	LLFloaterEditUI* self = new LLFloaterEditUI();
-	self->center();
+	self->commitGeometryPersistence();
+	if (!self->hasUserGeometry())
+	{
+		self->center();
+	}
 	self->open();
 }
 BOOL LLFloaterEditUI::processKeystroke(KEY key, MASK mask)

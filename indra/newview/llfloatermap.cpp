@@ -67,7 +67,7 @@ LLFloaterMap::~LLFloaterMap()
 }
 void LLFloaterMap::onOpen()
 {
-	gFloaterView->adjustToFitScreen(this, FALSE);
+	gFloaterView->adjustToFitScreen(this, TRUE);
 	gSavedSettings.setBOOL("ShowMiniMap", TRUE);
 }
 void LLFloaterMap::onClose(bool app_quitting)

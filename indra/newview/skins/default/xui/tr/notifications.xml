@@ -6601,7 +6601,7 @@ Diğer oyuncularla kesişen büyük primler oluşturulamaz. Diğerleri çekilinc
     <usetemplate ignoretext="Dosyalar taşınamadı. Önceki yol geri yüklendi." name="okignore" yestext="Tamam" />
   </notification>
 
-  <notification icon="alertmodal.tga" name="DefaultObjectPermissions" type="alert">
+  <notification icon="alertmodal.tga" name="DefaultObjectPermissions" type="alertmodal">
 Şu nedenden dolayı varsayılan izinler kaydedilirken bir sorun oluştu: [REASON].  Lütfen daha sonra varsayılan izinleri ayarlamayı deneyin.
    <tag>fail</tag>
    <usetemplate name="okbutton" yestext="Tamam" />

@@ -105,7 +105,10 @@ LLFloaterSellLandUI* LLFloaterSellLandUI::soleInstance(bool createIfNeeded)
 	{
 		sInstance = new LLFloaterSellLandUI();
 		LLUICtrlFactory::getInstance()->buildFloater(sInstance, "floater_sell_land.xml");
-		sInstance->center();
+		if (!sInstance->hasUserGeometry())
+		{
+			sInstance->center();
+		}
 	}
 	static SelectionObserver* parcelSelectionObserver = NULL;
 	if (!parcelSelectionObserver)

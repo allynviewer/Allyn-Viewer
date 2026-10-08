@@ -5999,7 +5999,7 @@ Home position 設定.
     <usetemplate ignoretext="ファイルを移動できず、前のパスに戻したとき" name="okignore" yestext="OK" />
   </notification>
 
-  <notification icon="alertmodal.tga" name="DefaultObjectPermissions" type="alert">
+  <notification icon="alertmodal.tga" name="DefaultObjectPermissions" type="alertmodal">
 次の理由により、デフォルト権限を保存できませんでした: [REASON]。後でもう一度お試しください。
    <tag>fail</tag>
    <usetemplate name="okbutton" yestext="OK" />

@@ -97,7 +97,9 @@ public:
 protected:
 	void setHover(BOOL hover) { mGotHover = hover; }
 	void appendAcceleratorString( std::string& st ) const;
-protected:
+	bool parentIsMenuBar() const;
+	U32 measureMenuBarTitleWidth() const;
+	void drawMenuBarTitle();
 	KEY mAcceleratorKey;
 	MASK mAcceleratorMask;
 	LLUIString mLabel;
@@ -187,6 +189,8 @@ public:
 	virtual void onCommit( void );
 	virtual BOOL handleAcceleratorKey(KEY key, MASK mask);
 	virtual BOOL handleKeyHere(KEY key, MASK mask);
+	virtual U32 getNominalWidth( void ) const;
+	virtual void draw( void );
 private:
 	menu_callback			mCallback;
 	enabled_callback		mEnabledCallback;

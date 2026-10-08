@@ -408,16 +408,16 @@
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
          bottom="-248" left="12" drop_shadow_visible="true" follows="left|top"
          font="SansSerifSmall" h_pad="0" halign="left" height="16" visible="false"
-         mouse_opaque="true" name="link_num_obj_count" v_pad="0" width="626">
+         mouse_opaque="true" name="link_num_obj_count" v_pad="0" width="210">
 		[DESC] [NUM]
 	</text>
     <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
        bottom="-248" left="12" drop_shadow_visible="true" follows="left|top"
        halign="left" height="16" mouse_opaque="true" name="selection_empty" width="626">Nothing selected.</text>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-       bottom="-248" left="12" drop_shadow_visible="true" follows="left|top"
+       bottom="-248" left="230" drop_shadow_visible="true" follows="left|top"
        font="SansSerifSmall" halign="left" height="16" font-style="UNDERLINE"
-       mouse_opaque="true" name="selection_count" v_pad="0" width="626"/>
+       mouse_opaque="true" name="selection_count" v_pad="0" width="390"/>
 
 	<tab_container bottom="-568" follows="left|top" height="314" left="12" mouse_opaque="false"
 	     name="Object Info Tabs" tab_max_width="110" tab_min_width="60"

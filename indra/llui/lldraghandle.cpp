@@ -38,6 +38,7 @@
 #include "llcontrol.h"
 #include "llresmgr.h"
 #include "llfontgl.h"
+#include "llfloater.h"
 #include "llwindow.h"
 #include "llfocusmgr.h"
 const S32 LEADING_PAD = 6;
@@ -204,6 +205,10 @@ BOOL LLDragHandle::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	if( hasMouseCapture() )
 	{
+		if (LLFloater* floater = dynamic_cast<LLFloater*>(getParent()))
+		{
+			floater->storeRectControl();
+		}
 		gFocusMgr.setMouseCapture( NULL );
 	}
 	return TRUE;

@@ -102,7 +102,10 @@ LLFloaterParcelInfo* LLFloaterParcelInfo::show(const LLUUID &parcel_id)
 	else
 	{
 		floater =  new LLFloaterParcelInfo("parcelinfo", parcel_id );
-		floater->center();
+		if (!floater->hasUserGeometry())
+		{
+			floater->center();
+		}
 		floater->open();
 		floater->displayParcelInfo(parcel_id);
 		floater->setFrontmost(true);

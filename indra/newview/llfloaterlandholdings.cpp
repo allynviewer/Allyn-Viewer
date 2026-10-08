@@ -53,7 +53,10 @@ void LLFloaterLandHoldings::show(void*)
 {
 	LLFloaterLandHoldings* floater = new LLFloaterLandHoldings();
 	LLUICtrlFactory::getInstance()->buildFloater(floater, "floater_land_holdings.xml");
-	floater->center();
+	if (!floater->hasUserGeometry())
+	{
+		floater->center();
+	}
 	const LLUUID& query_id = LLUUID::null;
 	U32 query_flags = DFQ_AGENT_OWNED;
 	send_places_query(query_id,

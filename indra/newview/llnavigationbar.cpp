@@ -53,6 +53,7 @@ static const S32 NAV_FIELD_BOTTOM = 1;
 static const S32 NAV_FIELD_HEIGHT = 27;
 static const S32 NAV_ADD_WIDTH = 22;
 static const S32 NAV_SEARCH_RIGHT_INSET = 21;
+static const S32 NAV_SEARCH_BTN_WIDTH = 16;
 static const S32 NAV_GAP_COMBO_ADD = 6;
 static const S32 NAV_GAP_ADD_SEARCH = 3;
 static const S32 NAV_SPLITTER_PAD = 4;
@@ -139,6 +140,18 @@ LLNavigationBar::LLNavigationBar(const std::string& name, const LLRect& rect)
 		search->setWriteableBgColor(field);
 		search->setReadOnlyBgColor(LLUI::sColorsGroup->getColor("TextBgReadOnlyColor"));
 		search->setFocusBgColor(field_focus);
+		search->setUIImage(LLUI::getUIImage("sm_rounded_corners_simple.tga"));
+	}
+	if (LLButton* search_btn = getChild<LLButton>("search_btn", TRUE, FALSE))
+	{
+		LLPointer<LLUIImage> btn = LLUI::getUIImage("square_btn_32x128.tga");
+		LLPointer<LLUIImage> btn_sel = LLUI::getUIImage("square_btn_selected_32x128.tga");
+		search_btn->setImageUnselected(btn);
+		search_btn->setImageSelected(btn_sel);
+		search_btn->setImageDisabled(btn);
+		search_btn->setImageDisabledSelected(btn_sel);
+		search_btn->setScaleImage(TRUE);
+		search_btn->setImageOverlay("nav_search_icon.png", LLFontGL::HCENTER, LLColor4::white);
 	}
 	if (LLLineEditor* location = mLocationCombo->getChild<LLLineEditor>("combo_text_entry", TRUE, FALSE))
 	{
@@ -283,6 +296,7 @@ void LLNavigationBar::applyFlexibleLayout()
 		add_left = add_right - NAV_ADD_WIDTH;
 		combo_right = add_left - NAV_GAP_COMBO_ADD;
 		placeNavCtrl(mSearchEditor, search_left, search_right);
+		placeNavCtrl(mSearchBtn, search_right, search_right + NAV_SEARCH_BTN_WIDTH);
 	}
 	else
 	{

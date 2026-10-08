@@ -828,6 +828,15 @@ U32 LLControlGroup::loadFromFile(const std::string& filename, bool set_default_v
 						   hidefromsettingseditor,
 						   IsCOA
 						   );
+			if (!set_default_values)
+			{
+				if (LLControlVariable* created = getControl(name))
+				{
+					LLSD current = created->getValue();
+					created->setDefaultValue(LLSD());
+					created->setValue(current);
+				}
+			}
 		}
 		++validitems;
 	}

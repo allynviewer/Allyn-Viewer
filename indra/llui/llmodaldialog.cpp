@@ -47,7 +47,7 @@ LLModalDialog::LLModalDialog( const std::string& title, S32 width, S32 height, B
 				 FALSE,
 				 modal ? FALSE : TRUE,
 				 modal ? FALSE : TRUE,
-				 TRUE),
+				 FALSE),
 	  mModal( modal )
 {
 	setVisible( FALSE );

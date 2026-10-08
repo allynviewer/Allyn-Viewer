@@ -373,7 +373,10 @@ void LLFloaterPreference::show(void*)
 	if (!sInstance)
 	{
 		new LLFloaterPreference();
-		sInstance->center();
+		if (!sInstance->hasUserGeometry())
+		{
+			sInstance->center();
+		}
 	}
 	sInstance->open();
 	gAgent.sendAgentUserInfoRequest();

@@ -6603,7 +6603,7 @@ SLURL из ненадёжного браузера заблокирован в �
     <usetemplate ignoretext="Не удалось переместить файлы. Восстановлен прежний путь." name="okignore" yestext="ОК" />
   </notification>
 
-  <notification icon="alertmodal.tga" name="DefaultObjectPermissions" type="alert">
+  <notification icon="alertmodal.tga" name="DefaultObjectPermissions" type="alertmodal">
 Возникла проблема с сохранением разрешений по умолчанию по следующей причине: [REASON].  Пожалуйста, попробуйте установить разрешения по умолчанию позже.
    <tag>fail</tag>
    <usetemplate name="okbutton" yestext="ОК" />

@@ -59,6 +59,7 @@ public:
 	static S32		activeCount() { return sModalStack.size(); }
 	static void		shutdownModals();
 protected:
+	bool			canPersistGeometry() const { return false; }
 	void			centerOnScreen();
 private:
 	LLFrameTimer 	mVisibleTime;

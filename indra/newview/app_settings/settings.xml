@@ -7632,7 +7632,7 @@ This should be as low as possible, but too low may break functionality</string>
       <key>Value</key>
       <array>
         <integer>0</integer>
-        <integer>700</integer>
+        <integer>600</integer>
         <integer>1070</integer>
         <integer>0</integer>
       </array>
@@ -19508,6 +19508,22 @@ This should be as low as possible, but too low may break functionality</string>
         <integer>450</integer>
         <integer>850</integer>
         <integer>400</integer>
+      </array>
+    </map>
+    <key>FloaterToolbarPrefsRect</key>
+    <map>
+      <key>Comment</key>
+      <string>Saved geometry for the toolbar button chooser</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Rect</string>
+      <key>Value</key>
+      <array>
+        <integer>120</integer>
+        <integer>620</integer>
+        <integer>1200</integer>
+        <integer>190</integer>
       </array>
     </map>
     <key>FloaterContactRect</key>

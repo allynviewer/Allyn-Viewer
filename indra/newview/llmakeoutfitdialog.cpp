@@ -37,6 +37,14 @@
 #include "llagent.h"
 #include "llviewerregion.h"
 #include "hippogridmanager.h"
+void LLMakeOutfitDialog::reshape(S32 width, S32 height, BOOL called_from_parent)
+{
+	LLFloater::reshape(width, height, called_from_parent);
+	if (!hasUserGeometry())
+	{
+		centerOnScreen();
+	}
+}
 LLMakeOutfitDialog::LLMakeOutfitDialog(bool modal) : LLModalDialog(LLStringUtil::null, 700, 560, modal)
 {
 	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_new_outfit_dialog.xml");

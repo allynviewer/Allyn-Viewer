@@ -82,7 +82,10 @@ void LLFloaterBuyContents::show(const LLSaleInfo& sale_info)
 	floater->mObjectSelection = LLSelectMgr::getInstance()->getEditSelection();
 	floater->open();
 	floater->setFocus(TRUE);
-	floater->center();
+	if (!floater->hasUserGeometry())
+	{
+		floater->center();
+	}
 	LLUUID owner_id;
 	std::string owner_name;
 	BOOL owners_identical = LLSelectMgr::getInstance()->selectGetOwner(owner_id, owner_name);

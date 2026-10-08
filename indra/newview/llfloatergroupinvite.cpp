@@ -106,7 +106,10 @@ void LLFloaterGroupInvite::showForGroup(const LLUUID& group_id, uuid_vec_t *agen
 	{
 		fgi->mImpl->mInvitePanelp->addUsers(*agent_ids);
 	}
-	fgi->center();
+	if (!fgi->hasUserGeometry())
+	{
+		fgi->center();
+	}
 	fgi->open();
 	fgi->mImpl->mInvitePanelp->update();
 }

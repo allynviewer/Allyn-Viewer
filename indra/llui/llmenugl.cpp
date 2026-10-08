@@ -266,6 +266,59 @@ U32 LLMenuItemGL::getNominalWidth( void ) const
 	width += mFont->getWidth( mLabel.getWString().c_str() );
 	return width;
 }
+bool LLMenuItemGL::parentIsMenuBar() const
+{
+	return dynamic_cast<const LLMenuBarGL*>(getParent()) != NULL;
+}
+U32 LLMenuItemGL::measureMenuBarTitleWidth() const
+{
+	U32 width = LEFT_PAD_PIXELS + LEFT_WIDTH_PIXELS + RIGHT_PAD_PIXELS;
+	width += getFont()->getWidth( mLabel.getWString().c_str() );
+	return width;
+}
+void LLMenuItemGL::drawMenuBarTitle()
+{
+	if( getHighlight() )
+	{
+		gGL.color4fv( mHighlightBackground.mV );
+		gl_rect_2d( 0, getRect().getHeight(), getRect().getWidth(), 0 );
+	}
+	LLFontGL::ShadowType font_shadow = LLFontGL::NO_SHADOW;
+	if (getEnabled() && !getDrawTextDisabled() )
+	{
+		font_shadow = LLFontGL::DROP_SHADOW_SOFT;
+	}
+	LLColor4 color;
+	if (getHighlight())
+	{
+		color = mHighlightForeground;
+	}
+	else if( getEnabled() )
+	{
+		color = mEnabledColor;
+	}
+	else
+	{
+		color = mDisabledColor;
+	}
+	getFont()->render( mLabel.getWString(), 0, (F32)getRect().getWidth() / 2.f, (F32)LABEL_BOTTOM_PAD_PIXELS, color,
+				   LLFontGL::HCENTER, LLFontGL::BOTTOM, getFontStyle(), font_shadow );
+	if (getMenu()->jumpKeysActive() && LLMenuGL::getKeyboardMode())
+	{
+		std::string upper_case_label = mLabel.getString();
+		LLStringUtil::toUpper(upper_case_label);
+		std::string::size_type offset = upper_case_label.find(getJumpKey());
+		if (offset != std::string::npos)
+		{
+			const LLWString& utf32text = mLabel.getWString();
+			S32 x_offset = ll_round((F32)getRect().getWidth() / 2.f - getFont()->getWidthF32(utf32text, 0, S32_MAX) / 2.f);
+			S32 x_begin = x_offset + getFont()->getWidth(utf32text, 0, offset);
+			S32 x_end = x_offset + getFont()->getWidth(utf32text, 0, offset + 1);
+			gl_line_2d(x_begin, LABEL_BOTTOM_PAD_PIXELS, x_end, LABEL_BOTTOM_PAD_PIXELS);
+		}
+	}
+	setHover(FALSE);
+}
 void LLMenuItemGL::buildDrawLabel( void )
 {
 	mDrawAccelLabel.clear();
@@ -706,6 +759,10 @@ LLXMLNodePtr LLMenuItemCallGL::getXML(bool save_children) const
 }
 void LLMenuItemCallGL::onCommit( void )
 {
+	if (parentIsMenuBar() && LLMenuGL::getKeyboardMode())
+	{
+		return;
+	}
 	getMenu()->setItemLastSelected( this );
 	if( mCallback )
 	{
@@ -737,6 +794,25 @@ void LLMenuItemCallGL::buildDrawLabel( void )
 }
 BOOL LLMenuItemCallGL::handleKeyHere( KEY key, MASK mask )
 {
+	if (parentIsMenuBar() && getHighlight() && LLMenuGL::getKeyboardMode())
+	{
+		if (key == KEY_LEFT)
+		{
+			getMenu()->highlightPrevItem(this);
+			return TRUE;
+		}
+		else if (key == KEY_RIGHT)
+		{
+			getMenu()->highlightNextItem(this);
+			return TRUE;
+		}
+		else if (key == KEY_RETURN && mask == MASK_NONE)
+		{
+			LLMenuGL::setKeyboardMode(FALSE);
+			onCommit();
+			return TRUE;
+		}
+	}
 	return LLMenuItemGL::handleKeyHere(key, mask);
 }
 BOOL LLMenuItemCallGL::handleAcceleratorKey( KEY key, MASK mask )
@@ -755,6 +831,23 @@ BOOL LLMenuItemCallGL::handleAcceleratorKey( KEY key, MASK mask )
 		}
 	}
 	return LLMenuItemGL::handleAcceleratorKey(key, mask);
+}
+U32 LLMenuItemCallGL::getNominalWidth( void ) const
+{
+	if (parentIsMenuBar())
+	{
+		return measureMenuBarTitleWidth();
+	}
+	return LLMenuItemGL::getNominalWidth();
+}
+void LLMenuItemCallGL::draw( void )
+{
+	if (parentIsMenuBar())
+	{
+		drawMenuBarTitle();
+		return;
+	}
+	LLMenuItemGL::draw();
 }
 LLMenuItemCheckGL::LLMenuItemCheckGL ( const std::string& name,
 									   const std::string& label,
@@ -1185,9 +1278,7 @@ LLMenuItemBranchDownGL::LLMenuItemBranchDownGL( const std::string& name,
 }
 U32 LLMenuItemBranchDownGL::getNominalWidth( void ) const
 {
-	U32 width = LEFT_PAD_PIXELS + LEFT_WIDTH_PIXELS + RIGHT_PAD_PIXELS;
-	width += getFont()->getWidth( mLabel.getWString().c_str() );
-	return width;
+	return measureMenuBarTitleWidth();
 }
 void LLMenuItemBranchDownGL::buildDrawLabel( void )
 {
@@ -1347,46 +1438,7 @@ void LLMenuItemBranchDownGL::draw( void )
 	{
 		setHighlight(TRUE);
 	}
-	if( getHighlight() )
-	{
-		gGL.color4fv( mHighlightBackground.mV );
-		gl_rect_2d( 0, getRect().getHeight(), getRect().getWidth(), 0 );
-	}
-	LLFontGL::ShadowType font_shadow = LLFontGL::NO_SHADOW;
-	if (getEnabled() && !getDrawTextDisabled() )
-	{
-		font_shadow = LLFontGL::DROP_SHADOW_SOFT;
-	}
-	LLColor4 color;
-	if (getHighlight())
-	{
-		color = mHighlightForeground;
-	}
-	else if( getEnabled() )
-	{
-		color = mEnabledColor;
-	}
-	else
-	{
-		color = mDisabledColor;
-	}
-	getFont()->render( mLabel.getWString(), 0, (F32)getRect().getWidth() / 2.f, (F32)LABEL_BOTTOM_PAD_PIXELS, color,
-				   LLFontGL::HCENTER, LLFontGL::BOTTOM, getFontStyle(), font_shadow );
-	if (getMenu()->jumpKeysActive() && LLMenuGL::getKeyboardMode())
-	{
-		std::string upper_case_label = mLabel.getString();
-		LLStringUtil::toUpper(upper_case_label);
-		std::string::size_type offset = upper_case_label.find(getJumpKey());
-		if (offset != std::string::npos)
-		{
-			const LLWString& utf32text = mLabel.getWString();
-			S32 x_offset = ll_round((F32)getRect().getWidth() / 2.f - getFont()->getWidthF32(utf32text, 0, S32_MAX) / 2.f);
-			S32 x_begin = x_offset + getFont()->getWidth(utf32text, 0, offset);
-			S32 x_end = x_offset + getFont()->getWidth(utf32text, 0, offset + 1);
-			gl_line_2d(x_begin, LABEL_BOTTOM_PAD_PIXELS, x_end, LABEL_BOTTOM_PAD_PIXELS);
-		}
-	}
-	setHover(FALSE);
+	drawMenuBarTitle();
 }
 class LLMenuScrollItem : public LLMenuItemCallGL
 {
@@ -2970,8 +3022,11 @@ LLXMLNodePtr LLMenuBarGL::getXML(bool save_children) const
 	item_list_t::const_iterator item_iter;
 	for (item_iter = mItems.begin(); item_iter != mItems.end(); ++item_iter)
 	{
-		LLMenuItemGL* child = *item_iter;
-		LLMenuItemBranchGL* branch = (LLMenuItemBranchGL*)child;
+		LLMenuItemBranchGL* branch = dynamic_cast<LLMenuItemBranchGL*>(*item_iter);
+		if (!branch)
+		{
+			continue;
+		}
 		LLMenuGL *menu = branch->getBranch();
 		orig_parent = menu->getParent();
 		menu->updateParent((LLView *)this);
@@ -2980,8 +3035,11 @@ LLXMLNodePtr LLMenuBarGL::getXML(bool save_children) const
 	node->setName(LL_MENU_BAR_GL_TAG);
 	for (item_iter = mItems.begin(); item_iter != mItems.end(); ++item_iter)
 	{
-		LLMenuItemGL* child = *item_iter;
-		LLMenuItemBranchGL* branch = (LLMenuItemBranchGL*)child;
+		LLMenuItemBranchGL* branch = dynamic_cast<LLMenuItemBranchGL*>(*item_iter);
+		if (!branch)
+		{
+			continue;
+		}
 		LLMenuGL *menu = branch->getBranch();
 		menu->updateParent(orig_parent);
 	}
@@ -3248,7 +3306,7 @@ BOOL LLMenuBarGL::handleHover( S32 x, S32 y, MASK mask )
 			{
 				((LLMenuItemGL*)viewp)->setHighlight(TRUE);
 				handled = TRUE;
-				if (active_menu && active_menu != viewp)
+				if (active_menu && active_menu != viewp && dynamic_cast<LLMenuItemBranchGL*>(viewp))
 				{
 					((LLMenuItemGL*)viewp)->onCommit();
 					LLMenuGL::setKeyboardMode(FALSE);

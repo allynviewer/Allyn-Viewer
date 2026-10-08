@@ -2,7 +2,7 @@
 <floater border="true" bottom="167" can_close="false" can_drag_on_left="false"
      can_minimize="false" can_resize="false" can_tear_off="true" enabled="true"
      height="560" left="278" min_height="560" min_width="700"
-     mouse_opaque="true" name="modal container" title="Make New Outfit" width="700">
+     mouse_opaque="true" name="modal container" rect_control="FloaterMakeOutfitRect" title="Make New Outfit" width="700">
 
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-80" drop_shadow_visible="true" enabled="true" follows="left|top"

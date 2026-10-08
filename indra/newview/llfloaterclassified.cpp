@@ -103,7 +103,10 @@ LLFloaterClassifiedInfo* LLFloaterClassifiedInfo::show(const LLUUID &classified_
 	else
 	{
 		floater =  new LLFloaterClassifiedInfo("calssifiedinfo", classified_id );
-		floater->center();
+		if (!floater->hasUserGeometry())
+		{
+			floater->center();
+		}
 		floater->open();
 		floater->displayClassifiedInfo(classified_id);
 		floater->setFrontmost(true);
