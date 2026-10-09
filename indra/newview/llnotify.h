@@ -31,14 +31,44 @@
  */
 #ifndef LL_LLNOTIFY_H
 #define LL_LLNOTIFY_H
+#include <vector>
 #include "llfontgl.h"
 #include "llpanel.h"
 #include "lleventtimer.h"
 #include "llnotifications.h"
+#include "llstyle.h"
 #include "lluuid.h"
 class LLButton;
 class LLNotifyBoxTemplate;
+class LLScrollContainer;
 class LLTextEditor;
+class LLToastScrollArea
+{
+public:
+	static const S32 TOP_RESERVE;
+	static const S32 MIN_HEIGHT;
+	bool isActive() const { return mScroller != nullptr; }
+	S32 getNaturalWidth(const LLPanel* toast) const;
+	void activate(LLPanel* toast, LLView* keep_on_toast, S32 content_height, LLButton* default_btn);
+	void deactivate(LLPanel* toast, LLView* keep_on_toast);
+	bool layout(LLPanel* toast, S32 content_height, S32 available_width, S32 available_height);
+	void revealFocus();
+private:
+	struct SavedChild
+	{
+		LLHandle<LLView> mView;
+		LLRect mRect;
+		S32 mTabGroup = 0;
+		S32 mOrdinal = 0;
+		bool mIsCtrl = false;
+	};
+	void moveSavedChildren(LLView* from, LLView* to);
+	std::vector<SavedChild> mSaved;
+	LLScrollContainer* mScroller = nullptr;
+	LLPanel* mContent = nullptr;
+	S32 mNaturalWidth = 0;
+	LLHandle<LLView> mLastFocus;
+};
 class LLNotifyBox final :
 	public LLPanel,
 	public LLEventTimer,
@@ -59,6 +89,26 @@ public:
 	bool isFriendPresenceTip() const;
 	LLNotificationPtr getNotification() const { return mNotification; }
 	static void format(std::string& msg, const LLStringUtil::format_map_t& args);
+	static constexpr F32 MIN_TOAST_DURATION = 5.f;
+	static constexpr F32 MAX_TOAST_DURATION = 600.f;
+	static F32 getToastDuration();
+	static bool isStartupSync();
+	static bool isStartupSync(const LLNotificationPtr& notification);
+	static bool archiveDuringStartup(const LLNotificationPtr& notification, LLPanel* box);
+	static void flushStartupSummary();
+	static void setOfflineMessagesPending(bool pending);
+	bool fitTextToContent(bool force);
+	void refreshMessage();
+	class StartupSyncScope
+	{
+	public:
+		explicit StartupSyncScope(bool active);
+		~StartupSyncScope();
+		StartupSyncScope(const StartupSyncScope&) = delete;
+		StartupSyncScope& operator=(const StartupSyncScope&) = delete;
+	private:
+		bool mActive;
+	};
 protected:
 	LLNotifyBox(LLNotificationPtr notification);
 	~LLNotifyBox();
@@ -78,6 +128,8 @@ private:
 	static bool onNotification(const LLSD& notify);
 	void drawBackground() const;
 	F32 fadeAlpha() const;
+	bool fitScrollArea(S32 available, S32 available_width);
+	void placeHideButton();
 protected:
 	LLTextEditor *mUserInputBox = nullptr, *mText = nullptr;
 	LLNotificationPtr mNotification;
@@ -92,6 +144,11 @@ protected:
 	S32 mNumOptions;
 	S32 mNumButtons;
 	bool mAddedDefaultBtn;
+	U32 mFittedTextRevision = 0;
+	bool mTextFitted = false;
+	LLToastScrollArea mScrollArea;
+	LLStyleSP mTextStyle;
+	S32 mNaturalWidth = 0;
 };
 class LLNotifyBoxView final : public LLUICtrl
 {
@@ -104,10 +161,12 @@ public:
 	void removeChild(LLView* view) override;
 	void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE) override;
 	void layoutStack();
+	void draw() override;
 	void bringToFront(const LLUUID& id);
 	void closeAll();
 	void closeOne(const LLUUID& id);
 	S32 getOverflowCount() const;
+	S32 getAvailableStackHeight() const;
 	struct Matcher
 	{
 		Matcher(){}
@@ -129,6 +188,10 @@ private:
 	bool mInDeleteAll = false;
 	bool mInLayout = false;
 	S32 mOverflowCount = 0;
+	S32 mLastAvailableHeight = -1;
+	S32 mLastAvailableWidth = -1;
+	std::vector<LLHandle<LLView> > mSpaceHidden;
+	bool takeSpaceHidden(LLView* view);
 };
 void drawAllynToastChrome(S32 width, S32 height, const LLColor4& fill, bool focused);
 extern LLNotifyBoxView* gNotifyBoxView;

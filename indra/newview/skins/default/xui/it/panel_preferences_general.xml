@@ -33,6 +33,7 @@
 			<text name="seconds_textbox">secondi</text>
 			<check_box label="Avvisa scambi di L$" name="notify_money_change_checkbox" />
 			<check_box label="senza ingombrare l'angolo" name="no_transaction_clutter_checkbox" tool_tip="Mostra le notifiche nell'angolo in basso a destra per un momento, poi le nasconde, così la transazione attira l'attenzione senza intralciare." />
+			<spinner label="Durata delle notifiche a schermo (secondi):" name="notify_toast_duration_spinner" tool_tip="Per quanto tempo ogni notifica resta sullo schermo prima di passare all'elenco Notifiche. Passare il mouse sopra una notifica mette in pausa il suo timer. (da 5 a 600 secondi)" />
 			<text name="maturity_desired_label">Voto:</text>
 			<text name="maturity_desired_prompt">Voglio accedere a:</text>
 			<combo_box name="maturity_desired_combobox">

@@ -30,11 +30,13 @@
  * $/LicenseInfo$
  */
 #include "llviewerprecompiledheaders.h"
+#include <algorithm>
 #include <vector>
 #include "llnotify.h"
 #include "llchat.h"
 #include "lliconctrl.h"
 #include "llmenugl.h"
+#include "llscrollcontainer.h"
 #include "lltextbox.h"
 #include "lltexteditor.h"
 #include "lltrans.h"
@@ -56,6 +58,7 @@
 #include "llurlregistry.h"
 #include <boost/function.hpp>
 #include "hippogridmanager.h"
+#include "llstartup.h"
 #include "rlvhandler.h"
 LLNotifyBoxView* gNotifyBoxView = NULL;
 const F32 ANIMATION_TIME = 0.333f;
@@ -70,9 +73,176 @@ const S32 TOAST_BTN_WIDTH = 90;
 const S32 TOAST_MIN_TIP_HEIGHT = 40;
 const S32 TOAST_MIN_HEIGHT = 72;
 const S32 TOAST_MAX_HEIGHT = 420;
+constexpr F32 LLNotifyBox::MIN_TOAST_DURATION;
+constexpr F32 LLNotifyBox::MAX_TOAST_DURATION;
+const F64 STARTUP_SUMMARY_MAX_WAIT = 15.0;
+static S32 sStartupSyncDepth = 0;
+static bool sOfflineMessagesPending = false;
+static bool sStartupSummaryDirty = false;
+static bool sStartupSummaryNewItems = false;
+static F64 sStartupSummaryWaitStart = -1.0;
+static LLUUID sStartupSummaryID;
+static S32 sStartupSummaryCount = 0;
+static std::vector<LLHandle<LLPanel> > sStartupArchived;
+const std::string STARTUP_SUMMARY_REPOST = "STARTUP_SUMMARY_REPOST";
 static F32 notify_toast_duration()
 {
-	return llmax(0.5f, gSavedSettings.getF32("NotifyBoxToastDuration"));
+	return LLNotifyBox::getToastDuration();
+}
+F32 LLNotifyBox::getToastDuration()
+{
+	static const LLCachedControl<F32> duration(gSavedSettings, "NotifyBoxToastDuration", 30.f);
+	return llclamp((F32)duration, MIN_TOAST_DURATION, MAX_TOAST_DURATION);
+}
+bool LLNotifyBox::isStartupSync()
+{
+	if (sStartupSyncDepth > 0)
+	{
+		return true;
+	}
+	const EStartupState state = LLStartUp::getStartupState();
+	return state >= STATE_WORLD_INIT && state < STATE_STARTED;
+}
+bool LLNotifyBox::isStartupSync(const LLNotificationPtr& notification)
+{
+	if (notification && notification->getPayload()["STARTUP_SYNC"].asBoolean())
+	{
+		return true;
+	}
+	return isStartupSync();
+}
+bool LLNotifyBox::archiveDuringStartup(const LLNotificationPtr& notification, LLPanel* box)
+{
+	if (!notification || !box || notification->getPriority() >= NOTIFICATION_PRIORITY_HIGH)
+	{
+		return false;
+	}
+	if (!isStartupSync(notification))
+	{
+		return false;
+	}
+	sStartupArchived.push_back(box->getHandle());
+	sStartupSummaryDirty = true;
+	sStartupSummaryNewItems = true;
+	return true;
+}
+static LLNotifyBox* live_startup_summary_box()
+{
+	if (sStartupSummaryID.isNull())
+	{
+		return NULL;
+	}
+	LLNotifyBox* box = LLInstanceTracker<LLNotifyBox, LLUUID>::getInstance(sStartupSummaryID);
+	if (!box || box->isDead())
+	{
+		return NULL;
+	}
+	LLNotificationPtr notification = box->getNotification();
+	if (!notification || notification->isCancelled() || notification->isRespondedTo())
+	{
+		return NULL;
+	}
+	return box;
+}
+void LLNotifyBox::setOfflineMessagesPending(bool pending)
+{
+	sOfflineMessagesPending = pending;
+}
+void LLNotifyBox::flushStartupSummary()
+{
+	if (isStartupSync())
+	{
+		return;
+	}
+	LLNotifyBox* summary_box = live_startup_summary_box();
+	if (!sStartupSummaryDirty && !summary_box)
+	{
+		return;
+	}
+	if (!summary_box && sOfflineMessagesPending)
+	{
+		const F64 now = LLTimer::getTotalSeconds();
+		if (sStartupSummaryWaitStart < 0.0)
+		{
+			sStartupSummaryWaitStart = now;
+		}
+		if (now - sStartupSummaryWaitStart < STARTUP_SUMMARY_MAX_WAIT)
+		{
+			return;
+		}
+	}
+	sStartupSummaryWaitStart = -1.0;
+	const bool new_items = sStartupSummaryNewItems;
+	sStartupSummaryDirty = false;
+	sStartupSummaryNewItems = false;
+	sStartupArchived.erase(std::remove_if(sStartupArchived.begin(), sStartupArchived.end(),
+		[](const LLHandle<LLPanel>& handle)
+		{
+			LLPanel* box = handle.get();
+			return !box || box->isDead();
+		}),
+		sStartupArchived.end());
+	const S32 count = static_cast<S32>(sStartupArchived.size());
+	if (summary_box)
+	{
+		LLNotificationPtr notification = summary_box->getNotification();
+		if (count <= 0)
+		{
+			sStartupSummaryCount = 0;
+			LLNotifications::instance().cancel(notification);
+			return;
+		}
+		if (count != sStartupSummaryCount)
+		{
+			sStartupSummaryCount = count;
+			LLSD updated = notification->asLLSD();
+			updated["substitutions"]["COUNT"] = count;
+			notification->updateFrom(LLNotificationPtr(new LLNotification(updated)));
+			summary_box->refreshMessage();
+		}
+		return;
+	}
+	if (count <= 0 || !new_items)
+	{
+		sStartupSummaryCount = 0;
+		return;
+	}
+	LLSD payload = LLSD::emptyMap();
+	if (sStartupSummaryID.notNull())
+	{
+		payload[STARTUP_SUMMARY_REPOST] = true;
+	}
+	LL_INFOS("Notifications") << count << " notifications received during login are archived in the Notifications well" << LL_ENDL;
+	LLNotificationPtr summary = LLNotifications::instance().add("LoginNotificationsArchived", LLSD().with("COUNT", count), payload);
+	if (summary)
+	{
+		sStartupSummaryID = summary->getID();
+		sStartupSummaryCount = count;
+	}
+}
+LLNotifyBox::StartupSyncScope::StartupSyncScope(bool active)
+	: mActive(active)
+{
+	if (mActive)
+	{
+		++sStartupSyncDepth;
+	}
+}
+LLNotifyBox::StartupSyncScope::~StartupSyncScope()
+{
+	if (mActive)
+	{
+		--sStartupSyncDepth;
+	}
+}
+static bool is_friend_presence_notification(const LLNotificationPtr& notification)
+{
+	if (!notification || notification->getType() != "notifytip")
+	{
+		return false;
+	}
+	const std::string& name = notification->getName();
+	return name == "FriendOnlineOffline" || name == "FriendOnline" || name == "FriendOffline";
 }
 static F32 notify_toast_fade_time()
 {
@@ -149,7 +319,16 @@ void drawAllynToastChrome(S32 width, S32 height, const LLColor4& fill, bool focu
 		gl_rect_2d(0, height, width, 0, fill);
 	}
 }
-static LLButton* create_toast_hide_button(LLView* parent, const boost::function<void()>& on_hide)
+static bool is_object_offer_notification(const LLNotificationPtr& notification)
+{
+	return notification && notification->getName() == "ObjectGiveItem";
+}
+static bool is_object_offer_box(LLView* view)
+{
+	LLNotifyBox* box = dynamic_cast<LLNotifyBox*>(view);
+	return box && is_object_offer_notification(box->getNotification());
+}
+static LLButton* create_toast_hide_button(LLView* parent, const std::string& tool_tip, const boost::function<void()>& on_hide)
 {
 	if (!parent)
 	{
@@ -173,7 +352,7 @@ static LLButton* create_toast_hide_button(LLView* parent, const boost::function<
 									  }
 								  });
 	hide->setScaleImage(TRUE);
-	hide->setToolTip(LLTrans::getString("NotifyToastHide"));
+	hide->setToolTip(tool_tip);
 	hide->setTabStop(FALSE);
 	hide->setFollows(FOLLOWS_TOP | FOLLOWS_RIGHT);
 	parent->addChild(hide);
@@ -197,11 +376,6 @@ void LLNotifyBox::initClass()
 	LLNotificationChannel::buildChannel("NotificationTips", "Visible", LLNotificationFilters::filterBy<std::string>(&LLNotification::getType, "notifytip"));
 	LLNotifications::instance().getChannel("Notifications")->connectChanged(&LLNotifyBox::onNotification);
 	LLNotifications::instance().getChannel("NotificationTips")->connectChanged(&LLNotifyBox::onNotification);
-	const F32 duration = gSavedSettings.getF32("NotifyBoxToastDuration");
-	if (duration <= 5.01f || llabs(duration - 30.f) < 0.01f)
-	{
-		gSavedSettings.setF32("NotifyBoxToastDuration", 10.f);
-	}
 	if (gSavedSettings.getS32("NotifyBoxWidth") == 350)
 	{
 		gSavedSettings.setS32("NotifyBoxWidth", 305);
@@ -218,14 +392,29 @@ bool LLNotifyBox::onNotification(const LLSD& notify)
 			chat_notification(notification);
 			return false;
 		}
+		const bool startup_sync = isStartupSync(notification);
+		if (startup_sync && is_friend_presence_notification(notification))
+		{
+			chat_notification(notification);
+			return false;
+		}
 		LLNotifyBox* boxp = LLInstanceTracker<LLNotifyBox, LLUUID>::getInstance(notification->getID());
 		if (boxp && !boxp->isDead())
 		{
-			gNotifyBoxView->bringToFront(notification->getID());
+			const bool summary_update = notification->getID() == sStartupSummaryID && notify["sigtype"].asString() == "change";
+			if (!summary_update && !(startup_sync && boxp->isSunkToWell()))
+			{
+				gNotifyBoxView->bringToFront(notification->getID());
+			}
 		}
 		else
 		{
-			gNotifyBoxView->addChild(new LLNotifyBox(notification));
+			LLNotifyBox* box = new LLNotifyBox(notification);
+			if (archiveDuringStartup(notification, box))
+			{
+				box->sinkToWell();
+			}
+			gNotifyBoxView->addChild(box);
 		}
 	}
 	else if (notify["sigtype"].asString() == "delete")
@@ -324,6 +513,7 @@ LLNotifyBox::LLNotifyBox(LLNotificationPtr notification)
 		rect = LLRect(right - width, top, right, top - height);
 	}
 	setRect(rect);
+	mNaturalWidth = rect.getWidth();
 	setFollows(friend_presence ? (FOLLOWS_TOP | FOLLOWS_LEFT) : (FOLLOWS_TOP | FOLLOWS_RIGHT));
 	setBackgroundVisible(FALSE);
 	setBackgroundOpaque(TRUE);
@@ -365,6 +555,7 @@ LLNotifyBox::LLNotifyBox(LLNotificationPtr notification)
 		if (!mIsCaution || !mIsTip)
 			mText->setLinkColor(new LLColor4(lerp(text_color, gSavedSettings.getColor4("HTMLLinkColor"), 0.4f)));
 		mText->setTabStop(FALSE);
+		mTextStyle = style;
 		mText->appendText(message,false,false,style);
 		if (is_textbox || layout_script_dialog)
 			mText->appendText(notification->getSubstitutions()["SCRIPT_MESSAGE"], false, true, style, false);
@@ -372,7 +563,10 @@ LLNotifyBox::LLNotifyBox(LLNotificationPtr notification)
 	}
 	if (mIsTip)
 	{
-		chat_notification(mNotification);
+		if (!notification->getPayload().has(STARTUP_SUMMARY_REPOST))
+		{
+			chat_notification(mNotification);
+		}
 	}
 	else
 	{
@@ -468,11 +662,343 @@ LLNotifyBox::LLNotifyBox(LLNotificationPtr notification)
 		else if (mNextBtn && (sNotifyBoxCount == 1 || notify_stack_enabled()))
 			mNextBtn->setVisible(false);
 	}
+	fitTextToContent(true);
 	}
-	mHideBtn = create_toast_hide_button(this, boost::bind(&LLNotifyBox::hideToWell, this));
+	if (is_object_offer_notification(mNotification))
+	{
+		mHideBtn = create_toast_hide_button(this, LLTrans::getString("NotifyToastHide"), boost::bind(&LLNotifyBox::hideToWell, this));
+	}
+	else
+	{
+		const LLUUID notification_id = mNotification->getID();
+		mHideBtn = create_toast_hide_button(this, LLTrans::getString("NotifyWellClose"),
+			[notification_id]()
+			{
+				if (gNotifyBoxView)
+				{
+					gNotifyBoxView->closeOne(notification_id);
+				}
+			});
+	}
 }
 LLNotifyBox::~LLNotifyBox()
 {
+}
+bool LLNotifyBox::fitTextToContent(bool force)
+{
+	if (!mText || !gNotifyBoxView)
+	{
+		return false;
+	}
+	const U32 revision = mText->getContentRevision();
+	if (!force && mTextFitted && revision == mFittedTextRevision)
+	{
+		return false;
+	}
+	mTextFitted = true;
+	mFittedTextRevision = revision;
+	const S32 available = llmax(0, gNotifyBoxView->getAvailableStackHeight());
+	const S32 available_width = llmax(1, gNotifyBoxView->getRect().getWidth());
+	bool width_changed = false;
+	if (mIsTip)
+	{
+		const S32 natural_width = mNaturalWidth > 0 ? mNaturalWidth : getRect().getWidth();
+		const S32 tip_width = llmin(natural_width, available_width);
+		if (tip_width != getRect().getWidth())
+		{
+			LLRect tip_rect = getRect();
+			tip_rect.mLeft = tip_rect.mRight - tip_width;
+			setRect(tip_rect);
+			const LLRect old_text_rect = mText->getRect();
+			mText->reshape(llmax(1, tip_width - TOAST_PAD - old_text_rect.mLeft), old_text_rect.getHeight());
+			mText->setOrigin(old_text_rect.mLeft, old_text_rect.mBottom);
+			width_changed = true;
+		}
+	}
+	const LLRect text_rect = mText->getRect();
+	const S32 text_bottom = text_rect.mBottom;
+	const S32 min_height = mIsTip ? TOAST_MIN_TIP_HEIGHT : TOAST_MIN_HEIGHT;
+	const S32 max_height = llmax(min_height, available);
+	const S32 content_height = mText->getContentHeight();
+	S32 height = llclamp(TOAST_PAD + text_bottom + content_height, min_height, max_height);
+	S32 top_pad = TOAST_PAD;
+	if (height - top_pad - text_bottom < content_height)
+	{
+		top_pad = llmax(top_pad, TOAST_CLOSE + 4);
+	}
+	S32 text_height = height - top_pad - text_bottom;
+	const S32 min_text_height = mText->getMinContentHeight();
+	if (text_height < min_text_height)
+	{
+		text_height = min_text_height;
+		height = top_pad + text_bottom + text_height;
+	}
+	const bool fits = mIsTip || (height <= available && mScrollArea.getNaturalWidth(this) <= available_width);
+	if (!fits)
+	{
+		if (!mScrollArea.isActive())
+		{
+			mScrollArea.activate(this, mHideBtn, text_bottom + text_rect.getHeight(), getDefaultButton());
+		}
+		return fitScrollArea(available, available_width);
+	}
+	bool restored = false;
+	if (mScrollArea.isActive())
+	{
+		mScrollArea.deactivate(this, mHideBtn);
+		restored = true;
+	}
+	const LLRect current_text_rect = mText->getRect();
+	if (!restored && !width_changed && height == getRect().getHeight() && text_height == current_text_rect.getHeight())
+	{
+		return false;
+	}
+	LLRect rect = getRect();
+	rect.mBottom = rect.mTop - height;
+	setRect(rect);
+	mText->reshape(current_text_rect.getWidth(), text_height);
+	mText->setOrigin(current_text_rect.mLeft, text_bottom);
+	placeHideButton();
+	return true;
+}
+bool LLNotifyBox::fitScrollArea(S32 available, S32 available_width)
+{
+	const LLRect text_rect = mText->getRect();
+	const S32 text_height = llmax(mText->getMinContentHeight(), mText->getContentHeight());
+	if (text_height != text_rect.getHeight())
+	{
+		mText->reshape(text_rect.getWidth(), text_height);
+	}
+	mText->setOrigin(text_rect.mLeft, text_rect.mBottom);
+	const bool changed = mScrollArea.layout(this, text_rect.mBottom + text_height, available_width, available);
+	placeHideButton();
+	return changed;
+}
+void LLNotifyBox::placeHideButton()
+{
+	if (!mHideBtn)
+	{
+		return;
+	}
+	const LLRect rect = getRect();
+	const S32 right = rect.getWidth() - 4;
+	const S32 top = rect.getHeight() - 3;
+	mHideBtn->setRect(LLRect(right - TOAST_CLOSE, top, right, top - TOAST_CLOSE));
+}
+void LLNotifyBox::refreshMessage()
+{
+	if (!mText || !mNotification || isDead())
+	{
+		return;
+	}
+	mText->clear();
+	mText->appendText(mNotification->getMessage(), false, false, mTextStyle);
+	fitTextToContent(true);
+	if (gNotifyBoxView)
+	{
+		gNotifyBoxView->layoutStack();
+	}
+}
+const S32 LLToastScrollArea::TOP_RESERVE = TOAST_CLOSE + 4;
+const S32 LLToastScrollArea::MIN_HEIGHT = TOAST_CLOSE + 4 + 2 * SCROLLBAR_SIZE;
+S32 LLToastScrollArea::getNaturalWidth(const LLPanel* toast) const
+{
+	if (mScroller)
+	{
+		return mNaturalWidth;
+	}
+	return toast ? toast->getRect().getWidth() : 0;
+}
+void LLToastScrollArea::moveSavedChildren(LLView* from, LLView* to)
+{
+	std::vector<const SavedChild*> by_tab_order;
+	for (const SavedChild& saved : mSaved)
+	{
+		LLView* child = saved.mView.get();
+		if (child && child->getParent() == from)
+		{
+			by_tab_order.push_back(&saved);
+		}
+	}
+	std::stable_sort(by_tab_order.begin(), by_tab_order.end(),
+		[](const SavedChild* a, const SavedChild* b)
+		{
+			if (a->mIsCtrl != b->mIsCtrl)
+			{
+				return !a->mIsCtrl;
+			}
+			return a->mIsCtrl && a->mOrdinal < b->mOrdinal;
+		});
+	for (const SavedChild* saved : by_tab_order)
+	{
+		LLView* child = saved->mView.get();
+		from->removeChild(child);
+		to->addChild(child, saved->mTabGroup);
+	}
+	for (const SavedChild& saved : mSaved)
+	{
+		LLView* child = saved.mView.get();
+		if (child && child->getParent() == to)
+		{
+			to->sendChildToFront(child);
+		}
+	}
+}
+void LLToastScrollArea::activate(LLPanel* toast, LLView* keep_on_toast, S32 content_height, LLButton* default_btn)
+{
+	if (mScroller || !toast)
+	{
+		return;
+	}
+	mNaturalWidth = toast->getRect().getWidth();
+	mSaved.clear();
+	const LLView::child_tab_order_t& order = toast->getCtrlOrder();
+	for (LLView::child_list_const_reverse_iter_t it = toast->getChildList()->rbegin(); it != toast->getChildList()->rend(); ++it)
+	{
+		LLView* child = *it;
+		if (!child || child == keep_on_toast)
+		{
+			continue;
+		}
+		SavedChild saved;
+		saved.mView = child->getHandle();
+		saved.mRect = child->getRect();
+		if (child->isCtrl())
+		{
+			LLView::child_tab_order_const_iter_t found = order.find(static_cast<LLUICtrl*>(child));
+			if (found != order.end())
+			{
+				saved.mIsCtrl = true;
+				saved.mTabGroup = found->second.first;
+				saved.mOrdinal = found->second.second;
+			}
+		}
+		mSaved.push_back(saved);
+	}
+	mContent = new LLPanel(std::string("toast_content"), LLRect(0, llmax(1, content_height), llmax(1, mNaturalWidth), 0), BORDER_NO);
+	mContent->setBackgroundVisible(FALSE);
+	mContent->setMouseOpaque(FALSE);
+	moveSavedChildren(toast, mContent);
+	if (default_btn)
+	{
+		mContent->setDefaultBtn(default_btn);
+	}
+	mScroller = new LLScrollContainer(std::string("toast_scroll"), LLRect(0, llmax(1, toast->getRect().getHeight() - TOP_RESERVE), llmax(1, mNaturalWidth), 0), mContent, FALSE);
+	mScroller->setBorderVisible(FALSE);
+	mScroller->setPassBackToChildren(false);
+	mScroller->setReserveScrollCorner(FALSE);
+	mScroller->setFollows(FOLLOWS_NONE);
+	toast->addChild(mScroller);
+	if (keep_on_toast)
+	{
+		toast->sendChildToFront(keep_on_toast);
+	}
+	mLastFocus = LLHandle<LLView>();
+}
+void LLToastScrollArea::deactivate(LLPanel* toast, LLView* keep_on_toast)
+{
+	if (!mScroller || !toast)
+	{
+		return;
+	}
+	if (mContent)
+	{
+		moveSavedChildren(mContent, toast);
+	}
+	for (const SavedChild& saved : mSaved)
+	{
+		LLView* child = saved.mView.get();
+		if (!child || child->getParent() != toast || child->getRect() == saved.mRect)
+		{
+			continue;
+		}
+		if (child->getRect().getWidth() != saved.mRect.getWidth() || child->getRect().getHeight() != saved.mRect.getHeight())
+		{
+			child->reshape(saved.mRect.getWidth(), saved.mRect.getHeight());
+		}
+		child->setOrigin(saved.mRect.mLeft, saved.mRect.mBottom);
+	}
+	toast->removeChild(mScroller);
+	mScroller->die();
+	mScroller = nullptr;
+	mContent = nullptr;
+	mSaved.clear();
+	mLastFocus = LLHandle<LLView>();
+	if (keep_on_toast)
+	{
+		toast->sendChildToFront(keep_on_toast);
+	}
+	const LLRect rect = toast->getRect();
+	toast->setRect(LLRect(rect.mRight - mNaturalWidth, rect.mTop, rect.mRight, rect.mBottom));
+}
+bool LLToastScrollArea::layout(LLPanel* toast, S32 content_height, S32 available_width, S32 available_height)
+{
+	if (!mScroller || !mContent || !toast)
+	{
+		return false;
+	}
+	content_height = llmax(1, content_height);
+	const S32 max_width = llmax(1, available_width);
+	const S32 max_height = llmax(0, available_height);
+	S32 height = content_height + TOP_RESERVE;
+	const bool vertical = height > max_height;
+	S32 width = mNaturalWidth + (vertical ? SCROLLBAR_SIZE : 0);
+	if (width > max_width)
+	{
+		width = max_width;
+		height += SCROLLBAR_SIZE;
+	}
+	height = llmax(MIN_HEIGHT, llmin(height, max_height));
+	width = llmax(1, width);
+	const LLRect old_rect = toast->getRect();
+	toast->setRect(LLRect(old_rect.mRight - width, old_rect.mTop, old_rect.mRight, old_rect.mTop - height));
+	mContent->setRect(LLRect(0, content_height, llmax(1, mNaturalWidth), 0));
+	mScroller->reshape(width, llmax(1, height - TOP_RESERVE));
+	mScroller->setOrigin(0, 0);
+	return width != old_rect.getWidth() || height != old_rect.getHeight();
+}
+void LLToastScrollArea::revealFocus()
+{
+	if (!mScroller || !mContent)
+	{
+		return;
+	}
+	LLView* focus = dynamic_cast<LLView*>(gFocusMgr.getKeyboardFocus());
+	if (!focus || !focus->hasAncestor(mContent))
+	{
+		mLastFocus = LLHandle<LLView>();
+		return;
+	}
+	LLView* previous = mLastFocus.get();
+	if (focus == previous)
+	{
+		return;
+	}
+	mLastFocus = focus->getHandle();
+	if (!previous)
+	{
+		return;
+	}
+	LLRect focus_rect;
+	if (!focus->localRectToOtherView(focus->getLocalRect(), &focus_rect, mContent))
+	{
+		return;
+	}
+	const LLRect visible_rect = mScroller->getVisibleContentRect();
+	LLRect target = focus_rect;
+	if (focus_rect.getHeight() > visible_rect.getHeight()
+		&& focus_rect.mTop > visible_rect.mBottom && focus_rect.mBottom < visible_rect.mTop)
+	{
+		target.mTop = llmin(focus_rect.mTop, visible_rect.mTop);
+		target.mBottom = llmax(focus_rect.mBottom, visible_rect.mBottom);
+	}
+	if (focus_rect.getWidth() > visible_rect.getWidth()
+		&& focus_rect.mRight > visible_rect.mLeft && focus_rect.mLeft < visible_rect.mRight)
+	{
+		target.mLeft = llmax(focus_rect.mLeft, visible_rect.mLeft);
+		target.mRight = llmin(focus_rect.mRight, visible_rect.mRight);
+	}
+	mScroller->scrollToShowRect(target);
 }
 LLButton* LLNotifyBox::addButton(const std::string& name, const std::string& label, bool is_option, bool is_default, bool layout_script_dialog)
 {
@@ -592,10 +1118,15 @@ bool LLNotifyBox::userIsInteracting() const
 }
 void LLNotifyBox::draw()
 {
+	if (!mFading)
+	{
+		mPeriod = notify_toast_duration();
+	}
 	if (gTeleportDisplay)
 		mEventTimer.stop();
 	else if (!mEventTimer.getStarted() && !mSunkToWell && !userIsInteracting())
 		mEventTimer.start();
+	mScrollArea.revealFocus();
 	F32 display_time = mAnimateTimer.getElapsedTimeF32();
 	if (mAnimating && display_time < ANIMATION_TIME)
 	{
@@ -920,6 +1451,45 @@ void LLNotifyBoxView::removeChild(LLView* view)
 		layoutStack();
 	}
 }
+void LLNotifyBoxView::draw()
+{
+	LLNotifyBox::flushStartupSummary();
+	const S32 available = getAvailableStackHeight();
+	const S32 available_width = getRect().getWidth();
+	const bool space_changed = available != mLastAvailableHeight || available_width != mLastAvailableWidth;
+	mLastAvailableHeight = available;
+	mLastAvailableWidth = available_width;
+	bool relayout = false;
+	LLView::child_list_t boxes(*getChildList());
+	for (LLView* view : boxes)
+	{
+		if (!view || view->isDead())
+		{
+			continue;
+		}
+		if (isGroupNotifyBox(view))
+		{
+			LLGroupNotifyBox* group = dynamic_cast<LLGroupNotifyBox*>(view);
+			if (space_changed && group && group->fitToArea(available))
+			{
+				relayout = true;
+			}
+			continue;
+		}
+		if (LLNotifyBox* box = dynamic_cast<LLNotifyBox*>(view))
+		{
+			if (box->fitTextToContent(space_changed))
+			{
+				relayout = true;
+			}
+		}
+	}
+	if (relayout || space_changed)
+	{
+		layoutStack();
+	}
+	LLUICtrl::draw();
+}
 void LLNotifyBoxView::reshape(S32 width, S32 height, BOOL called_from_parent)
 {
 	LLUICtrl::reshape(width, height, called_from_parent);
@@ -953,9 +1523,29 @@ void LLNotifyBoxView::showOnly(LLView* view)
 		if (!static_cast<LLNotifyBox*>(other)->isTip())
 			other->setVisible(false);
 	}
+	for (LLView* other : *getChildList())
+	{
+		if (other != view && !isGroupNotifyBox(other) && !static_cast<LLNotifyBox*>(other)->isTip())
+		{
+			takeSpaceHidden(other);
+		}
+	}
+	takeSpaceHidden(view);
 	view->setVisible(true);
 	sendChildToFront(view);
 	layoutStack();
+}
+bool LLNotifyBoxView::takeSpaceHidden(LLView* view)
+{
+	for (std::vector<LLHandle<LLView> >::iterator it = mSpaceHidden.begin(); it != mSpaceHidden.end(); ++it)
+	{
+		if (it->get() == view)
+		{
+			mSpaceHidden.erase(it);
+			return true;
+		}
+	}
+	return false;
 }
 void LLNotifyBoxView::deleteAllChildren()
 {
@@ -966,6 +1556,7 @@ void LLNotifyBoxView::deleteAllChildren()
 	mOverflowCount = 0;
 	refreshWell();
 }
+static void close_notify_box(LLView* view);
 void LLNotifyBoxView::purgeMessagesMatching(const Matcher& matcher)
 {
 	LLView::child_list_t notification_queue(*getChildList());
@@ -976,9 +1567,9 @@ void LLNotifyBoxView::purgeMessagesMatching(const Matcher& matcher)
 		if (isGroupNotifyBox(*iter))
 			continue;
 		LLNotifyBox* notification = static_cast<LLNotifyBox*>(*iter);
-		if (matcher.matches(notification->getNotification()))
+		if (!notification->isDead() && matcher.matches(notification->getNotification()))
 		{
-			removeChild(notification);
+			close_notify_box(notification);
 		}
 	}
 	layoutStack();
@@ -1238,11 +1829,6 @@ S32 LLNotifyBoxView::getStackBottom() const
 		screenRectToLocal(overlay_screen, &overlay_local);
 		min_bottom = llmax(min_bottom, overlay_local.mTop + 8);
 	}
-	S32 top = getStackTop();
-	if (top - min_bottom < 80)
-	{
-		min_bottom = llmax(8, top - 200);
-	}
 	return min_bottom;
 }
 void LLNotifyBoxView::layoutStack()
@@ -1253,9 +1839,24 @@ void LLNotifyBoxView::layoutStack()
 	}
 	mInLayout = true;
 	const bool stack = stackEnabled();
+	if (stack)
+	{
+		mSpaceHidden.clear();
+	}
+	else
+	{
+		mSpaceHidden.erase(std::remove_if(mSpaceHidden.begin(), mSpaceHidden.end(),
+			[](const LLHandle<LLView>& handle)
+			{
+				LLView* view = handle.get();
+				return !view || view->isDead();
+			}),
+			mSpaceHidden.end());
+	}
 	const S32 min_bottom = getStackBottom();
-	S32 cursor_right = getStackTop();
-	S32 cursor_left = getStackTop();
+	const S32 stack_top = getStackTop();
+	S32 cursor_right = stack_top;
+	S32 cursor_left = stack_top;
 	S32 overflow = 0;
 	for (child_list_const_iter_t iter = getChildList()->begin();
 		 iter != getChildList()->end();
@@ -1268,6 +1869,7 @@ void LLNotifyBoxView::layoutStack()
 		}
 		if (isSunkToWell(view))
 		{
+			takeSpaceHidden(view);
 			view->setVisible(FALSE);
 			if (belongsInWell(view))
 			{
@@ -1291,6 +1893,18 @@ void LLNotifyBoxView::layoutStack()
 			{
 				view->setVisible(TRUE);
 			}
+		}
+		else if (fits)
+		{
+			if (!view->getVisible() && takeSpaceHidden(view))
+			{
+				view->setVisible(TRUE);
+			}
+		}
+		else if (view->getVisible())
+		{
+			view->setVisible(FALSE);
+			mSpaceHidden.push_back(view->getHandle());
 		}
 		if (!view->getVisible())
 		{
@@ -1373,6 +1987,10 @@ S32 LLNotifyBoxView::getOverflowCount() const
 {
 	return mOverflowCount;
 }
+S32 LLNotifyBoxView::getAvailableStackHeight() const
+{
+	return getStackTop() - getStackBottom();
+}
 static void close_notify_box(LLView* view)
 {
 	if (LLGroupNotifyBox* group = dynamic_cast<LLGroupNotifyBox*>(view))
@@ -1382,7 +2000,7 @@ static void close_notify_box(LLView* view)
 	}
 	if (LLNotifyBox* box = dynamic_cast<LLNotifyBox*>(view))
 	{
-		if (box->isDead())
+		if (box->isDead() || is_object_offer_box(box))
 		{
 			return;
 		}
@@ -1401,7 +2019,7 @@ void LLNotifyBoxView::closeAll()
 	LLView::child_list_t boxes(*getChildList());
 	for (LLView* view : boxes)
 	{
-		if (isStackable(view))
+		if (isStackable(view) && !is_object_offer_box(view))
 		{
 			close_notify_box(view);
 		}
@@ -1420,6 +2038,11 @@ void LLNotifyBoxView::closeOne(const LLUUID& id)
 		if (!isStackable(view) || getBoxID(view) != id)
 		{
 			continue;
+		}
+		if (is_object_offer_box(view))
+		{
+			bringToFront(id);
+			return;
 		}
 		close_notify_box(view);
 		break;

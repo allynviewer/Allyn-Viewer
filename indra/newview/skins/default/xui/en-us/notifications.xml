@@ -6683,6 +6683,13 @@ The string [STRING_NAME] is missing from strings.xml
 
   <notification
    icon="notifytip.tga"
+   name="LoginNotificationsArchived"
+   type="notifytip">
+[COUNT] notifications received while logging in were moved to the Notifications list.
+  </notification>
+
+  <notification
+   icon="notifytip.tga"
    name="Cancelled"
    type="notifytip">
 Cancelled

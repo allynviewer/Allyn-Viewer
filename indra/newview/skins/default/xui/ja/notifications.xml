@@ -3384,6 +3384,10 @@ strings.xml に文字列 [STRING_NAME] がありません。
 [MESSAGE]
   </notification>
 
+  <notification icon="notifytip.tga" name="LoginNotificationsArchived" type="notifytip">
+ログイン中に受信した [COUNT] 件の通知は通知リストに移動しました。
+  </notification>
+
   <notification icon="notifytip.tga" name="Cancelled" type="notifytip">
 キャンセル済み
   </notification>

@@ -33,6 +33,7 @@
 			<text name="seconds_textbox">Sekunden</text>
 			<check_box label="Bei L$-Wechsel benachrichtigen" name="notify_money_change_checkbox" />
 			<check_box label="ohne die Ecke zu überladen" name="no_transaction_clutter_checkbox" tool_tip="Benachrichtigungen kurz unten rechts einblenden, damit sie auffallen ohne zu stören." />
+			<spinner label="Anzeigedauer von Benachrichtigungen (Sekunden):" name="notify_toast_duration_spinner" tool_tip="Wie lange jede Benachrichtigung sichtbar bleibt, bevor sie in die Benachrichtigungsliste verschoben wird. Mit der Maus darüber pausiert ihr Timer. (5 bis 600 Sekunden)" />
 			<text name="maturity_desired_label">Freigabe:</text>
 			<text name="maturity_desired_prompt">Inhalte mit Freigabe:</text>
 			<combo_box name="maturity_desired_combobox">

@@ -45,6 +45,7 @@
 #include "llinventoryobserver.h"
 #include "llinventorymodel.h"
 #include "llnotifications.h"
+#include "llnotify.h"
 #include "llresmgr.h"
 #include "llimview.h"
 #include "lltrans.h"
@@ -563,6 +564,10 @@ void LLAvatarTracker::processNotify(LLMessageSystem* msg, bool online)
 			{
 				LLSD payload;
 				payload["FROM_ID"] = agent_id;
+				if (LLNotifyBox::isStartupSync())
+				{
+					payload["STARTUP_SYNC"] = true;
+				}
 				LLAvatarNameCache::get(agent_id, boost::bind(&on_avatar_name_cache_notify, _1, _2, online, payload));
 			}
 		}

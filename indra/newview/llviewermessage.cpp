@@ -31,6 +31,7 @@
 #include "llviewerprecompiledheaders.h"
 #include "llviewermessage.h"
 #include <boost/algorithm/string/replace.hpp>
+#include <memory>
 #include "llanimationstates.h"
 #include "llaudioengine.h"
 #include "llavataractions.h"
@@ -1127,6 +1128,71 @@ LLSD LLOfferInfo::asLLSD()
 	sd["sender"] = mHost.getIPandPort();
 	return sd;
 }
+namespace
+{
+	class LLOfferInfoOwner
+	{
+	public:
+		explicit LLOfferInfoOwner(LLOfferInfo* info) : mInfo(info)
+		{
+		}
+		~LLOfferInfoOwner()
+		{
+			delete mInfo;
+		}
+		LLOfferInfoOwner(const LLOfferInfoOwner&) = delete;
+		LLOfferInfoOwner& operator=(const LLOfferInfoOwner&) = delete;
+		LLOfferInfo* release()
+		{
+			LLOfferInfo* info = mInfo;
+			mInfo = nullptr;
+			return info;
+		}
+	private:
+		LLOfferInfo* mInfo;
+	};
+	bool on_offer_notification_changed(const LLSD& payload)
+	{
+		if (payload["sigtype"].asString() != "delete")
+		{
+			return false;
+		}
+		LLNotificationPtr notification = LLNotifications::instance().find(payload["id"].asUUID());
+		if (!notification || notification->isRespondedTo())
+		{
+			return false;
+		}
+		const std::string& name = notification->getName();
+		if (name == "UserGiveItem" || name == "ObjectGiveItem")
+		{
+			notification->setResponseFunctor(LLNotificationFunctorRegistry::instance().DONOTHING);
+		}
+		return false;
+	}
+}
+LLNotificationFunctorRegistry::ResponseFunctor LLOfferInfo::makeResponseFunctor()
+{
+	std::shared_ptr<LLOfferInfoOwner> owner = std::make_shared<LLOfferInfoOwner>(this);
+	return [owner](const LLSD& notification, const LLSD& response) -> bool
+	{
+		LLOfferInfo* info = owner->release();
+		if (!info)
+		{
+			return false;
+		}
+		return info->inventory_offer_callback(notification, response);
+	};
+}
+void LLOfferInfo::watchDismissedNotifications()
+{
+	static bool watching = false;
+	if (watching)
+	{
+		return;
+	}
+	watching = true;
+	LLNotifications::instance().connectChanged(&on_offer_notification_changed);
+}
 bool LLOfferInfo::inventory_offer_callback(const LLSD& notification, const LLSD& response)
 {
 	LLChat chat;
@@ -1136,7 +1202,7 @@ bool LLOfferInfo::inventory_offer_callback(const LLSD& notification, const LLSD&
 	{
 		LLAvatarActions::showProfile(mFromID);
 		LLNotification::Params p(notification["name"]);
-		p.substitutions(notification["substitutions"]).payload(notification["payload"]).functor(boost::bind(&LLOfferInfo::inventory_offer_callback, this, _1, _2));
+		p.substitutions(notification["substitutions"]).payload(notification["payload"]).functor(makeResponseFunctor());
 		LLNotifications::instance().add(p);
 		return false;
 	}
@@ -5731,6 +5797,6 @@ void invalid_message_callback(LLMessageSystem* msg,
 void LLOfferInfo::forceResponse(InventoryOfferResponse response)
 {
 	LLNotification::Params params("UserGiveItem");
-	params.functor(boost::bind(&LLOfferInfo::inventory_offer_callback, this, _1, _2));
+	params.functor(makeResponseFunctor());
 	LLNotifications::instance().forceResponse(params, response);
 }

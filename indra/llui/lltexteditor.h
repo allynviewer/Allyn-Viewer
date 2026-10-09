@@ -215,6 +215,9 @@ protected:
 public:
 	S32				getLength() const { return mWText.length(); }
 	void			updateLineStartList(S32 startpos = 0);
+	S32				getContentHeight();
+	S32				getMinContentHeight() const;
+	U32				getContentRevision() const { return mContentRevision; }
 protected:
 	void			updateScrollFromCursor();
 	void			updateTextRect();
@@ -395,6 +398,7 @@ private:
 	S32 mLastContextMenuY;
 	line_list_t mLineStartList;
 	BOOL			mReflowNeeded;
+	U32				mContentRevision = 0;
 	BOOL			mScrollNeeded;
 	LLFrameTimer	mKeystrokeTimer;
 	LLFrameTimer	mSpellTimer;

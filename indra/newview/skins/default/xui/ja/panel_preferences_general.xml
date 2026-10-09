@@ -33,6 +33,7 @@
 			<text name="seconds_textbox">秒</text>
 			<check_box label="ワールド内通貨のやり取りを通知する" name="notify_money_change_checkbox"/>
 			<check_box label="画面隅を埋め尽くさない" name="no_transaction_clutter_checkbox" tool_tip="通知は出しますが、右下に短く表示して消えるので、取引に気づきつつ邪魔になりません。"/>
+			<spinner label="通知の表示時間（秒）:" name="notify_toast_duration_spinner" tool_tip="各通知が通知リストに移るまで画面に表示される時間です。通知にマウスを重ねるとタイマーが一時停止します。（5～600秒）"/>
 			<text name="maturity_desired_label">レーティング</text>
 			<text name="maturity_desired_prompt">次のレーティングのコンテンツにアクセス:</text>
 			<combo_box name="maturity_desired_combobox">

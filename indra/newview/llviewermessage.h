@@ -178,6 +178,8 @@ public:
 	LLOfferInfo(const LLSD& sd);
 	LLOfferInfo(const LLOfferInfo& info);
 	void forceResponse(InventoryOfferResponse response);
+	LLNotificationFunctorRegistry::ResponseFunctor makeResponseFunctor();
+	static void watchDismissedNotifications();
 	EInstantMessage mIM;
 	LLUUID mFromID;
 	BOOL mFromGroup;

@@ -33,6 +33,7 @@
 			<text name="seconds_textbox">секунд</text>
 			<check_box label="Уведомлять об обмене валюты" name="notify_money_change_checkbox"/>
 			<check_box label="Не засорять угол" name="no_transaction_clutter_checkbox" tool_tip="Уведомления ненадолго появляются в правом нижнем углу и исчезают."/>
+			<spinner label="Время показа уведомлений (секунды):" name="notify_toast_duration_spinner" tool_tip="Сколько времени каждое уведомление остаётся на экране, прежде чем уйти в список уведомлений. Наведение мыши на уведомление приостанавливает его таймер. (от 5 до 600 секунд)"/>
 			<text name="maturity_desired_label">Рейтинг:</text>
 			<text name="maturity_desired_prompt">Я хочу получить доступ к контенту:</text>
 			<combo_box name="maturity_desired_combobox">

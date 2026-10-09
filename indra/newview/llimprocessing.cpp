@@ -40,6 +40,7 @@
 #include "llinventoryobserver.h"
 #include "llmutelist.h"
 #include "llnotificationsutil.h"
+#include "llnotify.h"
 #include "llslurl.h"
 #include "lltrans.h"
 #include "llversioninfo.h"
@@ -317,8 +318,9 @@ void inventory_offer_handler(LLOfferInfo* info, bool is_friend, bool is_owned_by
 		}
 		args["NAME"] = full_name;
 	}
+	LLOfferInfo::watchDismissedNotifications();
 	LLNotification::Params p("ObjectGiveItem");
-	p.substitutions(args).payload(payload).functor(boost::bind(&LLOfferInfo::inventory_offer_callback, info, _1, _2));
+	p.substitutions(args).payload(payload).functor(info->makeResponseFunctor());
 	if (info->mFromObject)
 	{
 		p.name = "ObjectGiveItem";
@@ -431,6 +433,7 @@ void LLIMProcessing::processNewMessage(const LLUUID& from_id,
     LLHost &sender,
     const LLUUID& aux_id)
 {
+	LLNotifyBox::StartupSyncScope startup_sync(offline == IM_OFFLINE);
 	LLChat chat;
 	std::string buffer;
 	LLStringUtil::trim(name);
@@ -1444,6 +1447,7 @@ void LLIMProcessing::requestOfflineMessages()
         }
         else
         {
+            LLNotifyBox::setOfflineMessagesPending(true);
             LLHTTPClient::get(cap_url, new LLCoroResponder(
                 LLIMProcessing::requestOfflineMessagesCoro));
         }
@@ -1452,6 +1456,7 @@ void LLIMProcessing::requestOfflineMessages()
 }
 void LLIMProcessing::requestOfflineMessagesCoro(const LLCoroResponder& responder)
 {
+	LLNotifyBox::setOfflineMessagesPending(false);
 	if (LLApp::isQuitting() || !gAgent.getRegion())
 	{
 		return;

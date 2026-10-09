@@ -3045,6 +3045,9 @@ Gostaria de visitar o site do Second Life para configurá-lo?
 	<notification name="SystemMessageTip">
 		[MESSAGE]
 	</notification>
+	<notification name="LoginNotificationsArchived">
+		[COUNT] notificações recebidas durante o login foram movidas para a lista de Notificações.
+	</notification>
 	<notification name="IMSystemMessageTip">
 		[MESSAGE]
 	</notification>

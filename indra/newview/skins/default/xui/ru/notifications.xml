@@ -3870,6 +3870,10 @@ Max Altitude регулирует расчеты высоты, которые Wi
 [MESSAGE]
   </notification>
 
+  <notification icon="notifytip.tga" name="LoginNotificationsArchived" type="notifytip">
+Уведомления, полученные во время входа ([COUNT]), перемещены в список уведомлений.
+  </notification>
+
   <notification icon="notifytip.tga" name="Cancelled" type="notifytip">
 Отменено
   </notification>

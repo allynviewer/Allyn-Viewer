@@ -47,6 +47,7 @@
 #include "llinventory.h"
 #include "lltrans.h"
 #include "llviewerwindow.h"
+#include "llviewerdisplay.h"
 #include "llglheaders.h"
 #include "llagent.h"
 const F32 ANIMATION_TIME = 0.333f;
@@ -87,17 +88,51 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 	mWellID(),
 	mSubject(subject),
 	mHasInventory(has_inventory),
-	mInventoryOffer(NULL)
+	mInventoryOffer(NULL),
+	mNaturalHeight(getRect().getHeight())
 {
 	mWellID.generate();
 	constexpr S32 PAD = 2;
-	const S32 TOP = getRect().getHeight() - 28;
 	const S32 BOTTOM_PAD = PAD * 2;
 	const S32 BTN_TOP = BOTTOM_PAD + BTN_HEIGHT + PAD;
 	const S32 RIGHT = getRect().getWidth() - HPAD - 18;
 	constexpr S32 LINE_HEIGHT = 16;
 	constexpr S32 LABEL_WIDTH = 64;
 	constexpr S32 ICON_WIDTH = 64;
+	constexpr S32 HEADER_HEIGHT = 28 + ICON_WIDTH + PAD * 2;
+	const S32 box_bottom = BTN_TOP + (mHasInventory ? (LINE_HEIGHT + 2*PAD) : 0);
+	static const auto text_color = gColors.getColor("GroupNotifyTextColor");
+	LLTextEditor* text = new LLViewerTextEditor(std::string("box"),
+		LLRect(HPAD, getRect().getHeight() - HEADER_HEIGHT, RIGHT, box_bottom),
+		DB_GROUP_NOTICE_MSG_STR_LEN,
+		LLStringUtil::null,
+		LLFontGL::getFontSansSerif(),
+		FALSE,
+		true);
+	text->setBorderVisible(false);
+	LLStyleSP msgstyle(new LLStyle(true, text_color, LLStringUtil::null));
+	text->appendText(message, false, false, msgstyle, false);
+	text->setCursor(0,0);
+	text->setWordWrap(TRUE);
+	text->setTabsToNextField(TRUE);
+	text->setMouseOpaque(TRUE);
+	text->setTakesNonScrollClicks(TRUE);
+	text->setHideScrollbarForShortDocs(TRUE);
+	text->setReadOnlyFgColor(text_color);
+	text->setReadOnlyBgColor(LLColor4::transparent);
+	text->setWriteableBgColor(LLColor4::transparent);
+	const S32 base_text_height = text->getRect().getHeight();
+	const S32 text_height = llmax(base_text_height, text->getContentHeight());
+	if (text_height != base_text_height)
+	{
+		text->reshape(text->getRect().getWidth(), text_height);
+		text->setOrigin(HPAD, box_bottom);
+		LLRect rect = getRect();
+		rect.mBottom = rect.mTop - (HEADER_HEIGHT + text_height + box_bottom);
+		setRect(rect);
+	}
+	mNaturalHeight = getRect().getHeight();
+	const S32 TOP = getRect().getHeight() - 28;
   	time_t timestamp = (time_t)time_stamp.secondsSinceEpoch();
  	if (!timestamp) time(&timestamp);
 	std::string time_buf;
@@ -113,7 +148,6 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 	setBackgroundColor( gColors.getColor("GroupNotifyBoxColor") );
 	S32 y = TOP;
 	S32 x = ICON_WIDTH + HPAD + PAD;
-	static const auto text_color = gColors.getColor("GroupNotifyTextColor");
 	class NoticeText : public LLTextBox
 	{
 	public:
@@ -154,27 +188,6 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 						  group_insignia.isNull() ? "icon_groupnotice.tga" : group_insignia.asString());
 	icon->setMouseOpaque(FALSE);
 	addChild(icon);
-	y = bottom - PAD*2;
-	S32 box_bottom = BTN_TOP + (mHasInventory ? (LINE_HEIGHT + 2*PAD) : 0);
-	LLTextEditor* text = new LLViewerTextEditor(std::string("box"),
-		LLRect(x, y, RIGHT, box_bottom),
-		DB_GROUP_NOTICE_MSG_STR_LEN,
-		LLStringUtil::null,
-		LLFontGL::getFontSansSerif(),
-		FALSE,
-		true);
-	text->setBorderVisible(false);
-	LLStyleSP msgstyle(new LLStyle(true, text_color, LLStringUtil::null));
-	text->appendText(message, false, false, msgstyle, false);
-	text->setCursor(0,0);
-	text->setWordWrap(TRUE);
-	text->setTabsToNextField(TRUE);
-	text->setMouseOpaque(TRUE);
-	text->setTakesNonScrollClicks(TRUE);
-	text->setHideScrollbarForShortDocs(TRUE);
-	text->setReadOnlyFgColor(text_color);
-	text->setReadOnlyBgColor(LLColor4::transparent);
-	text->setWriteableBgColor(LLColor4::transparent);
 	addChild(text);
 	y = box_bottom - PAD;
 	if (mHasInventory)
@@ -250,13 +263,51 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 								std::string("UIImgBtnCloseActiveUUID"),
 								std::string("UIImgBtnCloseActiveUUID"),
 								LLStringUtil::null,
-								boost::bind(&LLGroupNotifyBox::hideToWell, this));
+								boost::bind(&LLGroupNotifyBox::close, this));
 		mHideBtn->setScaleImage(TRUE);
-		mHideBtn->setToolTip(LLTrans::getString("NotifyToastHide"));
+		mHideBtn->setToolTip(LLTrans::getString("NotifyWellClose"));
 		mHideBtn->setTabStop(FALSE);
 		mHideBtn->setFollows(FOLLOWS_TOP | FOLLOWS_RIGHT);
 		addChild(mHideBtn);
 	}
+	if (gNotifyBoxView)
+	{
+		fitToArea(gNotifyBoxView->getAvailableStackHeight());
+	}
+}
+bool LLGroupNotifyBox::fitToArea(S32 available)
+{
+	available = llmax(0, available);
+	const S32 available_width = gNotifyBoxView ? llmax(1, gNotifyBoxView->getRect().getWidth()) : getRect().getWidth();
+	const S32 content_height = llmax(1, mNaturalHeight - LLToastScrollArea::TOP_RESERVE);
+	const bool fits = mNaturalHeight <= available && mScrollArea.getNaturalWidth(this) <= available_width;
+	bool changed = false;
+	if (fits)
+	{
+		if (!mScrollArea.isActive())
+		{
+			return false;
+		}
+		mScrollArea.deactivate(this, mHideBtn);
+		LLRect rect = getRect();
+		rect.mBottom = rect.mTop - mNaturalHeight;
+		setRect(rect);
+		changed = true;
+	}
+	else
+	{
+		if (!mScrollArea.isActive())
+		{
+			mScrollArea.activate(this, mHideBtn, content_height, getDefaultButton());
+		}
+		changed = mScrollArea.layout(this, content_height, available_width, available);
+	}
+	if (mHideBtn)
+	{
+		const LLRect rect = getRect();
+		mHideBtn->setRect(LLRect(rect.getWidth() - 20, rect.getHeight() - 3, rect.getWidth() - 4, rect.getHeight() - 19));
+	}
+	return changed;
 }
 LLGroupNotifyBox::~LLGroupNotifyBox()
 {
@@ -278,6 +329,7 @@ void LLGroupNotifyBox::drawBackground() const
 }
 void LLGroupNotifyBox::draw()
 {
+	mScrollArea.revealFocus();
 	F32 display_time = mTimer.getElapsedTimeF32();
 	if (mAnimating && display_time < ANIMATION_TIME)
 	{
@@ -301,11 +353,11 @@ void LLGroupNotifyBox::draw()
 		S32 local_x = 0;
 		S32 local_y = 0;
 		screenPointToLocal(gViewerWindow->getCurrentMouseX(), gViewerWindow->getCurrentMouseY(), &local_x, &local_y);
-		if (pointInView(local_x, local_y))
+		if (gTeleportDisplay || pointInView(local_x, local_y))
 		{
 			mTimer.reset();
 		}
-		else if (mTimer.getElapsedTimeF32() >= llmax(0.5f, gSavedSettings.getF32("NotifyBoxToastDuration")))
+		else if (mTimer.getElapsedTimeF32() >= LLNotifyBox::getToastDuration())
 		{
 			sinkToWell();
 			if (gNotifyBoxView)
@@ -368,7 +420,7 @@ bool LLGroupNotifyBox::onNewNotification(const LLSD& notify)
 			LL_WARNS() << "Group notice for unkown group: " << payload["group_id"].asUUID() << LL_ENDL;
 			return false;
 		}
-		gNotifyBoxView->addChild(new LLGroupNotifyBox(payload["subject"].asString(),
+		LLGroupNotifyBox* box = new LLGroupNotifyBox(payload["subject"].asString(),
 									payload["message"].asString(),
 									payload.has("sender_id") ? LLAvatarActions::getSLURL(payload["sender_id"]) : payload["sender_name"].asString(),
 									payload["group_id"].asUUID(),
@@ -377,7 +429,12 @@ bool LLGroupNotifyBox::onNewNotification(const LLSD& notify)
 									notification->getDate(),
 									payload["inventory_offer"].isDefined(),
 									payload["inventory_name"].asString(),
-									payload["inventory_offer"]));
+									payload["inventory_offer"]);
+		if (LLNotifyBox::archiveDuringStartup(notification, box))
+		{
+			box->sinkToWell();
+		}
+		gNotifyBoxView->addChild(box);
 	}
 	return false;
 }

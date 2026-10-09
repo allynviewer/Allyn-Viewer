@@ -38,6 +38,7 @@
 			<text name="seconds_textbox">saniye</text>
 			<check_box name="notify_money_change_checkbox" label="Para değişince bildir" />
 			<check_box name="no_transaction_clutter_checkbox" label="köşeyi doldurmadan" tool_tip="Bildirimleri yine de sunun, ancak bir anlığına sağ altta belirmelerini sağlayın, sonra bırakın, böylece işlem dikkat çeker ancak yolunuza çıkmaz." />
+			<spinner name="notify_toast_duration_spinner" label="Bildirim gösterim süresi (saniye):" tool_tip="Her bildirimin Bildirimler listesine geçmeden önce ekranda kalma süresi. Farenin bildirimin üzerinde durması zamanlayıcısını duraklatır. (5 ile 600 saniye arası)" />
 			<text name="maturity_desired_label">Derece:</text>
 			<text name="maturity_desired_prompt">Şu dereceli içeriğe eriş:</text>
 			<combo_box name="maturity_desired_combobox">

@@ -3506,6 +3506,7 @@ void LLTextEditor::replaceUrl(const std::string &url,
 		mTextIsUpToDate = FALSE;
 		setCursorPos(mCursorPos);
 		needsReflow();
+		++mContentRevision;
 	}
 }
 void LLTextEditor::appendAndHighlightTextImpl(const std::string& new_text, S32 highlight_part, const LLStyleSP stylep, bool underline_on_hover)
@@ -3721,6 +3722,16 @@ BOOL LLTextEditor::tryToRevertToPristineState()
 		needsReflow();
 	}
 	return isPristine();
+}
+S32 LLTextEditor::getContentHeight()
+{
+	updateLineStartList();
+	mReflowNeeded = FALSE;
+	return (llmax(1, getLineCount()) - 1) * ll_round(mGLFont->getLineHeight()) + getMinContentHeight();
+}
+S32 LLTextEditor::getMinContentHeight() const
+{
+	return ll_round(mGLFont->getLineHeight()) + 2 * UI_TEXTEDITOR_BORDER + UI_TEXTEDITOR_V_PAD_TOP;
 }
 void LLTextEditor::updateTextRect()
 {

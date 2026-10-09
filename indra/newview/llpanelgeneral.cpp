@@ -42,6 +42,7 @@
 #include "llvoavatar.h"
 #include "llcallingcard.h"
 #include "llnotifications.h"
+#include "llnotify.h"
 #include "llviewerwindow.h"
 LLPanelGeneral::LLPanelGeneral()
 {
@@ -68,6 +69,7 @@ BOOL LLPanelGeneral::postBuild()
 	childSetValue("afk_timeout_spinner", gSavedSettings.getF32("AFKTimeout"));
 	childSetValue("notify_money_change_checkbox", gSavedSettings.getBOOL("NotifyMoneyChange"));
 	childSetValue("no_transaction_clutter_checkbox", gSavedSettings.getBOOL("LiruNoTransactionClutter"));
+	childSetValue("notify_toast_duration_spinner", LLNotifyBox::getToastDuration());
 	childSetValue("ui_scale_slider", gSavedSettings.getF32("UIScaleFactor"));
 	childSetValue("ui_auto_scale", gSavedSettings.getBOOL("UIAutoScale"));
 	LLComboBox* crash_behavior_combobox = getChild<LLComboBox>("crash_behavior_combobox");
@@ -118,6 +120,7 @@ void LLPanelGeneral::apply()
 	gSavedSettings.setF32("AFKTimeout", childGetValue("afk_timeout_spinner").asReal());
 	gSavedSettings.setBOOL("NotifyMoneyChange", childGetValue("notify_money_change_checkbox"));
 	gSavedSettings.setBOOL("LiruNoTransactionClutter", childGetValue("no_transaction_clutter_checkbox"));
+	gSavedSettings.setF32("NotifyBoxToastDuration", llclamp((F32)childGetValue("notify_toast_duration_spinner").asReal(), LLNotifyBox::MIN_TOAST_DURATION, LLNotifyBox::MAX_TOAST_DURATION));
 	F32 ui_scale = (F32)childGetValue("ui_scale_slider").asReal();
 	gSavedSettings.setF32("UIScaleFactor", ui_scale);
 	gSavedSettings.setBOOL("UIAutoScale", childGetValue("ui_auto_scale"));

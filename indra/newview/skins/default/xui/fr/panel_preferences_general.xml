@@ -31,6 +31,7 @@
 			<spinner bottom="-220" decimal_digits="0" height="16" increment="1" initial_val="300" label="Après :" label_width="91" left="136" max_val="600" min_val="0" name="afk_timeout_spinner" width="137" />
 			<check_box bottom="-257" height="16" initial_value="false" label="M'avertir lors d'échanges de devises" left="10" name="notify_money_change_checkbox" />
 			<check_box bottom="-257" height="16" label="Sans encombrer le coin" left="280" name="no_transaction_clutter_checkbox" tool_tip="Afficher les notifications brièvement en bas à droite, afin qu'elles attirent l'attention sans gêner." />
+			<spinner bottom="-276" height="16" label="Durée d'affichage des notifications (secondes) :" label_width="270" left="10" name="notify_toast_duration_spinner" tool_tip="Durée pendant laquelle chaque notification reste à l'écran avant de rejoindre la liste des Notifications. Survoler une notification met son minuteur en pause. (5 à 600 secondes)" width="340" />
 			<text bottom="-291" height="10" left="10" name="maturity_desired_label">Note :</text>
 			<text bottom="-291" height="10" left="101" name="maturity_desired_prompt">Je veux accéder au contenu classé :</text>
 			<combo_box bottom="-297" follows="left|top" height="18" left="267" name="maturity_desired_combobox" width="120" control_name="PreferredMaturity">

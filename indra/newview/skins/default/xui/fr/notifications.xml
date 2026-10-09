@@ -2791,6 +2791,10 @@ La chaîne [STRING_NAME] est absente de strings.xml
 [MESSAGE]
 	</notification>
 
+	<notification name="LoginNotificationsArchived">
+[COUNT] notifications reçues pendant la connexion ont été déplacées dans la liste des Notifications.
+	</notification>
+
 	<notification name="Cancelled">
 Annulé
 	</notification>

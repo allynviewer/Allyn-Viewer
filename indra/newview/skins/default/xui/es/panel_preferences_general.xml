@@ -31,6 +31,7 @@
 			<spinner label="Tras:" name="afk_timeout_spinner" label_width="71" left="236" />
 			<check_box label="Avisar cuando gasto o recibo dinero" name="notify_money_change_checkbox" />
 			<check_box bottom="-257" height="16" label="Sin Ventana Emergente" name="no_transaction_clutter_checkbox" tool_tip="Siguen existiendo las notificaciones, pero la ventana emergente en la esquina superior derecha aparecerá momentáneamente y desaparecerá, de esta manera la transacción de dinero llamará la atención pero no exigirá tu atención." />
+			<spinner label="Duración de las notificaciones (segundos):" name="notify_toast_duration_spinner" tool_tip="Cuánto tiempo permanece cada notificación en pantalla antes de desvanecerse en la lista de Notificaciones. Pasar el ratón sobre una notificación pausa su temporizador. (5 a 600 segundos)" />
 			<text name="maturity_desired_label">Calif.:</text>
 			<text name="maturity_desired_prompt">Quiero acceder a contenido</text>
 			<combo_box name="maturity_desired_combobox" width="145">

@@ -11768,13 +11768,13 @@ This should be as low as possible, but too low may break functionality</string>
     <key>NotifyBoxToastDuration</key>
     <map>
       <key>Comment</key>
-      <string>Seconds before stacked notify toasts fade and hide into the Notifications well</string>
+      <string>Seconds a notification toast stays on screen before it fades into the Notifications well (5 to 600, Preferences &gt; General)</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>10.0</real>
+      <real>30.0</real>
     </map>
     <key>NotifyBoxWidth</key>
     <map>

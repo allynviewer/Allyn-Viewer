@@ -2451,6 +2451,9 @@ Vuoi visitare il sito di Second Life per impostarle?
 	<notification name="SystemMessageTip">
 		[MESSAGE]
 	</notification>
+	<notification name="LoginNotificationsArchived">
+		[COUNT] notifiche ricevute durante l'accesso sono state spostate nell'elenco Notifiche.
+	</notification>
 	<notification name="Cancelled">
 		Annullato
 	</notification>

@@ -36,6 +36,7 @@
 #include "lltimer.h"
 #include "llviewermessage.h"
 #include "llnotifications.h"
+#include "llnotify.h"
 class LLButton;
 class LLGroupNotifyBox final
 :	public LLPanel,
@@ -51,6 +52,7 @@ public:
 	static bool onNewNotification(const LLSD& notification);
 	const LLUUID& getWellID() const { return mWellID; }
 	const std::string& getWellTitle() const { return mSubject; }
+	bool fitToArea(S32 available);
 protected:
 	LLGroupNotifyBox(const std::string& subject,
 							 const std::string& message,
@@ -81,5 +83,7 @@ private:
 	std::string mSubject;
 	bool mHasInventory;
 	LLOfferInfo* mInventoryOffer;
+	S32 mNaturalHeight;
+	LLToastScrollArea mScrollArea;
 };
 #endif

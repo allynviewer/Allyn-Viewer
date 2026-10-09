@@ -3481,6 +3481,9 @@ Pero, vaya, diviértete si quieres.
 	<notification name="SystemMessageTip">
 		[MESSAGE]
 	</notification>
+	<notification name="LoginNotificationsArchived">
+		[COUNT] notificaciones recibidas durante el inicio de sesión se movieron a la lista de Notificaciones.
+	</notification>
 	
 	<notification name="Cancelled">
 		Cancelado

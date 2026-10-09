@@ -3870,6 +3870,10 @@ strings.xml içinde [STRING_NAME] dizesi eksik.
 [MESSAGE]
   </notification>
 
+  <notification icon="notifytip.tga" name="LoginNotificationsArchived" type="notifytip">
+Oturum açılırken alınan [COUNT] bildirim Bildirimler listesine taşındı.
+  </notification>
+
   <notification icon="notifytip.tga" name="Cancelled" type="notifytip">
 İptal edildi
   </notification>

@@ -2352,6 +2352,7 @@ Ein Grid mit dem gleichen Namen existiert bereits.
 	<notification name="ExportPartial">Objekt exportiert. Einige Texturen konnten aus folgendem Grund nicht gespeichert werden. [REASON]</notification>
 	<notification name="ExportSuccessful">Export erfolgreich.</notification>
 	<notification name="SystemMessageTip">[MESSAGE]</notification>
+	<notification name="LoginNotificationsArchived">[COUNT] Benachrichtigungen, die während der Anmeldung eingegangen sind, wurden in die Benachrichtigungsliste verschoben.</notification>
 	<notification name="Cancelled">Abgebrochen</notification>
 	<notification name="CancelledSit">Sitzen beendet</notification>
 	<notification name="CancelledAttach">Anh&#xE4;ngen abgebrochen</notification>

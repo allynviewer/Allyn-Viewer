@@ -1312,7 +1312,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "if ((Test-Path $marker) -and ((Get-Item $marker).LastWriteTime -ge $start)) { Write-Host ('  ' + ($env:M_SMOKE_MARKER_OK -f $marker)) } else { Write-Host ('  ' + ($env:M_SMOKE_MARKER_MISSING -f $marker)) };" ^
   "$crashLog = Join-Path $logDir 'Allyn.log';" ^
   "if ((Test-Path $crashLog) -and ((Get-Item $crashLog).LastWriteTime -ge $start)) { Write-Host ('  ' + $env:M_SMOKE_CRASHLOG); Get-Content $crashLog -Tail 15 -ErrorAction SilentlyContinue | ForEach-Object { Write-Host ('    ' + $_) } };" ^
-  "if ($alive) { Write-Host ('  ' + $env:M_SMOKE_CLOSING); Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue; Get-Process SLplugin -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue; Start-Sleep -Seconds 2 };" ^
+  "if ($alive) { Write-Host ('  ' + $env:M_SMOKE_CLOSING); $p.Refresh(); [void]$p.CloseMainWindow(); if (-not $p.WaitForExit(3000)) { Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue; [void]$p.WaitForExit(5000); Remove-Item $marker -Force -ErrorAction SilentlyContinue }; Get-Process SLplugin -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue; Start-Sleep -Seconds 2 };" ^
   "if ($alive) { exit 0 } else { exit 1 }"
 set "RC=!errorlevel!"
 echo.
