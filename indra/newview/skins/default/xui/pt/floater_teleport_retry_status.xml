@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="teleport_retry_status" title="Teleporte múltiplo">
+ <string name="CoordsUnknown">n/d</string>
+ <string name="ResolvingDestination">A resolver o destino...</string>
+ <string name="StateWaiting">Aguardando a próxima tentativa</string>
+ <string name="StateTrying">Tentando teleportar</string>
+ <string name="StatePaused">Pausado</string>
+ <string name="StateDone">Concluído</string>
+ <string name="StateStopped">Interrompido</string>
+ <string name="StateError">Erro</string>
+ <string name="Pause">Pausar</string>
+ <string name="Resume">Retomar</string>
+ <string name="IntervalIncreased">(aumentado)</string>
+ <text name="dest_label">Região de destino:</text>
+ <text name="coords_label">Coordenadas:</text>
+ <text name="attempts_label">Tentativas iniciadas:</text>
+ <text name="elapsed_label">Tempo total:</text>
+ <text name="interval_label">Intervalo atual:</text>
+ <text name="next_label">Próxima tentativa em:</text>
+ <text name="state_label">Estado:</text>
+ <text name="message_label">Última mensagem do servidor:</text>
+ <button name="pause_btn" label="Pausar"/>
+</floater>

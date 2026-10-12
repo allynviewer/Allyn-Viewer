@@ -35,5 +35,6 @@ public:
 						 bool trusted_browser);
 	static bool dispatchRightClick(const std::string& slurl);
 	static bool dispatchFromTextEditor(const std::string& slurl, bool trusted_content);
+	static bool dispatchTeleport(const std::string& slurl);
 };
 #endif

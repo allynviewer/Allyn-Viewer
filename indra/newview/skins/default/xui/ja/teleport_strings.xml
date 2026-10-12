@@ -13,6 +13,12 @@
 		<message name="expired_region_handoff">申し訳ありません。リージョン越えを時間内に完了できませんでした。数分後にもう一度お試しください。</message>
 		<message name="no_host">テレポート先が見つかりません。一時的に利用できないか、すでに存在しない可能性があります。数分後にもう一度お試しください。</message>
 		<message name="no_inventory_host">インベントリシステムは現在利用できません。</message>
+		<message name="NoHelpIslandTP">ウェルカムアイランドにテレポートで戻ることはできません。
+「Welcome Island Public」に行き再度チュートリアルを行ってください。</message>
+		<message name="MustGetAgeRegion">このリージョン（地域）に入るには、18歳以上である必要があります。</message>
+		<message name="RegionTPSpecialUsageBlocked">リージョンに入ることができません。
+「[REGION_NAME]」はスキルゲーミングリージョンであり、あなたはこのリージョンに入るための特定の基準を満たす必要があります。
+詳しくは、[http://wiki.secondlife.com/wiki/Linden_Lab_Official:Skill_Gaming_in_Second_Life スキルゲーミングのよくある質問]を参照してください。</message>
 	</message_set>
 	<message_set name="progress">
 		<message name="sending_dest">目的地へ送信しています。</message>

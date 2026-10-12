@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="teleport_retry_status" title="複数テレポート">
+ <string name="CoordsUnknown">なし</string>
+ <string name="ResolvingDestination">移動先を確認中...</string>
+ <string name="StateWaiting">次回の試行を待機中</string>
+ <string name="StateTrying">テレポートを試行中</string>
+ <string name="StatePaused">一時停止中</string>
+ <string name="StateDone">完了</string>
+ <string name="StateStopped">停止しました</string>
+ <string name="StateError">エラー</string>
+ <string name="Pause">一時停止</string>
+ <string name="Resume">再開</string>
+ <string name="IntervalIncreased">(増加)</string>
+ <text name="dest_label">移動先リージョン:</text>
+ <text name="coords_label">座標:</text>
+ <text name="attempts_label">開始した試行:</text>
+ <text name="elapsed_label">合計時間:</text>
+ <text name="interval_label">現在の間隔:</text>
+ <text name="next_label">次の試行まで:</text>
+ <text name="state_label">状態:</text>
+ <text name="message_label">最後のサーバーメッセージ:</text>
+ <button name="pause_btn" label="一時停止"/>
+</floater>

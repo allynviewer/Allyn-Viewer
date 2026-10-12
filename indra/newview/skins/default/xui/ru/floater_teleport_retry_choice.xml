@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="teleport_retry_choice" title="Регион заполнен">
+ <text name="prompt">Целевой регион заполнен. Выберите, как продолжить:</text>
+ <text name="dest_region_label">Регион:</text>
+ <text name="mode_label">Режим телепорта:</text>
+ <combo_box name="mode_combo">
+  <combo_item name="single" value="0">Один телепорт</combo_item>
+  <combo_item name="multiple" value="1">Несколько телепортов</combo_item>
+ </combo_box>
+ <check_box name="ask_again" label="Больше не спрашивать"/>
+ <button name="ok_button" label="Подтвердить"/>
+ <button name="cancel_button" label="Отмена"/>
+</floater>

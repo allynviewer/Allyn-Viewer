@@ -49,6 +49,7 @@
 #include "llvfs.h"
 #include "llxfermanager.h"
 #include "mean_collision_data.h"
+#include "alteleportretrycontroller.h"
 #include "llagent.h"
 #include "llagentbenefits.h"
 #include "llagentcamera.h"
@@ -82,6 +83,7 @@
 #include "llnotify.h"
 #include "llnotifications.h"
 #include "llnotificationsutil.h"
+#include "llnotificationtemplate.h"
 #include "llpanelgrouplandmoney.h"
 #include "llpanelmaininventory.h"
 #include "llselectmgr.h"
@@ -2475,6 +2477,10 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 		gAgentCamera.updateCamera();
 		gAgent.setTeleportState(LLAgent::TELEPORT_START_ARRIVAL);
 		gAgent.sendAgentSetAppearance();
+		if (ALTeleportRetryController::instanceExists())
+		{
+			ALTeleportRetryController::instance().onTeleportSucceeded();
+		}
 		if (isAgentAvatarValid())
 		{
 			LLSLURL slurl;
@@ -4977,69 +4983,132 @@ std::string formatted_time(const time_t& the_time)
 	buffer[24] = '\0';
 	return std::string(buffer);
 }
+static std::string lookupTeleportErrorText(const std::string& message_id)
+{
+	std::map<std::string, std::string>::const_iterator it =
+		LLAgent::sTeleportErrorMessages.find(message_id);
+	if (it == LLAgent::sTeleportErrorMessages.end())
+	{
+		return std::string();
+	}
+	return it->second;
+}
+static std::string notificationFailureBody(const std::string& message_id)
+{
+	if (message_id.empty()
+		|| !LLNotificationTemplates::getInstance()->templateExists(message_id))
+	{
+		return std::string();
+	}
+	LLNotificationTemplatePtr tmpl =
+		LLNotificationTemplates::getInstance()->getTemplate(message_id);
+	if (!tmpl)
+	{
+		return std::string();
+	}
+	std::string text = tmpl->mMessage;
+	LLStringUtil::trim(text);
+	return text;
+}
+static std::string teleportFailureReason(const std::string& message_id,
+										 const std::string& raw_reason,
+										 const std::string& region_name)
+{
+	std::string text = lookupTeleportErrorText(message_id);
+	if (text.empty())
+	{
+		text = raw_reason;
+	}
+	LLStringUtil::trim(text);
+	if (text.empty() || text == message_id)
+	{
+		const std::string body = notificationFailureBody(message_id);
+		if (!body.empty())
+		{
+			text = body;
+		}
+	}
+	if (!region_name.empty() && !text.empty())
+	{
+		LLStringUtil::format_map_t name_args;
+		name_args["[REGION_NAME]"] = region_name;
+		LLStringUtil::format(text, name_args);
+	}
+	if (text.empty())
+	{
+		text = message_id;
+	}
+	return text;
+}
 void process_teleport_failed(LLMessageSystem* msg, void**)
 {
 	std::string message_id;
 	std::string big_reason;
 	LLSD args;
+	const bool retry_attempt =
+		ALTeleportRetryController::instanceExists()
+		&& ALTeleportRetryController::instance().getState()
+			== ALTeleportRetryController::STATE_ATTEMPTING;
 	LLViewerParcelMgr::getInstance()->onTeleportFailed();
 	if (msg->has(_PREHASH_AlertInfo) && msg->getSizeFast(_PREHASH_AlertInfo, _PREHASH_Message) > 0)
 	{
 		msg->getStringFast(_PREHASH_AlertInfo, _PREHASH_Message, message_id);
-		big_reason = LLAgent::sTeleportErrorMessages[message_id];
-		if (big_reason.empty())
-		{
-			msg->getStringFast(_PREHASH_Info, _PREHASH_Reason, big_reason);
-		}
-		args["REASON"] = big_reason;
+		std::string raw_reason;
+		msg->getStringFast(_PREHASH_Info, _PREHASH_Reason, raw_reason);
 		LLSD llsd_block;
 		std::string llsd_raw;
 		msg->getStringFast(_PREHASH_AlertInfo, _PREHASH_ExtraParams, llsd_raw);
+		BOOL have_llsd = FALSE;
 		if (!llsd_raw.empty())
 		{
 			std::istringstream llsd_data(llsd_raw);
-			if (!LLSDSerialize::deserialize(llsd_block, llsd_data, llsd_raw.length()))
+			have_llsd = LLSDSerialize::deserialize(llsd_block, llsd_data, llsd_raw.length());
+			if (!have_llsd)
 			{
 				LL_WARNS() << "process_teleport_failed: Attempted to read alert parameter data into LLSD but failed:" << llsd_raw << LL_ENDL;
 			}
-			else
+		}
+		std::string retry_region;
+		if (have_llsd && llsd_block.has("REGION_NAME"))
+		{
+			retry_region = llsd_block["REGION_NAME"].asString();
+		}
+		big_reason = teleportFailureReason(message_id, raw_reason, retry_region);
+		args["REASON"] = big_reason;
+		ALTeleportRetryController::instance().onTeleportFailureInfo(
+			message_id,
+			big_reason,
+			retry_region);
+		if (have_llsd && handle_teleport_access_blocked(llsd_block, message_id, args["REASON"]))
+		{
+			if (gAgent.getTeleportState() != LLAgent::TELEPORT_NONE)
 			{
-				if(llsd_block.has("REGION_NAME"))
-				{
-					std::string region_name = llsd_block["REGION_NAME"].asString();
-					if(!region_name.empty())
-					{
-						LLStringUtil::format_map_t name_args;
-						name_args["[REGION_NAME]"] = region_name;
-						LLStringUtil::format(big_reason, name_args);
-						args["REASON"] = big_reason;
-					}
-				}
-				if (handle_teleport_access_blocked(llsd_block, message_id, args["REASON"]))
-				{
-					if (gAgent.getTeleportState() != LLAgent::TELEPORT_NONE)
-					{
-						gAgent.setTeleportState(LLAgent::TELEPORT_NONE);
-					}
-					return;
-				}
+				gAgent.setTeleportState(LLAgent::TELEPORT_NONE);
 			}
+			return;
 		}
 	}
 	else
 	{
 		msg->getStringFast(_PREHASH_Info, _PREHASH_Reason, message_id);
-		big_reason = LLAgent::sTeleportErrorMessages[message_id];
-		if (!big_reason.empty())
-		{
-			args["REASON"] = big_reason;
-		}
-		else
-		{
-			args["REASON"] = message_id;
-		}
+		big_reason = teleportFailureReason(message_id, message_id, std::string());
+		args["REASON"] = big_reason;
+		ALTeleportRetryController::instance().onTeleportFailureInfo(
+			message_id,
+			big_reason,
+			std::string());
 	}
-	LLNotificationsUtil::add("CouldNotTeleportReason", args);
+	const ALTeleportRetryController::EFailureKind failure_kind =
+		ALTeleportRetryController::classifyFailure(message_id, big_reason);
+	const bool keep_retrying =
+		failure_kind == ALTeleportRetryController::FAIL_REGION_FULL
+		|| failure_kind == ALTeleportRetryController::FAIL_MAINTENANCE
+		|| failure_kind == ALTeleportRetryController::FAIL_TIMEOUT
+		|| failure_kind == ALTeleportRetryController::FAIL_RATE_LIMIT;
+	if (!(retry_attempt && keep_retrying))
+	{
+		LLNotificationsUtil::add("CouldNotTeleportReason", args);
+	}
 	if (gAgent.getTeleportState() != LLAgent::TELEPORT_NONE)
 	{
 		gAgent.setTeleportState(LLAgent::TELEPORT_NONE);
@@ -5090,6 +5159,10 @@ void process_teleport_local(LLMessageSystem* msg, void**)
 	gAgentCamera.updateCamera();
 	send_agent_update(TRUE, TRUE);
 	LLViewerParcelMgr::getInstance()->onTeleportFinished(true, gAgent.getPosGlobalFromAgent(pos));
+	if (ALTeleportRetryController::instanceExists())
+	{
+		ALTeleportRetryController::instance().onTeleportSucceeded();
+	}
 }
 void send_simple_im(const LLUUID& to_id,
 					const std::string& message,

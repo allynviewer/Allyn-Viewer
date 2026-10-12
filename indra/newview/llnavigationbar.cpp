@@ -883,9 +883,9 @@ void LLNavigationBar::onLocationSelection()
 			}
 			addTypedHistory(typed);
 			LLSLURL slurl(typed);
-			if (slurl.getType() == LLSLURL::LOCATION || slurl.getType() == LLSLURL::HOME_LOCATION)
+			if (slurl.getType() == LLSLURL::LOCATION)
 			{
-				LLURLDispatcher::dispatch(slurl.getSLURLString(), "clicked", NULL, true);
+				LLURLDispatcher::dispatchTeleport(slurl.getSLURLString());
 			}
 			else
 			{
@@ -902,9 +902,9 @@ void LLNavigationBar::onLocationSelection()
 	}
 	addTypedHistory(typed);
 	LLSLURL slurl(typed);
-	if (slurl.getType() == LLSLURL::LOCATION || slurl.getType() == LLSLURL::HOME_LOCATION)
+	if (slurl.getType() == LLSLURL::LOCATION)
 	{
-		LLURLDispatcher::dispatch(slurl.getSLURLString(), "clicked", NULL, true);
+		LLURLDispatcher::dispatchTeleport(slurl.getSLURLString());
 		return;
 	}
 	LLURLDispatcher::dispatch(typed, "clicked", NULL, true);

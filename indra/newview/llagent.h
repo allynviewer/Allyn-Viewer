@@ -415,6 +415,11 @@ public:
 	bool            hasRestartableFailedTeleportRequest();
 	void            restartFailedTeleportRequest();
 	void            clearTeleportRequest();
+	// Destination carried by the teleport request the agent is currently
+	// holding (location and look-at requests store a global position).
+	// Returns false when the request has no position of its own, which is the
+	// case for landmark and lure requests: those are resolved by the simulator.
+	bool            getTeleportRequestDestination(LLVector3d& pos_global) const;
 	void            setMaturityRatingChangeDuringTeleport(U8 pMaturityRatingChange);
 private:
 	friend class LLTeleportRequest;

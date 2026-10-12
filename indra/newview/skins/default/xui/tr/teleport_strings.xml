@@ -31,6 +31,10 @@
 			Teleport hedefi bulunamadı. Hedef geçici olarak kapalı olabilir veya artık yok. Birkaç dakika sonra tekrar dene.
 		</message>
 		<message name="no_inventory_host">Envanter sistemi şu an kullanılamıyor.</message>
+		<message name="NoHelpIslandTP">Karşılama Ada'sına geri ışınlanamazsınız.
+Öğreticiyi tekrarlamak için 'Karşılama Ada'sı Kamusal Alanı'na gidin.</message>
+		<message name="MustGetAgeRegion">Bu bölgeye girebilmek için 18 veya üzeri bir yaşta olmanız gerekir.</message>
+		<message name="RegionTPSpecialUsageBlocked">Bölgeye girilemiyor. "[REGION_NAME]" bir Yetenek Oyunu Bölgesi. Buraya girebilmek için bazı ölçütleri karşılamanız gerekiyor. Ayrıntılar için lütfen [http://wiki.secondlife.com/wiki/Linden_Lab_Official:Skill_Gaming_in_Second_Life Skill Gaming FAQ] adresini ziyaret edin.</message>
 	</message_set>
 	<message_set name="progress">
 		<message name="sending_dest">Hedefe gönderiliyor.</message>

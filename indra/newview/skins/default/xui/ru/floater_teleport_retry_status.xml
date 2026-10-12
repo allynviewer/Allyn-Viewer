@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="teleport_retry_status" title="Несколько телепортов">
+ <string name="CoordsUnknown">н/д</string>
+ <string name="ResolvingDestination">Определение места назначения...</string>
+ <string name="StateWaiting">Ожидание следующей попытки</string>
+ <string name="StateTrying">Попытка телепорта</string>
+ <string name="StatePaused">Пауза</string>
+ <string name="StateDone">Завершено</string>
+ <string name="StateStopped">Остановлено</string>
+ <string name="StateError">Ошибка</string>
+ <string name="Pause">Пауза</string>
+ <string name="Resume">Продолжить</string>
+ <string name="IntervalIncreased">(увеличен)</string>
+ <text name="dest_label">Целевой регион:</text>
+ <text name="coords_label">Координаты:</text>
+ <text name="attempts_label">Начато попыток:</text>
+ <text name="elapsed_label">Общее время:</text>
+ <text name="interval_label">Текущий интервал:</text>
+ <text name="next_label">Следующая попытка через:</text>
+ <text name="state_label">Состояние:</text>
+ <text name="message_label">Последнее сообщение сервера:</text>
+ <button name="pause_btn" label="Пауза"/>
+</floater>

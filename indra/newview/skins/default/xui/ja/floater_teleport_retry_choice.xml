@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="teleport_retry_choice" title="リージョンが満員です">
+ <text name="prompt">移動先のリージョンは満員です。続行方法を選択してください:</text>
+ <text name="dest_region_label">リージョン:</text>
+ <text name="mode_label">テレポートモード:</text>
+ <combo_box name="mode_combo">
+  <combo_item name="single" value="0">単一テレポート</combo_item>
+  <combo_item name="multiple" value="1">複数テレポート</combo_item>
+ </combo_box>
+ <check_box name="ask_again" label="次回から確認しない"/>
+ <button name="ok_button" label="確認"/>
+ <button name="cancel_button" label="キャンセル"/>
+</floater>

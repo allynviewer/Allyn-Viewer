@@ -46,6 +46,19 @@ Por favor, vuelve a intentarlo en unos pocos minutos.
 		<message name="no_inventory_host">
 			En estos momentos no está disponible el sistema del inventario.
 		</message>
+		<message name="NoHelpIslandTP">
+			No te puedes volver a teleportar a la isla de bienvenida.
+Para repetir el tutorial, visita la isla de bienvenida pública.
+		</message>
+		<message name="preexisting_tport">
+			Lo sentimos, pero el sistema no pudo comenzar tu teleportacion. Por favor inténtalo de nuevo en unos minutos
+		</message>
+		<message name="MustGetAgeRegion">
+			Solo pueden acceder a esta región los mayores de 18 años.
+		</message>
+		<message name="RegionTPSpecialUsageBlocked">
+			No puedes entrar en la región. '[REGION_NAME]' es una región de juegos de habilidad, y debes cumplir determinados criterios para poder entrar en ella. Consulta los detalles en las [http://wiki.secondlife.com/wiki/Linden_Lab_Official:Skill_Gaming_in_Second_Life P+F de juegos de habilidad].
+		</message>
 	</message_set>
 	<message_set name="progress">
 		<message name="sending_dest">

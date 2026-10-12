@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="teleport_retry_status" title="Çoklu ışınlanma">
+ <string name="CoordsUnknown">yok</string>
+ <string name="ResolvingDestination">Hedef çözümleniyor...</string>
+ <string name="StateWaiting">Sonraki deneme bekleniyor</string>
+ <string name="StateTrying">Işınlanma denemesi</string>
+ <string name="StatePaused">Duraklatıldı</string>
+ <string name="StateDone">Tamamlandı</string>
+ <string name="StateStopped">Durduruldu</string>
+ <string name="StateError">Hata</string>
+ <string name="Pause">Duraklat</string>
+ <string name="Resume">Devam</string>
+ <string name="IntervalIncreased">(artırıldı)</string>
+ <text name="dest_label">Hedef bölge:</text>
+ <text name="coords_label">Koordinatlar:</text>
+ <text name="attempts_label">Başlatılan denemeler:</text>
+ <text name="elapsed_label">Toplam süre:</text>
+ <text name="interval_label">Mevcut aralık:</text>
+ <text name="next_label">Sonraki deneme:</text>
+ <text name="state_label">Durum:</text>
+ <text name="message_label">Son sunucu mesajı:</text>
+ <button name="pause_btn" label="Duraklat"/>
+</floater>

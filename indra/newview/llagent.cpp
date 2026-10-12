@@ -186,7 +186,6 @@ public:
 	bool canRestartTeleport() override;
 	void startTeleport() override;
 	void restartTeleport() override;
-protected:
 	inline const LLVector3d &getPosGlobal() const {return mPosGlobal;};
 private:
 	LLVector3d mPosGlobal;
@@ -2951,6 +2950,23 @@ void LLAgent::restartFailedTeleportRequest()
 void LLAgent::clearTeleportRequest()
 {
 	mTeleportRequest.reset();
+}
+bool LLAgent::getTeleportRequestDestination(LLVector3d& pos_global) const
+{
+	if (mTeleportRequest == NULL)
+	{
+		return false;
+	}
+	// LLTeleportRequestViaLocationLookAt derives from LLTeleportRequestViaLocation,
+	// so a single dynamic_cast covers both kinds that carry a position.
+	const LLTeleportRequestViaLocation* location_request =
+		dynamic_cast<const LLTeleportRequestViaLocation*>(mTeleportRequest.get());
+	if (!location_request)
+	{
+		return false;
+	}
+	pos_global = location_request->getPosGlobal();
+	return true;
 }
 void LLAgent::setMaturityRatingChangeDuringTeleport(U8 pMaturityRatingChange)
 {

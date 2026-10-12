@@ -56,6 +56,7 @@ public:
 						 LLMediaCtrl* web,
 						 bool trusted_browser);
 	static bool dispatchRightClick(const LLSLURL& slurl);
+	static bool dispatchTeleport(const LLSLURL& slurl);
 private:
 	static bool dispatchCore(const LLSLURL& slurl,
 							 const std::string& nav_type,
@@ -144,6 +145,30 @@ bool LLURLDispatcherImpl::dispatchRegion(const LLSLURL& slurl, const std::string
 									  LLURLDispatcherImpl::regionNameCallback,
 									  _slurl.getSLURLString(),
 									  LLUI::sConfigGroup->getBOOL("SLURLTeleportDirectly"));
+	return true;
+}
+bool LLURLDispatcherImpl::dispatchTeleport(const LLSLURL& slurl)
+{
+	if(slurl.getType() != LLSLURL::LOCATION)
+    {
+		return false;
+    }
+	if (LLStartUp::getStartupState() < STATE_LOGIN_CLEANUP)
+	{
+		LLPanelLogin::setLocation(slurl);
+		return true;
+	}
+	LLSLURL _slurl = slurl;
+	const std::string& grid = slurl.getGrid();
+	const std::string& current_grid = gHippoGridManager->getCurrentGrid()->getGridName();
+	if (grid != current_grid)
+	{
+		_slurl = LLSLURL(llformat("%s:%s", grid.c_str(), slurl.getRegion().c_str()), slurl.getPosition());
+	}
+	LLWorldMapMessage::getInstance()->sendNamedRegionRequest(slurl.getRegion(),
+								  LLURLDispatcherImpl::regionNameCallback,
+								  _slurl.getSLURLString(),
+								  true);
 	return true;
 }
 void LLURLDispatcherImpl::regionNameCallback(U64 region_handle, const LLSLURL& slurl, const LLUUID& snapshot_id, bool teleport)
@@ -253,6 +278,10 @@ bool LLURLDispatcher::dispatch(const std::string& slurl,
 bool LLURLDispatcher::dispatchRightClick(const std::string& slurl)
 {
 	return LLURLDispatcherImpl::dispatchRightClick(LLSLURL(slurl));
+}
+bool LLURLDispatcher::dispatchTeleport(const std::string& slurl)
+{
+	return LLURLDispatcherImpl::dispatchTeleport(LLSLURL(slurl));
 }
 bool LLURLDispatcher::dispatchFromTextEditor(const std::string& slurl, bool trusted_content)
 {

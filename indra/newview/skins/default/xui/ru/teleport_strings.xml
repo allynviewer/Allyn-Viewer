@@ -35,6 +35,10 @@ www.secondlife.com/support
 			Не найден пункт назначения телепорта. Он может быть временно недоступен или больше не существует. Попробуйте через несколько минут.
 		</message>
 		<message name="no_inventory_host">Система инвентаря сейчас недоступна.</message>
+		<message name="NoHelpIslandTP">Телепортироваться назад на Остров прибытия нельзя.
+Для повторения учебника перейдите на «Остров прибытия - общий».</message>
+		<message name="MustGetAgeRegion">Входить в этот регион могут только жители 18 лет и старше.</message>
+		<message name="RegionTPSpecialUsageBlocked">Не удалось войти в регион. «[REGION_NAME]» – это регион развивающих игр, и для входа в него надо соответствовать определенным условиям. Подробнее см. на странице [http://wiki.secondlife.com/wiki/Linden_Lab_Official:Skill_Gaming_in_Second_Life Skill Gaming FAQ].</message>
 	</message_set>
 	<message_set name="progress">
 		<message name="sending_dest">Отправка в пункт назначения.</message>

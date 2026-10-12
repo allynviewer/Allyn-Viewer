@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="teleport_retry_choice" title="La région est pleine">
+ <text name="prompt">La région de destination est pleine. Choisissez comment continuer :</text>
+ <text name="dest_region_label">Région :</text>
+ <text name="mode_label">Mode de téléportation :</text>
+ <combo_box name="mode_combo">
+  <combo_item name="single" value="0">Téléportation unique</combo_item>
+  <combo_item name="multiple" value="1">Téléportation multiple</combo_item>
+ </combo_box>
+ <check_box name="ask_again" label="Ne plus demander"/>
+ <button name="ok_button" label="Confirmer"/>
+ <button name="cancel_button" label="Annuler"/>
+</floater>

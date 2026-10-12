@@ -81,6 +81,9 @@ set(viewer_SOURCE_FILES
     aihttpview.cpp
     aixmllindengenepool.cpp
     alfloaterregiontracker.cpp
+    alfloaterteleportretrychoice.cpp
+    alfloaterteleportretrystatus.cpp
+    alteleportretrycontroller.cpp
     allynpresence.cpp
     allyncrashreport.cpp
     allynupdate.cpp
@@ -643,6 +646,9 @@ set(viewer_HEADER_FILES
     aihttpview.h
     aixmllindengenepool.h
     alfloaterregiontracker.h
+    alfloaterteleportretrychoice.h
+    alfloaterteleportretrystatus.h
+    alteleportretrycontroller.h
     allynpresence.h
     allynupdate.h
     aoremotectrl.h
