@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Macro" name="macro panel">
+	<text name="aim_assist_section">ASSISTÊNCIA DE MIRA</text>
+	<check_box label="Ativar assistência de mira (ALT + O no mouselook)" name="AllynMacroAimAssistEnabled" tool_tip="Permite que ALT + O ligue e desligue a assistência dinâmica de mira no mouselook. A trava de mira (ALT + I) não depende desta opção."/>
+	<slider label="Sensibilidade de aquisição (%):" name="AllynMacroAimAcquisition" tool_tip="Quão longe da mira um avatar pode estar para que a assistência o adquira, em porcentagem da metade do campo de visão vertical. 0% nunca adquire alvo."/>
+	<slider label="Intensidade da assistência (%):" name="AllynMacroAimStrength" tool_tip="Com que força a assistência puxa a mira em direção ao avatar adquirido. 0% não puxa; 99% é o máximo e ainda permite afastar a mira."/>
+	<text name="shortcuts_section">ATALHOS</text>
+	<text name="shortcut_lock_text">ALT + I — trava a mira no avatar sob a mira (pressione de novo para soltar).</text>
+	<text name="shortcut_assist_text">ALT + O — liga/desliga a assistência dinâmica de mira (exige a opção acima).</text>
+	<text name="requirements_text">O Macro só funciona no mouselook com &quot;Hitboxes do avatar&quot; (Advanced &gt; Rendering) ativado. Essa opção não é salva entre sessões e precisa ser ligada de novo a cada início. O alcance é limitado pela distância de desenho e pelas restrições de câmera do RLV.</text>
+</panel>

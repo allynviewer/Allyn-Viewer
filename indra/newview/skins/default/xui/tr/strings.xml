@@ -7198,6 +7198,18 @@ Model: [MODEL]
 	<string name="AITranslateTestStale">
 		Test edilmedi — anahtar/URL/modeli değiştirip yeniden test edin.
 	</string>
+	<string name="MacroHudLockHint">
+		ALT + I — Nişanı kilitle
+	</string>
+	<string name="MacroHudAssistHint">
+		ALT + O — Nişan yardımı
+	</string>
+	<string name="MacroHudLocked">
+		Nişan kilitli — bırakmak için ALT + I
+	</string>
+	<string name="MacroHudAssistOn">
+		Nişan yardımı açık — kapatmak için ALT + O
+	</string>
 	<string name="AITranslateTestEmptyKey">
 		Hata — API anahtarı boş.
 Test etmeden önce API anahtarı alanını doldurun.

@@ -38,6 +38,7 @@
 #include "llchatbar.h"
 #include "llviewercontrol.h"
 #include "llfocusmgr.h"
+#include "llmacroaim.h"
 #include "llmorphview.h"
 #include "llmoveview.h"
 #include "lltoolfocus.h"
@@ -449,6 +450,16 @@ void start_gesture( EKeystate s )
 		}
 	}
 }
+void macro_toggle_lock( EKeystate s )
+{
+	if( KEYSTATE_DOWN != s ) return;
+	LLMacroAim::instance().toggleLock();
+}
+void macro_toggle_assist( EKeystate s )
+{
+	if( KEYSTATE_DOWN != s ) return;
+	LLMacroAim::instance().toggleAssist();
+}
 #define REGISTER_KEYBOARD_ACTION(KEY, ACTION) LLREGISTER_STATIC(LLKeyboardActionRegistry, KEY, ACTION);
 REGISTER_KEYBOARD_ACTION("jump", agent_jump);
 REGISTER_KEYBOARD_ACTION("push_down", agent_push_down);
@@ -492,6 +503,8 @@ REGISTER_KEYBOARD_ACTION("stop_moving", stop_moving);
 REGISTER_KEYBOARD_ACTION("start_chat", start_chat);
 REGISTER_KEYBOARD_ACTION("start_gesture", start_gesture);
 REGISTER_KEYBOARD_ACTION("reset_camera", boost::bind(handle_reset_view));
+REGISTER_KEYBOARD_ACTION("macro_toggle_lock", macro_toggle_lock);
+REGISTER_KEYBOARD_ACTION("macro_toggle_assist", macro_toggle_assist);
 #undef REGISTER_KEYBOARD_ACTION
 LLViewerKeyboard::LLViewerKeyboard()
 {

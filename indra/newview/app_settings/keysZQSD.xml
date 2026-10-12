@@ -57,6 +57,9 @@
     <binding key="PAD_HOME" mask="SHIFT" command="toggle_fly"/>
     <binding key="PAD_ENTER" mask="SHIFT" command="start_chat"/>
     <binding key="PAD_DIVIDE" mask="SHIFT" command="start_gesture"/>
+
+    <binding key="I" mask="ALT" command="macro_toggle_lock"/>
+    <binding key="O" mask="ALT" command="macro_toggle_assist"/>
   </first_person>
   <third_person>
     <binding key="Q" mask="NONE" command="turn_left"/>

@@ -95,6 +95,7 @@ set(viewer_SOURCE_FILES
     ascentprefssys.cpp
     ascentprefsvan.cpp
     llprefstranslation.cpp
+    llprefsmacro.cpp
     llchataitranslate.cpp
     llfloaterimtranslationconfig.cpp
     llfloaternotranslate.cpp
@@ -348,6 +349,7 @@ set(viewer_SOURCE_FILES
     lllandmarklist.cpp
     lllogchat.cpp
     llloginhandler.cpp
+    llmacroaim.cpp
     llmainlooprepeater.cpp
     llmakeoutfitdialog.cpp
     llmanip.cpp
@@ -660,6 +662,7 @@ set(viewer_HEADER_FILES
     ascentprefssys.h
     ascentprefsvan.h
     llprefstranslation.h
+    llprefsmacro.h
     llchataitranslate.h
     llfloaterimtranslationconfig.h
     llfloaternotranslate.h
@@ -913,6 +916,7 @@ set(viewer_HEADER_FILES
     lllightconstants.h
     lllogchat.h
     llloginhandler.h
+    llmacroaim.h
     llmainlooprepeater.h
     llmakeoutfitdialog.h
     llmanip.h

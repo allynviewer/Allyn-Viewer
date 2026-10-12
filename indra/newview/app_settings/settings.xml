@@ -13165,6 +13165,39 @@ This should be as low as possible, but too low may break functionality</string>
       <key>Value</key>
       <integer>1</integer>
     </map>
+    <key>AllynMacroAimAssistEnabled</key>
+    <map>
+      <key>Comment</key>
+      <string>Enables the Macro aim assist (ALT + O in mouselook, requires DebugRenderHitboxes)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>AllynMacroAimAcquisition</key>
+    <map>
+      <key>Comment</key>
+      <string>Macro aim assist acquisition sensitivity (0-100 percent of half the vertical field of view)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>30.0</real>
+    </map>
+    <key>AllynMacroAimStrength</key>
+    <map>
+      <key>Comment</key>
+      <string>Macro aim assist strength (0-99 percent)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>50.0</real>
+    </map>
     <key>RenderAvatarCloth</key>
     <map>
       <key>Comment</key>

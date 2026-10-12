@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Makro" name="macro panel">
+	<text name="aim_assist_section">ZIELASSISTENZ</text>
+	<check_box label="Zielassistenz aktivieren (ALT + O in der Egoperspektive)" name="AllynMacroAimAssistEnabled" tool_tip="Ermöglicht, die dynamische Zielassistenz in der Egoperspektive mit ALT + O ein- und auszuschalten. Die Zielsperre (ALT + I) hängt nicht von dieser Option ab."/>
+	<slider label="Erfassungsempfindlichkeit (%):" name="AllynMacroAimAcquisition" tool_tip="Wie weit ein Avatar vom Fadenkreuz entfernt sein darf, damit die Assistenz ihn erfasst, in Prozent der halben vertikalen Sichtfeldgröße. 0 % erfasst nie ein Ziel."/>
+	<slider label="Assistenzstärke (%):" name="AllynMacroAimStrength" tool_tip="Wie stark die Assistenz die Visierlinie zum erfassten Avatar zieht. 0 % zieht nicht; 99 % ist das Maximum und lässt die Visierlinie weiterhin wegziehen."/>
+	<text name="shortcuts_section">TASTENKÜRZEL</text>
+	<text name="shortcut_lock_text">ALT + I — sperrt die Visierlinie auf den Avatar unter dem Fadenkreuz (erneut drücken zum Lösen).</text>
+	<text name="shortcut_assist_text">ALT + O — schaltet die dynamische Zielassistenz um (erfordert die Option oben).</text>
+	<text name="requirements_text">Das Makro funktioniert nur in der Egoperspektive, wenn &quot;Hitboxes do avatar&quot; (Advanced &gt; Rendering) aktiviert ist. Diese Option wird nicht zwischen Sitzungen gespeichert und muss nach jedem Start erneut eingeschaltet werden. Die Reichweite wird durch die Zeichendistanz und RLV-Kamerabeschränkungen begrenzt.</text>
+</panel>

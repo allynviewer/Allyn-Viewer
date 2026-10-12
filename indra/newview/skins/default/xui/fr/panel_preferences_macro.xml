@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Macro" name="macro panel">
+	<text name="aim_assist_section">ASSISTANCE DE VISÉE</text>
+	<check_box label="Activer l'assistance de visée (ALT + O en mouselook)" name="AllynMacroAimAssistEnabled" tool_tip="Permet d'activer et de désactiver l'assistance de visée dynamique en mouselook avec ALT + O. Le verrouillage de visée (ALT + I) ne dépend pas de cette option."/>
+	<slider label="Sensibilité d'acquisition (%):" name="AllynMacroAimAcquisition" tool_tip="Jusqu'où un avatar peut s'écarter du réticule pour que l'assistance l'acquière, en pourcentage de la moitié du champ de vision vertical. 0 % n'acquiert jamais de cible."/>
+	<slider label="Intensité de l'assistance (%):" name="AllynMacroAimStrength" tool_tip="Avec quelle force l'assistance attire la visée vers l'avatar acquis. 0 % n'attire pas ; 99 % est le maximum et permet encore d'écarter la visée."/>
+	<text name="shortcuts_section">RACCOURCIS</text>
+	<text name="shortcut_lock_text">ALT + I — verrouille la visée sur l'avatar sous le réticule (appuyer à nouveau pour libérer).</text>
+	<text name="shortcut_assist_text">ALT + O — active ou désactive l'assistance de visée dynamique (nécessite l'option ci-dessus).</text>
+	<text name="requirements_text">Le Macro ne fonctionne qu'en mouselook lorsque &quot;Hitboxes do avatar&quot; (Advanced &gt; Rendering) est activé. Cette option n'est pas enregistrée d'une session à l'autre et doit être réactivée à chaque démarrage. La portée est limitée par la distance d'affichage et par les restrictions de caméra RLV.</text>
+</panel>

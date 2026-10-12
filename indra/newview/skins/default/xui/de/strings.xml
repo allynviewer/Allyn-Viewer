@@ -7403,6 +7403,18 @@ Modell: [MODEL]
 	<string name="AITranslateTestStale">
 		Nicht getestet — Schlüssel/URL/Modell ändern und erneut testen.
 	</string>
+	<string name="MacroHudLockHint">
+		ALT + I — Zielsperre
+	</string>
+	<string name="MacroHudAssistHint">
+		ALT + O — Zielassistenz
+	</string>
+	<string name="MacroHudLocked">
+		Ziel gesperrt — ALT + I zum Lösen
+	</string>
+	<string name="MacroHudAssistOn">
+		Zielassistenz an — ALT + O zum Ausschalten
+	</string>
 	<string name="AITranslateTestEmptyKey">
 		Fehler — API-Schlüssel ist leer.
 API-Schlüssel-Feld vor dem Test ausfüllen.

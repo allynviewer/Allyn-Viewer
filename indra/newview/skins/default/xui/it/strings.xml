@@ -5609,6 +5609,18 @@ Modello: [MODEL]
 	<string name="AITranslateTestStale">
 		Non testato — modifica chiave/URL/modello e riprova.
 	</string>
+	<string name="MacroHudLockHint">
+		ALT + I — Blocca mira
+	</string>
+	<string name="MacroHudAssistHint">
+		ALT + O — Assistenza alla mira
+	</string>
+	<string name="MacroHudLocked">
+		Mira bloccata — ALT + I per sbloccare
+	</string>
+	<string name="MacroHudAssistOn">
+		Assistenza alla mira attiva — ALT + O per disattivare
+	</string>
 	<string name="AITranslateTestEmptyKey">
 		Errore — Chiave API vuota.
 Compila il campo Chiave API prima di testare.

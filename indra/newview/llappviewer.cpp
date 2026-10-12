@@ -178,6 +178,7 @@
 #include "llviewerassetstats.h"
 #include "NACLantispam.h"
 #include "llmainlooprepeater.h"
+#include "llmacroaim.h"
 #include "rlvhandler.h"
 #include "llviewernetwork.h"
 #include <random>
@@ -3229,6 +3230,7 @@ void LLAppViewer::idle()
 			{
 				LLViewerJoystick::getInstance()->moveObjects();
 			}
+			LLMacroAim::instance().update();
 			gAgentCamera.updateCamera();
 		}
 	}

@@ -5552,6 +5552,18 @@ Modèle : [MODEL]
 	<string name="AITranslateTestStale">
 		Non testé — modifiez clé/URL/modèle et retestez.
 	</string>
+	<string name="MacroHudLockHint">
+		ALT + I — Verrouiller la visée
+	</string>
+	<string name="MacroHudAssistHint">
+		ALT + O — Assistance de visée
+	</string>
+	<string name="MacroHudLocked">
+		Visée verrouillée — ALT + I pour libérer
+	</string>
+	<string name="MacroHudAssistOn">
+		Assistance de visée active — ALT + O pour désactiver
+	</string>
 	<string name="AITranslateTestEmptyKey">
 		Erreur — Clé API vide.
 Remplissez le champ Clé API avant de tester.

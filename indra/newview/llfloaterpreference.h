@@ -52,6 +52,7 @@ class LLPrefsAscentChat;
 class LLPrefsAscentSys;
 class LLPrefsAscentVan;
 class LLPrefsTranslation;
+class LLPrefsMacro;
 class LLFilterEditor;
 class LLPreferenceCore
 {
@@ -82,6 +83,7 @@ private:
 	LLPrefsAscentSys		*mPrefsAscentSys;
 	LLPrefsAscentVan		*mPrefsAscentVan;
 	LLPrefsTranslation		*mPrefsTranslation;
+	LLPrefsMacro			*mPrefsMacro;
 };
 class LLFloaterPreference : public LLFloater
 {

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Makro" name="macro panel">
+	<text name="aim_assist_section">NİŞAN YARDIMI</text>
+	<check_box label="Nişan yardımını etkinleştir (mouselook'ta ALT + O)" name="AllynMacroAimAssistEnabled" tool_tip="Mouselook'ta ALT + O ile dinamik nişan yardımını açıp kapatır. Nişan kilidi (ALT + I) bu seçeneğe bağlı değildir."/>
+	<slider label="Edinme hassasiyeti (%):" name="AllynMacroAimAcquisition" tool_tip="Yardımın bir avatarı edinmesi için nişangâhtan ne kadar uzakta olabileceğini, dikey görüş alanının yarısının yüzdesi olarak belirtir. %0 hiçbir hedef edinmez."/>
+	<slider label="Yardım şiddeti (%):" name="AllynMacroAimStrength" tool_tip="Yardımın nişanı edinilen avatara ne kadar güçlü çekeceği. %0 çekmez; %99 en yüksek değerdir ve nişanı hâlâ uzaklaştırabilirsiniz."/>
+	<text name="shortcuts_section">KISAYOLLAR</text>
+	<text name="shortcut_lock_text">ALT + I — nişanı nişangâhın altındaki avatara kilitler (bırakmak için tekrar basın).</text>
+	<text name="shortcut_assist_text">ALT + O — dinamik nişan yardımını açar veya kapatır (yukarıdaki seçenek gerekir).</text>
+	<text name="requirements_text">Makro yalnızca mouselook'ta &quot;Hitboxes do avatar&quot; (Advanced &gt; Rendering) açıkken çalışır. Bu seçenek oturumlar arasında kaydedilmez ve her başlangıçta yeniden açılmalıdır. Menzil, çizim mesafesi ve RLV kamera kısıtlamalarıyla sınırlıdır.</text>
+</panel>

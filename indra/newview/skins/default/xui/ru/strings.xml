@@ -7275,6 +7275,18 @@ HTTP [STATUS]. Получен HTML или не-API ответ вместо JSON.
 	<string name="AITranslateTestStale">
 		Не проверено — измените ключ/URL/модель и проверьте снова.
 	</string>
+	<string name="MacroHudLockHint">
+		ALT + I — Захват прицела
+	</string>
+	<string name="MacroHudAssistHint">
+		ALT + O — Помощь при прицеливании
+	</string>
+	<string name="MacroHudLocked">
+		Прицел захвачен — ALT + I чтобы отпустить
+	</string>
+	<string name="MacroHudAssistOn">
+		Помощь при прицеливании включена — ALT + O чтобы выключить
+	</string>
 	<string name="AITranslateTestEmptyKey">
 		Ошибка — Пустой API-ключ.
 Заполните поле API-ключа перед проверкой.

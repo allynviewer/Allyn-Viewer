@@ -7327,6 +7327,18 @@ Modelo: [MODEL]
 	<string name="AITranslateTestStale">
 		No probado — cambie clave/URL/modelo y pruebe de nuevo.
 	</string>
+	<string name="MacroHudLockHint">
+		ALT + I — Bloquear mira
+	</string>
+	<string name="MacroHudAssistHint">
+		ALT + O — Asistencia de mira
+	</string>
+	<string name="MacroHudLocked">
+		Mira bloqueada — ALT + I para soltar
+	</string>
+	<string name="MacroHudAssistOn">
+		Asistencia de mira activa — ALT + O para desactivar
+	</string>
 	<string name="AITranslateTestEmptyKey">
 		Error — Clave API vacía.
 Rellene el campo Clave API antes de probar.

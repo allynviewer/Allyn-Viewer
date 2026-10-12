@@ -7391,6 +7391,18 @@ Model: [MODEL]
 	<string name="AITranslateTestStale">
 		Not tested — change key/URL/model and test again.
 	</string>
+	<string name="MacroHudLockHint">
+		ALT + I — Lock aim
+	</string>
+	<string name="MacroHudAssistHint">
+		ALT + O — Aim assist
+	</string>
+	<string name="MacroHudLocked">
+		Aim locked — ALT + I to release
+	</string>
+	<string name="MacroHudAssistOn">
+		Aim assist on — ALT + O to turn off
+	</string>
 	<string name="AITranslateTestEmptyKey">
 		Error — API key is empty.
 Fill in the API key field before testing.

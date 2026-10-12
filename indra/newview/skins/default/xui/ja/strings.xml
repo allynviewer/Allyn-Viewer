@@ -5925,6 +5925,18 @@ HTTP [STATUS]。JSON ではなく HTML または非 API の応答を受け取り
 	<string name="AITranslateTestStale">
 		未テスト — キー/URL/モデルを変更して再テストしてください。
 	</string>
+	<string name="MacroHudLockHint">
+		ALT + I — エイムロック
+	</string>
+	<string name="MacroHudAssistHint">
+		ALT + O — エイムアシスト
+	</string>
+	<string name="MacroHudLocked">
+		エイムロック中 — ALT + I で解除
+	</string>
+	<string name="MacroHudAssistOn">
+		エイムアシスト ON — ALT + O でオフ
+	</string>
 	<string name="AITranslateTestEmptyKey">
 		エラー — API キーが空です。
 テスト前に API キー欄を入力してください。

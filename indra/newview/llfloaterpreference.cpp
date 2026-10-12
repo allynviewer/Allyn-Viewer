@@ -58,6 +58,7 @@
 #include "ascentprefssys.h"
 #include "ascentprefsvan.h"
 #include "llprefstranslation.h"
+#include "llprefsmacro.h"
 #include "llfiltereditor.h"
 #include "llsearchableui.h"
 #include "llresizehandle.h"
@@ -122,7 +123,8 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mPrefsAscentChat(NULL),
 	mPrefsAscentSys(NULL),
 	mPrefsAscentVan(NULL),
-	mPrefsTranslation(NULL)
+	mPrefsTranslation(NULL),
+	mPrefsMacro(NULL)
 {
 	mGeneralPanel = new LLPanelGeneral();
 	mTabContainer->addTabPanel(mGeneralPanel, mGeneralPanel->getLabel());
@@ -172,6 +174,9 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mPrefsTranslation = new LLPrefsTranslation();
 	mTabContainer->addTabPanel(mPrefsTranslation, mPrefsTranslation->getLabel());
 	mPrefsTranslation->setDefaultBtn(default_btn);
+	mPrefsMacro = new LLPrefsMacro();
+	mTabContainer->addTabPanel(mPrefsMacro, mPrefsMacro->getLabel());
+	mPrefsMacro->setDefaultBtn(default_btn);
 	mTabContainer->setTabImage(mGeneralPanel, "pref_nav_general.tga");
 	mTabContainer->setTabImage(mInputPanel, "pref_nav_input.tga");
 	mTabContainer->setTabImage(mNetworkPanel, "pref_nav_network.tga");
@@ -188,6 +193,7 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mTabContainer->setTabImage(mPrefsAscentSys, "pref_nav_system.tga");
 	mTabContainer->setTabImage(mPrefsAscentVan, "pref_nav_vanity.tga");
 	mTabContainer->setTabImage(mPrefsTranslation, "pref_nav_translate.tga");
+	mTabContainer->setTabImage(mPrefsMacro, "pref_nav_input.tga");
 	mTabContainer->setCommitCallback(boost::bind(LLPreferenceCore::onTabChanged,_1));
 	if (!mTabContainer->selectTab(gSavedSettings.getS32("LastPrefTab")))
 	{
@@ -271,6 +277,11 @@ LLPreferenceCore::~LLPreferenceCore()
 		delete mPrefsTranslation;
 		mPrefsTranslation = NULL;
 	}
+	if (mPrefsMacro)
+	{
+		delete mPrefsMacro;
+		mPrefsMacro = NULL;
+	}
 }
 void LLPreferenceCore::apply()
 {
@@ -289,6 +300,7 @@ void LLPreferenceCore::apply()
 	mPrefsAscentSys->apply();
 	mPrefsAscentVan->apply();
 	mPrefsTranslation->apply();
+	mPrefsMacro->apply();
 	mWebPanel->apply();
 }
 void LLPreferenceCore::cancel()
@@ -308,6 +320,7 @@ void LLPreferenceCore::cancel()
 	mPrefsAscentSys->cancel();
 	mPrefsAscentVan->cancel();
 	mPrefsTranslation->cancel();
+	mPrefsMacro->cancel();
 	mWebPanel->cancel();
 }
 void LLPreferenceCore::onTabChanged(LLUICtrl* ctrl)

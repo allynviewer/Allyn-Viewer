@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="マクロ" name="macro panel">
+	<text name="aim_assist_section">エイムアシスト</text>
+	<check_box label="エイムアシストを有効にする（マウスルックで ALT + O）" name="AllynMacroAimAssistEnabled" tool_tip="マウスルック中に ALT + O で動的エイムアシストのオン／オフを切り替えます。エイムロック（ALT + I）はこのオプションに依存しません。"/>
+	<slider label="捕捉感度 (%):" name="AllynMacroAimAcquisition" tool_tip="アシストがアバターを捕捉できるクロスヘアからの距離で、垂直視野角の半分に対する割合です。0% では捕捉しません。"/>
+	<slider label="アシスト強度 (%):" name="AllynMacroAimStrength" tool_tip="捕捉したアバターへ照準を引き寄せる強さです。0% は引き寄せなし、99% が最大で、照準を外すことはできます。"/>
+	<text name="shortcuts_section">ショートカット</text>
+	<text name="shortcut_lock_text">ALT + I — クロスヘア下のアバターにエイムをロックします（もう一度押すと解除）。</text>
+	<text name="shortcut_assist_text">ALT + O — 動的エイムアシストの切り替え（上記のオプションが必要）。</text>
+	<text name="requirements_text">マクロはマウスルック中に &quot;Hitboxes do avatar&quot;（Advanced &gt; Rendering）が有効なときだけ動作します。このオプションはセッション間で保存されず、起動のたびに再度オンにする必要があります。射程は描画距離と RLV のカメラ制限で制限されます。</text>
+</panel>

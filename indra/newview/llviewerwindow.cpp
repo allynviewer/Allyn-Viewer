@@ -96,6 +96,7 @@
 #include "llimageworker.h"
 #include "llkeyboard.h"
 #include "lllineeditor.h"
+#include "llmacroaim.h"
 #include "llmenugl.h"
 #include "llmenuoptionpathfindingrebakenavmesh.h"
 #include "llmodaldialog.h"
@@ -1927,6 +1928,11 @@ void LLViewerWindow::draw()
 		if (drawMouselookInst && (gAgentCamera.cameraMouselook()))
 		{
 			drawMouselookInstructions();
+			stop_glerror();
+		}
+		if (gAgentCamera.cameraMouselook())
+		{
+			LLMacroAim::instance().draw();
 			stop_glerror();
 		}
 		if(gDebugGL)check_blend_funcs();
