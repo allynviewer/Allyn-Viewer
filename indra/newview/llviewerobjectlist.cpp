@@ -524,7 +524,7 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 		{
 			LLVOAvatar* avatar = (LLVOAvatar*)objectp;
 			LLVOAvatar::applyCachedFriendsOnlyAppearance(avatar);
-			LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR WAS CREATED id=%s local=%u mode=%d reason=object_update_allowed", avatar->getID().asString().c_str(), avatar->getLocalID(), gSavedSettings.getS32("AlwaysRenderFriends")));
+			if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR WAS CREATED id=%s local=%u mode=%d reason=object_update_allowed", avatar->getID().asString().c_str(), avatar->getLocalID(), gSavedSettings.getS32("AlwaysRenderFriends")));
 			avatar->requestInitialAppearance();
 			if (!LLVOAvatar::shouldSuppressForAvatarDisplay(avatar->getID())
 				&& requestPendingAvatarDisplayLocals(avatar->getRegion(), avatar->getLocalID()))
@@ -1737,16 +1737,16 @@ bool LLViewerObjectList::rememberAvatarDisplayLocalId(LLViewerRegion* regionp, U
 			LLViewerObject* existing = findObject(avatar_id);
 			if (existing && existing->isAvatar())
 			{
-				LLVOAvatar::traceAvatarDisplay(llformat("AVATAR LOCAL ID RETAINED id=%s local=%u mode=%d tracked=%u reason=existing_avatar_removed", avatar_id.asString().c_str(), local_id, gSavedSettings.getS32("AlwaysRenderFriends"), (U32)entry.mLocalIds.size()));
+				if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("AVATAR LOCAL ID RETAINED id=%s local=%u mode=%d tracked=%u reason=existing_avatar_removed", avatar_id.asString().c_str(), local_id, gSavedSettings.getS32("AlwaysRenderFriends"), (U32)entry.mLocalIds.size()));
 			}
 			else
 			{
-				LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR WAS NOT CREATED id=%s local=%u mode=%d tracked=%u reason=display_gate_closed", avatar_id.asString().c_str(), local_id, gSavedSettings.getS32("AlwaysRenderFriends"), (U32)entry.mLocalIds.size()));
+				if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR WAS NOT CREATED id=%s local=%u mode=%d tracked=%u reason=display_gate_closed", avatar_id.asString().c_str(), local_id, gSavedSettings.getS32("AlwaysRenderFriends"), (U32)entry.mLocalIds.size()));
 			}
 		}
 		else
 		{
-			LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED avatar=%s local=%u mode=%d tracked=%u reason=attachment_not_created_gate_closed", avatar_id.asString().c_str(), local_id, gSavedSettings.getS32("AlwaysRenderFriends"), (U32)entry.mLocalIds.size()));
+			if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED avatar=%s local=%u mode=%d tracked=%u reason=attachment_not_created_gate_closed", avatar_id.asString().c_str(), local_id, gSavedSettings.getS32("AlwaysRenderFriends"), (U32)entry.mLocalIds.size()));
 		}
 	}
 	mAvatarDisplaySuppressedLocals[std::make_pair(handle, local_id)] = avatar_id;
@@ -1796,7 +1796,7 @@ void LLViewerObjectList::holdAvatarDisplayLocalId(LLViewerRegion* regionp, U32 l
 	mAvatarDisplayPendingParent[child_key] = parent_id;
 	mAvatarDisplayPendingChildren[std::make_pair(handle, parent_id)].push_back(local_id);
 	regionp->removeCacheEntry(local_id);
-	LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED local=%u parent=%u mode=%d reason=attachment_local_id_retained", local_id, parent_id, gSavedSettings.getS32("AlwaysRenderFriends")));
+	if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED local=%u parent=%u mode=%d reason=attachment_local_id_retained", local_id, parent_id, gSavedSettings.getS32("AlwaysRenderFriends")));
 }
 void LLViewerObjectList::adoptPendingAvatarDisplayLocals(LLViewerRegion* regionp, U32 local_id, const LLUUID& avatar_id)
 {
@@ -1898,7 +1898,7 @@ bool LLViewerObjectList::requestPendingAvatarDisplayLocals(LLViewerRegion* regio
 		regionp->addCacheMissFull(ids[i]);
 		dropPendingAvatarDisplayLocal(regionp, ids[i]);
 	}
-	LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS STARTED local=%u ids=%u mode=%d reason=pending_attachment_ids_requested", parent_local_id, (U32)ids.size(), gSavedSettings.getS32("AlwaysRenderFriends")));
+	if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS STARTED local=%u ids=%u mode=%d reason=pending_attachment_ids_requested", parent_local_id, (U32)ids.size(), gSavedSettings.getS32("AlwaysRenderFriends")));
 	return true;
 }
 bool LLViewerObjectList::requestAllPendingAvatarDisplayLocals()
@@ -1928,7 +1928,7 @@ bool LLViewerObjectList::requestAllPendingAvatarDisplayLocals()
 	mAvatarDisplayPendingChildren.clear();
 	if (requested)
 	{
-		LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS STARTED ids=%u mode=%d reason=pending_attachment_ids_requested", (U32)ids.size(), gSavedSettings.getS32("AlwaysRenderFriends")));
+		if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS STARTED ids=%u mode=%d reason=pending_attachment_ids_requested", (U32)ids.size(), gSavedSettings.getS32("AlwaysRenderFriends")));
 	}
 	return requested;
 }
@@ -2443,7 +2443,7 @@ void LLViewerObjectList::syncAvatarDisplaySuppression()
 		return;
 	}
 	syncing = true;
-	LLVOAvatar::traceAvatarDisplay(llformat("display_gate_sync mode=%d tracked=%u", gSavedSettings.getS32("AlwaysRenderFriends"), (U32)mAvatarDisplaySuppressed.size()));
+	if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("display_gate_sync mode=%d tracked=%u", gSavedSettings.getS32("AlwaysRenderFriends"), (U32)mAvatarDisplaySuppressed.size()));
 	uuid_set_t meshes;
 	uuid_set_t textures;
 	std::vector<LLCharacter*> characters = LLCharacter::sInstances;
@@ -2459,7 +2459,7 @@ void LLViewerObjectList::syncAvatarDisplaySuppression()
 			continue;
 		}
 		collectAvatarDisplayResource(avatar, meshes, textures);
-		LLVOAvatar::traceAvatarDisplay(llformat("AVATAR DESTROYED id=%s local=%u mode=%d reason=display_gate_closed", avatar->getID().asString().c_str(), avatar->getLocalID(), gSavedSettings.getS32("AlwaysRenderFriends")));
+		if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("AVATAR DESTROYED id=%s local=%u mode=%d reason=display_gate_closed", avatar->getID().asString().c_str(), avatar->getLocalID(), gSavedSettings.getS32("AlwaysRenderFriends")));
 		rememberAvatarDisplayObject(avatar->getRegion(), avatar, avatar->getID(), true);
 		killObject(avatar);
 	}
@@ -2485,7 +2485,7 @@ void LLViewerObjectList::syncAvatarDisplaySuppression()
 		LLViewerRegion* regionp = LLWorld::getInstance()->getRegionFromHandle(found->second.mRegionHandle);
 		if (regionp && !found->second.mLocalIds.empty())
 		{
-			LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS STARTED id=%s locals=%u mode=%d reason=gate_opened_request_full_objects", bring_back[i].asString().c_str(), (U32)found->second.mLocalIds.size(), gSavedSettings.getS32("AlwaysRenderFriends")));
+			if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS STARTED id=%s locals=%u mode=%d reason=gate_opened_request_full_objects", bring_back[i].asString().c_str(), (U32)found->second.mLocalIds.size(), gSavedSettings.getS32("AlwaysRenderFriends")));
 			for (size_t local_index = 0; local_index < found->second.mLocalIds.size(); ++local_index)
 			{
 				regionp->removeCacheEntry(found->second.mLocalIds[local_index]);
@@ -2496,7 +2496,7 @@ void LLViewerObjectList::syncAvatarDisplaySuppression()
 		}
 		else if (!regionp)
 		{
-			LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED id=%s mode=%d reason=region_gone", bring_back[i].asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
+			if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED id=%s mode=%d reason=region_gone", bring_back[i].asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
 			for (size_t local_index = 0; local_index < found->second.mLocalIds.size(); ++local_index)
 			{
 				mAvatarDisplaySuppressedLocals.erase(std::make_pair(found->second.mRegionHandle, found->second.mLocalIds[local_index]));
@@ -2504,7 +2504,7 @@ void LLViewerObjectList::syncAvatarDisplaySuppression()
 		}
 		else
 		{
-			LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED id=%s mode=%d reason=no_simulator_local_id", bring_back[i].asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
+			if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED id=%s mode=%d reason=no_simulator_local_id", bring_back[i].asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
 		}
 		mAvatarDisplaySuppressed.erase(found);
 	}

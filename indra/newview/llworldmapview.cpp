@@ -251,11 +251,113 @@ BOOL is_agent_in_region(LLViewerRegion* region, LLSimInfo* info)
 {
 	return (region && info && info->isName(region->getName()));
 }
+void LLWorldMapView::drawOneSim(LLSimInfo* info, U64 handle, const LLVector3d& camera_global, F32 half_width, F32 half_height, S32 width, S32 height, F64 current_time, bool map_show_land_for_sale)
+{
+	if (!info)
+	{
+		return;
+	}
+	LLVector3d origin_global = from_region_handle(handle);
+	LLVector3d rel_region_pos = origin_global - camera_global;
+	F32 relative_x = (rel_region_pos.mdV[0] / REGION_WIDTH_METERS) * sMapScale;
+	F32 relative_y = (rel_region_pos.mdV[1] / REGION_WIDTH_METERS) * sMapScale;
+	F32 bottom =    sPanY + half_height + relative_y;
+	F32 left =      sPanX + half_width + relative_x;
+	F32 top =       bottom + sMapScale  * ((F32)info->getSizeY() / REGION_WIDTH_METERS);
+	F32 right =     left + sMapScale  * ((F32)info->getSizeX() / REGION_WIDTH_METERS);
+	if ((top < 0.f)   || (bottom > height) ||
+		(right < 0.f) || (left > width)       )
+	{
+		info->dropImagePriority();
+		return;
+	}
+	mVisibleRegions.push_back(handle);
+	if (sMapScale >= SIM_MAP_AGENT_SCALE)
+	{
+		info->updateAgentCount(current_time);
+	}
+	F32 alpha = !LLWorldMap::useWebMapTiles() ? drawLegacySimTile(*info,left,top,right,bottom) : 1.f;
+	if (info->isDown())
+	{
+		gGL.blendFunc(LLRender::BF_DEST_ALPHA, LLRender::BF_SOURCE_ALPHA);
+		gGL.color4f(0.2f, 0.0f, 0.0f, 0.4f);
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
+		gGL.begin(LLRender::TRIANGLE_STRIP);
+			gGL.vertex2f(left, top);
+			gGL.vertex2f(left, bottom);
+			gGL.vertex2f(right, top);
+			gGL.vertex2f(right, bottom);
+		gGL.end();
+		gGL.blendFunc(LLRender::BF_SOURCE_ALPHA, LLRender::BF_ONE_MINUS_SOURCE_ALPHA);
+	}
+	else if (map_show_land_for_sale && (sMapScale >= SIM_LANDFORSALE_SCALE))
+	{
+		LLViewerFetchedTexture* overlayimage = info->getLandForSaleImage();
+		if (overlayimage)
+		{
+			S32 draw_size = ll_round(sMapScale);
+			overlayimage->setKnownDrawSize(	ll_round(draw_size * LLUI::getScaleFactor().mV[VX] * ((F32)info->getSizeX() / REGION_WIDTH_METERS)),
+											ll_round(draw_size * LLUI::getScaleFactor().mV[VY] * ((F32)info->getSizeY() / REGION_WIDTH_METERS)));
+			if (overlayimage->hasGLTexture() && !overlayimage->isMissingAsset() && overlayimage->getID() != IMG_DEFAULT)
+			{
+				gGL.getTexUnit(0)->bind(overlayimage);
+				gGL.color4f(1.f, 1.f, 1.f, alpha);
+				gGL.begin(LLRender::TRIANGLE_STRIP);
+					gGL.texCoord2f(0.f, 1.f);
+					gGL.vertex3f(left, top, -0.5f);
+					gGL.texCoord2f(0.f, 0.f);
+					gGL.vertex3f(left, bottom, -0.5f);
+					gGL.texCoord2f(1.f, 1.f);
+					gGL.vertex3f(right, top, -0.5f);
+					gGL.texCoord2f(1.f, 0.f);
+					gGL.vertex3f(right, bottom, -0.5f);
+				gGL.end();
+			}
+		}
+	}
+	else
+	{
+		info->dropImagePriority(SIM_LAYER_OVERLAY);
+	}
+	if (sMapScale >= DRAW_TEXT_THRESHOLD)
+	{
+		LLFontGL* font = LLFontGL::getFontSansSerifSmall();
+		std::string mesg;
+		if (info->isDown())
+		{
+			if(info->getName().empty())
+				mesg = llformat( "(%s)", sStringsMap["offline"].c_str());
+			else
+				mesg = llformat( "%s (%s)", info->getName().c_str(), sStringsMap["offline"].c_str());
+		}
+		else if(!info->getName().empty())
+		{
+			mesg = info->getName();
+			static const LLCachedControl<bool> show_avs("LiruMapShowAvCount");
+			if (show_avs) mesg += llformat(" (%d)", info->getAgentCount());
+			mesg += llformat(" (%s)", info->getAccessString().c_str());
+		}
+		if ( (!mesg.empty()) && (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) )
+		{
+			font->renderUTF8(
+				mesg, 0,
+				llfloor(left + 3), llfloor(bottom + 2),
+				LLColor4::white,
+				LLFontGL::LEFT, LLFontGL::BASELINE, LLFontGL::NORMAL, LLFontGL::DROP_SHADOW);
+			static const LLCachedControl<bool> show_region_positions("SFMapShowRegionPositions");
+			if (show_region_positions)
+				font->renderUTF8(
+					llformat("(%d, %d)", llfloor(info->getGlobalOrigin().mdV[VX]/256), llfloor(info->getGlobalOrigin().mdV[VY])/256), 0,
+					llfloor(left + 3), llfloor(bottom + 14),
+					LLColor4::white,
+					LLFontGL::LEFT, LLFontGL::BASELINE, LLFontGL::NORMAL, LLFontGL::DROP_SHADOW);
+		}
+	}
+}
 void LLWorldMapView::draw()
 {
 	LLTextureView::clearDebugImages();
 	F64 current_time = LLTimer::getElapsedSeconds();
-	mVisibleRegions.clear();
 	sPanX = lerp(sPanX, sTargetPanX, LLSmoothInterpolation::getInterpolant(0.1f));
 	sPanY = lerp(sPanY, sTargetPanY, LLSmoothInterpolation::getInterpolant(0.1f));
 	const S32 width = getRect().getWidth();
@@ -291,106 +393,79 @@ void LLWorldMapView::draw()
 		gGL.setAlphaRejectSettings(LLRender::CF_DEFAULT);
 		gGL.blendFunc(LLRender::BF_SOURCE_ALPHA, LLRender::BF_ONE_MINUS_SOURCE_ALPHA);
 	}
-	for (LLWorldMap::sim_info_map_t::const_iterator it = LLWorldMap::getInstance()->getRegionMap().begin();
-		 it != LLWorldMap::getInstance()->getRegionMap().end(); ++it)
+	handle_list_t previously_visible;
+	previously_visible.swap(mVisibleRegions);
+	const LLWorldMap::sim_info_map_t& region_map = LLWorldMap::getInstance()->getRegionMap();
+	S32 world_center_x = S32((-sPanX / sMapScale) + (camera_global.mdV[0] / REGION_WIDTH_METERS));
+	S32 world_center_y = S32((-sPanY / sMapScale) + (camera_global.mdV[1] / REGION_WIDTH_METERS));
+	S32 world_left   = world_center_x - S32(half_width  / sMapScale) - 2;
+	S32 world_right  = world_center_x + S32(half_width  / sMapScale) + 2;
+	S32 world_bottom = world_center_y - S32(half_height / sMapScale) - 2;
+	S32 world_top    = world_center_y + S32(half_height / sMapScale) + 2;
+	S32 span_x = world_right - world_left + 1;
+	S32 span_y = world_top - world_bottom + 1;
+	bool walk_grid = span_x > 0 && span_y > 0 && span_x < 512 && span_y < 512
+		&& (S64)span_x * (S64)span_y < (S64)region_map.size();
+	if (walk_grid)
 	{
-		U64 handle = it->first;
-		LLSimInfo* info = it->second;
-		LLVector3d origin_global = from_region_handle(handle);
-		LLVector3d rel_region_pos = origin_global - camera_global;
-		F32 relative_x = (rel_region_pos.mdV[0] / REGION_WIDTH_METERS) * sMapScale;
-		F32 relative_y = (rel_region_pos.mdV[1] / REGION_WIDTH_METERS) * sMapScale;
-		F32 bottom =    sPanY + half_height + relative_y;
-		F32 left =      sPanX + half_width + relative_x;
-		F32 top =       bottom + sMapScale  * ((F32)info->getSizeY() / REGION_WIDTH_METERS);
-		F32 right =     left + sMapScale  * ((F32)info->getSizeX() / REGION_WIDTH_METERS);
-		if ((top < 0.f)   || (bottom > height) ||
-			(right < 0.f) || (left > width)       )
+		S32 gx0 = llmax(world_left, (S32)0);
+		S32 gy0 = llmax(world_bottom, (S32)0);
+		for (S32 gx = gx0; gx <= world_right; ++gx)
 		{
-			info->dropImagePriority();
-			continue;
-		}
-		mVisibleRegions.push_back(handle);
-		if (sMapScale >= SIM_MAP_AGENT_SCALE)
-		{
-			info->updateAgentCount(current_time);
-		}
-		F32 alpha = !LLWorldMap::useWebMapTiles() ? drawLegacySimTile(*info,left,top,right,bottom) : 1.f;
-		if (info->isDown())
-		{
-			gGL.blendFunc(LLRender::BF_DEST_ALPHA, LLRender::BF_SOURCE_ALPHA);
-			gGL.color4f(0.2f, 0.0f, 0.0f, 0.4f);
-			gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
-			gGL.begin(LLRender::TRIANGLE_STRIP);
-				gGL.vertex2f(left, top);
-				gGL.vertex2f(left, bottom);
-				gGL.vertex2f(right, top);
-				gGL.vertex2f(right, bottom);
-			gGL.end();
-			gGL.blendFunc(LLRender::BF_SOURCE_ALPHA, LLRender::BF_ONE_MINUS_SOURCE_ALPHA);
-		}
-		else if (map_show_land_for_sale && (sMapScale >= SIM_LANDFORSALE_SCALE))
-		{
-			LLViewerFetchedTexture* overlayimage = info->getLandForSaleImage();
-			if (overlayimage)
+			for (S32 gy = gy0; gy <= world_top; ++gy)
 			{
-				S32 draw_size = ll_round(sMapScale);
-				overlayimage->setKnownDrawSize(	ll_round(draw_size * LLUI::getScaleFactor().mV[VX] * ((F32)info->getSizeX() / REGION_WIDTH_METERS)),
-												ll_round(draw_size * LLUI::getScaleFactor().mV[VY] * ((F32)info->getSizeY() / REGION_WIDTH_METERS)));
-				if (overlayimage->hasGLTexture() && !overlayimage->isMissingAsset() && overlayimage->getID() != IMG_DEFAULT)
+				U64 handle = to_region_handle((U32)gx * REGION_WIDTH_UNITS, (U32)gy * REGION_WIDTH_UNITS);
+				LLWorldMap::sim_info_map_t::const_iterator found = region_map.find(handle);
+				if (found != region_map.end())
 				{
-					gGL.getTexUnit(0)->bind(overlayimage);
-					gGL.color4f(1.f, 1.f, 1.f, alpha);
-					gGL.begin(LLRender::TRIANGLE_STRIP);
-						gGL.texCoord2f(0.f, 1.f);
-						gGL.vertex3f(left, top, -0.5f);
-						gGL.texCoord2f(0.f, 0.f);
-						gGL.vertex3f(left, bottom, -0.5f);
-						gGL.texCoord2f(1.f, 1.f);
-						gGL.vertex3f(right, top, -0.5f);
-						gGL.texCoord2f(1.f, 0.f);
-						gGL.vertex3f(right, bottom, -0.5f);
-					gGL.end();
+					drawOneSim(found->second, handle, camera_global, half_width, half_height, width, height, current_time, map_show_land_for_sale);
 				}
 			}
 		}
-		else
+		const std::vector<LLSimInfo*>& large_regions = LLWorldMap::getInstance()->getLargeRegions();
+		for (std::vector<LLSimInfo*>::const_iterator lit = large_regions.begin(); lit != large_regions.end(); ++lit)
 		{
-			info->dropImagePriority(SIM_LAYER_OVERLAY);
+			LLSimInfo* info = *lit;
+			if (!info)
+			{
+				continue;
+			}
+			U32 rx = 0, ry = 0;
+			from_region_handle(info->getHandle(), &rx, &ry);
+			S32 gx = (S32)(rx / REGION_WIDTH_UNITS);
+			S32 gy = (S32)(ry / REGION_WIDTH_UNITS);
+			if (gx >= gx0 && gx <= world_right && gy >= gy0 && gy <= world_top)
+			{
+				continue;
+			}
+			drawOneSim(info, info->getHandle(), camera_global, half_width, half_height, width, height, current_time, map_show_land_for_sale);
 		}
-		if (sMapScale >= DRAW_TEXT_THRESHOLD)
+		for (handle_list_t::const_iterator it = previously_visible.begin(); it != previously_visible.end(); ++it)
 		{
-			LLFontGL* font = LLFontGL::getFontSansSerifSmall();
-			std::string mesg;
-			if (info->isDown())
+			bool still_visible = false;
+			for (handle_list_t::const_iterator jt = mVisibleRegions.begin(); jt != mVisibleRegions.end(); ++jt)
 			{
-				if(info->getName().empty())
-					mesg = llformat( "(%s)", sStringsMap["offline"].c_str());
-				else
-					mesg = llformat( "%s (%s)", info->getName().c_str(), sStringsMap["offline"].c_str());
+				if (*jt == *it)
+				{
+					still_visible = true;
+					break;
+				}
 			}
-			else if(!info->getName().empty())
+			if (!still_visible)
 			{
-				mesg = info->getName();
-				static const LLCachedControl<bool> show_avs("LiruMapShowAvCount");
-				if (show_avs) mesg += llformat(" (%d)", info->getAgentCount());
-				mesg += llformat(" (%s)", info->getAccessString().c_str());
+				LLWorldMap::sim_info_map_t::const_iterator found = region_map.find(*it);
+				if (found != region_map.end() && found->second)
+				{
+					found->second->dropImagePriority();
+				}
 			}
-			if ( (!mesg.empty()) && (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) )
-			{
-				font->renderUTF8(
-					mesg, 0,
-					llfloor(left + 3), llfloor(bottom + 2),
-					LLColor4::white,
-					LLFontGL::LEFT, LLFontGL::BASELINE, LLFontGL::NORMAL, LLFontGL::DROP_SHADOW);
-				static const LLCachedControl<bool> show_region_positions("SFMapShowRegionPositions");
-				if (show_region_positions)
-					font->renderUTF8(
-						llformat("(%d, %d)", llfloor(info->getGlobalOrigin().mdV[VX]/256), llfloor(info->getGlobalOrigin().mdV[VY])/256), 0,
-						llfloor(left + 3), llfloor(bottom + 14),
-						LLColor4::white,
-						LLFontGL::LEFT, LLFontGL::BASELINE, LLFontGL::NORMAL, LLFontGL::DROP_SHADOW);
-			}
+		}
+	}
+	else
+	{
+		for (LLWorldMap::sim_info_map_t::const_iterator it = region_map.begin(); it != region_map.end(); ++it)
+		{
+			drawOneSim(it->second, it->first, camera_global, half_width, half_height, width, height, current_time, map_show_land_for_sale);
 		}
 	}
 	static const LLCachedControl<bool> map_show_requests("MapShowRequests", false);

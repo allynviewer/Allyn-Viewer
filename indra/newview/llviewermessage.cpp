@@ -3416,7 +3416,7 @@ void process_avatar_animation(LLMessageSystem* mesgsys, void** user_data)
 				static std::set<LLUUID> sAnimDropTraced;
 				if (sAnimDropTraced.insert(uuid).second)
 				{
-					LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED id=%s mode=%d reason=animation_ignored_avatar_does_not_exist", uuid.asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
+					if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED id=%s mode=%d reason=animation_ignored_avatar_does_not_exist", uuid.asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
 				}
 			}
 		}
@@ -3556,11 +3556,11 @@ void process_avatar_appearance(LLMessageSystem* mesgsys, void** user_data)
 		bool friends_only = gSavedPerAccountSettings.getBOOL("AllynRenderFriendsOnly");
 		if (suppress_display)
 		{
-			LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED id=%s mode=%d reason=appearance_ignored_avatar_does_not_exist", uuid.asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
+			if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED id=%s mode=%d reason=appearance_ignored_avatar_does_not_exist", uuid.asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
 		}
 		else if (!friends_only)
 		{
-			LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED id=%s mode=%d reason=appearance_arrived_before_object", uuid.asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
+			if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS NOT STARTED id=%s mode=%d reason=appearance_arrived_before_object", uuid.asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
 			LL_WARNS("Messaging") << "avatar_appearance sent for unknown avatar " << uuid << LL_ENDL;
 		}
 		LLVOAvatar::cacheAppearanceMessageForFriendsOnly(uuid, mesgsys);

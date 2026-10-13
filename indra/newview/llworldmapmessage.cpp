@@ -164,15 +164,6 @@ void LLWorldMapMessage::processMapBlockReply(LLMessageSystem* msg, void**)
 		{
 			found_null_sim = true;
 		}
-		if (LLWorldMap::getInstance()->isTrackingValidLocation())
-		{
-			LLVector3d pos_global = LLWorldMap::getInstance()->getTrackedPositionGlobal();
-			if (LLWorldMap::getInstance()->isTrackingDoubleClick())
-			{
-				gAgent.teleportViaLocation(pos_global);
-			}
-			gFloaterWorldMap->trackLocation(pos_global);
-		}
 		U64 handle = to_region_handle(x_world, y_world);
 		url_callback_t callback = LLWorldMapMessage::getInstance()->mSLURLCallback;
 		if(callback != NULL)
@@ -191,6 +182,15 @@ void LLWorldMapMessage::processMapBlockReply(LLMessageSystem* msg, void**)
 		{
 			gAgent.onFoundLureDestination();
 		}
+	}
+	if (LLWorldMap::getInstance()->isTrackingValidLocation())
+	{
+		LLVector3d pos_global = LLWorldMap::getInstance()->getTrackedPositionGlobal();
+		if (LLWorldMap::getInstance()->isTrackingDoubleClick())
+		{
+			gAgent.teleportViaLocation(pos_global);
+		}
+		gFloaterWorldMap->trackLocation(pos_global);
 	}
 	gFloaterWorldMap->updateSims(found_null_sim);
 }

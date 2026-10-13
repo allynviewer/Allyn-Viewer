@@ -76,23 +76,21 @@ void LLSimInfo::setLandForSaleImage (LLUUID image_id)
 	const bool is_whitecore = gHippoGridManager->getConnectedGrid()->isWhiteCore();
 	if (is_whitecore && mMapImageID[SIM_LAYER_OVERLAY].isNull() && image_id.notNull() && gTextureList.findImage(image_id, TEX_LIST_STANDARD))
 		LLAppViewer::getTextureCache()->removeFromCache(image_id);
-	mMapImageID[SIM_LAYER_OVERLAY] = image_id;
-	if (mMapImageID[SIM_LAYER_OVERLAY].notNull())
-	{
-		mLayerImage[SIM_LAYER_OVERLAY] = LLViewerTextureManager::getFetchedTexture(mMapImageID[SIM_LAYER_OVERLAY], FTT_DEFAULT, MIPMAP_TRUE, LLGLTexture::BOOST_MAP, LLViewerTexture::LOD_TEXTURE);
-		if (is_whitecore) mLayerImage[SIM_LAYER_OVERLAY]->forceImmediateUpdate();
-		mLayerImage[SIM_LAYER_OVERLAY]->setAddressMode(LLTexUnit::TAM_CLAMP);
-	}
-	else
+	if (mMapImageID[SIM_LAYER_OVERLAY] != image_id)
 	{
 		mLayerImage[SIM_LAYER_OVERLAY] = NULL;
 	}
+	mMapImageID[SIM_LAYER_OVERLAY] = image_id;
 }
 LLPointer<LLViewerFetchedTexture> LLSimInfo::getLandForSaleImage ()
 {
 	if (mLayerImage[SIM_LAYER_OVERLAY].isNull() && mMapImageID[SIM_LAYER_OVERLAY].notNull())
 	{
 		mLayerImage[SIM_LAYER_OVERLAY] = LLViewerTextureManager::getFetchedTexture(mMapImageID[SIM_LAYER_OVERLAY], FTT_DEFAULT, MIPMAP_TRUE, LLGLTexture::BOOST_MAP, LLViewerTexture::LOD_TEXTURE);
+		if (gHippoGridManager->getConnectedGrid()->isWhiteCore())
+		{
+			mLayerImage[SIM_LAYER_OVERLAY]->forceImmediateUpdate();
+		}
 		mLayerImage[SIM_LAYER_OVERLAY]->setAddressMode(LLTexUnit::TAM_CLAMP);
 	}
 	if (!mLayerImage[SIM_LAYER_OVERLAY].isNull())
@@ -228,6 +226,7 @@ void LLWorldMap::reset()
 	clearItems(true);
 	clearImageRefs();
 	clearSimFlags();
+	mLargeRegions.clear();
 	for_each(mSimInfoMap.begin(), mSimInfoMap.end(), DeletePairedPointer());
 	mSimInfoMap.clear();
 	mMapLoaded = false;
@@ -293,6 +292,25 @@ LLSimInfo* LLWorldMap::simInfoFromPosGlobal(const LLVector3d& pos_global)
 	U64 handle = to_region_handle(pos_global);
 	return simInfoFromHandle(handle);
 }
+void LLWorldMap::noteRegionExtent(LLSimInfo* info)
+{
+	if (!info)
+	{
+		return;
+	}
+	if (info->getSizeX() <= REGION_WIDTH_UNITS && info->getSizeY() <= REGION_WIDTH_UNITS)
+	{
+		return;
+	}
+	for (std::vector<LLSimInfo*>::const_iterator it = mLargeRegions.begin(); it != mLargeRegions.end(); ++it)
+	{
+		if (*it == info)
+		{
+			return;
+		}
+	}
+	mLargeRegions.push_back(info);
+}
 LLSimInfo* LLWorldMap::simInfoFromHandle(const U64 handle)
 {
 	sim_info_map_t::const_iterator it = mSimInfoMap.find(handle);
@@ -300,13 +318,21 @@ LLSimInfo* LLWorldMap::simInfoFromHandle(const U64 handle)
 	{
 		return it->second;
 	}
+	if (mLargeRegions.empty())
+	{
+		return NULL;
+	}
 	U32 x = 0, y = 0;
 	from_region_handle(handle, &x, &y);
-	for (it = mSimInfoMap.begin(); it != mSimInfoMap.end(); ++it)
+	for (std::vector<LLSimInfo*>::const_iterator lit = mLargeRegions.begin(); lit != mLargeRegions.end(); ++lit)
 	{
+		LLSimInfo* info = *lit;
+		if (!info)
+		{
+			continue;
+		}
 		U32 checkRegionX, checkRegionY;
-		from_region_handle((*it).first, &checkRegionX, &checkRegionY);
-		LLSimInfo* info = (*it).second;
+		from_region_handle(info->getHandle(), &checkRegionX, &checkRegionY);
 		if (x >= checkRegionX && x < (checkRegionX + info->getSizeX()) &&
 			y >= checkRegionY && y < (checkRegionY + info->getSizeY()))
 		{
@@ -451,6 +477,7 @@ bool LLWorldMap::insertRegion(U32 x_world, U32 y_world, U16 x_size, U16 y_size, 
 		siminfo->setRegionFlags(region_flags);
 		siminfo->setLandForSaleImage(image_id);
 		siminfo->setSize(x_size, y_size);
+		LLWorldMap::getInstance()->noteRegionExtent(siminfo);
 		if (LLWorldMap::getInstance()->isTrackingInRectangle( x_world, y_world, x_world + REGION_WIDTH_UNITS, y_world + REGION_WIDTH_UNITS))
 		{
 			if (siminfo->isDown())
@@ -579,6 +606,7 @@ void LLWorldMap::updateRegions(S32 x0, S32 y0, S32 x1, S32 y1)
 	U32 map_block_y0 = global_y0 / MAP_BLOCK_RES;
 	U32 map_block_y1 = llmin(global_y1 / MAP_BLOCK_RES, max_range);
 	const bool layer_start = useWebMapTiles() ? SIM_LAYER_OVERLAY : SIM_LAYER_BEGIN;
+	S32 requests_left = 8;
 	for (U32 i = map_block_x0; i <= map_block_x1; ++i)
 	{
 	for (U32 j = map_block_y0; j <= map_block_y1; ++j)
@@ -607,6 +635,10 @@ void LLWorldMap::updateRegions(S32 x0, S32 y0, S32 x1, S32 y1)
 				U32 max_y = min_y + MAP_BLOCK_SIZE - 1;
 				LLWorldMapMessage::getInstance()->sendMapBlockRequest(min_x, min_y, max_x, max_y, false, layerToFlags((sim_layer_type)layer));
 				block[offset] = true;
+				if (--requests_left <= 0)
+				{
+					return;
+				}
 			}
 		}
 	}

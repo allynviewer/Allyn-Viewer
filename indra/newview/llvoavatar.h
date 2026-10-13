@@ -295,6 +295,7 @@ public:
 	static void		cacheAnimationsForFriendsOnly(const LLUUID& id, const std::map<LLUUID, S32>& anims);
 	static bool		applyCachedFriendsOnlyAppearance(LLVOAvatar* avatar);
 	static bool		shouldSuppressForAvatarDisplay(const LLUUID& id);
+	static bool		wantAvatarDisplayTrace();
 	static void		traceAvatarDisplay(const std::string& line);
 	void			requestInitialAppearance();
 	bool 			visualParamWeightsAreDefault();

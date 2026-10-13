@@ -218,13 +218,16 @@ public:
 	std::map<U32, std::vector<bool> >::const_iterator getMapBlockEnd(U32 layer) const
 																			{ return LLWorldMap::instance().mMapBlockMap[layer].end(); }
 	void	equalizeBoostLevels();
+	const std::vector<LLSimInfo*>& getLargeRegions() const { return mLargeRegions; }
 	LLPointer<LLViewerFetchedTexture> getObjectsTile(U32 grid_x, U32 grid_y, S32 level, bool load = true) { return mWorldMipmap.getObjectsTile(grid_x, grid_y, level, load); }
 	static void processMapLayerReply(LLMessageSystem*, void**);
 private:
 	bool clearItems(bool force = false);
 	void clearSimFlags();
+	void noteRegionExtent(LLSimInfo* info);
 	LLSimInfo* createSimInfoFromHandle(const U64 handle);
 	sim_info_map_t mSimInfoMap;
+	std::vector<LLSimInfo*> mLargeRegions;
 	void sendMapLayerRequest();
 	std::vector<LLWorldMapLayer>	mMapLayers;
 	bool							mMapLoaded;

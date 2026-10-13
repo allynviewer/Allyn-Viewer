@@ -7567,9 +7567,14 @@ bool LLVOAvatar::applyCachedFriendsOnlyAppearance(LLVOAvatar* avatar)
 	}
 	return avatar->mFirstAppearanceMessageReceived;
 }
+bool LLVOAvatar::wantAvatarDisplayTrace()
+{
+	static const LLCachedControl<bool> enabled(gSavedSettings, "AllynTraceAvatarDisplay", false);
+	return enabled;
+}
 void LLVOAvatar::traceAvatarDisplay(const std::string& line)
 {
-	LL_INFOS("AvatarDisplay") << line << LL_ENDL;
+	LL_DEBUGS("AvatarDisplay") << line << LL_ENDL;
 	if (!gDirUtilp)
 	{
 		return;
@@ -7589,7 +7594,7 @@ void LLVOAvatar::requestInitialAppearance()
 	{
 		return;
 	}
-	traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS STARTED id=%s mode=%d reason=appearance_absent_request_normal_pipeline", getID().asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
+	if (wantAvatarDisplayTrace()) traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS STARTED id=%s mode=%d reason=appearance_absent_request_normal_pipeline", getID().asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
 	LLAvatarPropertiesProcessor::getInstance()->sendAvatarTexturesRequest(getID());
 }
 bool LLVOAvatar::shouldSuppressForAvatarDisplay(const LLUUID& id)
@@ -7613,7 +7618,7 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 {
 	if (!isSelf())
 	{
-		traceAvatarDisplay(llformat("avatar_appearance_received id=%s mode=%d reason=normal_pipeline", getID().asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
+		if (wantAvatarDisplayTrace()) traceAvatarDisplay(llformat("avatar_appearance_received id=%s mode=%d reason=normal_pipeline", getID().asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
 	}
     static S32 largestSelfCOFSeen(LLViewerInventoryCategory::VERSION_UNKNOWN);
 	LL_DEBUGS("Avatar") << "starts" << LL_ENDL;

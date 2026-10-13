@@ -159,5 +159,6 @@ public:
 	static std::map<std::string,std::string> sStringsMap;
 private:
 	void drawTileOutline(S32 level, F32 top, F32 left, F32 bottom, F32 right);
+	void drawOneSim(LLSimInfo* info, U64 handle, const LLVector3d& camera_global, F32 half_width, F32 half_height, S32 width, S32 height, F64 current_time, bool map_show_land_for_sale);
 };
 #endif
