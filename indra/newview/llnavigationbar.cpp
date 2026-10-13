@@ -564,6 +564,7 @@ void LLNavigationBar::onLocationFocusReceived()
 	if (LLLineEditor* editor = getLocationEditor())
 	{
 		editor->selectAll();
+		editor->endSelection();
 	}
 }
 void LLNavigationBar::onLocationFocusLost()
