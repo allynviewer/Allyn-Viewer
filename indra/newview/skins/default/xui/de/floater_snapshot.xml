@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="Snapshot" title="Foto-Anzeige">
+	<button label="Auf Festplatte speichern" name="save_to_computer_btn"/>
+	<button label="Im Inventar speichern" name="save_to_inventory_btn"/>
+	<button label="Auf Profil teilen" name="save_to_profile_btn"/>
+	<button label="Per E-Mail senden" name="save_to_email_btn"/>
 	<text name="file_size_label">Dateigröße: [SIZE] KB</text>
 	<text name="type_label">Ziel</text>
 	<combo_box name="snapshot_type_radio">
@@ -18,8 +22,8 @@
  <flyout_button_item name="saveas_item">Speichern unter...</flyout_button_item>
 	</flyout_button>
 	<button label="Abbrechen" name="discard_btn"/>
-	<button label="Mehr &gt;&gt;" name="more_btn" tool_tip="Erweiterte Optionen"/>
-	<button label="&lt;&lt; Weniger" name="less_btn" tool_tip="Erweiterte Optionen"/>
+	<button label="" name="more_btn" tool_tip="Große Vorschau anzeigen"/>
+	<button label="" name="less_btn" tool_tip="Große Vorschau ausblenden"/>
 	<text name="type_label2">Zielauflösung</text>
 	<text name="format_label">Format</text>
 	<combo_box label="Auflösung" name="feed_size_combo">

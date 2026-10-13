@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater name="Snapshot" title="Anteprima della fotografia" width="247">
+<floater name="Snapshot" title="Istantanea">
+	<button label="Salva sul disco fisso" name="save_to_computer_btn"/>
+	<button label="Salva in inventario" name="save_to_inventory_btn"/>
+	<button label="Condividi sul feed" name="save_to_profile_btn"/>
+	<button label="Invia per e-mail" name="save_to_email_btn"/>
 	<text name="type_label">
 		Destinazione della fotografia
 	</text>
@@ -29,8 +33,8 @@
 		</flyout_button_item>
 	</flyout_button>
 	<button label="Annulla" name="discard_btn"/>
-	<button label="Espandi &gt;&gt;" name="more_btn" tool_tip="Opzioni avanzate"/>
-	<button label="&lt;&lt; Diminuisci" name="less_btn" tool_tip="Opzioni avanzate"/>
+	<button label="" name="more_btn" tool_tip="Mostra l'anteprima grande"/>
+	<button label="" name="less_btn" tool_tip="Nascondi l'anteprima grande"/>
 	<text name="type_label2">
 		Grandezza
 	</text>
@@ -127,10 +131,10 @@
 		</combo_item>
 	</combo_box>
 	<check_box label="Mostra l&apos;interfaccia nella fotografia" name="ui_check"/>
-	<check_box bottom_delta="-17" label="Mostra i dispositivi indossati nella foto" name="hud_check"/>
-	<check_box bottom_delta="-17" label="Mantieni aperto dopo aver salvato" name="keep_open_check"/>
-	<check_box bottom_delta="-17" label="Blocca l&apos;anteprima &#10;(Anteprima a schermo intero)" name="freeze_frame_check"/>
-	<check_box bottom_delta="-29" label="Auto-Aggiorna" name="auto_snapshot_check"/>
+	<check_box label="Mostra i dispositivi indossati nella foto" name="hud_check"/>
+	<check_box label="Mantieni aperto dopo aver salvato" name="keep_open_check"/>
+	<check_box label="Blocca l&apos;anteprima" name="freeze_time_check"/>
+	<check_box label="Auto-Aggiorna" name="auto_snapshot_check"/>
 	<string name="unknown">
 		sconosciuto
 	</string>

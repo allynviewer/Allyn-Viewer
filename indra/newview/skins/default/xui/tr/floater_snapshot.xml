@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater name="Snapshot" title="Snapshot önizleme">
+<floater name="Snapshot" title="Anlık görüntü">
+	<button label="Diske Kaydet" name="save_to_computer_btn"/>
+	<button label="Envantere Kaydet" name="save_to_inventory_btn"/>
+	<button label="Profil Akışında Paylaş" name="save_to_profile_btn"/>
+	<button label="E-postayla Gönder" name="save_to_email_btn"/>
 	<text name="file_size_label">Dosya boyutu: [SIZE] KB</text>
 	<text name="type_label">Hedef</text>
 	<combo_box name="snapshot_type_radio">
@@ -18,8 +22,8 @@
 		<flyout_button_item name="saveas_item">Farklı Kaydet...</flyout_button_item>
 	</flyout_button>
 	<button name="discard_btn" label="İptal" />
-	<button name="more_btn" label="Daha Fazla &gt;&gt;" tool_tip="Gelişmiş Seçenekler" />
-	<button name="less_btn" label="&lt;&lt; Daha az" tool_tip="Gelişmiş Seçenekler" />
+	<button name="more_btn" label="" tool_tip="Büyük önizlemeyi göster" />
+	<button name="less_btn" label="" tool_tip="Büyük önizlemeyi gizle" />
 	<text name="type_label2">Hedef Çözünürlüğü</text>
 	<text name="format_label">Biçim</text>
 	<combo_box name="feed_size_combo" label="Çözünürlük">

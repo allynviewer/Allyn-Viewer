@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater name="Snapshot" title="スナップショットプレビュー">
+<floater name="Snapshot" title="スナップショット">
+	<button label="ディスクに保存" name="save_to_computer_btn"/>
+	<button label="インベントリに保存" name="save_to_inventory_btn"/>
+	<button label="プロフィールで共有する" name="save_to_profile_btn"/>
+	<button label="メールで送信" name="save_to_email_btn"/>
 	<text name="file_size_label">ファイルサイズ: [SIZE] KB</text>
 	<text name="type_label">保存先</text>
 	<combo_box name="snapshot_type_radio">
@@ -18,8 +22,8 @@
 		<flyout_button_item name="saveas_item">名前を付けて保存...</flyout_button_item>
 	</flyout_button>
 	<button name="discard_btn" label="キャンセル" />
-	<button name="more_btn" label="もっと &gt;&gt;" tool_tip="詳細オプション" />
-	<button name="less_btn" label="&lt;&lt; 少なく" tool_tip="詳細オプション" />
+	<button name="more_btn" label="" tool_tip="大きなプレビューを表示" />
+	<button name="less_btn" label="" tool_tip="大きなプレビューを隠す" />
 	<text name="type_label2">保存先の解像度</text>
 	<text name="format_label">フォーマット</text>
 	<combo_box name="feed_size_combo" label="解像度">

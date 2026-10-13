@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="Snapshot" title="Vista Previa de la foto">
+<floater name="Snapshot" title="Vista previa">
+	<button label="Guardar en mi ordenador" name="save_to_computer_btn"/>
+	<button label="Guardar en mi inventario" name="save_to_inventory_btn"/>
+	<button label="Compartir en el perfil" name="save_to_profile_btn"/>
+	<button label="Enviar por correo electrónico" name="save_to_email_btn"/>
 	<text name="file_size_label" right="-26" width="140">
 		Tamaño de Archivo: [SIZE] KB
 	</text>
@@ -34,8 +38,8 @@
 		</flyout_button_item>
 	</flyout_button>
 	<button label="Cancelar" name="discard_btn"/>	
-	<button label="Más&gt;&gt;" name="more_btn" tool_tip="Opciones Avanzadas."/>
-	<button label="&lt;&lt;Menos" name="less_btn" tool_tip="Opciones Avanzadas."/>	
+	<button label="" name="more_btn" tool_tip="Mostrar la vista previa grande"/>
+	<button label="" name="less_btn" tool_tip="Ocultar la vista previa grande"/>	
 	<text name="type_label2">
 		Resolución Destino
 	</text>

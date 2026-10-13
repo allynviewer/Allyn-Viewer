@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater name="Snapshot" title="Prévia da foto">
+<floater name="Snapshot" title="Captura de imagem">
+	<button label="Salvar no disco" name="save_to_computer_btn"/>
+	<button label="Salvar no inventário" name="save_to_inventory_btn"/>
+	<button label="Compartilhar no perfil" name="save_to_profile_btn"/>
+	<button label="Enviar por e-mail" name="save_to_email_btn"/>
 	<text name="type_label">
 		Destino da foto
 	</text>
@@ -15,9 +19,9 @@
 		</combo_item>
 	</combo_box>
 	<text name="file_size_label">
-		Tamanho do arquivo: [SIZE] KB
+		[SIZE] KB
 	</text>
-	<button label="Atualizar a foto" name="new_snapshot_btn"/>
+	<button label="Atualizar" name="new_snapshot_btn"/>
 	<button label="Enviar" name="send_btn"/>
 	<button label="Salvar ([UPLOADFEE])" name="upload_btn"/>
 	<flyout_button label="Salvar" name="save_btn" tool_tip="Salvar imagem em um arquivo">
@@ -29,10 +33,10 @@
 		</flyout_button_item>
 	</flyout_button>
 	<button label="Cancelar" name="discard_btn"/>
-	<button label="Mais &gt;" name="more_btn" tool_tip="Opções Avançadas"/>
-	<button label="&lt; Menos" name="less_btn" tool_tip="Opções Avançadas"/>
+	<button label="" name="more_btn" tool_tip="Mostrar a prévia grande"/>
+	<button label="" name="less_btn" tool_tip="Esconder a prévia grande"/>
 	<text name="type_label2">
-		Tamanho
+		Resolução
 	</text>
 	<text name="format_label">
 		Formato
@@ -51,24 +55,24 @@
 			1024x768
 		</combo_item>
 		<combo_item name="Custom">
-			Customizado
+			Personalizado
 		</combo_item>
 	</combo_box>
 	<combo_box label="Resolução" name="texture_size_combo">
 		<combo_item name="CurrentWindow">
-			Janela Atual
+			Janela atual
 		</combo_item>
-		<combo_item name="Small(128x128)">
-			Pequeno (128x128)
+		<combo_item name="512x512">
+			512x512 (1:1)
 		</combo_item>
-		<combo_item name="Medium(256x256)">
-			Médio (256x256)
+		<combo_item name="256x256">
+			256x256 (1:1)
 		</combo_item>
-		<combo_item name="Large(512x512)">
-			Grande (512x512)
+		<combo_item name="128x128">
+			128x128 (1:1)
 		</combo_item>
 		<combo_item name="Custom">
-			Customizado
+			Personalizado
 		</combo_item>
 	</combo_box>
 	<combo_box label="Resolução" name="local_size_combo">
@@ -94,7 +98,7 @@
 			1600x1200
 		</combo_item>
 		<combo_item name="Custom">
-			Customizado
+			Personalizado
 		</combo_item>
 	</combo_box>
 	<combo_box label="Formato" name="local_format_combo">
@@ -108,9 +112,9 @@
 			BMP
 		</combo_item>
 	</combo_box>
-	<spinner label="Largura" name="snapshot_width" label_width="41" width="101"/>
-	<spinner label="Altura" name="snapshot_height" label_width="31" width="91" left="119"/>
-	<check_box label="Restringir proporções" name="keep_aspect_check"/>
+	<spinner label="Largura" name="snapshot_width" label_width="48"/>
+	<spinner label="Altura" name="snapshot_height" label_width="40"/>
+	<check_box label="Manter proporção" name="keep_aspect"/>
 	<slider label="Qualidade da Imagem" name="image_quality_slider"/>
 	<text name="layer_type_label">
 		Capturar:
@@ -120,18 +124,24 @@
 			Cores
 		</combo_item>
 		<combo_item name="Depth">
-			Formato
+			Profundidade
 		</combo_item>
 		<combo_item name="ObjectMattes">
 			Decoração do Objeto
 		</combo_item>
 	</combo_box>
-	<check_box label="Mostrar interface na Foto" name="ui_check"/>
-	<check_box bottom_delta="-17" label="Mostrar Objetos HUD na Foto" name="hud_check"/>
-	<check_box bottom_delta="-17" label="Manter aberto após salvar" name="keep_open_check"/>
-	<check_box bottom_delta="-17" label="Quadro Congelado&#10; (prévia da tela inteira)" name="freeze_frame_check"/>
-	<check_box bottom_delta="-29" label="Auto-atualizar" name="auto_snapshot_check"/>
+	<check_box label="Interface" name="ui_check"/>
+	<check_box label="HUDs" name="hud_check"/>
+	<check_box label="Manter aberto após salvar" name="keep_open_check"/>
+	<check_box label="Congelar quadro" name="freeze_time_check" tool_tip="Congela a cena para mover a câmera e tirar várias fotos. ESC solta. Também vale na próxima vez que esta janela abrir."/>
+	<check_box label="Atualização automática" name="auto_snapshot_check"/>
 	<string name="unknown">
 		desconhecido
+	</string>
+	<string name="targetAR">
+		Proporção desejada
+	</string>
+	<string name="sourceAR">
+		Resolução e proporção desejada
 	</string>
 </floater>

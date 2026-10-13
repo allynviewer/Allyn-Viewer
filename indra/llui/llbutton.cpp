@@ -1143,6 +1143,11 @@ LLView* LLButton::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *fa
 	if(image_disabled_selected != LLStringUtil::null) button->setImageDisabledSelected(LLUI::getUIImage(image_disabled_selected));
 	if(image_disabled != LLStringUtil::null) button->setImageDisabled(LLUI::getUIImage(image_disabled));
 	if(image_overlay != LLStringUtil::null) button->setImageOverlay(image_overlay, image_overlay_alignment);
+	S32 overlay_label_space = 0;
+	if (node->getAttributeS32("imgoverlay_label_space", overlay_label_space))
+	{
+		button->mImgOverlayLabelSpace = overlay_label_space;
+	}
 	if (!image_overlay_selected.empty()) button->mImageOverlaySelected = LLUI::getUIImage(image_overlay_selected);
 	if (node->hasAttribute("halign"))
 	{

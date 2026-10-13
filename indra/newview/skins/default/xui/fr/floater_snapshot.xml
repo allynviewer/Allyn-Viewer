@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater name="Snapshot" title="Prévisualiser la photo" width="247">
+<floater name="Snapshot" title="Photo">
+	<button label="Sur le disque" name="save_to_computer_btn"/>
+	<button label="Dans l'inventaire" name="save_to_inventory_btn"/>
+	<button label="Sur le profil" name="save_to_profile_btn"/>
+	<button label="Envoyer par e-mail" name="save_to_email_btn"/>
 	<text name="type_label">
 		Destination de la photo
 	</text>
@@ -17,8 +21,8 @@
 			Enregistrez sur votre disque dur
 		</combo_item>
 	</combo_box>
-	<button label="Plus &gt;&gt;" name="more_btn" tool_tip="Options avancées"/>
-	<button label="&lt;&lt; Moins" name="less_btn" tool_tip="Options avancées"/>
+	<button label="" name="more_btn" tool_tip="Afficher le grand aperçu"/>
+	<button label="" name="less_btn" tool_tip="Masquer le grand aperçu"/>
 	<text name="type_label2">
 		Taille
 	</text>
@@ -151,7 +155,7 @@
 			Enregistrer sous
 		</flyout_button_item>
 	</flyout_button>
-	<button label="Annuler" name="discard_btn" left="133" width="72" />
+	<button label="Annuler" name="discard_btn"/>
 	<check_box label="Image Temporaire (Gratuit)" name="temp_check" tool_tip="Comme toute image temporaire elle disparaitra à votre deconnection."/>
 	<string name="unknown">
 		inconnu

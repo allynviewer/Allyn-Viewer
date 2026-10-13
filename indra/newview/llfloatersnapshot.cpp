@@ -48,7 +48,12 @@
 #include "llui.h"
 #include "llviewertexteditor.h"
 #include "llfocusmgr.h"
+#include "lldraghandle.h"
+#include "llresizebar.h"
+#include "llresizehandle.h"
 #include "llbutton.h"
+#include "llpanel.h"
+#include "llscrollcontainer.h"
 #include "llcombobox.h"
 #include "llagentbenefits.h"
 #include "llsliderctrl.h"
@@ -81,10 +86,28 @@
 #include "llvfile.h"
 #include "llvfs.h"
 #include "hippogridmanager.h"
-S32 LLFloaterSnapshot::sUIWinHeightLong = 566;
-S32 LLFloaterSnapshot::sUIWinHeightShort = LLFloaterSnapshot::sUIWinHeightLong - 266;
-S32 LLFloaterSnapshot::sUIWinWidth = 219;
-S32 const THUMBHEIGHT = 159;
+S32 LLFloaterSnapshot::sUIWinHeightLong = 640;
+S32 LLFloaterSnapshot::sUIWinHeightShort = 720;
+S32 LLFloaterSnapshot::sUIWinWidth = 680;
+static const S32 SNAP_HEADER = LLFLOATER_HEADER_SIZE;
+static const S32 SNAP_CONTROLS_W = 228;
+static const S32 SNAP_INSET = 12;
+static const S32 SNAP_EDGE = 8;
+static const S32 SNAP_BOTTOM = 18;
+static const S32 SNAP_PANEL_GAP = 10;
+static const S32 SNAP_GAP = 4;
+static const S32 SNAP_SECTION = 8;
+static const S32 SNAP_BTN_H = 22;
+static const S32 SNAP_LINE_H = 22;
+static const S32 SNAP_LABEL_H = 16;
+static const S32 SNAP_CHECK_H = 16;
+static const S32 SNAP_SLIDER_H = 18;
+static const S32 SNAP_INFO_H = 16;
+static const S32 SNAP_MIN_PREVIEW_W = 260;
+static const S32 SNAP_MIN_THUMB_H = 120;
+static const S32 SNAP_MIN_H = 220;
+static const S32 SNAP_MORE_W = 26;
+static const S32 SNAP_PREVIEW_W = 420;
 LLSnapshotFloaterView* gSnapshotFloaterView = NULL;
 LLFloaterSnapshot* LLFloaterSnapshot::sInstance = NULL;
 const F32 AUTO_SNAPSHOT_TIME_DELAY = 1.f;
@@ -239,7 +262,9 @@ class LLFloaterSnapshot::Impl
 public:
 	Impl()
 	:	mAvatarPauseHandles(),
-		mLastToolset(NULL)
+		mLastToolset(NULL),
+		mInLayout(false),
+		mColumnMask(0)
 	{
 	}
 	~Impl()
@@ -256,6 +281,11 @@ public:
 	static void onClickTemporaryImage(LLUICtrl *ctrl, void* data);
 	static void onClickLess(void* data) ;
 	static void onClickMore(void* data) ;
+	static void onClickSaveToComputer(void* data);
+	static void onClickSaveToInventory(void* data);
+	static void onClickSaveToProfile(void* data);
+	static void onClickSaveToEmail(void* data);
+	static void selectSnapshotType(LLFloaterSnapshot* floater, S32 type);
 	static void onClickUICheck(LLUICtrl *ctrl, void* data);
 	static void onClickHUDCheck(LLUICtrl *ctrl, void* data);
 	static void onClickKeepOpenCheck(LLUICtrl *ctrl, void* data);
@@ -286,7 +316,9 @@ public:
 	static void enforceResolution(LLFloaterSnapshot* floater, F32 new_aspect);
 	static void updateControls(LLFloaterSnapshot* floater, bool delayed_formatted = false);
 	static void resetFeedAndPostcardAspect(LLFloaterSnapshot* floater);
-	static void updateLayout(LLFloaterSnapshot* floater);
+	static void updateLayout(LLFloaterSnapshot* floater, bool adopt_mode_size = false);
+	static void layoutContents(LLFloaterSnapshot* floater);
+	static void clampSize(LLFloaterSnapshot* floater, S32& width, S32& height);
 	static void freezeTime(bool on);
 	static void keepAspect(LLFloaterSnapshot* view, bool on, bool force = false);
 	static LLHandle<LLView> sPreviewHandle;
@@ -299,6 +331,8 @@ public:
 	std::vector<LLAnimPauseRequest> mAvatarPauseHandles;
 	LLToolset*	mLastToolset;
 	boost::signals2::connection mQualityMouseUpConnection;
+	bool		mInLayout;
+	U32			mColumnMask;
 };
 int LLSnapshotLivePreview::sSnapshotIndex;
 void LLSnapshotLivePreview::setSnapshotBufferType(LLFloaterSnapshot* floater, LLViewerWindow::ESnapshotType type)
@@ -639,8 +673,17 @@ BOOL LLSnapshotLivePreview::setThumbnailImageSize()
 	S32 window_width = gViewerWindow->getWindowWidthRaw() ;
 	S32 window_height = gViewerWindow->getWindowHeightRaw() ;
 	F32 window_aspect_ratio = ((F32)window_width) / ((F32)window_height);
-	S32 max_width =  THUMBHEIGHT * 4 / 3;
-	S32 max_height = THUMBHEIGHT;
+	S32 max_width = 212;
+	S32 max_height = 159;
+	if (LLFloaterSnapshot* floater = LLFloaterSnapshot::getInstance())
+	{
+		LLRect area = floater->getThumbnailAreaRect();
+		if (area.getWidth() >= 10 && area.getHeight() >= 10)
+		{
+			max_width = area.getWidth();
+			max_height = area.getHeight();
+		}
+	}
 	if (window_aspect_ratio > (F32)max_width / max_height)
 	{
 		mThumbnailWidth = max_width;
@@ -1319,28 +1362,671 @@ void LLFloaterSnapshot::Impl::resetFeedAndPostcardAspect(LLFloaterSnapshot* floa
 	floaterp->getChild<LLComboBox>("postcard_aspect_combo")->setCurrentByIndex(0);
 	gSavedSettings.setS32("SnapshotPostcardLastAspect", 0);
 }
-void LLFloaterSnapshot::Impl::updateLayout(LLFloaterSnapshot* floaterp)
+struct SnapColumn
 {
-	S32 delta_height = 0;
-	if (!gSavedSettings.getBOOL("AdvanceSnapshot"))
+	LLFloaterSnapshot* floater;
+	S32 x;
+	S32 width;
+	S32 y;
+	bool place;
+	bool reserve_all;
+};
+static void snapPlace(LLFloaterSnapshot* floater, const char* name, S32 x, S32 bottom, S32 w, S32 h)
+{
+	LLView* view = floater->getChildView(name, TRUE, FALSE);
+	if (!view || w < 1 || h < 1)
 	{
-		floaterp->getChild<LLComboBox>("feed_size_combo")->setCurrentByIndex(2);
-		gSavedSettings.setS32("SnapshotFeedLastResolution", 2);
-		floaterp->getChild<LLComboBox>("postcard_size_combo")->setCurrentByIndex(0);
-		gSavedSettings.setS32("SnapshotPostcardLastResolution", 0);
-		resetFeedAndPostcardAspect(floaterp);
-		floaterp->getChild<LLComboBox>("texture_size_combo")->setCurrentByIndex(0);
-		gSavedSettings.setS32("SnapshotTextureLastResolution", 0);
-		floaterp->getChild<LLComboBox>("texture_aspect_combo")->setCurrentByIndex(0);
-		gSavedSettings.setS32("SnapshotTextureLastAspect", 0);
-		floaterp->getChild<LLComboBox>("local_size_combo")->setCurrentByIndex(0);
-		gSavedSettings.setS32("SnapshotLocalLastResolution", 0);
-		floaterp->getChild<LLComboBox>("local_aspect_combo")->setCurrentByIndex(0);
-		gSavedSettings.setS32("SnapshotLocalLastAspect", 0);
-		updateControls(floaterp);
-		delta_height = floaterp->getUIWinHeightShort() - floaterp->getUIWinHeightLong();
+		return;
 	}
-	floaterp->reshape(floaterp->getRect().getWidth(), floaterp->getUIWinHeightLong() + delta_height);
+	view->setFollowsNone();
+	view->reshape(w, h);
+	view->setOrigin(x, bottom);
+}
+static bool snapReserve(const SnapColumn& col, const char* name)
+{
+	if (col.reserve_all)
+	{
+		return true;
+	}
+	LLView* view = col.floater->getChildView(name, TRUE, FALSE);
+	return view && view->getVisible();
+}
+static S32 snapTake(SnapColumn& col, S32 h)
+{
+	col.y -= h;
+	return col.y;
+}
+static void snapGap(SnapColumn& col, S32 g)
+{
+	col.y -= g;
+}
+static void walkColumn(SnapColumn& col)
+{
+	const S32 x = col.x;
+	const S32 w = col.width;
+	S32 bottom = snapTake(col, SNAP_BTN_H);
+	if (col.place)
+	{
+		S32 more_w = SNAP_MORE_W;
+		S32 refresh_w = w - more_w - SNAP_GAP;
+		if (refresh_w < 80)
+		{
+			refresh_w = w;
+			more_w = 0;
+		}
+		S32 toggle_x = x;
+		S32 refresh_x = x;
+		if (more_w > 0)
+		{
+			refresh_x = x + more_w + SNAP_GAP;
+		}
+		snapPlace(col.floater, "new_snapshot_btn", refresh_x, bottom, refresh_w, SNAP_BTN_H);
+		if (more_w > 0)
+		{
+			snapPlace(col.floater, "more_btn", toggle_x, bottom, more_w, SNAP_BTN_H);
+			snapPlace(col.floater, "less_btn", toggle_x, bottom, more_w, SNAP_BTN_H);
+		}
+	}
+	snapGap(col, SNAP_SECTION);
+	const char* dests[] = {
+		"save_to_computer_btn",
+		"save_to_inventory_btn",
+		"save_to_profile_btn",
+		"save_to_email_btn"
+	};
+	for (int i = 0; i < 4; ++i)
+	{
+		if (i > 0)
+		{
+			snapGap(col, SNAP_GAP);
+		}
+		bottom = snapTake(col, SNAP_BTN_H);
+		if (col.place)
+		{
+			snapPlace(col.floater, dests[i], x, bottom, w, SNAP_BTN_H);
+		}
+	}
+	snapGap(col, SNAP_SECTION);
+	bottom = snapTake(col, SNAP_LABEL_H);
+	if (col.place)
+	{
+		snapPlace(col.floater, "type_label2", x, bottom, w, SNAP_LABEL_H);
+	}
+	snapGap(col, 2);
+	bottom = snapTake(col, SNAP_LINE_H);
+	if (col.place)
+	{
+		const char* sizes[] = {
+			"feed_size_combo",
+			"postcard_size_combo",
+			"texture_size_combo",
+			"local_size_combo"
+		};
+		for (int i = 0; i < 4; ++i)
+		{
+			snapPlace(col.floater, sizes[i], x, bottom, w, SNAP_LINE_H);
+		}
+	}
+	if (snapReserve(col, "local_format_combo"))
+	{
+		snapGap(col, SNAP_SECTION);
+		bottom = snapTake(col, SNAP_LINE_H);
+		if (col.place)
+		{
+			S32 label_w = 68;
+			if (label_w > w / 2)
+			{
+				label_w = w / 2;
+			}
+			snapPlace(col.floater, "format_label", x, bottom + (SNAP_LINE_H - SNAP_LABEL_H) / 2, label_w, SNAP_LABEL_H);
+			snapPlace(col.floater, "local_format_combo", x + label_w + SNAP_GAP, bottom, w - label_w - SNAP_GAP, SNAP_LINE_H);
+		}
+	}
+	snapGap(col, SNAP_GAP);
+	bottom = snapTake(col, SNAP_LINE_H);
+	if (col.place)
+	{
+		S32 each = (w - SNAP_GAP) / 2;
+		snapPlace(col.floater, "snapshot_width", x, bottom, each, SNAP_LINE_H);
+		snapPlace(col.floater, "snapshot_height", x + each + SNAP_GAP, bottom, w - each - SNAP_GAP, SNAP_LINE_H);
+	}
+	if (snapReserve(col, "image_quality_slider"))
+	{
+		snapGap(col, SNAP_GAP);
+		bottom = snapTake(col, SNAP_SLIDER_H);
+		if (col.place)
+		{
+			snapPlace(col.floater, "image_quality_slider", x, bottom, w, SNAP_SLIDER_H);
+		}
+	}
+	snapGap(col, SNAP_GAP);
+	bottom = snapTake(col, SNAP_CHECK_H);
+	if (col.place)
+	{
+		snapPlace(col.floater, "keep_aspect", x, bottom, w, SNAP_CHECK_H);
+	}
+	snapGap(col, SNAP_SECTION);
+	bottom = snapTake(col, SNAP_LABEL_H);
+	if (col.place)
+	{
+		snapPlace(col.floater, "type_label3", x, bottom, w, SNAP_LABEL_H);
+	}
+	snapGap(col, 2);
+	bottom = snapTake(col, SNAP_LINE_H);
+	if (col.place)
+	{
+		S32 colon_w = 22;
+		S32 ratio_w = 64;
+		S32 combo_w = w - colon_w - ratio_w - SNAP_GAP * 2;
+		if (combo_w < 70)
+		{
+			combo_w = llmin(70, w / 2);
+			ratio_w = w - colon_w - combo_w - SNAP_GAP * 2;
+			if (ratio_w < 36)
+			{
+				ratio_w = 36;
+			}
+		}
+		const char* aspects[] = {
+			"feed_aspect_combo",
+			"postcard_aspect_combo",
+			"texture_aspect_combo",
+			"local_aspect_combo"
+		};
+		for (int i = 0; i < 4; ++i)
+		{
+			snapPlace(col.floater, aspects[i], x, bottom, combo_w, SNAP_LINE_H);
+		}
+		snapPlace(col.floater, "aspect_ratio", x + combo_w + SNAP_GAP, bottom, ratio_w, SNAP_LINE_H);
+		snapPlace(col.floater, "aspect_one_label", x + combo_w + ratio_w + SNAP_GAP * 2, bottom + (SNAP_LINE_H - SNAP_LABEL_H) / 2, colon_w, SNAP_LABEL_H);
+	}
+	snapGap(col, SNAP_SECTION);
+	bottom = snapTake(col, SNAP_LINE_H);
+	if (col.place)
+	{
+		S32 label_w = 72;
+		if (label_w > w / 3)
+		{
+			label_w = w / 3;
+		}
+		snapPlace(col.floater, "layer_type_label", x, bottom + (SNAP_LINE_H - SNAP_LABEL_H) / 2, label_w, SNAP_LABEL_H);
+		snapPlace(col.floater, "layer_types", x + label_w + SNAP_GAP, bottom, w - label_w - SNAP_GAP, SNAP_LINE_H);
+	}
+	const char* checks[] = {
+		"ui_check",
+		"hud_check",
+		"keep_open_check",
+		"freeze_time_check",
+		"auto_snapshot_check",
+		"temp_check"
+	};
+	bool any_check = false;
+	for (int i = 0; i < 6; ++i)
+	{
+		if (!snapReserve(col, checks[i]))
+		{
+			continue;
+		}
+		if (!any_check)
+		{
+			snapGap(col, SNAP_SECTION);
+			any_check = true;
+		}
+		else
+		{
+			snapGap(col, SNAP_GAP);
+		}
+		bottom = snapTake(col, SNAP_CHECK_H);
+		if (col.place)
+		{
+			snapPlace(col.floater, checks[i], x, bottom, w, SNAP_CHECK_H);
+		}
+	}
+	snapGap(col, SNAP_SECTION);
+	bottom = snapTake(col, SNAP_BTN_H);
+	if (col.place)
+	{
+		S32 cancel_w = 76;
+		if (cancel_w > w / 2)
+		{
+			cancel_w = w / 2;
+		}
+		S32 primary_w = w - SNAP_GAP - cancel_w;
+		const char* actions[] = { "feed_btn", "send_btn", "upload_btn", "save_btn" };
+		for (int i = 0; i < 4; ++i)
+		{
+			snapPlace(col.floater, actions[i], x, bottom, primary_w, SNAP_BTN_H);
+		}
+		snapPlace(col.floater, "discard_btn", x + primary_w + SNAP_GAP, bottom, cancel_w, SNAP_BTN_H);
+	}
+}
+static S32 snapColumnHeight(LLFloaterSnapshot* floater, bool reserve_all)
+{
+	SnapColumn col;
+	col.floater = floater;
+	col.x = 0;
+	col.width = SNAP_CONTROLS_W - SNAP_INSET * 2;
+	col.y = 0;
+	col.place = false;
+	col.reserve_all = reserve_all;
+	walkColumn(col);
+	return -col.y;
+}
+static S32 snapMinWidth(bool advanced)
+{
+	if (!advanced)
+	{
+		return SNAP_CONTROLS_W;
+	}
+	return SNAP_EDGE + SNAP_MIN_PREVIEW_W + SNAP_PANEL_GAP + SNAP_CONTROLS_W;
+}
+static S32 snapMinHeight(LLFloaterSnapshot* floater, bool advanced)
+{
+	(void)floater;
+	(void)advanced;
+	return SNAP_MIN_H;
+}
+static const char* SNAP_COLUMN_VIEWS[] = {
+	"new_snapshot_btn",
+	"more_btn",
+	"less_btn",
+	"save_to_computer_btn",
+	"save_to_inventory_btn",
+	"save_to_profile_btn",
+	"save_to_email_btn",
+	"type_label2",
+	"feed_size_combo",
+	"postcard_size_combo",
+	"texture_size_combo",
+	"local_size_combo",
+	"format_label",
+	"local_format_combo",
+	"snapshot_width",
+	"snapshot_height",
+	"image_quality_slider",
+	"keep_aspect",
+	"type_label3",
+	"feed_aspect_combo",
+	"postcard_aspect_combo",
+	"texture_aspect_combo",
+	"local_aspect_combo",
+	"aspect_ratio",
+	"aspect_one_label",
+	"layer_type_label",
+	"layer_types",
+	"ui_check",
+	"hud_check",
+	"keep_open_check",
+	"freeze_time_check",
+	"auto_snapshot_check",
+	"temp_check",
+	"feed_btn",
+	"send_btn",
+	"upload_btn",
+	"save_btn",
+	"discard_btn"
+};
+static bool snapDescendantListOpen(LLView* view)
+{
+	if (!view)
+	{
+		return false;
+	}
+	const LLView::child_list_t* kids = view->getChildList();
+	if (!kids)
+	{
+		return false;
+	}
+	for (LLView::child_list_t::const_iterator it = kids->begin(); it != kids->end(); ++it)
+	{
+		LLView* child = *it;
+		if (!child)
+		{
+			continue;
+		}
+		if (child->getVisible() && child->getName() == "ComboBox")
+		{
+			return true;
+		}
+		if (snapDescendantListOpen(child))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+class LLSnapshotControlScroll : public LLScrollContainer
+{
+public:
+	LLSnapshotControlScroll(const std::string& name, const LLRect& rect, LLView* scrolled_view)
+	:	LLScrollContainer(name, rect, scrolled_view, FALSE)
+	{
+	}
+	void draw()
+	{
+		if (snapDescendantListOpen(mScrolledView))
+		{
+			reshape(getRect().getWidth(), getRect().getHeight());
+			LLView::draw();
+		}
+		else
+		{
+			LLScrollContainer::draw();
+		}
+	}
+};
+static void snapTintToggles(LLFloaterSnapshot* floater)
+{
+	const LLColor4 yellow(1.f, 0.86f, 0.08f, 1.f);
+	if (LLButton* more = floater->findChild<LLButton>("more_btn"))
+	{
+		more->setImageOverlay(std::string("Conv_toolbar_expand"), LLFontGL::HCENTER, yellow);
+	}
+	if (LLButton* less = floater->findChild<LLButton>("less_btn"))
+	{
+		less->setImageOverlay(std::string("Conv_toolbar_collapse"), LLFontGL::HCENTER, yellow);
+	}
+}
+static LLScrollContainer* snapEnsureScroll(LLFloaterSnapshot* floater)
+{
+	LLScrollContainer* scroll = NULL;
+	if (LLView* existing = floater->getChildView("snapshot_controls_scroll", FALSE, FALSE))
+	{
+		scroll = static_cast<LLScrollContainer*>(existing);
+	}
+	else
+	{
+		LLPanel* doc = new LLPanel(std::string("snapshot_controls_doc"), LLRect(0, 400, SNAP_CONTROLS_W, 0), FALSE);
+		doc->setFollowsNone();
+		doc->setBackgroundVisible(FALSE);
+		scroll = new LLSnapshotControlScroll(
+			std::string("snapshot_controls_scroll"),
+			LLRect(0, 400, SNAP_CONTROLS_W, 0),
+			doc);
+		scroll->setFollowsNone();
+		scroll->setBorderVisible(FALSE);
+		floater->addChild(scroll);
+	}
+	LLView* doc = floater->getChildView("snapshot_controls_doc", TRUE, FALSE);
+	if (!doc)
+	{
+		return scroll;
+	}
+	const S32 count = (S32)(sizeof(SNAP_COLUMN_VIEWS) / sizeof(SNAP_COLUMN_VIEWS[0]));
+	for (S32 i = 0; i < count; ++i)
+	{
+		LLView* view = floater->getChildView(SNAP_COLUMN_VIEWS[i], FALSE, FALSE);
+		if (!view)
+		{
+			continue;
+		}
+		floater->removeChild(view);
+		doc->addChild(view);
+	}
+	return scroll;
+}
+static void snapPlaceColumn(LLFloaterSnapshot* floater, LLScrollContainer* scroll, S32 scroll_left, S32 scroll_bottom, S32 scroll_w, S32 scroll_h)
+{
+	if (!scroll)
+	{
+		return;
+	}
+	if (scroll_w < 8)
+	{
+		scroll_w = 8;
+	}
+	if (scroll_h < 1)
+	{
+		scroll_h = 1;
+	}
+	LLView* doc = floater->getChildView("snapshot_controls_doc", TRUE, FALSE);
+	if (!doc)
+	{
+		return;
+	}
+	const S32 stack = snapColumnHeight(floater, false);
+	S32 doc_h = stack;
+	if (doc_h < 1)
+	{
+		doc_h = 1;
+	}
+	S32 doc_w = scroll_w;
+	if (doc_h > scroll_h)
+	{
+		doc_w = scroll_w - SCROLLBAR_SIZE;
+	}
+	if (doc_w < 8)
+	{
+		doc_w = 8;
+	}
+	doc->setFollowsNone();
+	doc->reshape(doc_w, doc_h);
+	doc->setOrigin(0, 0);
+	SnapColumn col;
+	col.floater = floater;
+	col.x = SNAP_INSET;
+	col.width = doc_w - SNAP_INSET * 2;
+	if (col.width < 8)
+	{
+		col.width = 8;
+	}
+	col.y = doc_h;
+	col.place = true;
+	col.reserve_all = false;
+	walkColumn(col);
+	scroll->setOrigin(scroll_left, scroll_bottom);
+	scroll->reshape(scroll_w, scroll_h);
+}
+static void snapInfo(LLFloaterSnapshot* floater, const LLRect& thumb, S32 bottom)
+{
+	S32 info_w = (thumb.getWidth() - SNAP_GAP) / 2;
+	if (info_w < 24)
+	{
+		info_w = 24;
+	}
+	S32 size_w = thumb.getWidth() - info_w - SNAP_GAP;
+	if (size_w < 24)
+	{
+		size_w = 24;
+	}
+	if (LLView* res = floater->getChildView("image_res_text", FALSE, FALSE))
+	{
+		res->setVisible(TRUE);
+	}
+	if (LLView* sz = floater->getChildView("file_size_label", FALSE, FALSE))
+	{
+		sz->setVisible(TRUE);
+	}
+	snapPlace(floater, "image_res_text", thumb.mLeft, bottom, info_w, SNAP_INFO_H);
+	snapPlace(floater, "file_size_label", thumb.mLeft + info_w + SNAP_GAP, bottom, size_w, SNAP_INFO_H);
+}
+void LLFloaterSnapshot::Impl::clampSize(LLFloaterSnapshot* floater, S32& width, S32& height)
+{
+	const bool advanced = gSavedSettings.getBOOL("AdvanceSnapshot");
+	const S32 min_w = snapMinWidth(advanced);
+	const S32 min_h = snapMinHeight(floater, advanced);
+	floater->setResizeLimits(min_w, min_h);
+	S32 max_w = 4096;
+	S32 max_h = 4096;
+	if (LLView* parent = floater->getParent())
+	{
+		const LLRect limit = parent->getLocalSnapRect();
+		if (limit.getWidth() > min_w)
+		{
+			max_w = limit.getWidth();
+		}
+		if (limit.getHeight() > min_h)
+		{
+			max_h = limit.getHeight();
+		}
+	}
+	width = llclamp(width, min_w, llmax(min_w, max_w));
+	height = llclamp(height, min_h, llmax(min_h, max_h));
+}
+void LLFloaterSnapshot::Impl::layoutContents(LLFloaterSnapshot* floater)
+{
+	if (!floater)
+	{
+		return;
+	}
+	LLScrollContainer* scroll = snapEnsureScroll(floater);
+	if (scroll)
+	{
+		scroll->setVisible(TRUE);
+	}
+	snapTintToggles(floater);
+	const bool advanced = gSavedSettings.getBOOL("AdvanceSnapshot");
+	const S32 width = floater->getRect().getWidth();
+	const S32 height = floater->getRect().getHeight();
+	const S32 col_top = height - SNAP_HEADER - SNAP_EDGE;
+	LLRect thumb;
+	S32 scroll_left = 0;
+	S32 scroll_bottom = SNAP_BOTTOM;
+	S32 scroll_w = width;
+	S32 scroll_h = 1;
+	if (advanced)
+	{
+		S32 thumb_left = SNAP_EDGE;
+		S32 thumb_right = width - SNAP_CONTROLS_W - SNAP_PANEL_GAP;
+		S32 thumb_top = col_top;
+		S32 thumb_bottom = SNAP_BOTTOM + SNAP_INFO_H + SNAP_GAP;
+		if (thumb_right < thumb_left + 16)
+		{
+			thumb_right = thumb_left + 16;
+		}
+		if (thumb_top < thumb_bottom + 16)
+		{
+			thumb_bottom = thumb_top - 16;
+		}
+		thumb.set(thumb_left, thumb_top, thumb_right, thumb_bottom);
+		snapInfo(floater, thumb, SNAP_BOTTOM);
+		scroll_left = width - SNAP_CONTROLS_W;
+		scroll_w = SNAP_CONTROLS_W - 4;
+		scroll_h = col_top - scroll_bottom;
+	}
+	else
+	{
+		const S32 stack = snapColumnHeight(floater, false);
+		const S32 info_block = SNAP_GAP + SNAP_INFO_H + SNAP_GAP;
+		const S32 room = col_top - SNAP_BOTTOM;
+		S32 thumb_floor = SNAP_MIN_THUMB_H;
+		if (room - info_block - thumb_floor < stack)
+		{
+			thumb_floor = 36;
+		}
+		S32 thumb_h = room - info_block - stack;
+		if (thumb_h < thumb_floor)
+		{
+			thumb_h = thumb_floor;
+		}
+		if (thumb_h + info_block + 48 > room)
+		{
+			thumb_h = room - info_block - 48;
+			if (thumb_h < 24)
+			{
+				thumb_h = 24;
+			}
+		}
+		const S32 thumb_left = SNAP_INSET;
+		const S32 thumb_right = width - SNAP_INSET;
+		const S32 thumb_top = col_top;
+		const S32 thumb_bottom = thumb_top - thumb_h;
+		thumb.set(thumb_left, thumb_top, thumb_right, thumb_bottom);
+		const S32 info_bottom = thumb_bottom - SNAP_GAP - SNAP_INFO_H;
+		snapInfo(floater, thumb, info_bottom);
+		scroll_left = 4;
+		scroll_w = width - 8;
+		scroll_h = info_bottom - SNAP_GAP - scroll_bottom;
+	}
+	if (LLView* more = floater->getChildView("more_btn", TRUE, FALSE))
+	{
+		more->setVisible(!advanced);
+	}
+	if (LLView* less = floater->getChildView("less_btn", TRUE, FALSE))
+	{
+		less->setVisible(advanced);
+	}
+	const S32 scroll_top_limit = height - SNAP_HEADER - SNAP_EDGE;
+	if (scroll_bottom + scroll_h > scroll_top_limit)
+	{
+		scroll_h = scroll_top_limit - scroll_bottom;
+	}
+	snapPlaceColumn(floater, scroll, scroll_left, scroll_bottom, scroll_w, scroll_h);
+	floater->setThumbnailAreaRect(thumb);
+	sUIWinWidth = width;
+	sUIWinHeightLong = height;
+	if (LLSnapshotLivePreview* previewp = getPreviewView())
+	{
+		previewp->setThumbnailImageSize();
+	}
+	U32 mask = advanced ? 8u : 0u;
+	if (LLView* format = floater->getChildView("local_format_combo", TRUE, FALSE))
+	{
+		if (format->getVisible())
+		{
+			mask |= 1u;
+		}
+	}
+	if (LLView* slider = floater->getChildView("image_quality_slider", TRUE, FALSE))
+	{
+		if (slider->getVisible())
+		{
+			mask |= 2u;
+		}
+	}
+	if (LLView* temp = floater->getChildView("temp_check", TRUE, FALSE))
+	{
+		if (temp->getVisible())
+		{
+			mask |= 4u;
+		}
+	}
+	floater->impl.mColumnMask = mask;
+}
+void LLFloaterSnapshot::Impl::updateLayout(LLFloaterSnapshot* floaterp, bool adopt_mode_size)
+{
+	if (!floaterp)
+	{
+		return;
+	}
+	static S32 sWideW = 0;
+	const bool advanced = gSavedSettings.getBOOL("AdvanceSnapshot");
+	S32 width = floaterp->getRect().getWidth();
+	S32 height = floaterp->getRect().getHeight();
+	const LLRect previous = floaterp->getThumbnailAreaRect();
+	if (adopt_mode_size && !advanced)
+	{
+		if (width > SNAP_CONTROLS_W + 40)
+		{
+			sWideW = width;
+		}
+		width = SNAP_CONTROLS_W;
+	}
+	else if (adopt_mode_size && advanced)
+	{
+		if (sWideW >= snapMinWidth(true))
+		{
+			width = sWideW;
+		}
+		else
+		{
+			width = SNAP_EDGE + SNAP_PREVIEW_W + SNAP_PANEL_GAP + SNAP_CONTROLS_W;
+		}
+	}
+	const S32 old_top = floaterp->getRect().mTop;
+	floaterp->reshape(width, height);
+	const LLRect shaped = floaterp->getRect();
+	floaterp->translate(0, old_top - shaped.mTop);
+	if (adopt_mode_size)
+	{
+		const LLRect now = floaterp->getThumbnailAreaRect();
+		LLSnapshotLivePreview* previewp = getPreviewView();
+		if (previewp && (now.getWidth() != previous.getWidth() || now.getHeight() != previous.getHeight()))
+		{
+			previewp->updateSnapshot(FALSE, TRUE);
+			previewp->generateThumbnailImage();
+		}
+	}
 }
 void LLFloaterSnapshot::Impl::freezeTime(bool on)
 {
@@ -1417,16 +2103,16 @@ void LLFloaterSnapshot::Impl::updateControls(LLFloaterSnapshot* floater, bool de
 	switch(shot_type)
 	{
 	  case LLSnapshotLivePreview::SNAPSHOT_FEED:
-		setResolution(floater, "feed_size_combo", is_advance, false);
+		setResolution(floater, "feed_size_combo", TRUE, false);
 		break;
 	  case LLSnapshotLivePreview::SNAPSHOT_POSTCARD:
-		setResolution(floater, "postcard_size_combo", is_advance, false);
+		setResolution(floater, "postcard_size_combo", TRUE, false);
 		break;
 	  case LLSnapshotLivePreview::SNAPSHOT_TEXTURE:
-		setResolution(floater, "texture_size_combo", is_advance, false);
+		setResolution(floater, "texture_size_combo", TRUE, false);
 		break;
 	  case  LLSnapshotLivePreview::SNAPSHOT_LOCAL:
-		setResolution(floater, "local_size_combo", is_advance, false);
+		setResolution(floater, "local_size_combo", TRUE, false);
 		break;
 	}
 	floater->getChild<LLComboBox>("local_format_combo")->selectNthItem(shot_format);
@@ -1436,32 +2122,39 @@ void LLFloaterSnapshot::Impl::updateControls(LLFloaterSnapshot* floater, bool de
 	floater->childSetVisible("save_btn",			shot_type == LLSnapshotLivePreview::SNAPSHOT_LOCAL);
 	floater->childSetEnabled("layer_types",			shot_type == LLSnapshotLivePreview::SNAPSHOT_LOCAL);
 	BOOL is_local = shot_type == LLSnapshotLivePreview::SNAPSHOT_LOCAL;
+	BOOL is_texture = shot_type == LLSnapshotLivePreview::SNAPSHOT_TEXTURE;
 	BOOL show_slider =
 		shot_type == LLSnapshotLivePreview::SNAPSHOT_POSTCARD ||
 		(is_local && shot_format == LLFloaterSnapshot::SNAPSHOT_FORMAT_JPEG);
-	floater->getChild<LLComboBox>(previewp->aspectComboName())->setVisible(is_advance);
+	if (previewp)
+	{
+		floater->getChild<LLComboBox>(previewp->aspectComboName())->setVisible(TRUE);
+	}
 	floater->childSetVisible("more_btn", !is_advance);
-	floater->childSetVisible("less_btn",				is_advance);
-	floater->childSetVisible("type_label2",				is_advance);
-	floater->childSetVisible("keep_aspect",				is_advance);
-	floater->childSetVisible("type_label3",				is_advance);
-	floater->childSetVisible("format_label",			is_advance && is_local);
-	floater->childSetVisible("local_format_combo",		is_advance && is_local);
-	floater->childSetVisible("layer_types",				is_advance);
-	floater->childSetVisible("layer_type_label",		is_advance);
-	floater->childSetVisible("aspect_one_label",		is_advance);
-	floater->childSetVisible("snapshot_width",			is_advance);
-	floater->childSetVisible("snapshot_height",			is_advance);
-	floater->childSetVisible("aspect_ratio",			is_advance);
-	floater->childSetVisible("ui_check",				is_advance);
-	floater->childSetVisible("hud_check",				is_advance);
-	floater->childSetVisible("keep_open_check",			is_advance);
-	floater->childSetVisible("freeze_time_check",		is_advance);
-	floater->childSetVisible("auto_snapshot_check",		is_advance);
-	floater->childSetVisible("image_quality_slider",	is_advance && show_slider);
-	floater->childSetVisible("temp_check",				is_advance);
+	floater->childSetVisible("less_btn", is_advance);
+	floater->childSetVisible("type_label2", TRUE);
+	floater->childSetVisible("keep_aspect", TRUE);
+	floater->childSetVisible("type_label3", TRUE);
+	floater->childSetVisible("format_label", is_local);
+	floater->childSetVisible("local_format_combo", is_local);
+	floater->childSetVisible("layer_types", TRUE);
+	floater->childSetVisible("layer_type_label", TRUE);
+	floater->childSetVisible("aspect_one_label", TRUE);
+	floater->childSetVisible("snapshot_width", TRUE);
+	floater->childSetVisible("snapshot_height", TRUE);
+	floater->childSetVisible("aspect_ratio", TRUE);
+	floater->childSetVisible("ui_check", TRUE);
+	floater->childSetVisible("hud_check", TRUE);
+	floater->childSetVisible("keep_open_check", TRUE);
+	floater->childSetVisible("freeze_time_check", TRUE);
+	floater->childSetVisible("auto_snapshot_check", TRUE);
+	floater->childSetVisible("image_quality_slider", show_slider);
+	floater->childSetVisible("temp_check", is_texture);
+	floater->getChild<LLButton>("save_to_computer_btn")->setToggleState(shot_type == LLSnapshotLivePreview::SNAPSHOT_LOCAL);
+	floater->getChild<LLButton>("save_to_inventory_btn")->setToggleState(shot_type == LLSnapshotLivePreview::SNAPSHOT_TEXTURE);
+	floater->getChild<LLButton>("save_to_profile_btn")->setToggleState(shot_type == LLSnapshotLivePreview::SNAPSHOT_FEED);
+	floater->getChild<LLButton>("save_to_email_btn")->setToggleState(shot_type == LLSnapshotLivePreview::SNAPSHOT_POSTCARD);
 	BOOL got_bytes = previewp && previewp->getDataSize() > 0;
-	BOOL is_texture = shot_type == LLSnapshotLivePreview::SNAPSHOT_TEXTURE;
 	if (previewp)
 	{
 		previewp->setSnapshotFormat(shot_format);
@@ -1492,6 +2185,14 @@ void LLFloaterSnapshot::Impl::updateControls(LLFloaterSnapshot* floater, bool de
 	floater->childSetLabelArg("texture", "[AMOUNT]", llformat("%d",upload_cost));
 	floater->childSetLabelArg("upload_btn", "[AMOUNT]", llformat("%d",upload_cost));
 	floater->childSetTextArg("file_size_label", "[SIZE]", bytes_string);
+	if (previewp)
+	{
+		S32 image_w = 0;
+		S32 image_h = 0;
+		previewp->getSize(image_w, image_h);
+		floater->childSetTextArg("image_res_text", "[WIDTH]", llformat("%d", image_w));
+		floater->childSetTextArg("image_res_text", "[HEIGHT]", llformat("%d", image_h));
+	}
 	floater->childSetColor("file_size_label",
 		shot_type == LLSnapshotLivePreview::SNAPSHOT_POSTCARD
 		&& got_bytes
@@ -1504,10 +2205,15 @@ void LLFloaterSnapshot::Impl::updateControls(LLFloaterSnapshot* floater, bool de
 	floater->childSetEnabled("send_btn",   shot_type == LLSnapshotLivePreview::SNAPSHOT_POSTCARD && can_upload && previewp->getDataSize() <= MAX_POSTCARD_DATASIZE);
 	floater->childSetEnabled("upload_btn", shot_type == LLSnapshotLivePreview::SNAPSHOT_TEXTURE  && can_upload);
 	floater->childSetEnabled("save_btn",   shot_type == LLSnapshotLivePreview::SNAPSHOT_LOCAL    && can_upload);
-	floater->childSetEnabled("temp_check", is_advance && is_texture);
+	floater->childSetEnabled("temp_check", is_texture);
 	if (previewp)
 	{
 		previewp->showFreezeFrameSnapshot(up_to_date);
+	}
+	U32 mask = (is_advance ? 8u : 0u) | (is_local ? 1u : 0u) | (show_slider ? 2u : 0u) | (is_texture ? 4u : 0u);
+	if (mask != floater->impl.mColumnMask && !floater->impl.mInLayout)
+	{
+		layoutContents(floater);
 	}
 }
 void LLFloaterSnapshot::Impl::checkAutoSnapshot(LLSnapshotLivePreview* previewp, BOOL update_thumbnail)
@@ -1756,35 +2462,49 @@ void LLFloaterSnapshot::Impl::onClickTemporaryImage(LLUICtrl *ctrl, void* data)
 }
 void LLFloaterSnapshot::Impl::onClickMore(void* data)
 {
-	gSavedSettings.setBOOL( "AdvanceSnapshot", TRUE );
+	gSavedSettings.setBOOL("AdvanceSnapshot", TRUE);
 	LLFloaterSnapshot *view = (LLFloaterSnapshot *)data;
 	if (view)
 	{
-		view->translate( 0, view->getUIWinHeightShort() - view->getUIWinHeightLong() );
-		view->reshape(view->getRect().getWidth(), view->getUIWinHeightLong());
-		updateControls(view) ;
-		updateLayout(view) ;
-		if (getPreviewView())
-		{
-			getPreviewView()->setThumbnailImageSize() ;
-		}
+		updateLayout(view, true);
+		updateControls(view);
 	}
 }
 void LLFloaterSnapshot::Impl::onClickLess(void* data)
 {
-	gSavedSettings.setBOOL( "AdvanceSnapshot", FALSE );
+	gSavedSettings.setBOOL("AdvanceSnapshot", FALSE);
 	LLFloaterSnapshot *view = (LLFloaterSnapshot *)data;
 	if (view)
 	{
-		view->translate( 0, view->getUIWinHeightLong() - view->getUIWinHeightShort() );
-		view->reshape(view->getRect().getWidth(), view->getUIWinHeightShort());
-		updateControls(view) ;
-		updateLayout(view) ;
-		if (getPreviewView())
-		{
-			getPreviewView()->setThumbnailImageSize();
-		}
+		updateLayout(view, true);
+		updateControls(view);
 	}
+}
+void LLFloaterSnapshot::Impl::selectSnapshotType(LLFloaterSnapshot* floater, S32 type)
+{
+	if (!floater)
+	{
+		return;
+	}
+	LLUICtrl* ctrl = floater->getChild<LLUICtrl>("snapshot_type_radio");
+	ctrl->setValue(type);
+	onCommitSnapshotType(ctrl, floater);
+}
+void LLFloaterSnapshot::Impl::onClickSaveToComputer(void* data)
+{
+	selectSnapshotType((LLFloaterSnapshot*)data, LLSnapshotLivePreview::SNAPSHOT_LOCAL);
+}
+void LLFloaterSnapshot::Impl::onClickSaveToInventory(void* data)
+{
+	selectSnapshotType((LLFloaterSnapshot*)data, LLSnapshotLivePreview::SNAPSHOT_TEXTURE);
+}
+void LLFloaterSnapshot::Impl::onClickSaveToProfile(void* data)
+{
+	selectSnapshotType((LLFloaterSnapshot*)data, LLSnapshotLivePreview::SNAPSHOT_FEED);
+}
+void LLFloaterSnapshot::Impl::onClickSaveToEmail(void* data)
+{
+	selectSnapshotType((LLFloaterSnapshot*)data, LLSnapshotLivePreview::SNAPSHOT_POSTCARD);
 }
 void LLFloaterSnapshot::Impl::onClickUICheck(LLUICtrl *ctrl, void* data)
 {
@@ -1849,6 +2569,11 @@ void LLFloaterSnapshot::Impl::onCommitFreezeTime(LLUICtrl* ctrl, void* data)
 		return;
 	}
 	gSavedSettings.setBOOL("SnapshotOpenFreezeTime", check_box->get());
+	BOOL want_freeze = check_box->get();
+	if (want_freeze != gSavedSettings.getBOOL("FreezeTime"))
+	{
+		freezeTime(want_freeze);
+	}
 }
 static std::string lastSnapshotWidthName()
 {
@@ -2315,7 +3040,8 @@ void LLFloaterSnapshot::Impl::onCommitCustomAspect(LLUICtrl *ctrl, void* data)
 }
 LLFloaterSnapshot::LLFloaterSnapshot()
 	: LLFloater(std::string("Snapshot Floater")),
-	  impl (*(new Impl))
+	  impl (*(new Impl)),
+	  mThumbnailArea()
 {
 }
 LLFloaterSnapshot::~LLFloaterSnapshot()
@@ -2335,8 +3061,6 @@ LLFloaterSnapshot::~LLFloaterSnapshot()
 }
 BOOL LLFloaterSnapshot::postBuild()
 {
-	sUIWinHeightLong = getRect().getHeight();
-	sUIWinHeightShort = sUIWinHeightLong - 266;
 	if (LLUICtrl* snapshot_type_radio = getChild<LLUICtrl>("snapshot_type_radio"))
 	{
 		snapshot_type_radio->setCommitCallback(Impl::onCommitSnapshotType, this);
@@ -2347,6 +3071,10 @@ BOOL LLFloaterSnapshot::postBuild()
 	childSetAction("freeze_time_btn", Impl::onClickFreezeTime, this);
 	childSetAction("more_btn", Impl::onClickMore, this);
 	childSetAction("less_btn", Impl::onClickLess, this);
+	childSetAction("save_to_computer_btn", Impl::onClickSaveToComputer, this);
+	childSetAction("save_to_inventory_btn", Impl::onClickSaveToInventory, this);
+	childSetAction("save_to_profile_btn", Impl::onClickSaveToProfile, this);
+	childSetAction("save_to_email_btn", Impl::onClickSaveToEmail, this);
 	childSetAction("upload_btn", Impl::onClickKeep, this);
 	childSetAction("send_btn", Impl::onClickKeep, this);
 	childSetAction("feed_btn", Impl::onClickKeep, this);
@@ -2393,11 +3121,71 @@ BOOL LLFloaterSnapshot::postBuild()
 	impl.keepAspect(sInstance, gSavedSettings.getBOOL(snapshotKeepAspectName()), true);
 	impl.freezeTime(gSavedSettings.getBOOL("SnapshotOpenFreezeTime"));
 	impl.updateControls(this);
+	impl.updateLayout(this);
 	return TRUE;
 }
 LLRect LLFloaterSnapshot::getThumbnailAreaRect()
 {
-	return LLRect(1, getRect().getHeight() - 17, getRect().getWidth() - 1, getRect().getHeight() - 17 - THUMBHEIGHT);
+	return mThumbnailArea;
+}
+void LLFloaterSnapshot::raiseResizeChrome()
+{
+	const S32 w = getRect().getWidth();
+	const S32 h = getRect().getHeight();
+	if (LLDragHandle* handle = getDragHandle())
+	{
+		handle->setFollows(FOLLOWS_LEFT | FOLLOWS_RIGHT | FOLLOWS_TOP);
+		const S32 title_bottom = llmax(0, h - LLFLOATER_HEADER_SIZE);
+		handle->setShape(LLRect(0, h, w, title_bottom));
+		sendChildToFront(handle);
+	}
+	for (S32 i = 0; i < 4; ++i)
+	{
+		if (mResizeBar[i])
+		{
+			sendChildToFront(mResizeBar[i]);
+		}
+	}
+	for (S32 i = 0; i < 4; ++i)
+	{
+		if (mResizeHandle[i])
+		{
+			sendChildToFront(mResizeHandle[i]);
+		}
+	}
+	for (S32 i = 0; i < BUTTON_COUNT; ++i)
+	{
+		if (mButtons[i])
+		{
+			sendChildToFront(mButtons[i]);
+		}
+	}
+}
+void LLFloaterSnapshot::reshape(S32 width, S32 height, BOOL called_from_parent)
+{
+	if (impl.mInLayout)
+	{
+		LLFloater::reshape(width, height, called_from_parent);
+		return;
+	}
+	if (isMinimized())
+	{
+		LLFloater::reshape(width, height, called_from_parent);
+		if (LLView* scroll = getChildView("snapshot_controls_scroll", FALSE, FALSE))
+		{
+			scroll->setVisible(FALSE);
+		}
+		raiseResizeChrome();
+		return;
+	}
+	S32 w = width;
+	S32 h = height;
+	Impl::clampSize(this, w, h);
+	impl.mInLayout = true;
+	LLFloater::reshape(w, h, called_from_parent);
+	Impl::layoutContents(this);
+	impl.mInLayout = false;
+	raiseResizeChrome();
 }
 void LLFloaterSnapshot::draw()
 {
@@ -2407,19 +3195,65 @@ void LLFloaterSnapshot::draw()
 		return;
 	}
 	LLFloater::draw();
-	if (previewp)
+	if (isMinimized() || !previewp)
 	{
-		if(previewp->getThumbnailImage())
+		return;
+	}
+	LLRect const thumb_area = getThumbnailAreaRect();
+	if (thumb_area.getWidth() > 0 && thumb_area.getHeight() > 0)
+	{
+		gl_rect_2d(thumb_area, LLColor4(0.05f, 0.05f, 0.06f, 0.82f), TRUE);
+		S32 tw = previewp->getThumbnailWidth();
+		S32 th = previewp->getThumbnailHeight();
+		if (previewp->getThumbnailImage() && tw > 1 && th > 1)
 		{
-			LLRect const thumb_area = getThumbnailAreaRect();
-			S32 offset_x = (thumb_area.mLeft + thumb_area.mRight - previewp->getThumbnailWidth()) / 2;
-			S32 offset_y = (thumb_area.mBottom + thumb_area.mTop - previewp->getThumbnailHeight()) / 2;
+			F32 aspect = (F32)tw / (F32)th;
+			S32 bound_w = thumb_area.getWidth();
+			S32 bound_h = thumb_area.getHeight();
+			S32 dw = bound_w;
+			S32 dh = ll_round((F32)dw / aspect);
+			if (dh > bound_h)
+			{
+				dh = bound_h;
+				dw = ll_round((F32)dh * aspect);
+			}
+			if (dw > bound_w)
+			{
+				dw = bound_w;
+			}
+			if (dh > bound_h)
+			{
+				dh = bound_h;
+			}
+			if (dw < 1)
+			{
+				dw = 1;
+			}
+			if (dh < 1)
+			{
+				dh = 1;
+			}
+			S32 offset_x = thumb_area.mLeft + (bound_w - dw) / 2;
+			S32 offset_y = thumb_area.mBottom + (bound_h - dh) / 2;
 			gGL.matrixMode(LLRender::MM_MODELVIEW);
-			gl_rect_2d(thumb_area, LLColor4::transparent, true);
-			gl_draw_scaled_image(offset_x, offset_y,
-					previewp->getThumbnailWidth(), previewp->getThumbnailHeight(),
-					previewp->getThumbnailImage(), LLColor4::white);
-			previewp->drawPreviewRect(offset_x, offset_y) ;
+			gl_draw_scaled_image(offset_x, offset_y, dw, dh, previewp->getThumbnailImage(), LLColor4::white);
+			F32 sx = (F32)dw / (F32)tw;
+			F32 sy = (F32)dh / (F32)th;
+			gGL.pushMatrix();
+			gGL.translatef((F32)offset_x, (F32)offset_y, 0.f);
+			gGL.scalef(sx, sy, 1.f);
+			previewp->drawPreviewRect(0, 0);
+			gGL.popMatrix();
+		}
+	}
+	if (LLView* scroll = getChildView("snapshot_controls_scroll", FALSE, FALSE))
+	{
+		if (snapDescendantListOpen(scroll))
+		{
+			LLUI::pushMatrix();
+			LLUI::translate((F32)scroll->getRect().mLeft, (F32)scroll->getRect().mBottom, 0.f);
+			scroll->draw();
+			LLUI::popMatrix();
 		}
 	}
 }
@@ -2517,8 +3351,26 @@ BOOL LLFloaterSnapshot::handleKeyHere(KEY key, MASK mask)
 	}
 	return LLFloater::handleKeyHere(key, mask);
 }
+static bool snapPointerOnChrome(const LLFloaterSnapshot* floater, S32 x, S32 y)
+{
+	const S32 w = floater->getRect().getWidth();
+	const S32 h = floater->getRect().getHeight();
+	if (y >= h - LLFLOATER_HEADER_SIZE)
+	{
+		return true;
+	}
+	if (x < 4 || y < 16 || x >= w - 4)
+	{
+		return true;
+	}
+	return false;
+}
 BOOL LLFloaterSnapshot::handleMouseDown(S32 x, S32 y, MASK mask)
 {
+	if (isMinimized() || snapPointerOnChrome(this, x, y))
+	{
+		return LLFloater::handleMouseDown(x, y, mask);
+	}
 	if (mask == MASK_NONE)
 	{
 		LLRect thumb_area = getThumbnailAreaRect();
@@ -2531,6 +3383,10 @@ BOOL LLFloaterSnapshot::handleMouseDown(S32 x, S32 y, MASK mask)
 }
 BOOL LLFloaterSnapshot::handleMouseUp(S32 x, S32 y, MASK mask)
 {
+	if (isMinimized() || snapPointerOnChrome(this, x, y))
+	{
+		return LLFloater::handleMouseUp(x, y, mask);
+	}
 	if (mask == MASK_NONE)
 	{
 		LLRect thumb_area = getThumbnailAreaRect();

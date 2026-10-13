@@ -48,13 +48,16 @@ public:
 	LLFloaterSnapshot();
 	virtual ~LLFloaterSnapshot();
 	LLRect getThumbnailAreaRect();
+	void setThumbnailAreaRect(const LLRect& rect) { mThumbnailArea = rect; }
 	BOOL postBuild();
 	void draw();
+	void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 	void onClose(bool app_quitting);
 	void onOpen();
 	BOOL handleKeyHere(KEY key, MASK mask);
 	BOOL handleMouseDown(S32 x, S32 y, MASK mask);
 	BOOL handleMouseUp(S32 x, S32 y, MASK mask);
+	static LLFloaterSnapshot* getInstance() { return sInstance; }
 	static void show(void*);
 	static void hide(void*);
 	static void update();
@@ -69,7 +72,9 @@ public:
 	static void resetFeedAndPostcardAspect();
 	class Impl;
 private:
+	void raiseResizeChrome();
 	Impl& impl;
+	LLRect mThumbnailArea;
 	static LLFloaterSnapshot* sInstance;
 	static S32    sUIWinHeightLong ;
 	static S32    sUIWinHeightShort ;

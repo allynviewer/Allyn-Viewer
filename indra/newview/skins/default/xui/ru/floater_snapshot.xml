@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater name="Snapshot" title="Предварительный просмотр снимка">
+<floater name="Snapshot" title="Снимок">
+	<button label="Сохранить на диск" name="save_to_computer_btn"/>
+	<button label="В инвентарь" name="save_to_inventory_btn"/>
+	<button label="Загрузить в профиль" name="save_to_profile_btn"/>
+	<button label="Отправить по E-mail" name="save_to_email_btn"/>
 	<text name="file_size_label">Размер файла: [SIZE] КБ</text>
 	<text name="type_label">Цель</text>
 	<combo_box name="snapshot_type_radio">
@@ -18,8 +22,8 @@
 		<flyout_button_item name="saveas_item">Сохранить как...</flyout_button_item>
 	</flyout_button>
 	<button name="discard_btn" label="Отмена" />
-	<button name="more_btn" label="Подробнее &gt;&gt;" tool_tip="Дополнительные параметры" />
-	<button name="less_btn" label="&lt;&lt; Меньше" tool_tip="Дополнительные параметры" />
+	<button name="more_btn" label="" tool_tip="Показать крупный просмотр" />
+	<button name="less_btn" label="" tool_tip="Скрыть крупный просмотр" />
 	<text name="type_label2">Целевое разрешение</text>
 	<text name="format_label">Формат</text>
 	<combo_box name="feed_size_combo" label="Разрешение">

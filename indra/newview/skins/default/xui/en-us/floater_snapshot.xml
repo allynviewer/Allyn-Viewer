@@ -1,60 +1,37 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater bottom="-300" can_close="true" can_drag_on_left="false" can_minimize="false"
-     can_resize="false" follows="left|top" height="566" name="Snapshot"
-     rect_control="FloaterSnapshotRect" title="Snapshot Preview" width="219">
-	<text bottom="-210" right="-10" follows="left|top" height="25" name="file_size_label" halign="right" width="150">
-		File size: [SIZE] KB
+<floater bottom="-300" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="true" follows="left|top" height="640" min_height="220" min_width="228"
+     name="Snapshot" rect_control="FloaterSnapshotRect" title="Snapshot" width="680">
+	<button bottom="462" follows="left|bottom" font="SansSerif" halign="left" height="24"
+	     image_overlay="Refresh_Off" image_overlay_alignment="left" imgoverlay_label_space="8"
+	     label="Refresh" left="10" name="new_snapshot_btn" pad_left="6" scale_image="true" width="188"/>
+	<button bottom="462" follows="left|bottom" height="24" image_overlay="Conv_toolbar_expand"
+	     image_overlay_alignment="center" label="" left="200" name="more_btn" scale_image="true"
+	     tool_tip="Show the large preview" width="32"/>
+	<button bottom="462" follows="left|bottom" height="24" image_overlay="Conv_toolbar_collapse"
+	     image_overlay_alignment="center" label="" left="200" name="less_btn" scale_image="true"
+	     tool_tip="Hide the large preview" width="32"/>
+	<button bottom="432" follows="left|bottom" font="SansSerif" halign="left" height="24"
+	     image_overlay="Snapshot_Download" image_overlay_alignment="left" imgoverlay_label_space="8"
+	     label="Save to Disk" left="10" name="save_to_computer_btn" pad_left="6" scale_image="true"
+	     toggle="true" width="222"/>
+	<button bottom="406" follows="left|bottom" font="SansSerif" halign="left" height="24"
+	     image_overlay="Snapshot_Inventory" image_overlay_alignment="left" imgoverlay_label_space="8"
+	     label="Save to Inventory" left="10" name="save_to_inventory_btn" pad_left="6" scale_image="true"
+	     toggle="true" width="222"/>
+	<button bottom="380" follows="left|bottom" font="SansSerif" halign="left" height="24"
+	     image_overlay="Snapshot_Profile" image_overlay_alignment="left" imgoverlay_label_space="8"
+	     label="Share to Profile Feed" left="10" name="save_to_profile_btn" pad_left="6" scale_image="true"
+	     toggle="true" width="222"/>
+	<button bottom="354" follows="left|bottom" font="SansSerif" halign="left" height="24"
+	     image_overlay="Snapshot_Email" image_overlay_alignment="left" imgoverlay_label_space="8"
+	     label="Send via E-mail" left="10" name="save_to_email_btn" pad_left="6" scale_image="true"
+	     toggle="true" width="222"/>
+	<text bottom="334" follows="left|bottom" height="16" left="10" name="type_label2" width="220">
+		Resolution
 	</text>
-	<text bottom_delta="10" follows="top|left" height="15" left="10" name="type_label">
-		Target
-	</text>
-	<combo_box bottom_delta="-23" follows="left|top" height="20" left="10" name="snapshot_type_radio" width="200">
-		<combo_item name="feed" value="0">
-			Post to profile feed
-		</combo_item>
-		<combo_item name="postcard" value="1">
-			Send via email
-		</combo_item>
-		<combo_item name="texture" value="2">
-			Save to inventory
-		</combo_item>
-		<combo_item name="local" value="3">
-			Save to hard drive
-		</combo_item>
-	</combo_box>
-	<button bottom="-250" follows="left|top" height="20" label="Refresh" left="10"
-	  name="new_snapshot_btn" width="105"/>
-	<button bottom_delta="0" follows="left|top" height="20" label="Freeze" left="120"
-	     name="freeze_time_btn" width="90" tool_tip="Show a fullscreen preview. Allows camming around as if time is frozen to make multiple snapshots of the same scene. Press ESC to undo!" />
-	<button bottom_delta="-22" follows="left|top" height="20" label="Upload" left="10"
-	     name="feed_btn" width="105" />
-	<button bottom_delta="0" follows="left|top" height="20" label="Send" left="10"
-	     name="send_btn" width="105" />
-	<button bottom_delta="0" follows="left|top" height="20" label="Upload ([UPLOADFEE])" left="10"
-	     name="upload_btn" width="105" />
-	<flyout_button bottom_delta="0" follows="left|top" height="20" label="Save" left="10"
-       list_position="below" mouse_opaque="true" name="save_btn" tool_tip="Save image to a file" width="105">
-    <flyout_button_item value="save" name="save_item">Save</flyout_button_item>
-    <flyout_button_item value="saveas" name="saveas_item">Save As...</flyout_button_item>
-	</flyout_button>
-	<button bottom_delta="0" follows="left|top" height="20" label="Cancel" left="120" name="discard_btn" width="90"/>
-	<button bottom="-294" follows="left|top" font="SansSerifSmall" halign="center"
-	     height="20" label="More &gt;&gt;" left="10"
-	     mouse_opaque="true" name="more_btn" scale_image="TRUE"
-	     tool_tip="Advanced Options" width="80" />
-	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="center"
-	     height="20" label="&lt;&lt; Less" left_delta="0"
-	     mouse_opaque="true" name="less_btn" scale_image="TRUE"
-	     tool_tip="Advanced Options" width="80" />
-	<text bottom_delta="-20" follows="top|left" height="15" left="10" name="type_label2" width="115">
-	Target Resolution
-	</text>
-	<text bottom_delta="0" follows="top|left" height="15" left="130" name="format_label"
-	     width="70">
-	Format
-	</text>
-	<combo_box bottom_delta="-22" follows="left|top" height="20" label="Resolution" left="10"
-	     name="feed_size_combo" width="115">
+	<combo_box bottom="310" follows="left|bottom" height="22" label="Resolution" left="10"
+	     name="feed_size_combo" width="222">
 		<combo_item name="CurrentWindow" value="[i0,i0]">
 			Current Window
 		</combo_item>
@@ -80,8 +57,8 @@
 			Custom
 		</combo_item>
 	</combo_box>
-	<combo_box bottom_delta="0" follows="left|top" height="20" label="Resolution" left="10"
-	     name="postcard_size_combo" width="115">
+	<combo_box bottom="310" follows="left|bottom" height="22" label="Resolution" left="10"
+	     name="postcard_size_combo" width="222">
 		<combo_item name="CurrentWindow" value="[i0,i0]">
 			Current Window
 		</combo_item>
@@ -101,8 +78,8 @@
 			Custom
 		</combo_item>
 	</combo_box>
-	<combo_box bottom_delta="0" follows="left|top" height="20" label="Resolution" left="10"
-	     name="texture_size_combo" width="115">
+	<combo_box bottom="310" follows="left|bottom" height="22" label="Resolution" left="10"
+	     name="texture_size_combo" width="222">
 		<combo_item name="CurrentWindow" value="[i0,i0]">
 			Current Window
 		</combo_item>
@@ -137,8 +114,8 @@
 			Custom
 		</combo_item>
 	</combo_box>
-	<combo_box bottom_delta="0" follows="left|top" height="20" label="Resolution" left="10"
-	     name="local_size_combo" width="115">
+	<combo_box bottom="310" follows="left|bottom" height="22" label="Resolution" left="10"
+	     name="local_size_combo" width="222">
 		<combo_item name="CurrentWindow" value="[i0,i0]">
 			Current Window
 		</combo_item>
@@ -170,8 +147,11 @@
 			Custom
 		</combo_item>
 	</combo_box>
-	<combo_box bottom_delta="0" follows="left|top" height="20" label="Format" left="130"
-	     name="local_format_combo" width="80">
+	<text bottom="288" follows="left|bottom" height="16" left="10" name="format_label" width="90">
+		Format
+	</text>
+	<combo_box bottom="284" follows="left|bottom" height="22" label="Format" left="100"
+	     name="local_format_combo" width="132">
 		<combo_item name="PNG">
 			PNG
 		</combo_item>
@@ -182,20 +162,21 @@
 			BMP
 		</combo_item>
 	</combo_box>
-	<spinner bottom_delta="-25" decimal_digits="0" follows="left|top" height="20"
-	     increment="32" label="Width" label_width="30" left="10" max_val="6016"
-	     min_val="32" name="snapshot_width" width="95"/>
-	<spinner bottom_delta="0" decimal_digits="0" follows="left|top" height="20"
-	     increment="32" label="Height" label_width="38" left="112" max_val="6016"
-	     min_val="32" name="snapshot_height" width="98"/>
-	<slider bottom_delta="-15" decimal_digits="0" follows="left|top" height="15"
+	<spinner bottom="256" decimal_digits="0" follows="left|bottom" height="22"
+	     increment="32" label="Width" label_width="42" left="10" max_val="6016"
+	     min_val="32" name="snapshot_width" width="108"/>
+	<spinner bottom="256" decimal_digits="0" follows="left|bottom" height="22"
+	     increment="32" label="Height" label_width="42" left="122" max_val="6016"
+	     min_val="32" name="snapshot_height" width="110"/>
+	<slider bottom="232" decimal_digits="0" follows="left|bottom" height="18"
 	     increment="1" initial_val="75" label="Image Quality" left="10"
-	     max_val="100" min_val="0" name="image_quality_slider" width="210" />
-	<check_box bottom_delta="-19" follows="top|left" label="Keep aspect ratio"
-	     left="8" name="keep_aspect" tool_tip="Note: setting the resolution to non-Custom, or the Aspect to Default will reset this check box because they aren't compatible." />
-	<text bottom_delta="-15" follows="top|left" height="15" left="10" name="type_label3" width="200"/>
-	<combo_box bottom_delta="-22" follows="left|top" height="20" label="Aspect" left="10"
-	     name="feed_aspect_combo" width="115">
+	     max_val="100" min_val="0" name="image_quality_slider" width="222"/>
+	<check_box bottom="210" follows="left|bottom" height="16" label="Keep aspect ratio" left="10"
+	     name="keep_aspect" width="222"
+	     tool_tip="Note: setting the resolution to non-Custom, or the Aspect to Default will reset this check box because they aren't compatible."/>
+	<text bottom="192" follows="left|bottom" height="16" left="10" name="type_label3" width="222"/>
+	<combo_box bottom="166" follows="left|bottom" height="22" label="Aspect" left="10"
+	     name="feed_aspect_combo" width="120">
 		<combo_item name="Default" value="-2">
 			Default
 		</combo_item>
@@ -203,8 +184,8 @@
 			Custom
 		</combo_item>
 	</combo_box>
-	<combo_box bottom_delta="0" follows="left|top" height="20" label="Aspect" left="10"
-	     name="postcard_aspect_combo" width="115">
+	<combo_box bottom="166" follows="left|bottom" height="22" label="Aspect" left="10"
+	     name="postcard_aspect_combo" width="120">
 		<combo_item name="Default" value="-2">
 			Default
 		</combo_item>
@@ -212,8 +193,8 @@
 			Custom
 		</combo_item>
 	</combo_box>
-	<combo_box bottom_delta="0" follows="left|top" height="20" label="Aspect" left="10"
-	     name="texture_aspect_combo" width="115">
+	<combo_box bottom="166" follows="left|bottom" height="22" label="Aspect" left="10"
+	     name="texture_aspect_combo" width="120">
 		<combo_item name="CurrentWindow" value="0">
 			Current Window
 		</combo_item>
@@ -242,8 +223,8 @@
 			Custom
 		</combo_item>
 	</combo_box>
-	<combo_box bottom_delta="0" follows="left|top" height="20" label="Aspect" left="10"
-	     name="local_aspect_combo" width="115">
+	<combo_box bottom="166" follows="left|bottom" height="22" label="Aspect" left="10"
+	     name="local_aspect_combo" width="120">
 		<combo_item name="Default" value="-2">
 			Default
 		</combo_item>
@@ -275,16 +256,15 @@
 			Custom
 		</combo_item>
 	</combo_box>
-	<spinner bottom_delta="-4" decimal_digits="5" follows="left|top" height="20"
-	     increment="0.01" label="" left="130" max_val="32"
-	     min_val="0.03125" name="aspect_ratio" width="64" allow_text_entry="false"/>
-    <text bottom_delta="-4" height="20" left="196" name="aspect_one_label">:1</text>
-	<text bottom_delta="-20" follows="left|top" height="20" left="10"
-	     name="layer_type_label" width="50">
+	<spinner bottom="166" allow_text_entry="false" decimal_digits="5" follows="left|bottom" height="22"
+	     increment="0.01" label="" left="134" max_val="32"
+	     min_val="0.03125" name="aspect_ratio" width="64"/>
+	<text bottom="168" follows="left|bottom" height="18" left="202" name="aspect_one_label" width="28">:1</text>
+	<text bottom="144" follows="left|bottom" height="16" left="10" name="layer_type_label" width="70">
 		Capture:
 	</text>
-	<combo_box bottom_delta="3" follows="left|top" height="20" label="Image Layers" left="61"
-	     name="layer_types" width="149">
+	<combo_box bottom="140" follows="left|bottom" height="22" label="Image Layers" left="78"
+	     name="layer_types" width="154">
 		<combo_item name="Colors" value="colors">
 			Colors
 		</combo_item>
@@ -292,19 +272,59 @@
 			Depth
 		</combo_item>
 	</combo_box>
-	<check_box bottom_delta="-20" follows="left|top" label="Show interface in snapshot"
-	     left="10" name="ui_check" tool_tip="Locks resolution to current window size." />
-	<check_box bottom_delta="-17" follows="left|top" label="Show HUD objects in snapshot"
-	     left="10" name="hud_check" tool_tip="Locks resolution to current window size." />
-	<check_box bottom_delta="-17" follows="left|top" label="Keep open after saving" left="10"
-	     name="keep_open_check" />
-	<check_box bottom_delta="-17" follows="left|top" label="Open floater in Freeze Time mode"
-	     left="10" name="freeze_time_check" tool_tip="Allows to quickly open snapshot floater, then position camera and take multiple shots of frozen scene." />
-	<check_box bottom_delta="-17" follows="left|top" label="Auto-refresh" left="10"
-	     name="auto_snapshot_check" tool_tip="Handy in conjunction with Freeze Time: creates a new fullscreen preview whenever you stop camming." />
-	<check_box bottom_delta="-17" follows="left|top" control_name="TemporaryUpload" enabled="true"
-             initial_value="false" label="Temporary Image (Free)" left="10"
-             name="temp_check" tool_tip="Sets the asset to be temporary, meaning it's free, but in return, only good for a short time before it ceases to exist. (May not work on SL grid)" />
+	<check_box bottom="118" follows="left|bottom" height="16" label="Interface" left="10"
+	     name="ui_check" tool_tip="Locks resolution to current window size." width="222"/>
+	<check_box bottom="100" follows="left|bottom" height="16" label="HUDs" left="10"
+	     name="hud_check" tool_tip="Locks resolution to current window size." width="222"/>
+	<check_box bottom="82" follows="left|bottom" height="16" label="Keep open after saving" left="10"
+	     name="keep_open_check" width="222"/>
+	<check_box bottom="64" follows="left|bottom" height="16" label="Freeze frame" left="10"
+	     name="freeze_time_check" tool_tip="Freezes the scene so you can move the camera and take several shots. Press ESC to release. Also used the next time this window opens." width="222"/>
+	<check_box bottom="46" follows="left|bottom" height="16" label="Auto-refresh" left="10"
+	     name="auto_snapshot_check" tool_tip="Creates a new preview whenever you stop moving the camera." width="222"/>
+	<check_box bottom="28" follows="left|bottom" control_name="TemporaryUpload" height="16"
+	     initial_value="false" label="Temporary image (free)" left="10"
+	     name="temp_check" tool_tip="Uploads a temporary texture. It is free, and it expires after a short time. May not work on the Second Life grid." width="222"/>
+	<button bottom="2" follows="left|bottom" height="20" label="Upload" left="10"
+	     name="feed_btn" width="128"/>
+	<button bottom="2" follows="left|bottom" height="20" label="Send" left="10"
+	     name="send_btn" width="128"/>
+	<button bottom="2" follows="left|bottom" height="20" label="Upload ([UPLOADFEE])" left="10"
+	     name="upload_btn" width="128"/>
+	<flyout_button bottom="2" follows="left|bottom" height="20" label="Save" left="10"
+	     list_position="below" mouse_opaque="true" name="save_btn" tool_tip="Save image to a file" width="128">
+		<flyout_button_item name="save_item" value="save">Save</flyout_button_item>
+		<flyout_button_item name="saveas_item" value="saveas">Save As...</flyout_button_item>
+	</flyout_button>
+	<button bottom="2" follows="left|bottom" height="20" label="Cancel" left="144" name="discard_btn" width="88"/>
+	<button bottom="0" follows="left|bottom" height="1" label="Freeze" left="0" name="freeze_time_btn"
+	     tool_tip="Show a fullscreen preview. Allows camming around as if time is frozen to make multiple snapshots of the same scene. Press ESC to undo!"
+	     visible="false" width="1"/>
+	<text bottom="0" follows="left|bottom" height="1" left="0" name="type_label" visible="false" width="1">
+		Target
+	</text>
+	<combo_box bottom="0" follows="left|bottom" height="1" left="0" name="snapshot_type_radio" visible="false" width="1">
+		<combo_item name="feed" value="0">
+			Post to profile feed
+		</combo_item>
+		<combo_item name="postcard" value="1">
+			Send via email
+		</combo_item>
+		<combo_item name="texture" value="2">
+			Save to inventory
+		</combo_item>
+		<combo_item name="local" value="3">
+			Save to hard drive
+		</combo_item>
+	</combo_box>
+	<text bottom="42" follows="left|bottom" font="SansSerifSmall" height="16" left="250"
+	     name="image_res_text" width="180">
+		[WIDTH] x [HEIGHT]
+	</text>
+	<text bottom="42" follows="left|bottom" font="SansSerifSmall" halign="right" height="16" left="440"
+	     name="file_size_label" width="160">
+		[SIZE] KB
+	</text>
 	<string name="unknown">
 		unknown
 	</string>
@@ -312,7 +332,6 @@
 		Target aspect ratio
 	</string>
 	<string name="sourceAR">
-		Resolution AND Target aspect ratio
+		Resolution and target aspect ratio
 	</string>
 </floater>
-
