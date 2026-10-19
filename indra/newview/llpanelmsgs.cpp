@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2003&license=viewergpl$
  * Second Life Viewer Source Code
  * Copyright (c) 2003-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0

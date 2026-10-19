@@ -3,6 +3,7 @@
  * @brief Implementation of AICurl, curl thread functions.
  *
  * Copyright (c) 2012, Aleric Inglewood.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -1,5 +1,5 @@
 /* Copyright (C) 2012 Siana Gearz
- * Modifications Copyright (C) 2026 Allef A. Silva / Allyn Viewer
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
