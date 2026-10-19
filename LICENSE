@@ -1,11 +1,12 @@
 Allyn Viewer
-Copyright (C) 2025-2026 Allef A. Silva / Allyn Viewer Contributors
+Copyright (C) 2025-2026 Allyn Viewer
 
-Allyn Viewer is an open-source, third-party viewer for Second Life and
-OpenSim-based virtual worlds. It is maintained by Allef A. Silva.
+Allyn Viewer is an open-source, third-party viewer for Second Life.
+This software is not provided or supported by Linden Lab, the makers
+of Second Life.
 
-Supported platform: Windows 64-bit only. There is no Windows 32-bit
-build and no support for Linux or other operating systems.
+Supported platform: Windows 64-bit only. There is no Windows 32-bit,
+Linux, or macOS build.
 
 Lineage:
 
@@ -26,9 +27,9 @@ License of source files:
   together with the Linden Lab Viewer FLOSS License Exception v0.5
   where the applicable exception notice appears in the file.
 
-Allyn Viewer modifications and additions by Allef A. Silva are made
-available under the GNU Lesser General Public License v2.1, unless a
-specific source file states otherwise.
+Allyn Viewer modifications and additions are made available under the
+GNU Lesser General Public License v2.1, unless a specific source file
+states otherwise.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of

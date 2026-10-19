@@ -28,7 +28,7 @@ BEGIN
             VALUE "FileDescription", "${VIEWER_CHANNEL} plugin host"
             VALUE "FileVersion", "${VIEWER_VERSION_MAJOR}.${VIEWER_VERSION_MINOR}.${VIEWER_VERSION_PATCH}.${VIEWER_VERSION_REVISION}"
             VALUE "InternalName", "SLPlugin"
-            VALUE "LegalCopyright", "Copyright © 2001-2010, Linden Research, Inc. Allyn Viewer modifications © 2026 Allef A. Silva"
+            VALUE "LegalCopyright", "Copyright © 2001-2010, Linden Research, Inc. Modifications Copyright (C) 2026 - Allyn Viewer"
             VALUE "OriginalFilename", "SLPlugin.exe"
             VALUE "ProductName", "Allyn Viewer"
             VALUE "ProductVersion", "${VIEWER_VERSION_MAJOR}.${VIEWER_VERSION_MINOR}.${VIEWER_VERSION_PATCH}.${VIEWER_VERSION_REVISION}"

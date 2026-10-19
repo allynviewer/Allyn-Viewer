@@ -11,7 +11,7 @@
 
     <panel border="false" label="Credits" height="386" name="credits_panel">
       <text_editor enabled="false" follows="left|top" bg_readonly_color="transparent" left="3" max_length="65536" name="credits_editor" top="-1" bottom="0" width="443" word_wrap="true">
-Allyn Viewer is maintained by Allef A. Silva.
+Allyn Viewer.
 
 Allyn Viewer is based on the Singularity Viewer source code, with additional contributions by Vedned Grau.
       </text_editor>

@@ -151,7 +151,7 @@ BEGIN
             VALUE "FileDescription", "${VIEWER_CHANNEL} Viewer"
             VALUE "FileVersion", "${VIEWER_VERSION_MAJOR}.${VIEWER_VERSION_MINOR}.${VIEWER_VERSION_PATCH}.${VIEWER_VERSION_REVISION}"
             VALUE "InternalName", "Allyn Viewer"
-            VALUE "LegalCopyright", "Copyright © 2001-2010, Linden Research, Inc. Singularity modifications © Siana Gearz et al. Allyn Viewer modifications © 2026 Allef A. Silva"
+            VALUE "LegalCopyright", "Copyright © 2001-2010, Linden Research, Inc. Singularity modifications © Siana Gearz et al. Modifications Copyright (C) 2026 - Allyn Viewer"
             VALUE "OriginalFilename", "allyn-viewer-bin.exe"
             VALUE "ProductName", "Allyn Viewer"
             VALUE "ProductVersion", "${VIEWER_VERSION_MAJOR}.${VIEWER_VERSION_MINOR}.${VIEWER_VERSION_PATCH}.${VIEWER_VERSION_REVISION}"

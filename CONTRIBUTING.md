@@ -12,6 +12,8 @@ Thank you for helping improve Allyn Viewer. This guide explains how to set up a 
 
 Allyn Viewer is a Second Life viewer for **Windows 64-bit** with three priorities: performance, practicality and AI translation inside the viewer. Changes that add Linux/macOS/32-bit support, OpenSim-only features or in-world HUD dependencies are outside the current scope and will not be merged.
 
+Contributions must follow Linden Lab's [Policy on Third-Party Viewers](https://secondlife.com/corporate/third-party-viewers). Do not send account names or passwords anywhere except the grid login. Do not put Second, Life, SL, or Linden in the viewer name. If a change collects, stores, or sends user data, update [PRIVACY.md](PRIVACY.md) and the disclosure in [README.md](README.md) in the same pull request.
+
 ## Development workflow
 
 ```
@@ -67,9 +69,23 @@ The complete fork → clone → build → branch → PR sequence, including how 
    ```c++
    /**
     * @file myfile.cpp
-    * @brief One-line description.
     *
     * $LicenseInfo:firstyear=2026&license=viewerlgpl$
+    * Copyright (C) 2026 - Allyn Viewer
+    *
+    * This library is free software; you can redistribute it and/or
+    * modify it under the terms of the GNU Lesser General Public
+    * License as published by the Free Software Foundation;
+    * version 2.1 of the License only.
+    *
+    * This library is distributed in the hope that it will be useful,
+    * but WITHOUT ANY WARRANTY; without even the implied warranty of
+    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    * Lesser General Public License for more details.
+    *
+    * You should have received a copy of the GNU Lesser General Public
+    * License along with this library; if not, write to the Free Software
+    * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
     * $/LicenseInfo$
     */
    ```

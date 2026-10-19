@@ -1,6 +1,6 @@
 ﻿# Allyn Viewer Build & Debug Notes
 
-Agent-oriented notes for the **current** Windows 64-bit tree. Contributor-facing docs live in `doc/building_windows.md` and `CONTRIBUTING.md`.
+Agent-oriented notes for the **current** Windows 64-bit tree. Contributor-facing docs live in `doc/building_windows.md` and `CONTRIBUTING.md`. User-facing Third-Party Viewer disclosures live in `README.md` and `PRIVACY.md`. This file is not that disclosure.
 
 ## Build
 

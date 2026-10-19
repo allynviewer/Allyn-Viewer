@@ -5,6 +5,8 @@
 
 **A third-party viewer for Second Life.**
 
+This software is not provided or supported by Linden Lab, the makers of Second Life.
+
 Three priorities: **performance**, **practicality**, and **AI translation inside the viewer** — no in-game HUD.
 
 ---
@@ -19,7 +21,9 @@ It is not a generic “virtual worlds” viewer and it is not an AI platform. It
 2. **Practicality** — what the player needs in the viewer, without depending on objects, scripts, or HUDs attached to the avatar.
 3. **AI translation** — chat translated inside the viewer (incoming and outgoing). You talk in the other player's language without an in-world translator.
 
-Translation runs in the client. No HUD, in-world vendor, or attachment required.
+Translation runs in the client. No HUD, in-world vendor, or attachment required. It is off until you turn it on and supply your own API key.
+
+Compared with the official Second Life viewer, this build is Windows 64-bit only. Restrained Love (RLVa) is included and is on by default. A script in an object you wear can restrict the viewer, including detaching items, chat, inventory, and teleport. Turn it off in preferences (Restrained Love API). That change applies after a restart.
 
 ---
 
@@ -32,9 +36,13 @@ Translation runs in the client. No HUD, in-world vendor, or attachment required.
 Each release ships two files:
 
 * `Allyn_Viewer_*_Setup.exe` — installer (creates shortcuts and an uninstaller).
-* `Allyn_Viewer_*_x86_64.zip` — portable build: unzip anywhere and run `AllynViewer*.exe`. No installation, no registry changes.
+* `Allyn_Viewer_*_x86_64.zip` — portable build: unzip anywhere and run `allyn-viewer-bin.exe`. No installation and no registry changes. Delete that folder to remove it.
 
 All versions: [Releases](https://github.com/allynviewer/Allyn-Viewer/releases).
+
+The viewer can offer a newer release. Nothing is downloaded or installed until you accept.
+
+Allyn Viewer does not provide customer support. Bug reports and questions go to [Issues](https://github.com/allynviewer/Allyn-Viewer/issues) and [Discussions](https://github.com/allynviewer/Allyn-Viewer/discussions). Privacy policy: [PRIVACY.md](PRIVACY.md).
 
 ---
 
@@ -42,14 +50,14 @@ All versions: [Releases](https://github.com/allynviewer/Allyn-Viewer/releases).
 
 Free code signing provided by [SignPath.io](https://signpath.io), certificate by [SignPath Foundation](https://signpath.org).
 
-The Windows installer (`Allyn_Viewer_*_Setup.exe`) and the executables built from this repository (`AllynViewer*.exe`, `SLPlugin.exe`) are built by [GitHub Actions](.github/workflows/build.yaml) from the tagged source code and signed by SignPath. Third-party libraries shipped alongside them (OpenAL Soft, CEF, OpenSSL, …) are redistributed unsigned or with their upstream signatures. Every signing request is approved manually by a project approver. Details for maintainers: [doc/code_signing.md](doc/code_signing.md).
+The Windows installer (`Allyn_Viewer_*_Setup.exe`) and the executables built from this repository (`allyn-viewer-bin.exe`, `SLPlugin.exe`) are built by [GitHub Actions](.github/workflows/build.yaml) from the tagged source code and signed by SignPath. Third-party libraries shipped alongside them (OpenAL Soft, CEF, OpenSSL, …) are redistributed unsigned or with their upstream signatures. Every signing request is approved manually by a project approver. Details for maintainers: [doc/code_signing.md](doc/code_signing.md).
 
 Team roles:
 
 * Committers and reviewers: [@allynviewer](https://github.com/allynviewer)
 * Approvers: [@allynviewer](https://github.com/allynviewer)
 
-Privacy policy: [PRIVACY.md](PRIVACY.md). The viewer connects to the Second Life grid you log into ([Linden Lab privacy policy](https://lindenlab.com/privacy)). Optional AI translation is off by default. While logged into Second Life, a presence heartbeat (avatar UUID and viewer version) is sent to the project site for an online count; passwords are not sent.
+The viewer connects to the Second Life grid you log into ([Linden Lab privacy policy](https://lindenlab.com/privacy)). While logged into Second Life, a presence heartbeat (avatar UUID and viewer version) is sent to the project site. The site and the login screen show only the resulting online counts, not the UUID. Passwords are not sent. Details: [PRIVACY.md](PRIVACY.md).
 
 ---
 
@@ -97,7 +105,7 @@ Double-clicking `build.bat` opens a menu; it first asks for the language (Deutsc
 Output: `build-vc-64\newview\Release\allyn-viewer-bin.exe`. Every pull request is also compiled by [GitHub Actions](.github/workflows/build.yaml) with the same configuration.
 
 > [!NOTE]
-> We do not provide support for compiling the viewer on your own, but build problems can be reported in [Issues](https://github.com/allynviewer/Allyn-Viewer/issues) with the output of `build.bat check`.
+> We do not provide support for compiling the viewer on your own. Build problems can still be reported in [Issues](https://github.com/allynviewer/Allyn-Viewer/issues) with the output of `build.bat check`.
 
 ---
 
@@ -123,7 +131,7 @@ See [LICENSE](LICENSE).
 * [Discussions](https://github.com/allynviewer/Allyn-Viewer/discussions)
 * [Contributing guide](CONTRIBUTING.md) · [Build instructions](doc/building_windows.md)
 
-Bug reports and pull requests are welcome.
+Bug reports and pull requests are welcome. There is no private or live customer support.
 
 ---
 
@@ -132,3 +140,5 @@ Bug reports and pull requests are welcome.
 The base is **Singularity Viewer**, reviewed and improved in this project.
 
 It also uses code from the **official Second Life viewer** (Linden Lab), plus features that match or are inspired by **Firestorm Viewer**.
+
+Second Life is a trademark of Linden Research, Inc. Allyn Viewer is not affiliated with Linden Lab.
