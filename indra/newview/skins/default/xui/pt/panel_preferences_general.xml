@@ -28,6 +28,8 @@
 			<check_box label="Ocultar meu título" name="show_my_title_checkbox"/>
 			<text name="UI Size:">TAMANHO DA INTERFACE</text>
 			<check_box label="Usar escala independente da resolução" name="ui_auto_scale"/>
+			<text name="windows_textbox">JANELAS</text>
+			<slider label="Opacidade das janelas sem foco" name="inactive_floater_opacity" tool_tip="Opacidade das janelas que não estão selecionadas. 1 deixa as janelas totalmente opacas. Valores menores deixam as outras janelas mais transparentes. A janela em uso continua com a opacidade normal. O valor fica salvo ao reiniciar o viewer."/>
 			<check_box label="Ausente se ocioso" name="away_when_idle_checkbox"/>
 			<spinner label="Após:" name="afk_timeout_spinner"/>
 			<text name="seconds_textbox">segundos</text>

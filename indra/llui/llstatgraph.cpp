@@ -31,6 +31,7 @@
  */
 #include "linden_common.h"
 #include "llstatgraph.h"
+#include "lluictrl.h"
 #include "llrender.h"
 #include "llmath.h"
 #include "llui.h"
@@ -93,12 +94,17 @@ void LLStatGraph::draw()
 		}
 	}
 	static const LLCachedControl<LLColor4> menu_default_color(*LLUI::sColorsGroup,"MenuDefaultBgColor",LLColor4(0.f,0.f,0.f,1.f));
+	const F32 alpha = LLUICtrl::getTransparencyForView(this);
 	color = menu_default_color;
+	color.mV[VALPHA] *= alpha;
 	gGL.color4fv(color.mV);
 	gl_rect_2d(0, getRect().getHeight(), getRect().getWidth(), 0, TRUE);
-	gGL.color4fv(LLColor4::black.mV);
+	LLColor4 outline = LLColor4::black;
+	outline.mV[VALPHA] *= alpha;
+	gGL.color4fv(outline.mV);
 	gl_rect_2d(0, getRect().getHeight(), getRect().getWidth(), 0, FALSE);
 	color = mThresholdColors[i];
+	color.mV[VALPHA] *= alpha;
 	gGL.color4fv(color.mV);
 	gl_rect_2d(1, ll_round(frac*getRect().getHeight()), getRect().getWidth() - 1, 0, TRUE);
 }

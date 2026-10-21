@@ -2432,10 +2432,16 @@ void LLTextEditor::drawBackground()
 	S32 bottom = 0;
 	LLColor4 bg_color = mReadOnly ? mReadOnlyBgColor
 		: gFocusMgr.getKeyboardFocus() == this ? mFocusBgColor : mWriteableBgColor;
+	const F32 alpha = getCurrentTransparency();
+	bg_color.mV[VALPHA] *= alpha;
+	LLColor4 gutter = mReadOnlyBgColor;
+	gutter.mV[VALPHA] *= alpha;
+	LLColor4 rule = LLColor4::grey3;
+	rule.mV[VALPHA] *= alpha;
 	if( mShowLineNumbers ) {
-		gl_rect_2d(left, top, UI_TEXTEDITOR_LINE_NUMBER_MARGIN, bottom, mReadOnlyBgColor );
+		gl_rect_2d(left, top, UI_TEXTEDITOR_LINE_NUMBER_MARGIN, bottom, gutter );
 		gl_rect_2d(UI_TEXTEDITOR_LINE_NUMBER_MARGIN, top, right, bottom, bg_color);
-		gl_rect_2d(UI_TEXTEDITOR_LINE_NUMBER_MARGIN, top, UI_TEXTEDITOR_LINE_NUMBER_MARGIN-1, bottom, LLColor4::grey3);
+		gl_rect_2d(UI_TEXTEDITOR_LINE_NUMBER_MARGIN, top, UI_TEXTEDITOR_LINE_NUMBER_MARGIN-1, bottom, rule);
 	} else {
 		gl_rect_2d(left, top, right, bottom, bg_color);
 	}
@@ -2517,7 +2523,7 @@ void LLTextEditor::drawSelectionBackground()
 		{
 			gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 			const LLColor4& color = mReadOnly ? mReadOnlyBgColor : mWriteableBgColor;
-			F32 alpha = hasFocus() ? 1.f : 0.8f;
+			F32 alpha = (hasFocus() ? 1.f : 0.8f) * getCurrentTransparency();
 			gGL.color4f( 1.f - color.mV[0], 1.f - color.mV[1], 1.f - color.mV[2], alpha );
 			S32 margin_offset = mShowLineNumbers ? UI_TEXTEDITOR_LINE_NUMBER_MARGIN : 0;
 			if( selection_left_y == selection_right_y )
@@ -2628,7 +2634,7 @@ void LLTextEditor::drawMisspelled()
 				}
 				if (word_visible)
 				{
-					gGL.color4ub(255,0,0,200);
+					gGL.color4ub(255, 0, 0, (U8)llclamp(200.f * getCurrentTransparency(), 0.f, 255.f));
 					while (word_left<word_right)
 					{
 						gl_line_2d(word_left,word_bottom-2, word_left+3,word_bottom+1);
@@ -2710,7 +2716,7 @@ void LLTextEditor::drawCursor()
 					}
 				}
 				gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
-				gGL.color4fv( mCursorColor.mV );
+				gGL.color4fv( (mCursorColor % getCurrentTransparency()).mV );
 				gl_rect_2d(llfloor(cursor_left), llfloor(cursor_top),
 					llfloor(cursor_right), llfloor(cursor_bottom));
 				if (LL_KIM_OVERWRITE == gKeyboard->getInsertMode() && !hasSelection() && text[mCursorPos] != '\n')
@@ -2730,7 +2736,7 @@ void LLTextEditor::drawCursor()
 						text_color = mFgColor;
 					}
 					mGLFont->render(text, mCursorPos, next_char_left, cursor_bottom + line_height,
-						LLColor4(1.f - text_color.mV[VRED], 1.f - text_color.mV[VGREEN], 1.f - text_color.mV[VBLUE], 1.f),
+						LLColor4(1.f - text_color.mV[VRED], 1.f - text_color.mV[VGREEN], 1.f - text_color.mV[VBLUE], getCurrentTransparency()),
 						LLFontGL::LEFT, LLFontGL::TOP,
 						LLFontGL::NORMAL,
 						LLFontGL::NO_SHADOW,
@@ -2803,21 +2809,26 @@ void LLTextEditor::drawPreeditMarker()
 				{
 					preedit_right += mGLFont->getWidth(text, line_start, line_end - line_start, mAllowEmbeddedItems);
 				}
+				const F32 preedit_alpha = getCurrentTransparency();
 				if (mPreeditStandouts[i])
 				{
+					LLColor4 standout = (mCursorColor * PREEDIT_STANDOUT_BRIGHTNESS + mWriteableBgColor * (1 - PREEDIT_STANDOUT_BRIGHTNESS));
+					standout.mV[VALPHA] = preedit_alpha;
 					gl_rect_2d(preedit_left + PREEDIT_STANDOUT_GAP,
 							line_y + PREEDIT_STANDOUT_POSITION,
 							preedit_right - PREEDIT_STANDOUT_GAP - 1,
 							line_y + PREEDIT_STANDOUT_POSITION - PREEDIT_STANDOUT_THICKNESS,
-							(mCursorColor * PREEDIT_STANDOUT_BRIGHTNESS + mWriteableBgColor * (1 - PREEDIT_STANDOUT_BRIGHTNESS)).setAlpha(1.0f));
+							standout);
 				}
 				else
 				{
+					LLColor4 marker = (mCursorColor * PREEDIT_MARKER_BRIGHTNESS + mWriteableBgColor * (1 - PREEDIT_MARKER_BRIGHTNESS));
+					marker.mV[VALPHA] = preedit_alpha;
 					gl_rect_2d(preedit_left + PREEDIT_MARKER_GAP,
 							line_y + PREEDIT_MARKER_POSITION,
 							preedit_right - PREEDIT_MARKER_GAP - 1,
 							line_y + PREEDIT_MARKER_POSITION - PREEDIT_MARKER_THICKNESS,
-							(mCursorColor * PREEDIT_MARKER_BRIGHTNESS + mWriteableBgColor * (1 - PREEDIT_MARKER_BRIGHTNESS)).setAlpha(1.0f));
+							marker);
 				}
 			}
 		}
@@ -2878,7 +2889,8 @@ void LLTextEditor::drawText()
 			F32 y_top = text_y + ((F32)ll_round(num_font->getLineHeight()) / 2);
 			BOOL is_cur_line = getCurrentLine() == cur_line_num;
 			const U8 style = is_cur_line ? LLFontGL::BOLD : LLFontGL::NORMAL;
-			const LLColor4 fg_color = is_cur_line ? mCursorColor : mReadOnlyFgColor;
+			LLColor4 fg_color = is_cur_line ? mCursorColor : mReadOnlyFgColor;
+			fg_color.mV[VALPHA] *= getCurrentTransparency();
 			num_font->renderUTF8(
 				llformat("%*d", UI_TEXTEDITOR_LINE_NUMBER_DIGITS, cur_line_num),
 				0,
@@ -2917,7 +2929,7 @@ void LLTextEditor::drawText()
 					S32 style_image_width = style->mImageWidth;
 					LLUIImagePtr image = style->getImage();
 					image->draw(ll_round(text_x), ll_round(text_y)+line_height-style_image_height,
-						style_image_width, style_image_height);
+						style_image_width, style_image_height, LLColor4::white % getCurrentTransparency());
 				}
 				if (cur_segment == mHoverSegment && style->getIsEmbeddedItem())
 				{
@@ -2978,6 +2990,7 @@ void LLTextEditor::drawClippedSegment(const LLWString &text, S32 seg_start, S32 
 			color = LLUI::sColorsGroup->getColor("TextEmbeddedItemColor");
 		}
 	}
+	color.mV[VALPHA] *= getCurrentTransparency();
 	F32 y_top = y + (F32)ll_round(font->getLineHeight());
   	if( selection_left > seg_start )
 	{
@@ -2993,7 +3006,7 @@ void LLTextEditor::drawClippedSegment(const LLWString &text, S32 seg_start, S32 
 		S32 end = llmin( selection_right, seg_end );
 		S32 length = end - start;
 		font->render(text, start, x, y_top,
-					 LLColor4( 1.f - color.mV[0], 1.f - color.mV[1], 1.f - color.mV[2], 1.f ),
+					 LLColor4( 1.f - color.mV[0], 1.f - color.mV[1], 1.f - color.mV[2], color.mV[VALPHA] ),
 					 LLFontGL::LEFT, LLFontGL::TOP, font_flags, LLFontGL::NO_SHADOW, length, S32_MAX, right_x, mAllowEmbeddedItems);
 	}
 	x = *right_x;

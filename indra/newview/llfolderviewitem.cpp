@@ -726,6 +726,22 @@ void LLFolderViewItem::draw()
 	static LLCachedControl<LLColor4> sFilterTextColor(gColors, "FilterTextColor", LLColor4::white );
 	static LLCachedControl<LLColor4> sSuffixColor(gColors, "InventoryItemSuffixColor", LLColor4::white );
 	static LLCachedControl<LLColor4> sSearchStatusColor(gColors, "InventorySearchStatusColor", LLColor4::white );
+	const F32 alpha = getCurrentTransparency();
+	LLColor4 fg_color = sFgColor;
+	LLColor4 highlight_bg = sHighlightBgColor;
+	LLColor4 highlight_fg = sHighlightFgColor;
+	LLColor4 filter_bg = sFilterBGColor;
+	LLColor4 filter_text = sFilterTextColor;
+	LLColor4 suffix_color = sSuffixColor;
+	LLColor4 search_color = sSearchStatusColor;
+	fg_color.mV[VALPHA] *= alpha;
+	highlight_bg.mV[VALPHA] *= alpha;
+	highlight_fg.mV[VALPHA] *= alpha;
+	filter_bg.mV[VALPHA] *= alpha;
+	filter_text.mV[VALPHA] *= alpha;
+	suffix_color.mV[VALPHA] *= alpha;
+	search_color.mV[VALPHA] *= alpha;
+	const LLColor4 icon_color(1.f, 1.f, 1.f, alpha);
 	const S32 TOP_PAD = 4;
 	const S32 FOCUS_LEFT = 1;
 	const LLFontGL* font = getLabelFontForStyle(mLabelStyle);
@@ -740,7 +756,7 @@ void LLFolderViewItem::draw()
 	{
 		gl_draw_scaled_rotated_image(
 			mIndentation, getRect().getHeight() - ARROW_SIZE - TEXT_PAD - TOP_PAD,
-			ARROW_SIZE, ARROW_SIZE, mControlLabelRotation, sArrowImage->getImage(), sFgColor);
+			ARROW_SIZE, ARROW_SIZE, mControlLabelRotation, sArrowImage->getImage(), fg_color);
 	}
 	const BOOL show_context = getRoot()->getShowSelectionContext();
 	const BOOL filled = show_context || (getRoot()->getParentPanel()->hasFocus());
@@ -750,7 +766,7 @@ void LLFolderViewItem::draw()
 	if (mIsSelected)
 	{
 		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
-		LLColor4 bg_color = sHighlightBgColor;
+		LLColor4 bg_color = highlight_bg;
 		if (!mIsCurSelection)
 		{
 			F32 fade_time = getRoot()->getSelectionFadeElapsedTime();
@@ -774,7 +790,7 @@ void LLFolderViewItem::draw()
 					   focus_top,
 					   getRect().getWidth() - 2,
 					   focus_bottom,
-				sHighlightFgColor, FALSE);
+				highlight_fg, FALSE);
 		}
 		if (folder_open)
 		{
@@ -782,14 +798,14 @@ void LLFolderViewItem::draw()
 					   focus_bottom + 1,
 					   getRect().getWidth() - 2,
 					   0,
-				sHighlightFgColor, FALSE);
+				highlight_fg, FALSE);
 			if (show_context)
 			{
 				gl_rect_2d(FOCUS_LEFT,
 						   focus_bottom + 1,
 						   getRect().getWidth() - 2,
 						   0,
-						   sHighlightBgColor, TRUE);
+						   highlight_bg, TRUE);
 			}
 		}
 	}
@@ -800,14 +816,14 @@ void LLFolderViewItem::draw()
 				   focus_top,
 				   getRect().getWidth() - 2,
 				   focus_bottom,
-				   sHighlightBgColor, FALSE);
+				   highlight_bg, FALSE);
 		if (folder_open)
 		{
 			gl_rect_2d(FOCUS_LEFT,
 					   focus_bottom + 1,
 					   getRect().getWidth() - 2,
 					   0,
-					   sHighlightBgColor, FALSE);
+					   highlight_bg, FALSE);
 		}
 		mDragAndDropTarget = FALSE;
 	}
@@ -816,21 +832,21 @@ void LLFolderViewItem::draw()
 	const S32 icon_x = mIndentation + ARROW_SIZE + TEXT_PAD;
 	if (!mIconOpen.isNull() && (llabs(mControlLabelRotation) > 80))
  	{
-		mIconOpen->draw(icon_x, getRect().getHeight() - mIconOpen->getHeight() - TOP_PAD + 1);
+		mIconOpen->draw(icon_x, getRect().getHeight() - mIconOpen->getHeight() - TOP_PAD + 1, icon_color);
 	}
 	else if (mIcon)
 	{
- 		mIcon->draw(icon_x, getRect().getHeight() - mIcon->getHeight() - TOP_PAD + 1);
+ 		mIcon->draw(icon_x, getRect().getHeight() - mIcon->getHeight() - TOP_PAD + 1, icon_color);
  	}
 	if (highlight_link)
 	{
-		mIconOverlay->draw(icon_x, getRect().getHeight() - mIcon->getHeight() - TOP_PAD + 1);
+		mIconOverlay->draw(icon_x, getRect().getHeight() - mIcon->getHeight() - TOP_PAD + 1, icon_color);
 	}
 	if (mLabel.empty())
 	{
 		return;
 	}
-	LLColor4 color = (mIsSelected && filled) ? sHighlightFgColor : sFgColor;
+	LLColor4 color = (mIsSelected && filled) ? highlight_fg : fg_color;
 	F32 right_x  = 0;
 	F32 y = (F32)getRect().getHeight() - font->getLineHeight() - (F32)TEXT_PAD - (F32)TOP_PAD;
 	F32 text_left = (F32)(ARROW_SIZE + TEXT_PAD + ICON_WIDTH + ICON_PAD + mIndentation);
@@ -841,8 +857,8 @@ void LLFolderViewItem::draw()
 			color.mV[VALPHA] *= 0.5f;
 		}
 		LLColor4 filter_color = mLastFilterGeneration >= getRoot()->getFilter().getCurrentGeneration() ?
-			LLColor4(0.5f, 0.8f, 0.5f, 1.f) :
-			LLColor4(0.8f, 0.5f, 0.5f, 1.f);
+			LLColor4(0.5f, 0.8f, 0.5f, alpha) :
+			LLColor4(0.8f, 0.5f, 0.5f, alpha);
 		LLFontGL::getFontMonospace()->renderUTF8(mStatusText, 0, text_left, y, filter_color,
 												 LLFontGL::LEFT, LLFontGL::BOTTOM, LLFontGL::NORMAL, LLFontGL::NO_SHADOW,
 												 S32_MAX, S32_MAX, &right_x, FALSE );
@@ -867,13 +883,13 @@ void LLFolderViewItem::draw()
 				&&	mShowLoadStatus))
 	{
 		static std::string const load_string = " ( " + LLTrans::getString("LoadingData") + " ) ";
-		font->renderUTF8(load_string, 0, right_x, y, sSearchStatusColor,
+		font->renderUTF8(load_string, 0, right_x, y, search_color,
 						 LLFontGL::LEFT, LLFontGL::BOTTOM, LLFontGL::NORMAL, LLFontGL::NO_SHADOW,
 						 S32_MAX, S32_MAX, &right_x, FALSE);
 	}
 	if (!mLabelSuffix.empty())
 	{
-		font->renderUTF8( mLabelSuffix, 0, right_x, y, sSuffixColor,
+		font->renderUTF8( mLabelSuffix, 0, right_x, y, suffix_color,
 						  LLFontGL::LEFT, LLFontGL::BOTTOM, LLFontGL::NORMAL, LLFontGL::NO_SHADOW,
 						  S32_MAX, S32_MAX, &right_x, FALSE );
 	}
@@ -889,11 +905,11 @@ void LLFolderViewItem::draw()
 			S32 top = getRect().getHeight() - TOP_PAD;
 			LLUIImage* box_image = sBoxImage;
 			LLRect box_rect(left, top, right, bottom);
-			box_image->draw(box_rect, sFilterBGColor);
+			box_image->draw(box_rect, filter_bg);
 			F32 match_string_left = text_left + font->getWidthF32(combined_string, 0, mStringMatchOffset);
 			F32 yy = (F32)getRect().getHeight() - font->getLineHeight() - (F32)TEXT_PAD - (F32)TOP_PAD;
 			font->renderUTF8( combined_string, mStringMatchOffset, match_string_left, yy,
-							sFilterTextColor, LLFontGL::LEFT, LLFontGL::BOTTOM, LLFontGL::NORMAL, LLFontGL::NO_SHADOW,
+							filter_text, LLFontGL::LEFT, LLFontGL::BOTTOM, LLFontGL::NORMAL, LLFontGL::NO_SHADOW,
 							filter_string_length, S32_MAX, &right_x, FALSE );
 		}
 	}

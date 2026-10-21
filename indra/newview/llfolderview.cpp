@@ -716,7 +716,7 @@ void LLFolderView::draw()
 		std::string current_filter_string = llformat("Current Filter: %d, Least Filter: %d, Auto-accept Filter: %d",
 										mFilter.getCurrentGeneration(), mFilter.getFirstSuccessGeneration(), mFilter.getFirstRequiredGeneration());
 		LLFontGL::getFontMonospace()->renderUTF8(current_filter_string, 0, 2,
-			getRect().getHeight() - LLFontGL::getFontMonospace()->getLineHeight(), LLColor4(0.5f, 0.5f, 0.8f, 1.f),
+			getRect().getHeight() - LLFontGL::getFontMonospace()->getLineHeight(), LLColor4(0.5f, 0.5f, 0.8f, getCurrentTransparency()),
 			LLFontGL::LEFT, LLFontGL::BOTTOM, LLFontGL::NORMAL, LLFontGL::NO_SHADOW,  S32_MAX, S32_MAX, NULL, FALSE );
 	}
 	if (!mDragAndDropThisFrame)

@@ -304,6 +304,11 @@ void LLPreferenceCore::apply()
 	mPrefsMacro->apply();
 	mWebPanel->apply();
 }
+void LLPreferenceCore::captureFloaterTransparency()
+{
+	mGeneralPanel->captureInactiveFloaterTransparency();
+	mPrefsAscentVan->captureFloaterTransparency();
+}
 void LLPreferenceCore::cancel()
 {
 	mGeneralPanel->cancel();
@@ -384,6 +389,7 @@ void LLFloaterPreference::cancel()
 }
 void LLFloaterPreference::show(void*)
 {
+	const bool already_visible = sInstance && sInstance->getVisible();
 	if (!sInstance)
 	{
 		new LLFloaterPreference();
@@ -391,6 +397,10 @@ void LLFloaterPreference::show(void*)
 		{
 			sInstance->center();
 		}
+	}
+	if (!already_visible && sInstance->mPreferenceCore)
+	{
+		sInstance->mPreferenceCore->captureFloaterTransparency();
 	}
 	sInstance->open();
 	gAgent.sendAgentUserInfoRequest();

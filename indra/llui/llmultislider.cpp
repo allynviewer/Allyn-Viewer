@@ -340,7 +340,8 @@ void LLMultiSlider::draw()
 	std::map<std::string, LLRect>::iterator curSldrIt;
 	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 	LLRect rect(mDragStartThumbRect);
-	F32 opacity = getEnabled() ? 1.f : 0.3f;
+	const F32 window_alpha = getCurrentTransparency();
+	F32 opacity = (getEnabled() ? 1.f : 0.3f) * window_alpha;
 	LLUIImagePtr thumb_imagep = LLUI::getUIImage("Rounded_Square");
 	S32 height_offset = (getRect().getHeight() - MULTI_TRACK_HEIGHT) / 2;
 	LLRect track_rect(0, getRect().getHeight() - height_offset, getRect().getWidth(), height_offset );
@@ -358,7 +359,7 @@ void LLMultiSlider::draw()
 				mIt->second.mTop + EXTRA_TRIANGLE_HEIGHT,
 				mIt->second.mLeft + mIt->second.getWidth() / 2,
 				mIt->second.mBottom - EXTRA_TRIANGLE_HEIGHT,
-				mTriangleColor, TRUE);
+				mTriangleColor % window_alpha, TRUE);
 		}
 	}
 	else if (!thumb_imagep)
@@ -370,10 +371,10 @@ void LLMultiSlider::draw()
 				curSldrIt = mIt;
 				continue;
 			}
-			gl_rect_2d(mIt->second, curThumbColor, TRUE);
+			gl_rect_2d(mIt->second, curThumbColor % window_alpha, TRUE);
 		}
 		if(curSldrIt != mThumbRects.end()) {
-			gl_rect_2d(curSldrIt->second, mThumbCenterSelectedColor, TRUE);
+			gl_rect_2d(curSldrIt->second, mThumbCenterSelectedColor % window_alpha, TRUE);
 		}
 		if (gFocusMgr.getMouseCapture() == this)
 		{
@@ -382,7 +383,7 @@ void LLMultiSlider::draw()
 	}
 	else if( gFocusMgr.getMouseCapture() == this )
 	{
-		thumb_imagep->drawSolid(mDragStartThumbRect, mThumbCenterColor % 0.3f);
+		thumb_imagep->drawSolid(mDragStartThumbRect, mThumbCenterColor % (0.3f * window_alpha));
 		if (hasFocus())
 		{
 			thumb_imagep->drawBorder(mThumbRects[mCurSlider], gFocusMgr.getFocusColor(), gFocusMgr.getFocusFlashWidth());
@@ -396,11 +397,11 @@ void LLMultiSlider::draw()
 				curSldrIt = mIt;
 				continue;
 			}
-			thumb_imagep->drawSolid(mIt->second, curThumbColor);
+			thumb_imagep->drawSolid(mIt->second, curThumbColor % window_alpha);
 		}
 		if(curSldrIt != mThumbRects.end())
 		{
-			thumb_imagep->drawSolid(curSldrIt->second, mThumbCenterSelectedColor);
+			thumb_imagep->drawSolid(curSldrIt->second, mThumbCenterSelectedColor % window_alpha);
 		}
 	}
 	else

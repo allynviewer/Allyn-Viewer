@@ -1332,7 +1332,7 @@ void LLLineEditor::drawMisspelled(LLRect background)
 		}
 		if (glggHunSpell->getSpellCheckHighlight())
 		{
-			F32 alpha = getDrawContext().mAlpha;
+			F32 alpha = getCurrentTransparency();
 			for (int i =0; i<(int)misspellLocations.size(); i++)
 			{
 				S32 wstart =findPixelNearestPos( misspellLocations[i]-getCursor());
@@ -1359,7 +1359,7 @@ void LLLineEditor::drawMisspelled(LLRect background)
 }
 void LLLineEditor::draw()
 {
-	F32 alpha = getDrawContext().mAlpha;
+	F32 alpha = getCurrentTransparency();
 	S32 text_len = mText.length();
 	std::string saved_text;
 	if (mDrawAsterixes)

@@ -92,6 +92,11 @@ void LLPrefsAscentVan::onManualClientUpdate()
 	}
 	LLFloaterChat::addChat(chat);
 }
+void LLPrefsAscentVan::captureFloaterTransparency()
+{
+	mInactiveFloaterTransparency = gSavedSettings.getF32("InactiveFloaterTransparency");
+	mActiveFloaterTransparency = gSavedSettings.getF32("ActiveFloaterTransparency");
+}
 void LLPrefsAscentVan::refreshValues()
 {
     mUseAccountSettings		= gSavedSettings.getBOOL("AscentStoreSettingsPerAccount");
@@ -104,8 +109,7 @@ void LLPrefsAscentVan::refreshValues()
 	mCustomizeAnim = gSavedSettings.getBOOL("LiruCustomizeAnim");
 	mAnnounceSnapshots = gSavedSettings.getBOOL("AnnounceSnapshots");
 	mAnnounceStreamMetadata = gSavedSettings.getBOOL("AnnounceStreamMetadata");
-	mInactiveFloaterTransparency = gSavedSettings.getF32("InactiveFloaterTransparency");
-	mActiveFloaterTransparency = gSavedSettings.getF32("ActiveFloaterTransparency");
+	captureFloaterTransparency();
 	mScriptErrorsStealFocus = gSavedSettings.getBOOL("LiruScriptErrorsStealFocus");
 	mConnectToNeighbors = gSavedSettings.getBOOL("AlchemyConnectToNeighbors");
 	mRestartMinimized		= gSavedSettings.getBOOL("LiruRegionRestartMinimized");

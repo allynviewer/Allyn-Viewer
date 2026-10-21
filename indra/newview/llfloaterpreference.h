@@ -63,6 +63,7 @@ public:
 	~LLPreferenceCore();
 	void apply();
 	void cancel();
+	void captureFloaterTransparency();
 	LLTabContainer* getTabContainer() { return mTabContainer; }
 	void setPersonalInfo(const std::string& visibility, bool im_via_email, const std::string&  email, bool is_verified);
 	static void onTabChanged(LLUICtrl* ctrl);

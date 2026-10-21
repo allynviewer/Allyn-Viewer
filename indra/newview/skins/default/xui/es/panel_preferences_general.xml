@@ -27,6 +27,8 @@
 			<text name="UI Size:">TAMAÑO UI</text>
 			<slider name="ui_scale_slider" />
 			<check_box label="Resolución independiente del tamaño" name="ui_auto_scale" />
+			<text name="windows_textbox">VENTANAS</text>
+			<slider label="Opacidad de ventanas sin foco" name="inactive_floater_opacity" tool_tip="Qué tan sólidas se ven las ventanas que no están seleccionadas. 1 es totalmente opaca. Los valores más bajos hacen más transparentes las demás ventanas. La ventana en uso conserva su opacidad normal. El valor se guarda al reiniciar."/>
 			<check_box label="Ausente si inactivo" name="away_when_idle_checkbox" />
 			<spinner label="Tras:" name="afk_timeout_spinner" label_width="71" left="236" />
 			<check_box label="Avisar cuando gasto o recibo dinero" name="notify_money_change_checkbox" />

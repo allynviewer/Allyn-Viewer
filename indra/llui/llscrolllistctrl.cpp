@@ -1173,6 +1173,8 @@ void LLScrollListCtrl::drawItems()
 		LLColor4 highlight_color = LLColor4::white;
 		static const LLUICachedControl<F32> type_ahead_timeout("TypeAheadTimeout");
 		highlight_color.mV[VALPHA] = clamp_rescale(mSearchTimer.getElapsedTimeF32(), type_ahead_timeout * 0.7f, type_ahead_timeout, 0.4f, 0.f);
+		const F32 alpha = getCurrentTransparency();
+		highlight_color.mV[VALPHA] *= alpha;
 		bool done = false;
 		for (S32 pass = 0; !done; ++pass)
 		{
@@ -1220,6 +1222,8 @@ void LLScrollListCtrl::drawItems()
 					{
 						bg_color = mBgReadOnlyColor;
 					}
+					fg_color.mV[VALPHA] *= alpha;
+					bg_color.mV[VALPHA] *= alpha;
 					should_continue |= item->draw(pass, item_rect, fg_color, bg_color, highlight_color, mColumnPadding);
 					if (++line > last_line)
 					{
@@ -1244,7 +1248,9 @@ void LLScrollListCtrl::draw()
 	if (mBackgroundVisible)
 	{
 		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
-		gGL.color4fv( getEnabled() ? mBgWriteableColor.mV : mBgReadOnlyColor.mV );
+		LLColor4 bg = getEnabled() ? mBgWriteableColor : mBgReadOnlyColor;
+		bg.mV[VALPHA] *= getCurrentTransparency();
+		gGL.color4fv(bg.mV);
 		gl_rect_2d(background);
 	}
 	updateColumns();

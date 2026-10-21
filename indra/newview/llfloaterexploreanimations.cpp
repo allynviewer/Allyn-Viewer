@@ -84,7 +84,7 @@ void LLFloaterExploreAnimations::draw()
 	LLFloater::draw();
 	LLRect r = getRect();
 	mPreviewRect.set(r.getWidth() - 266, r.getHeight() - 25, r.getWidth() - 10, r.getHeight() - 256);
-	gGL.color3f(1.f, 1.f, 1.f);
+	gGL.color4f(1.f, 1.f, 1.f, getCurrentTransparency());
 	gGL.getTexUnit(0)->bind(&mAnimPreview);
 	gGL.begin( LLRender::TRIANGLE_STRIP );
 	{

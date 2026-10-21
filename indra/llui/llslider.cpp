@@ -210,7 +210,7 @@ BOOL LLSlider::handleScrollWheel(S32 x, S32 y, S32 clicks)
 }
 void LLSlider::draw()
 {
-	F32 alpha = getDrawContext().mAlpha;
+	F32 alpha = getCurrentTransparency();
 	updateThumbRect();
 	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 	LLRect track_rect(mThumbImage->getWidth() / 2,

@@ -307,7 +307,7 @@ void LLResizeHandle::draw()
 {
 	if( mImage.notNull() && getVisible() && (RIGHT_BOTTOM == mCorner) )
 	{
-		mImage->draw(0, 0);
+		mImage->draw(0, 0, LLColor4::white % LLUICtrl::getTransparencyForView(this));
 	}
 }
 BOOL LLResizeHandle::pointInHandle( S32 x, S32 y )

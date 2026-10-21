@@ -118,16 +118,17 @@ void LLScrollListIcon::draw(const LLColor4& color, const LLColor4& highlight_col
 {
 	if (mIcon)
 	{
+		const LLColor4 draw_color = mColor % color.mV[VALPHA];
 		switch(mAlignment)
 		{
 		case LLFontGL::LEFT:
-			mIcon->draw(0, 0, mColor);
+			mIcon->draw(0, 0, draw_color);
 			break;
 		case LLFontGL::RIGHT:
-			mIcon->draw(getWidth() - mIcon->getWidth(), 0, mColor);
+			mIcon->draw(getWidth() - mIcon->getWidth(), 0, draw_color);
 			break;
 		case LLFontGL::HCENTER:
-			mIcon->draw((getWidth() - mIcon->getWidth()) / 2, 0, mColor);
+			mIcon->draw((getWidth() - mIcon->getWidth()) / 2, 0, draw_color);
 			break;
 		default:
 			break;
@@ -309,6 +310,10 @@ LLScrollListCheck::~LLScrollListCheck()
 }
 void LLScrollListCheck::draw(const LLColor4& color, const LLColor4& highlight_color) const
 {
+	const F32 current = LLView::getDrawContext().mAlpha;
+	const F32 desired = color.mV[VALPHA];
+	const F32 factor = (current > 0.0001f) ? (desired / current) : 0.f;
+	LLViewDrawContext context(factor);
 	mCheckBox->draw();
 }
 BOOL LLScrollListCheck::handleClick()

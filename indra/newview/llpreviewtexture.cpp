@@ -216,16 +216,17 @@ void LLPreviewTexture::draw()
 		LLRect interior = mClientRect;
 		interior.stretch( -PREVIEW_BORDER_WIDTH );
 		LLLocalClipRect image_clip(mClientRect);
-		gl_rect_2d( border, LLColor4(0.f, 0.f, 0.f, 1.f));
-		gl_rect_2d_checkerboard( calcScreenRect(), interior );
+		const F32 alpha = getCurrentTransparency();
+		gl_rect_2d( border, LLColor4(0.f, 0.f, 0.f, alpha));
+		gl_rect_2d_checkerboard( calcScreenRect(), interior, alpha );
 		if ( mImage.notNull() )
 		{
-			gGL.diffuseColor3f( 1.f, 1.f, 1.f );
 			gl_draw_scaled_image(interior.mLeft,
 								interior.mBottom,
 								interior.getWidth(),
 								interior.getHeight(),
-								mImage);
+								mImage,
+								LLColor4(1.f, 1.f, 1.f, alpha));
 			static const LLCachedControl<bool> use_rmse_auto_mask("SHUseRMSEAutoMask",false);
 			static const LLCachedControl<F32> auto_mask_max_rmse("SHAutoMaskMaxRMSE",.09f);
 			static const LLCachedControl<F32> auto_mask_max_mid("SHAutoMaskMaxMid", .25f);
@@ -264,7 +265,7 @@ void LLPreviewTexture::draw()
 				LLFontGL::getFontSansSerif()->renderUTF8(LLTrans::getString("Receiving"), 0,
 					interior.mLeft + 4,
 					interior.mBottom + 4,
-					LLColor4::white, LLFontGL::LEFT, LLFontGL::BOTTOM,
+					LLColor4::white % alpha, LLFontGL::LEFT, LLFontGL::BOTTOM,
 					LLFontGL::NORMAL,
 					LLFontGL::DROP_SHADOW);
 				F32 data_progress = mImage->getDownloadProgress();
@@ -275,9 +276,9 @@ void LLPreviewTexture::draw()
 				S32 top = interior.mBottom + 4 + BAR_HEIGHT;
 				S32 right = left + bar_width;
 				S32 bottom = top - BAR_HEIGHT;
-				LLColor4 background_color(0.f, 0.f, 0.f, 0.75f);
-				LLColor4 decoded_color(0.f, 1.f, 0.f, 1.0f);
-				LLColor4 downloaded_color(0.f, 0.5f, 0.f, 1.0f);
+				LLColor4 background_color(0.f, 0.f, 0.f, 0.75f * alpha);
+				LLColor4 decoded_color(0.f, 1.f, 0.f, alpha);
+				LLColor4 downloaded_color(0.f, 0.5f, 0.f, alpha);
 				gl_rect_2d(left, top, right, bottom, background_color);
 				if (data_progress > 0.0f)
 				{
@@ -293,7 +294,7 @@ void LLPreviewTexture::draw()
 				LLFontGL::getFontSansSerif()->renderUTF8(LLTrans::getString("FileSaved"), 0,
 					interior.mLeft + 4,
 					interior.mBottom + 4,
-					LLColor4::white, LLFontGL::LEFT, LLFontGL::BOTTOM,
+					LLColor4::white % alpha, LLFontGL::LEFT, LLFontGL::BOTTOM,
 					LLFontGL::NORMAL,
 					LLFontGL::DROP_SHADOW);
 			}

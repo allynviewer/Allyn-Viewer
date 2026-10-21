@@ -1237,23 +1237,26 @@ void LLTextureCtrl::draw()
 	{
 		mTexturep = nullptr;
 	}
+	const F32 alpha = getCurrentTransparency();
 	LLRect border( 0, getRect().getHeight(), getRect().getWidth(), BTN_HEIGHT_SMALL );
-	gl_rect_2d( border, mBorderColor, FALSE );
+	LLColor4 border_color = mBorderColor;
+	border_color.mV[VALPHA] *= alpha;
+	gl_rect_2d( border, border_color, FALSE );
 	LLRect interior = border;
 	interior.stretch( -1 );
 	if( mTexturep )
 	{
 		if( mTexturep->getComponents() == 4 )
 		{
-			gl_rect_2d_checkerboard( calcScreenRect(), interior );
+			gl_rect_2d_checkerboard( calcScreenRect(), interior, alpha );
 		}
-		gl_draw_scaled_image( interior.mLeft, interior.mBottom, interior.getWidth(), interior.getHeight(), mTexturep);
+		gl_draw_scaled_image( interior.mLeft, interior.mBottom, interior.getWidth(), interior.getHeight(), mTexturep, LLColor4::white % alpha);
 		mTexturep->addTextureStats( (F32)(interior.getWidth() * interior.getHeight()) );
 	}
 	else
 	{
-		gl_rect_2d( interior, LLColor4::grey, TRUE );
-		gl_draw_x( interior, LLColor4::black );
+		gl_rect_2d( interior, LLColor4::grey % alpha, TRUE );
+		gl_draw_x( interior, LLColor4::black % alpha );
 	}
 	mTentativeLabel->setVisible( !mTexturep.isNull() && getTentative() );
 	if (mTexturep.notNull() &&
@@ -1265,7 +1268,7 @@ void LLTextureCtrl::draw()
 			mLoadingPlaceholderString, 0,
 			llfloor(interior.mLeft+10),
 			llfloor(interior.mTop-20),
-			LLColor4::white,
+			LLColor4::white % alpha,
 			LLFontGL::LEFT,
 			LLFontGL::BASELINE,
 			LLFontGL::NORMAL,

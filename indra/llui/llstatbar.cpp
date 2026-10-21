@@ -31,6 +31,7 @@
  */
 #include "linden_common.h"
 #include "llstatbar.h"
+#include "lluictrl.h"
 #include "llmath.h"
 #include "llui.h"
 #include "llgl.h"
@@ -132,6 +133,7 @@ void LLStatBar::draw()
 		}
 		mUpdateTimer.reset();
 	}
+	const F32 alpha = LLUICtrl::getTransparencyForView(this);
 	S32 width = getRect().getWidth() - 40;
 	S32 max_width = width;
 	S32 bar_top = getRect().getHeight() - 15;
@@ -140,7 +142,7 @@ void LLStatBar::draw()
 	S32 tick_width = 1;
 	S32 left, top, right, bottom;
 	F32 value_scale = max_width/((mParameters.mMaxBar + mMaxShift) - (mParameters.mMinBar + mMinShift));
-	LLFontGL::getFontMonospace()->renderUTF8(mLabel, 0, 0, getRect().getHeight(), LLColor4(1.f, 1.f, 1.f, 1.f),
+	LLFontGL::getFontMonospace()->renderUTF8(mLabel, 0, 0, getRect().getHeight(), LLColor4(1.f, 1.f, 1.f, alpha),
 							LLFontGL::LEFT, LLFontGL::TOP);
 	std::string value_str;
 	if (!mParameters.mUnitLabel.empty())
@@ -152,7 +154,7 @@ void LLStatBar::draw()
 		value_str = llformat("%.*f", mParameters.mPrecision, mValue);
 	}
 	LLFontGL::getFontMonospace()->renderUTF8(value_str, 0, width, getRect().getHeight(),
-		LLColor4(1.f, 1.f, 1.f, 0.5f),
+		LLColor4(1.f, 1.f, 1.f, 0.5f * alpha),
 		LLFontGL::RIGHT, LLFontGL::TOP);
 	if (mDisplayBar)
 	{
@@ -165,23 +167,23 @@ void LLStatBar::draw()
 		{
 			left = llfloor((tick_value - (mParameters.mMinBar + mMinShift))*value_scale);
 			right = left + tick_width;
-			gl_rect_2d(left, top, right, bottom, LLColor4(1.f, 1.f, 1.f, 0.1f));
+			gl_rect_2d(left, top, right, bottom, LLColor4(1.f, 1.f, 1.f, 0.1f * alpha));
 		}
 		bottom = bar_top - bar_height - tick_height;
 		for (tick_value = mParameters.mMinBar + mMinShift; tick_value <= (mParameters.mMaxBar + mMaxShift); tick_value += mParameters.mLabelSpacing)
 		{
 			left = llfloor((tick_value - (mParameters.mMinBar + mMinShift))*value_scale);
 			right = left + tick_width;
-			gl_rect_2d(left, top, right, bottom, LLColor4(1.f, 1.f, 1.f, 0.25f));
+			gl_rect_2d(left, top, right, bottom, LLColor4(1.f, 1.f, 1.f, 0.25f * alpha));
 			LLFontGL::getFontMonospace()->renderUTF8(llformat("%.*f", mParameters.mPrecision, tick_value), 0, left - 1, bar_top - bar_height - tick_height,
-											 LLColor4(1.f, 1.f, 1.f, 0.5f),
+											 LLColor4(1.f, 1.f, 1.f, 0.5f * alpha),
 											 LLFontGL::LEFT, LLFontGL::TOP);
 		}
 		top = bar_top;
 		bottom = bar_top - bar_height;
 		left = 0;
 		right = width;
-		gl_rect_2d(left, top, right, bottom, LLColor4(0.f, 0.f, 0.f, 0.25f));
+		gl_rect_2d(left, top, right, bottom, LLColor4(0.f, 0.f, 0.f, 0.25f * alpha));
 		if (mStatp->getNumValues() == 0)
 		{
 			return;
@@ -193,7 +195,7 @@ void LLStatBar::draw()
 			LL_WARNS() << "Min:" << min << LL_ENDL;
 		}
 		right = (S32) ((max - (mParameters.mMinBar + mMinShift)) * value_scale);
-		gl_rect_2d(left, top, right, bottom, LLColor4(1.f, 0.f, 0.f, 0.25f));
+		gl_rect_2d(left, top, right, bottom, LLColor4(1.f, 0.f, 0.f, 0.25f * alpha));
 		S32 num_values = mStatp->getNumValues() - 1;
 		if (mDisplayHistory)
 		{
@@ -207,24 +209,24 @@ void LLStatBar::draw()
 				if (mParameters.mPerSec)
 				{
 					left = (S32)((mStatp->getPrevPerSec(i) - (mParameters.mMinBar + mMinShift)) * value_scale);
-					gl_rect_2d(left, bottom+i+1, left+1, bottom+i, LLColor4(1.f, 0.f, 0.f, 1.f));
+					gl_rect_2d(left, bottom+i+1, left+1, bottom+i, LLColor4(1.f, 0.f, 0.f, alpha));
 				}
 				else
 				{
 					left = (S32)((mStatp->getPrev(i) - (mParameters.mMinBar + mMinShift)) * value_scale);
-					gl_rect_2d(left, bottom+i+1, left + 1, bottom+i, LLColor4(1.f, 0.f, 0.f, 1.f));
+					gl_rect_2d(left, bottom+i+1, left + 1, bottom+i, LLColor4(1.f, 0.f, 0.f, alpha));
 				}
 			}
 		}
 		else
 		{
 			left = (S32) ((current - (mParameters.mMinBar + mMinShift)) * value_scale) - 1;
-			gl_rect_2d(left, top, left + 2, bottom, LLColor4(1.f, 0.f, 0.f, 1.f));
+			gl_rect_2d(left, top, left + 2, bottom, LLColor4(1.f, 0.f, 0.f, alpha));
 		}
 		top = bar_top + 2;
 		bottom = bar_top - bar_height - 2;
 		left = (S32)((mean - (mParameters.mMinBar + mMinShift)) * value_scale) - 1;
-		gl_rect_2d(left, top, left + 2, bottom, LLColor4(0.f, 1.f, 0.f, 1.f));
+		gl_rect_2d(left, top, left + 2, bottom, LLColor4(0.f, 1.f, 0.f, alpha));
 	}
 	LLView::draw();
 }

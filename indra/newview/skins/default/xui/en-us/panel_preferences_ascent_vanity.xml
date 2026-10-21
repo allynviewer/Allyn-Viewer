@@ -19,7 +19,7 @@
       <check_box bottom="-312" follows="top" label="Auto-minimize region restart notice" left="20" name="region_restart_minimized" control_name="LiruRegionRestartMinimized" tool_tip="Useful for sim owners and people who need to pack up before leaving"/>
       <text bottom="-344" follows="top" left="20" name="UISndRestartText">Sound played when regions will restart:</text>
       <line_editor bottom="-368" left="20" follows="top" width="400" height="22" name="UISndRestart" tool_tip="Empty for no sound to play"/>
-      <spinner bottom="-400" left="20" decimal_digits="3" follows="top" height="16" increment="0.05" label="Inactive Transparency" tool_tip="When a floater loses focus, this controls how much its opacity changes." label_width="180" max_val="5" min_val="0" name="Inactive Transparency" width="360" control_name="InactiveFloaterTransparency"/>
+      <spinner bottom="-400" left="20" decimal_digits="2" follows="top" height="16" increment="0.05" label="Inactive Transparency" tool_tip="Opacity of windows that are not focused. 1 is opaque. Lower values make them more transparent." label_width="180" max_val="1" min_val="0" name="Inactive Transparency" width="360" control_name="InactiveFloaterTransparency"/>
       <spinner bottom="-428" left="20" decimal_digits="3" follows="top" height="16" increment="0.05" label="Active Transparency" tool_tip="When a floater is in focus, this controls how much its opacity changes." label_width="180" max_val="5" min_val="0" name="Active Transparency" width="360" control_name="ActiveFloaterTransparency"/>
         </panel>
       </scroll_container>

@@ -89,13 +89,14 @@ void LLPanelVoiceDeviceSettings::draw()
 		const S32 num_bars = 5;
 		F32 voice_power = LLVoiceClient::getInstance()->tuningGetEnergy() / LLVoiceClient::OVERDRIVEN_POWER_LEVEL;
 		S32 discrete_power = llmin(num_bars, llfloor(voice_power * (F32)num_bars + 0.1f));
+		const F32 alpha = getCurrentTransparency();
 		for(S32 power_bar_idx = 0; power_bar_idx < num_bars; power_bar_idx++)
 		{
 			std::string view_name = llformat("%s%d", "bar", power_bar_idx);
 			LLView* bar_view = getChild<LLView>(view_name);
 			if (bar_view)
 			{
-				gl_rect_2d(bar_view->getRect(), LLColor4::grey, TRUE);
+				gl_rect_2d(bar_view->getRect(), LLColor4::grey % alpha, TRUE);
 				LLColor4 color;
 				if (power_bar_idx < discrete_power)
 				{
@@ -107,6 +108,7 @@ void LLPanelVoiceDeviceSettings::draw()
 				}
 				LLRect color_rect = bar_view->getRect();
 				color_rect.stretch(-1);
+				color.mV[VALPHA] *= alpha;
 				gl_rect_2d(color_rect, color, TRUE);
 			}
 		}

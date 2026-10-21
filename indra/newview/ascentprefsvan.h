@@ -40,6 +40,7 @@ public:
 	void cancel();
 	void refresh();
 	void refreshValues();
+	void captureFloaterTransparency();
 protected:
 	void onCommitClientTag(LLUICtrl* ctrl);
 	static void onManualClientUpdate();

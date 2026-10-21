@@ -33,6 +33,8 @@
 			<icon name="section_ui_rule" />
 			<slider name="ui_scale_slider" />
 			<check_box name="ui_auto_scale" label="Çözünürlükten bağımsız ölçek" />
+			<text name="windows_textbox">PENCERELER</text>
+			<slider label="Odakta olmayan pencerelerin opaklığı" name="inactive_floater_opacity" tool_tip="Seçili olmayan pencerelerin ne kadar dolu görüneceği. 1 tamamen opaktır. Daha düşük değerler diğer pencereleri daha saydam yapar. Kullanılan pencere normal opaklığını korur. Değer yeniden başlatınca da kalır."/>
 			<check_box name="away_when_idle_checkbox" label="Boştayken uzaklaş" />
 			<spinner name="afk_timeout_spinner" label="Sonra:" />
 			<text name="seconds_textbox">saniye</text>

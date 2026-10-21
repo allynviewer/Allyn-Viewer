@@ -31,6 +31,7 @@
  */
 #include "linden_common.h"
 #include "llcontainerview.h"
+#include "lluictrl.h"
 #include "llerror.h"
 #include "llfontgl.h"
 #include "llgl.h"
@@ -87,13 +88,14 @@ BOOL LLContainerView::handleMouseUp(S32 x, S32 y, MASK mask)
 }
 void LLContainerView::draw()
 {
+	const F32 alpha = LLUICtrl::getTransparencyForView(this);
 	{
 		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
-		gl_rect_2d(0, getRect().getHeight(), getRect().getWidth(), 0, LLColor4(0.f, 0.f, 0.f, mRectAlpha));
+		gl_rect_2d(0, getRect().getHeight(), getRect().getWidth(), 0, LLColor4(0.f, 0.f, 0.f, mRectAlpha * alpha));
 	}
 	if (mShowLabel)
 	{
-		LLResMgr::getInstance()->getRes( LLFONT_OCRA )->renderUTF8(mLabel, 0, 2, getRect().getHeight() - 2, LLColor4(1,1,1,1), LLFontGL::LEFT, LLFontGL::TOP);
+		LLResMgr::getInstance()->getRes( LLFONT_OCRA )->renderUTF8(mLabel, 0, 2, getRect().getHeight() - 2, LLColor4(1,1,1,alpha), LLFontGL::LEFT, LLFontGL::TOP);
 	}
 	LLView::draw();
 }

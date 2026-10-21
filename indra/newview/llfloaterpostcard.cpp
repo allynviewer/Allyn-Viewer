@@ -138,9 +138,10 @@ void LLFloaterPostcard::draw()
 		{
 			rect.mBottom = (S32)((F32)rect.mTop - ((F32)rect.getWidth() / ratio));
 		}
+		const F32 alpha = getCurrentTransparency();
 		{
 			gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
-			gl_rect_2d(rect, LLColor4(0.f, 0.f, 0.f, 1.f));
+			gl_rect_2d(rect, LLColor4(0.f, 0.f, 0.f, alpha));
 			rect.stretch(-1);
 		}
 		{
@@ -154,7 +155,7 @@ void LLFloaterPostcard::draw()
 								 rect.getWidth(),
 								 rect.getHeight(),
 								 mViewerImage,
-								 LLColor4::white);
+								 LLColor4(1.f, 1.f, 1.f, alpha));
 		}
 		gGL.matrixMode(LLRender::MM_TEXTURE);
 		gGL.popMatrix();

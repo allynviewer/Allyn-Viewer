@@ -59,7 +59,7 @@ void LLLoadingIndicator::draw()
 	LLUIImagePtr cur_image = mImages.empty() ? LLUIImagePtr(NULL) : mImages[mCurImageIdx];
 	if( cur_image.notNull() )
 	{
-		cur_image->draw(getLocalRect(), LLColor4::white % getDrawContext().mAlpha);
+		cur_image->draw(getLocalRect(), LLColor4::white % getCurrentTransparency());
 	}
 	LLUICtrl::draw();
 }

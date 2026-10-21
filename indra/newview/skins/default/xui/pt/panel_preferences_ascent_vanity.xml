@@ -19,7 +19,7 @@
 					<check_box label="Auto-minimizar aviso de reinício de região" name="region_restart_minimized" control_name="LiruRegionRestartMinimized" tool_tip="Útil para proprietários de sim e pessoas que precisam arrumar antes de sair" />
 					<text name="UISndRestartText">Som reproduzido quando regiões reiniciarem:</text>
 					<line_editor name="UISndRestart" tool_tip="Vazio para nenhum som" />
-					<spinner decimal_digits="3" increment="0.05" label="Transparência Inativa" tool_tip="Quando um flutuador perde o foco, controla o quanto sua opacidade muda." max_val="5" min_val="0" name="Inactive Transparency" control_name="InactiveFloaterTransparency" />
+					<spinner decimal_digits="2" increment="0.05" label="Opacidade sem foco" tool_tip="Opacidade das janelas que não estão em foco. 1 é opaca. Valores menores deixam mais transparentes." max_val="1" min_val="0" name="Inactive Transparency" control_name="InactiveFloaterTransparency" />
 					<spinner decimal_digits="3" increment="0.05" label="Transparência Ativa" tool_tip="Quando um flutuador está em foco, controla o quanto sua opacidade muda." max_val="5" min_val="0" name="Active Transparency" control_name="ActiveFloaterTransparency" />
 				</panel>
 			</scroll_container>

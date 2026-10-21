@@ -147,7 +147,7 @@ void LLDragHandleTop::draw()
 			const S32 icon_bottom = getRect().getHeight()
 				- ((TITLE_BAR_HEIGHT - TITLE_ICON_SIZE) / 2)
 				- TITLE_ICON_SIZE;
-			icon->draw(LEFT_PAD, icon_bottom, TITLE_ICON_SIZE, TITLE_ICON_SIZE);
+			icon->draw(LEFT_PAD, icon_bottom, TITLE_ICON_SIZE, TITLE_ICON_SIZE, LLColor4::white % LLUICtrl::getTransparencyForView(this));
 		}
 	}
 	LLView::draw();

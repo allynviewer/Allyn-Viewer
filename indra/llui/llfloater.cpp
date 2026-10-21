@@ -402,10 +402,12 @@ void LLFloater::initFloater(const std::string& title,
 void LLFloater::updateActiveFloaterTransparency()
 {
 	sActiveControlTransparency = LLUI::sConfigGroup->getF32("ActiveFloaterTransparency");
+	LLUICtrl::invalidateTransparencyCache();
 }
 void LLFloater::updateInactiveFloaterTransparency()
 {
 	sInactiveControlTransparency = LLUI::sConfigGroup->getF32("InactiveFloaterTransparency");
+	LLUICtrl::invalidateTransparencyCache();
 }
 void LLFloater::addResizeCtrls()
 {
@@ -1245,18 +1247,19 @@ void LLFloater::setFocus( BOOL b )
 			last_focus->setFocus(TRUE);
 		}
 	}
-	updateTransparency(b ? TT_ACTIVE : TT_INACTIVE);
+	updateTransparency((b || getIsChrome()) ? TT_ACTIVE : TT_INACTIVE);
 }
 void LLFloater::setIsChrome(BOOL is_chrome)
 {
+	LLPanel::setIsChrome(is_chrome);
 	if (is_chrome)
 	{
 		setFocus(FALSE);
 		setFocusRoot(FALSE);
+		updateTransparency(TT_ACTIVE);
 	}
 	if (mDragHandle)
 		mDragHandle->setTitleVisible(!is_chrome);
-	LLPanel::setIsChrome(is_chrome);
 }
 void LLFloater::setTitleVisible(bool visible)
 {
@@ -1731,6 +1734,7 @@ void LLFloater::updateTransparency(LLView* view, ETypeTransparency transparency_
 }
 void LLFloater::updateTransparency(ETypeTransparency transparency_type)
 {
+	LLUICtrl::invalidateTransparencyCache();
 	updateTransparency(this, transparency_type);
 }
 void	LLFloater::setCanMinimize(BOOL can_minimize)

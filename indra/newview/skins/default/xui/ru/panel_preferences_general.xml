@@ -28,6 +28,8 @@
 			<check_box label="Скрыть моё звание группы" name="show_my_title_checkbox"/>
 			<text name="UI Size:">РАЗМЕР UI</text>
 			<check_box label="Масштаб независимо от разрешения" name="ui_auto_scale"/>
+			<text name="windows_textbox">ОКНА</text>
+			<slider label="Непрозрачность окон без фокуса" name="inactive_floater_opacity" tool_tip="Насколько плотными остаются окна, которые не выбраны. 1 — полностью непрозрачные. Меньшие значения делают остальные окна прозрачнее. Окно в фокусе сохраняет обычную непрозрачность. Значение сохраняется после перезапуска."/>
 			<check_box label="Отошёл при простое" name="away_when_idle_checkbox"/>
 			<spinner label="Через:" name="afk_timeout_spinner"/>
 			<text name="seconds_textbox">секунд</text>

@@ -40,6 +40,7 @@
 #include "lltimer.h"
 #include "llglheaders.h"
 #include "llfocusmgr.h"
+#include "lluictrl.h"
 static LLRegisterWidget<LLProgressBar> r("progress_bar");
 LLProgressBar::LLProgressBar(const std::string& name, const LLRect &rect)
 	: LLView(name, rect, FALSE)
@@ -59,7 +60,7 @@ LLProgressBar::~LLProgressBar()
 void LLProgressBar::draw()
 {
 	static LLTimer timer;
-	F32 alpha = getDrawContext().mAlpha;
+	F32 alpha = LLUICtrl::getTransparencyForView(this);
 	LLUIImagePtr bar_fg_imagep = LLUI::getUIImage("ProgressBar");
 	LLUIImagePtr bar_bg_imagep = LLUI::getUIImage("ProgressTrack");
 	LLColor4 background_color = LLUI::sColorsGroup->getColor("LoginProgressBarBgColor");

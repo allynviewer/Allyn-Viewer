@@ -494,7 +494,7 @@ void LLButton::getOverlayImageSize(S32& overlay_width, S32& overlay_height)
 }
 void LLButton::draw()
 {
-	F32 alpha = mAlpha * getDrawContext().mAlpha;
+	F32 alpha = mAlpha * getCurrentTransparency();
 	bool flash = FALSE;
 	F32 unread_pulse_t = 0.f;
 	if( mFlashing )

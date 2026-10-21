@@ -9611,13 +9611,13 @@ This should be as low as possible, but too low may break functionality</string>
     <key>InactiveFloaterTransparency</key>
     <map>
       <key>Comment</key>
-      <string>Transparency of inactive floaters (floaters that have no focus)</string>
+      <string>Opacity of floaters that do not have focus. 1 is opaque and 0 is invisible. The focused floater uses ActiveFloaterTransparency.</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>1</real>
+      <real>0.65</real>
     </map>
     <key>InBandwidth</key>
     <map>

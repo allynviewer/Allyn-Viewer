@@ -152,22 +152,23 @@ void LLAccordionCtrlTab::LLAccordionCtrlTabHeader::draw()
 {
 	S32 width = getRect().getWidth();
 	S32 height = getRect().getHeight();
-	gl_rect_2d(0,0,width - 1 ,height - 1,mHeaderBGColor.get() ,true);
+	const F32 alpha = getCurrentTransparency();
+	gl_rect_2d(0,0,width - 1 ,height - 1,mHeaderBGColor.get() % alpha ,true);
 	LLAccordionCtrlTab* parent = dynamic_cast<LLAccordionCtrlTab*>(getParent());
 	bool collapsible = (parent && parent->getCollapsible());
 	bool expanded = (parent && parent->getDisplayChildren());
 	if (getParent()->hasFocus() || mIsSelected
 		)
 	{
-		mImageHeaderFocused->draw(0,0,width,height);
+		mImageHeaderFocused->draw(0,0,width,height, UI_VERTEX_COLOR % alpha);
 	}
 	else
 	{
-		mImageHeader->draw(0,0,width,height);
+		mImageHeader->draw(0,0,width,height, UI_VERTEX_COLOR % alpha);
 	}
 	if(mNeedsHighlight)
 	{
-		mImageHeaderOver->draw(0,0,width,height);
+		mImageHeaderOver->draw(0,0,width,height, UI_VERTEX_COLOR % alpha);
 	}
 	if(collapsible)
 	{
@@ -181,7 +182,8 @@ void LLAccordionCtrlTab::LLAccordionCtrlTabHeader::draw()
 			overlay_image = mImageCollapsed;
 		}
 		overlay_image->draw(HEADER_IMAGE_LEFT_OFFSET,
-							(height - overlay_image->getHeight()) / 2);
+							(height - overlay_image->getHeight()) / 2,
+							UI_VERTEX_COLOR % alpha);
 	}
 	LLUICtrl::draw();
 }

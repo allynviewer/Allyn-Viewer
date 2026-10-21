@@ -356,7 +356,9 @@ void LLScrollContainer::draw()
 		if( mIsOpaque )
 		{
 			gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
-			gGL.color4fv( mBackgroundColor.mV );
+			LLColor4 bg = mBackgroundColor;
+			bg.mV[VALPHA] *= getCurrentTransparency();
+			gGL.color4fv(bg.mV);
 			gl_rect_2d( mInnerRect );
 		}
 		if( mScrolledView )

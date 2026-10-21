@@ -156,7 +156,9 @@ public:
 	virtual void	setAlpha(F32 alpha);
 	virtual void	setMinValue(LLSD min_value);
 	virtual void	setMaxValue(LLSD max_value);
-	F32 			getCurrentTransparency();
+	F32 			getCurrentTransparency() const;
+	static F32			getTransparencyForView(const LLView* view);
+	static void			invalidateTransparencyCache();
 	void				setTransparencyType(ETypeTransparency type);
 	ETypeTransparency	getTransparencyType() const {return mTransparencyType;}
 	BOOL	focusNextItem(BOOL text_entry_only);
@@ -224,6 +226,12 @@ protected:
 	static F32 sActiveControlTransparency;
 	static F32 sInactiveControlTransparency;
 private:
+	F32				getTransparencyTypeAlpha() const;
+	static S32		sTransparencyGeneration;
+	mutable S32		mTransparencyCacheGeneration;
+	mutable ETypeTransparency mCachedTransparencyType;
+	mutable F32		mCachedTransparencyTypeAlpha;
+	mutable const LLView* mCachedTransparencyParent;
 	BOOL			mIsChrome;
 	BOOL			mRequestsFront;
 	BOOL			mTabStop;

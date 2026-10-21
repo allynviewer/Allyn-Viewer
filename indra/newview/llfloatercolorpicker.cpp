@@ -413,24 +413,25 @@ void LLFloaterColorPicker::draw()
 	mApplyImmediateCheck->setEnabled(mActive && mCanApplyImmediately);
 	mSelectBtn->setEnabled(mActive);
 	LLFloater::draw ();
-	gl_draw_image ( mRGBViewerImageLeft, mRGBViewerImageTop - mRGBViewerImageHeight, mRGBImage, LLColor4::white );
+	const F32 alpha = getCurrentTransparency();
+	gl_draw_image ( mRGBViewerImageLeft, mRGBViewerImageTop - mRGBViewerImageHeight, mRGBImage, LLColor4(1.f, 1.f, 1.f, alpha) );
 	S32 xPos = ( S32 ) ( ( F32 )mRGBViewerImageWidth * getCurH () ) - 8;
 	S32 yPos = ( S32 ) ( ( F32 )mRGBViewerImageHeight * getCurS () ) - 8;
 	gl_line_2d ( mRGBViewerImageLeft + xPos,
 				 mRGBViewerImageTop - mRGBViewerImageHeight + yPos + 8,
 				 mRGBViewerImageLeft + xPos + 16,
 				 mRGBViewerImageTop - mRGBViewerImageHeight + yPos + 8,
-				 LLColor4 ( 0.0f, 0.0f, 0.0f, 1.0f ) );
+				 LLColor4 ( 0.0f, 0.0f, 0.0f, alpha ) );
 	gl_line_2d ( mRGBViewerImageLeft + xPos + 8,
 				 mRGBViewerImageTop - mRGBViewerImageHeight + yPos,
 				 mRGBViewerImageLeft + xPos + 8,
 				 mRGBViewerImageTop - mRGBViewerImageHeight + yPos + 16,
-				 LLColor4 ( 0.0f, 0.0f, 0.0f, 1.0f ) );
+				 LLColor4 ( 0.0f, 0.0f, 0.0f, alpha ) );
 	gl_rect_2d ( mRGBViewerImageLeft,
 				 mRGBViewerImageTop - mRGBViewerImageHeight + 1,
 				 mRGBViewerImageLeft + mRGBViewerImageWidth + 1,
 				 mRGBViewerImageTop,
-				 LLColor4 ( 0.0f, 0.0f, 0.0f, 1.0f ),
+				 LLColor4 ( 0.0f, 0.0f, 0.0f, alpha ),
 				 FALSE );
 	for ( S32 y = 0; y < mLumRegionHeight; ++y )
 	{
@@ -440,35 +441,35 @@ void LLFloaterColorPicker::draw()
 			mLumRegionTop - mLumRegionHeight + y,
 				mLumRegionLeft + mLumRegionWidth,
 					mLumRegionTop - mLumRegionHeight + y - 1,
-						LLColor4 ( rValSlider, gValSlider, bValSlider, 1.0f ) );
+						LLColor4 ( rValSlider, gValSlider, bValSlider, alpha ) );
 	}
 	S32 startX = mLumRegionLeft + mLumRegionWidth;
 	S32 startY = mLumRegionTop - mLumRegionHeight + ( S32 ) ( mLumRegionHeight * getCurL () );
 	gl_triangle_2d ( startX, startY,
 			startX + mLumMarkerSize, startY - mLumMarkerSize,
 				startX + mLumMarkerSize, startY + mLumMarkerSize,
-					LLColor4 ( 0.0f, 0.0f, 0.0f, 1.0f ), TRUE );
+					LLColor4 ( 0.0f, 0.0f, 0.0f, alpha ), TRUE );
 	gl_triangle_2d ( startX+2, startY,
 		startX + mLumMarkerSize - 1, startY - mLumMarkerSize + 2,
 			startX + mLumMarkerSize - 1, startY + mLumMarkerSize - 2,
-				LLColor4 ( 1.0f, 1.0f, 1.0f, 1.0f ), TRUE );
+				LLColor4 ( 1.0f, 1.0f, 1.0f, alpha ), TRUE );
 	gl_rect_2d ( mLumRegionLeft,
 				 mLumRegionTop - mLumRegionHeight + 1,
 				 mLumRegionLeft + mLumRegionWidth + 1,
 				 mLumRegionTop,
-				 LLColor4 ( 0.0f, 0.0f, 0.0f, 1.0f ),
+				 LLColor4 ( 0.0f, 0.0f, 0.0f, alpha ),
 				 FALSE );
 	gl_rect_2d ( mSwatchRegionLeft,
 				 mSwatchRegionTop - mSwatchRegionHeight,
 				 mSwatchRegionLeft + mSwatchRegionWidth,
 				 mSwatchRegionTop,
-				 LLColor4 ( getCurR (), getCurG (), getCurB (), 1.0f ),
+				 LLColor4 ( getCurR (), getCurG (), getCurB (), alpha ),
 				 TRUE );
 	gl_rect_2d ( mSwatchRegionLeft,
 				 mSwatchRegionTop - mSwatchRegionHeight + 1,
 				 mSwatchRegionLeft + mSwatchRegionWidth + 1,
 				 mSwatchRegionTop,
-				 LLColor4 ( 0.0f, 0.0f, 0.0f, 1.0f ),
+				 LLColor4 ( 0.0f, 0.0f, 0.0f, alpha ),
 				 FALSE );
 	drawPalette ();
 }
@@ -498,8 +499,10 @@ void LLFloaterColorPicker::drawPalette ()
 			S32 y2 = ( mPaletteRegionTop - ( mPaletteRegionHeight * ( y + 1 ) ) / numPaletteRows );
 			if ( mPalette [ curEntry ] )
 			{
-				gl_rect_2d ( x1 + 1, y1 - 2, x2 - 2, y2 + 1, *mPalette [ curEntry++ ], TRUE );
-				gl_rect_2d ( x1 + 1, y1 - 1, x2 - 1, y2 + 1, LLColor4 ( 0.0f, 0.0f, 0.0f, 1.0f ), FALSE );
+				LLColor4 entry = *mPalette [ curEntry++ ];
+				entry.mV[VALPHA] *= getCurrentTransparency();
+				gl_rect_2d ( x1 + 1, y1 - 2, x2 - 2, y2 + 1, entry, TRUE );
+				gl_rect_2d ( x1 + 1, y1 - 1, x2 - 1, y2 + 1, LLColor4 ( 0.0f, 0.0f, 0.0f, getCurrentTransparency() ), FALSE );
 			}
 		}
 	}
@@ -514,6 +517,7 @@ void LLFloaterColorPicker::drawPalette ()
 		S32 xCenter = x1 + ( x2 - x1 ) / 2;
 		S32 yCenter = y1 - ( y1 - y2 ) / 2;
 		LLColor4 hlColor ( getComplimentaryColor ( *mPalette [ highlightEntry ] ) );
+		hlColor.mV[VALPHA] *= getCurrentTransparency();
 		gl_line_2d ( xCenter - 4, yCenter - 4, xCenter + 4, yCenter + 4, hlColor );
 		gl_line_2d ( xCenter + 4, yCenter - 4, xCenter - 4, yCenter + 4, hlColor );
 	}

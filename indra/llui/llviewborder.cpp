@@ -33,6 +33,7 @@
 #include "llrender.h"
 #include "llfocusmgr.h"
 #include "lluiimage.h"
+#include "lluictrl.h"
 static LLRegisterWidget<LLViewBorder> r("view_border");
 LLViewBorder::LLViewBorder( const std::string& name, const LLRect& rect, EBevel bevel, EStyle style, S32 width )
 	:
@@ -92,7 +93,7 @@ void LLViewBorder::draw()
 }
 void LLViewBorder::drawOnePixelLines()
 {
-	F32 alpha = getDrawContext().mAlpha;
+	F32 alpha = LLUICtrl::getTransparencyForView(this);
 	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 	LLColor4 top_color = mHighlightLight;
 	LLColor4 bottom_color = mHighlightLight;

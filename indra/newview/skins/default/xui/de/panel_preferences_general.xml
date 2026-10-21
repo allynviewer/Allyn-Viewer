@@ -28,6 +28,8 @@
 			<check_box label="Eigenen Titel ausblenden" name="show_my_title_checkbox" />
 			<text name="UI Size:">UI-GRÖSSE</text>
 			<check_box label="Auflösungsunabh. Skalierung" name="ui_auto_scale" />
+			<text name="windows_textbox">FENSTER</text>
+			<slider label="Deckkraft unfokussierter Fenster" name="inactive_floater_opacity" tool_tip="Wie deckend Fenster bleiben, die nicht ausgewählt sind. 1 ist vollständig deckend. Niedrigere Werte machen die anderen Fenster durchsichtiger. Das benutzte Fenster behält seine normale Deckkraft. Der Wert bleibt nach einem Neustart erhalten."/>
 			<check_box label="Abwesend bei Inaktivität" name="away_when_idle_checkbox" />
 			<spinner label="Nach:" name="afk_timeout_spinner" />
 			<text name="seconds_textbox">Sekunden</text>

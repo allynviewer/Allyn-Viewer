@@ -140,27 +140,32 @@ BOOL LLColorSwatchCtrl::handleMouseUp(S32 x, S32 y, MASK mask)
 void LLColorSwatchCtrl::draw()
 {
 	mBorder->setKeyboardFocusHighlight(hasFocus());
+	const F32 alpha = getCurrentTransparency();
 	LLRect border( 0, getRect().getHeight(), getRect().getWidth(), BTN_HEIGHT_SMALL );
-	gl_rect_2d( border, mBorderColor, FALSE );
+	LLColor4 border_color = mBorderColor;
+	border_color.mV[VALPHA] *= alpha;
+	gl_rect_2d( border, border_color, FALSE );
 	LLRect interior = border;
 	interior.stretch( -1 );
+	LLColor4 fill = mColor;
+	fill.mV[VALPHA] *= alpha;
 	if ( mValid )
 	{
 		if (!mColor.isOpaque())
 		{
-			gl_rect_2d_checkerboard( calcScreenRect(), interior );
+			gl_rect_2d_checkerboard( calcScreenRect(), interior, alpha );
 		}
-		gl_rect_2d(interior, mColor, TRUE);
+		gl_rect_2d(interior, fill, TRUE);
 		if (!mColor.isOpaque())
 		{
 			LLColor4 opaque_color = mColor;
-			opaque_color.mV[VALPHA] = 1.f;
+			opaque_color.mV[VALPHA] = alpha;
 			gGL.color4fv(opaque_color.mV);
 			if (mAlphaGradientImage.notNull())
 			{
 				gGL.pushMatrix();
 				{
-					mAlphaGradientImage->draw(interior, mColor);
+					mAlphaGradientImage->draw(interior, fill);
 				}
 				gGL.popMatrix();
 			}
@@ -174,15 +179,15 @@ void LLColorSwatchCtrl::draw()
 				LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE);
 			if( fallback_image->getComponents() == 4 )
 			{
-				gl_rect_2d_checkerboard( calcScreenRect(), interior );
+				gl_rect_2d_checkerboard( calcScreenRect(), interior, alpha );
 			}
-			gl_draw_scaled_image( interior.mLeft, interior.mBottom, interior.getWidth(), interior.getHeight(), fallback_image);
+			gl_draw_scaled_image( interior.mLeft, interior.mBottom, interior.getWidth(), interior.getHeight(), fallback_image, LLColor4::white % alpha);
 			fallback_image->addTextureStats( (F32)(interior.getWidth() * interior.getHeight()) );
 		}
 		else
 		{
-			gl_rect_2d(interior, LLColor4::grey, TRUE);
-			gl_draw_x(interior, LLColor4::black);
+			gl_rect_2d(interior, LLColor4::grey % alpha, TRUE);
+			gl_draw_x(interior, LLColor4::black % alpha);
 		}
 	}
 	LLUICtrl::draw();

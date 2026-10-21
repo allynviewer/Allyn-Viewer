@@ -509,7 +509,7 @@ void LLFloaterModelPreview::draw()
 	}
 	if (mModelPreview->lodsReady())
 	{
-		gGL.color3f(1.f, 1.f, 1.f);
+		gGL.color4f(1.f, 1.f, 1.f, getCurrentTransparency());
 		gGL.getTexUnit(0)->bind(mModelPreview);
 		LLView* preview_panel = getChild<LLView>("preview_panel");
 		LLRect rect = preview_panel->getRect();

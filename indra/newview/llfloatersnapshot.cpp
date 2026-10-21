@@ -194,7 +194,7 @@ public:
 	void generateThumbnailImage();
 	EAspectSizeProblem getAspectSizeProblem(S32& width_out, S32& height_out, bool& crop_vertically_out, S32& crop_offset_out);
 	EAspectSizeProblem generateFormattedAndFullscreenPreview(bool delayed_formatted = false);
-	void drawPreviewRect(S32 offset_x, S32 offset_y) ;
+	void drawPreviewRect(S32 offset_x, S32 offset_y, F32 alpha);
 	static BOOL onIdle(LLSnapshotLivePreview* previewp);
 private:
 	LLColor4					mColor;
@@ -484,9 +484,9 @@ void LLSnapshotLivePreview::setSnapshotQuality(S32 quality)
 		gSavedSettings.setS32("SnapshotQuality", quality);
 	}
 }
-void LLSnapshotLivePreview::drawPreviewRect(S32 offset_x, S32 offset_y)
+void LLSnapshotLivePreview::drawPreviewRect(S32 offset_x, S32 offset_y, F32 alpha)
 {
-	LLColor4 alpha_color(0.5f, 0.5f, 0.5f, 0.8f);
+	LLColor4 alpha_color(0.5f, 0.5f, 0.5f, 0.8f * alpha);
 	if (mThumbnailWidth > mThumbnailPreviewRect.getWidth())
 	{
 		gl_rect_2d(                      offset_x,                        offset_y,
@@ -509,7 +509,7 @@ void LLSnapshotLivePreview::drawPreviewRect(S32 offset_x, S32 offset_y)
 	gGL.setLineWidth(2.0f * line_width);
 	gl_rect_2d( mThumbnailPreviewRect.mLeft  + offset_x, mThumbnailPreviewRect.mTop    + offset_y,
 				mThumbnailPreviewRect.mRight + offset_x, mThumbnailPreviewRect.mBottom + offset_y,
-				LLColor4::black, FALSE);
+				LLColor4::black % alpha, FALSE);
 	gGL.setLineWidth(line_width);
 }
 void LLSnapshotLivePreview::draw()
@@ -3203,7 +3203,8 @@ void LLFloaterSnapshot::draw()
 	LLRect const thumb_area = getThumbnailAreaRect();
 	if (thumb_area.getWidth() > 0 && thumb_area.getHeight() > 0)
 	{
-		gl_rect_2d(thumb_area, LLColor4(0.05f, 0.05f, 0.06f, 0.82f), TRUE);
+		const F32 alpha = getCurrentTransparency();
+		gl_rect_2d(thumb_area, LLColor4(0.05f, 0.05f, 0.06f, 0.82f * alpha), TRUE);
 		S32 tw = previewp->getThumbnailWidth();
 		S32 th = previewp->getThumbnailHeight();
 		if (previewp->getThumbnailImage() && tw > 1 && th > 1)
@@ -3237,13 +3238,13 @@ void LLFloaterSnapshot::draw()
 			S32 offset_x = thumb_area.mLeft + (bound_w - dw) / 2;
 			S32 offset_y = thumb_area.mBottom + (bound_h - dh) / 2;
 			gGL.matrixMode(LLRender::MM_MODELVIEW);
-			gl_draw_scaled_image(offset_x, offset_y, dw, dh, previewp->getThumbnailImage(), LLColor4::white);
+			gl_draw_scaled_image(offset_x, offset_y, dw, dh, previewp->getThumbnailImage(), LLColor4(1.f, 1.f, 1.f, alpha));
 			F32 sx = (F32)dw / (F32)tw;
 			F32 sy = (F32)dh / (F32)th;
 			gGL.pushMatrix();
 			gGL.translatef((F32)offset_x, (F32)offset_y, 0.f);
 			gGL.scalef(sx, sy, 1.f);
-			previewp->drawPreviewRect(0, 0);
+			previewp->drawPreviewRect(0, 0, alpha);
 			gGL.popMatrix();
 		}
 	}

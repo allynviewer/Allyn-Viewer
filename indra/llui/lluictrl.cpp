@@ -37,6 +37,7 @@
 static LLRegisterWidget<LLUICtrl> r("ui_ctrl");
 F32 LLUICtrl::sActiveControlTransparency = 1.0f;
 F32 LLUICtrl::sInactiveControlTransparency = 1.0f;
+S32 LLUICtrl::sTransparencyGeneration = 0;
 LLUICtrl::CallbackParam::CallbackParam()
 :	name("name"),
 	function_name("function"),
@@ -102,7 +103,11 @@ LLUICtrl::LLUICtrl(const LLUICtrl::Params& p, const LLViewModelPtr& viewmodel)
 	mTabStop(TRUE),
 	mTentative(FALSE),
 	mCommitOnReturn(FALSE),
-	mTransparencyType(TT_DEFAULT)
+	mTransparencyType(TT_DEFAULT),
+	mTransparencyCacheGeneration(-1),
+	mCachedTransparencyType(TT_DEFAULT),
+	mCachedTransparencyTypeAlpha(1.f),
+	mCachedTransparencyParent(NULL)
 {
 }
 void LLUICtrl::initFromParams(const Params& p)
@@ -202,7 +207,11 @@ LLUICtrl::LLUICtrl(const std::string& name, const LLRect rect, BOOL mouse_opaque
 	mRightMouseUpSignal(nullptr),
 	mDoubleClickSignal(nullptr),
 	mCommitOnReturn(FALSE),
-	mTransparencyType(TT_DEFAULT)
+	mTransparencyType(TT_DEFAULT),
+	mTransparencyCacheGeneration(-1),
+	mCachedTransparencyType(TT_DEFAULT),
+	mCachedTransparencyTypeAlpha(1.f),
+	mCachedTransparencyParent(NULL)
 {
 	if(commit_callback)
 		setCommitCallback(commit_callback);
@@ -848,14 +857,21 @@ void LLUICtrl::setMinValue(LLSD min_value)
 { }
 void LLUICtrl::setMaxValue(LLSD max_value)
 { }
-F32 LLUICtrl::getCurrentTransparency()
+void LLUICtrl::invalidateTransparencyCache()
 {
-	F32 alpha = 0;
-	switch(mTransparencyType)
+	++sTransparencyGeneration;
+}
+F32 LLUICtrl::getTransparencyTypeAlpha() const
+{
+	if (mTransparencyCacheGeneration == sTransparencyGeneration
+		&& mCachedTransparencyType == mTransparencyType
+		&& (mTransparencyType != TT_DEFAULT || mCachedTransparencyParent == getParent()))
 	{
-	case TT_DEFAULT:
-		alpha = getDrawContext().mAlpha;
-		break;
+		return mCachedTransparencyTypeAlpha;
+	}
+	F32 alpha = 1.f;
+	switch (mTransparencyType)
+	{
 	case TT_ACTIVE:
 		alpha = sActiveControlTransparency;
 		break;
@@ -865,8 +881,45 @@ F32 LLUICtrl::getCurrentTransparency()
 	case TT_FADING:
 		alpha = sInactiveControlTransparency / 2.f;
 		break;
+	default:
+		for (const LLView* ancestor = getParent(); ancestor; ancestor = ancestor->getParent())
+		{
+			if (ancestor->isCtrl())
+			{
+				const LLUICtrl* ctrl = static_cast<const LLUICtrl*>(ancestor);
+				if (ctrl->getTransparencyType() != TT_DEFAULT)
+				{
+					alpha = ctrl->getTransparencyTypeAlpha();
+					break;
+				}
+			}
+		}
+		break;
 	}
+	mCachedTransparencyTypeAlpha = alpha;
+	mCachedTransparencyType = mTransparencyType;
+	mCachedTransparencyParent = getParent();
+	mTransparencyCacheGeneration = sTransparencyGeneration;
 	return alpha;
+}
+F32 LLUICtrl::getCurrentTransparency() const
+{
+	return getDrawContext().mAlpha * getTransparencyTypeAlpha();
+}
+F32 LLUICtrl::getTransparencyForView(const LLView* view)
+{
+	if (view && view->isCtrl())
+	{
+		return static_cast<const LLUICtrl*>(view)->getCurrentTransparency();
+	}
+	for (const LLView* ancestor = view ? view->getParent() : NULL; ancestor; ancestor = ancestor->getParent())
+	{
+		if (ancestor->isCtrl())
+		{
+			return static_cast<const LLUICtrl*>(ancestor)->getCurrentTransparency();
+		}
+	}
+	return LLView::getDrawContext().mAlpha;
 }
 void LLUICtrl::setTransparencyType(ETypeTransparency type)
 {

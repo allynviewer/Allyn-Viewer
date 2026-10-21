@@ -404,7 +404,7 @@ void LLFloaterBvhPreview::draw()
 	refresh();
 	if (mMotionID.notNull() && mAnimPreview && !mInWorld)
 	{
-		gGL.color3f(1.f, 1.f, 1.f);
+		gGL.color4f(1.f, 1.f, 1.f, getCurrentTransparency());
 		gGL.getTexUnit(0)->bind(mAnimPreview);
 		gGL.begin( LLRender::TRIANGLE_STRIP );
 		{

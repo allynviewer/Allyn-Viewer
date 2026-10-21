@@ -238,7 +238,7 @@ BOOL LLTextBox::setTextArg( const std::string& key, const LLStringExplicit& text
 }
 void LLTextBox::draw()
 {
-	F32 alpha = getDrawContext().mAlpha;
+	F32 alpha = getCurrentTransparency();
 	if (mBorderVisible)
 	{
 		gl_rect_2d_offset_local(getLocalRect(), 2, FALSE);

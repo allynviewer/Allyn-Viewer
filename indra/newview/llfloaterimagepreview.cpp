@@ -195,13 +195,14 @@ void LLFloaterImagePreview::draw()
 	LLRect r = getRect();
 	if (mRawImagep.notNull())
 	{
+		const F32 alpha = getCurrentTransparency();
 		LLCtrlSelectionInterface* iface = childGetSelectionInterface("clothing_type_combo");
 		U32 selected = 0;
 		if (iface)
 			selected = iface->getFirstSelectedIndex();
 		if (selected <= 0)
 		{
-			gl_rect_2d_checkerboard( calcScreenRect(), mPreviewRect);
+			gl_rect_2d_checkerboard( calcScreenRect(), mPreviewRect, alpha);
 			LLGLDisable<GL_ALPHA_TEST> gls_alpha;
 			if(mImagep.notNull())
 			{
@@ -221,7 +222,7 @@ void LLFloaterImagePreview::draw()
 					mSculptedPreview->setTexture(mImagep->getTexName());
 				}
 			}
-			gGL.color3f(1.f, 1.f, 1.f);
+			gGL.color4f(1.f, 1.f, 1.f, alpha);
 			gGL.begin( LLRender::TRIANGLE_STRIP );
 			{
 				gGL.texCoord2f(mPreviewImageRect.mLeft, mPreviewImageRect.mTop);
@@ -241,7 +242,7 @@ void LLFloaterImagePreview::draw()
 		{
 			if ((mAvatarPreview) && (mSculptedPreview))
 			{
-				gGL.color3f(1.f, 1.f, 1.f);
+				gGL.color4f(1.f, 1.f, 1.f, alpha);
 				if (selected == 9)
 				{
 					gGL.getTexUnit(0)->bind(mSculptedPreview);

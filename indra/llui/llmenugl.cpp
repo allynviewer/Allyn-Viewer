@@ -279,9 +279,10 @@ U32 LLMenuItemGL::measureMenuBarTitleWidth() const
 }
 void LLMenuItemGL::drawMenuBarTitle()
 {
+	const F32 alpha = getCurrentTransparency();
 	if( getHighlight() )
 	{
-		gGL.color4fv( mHighlightBackground.mV );
+		gGL.color4fv( (mHighlightBackground % alpha).mV );
 		gl_rect_2d( 0, getRect().getHeight(), getRect().getWidth(), 0 );
 	}
 	LLFontGL::ShadowType font_shadow = LLFontGL::NO_SHADOW;
@@ -302,6 +303,7 @@ void LLMenuItemGL::drawMenuBarTitle()
 	{
 		color = mDisabledColor;
 	}
+	color.mV[VALPHA] *= alpha;
 	getFont()->render( mLabel.getWString(), 0, (F32)getRect().getWidth() / 2.f, (F32)LABEL_BOTTOM_PAD_PIXELS, color,
 				   LLFontGL::HCENTER, LLFontGL::BOTTOM, getFontStyle(), font_shadow );
 	if (getMenu()->jumpKeysActive() && LLMenuGL::getKeyboardMode())
@@ -392,12 +394,13 @@ BOOL LLMenuItemGL::handleScrollWheel( S32 x, S32 y, S32 clicks )
 }
 void LLMenuItemGL::draw( void )
 {
+	const F32 alpha = getCurrentTransparency();
 	if( getEnabled() && getHighlight() && !mBriefItem)
 	{
 		int debug_count = 0;
 		if (dynamic_cast<LLMenuItemCallGL*>(this))
 			debug_count++;
-		gGL.color4fv( mHighlightBackground.mV );
+		gGL.color4fv( (mHighlightBackground % alpha).mV );
 		gl_rect_2d( 0, getRect().getHeight(), getRect().getWidth(), 0 );
 	}
 	LLColor4 color;
@@ -418,6 +421,7 @@ void LLMenuItemGL::draw( void )
 	{
 		color = mDisabledColor;
 	}
+	color.mV[VALPHA] *= alpha;
 	if (mBriefItem)
 	{
 		mFont->render( mLabel, 0, BRIEF_PAD_PIXELS / 2, 0, color,
@@ -487,7 +491,7 @@ LLXMLNodePtr LLMenuItemSeparatorGL::getXML(bool save_children) const
 }
 void LLMenuItemSeparatorGL::draw( void )
 {
-	gGL.color4fv( mDisabledColor.mV );
+	gGL.color4fv( (mDisabledColor % getCurrentTransparency()).mV );
 	const S32 y = getRect().getHeight() / 2;
 	const S32 PAD = 6;
 	gl_line_2d( PAD, y, getRect().getWidth() - PAD, y );
@@ -609,18 +613,19 @@ void LLMenuItemTearOffGL::onCommit()
 }
 void LLMenuItemTearOffGL::draw()
 {
+	const F32 alpha = getCurrentTransparency();
 	if( getEnabled() && getHighlight() && !isBriefItem())
 	{
-		gGL.color4fv( mHighlightBackground.mV );
+		gGL.color4fv( (mHighlightBackground % alpha).mV );
 		gl_rect_2d( 0, getRect().getHeight(), getRect().getWidth(), 0 );
 	}
 	if (getEnabled())
 	{
-		gGL.color4fv( mEnabledColor.mV );
+		gGL.color4fv( (mEnabledColor % alpha).mV );
 	}
 	else
 	{
-		gGL.color4fv( mDisabledColor.mV );
+		gGL.color4fv( (mDisabledColor % alpha).mV );
 	}
 	const S32 y = getRect().getHeight() / 3;
 	const S32 PAD = 6;
@@ -2879,16 +2884,17 @@ void LLMenuGL::draw( void )
 		arrange();
 		mNeedsArrange = FALSE;
 	}
+	const F32 alpha = getCurrentTransparency();
 	if (mDropShadowed && !mTornOff)
 	{
 		static LLUICachedControl<S32> drop_shadow_floater("DropShadowFloater", 0);
 		static const LLColor4 color_drop_shadow(LLUI::sColorsGroup->getColor4("ColorDropShadow"));
 		gl_drop_shadow(0, getRect().getHeight(), getRect().getWidth(), 0,
-			color_drop_shadow, drop_shadow_floater );
+			color_drop_shadow % alpha, drop_shadow_floater );
 	}
 	if( mBgVisible )
 	{
-		gl_rect_2d( 0, getRect().getHeight(), getRect().getWidth(), 0, mBackgroundColor );
+		gl_rect_2d( 0, getRect().getHeight(), getRect().getWidth(), 0, mBackgroundColor % alpha );
 	}
 	LLView::draw();
 }
@@ -3364,6 +3370,7 @@ void LLMenuHolderGL::draw()
 				LLMenuItemGL::sHighlightBackground.mV[VGREEN],
 				LLMenuItemGL::sHighlightBackground.mV[VBLUE],
 				lerp(LLMenuItemGL::sHighlightBackground.mV[VALPHA], 0.f, interpolant));
+			bg_color.mV[VALPHA] *= selecteditem->getCurrentTransparency();
 			selecteditem->getMenu()->drawBackground(selecteditem, bg_color);
 			selecteditem->draw();
 		}

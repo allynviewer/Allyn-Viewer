@@ -391,14 +391,19 @@ void LLScrollbar::draw()
 	{
 		mCurGlowStrength = lerp(mCurGlowStrength, 0.f, LLSmoothInterpolation::getInterpolant(0.05f));
 	}
+	const F32 alpha = getCurrentTransparency();
+	LLColor4 track_color = mTrackColor;
+	LLColor4 thumb_color = mThumbColor;
+	track_color.mV[VALPHA] *= alpha;
+	thumb_color.mV[VALPHA] *= alpha;
 	LLUIImage* rounded_rect_imagep = LLUI::getUIImage("Rounded_Square");
 	if (!rounded_rect_imagep)
 	{
 		gl_rect_2d(mOrientation == HORIZONTAL ? mThickness : 0,
 		mOrientation == VERTICAL ? getRect().getHeight() - 2 * mThickness : getRect().getHeight(),
 		mOrientation == HORIZONTAL ? getRect().getWidth() - 2 * mThickness : getRect().getWidth(),
-		mOrientation == VERTICAL ? mThickness : 0, mTrackColor, TRUE);
-		gl_rect_2d(mThumbRect, mThumbColor, TRUE);
+		mOrientation == VERTICAL ? mThickness : 0, track_color, TRUE);
+		gl_rect_2d(mThumbRect, thumb_color, TRUE);
 	}
 	else
 	{
@@ -406,7 +411,7 @@ void LLScrollbar::draw()
 			mOrientation == VERTICAL ? SCROLLBAR_SIZE : 0,
 			mOrientation == HORIZONTAL ? getRect().getWidth() - 2 * SCROLLBAR_SIZE : getRect().getWidth(),
 			mOrientation == VERTICAL ? getRect().getHeight() - 2 * SCROLLBAR_SIZE : getRect().getHeight(),
-			mTrackColor);
+			track_color);
 		LLRect thumb = mThumbRect;
 		if (mOrientation == VERTICAL)
 		{
@@ -424,13 +429,13 @@ void LLScrollbar::draw()
 		{
 			LLRect outline_rect = thumb;
 			outline_rect.stretch(2);
-			rounded_rect_imagep->draw(outline_rect, gFocusMgr.getFocusColor());
+			rounded_rect_imagep->draw(outline_rect, gFocusMgr.getFocusColor() % alpha);
 		}
-		rounded_rect_imagep->draw(thumb, mThumbColor);
+		rounded_rect_imagep->draw(thumb, thumb_color);
 		if (mCurGlowStrength > 0.01f)
 		{
 			gGL.setSceneBlendType(LLRender::BT_ADD_WITH_ALPHA);
-			rounded_rect_imagep->drawSolid(thumb, LLColor4(1.f, 1.f, 1.f, mCurGlowStrength));
+			rounded_rect_imagep->drawSolid(thumb, LLColor4(1.f, 1.f, 1.f, mCurGlowStrength * alpha));
 			gGL.setSceneBlendType(LLRender::BT_ALPHA);
 		}
 	}

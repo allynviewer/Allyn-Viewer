@@ -28,6 +28,8 @@
 			<check_box label="自分のグループタイトルを隠す" name="show_my_title_checkbox"/>
 			<text name="UI Size:">UI サイズ</text>
 			<check_box label="解像度に依存しない拡大率を使う" name="ui_auto_scale"/>
+			<text name="windows_textbox">ウィンドウ</text>
+			<slider label="非フォーカス時の不透明度" name="inactive_floater_opacity" tool_tip="選択されていないウィンドウの不透明度です。1 は完全に不透明です。値を下げると、ほかのウィンドウがより透明になります。使用中のウィンドウは通常の不透明度のままです。値は再起動後も保存されます。"/>
 			<check_box label="操作がないと離席にする" name="away_when_idle_checkbox"/>
 			<spinner label="待機:" name="afk_timeout_spinner"/>
 			<text name="seconds_textbox">秒</text>

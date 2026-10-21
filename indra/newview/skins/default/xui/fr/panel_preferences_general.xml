@@ -27,6 +27,9 @@
 			<text bottom="-180" height="12" left="10" name="UI Size:">TAILLE UI</text>
 			<slider bottom="-180" can_edit_text="true" height="16" increment="0.025" initial_val="1" left="98" max_val="2.4" min_val="0.5" name="ui_scale_slider" value="1" width="227" />
 			<check_box bottom="-195" height="16" initial_value="false" label="Échelle indépendante de la résolution" left="101" name="ui_auto_scale" />
+			<text bottom="-456" height="12" left="10" name="windows_textbox">FENÊTRES</text>
+			<icon bottom="-462" height="1" left="10" name="section_windows_rule" width="490"/>
+			<slider bottom="-490" label="Opacité des fenêtres non sélectionnées" label_width="210" left="10" name="inactive_floater_opacity" tool_tip="À quel point les fenêtres non sélectionnées restent opaques. 1 est entièrement opaque. Une valeur plus basse rend les autres fenêtres plus transparentes. La fenêtre utilisée garde son opacité normale. La valeur est conservée au redémarrage." width="470"/>
 			<check_box bottom="-219" height="16" left="10" label="Absent si inactif" name="away_when_idle_checkbox" />
 			<spinner bottom="-220" decimal_digits="0" height="16" increment="1" initial_val="300" label="Après :" label_width="91" left="136" max_val="600" min_val="0" name="afk_timeout_spinner" width="137" />
 			<check_box bottom="-257" height="16" initial_value="false" label="M'avertir lors d'échanges de devises" left="10" name="notify_money_change_checkbox" />

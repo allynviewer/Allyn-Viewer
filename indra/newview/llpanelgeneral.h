@@ -41,8 +41,11 @@ public:
 	BOOL postBuild();
 	void apply();
 	void cancel();
+	void captureInactiveFloaterTransparency();
 	static void onClickCheckbox(LLUICtrl* ctrl, void* data);
 	static void onClickClearSettings(void*);
 	static void callbackResetAllSettings(const LLSD& notification, const LLSD& response);
+private:
+	F32 mInactiveFloaterTransparency;
 };
 #endif

@@ -79,7 +79,7 @@ void LLIconCtrl::draw()
 {
 	if( mImagep.notNull() )
 	{
-		const F32 alpha = getDrawContext().mAlpha;
+		const F32 alpha = getCurrentTransparency();
 		mImagep->draw(getLocalRect(), mColor % alpha );
 	}
 	LLUICtrl::draw();

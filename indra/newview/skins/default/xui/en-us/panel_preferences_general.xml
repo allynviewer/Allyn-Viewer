@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel border="false" height="612" label="General" left="0" name="general_panel" width="648">
 	<scroll_container bottom="-612" follows="all" height="612" left="0" name="general_scroll" opaque="false" width="648">
-		<panel border="false" bottom="-728" follows="top|left" height="728" left="0" name="general_scroll_inner" width="628">
+		<panel border="false" bottom="-798" follows="top|left" height="798" left="0" name="general_scroll_inner" width="628">
 	<text bottom="-20" follows="top" font="SansSerifSmall" height="12" left="20" name="start_location_textbox" text_color="LabelSelectedColor">START LOCATION</text>
 	<icon bottom="-26" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_start_rule" width="608"/>
 	<radio_group bottom="-78" follows="top" height="44" left="20" name="default_start_location" width="400">
@@ -68,7 +68,10 @@
 	<text bottom="-626" follows="top" height="16" left="396" name="language_textbox2">(Requires restart)</text>
 	<string name="region_name_prompt">&lt;Type region name&gt;</string>
 	<check_box bottom="-658" follows="top" height="16" initial_value="false" label="Share language with objects" left="20" name="language_is_public" tool_tip="This lets in-world objects know your preferred language."/>
-	<button bottom="-700" follows="top" height="28" label="Reset All Settings" left="184" name="clear_settings" width="280" />
+	<text bottom="-694" follows="top" font="SansSerifSmall" height="12" left="20" name="windows_textbox" text_color="LabelSelectedColor">WINDOWS</text>
+	<icon bottom="-700" follows="top" height="1" image_name="pref_section_rule.tga" left="20" name="section_windows_rule" width="608"/>
+	<slider bottom="-728" can_edit_text="true" control_name="InactiveFloaterTransparency" decimal_digits="3" follows="top" height="16" increment="0.05" initial_val="0.65" label="Unfocused window opacity" label_width="220" left="20" max_val="1" min_val="0" name="inactive_floater_opacity" tool_tip="How solid windows stay while they are not selected. 1 is fully opaque. Lower values make the other windows more transparent. The window in use keeps its normal opacity. The value is saved and restored when the viewer starts." value="0.65" width="440"/>
+	<button bottom="-770" follows="top" height="28" label="Reset All Settings" left="184" name="clear_settings" width="280" />
 		</panel>
 	</scroll_container>
 </panel>

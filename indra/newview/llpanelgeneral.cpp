@@ -46,6 +46,7 @@
 #include "llnotify.h"
 #include "llviewerwindow.h"
 LLPanelGeneral::LLPanelGeneral()
+:	mInactiveFloaterTransparency(0.65f)
 {
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_general.xml");
 }
@@ -99,7 +100,12 @@ BOOL LLPanelGeneral::postBuild()
 	childSetEnabled("no_transaction_clutter_checkbox", gSavedSettings.getBOOL("NotifyMoneyChange"));
 	childSetCommitCallback("notify_money_change_checkbox", &onClickCheckbox, this);
 	childSetAction("clear_settings", &onClickClearSettings, this);
+	captureInactiveFloaterTransparency();
 	return TRUE;
+}
+void LLPanelGeneral::captureInactiveFloaterTransparency()
+{
+	mInactiveFloaterTransparency = gSavedSettings.getF32("InactiveFloaterTransparency");
 }
 LLPanelGeneral::~LLPanelGeneral()
 {
@@ -137,9 +143,12 @@ void LLPanelGeneral::apply()
 	{
 		gViewerWindow->reshape(gViewerWindow->getWindowWidthRaw(), gViewerWindow->getWindowHeightRaw());
 	}
+	gSavedSettings.setF32("InactiveFloaterTransparency", llclamp((F32)childGetValue("inactive_floater_opacity").asReal(), 0.f, 1.f));
+	mInactiveFloaterTransparency = gSavedSettings.getF32("InactiveFloaterTransparency");
 }
 void LLPanelGeneral::cancel()
 {
+	gSavedSettings.setF32("InactiveFloaterTransparency", mInactiveFloaterTransparency);
 }
 void LLPanelGeneral::onClickCheckbox(LLUICtrl* ctrl, void* data)
 {

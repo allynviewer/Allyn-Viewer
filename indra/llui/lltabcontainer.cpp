@@ -1496,7 +1496,7 @@ void LLTabContainer::drawVerticalSplitter()
 	const S32 top = getRect().getHeight() - LLPANEL_BORDER_WIDTH - 2;
 	const S32 bottom = LLPANEL_BORDER_WIDTH + 2;
 	const bool hot = mResizingTabs || mHoverSplitter;
-	const F32 alpha = hot ? 0.90f : 0.38f;
+	const F32 alpha = (hot ? 0.90f : 0.38f) * getCurrentTransparency();
 	const LLColor4 line(0.62f, 0.66f, 0.78f, alpha);
 	gl_line_2d(x, bottom, x, top, line);
 	const LLFontGL* font = LLFontGL::getFontSansSerifSmall();
@@ -1509,10 +1509,11 @@ void LLTabContainer::drawVerticalSplitter()
 	const S32 gh = font->getLineHeight();
 	const S32 gx = x - (gw / 2);
 	const S32 gy = ((top + bottom) / 2) - (gh / 2);
-	const LLColor4 chip(0.14f, 0.16f, 0.22f, hot ? 0.78f : 0.42f);
+	const F32 chip_alpha = (hot ? 0.78f : 0.42f) * getCurrentTransparency();
+	const LLColor4 chip(0.14f, 0.16f, 0.22f, chip_alpha);
 	gl_rect_2d(gx - 4, gy + gh + 2, gx + gw + 4, gy - 3, chip);
 	font->renderUTF8(glyph, 0, gx, gy,
-		LLColor4(0.80f, 0.84f, 0.94f, hot ? 1.f : 0.72f),
+		LLColor4(0.80f, 0.84f, 0.94f, (hot ? 1.f : 0.72f) * getCurrentTransparency()),
 		LLFontGL::LEFT, LLFontGL::BOTTOM);
 }
 void LLTabContainer::setPanelTitle(S32 index, const std::string& title)

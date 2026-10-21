@@ -28,6 +28,8 @@
 			<check_box label="Nascondi il mio titolo" name="show_my_title_checkbox" />
 			<text name="UI Size:">DIM. UI</text>
 			<check_box label="Scala indipendente dalla risoluzione" name="ui_auto_scale" />
+			<text name="windows_textbox">FINESTRE</text>
+			<slider label="Opacità delle finestre non selezionate" name="inactive_floater_opacity" tool_tip="Quanto restano solide le finestre non selezionate. 1 è completamente opaca. Valori più bassi rendono più trasparenti le altre finestre. La finestra in uso mantiene l'opacità normale. Il valore viene salvato al riavvio."/>
 			<check_box label="Assente se inattivo" name="away_when_idle_checkbox" />
 			<spinner label="Dopo:" name="afk_timeout_spinner" />
 			<text name="seconds_textbox">secondi</text>
