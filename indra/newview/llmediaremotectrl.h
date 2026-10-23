@@ -32,6 +32,8 @@
 #ifndef LL_LLMEDIAREMOTECTRL_H
 #define LL_LLMEDIAREMOTECTRL_H
 #include "llpanel.h"
+#include "llfloater.h"
+#include "llsingleton.h"
 class LLButton;
 class LLIconCtrl;
 class LLMediaRemoteCtrl : public LLPanel
@@ -58,5 +60,16 @@ protected:
 	CachedUICtrl<LLButton> mExpandBtn;
 	CachedUICtrl<LLIconCtrl> mMediaIcon;
 	CachedUICtrl<LLIconCtrl> mMusicIcon;
+};
+class LLFloaterOverlayVolume : public LLFloater, public LLSingleton<LLFloaterOverlayVolume>
+{
+public:
+	LLFloaterOverlayVolume();
+	BOOL postBuild();
+	void onOpen();
+	void onClose(bool app_quitting);
+	LLMediaRemoteCtrl* getRemote() const { return mRemote; }
+private:
+	LLMediaRemoteCtrl* mRemote;
 };
 #endif

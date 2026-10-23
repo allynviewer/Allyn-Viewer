@@ -83,6 +83,7 @@ private:
 	F32  mOpenTimeConstant;
 	F32  mCloseTimeConstant;
 	bool mNeedsLayout;
+	bool mAlignOverflowEnd;
 	S32  mResizeBarOverlap;
 };
 class LLLayoutPanel : public LLPanel

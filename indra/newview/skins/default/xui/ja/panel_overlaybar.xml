@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="overlay">
+	<button name="Mouselook" label="mouselock" label_selected="mouselock" tool_tip="マウスで視点を操作します。銃を持っている場合、クリックで発射します。" />
 	<layout_stack name="overlay_layout_panel">
 		<layout_panel name="main_panel">
 			<layout_stack name="chatbar_and_buttons">
@@ -8,7 +9,6 @@
 					<button name="New IM" label="新規 IM" tool_tip="未読のインスタントメッセージがあります。クリックしてIMを表示します。" />
 					<button name="Set Not Busy" label="取り込み中を解除" tool_tip="チャットとIMは非表示になっています。クリックすると取り込み中を解除します。" />
 					<button name="Flycam" label="Flycam" tool_tip="カメラはジョイスティック制御中です。クリックすると解除します。" />
-					<button name="Mouselook" label="マウスルック" tool_tip="マウスで視点を操作します。銃を持っている場合、クリックで発射します。" />
 					<button name="Stand Up" label="立つ" tool_tip="クリックして立ちます。" />
 					<button name="Cancel TP" label="TPをキャンセル" tool_tip="クリックすると現在のテレポートをキャンセルします。" />
 				</layout_panel>
@@ -19,15 +19,18 @@
 		</layout_panel>
 		<layout_panel name="ao_remote_container">
 			<panel name="ao_remote" />
+			<button name="overlay_ao_btn" label="AO OFF" label_selected="AO ON"/>
 		</layout_panel>
 		<layout_panel name="media_remote_container">
 			<panel name="media_remote" />
+			<button name="overlay_volume_btn" label="音量" label_selected="音量"/>
 		</layout_panel>
 		<layout_panel name="voice_remote_container">
 			<panel name="voice_remote" />
 		</layout_panel>
 		<layout_panel name="AdvSettings_container">
 			<panel name="Adv_Settings" />
+			<button name="overlay_env_btn" label="環境" label_selected="環境"/>
 		</layout_panel>
 	</layout_stack>
 	<string name="unread_count_string_plural">新しいIM</string>

@@ -58,14 +58,7 @@ LLMediaRemoteCtrl::LLMediaRemoteCtrl()
 void LLMediaRemoteCtrl::build()
 {
 	deleteAllChildren();
-	if (gSavedSettings.getBOOL("ShowVolumeSettingsPopup"))
-	{
-		LLUICtrlFactory::getInstance()->buildPanel(this, "panel_media_remote_expanded.xml", &getFactoryMap());
-	}
-	else
-	{
-		LLUICtrlFactory::getInstance()->buildPanel(this, "panel_media_remote.xml", &getFactoryMap());
-	}
+	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_media_remote_expanded.xml", &getFactoryMap());
 }
 BOOL LLMediaRemoteCtrl::postBuild()
 {
@@ -87,6 +80,11 @@ BOOL LLMediaRemoteCtrl::postBuild()
 	mMusicIcon.connect(this,"music_icon");
 	mExpandBtn.connect(this,"expand");
 	childSetAction("expand", onClickExpandBtn, this);
+	if (LLButton* expand = findChild<LLButton>("expand"))
+	{
+		expand->setVisible(FALSE);
+		expand->setEnabled(FALSE);
+	}
 	LLButton *pause = getChild<LLButton>("music_pause");
 	mCachedPauseTip = pause->getToolTip();
 	return TRUE;
@@ -115,7 +113,8 @@ void LLMediaRemoteCtrl::onClickExpandBtn(void* user_data)
 {
 	LLMediaRemoteCtrl* remotep = (LLMediaRemoteCtrl*)user_data;
 	remotep->build();
-	gOverlayBar->layoutButtons();
+	if (gOverlayBar)
+		gOverlayBar->layoutButtons();
 }
 void* LLMediaRemoteCtrl::createVolumePanel(void* data)
 {
@@ -169,7 +168,7 @@ void LLMediaRemoteCtrl::enableMediaButtons()
 		{
 			play_music_enabled = true;
 			music_icon_color = LLUI::sColorsGroup->getColor( "IconEnabledColor" );
-			if (gOverlayBar->musicPlaying())
+			if (gOverlayBar && gOverlayBar->musicPlaying())
 			{
 				music_show_pause = true;
 				stop_music_enabled = true;
@@ -240,4 +239,36 @@ void LLMediaRemoteCtrl::enableMediaButtons()
 	media_play_btn->setVisible(! media_show_pause);
 	mMediaIcon->setColor(media_icon_color);
 	setToolTip(media_url);
+}
+static LLMediaRemoteCtrl* sOverlayVolumeRemote = NULL;
+static void* createOverlayVolumeRemote(void*)
+{
+	sOverlayVolumeRemote = new LLMediaRemoteCtrl();
+	return sOverlayVolumeRemote;
+}
+LLFloaterOverlayVolume::LLFloaterOverlayVolume()
+:	mRemote(NULL)
+{
+	mFactoryMap["volume_remote"] = LLCallbackMap(createOverlayVolumeRemote, NULL);
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_overlay_volume.xml", &mFactoryMap, FALSE);
+	setRectControl("FloaterOverlayVolumeRect");
+}
+BOOL LLFloaterOverlayVolume::postBuild()
+{
+	mRemote = sOverlayVolumeRemote;
+	LLOverlayBar::fitFloaterToPanel(this, mRemote);
+	return LLFloater::postBuild();
+}
+void LLFloaterOverlayVolume::onOpen()
+{
+	LLView* anchor = NULL;
+	if (gOverlayBar)
+		anchor = gOverlayBar->getChildView("overlay_volume_btn", TRUE, FALSE);
+	LLOverlayBar::placeFloaterAbove(this, anchor);
+}
+void LLFloaterOverlayVolume::onClose(bool app_quitting)
+{
+	setVisible(FALSE);
+	if (!app_quitting && gSavedSettings.getBOOL("ShowVolumeSettingsPopup"))
+		gSavedSettings.setBOOL("ShowVolumeSettingsPopup", FALSE);
 }

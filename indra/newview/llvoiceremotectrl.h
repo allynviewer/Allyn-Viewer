@@ -42,6 +42,7 @@ public:
 	virtual ~LLVoiceRemoteCtrl();
 	BOOL postBuild();
 	void draw();
+	void layoutControls();
 	static void onBtnTalkHeld();
 	static void onBtnTalkReleased();
 	static void onBtnTalkClicked();
@@ -54,5 +55,6 @@ protected:
 	LLButton* mTalkLockBtn;
 	LLButton* mSpeakersBtn;
 	CachedUICtrl<LLIconCtrl> mVoiceVolIcon;
+	std::string mTalkBlip;
 };
 #endif

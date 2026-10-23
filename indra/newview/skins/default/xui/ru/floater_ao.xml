@@ -6,6 +6,7 @@
 	<button name="newcard" label="" tool_tip="Создать новый шаблон ноуткарда AO в инвентаре"/>
 	<check_box name="AOEnabled" label="Включить переопределение анимаций" tool_tip="Включает или выключает переопределение анимаций"/>
 	<check_box name="AOSwimEnabled" label="Переопределять плавание" tool_tip="Заменяет анимации полёта плаванием под водой"/>
+	<check_box name="AOSwimForced" label="Принудительное плавание" tool_tip="Принудительно включает анимацию плавания"/>
 	<check_box name="AOSitsEnabled" label="Переопределять сидение" tool_tip="Переопределяет анимации сидения и сидения на земле"/>
 	<text name="buttons_desc">Стойки:</text>
 	<combo_box name="stands" tool_tip="Текущая анимация стойки"/>
@@ -13,7 +14,7 @@
 	<button name="nextstand" label="" tool_tip="Следующая стойка"/>
 	<check_box name="AOStandRandomize" label="Случайный порядок стоек" tool_tip="Меняет стойки в случайном порядке, а не по очереди"/>
 	<check_box name="AONoStandsInMouselook" label="Без стоек в мауслуке" tool_tip="Останавливает анимации стоек в режиме мауслука"/>
-	<check_box name="ao_remote_checkbox" label="Показать панель AO" tool_tip="Показывает пульт AO на нижней панели"/>
+	<check_box name="ao_remote_checkbox" label="Показать кнопку AO" tool_tip="Показывает или скрывает кнопку AO на панели наложения"/>
 	<spinner name="standtime" label="Время стойки:" tool_tip="Длительность каждой стойки в секундах"/>
 	<button name="more_btn" label="Ещё &gt;&gt;" label_selected="&lt;&lt; Меньше" tool_tip="Показать или скрыть анимации по умолчанию"/>
 	<tab_container name="tabcontainer" label="По умолчанию">

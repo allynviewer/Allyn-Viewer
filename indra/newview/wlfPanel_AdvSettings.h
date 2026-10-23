@@ -31,6 +31,8 @@
 #ifndef LL_wlfPanel_AdvSettings_H
 #define LL_wlfPanel_AdvSettings_H
 #include "llpanel.h"
+#include "llfloater.h"
+#include "llsingleton.h"
 #include <boost/ptr_container/ptr_list.hpp>
 #include "rlvdefines.h"
 class LLComboBox;
@@ -50,6 +52,11 @@ public:
 	void onChangeWWPresetName(const LLSD& value);
 	void onChangeWLPresetName(const LLSD& value);
 	const bool& isExpanded() const { return mExpanded; }
+	void buildIfEmpty()
+	{
+		if (getChildCount() == 0)
+			build();
+	}
 protected:
 	void build();
 	void onUseRegionSettings(const LLSD& value);
@@ -69,5 +76,13 @@ protected:
 	bool mExpanded;
 	boost::ptr_list<boost::signals2::scoped_connection> mConnections;
 	boost::signals2::connection mRegionChangedSlot;
+};
+class LLFloaterOverlayEnv : public LLFloater, public LLSingleton<LLFloaterOverlayEnv>
+{
+public:
+	LLFloaterOverlayEnv();
+	BOOL postBuild();
+	void onOpen();
+	void onClose(bool app_quitting);
 };
 #endif

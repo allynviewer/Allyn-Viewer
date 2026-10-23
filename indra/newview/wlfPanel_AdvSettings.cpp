@@ -30,6 +30,7 @@
  */
 #include "llviewerprecompiledheaders.h"
 #include "wlfPanel_AdvSettings.h"
+#include "lloverlaybar.h"
 #include "llbutton.h"
 #include "llcheckboxctrl.h"
 #include "llcombobox.h"
@@ -70,9 +71,9 @@ void wlfPanel_AdvSettings::build()
 {
 	mConnections.clear();
 	deleteAllChildren();
-	mExpanded = gSavedSettings.getBOOL("wlfAdvSettingsPopup");
+	mExpanded = true;
 	if (mRegionChangedSlot.connected()) mRegionChangedSlot.disconnect();
-	LLUICtrlFactory::instance().buildPanel(this, mExpanded ? "wlfPanel_AdvSettings_expanded.xml" : "wlfPanel_AdvSettings.xml", &getFactoryMap());
+	LLUICtrlFactory::instance().buildPanel(this, "wlfPanel_AdvSettings_expanded.xml", &getFactoryMap());
 }
 void wlfPanel_AdvSettings::updateRlvVisibility()
 {
@@ -113,7 +114,11 @@ BOOL wlfPanel_AdvSettings::postBuild()
 {
 	setVisible(true);
 	if (LLUICtrl* ctrl = findChild<LLUICtrl>("expand"))
+	{
 		ctrl->setCommitCallback(boost::bind(&wlfPanel_AdvSettings::onClickExpandBtn, this));
+		ctrl->setVisible(FALSE);
+		ctrl->setEnabled(FALSE);
+	}
 	if (mExpanded)
 	{
 		getChild<LLCheckBoxCtrl>("use_estate_wl")->setCommitCallback(boost::bind(&wlfPanel_AdvSettings::onUseRegionSettings, this, _2));
@@ -356,4 +361,35 @@ void wlfPanel_AdvSettings::updateEditHoverEnabled()
 			syncFromPreferenceSetting(mHoverHeight);
 		}
 	}
+}
+static void* createEnvPanel(void*)
+{
+	wlfPanel_AdvSettings* panel = wlfPanel_AdvSettings::getInstance();
+	if (panel)
+		panel->buildIfEmpty();
+	return panel;
+}
+LLFloaterOverlayEnv::LLFloaterOverlayEnv()
+{
+	mFactoryMap["env_settings"] = LLCallbackMap(createEnvPanel, NULL);
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_overlay_env.xml", &mFactoryMap, FALSE);
+	setRectControl("FloaterOverlayEnvRect");
+}
+BOOL LLFloaterOverlayEnv::postBuild()
+{
+	LLOverlayBar::fitFloaterToPanel(this, wlfPanel_AdvSettings::getIfExists());
+	return LLFloater::postBuild();
+}
+void LLFloaterOverlayEnv::onOpen()
+{
+	LLView* anchor = NULL;
+	if (gOverlayBar)
+		anchor = gOverlayBar->getChildView("overlay_env_btn", TRUE, FALSE);
+	LLOverlayBar::placeFloaterAbove(this, anchor);
+}
+void LLFloaterOverlayEnv::onClose(bool app_quitting)
+{
+	setVisible(FALSE);
+	if (!app_quitting && gSavedSettings.getBOOL("wlfAdvSettingsPopup"))
+		gSavedSettings.setBOOL("wlfAdvSettingsPopup", FALSE);
 }

@@ -6,6 +6,7 @@
 	<button name="newcard" label="" tool_tip="Envanterde yeni bir AO not kartı şablonu oluştur"/>
 	<check_box name="AOEnabled" label="Animasyon geçersiz kılmayı etkinleştir" tool_tip="Animasyon geçersiz kılıcıyı açar veya kapatır"/>
 	<check_box name="AOSwimEnabled" label="Yüzme geçersiz kılmayı etkinleştir" tool_tip="Su altındayken uçuş animasyonlarını yüzme ile değiştirir"/>
+	<check_box name="AOSwimForced" label="Yüzmeyi zorla" tool_tip="Yüzme animasyonunu zorlar ve yüzme geçersiz kılmasını açar"/>
 	<check_box name="AOSitsEnabled" label="Oturuş geçersiz kılmayı etkinleştir" tool_tip="Oturma ve yere oturma animasyonlarını geçersiz kılar"/>
 	<text name="buttons_desc">Standlar:</text>
 	<combo_box name="stands" tool_tip="Geçerli stand animasyonu"/>
@@ -13,7 +14,7 @@
 	<button name="nextstand" label="" tool_tip="Sonraki stand"/>
 	<check_box name="AOStandRandomize" label="Stand sırasını rastgele seç" tool_tip="Standları sırayla değil rastgele değiştirir"/>
 	<check_box name="AONoStandsInMouselook" label="Mouselook'ta standları kapat" tool_tip="Mouselook sırasında stand animasyonlarını durdurur"/>
-	<check_box name="ao_remote_checkbox" label="AO toolbar'ını göster" tool_tip="Alt araç çubuğunda AO kumandasını gösterir"/>
+	<check_box name="ao_remote_checkbox" label="AO düğmesini göster" tool_tip="Kaplama çubuğunda AO düğmesini gösterir veya gizler"/>
 	<spinner name="standtime" label="Stand süresi:" tool_tip="Her standın saniye cinsinden süresi"/>
 	<button name="more_btn" label="Daha Fazla &gt;&gt;" label_selected="&lt;&lt; Daha Az" tool_tip="Varsayılan animasyon atamalarını göster veya gizle"/>
 	<tab_container name="tabcontainer" label="Varsayılan">

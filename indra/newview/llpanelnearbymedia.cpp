@@ -1064,11 +1064,21 @@ void LLFloaterNearbyMedia::onOpen()
 		setRectControl("FloaterNearbyMediaRect");
 		applyRectControl();
 	}
-	else
+	else if (gOverlayBar)
 	{
-		const LLRect media_rect = gOverlayBar->mMediaRemote->calcScreenRect();
-		setOrigin(media_rect.mLeft - getRect().getWidth(), media_rect.mBottom + gOverlayBar->mChatBar->getRect().getHeight());
+		LLView* anchor = NULL;
+		if (gOverlayBar->mMediaRemote && gOverlayBar->mMediaRemote->isInVisibleChain())
+			anchor = gOverlayBar->mMediaRemote;
+		else
+			anchor = gOverlayBar->getChildView("overlay_volume_btn", TRUE, FALSE);
+		if (anchor)
+		{
+			const LLRect anchor_rect = anchor->calcScreenRect();
+			setOrigin(anchor_rect.mLeft - getRect().getWidth(), anchor_rect.mBottom + gOverlayBar->mChatBar->getRect().getHeight());
+		}
 	}
+	if (gFloaterView)
+		gFloaterView->adjustToFitScreen(this, FALSE);
 	gSavedSettings.setBOOL("ShowNearbyMediaFloater", true);
 }
 void LLFloaterNearbyMedia::handleReshape(const LLRect& new_rect, bool by_user)

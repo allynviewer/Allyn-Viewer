@@ -41,7 +41,7 @@
 #include "lliconctrl.h"
 #include "lloverlaybar.h"
 #include "lltextbox.h"
-LLVoiceRemoteCtrl::LLVoiceRemoteCtrl (const std::string& name) : LLPanel(name)
+LLVoiceRemoteCtrl::LLVoiceRemoteCtrl (const std::string& name) : LLPanel(name), mTalkBlip()
 {
 	setIsChrome(TRUE);
 	LLUICtrlFactory::getInstance()->buildPanel(this, gSavedSettings.getBOOL("ShowVoiceChannelPopup") ? "panel_voice_remote_expanded.xml" : "panel_voice_remote.xml");
@@ -70,7 +70,83 @@ BOOL LLVoiceRemoteCtrl::postBuild()
 	if (LLButton* voice_channel_bg = findChild<LLButton>("voice_channel_bg"))
 		voice_channel_bg->setClickedCallback(boost::bind(&LLVoiceRemoteCtrl::onClickVoiceChannel));
 	mVoiceVolIcon.connect(this,"voice_volume");
+	layoutControls();
 	return TRUE;
+}
+void LLVoiceRemoteCtrl::layoutControls()
+{
+	const S32 gap = 2;
+	const S32 button_h = 29;
+	const S32 speakers_w = 52;
+	const S32 side_w = 36;
+	S32 text_w = 40;
+	if (mTalkBtn->getFont())
+		text_w = mTalkBtn->getFont()->getWidth(mTalkBtn->getCurrentLabel().getWString());
+	S32 talk_w = mTalkBtn->getLeftHPad() + 16 + 1 + text_w + mTalkBtn->getRightHPad();
+	if (talk_w < 72)
+		talk_w = 72;
+	S32 x = 0;
+	mSpeakersBtn->setOrigin(x, 0);
+	mSpeakersBtn->reshape(speakers_w, button_h);
+	x += speakers_w + gap;
+	mTalkBtn->setOrigin(x, 0);
+	mTalkBtn->reshape(talk_w, button_h);
+	x += talk_w + gap;
+	mTalkLockBtn->setOrigin(x, 0);
+	mTalkLockBtn->reshape(side_w, button_h);
+	x += side_w + gap;
+	if (LLIconCtrl* volume = mVoiceVolIcon)
+		volume->setVisible(FALSE);
+	if (LLButton* show_channel = findChild<LLButton>("show_channel"))
+	{
+		show_channel->setOrigin(x, 0);
+		show_channel->reshape(side_w, button_h);
+		x += side_w;
+	}
+	const S32 width = llmax(x, 1);
+	const bool expanded = findChild<LLButton>("voice_channel_bg") != NULL;
+	const S32 height = expanded ? (button_h + gap + button_h) : button_h;
+	reshape(width, height);
+	if (LLPanel* controls = findChild<LLPanel>("voice_controls"))
+	{
+		controls->setOrigin(0, 0);
+		controls->reshape(width, button_h);
+	}
+	if (expanded)
+	{
+		const S32 row_y = button_h + gap;
+		if (LLButton* end_call = findChild<LLButton>("end_call_btn"))
+		{
+			end_call->setOrigin(0, row_y);
+			end_call->reshape(side_w, button_h);
+		}
+		const S32 channel_x = side_w + gap;
+		const S32 channel_w = llmax(80, width - channel_x);
+		if (LLButton* channel = findChild<LLButton>("voice_channel_bg"))
+		{
+			channel->setOrigin(channel_x, row_y);
+			channel->reshape(channel_w, button_h);
+		}
+		if (LLIconCtrl* channel_icon = findChild<LLIconCtrl>("voice_channel_icon"))
+		{
+			channel_icon->setOrigin(channel_x + 8, row_y + ((button_h - 16) / 2));
+			channel_icon->reshape(16, 16);
+		}
+		if (LLTextBox* channel_label = findChild<LLTextBox>("channel_label"))
+		{
+			channel_label->setOrigin(channel_x + 28, row_y + ((button_h - 16) / 2));
+			channel_label->reshape(llmax(20, channel_w - 36), 16);
+		}
+	}
+	if (LLLayoutPanel* panel = dynamic_cast<LLLayoutPanel*>(getParent()))
+	{
+		panel->setMinDim(width);
+		panel->setExpandedMinDim(width);
+		S32 panel_h = panel->getRect().getHeight();
+		if (panel_h < 1)
+			panel_h = height;
+		panel->reshape(width, panel_h);
+	}
 }
 void LLVoiceRemoteCtrl::draw()
 {
@@ -117,10 +193,12 @@ void LLVoiceRemoteCtrl::draw()
 	{
 		talk_blip_image = "icn_voice_ptt-off.tga";
 	}
-	LLIconCtrl* icon = mVoiceVolIcon;
-	if (icon)
+	if (LLIconCtrl* icon = mVoiceVolIcon)
+		icon->setVisible(FALSE);
+	if (talk_blip_image != mTalkBlip)
 	{
-		icon->setValue(talk_blip_image);
+		mTalkBlip = talk_blip_image;
+		mTalkBtn->setImageOverlay(talk_blip_image, LLFontGL::LEFT);
 	}
 	LLFloater* voice_floater = LLFloaterChatterBox::getInstance()->getCurrentVoiceFloater();
 	LLVoiceChannel* current_channel = LLVoiceChannel::getCurrentVoiceChannel();

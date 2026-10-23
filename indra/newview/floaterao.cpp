@@ -122,7 +122,7 @@ void LLFloaterAO::updateLayout(bool advanced)
 {
 	const S32 compact_width = 300;
 	const S32 advanced_width = 880;
-	const S32 floater_height = 365;
+	const S32 floater_height = 385;
 	reshape(advanced ? advanced_width : compact_width, floater_height);
 	childSetVisible("tabcontainer", advanced);
 }

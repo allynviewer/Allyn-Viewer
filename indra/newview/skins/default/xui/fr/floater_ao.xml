@@ -6,6 +6,7 @@
 	<button name="newcard" label="" tool_tip="Créer un nouveau modèle de notecard AO dans l'inventaire"/>
 	<check_box name="AOEnabled" label="Activer le remplacement d'animations" tool_tip="Active ou désactive le remplacement d'animations"/>
 	<check_box name="AOSwimEnabled" label="Activer le remplacement de nage" tool_tip="Remplace les animations de vol par la nage sous l'eau"/>
+	<check_box name="AOSwimForced" label="Forcer la nage" tool_tip="Force l'animation de nage et active le remplacement de nage"/>
 	<check_box name="AOSitsEnabled" label="Activer le remplacement des sits" tool_tip="Remplace les animations d'assise et d'assise au sol"/>
 	<text name="buttons_desc">Stands :</text>
 	<combo_box name="stands" tool_tip="Animation de stand actuelle"/>
@@ -13,7 +14,7 @@
 	<button name="nextstand" label="" tool_tip="Stand suivant"/>
 	<check_box name="AOStandRandomize" label="Ordre des stands aléatoire" tool_tip="Enchaîne les stands dans un ordre aléatoire"/>
 	<check_box name="AONoStandsInMouselook" label="Pas de stands en mouselook" tool_tip="Arrête les animations de stand en mouselook"/>
-	<check_box name="ao_remote_checkbox" label="Afficher l'AO dans la toolbar" tool_tip="Affiche la télécommande AO dans la barre inférieure"/>
+	<check_box name="ao_remote_checkbox" label="Afficher le bouton AO" tool_tip="Affiche ou masque le bouton AO sur la barre de superposition"/>
 	<spinner name="standtime" label="Durée du stand :" tool_tip="Durée de chaque stand, en secondes"/>
 	<button name="more_btn" label="Plus &gt;&gt;" label_selected="&lt;&lt; Moins" tool_tip="Afficher ou masquer les animations par défaut"/>
 	<tab_container name="tabcontainer" label="Défaut">

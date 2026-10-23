@@ -6,6 +6,7 @@
 	<button name="newcard" label="" tool_tip="Neue AO-Notecard-Vorlage im Inventar erstellen"/>
 	<check_box name="AOEnabled" label="Animations-Override aktivieren" tool_tip="Animation Overrider ein- oder ausschalten"/>
 	<check_box name="AOSwimEnabled" label="Schwimm-Override aktivieren" tool_tip="Fluganimationen unter Wasser durch Schwimmunimationen ersetzen"/>
+	<check_box name="AOSwimForced" label="Schwimmen erzwingen" tool_tip="Erzwingt die Schwimm-Animation und aktiviert die Schwimm-Überschreibung"/>
 	<check_box name="AOSitsEnabled" label="Sitz-Override aktivieren" tool_tip="Sitz- und Bodensitzanimationen überschreiben"/>
 	<text name="buttons_desc">Stände:</text>
 	<combo_box name="stands" tool_tip="Aktuelle Stand-Animation"/>
@@ -13,7 +14,7 @@
 	<button name="nextstand" label="" tool_tip="Nächster Stand"/>
 	<check_box name="AOStandRandomize" label="Stand-Reihenfolge zufällig" tool_tip="Stände zufällig statt nacheinander wechseln"/>
 	<check_box name="AONoStandsInMouselook" label="Keine Stände im Mouselook" tool_tip="Stand-Animationen im Mouselook anhalten"/>
-	<check_box name="ao_remote_checkbox" label="AO-Toolbar anzeigen" tool_tip="AO-Fernbedienung in der unteren Toolbar anzeigen"/>
+	<check_box name="ao_remote_checkbox" label="AO-Schaltfläche anzeigen" tool_tip="Blendet die AO-Schaltfläche in der Overlay-Leiste ein oder aus"/>
 	<spinner name="standtime" label="Standzeit:" tool_tip="Dauer jedes Stands in Sekunden"/>
 	<button name="more_btn" label="Mehr &gt;&gt;" label_selected="&lt;&lt; Weniger" tool_tip="Standard-Animationen ein- oder ausblenden"/>
 	<tab_container name="tabcontainer" label="Standard">

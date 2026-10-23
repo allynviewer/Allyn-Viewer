@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="overlay">
+	<button name="Mouselook" label="mouselock" label_selected="mouselock" tool_tip="Вид от первого лица. С оружием щелчок стреляет." />
 	<layout_stack name="overlay_layout_panel">
 		<layout_panel name="main_panel">
 			<layout_stack name="chatbar_and_buttons">
@@ -8,7 +9,6 @@
 					<button name="New IM" label="Новый IM" tool_tip="Есть непрочитанный IM. Нажмите, чтобы открыть." />
 					<button name="Set Not Busy" label="Не занят" tool_tip="Режим «занят»: чат и IM скрыты. Нажмите, чтобы выйти." />
 					<button name="Flycam" label="Флайкам" tool_tip="Камерой управляет джойстик. Нажмите, чтобы отпустить." />
-					<button name="Mouselook" label="Мауслук" tool_tip="Вид от первого лица. С оружием щелчок стреляет." />
 					<button name="Stand Up" label="Встать" tool_tip="Встать" />
 					<button name="Cancel TP" label="Отменить ТП" tool_tip="Нажмите здесь, чтобы отменить текущий процесс телепортации." />
 				</layout_panel>
@@ -19,15 +19,18 @@
 		</layout_panel>
 		<layout_panel name="ao_remote_container">
 			<panel name="ao_remote" />
+			<button name="overlay_ao_btn" label="AO OFF" label_selected="AO ON"/>
 		</layout_panel>
 		<layout_panel name="media_remote_container">
 			<panel name="media_remote" />
+			<button name="overlay_volume_btn" label="Громкость" label_selected="Громкость"/>
 		</layout_panel>
 		<layout_panel name="voice_remote_container">
 			<panel name="voice_remote" />
 		</layout_panel>
 		<layout_panel name="AdvSettings_container">
 			<panel name="Adv_Settings" />
+			<button name="overlay_env_btn" label="Климат" label_selected="Климат"/>
 		</layout_panel>
 	</layout_stack>
 	<string name="unread_count_string_plural">Новые мгновенные сообщения</string>

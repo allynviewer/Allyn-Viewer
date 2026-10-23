@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel follows="left|right|bottom|top" height="300" left="-1" mouse_opaque="false"
      user_resize="false" name="overlay" use_bounding_rect="true" width="728">
-	<layout_stack bottom="0" follows="left|right|bottom" height="300" left="0"
+	<layout_stack align_overflow_end="true" bottom="0" follows="left|right|bottom" height="300" left="0"
 	     mouse_opaque="false" name="overlay_layout_panel" orientation="horizontal"
 	     right="-1" use_bounding_rect="true">
-		<layout_panel auto_resize="true" bottom="0" left="0" min_width="420" mouse_opaque="false"
+		<layout_panel auto_resize="true" bottom="0" left="0" min_width="0" mouse_opaque="false"
 		     use_bounding_rect="true" user_resize="false" width="420" name="main_panel">
 			<layout_stack bottom="0" follows="left|right|bottom|top" height="50" left="0"
 			     mouse_opaque="false" name="chatbar_and_buttons" orientation="vertical"
@@ -31,11 +31,6 @@
 					     tool_tip="Your camera is under joystick control, click here to release it."
 					     width="102" />
 					<button bottom="1" follows="left|bottom" font="SansSerif" halign="center" height="20"
-					     label="Mouselook" label_selected="Mouselook" left="343" name="Mouselook"
-					     scale_image="true"
-					     tool_tip="Use mouse to steer your view. If you have a gun, clicking will shoot."
-					     width="102" />
-					<button bottom="1" follows="left|bottom" font="SansSerif" halign="center" height="20"
 					     label="Stand Up" label_selected="Stand Up" left="457" name="Stand Up"
 					     scale_image="true" tool_tip="Click here to stand up." width="102" />
           <button bottom="1" follows="left|bottom" font="SansSerif" halign="center" height="20"
@@ -51,26 +46,71 @@
         </layout_panel>
 			</layout_stack>
 		</layout_panel>
-		<layout_panel auto_resize="false" bottom="0" left="0" min_width="96" mouse_opaque="false"
-			name="ao_remote_container" use_bounding_rect="true" user_resize="false"
-			width="96">
-			<panel background_visible="false" border="false" bottom="0" name="ao_remote" />
+		<layout_panel auto_resize="false" bottom="0" left="0" min_width="31" mouse_opaque="false"
+			name="ao_light_container" use_bounding_rect="false" user_resize="false"
+			width="31">
+			<button bottom="0" follows="left|bottom" font="SansSerif" font-style="BOLD" sound_flags="0"
+				height="29" width="29" left="0" label="" name="overlay_ao_check"
+				control_name="AOEnabled" toggle="true" scale_image="true"
+				image_selected="ao_status_on.png"
+				image_unselected="ao_status_off.png"
+				image_disabled="ao_status_off.png"
+				tool_tip="Red is AO off. Green is AO on. Click to switch." />
+		</layout_panel>
+		<layout_panel auto_resize="false" bottom="0" left="0" min_width="94" mouse_opaque="false"
+			name="ao_remote_container" use_bounding_rect="false" user_resize="false"
+			width="94">
+			<button bottom="0" follows="left|bottom" font="SansSerif" font-style="BOLD" halign="left" sound_flags="0"
+				height="29" width="92" left="0" label="AO OFF" label_selected="AO ON" name="overlay_ao_btn"
+				control_name="AOEnabled" scale_image="true"
+				image_selected="toolbar_btn_selected.tga"
+				image_unselected="toolbar_btn_enabled.tga"
+				image_disabled="toolbar_btn_disabled.tga"
+				image_overlay="inv_item_animation.tga"
+				image_overlay_alignment="left"
+				tool_tip="Shows AO ON or AO OFF. Click to open AO settings." />
 		</layout_panel>
 		<layout_panel auto_resize="false" bottom="0" left="0" min_width="220" mouse_opaque="false"
-		     name="media_remote_container" use_bounding_rect="true" user_resize="false"
-		     width="220">
-			<panel background_visible="false" border="false" bottom="0" name="media_remote" />
-		</layout_panel>
-		<layout_panel auto_resize="false" bottom="0" left="0" min_width="130" mouse_opaque="false"
 		     name="voice_remote_container" use_bounding_rect="true" user_resize="false"
-		     width="128">
+		     width="220">
 			<panel background_visible="false" border="false" bottom="0" name="voice_remote" />
 		</layout_panel>
-		<layout_panel auto_resize="false" bottom="0" mouse_opaque="false"
-		     name="AdvSettings_container" use_bounding_rect="true" user_resize="false" min_width="30" width="30" >
-			<panel background_visible="false" border="false" bottom="0" name="Adv_Settings" />
+		<layout_panel auto_resize="false" bottom="0" left="0" min_width="114" mouse_opaque="false"
+			name="media_remote_container" use_bounding_rect="false" user_resize="false"
+			width="114">
+			<button bottom="0" follows="left|bottom" font="SansSerif" font-style="BOLD" halign="left" sound_flags="0"
+				height="29" width="112" left="0" label="Volume" label_selected="Volume" name="overlay_volume_btn"
+				control_name="ShowVolumeSettingsPopup" toggle="true" scale_image="true"
+				image_selected="toolbar_btn_selected.tga"
+				image_unselected="toolbar_btn_enabled.tga"
+				image_disabled="toolbar_btn_disabled.tga"
+				image_overlay="icn_speaker_dark.tga"
+				image_overlay_alignment="left"
+				tool_tip="Volume, music and media. Click to open controls." />
+		</layout_panel>
+		<layout_panel auto_resize="false" bottom="0" left="0" min_width="114" mouse_opaque="false"
+			name="AdvSettings_container" use_bounding_rect="false" user_resize="false"
+			width="114">
+			<button bottom="0" follows="left|bottom" font="SansSerif" font-style="BOLD" halign="left" sound_flags="0"
+				height="29" width="112" left="0" label="Environment" label_selected="Environment" name="overlay_env_btn"
+				control_name="wlfAdvSettingsPopup" toggle="true" scale_image="true"
+				image_selected="toolbar_btn_selected.tga"
+				image_unselected="toolbar_btn_enabled.tga"
+				image_disabled="toolbar_btn_disabled.tga"
+				image_overlay="Inv_WindLight.png"
+				image_overlay_alignment="left"
+				tool_tip="Environment: sky, water, time and presets. Click to open controls." />
 		</layout_panel>
 	</layout_stack>
+	<button bottom="31" follows="left|bottom" font="SansSerif" font-style="BOLD" halign="left" sound_flags="0"
+		height="29" width="112" left="0" label="mouselock" label_selected="mouselock" name="Mouselook"
+		scale_image="true"
+		image_selected="toolbar_btn_selected.tga"
+		image_unselected="toolbar_btn_enabled.tga"
+		image_disabled="toolbar_btn_disabled.tga"
+		image_overlay="inv_item_eyes.tga"
+		image_overlay_alignment="left"
+		tool_tip="Use mouse to steer your view. If you have a gun, clicking will shoot. Click again to leave mouselook." />
   <string name="unread_count_string_plural">
     New IMs
   </string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="overlay">
+	<button name="Mouselook" label="mouselock" label_selected="mouselock" tool_tip="Görünümünüzü yönlendirmek için fareyi kullanın. Silahınız varsa tıklamanız ateş edecektir." />
 	<layout_stack name="overlay_layout_panel">
 		<layout_panel name="main_panel">
 			<layout_stack name="chatbar_and_buttons">
@@ -8,7 +9,6 @@
 					<button name="New IM" label="Yeni anlık mesajlaşma" tool_tip="Bekleyen bir anlık mesajınız var. Anlık iletileri göstermek için tıklayın." />
 					<button name="Set Not Busy" label="Meşgul Değil'i Ayarla" tool_tip="Sohbet ve IM sizin için gizlendi. Kendinizi meşgul olmamak için burayı tıklayın." />
 					<button name="Flycam" label="Flycam" tool_tip="Kameranız joystick kontrolü altındadır, serbest bırakmak için burayı tıklayın." />
-					<button name="Mouselook" label="Fare bakışı" tool_tip="Görünümünüzü yönlendirmek için fareyi kullanın. Silahınız varsa tıklamanız ateş edecektir." />
 					<button name="Stand Up" label="Ayağa kalk" tool_tip="Ayağa kalkmak için buraya tıklayın." />
 					<button name="Cancel TP" label="TP'yi iptal et" tool_tip="Mevcut teleport işlemini iptal etmek için buraya tıklayın." />
 				</layout_panel>
@@ -19,15 +19,18 @@
 		</layout_panel>
 		<layout_panel name="ao_remote_container">
 			<panel name="ao_remote" />
+			<button name="overlay_ao_btn" label="AO OFF" label_selected="AO ON"/>
 		</layout_panel>
 		<layout_panel name="media_remote_container">
 			<panel name="media_remote" />
+			<button name="overlay_volume_btn" label="Ses" label_selected="Ses"/>
 		</layout_panel>
 		<layout_panel name="voice_remote_container">
 			<panel name="voice_remote" />
 		</layout_panel>
 		<layout_panel name="AdvSettings_container">
 			<panel name="Adv_Settings" />
+			<button name="overlay_env_btn" label="İklim" label_selected="İklim"/>
 		</layout_panel>
 	</layout_stack>
 	<string name="unread_count_string_plural">Yeni anlık iletiler</string>

@@ -189,6 +189,7 @@ LLLayoutStack::LLLayoutStack(ELayoutOrientation orientation, S32 border_size, bo
 	mAnimate(animate),
 	mAnimatedThisFrame(false),
 	mNeedsLayout(true),
+	mAlignOverflowEnd(false),
 	mClip(clip),
 	mOpenTimeConstant(open_time_constant),
 	mCloseTimeConstant(close_time_constant),
@@ -423,6 +424,25 @@ void LLLayoutStack::updateLayout()
 			cur_pos -= panel_visible_dim + panel_spacing;
 		}
 		panelp->mResizeBar->setShape(resize_bar_rect);
+	}
+	if (mAlignOverflowEnd && mOrientation == HORIZONTAL)
+	{
+		S32 right_edge = 0;
+		for (LLLayoutPanel* panelp : mPanels)
+		{
+			if (panelp->getVisible())
+				right_edge = llmax(right_edge, panelp->getRect().mRight);
+		}
+		const S32 overflow = right_edge - getRect().getWidth();
+		if (overflow > 0)
+		{
+			for (LLLayoutPanel* panelp : mPanels)
+			{
+				panelp->translate(-overflow, 0);
+				if (panelp->mResizeBar)
+					panelp->mResizeBar->translate(-overflow, 0);
+			}
+		}
 	}
 	updateResizeBarLimits();
 	mNeedsLayout = continue_animating;
@@ -855,6 +875,8 @@ LLView* LLLayoutStack::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactor
 	F32 close_time_constant = 0.02f;
 	node->getAttributeBOOL("animate", animate);
 	node->getAttributeBOOL("clip", clip);
+	BOOL align_overflow_end = FALSE;
+	node->getAttributeBOOL("align_overflow_end", align_overflow_end);
 	node->getAttributeS32("border_size", border_size);
 	node->getAttributeF32("over_time_constant", open_time_constant);
 	node->getAttributeF32("close_time_constant", close_time_constant);
@@ -863,6 +885,7 @@ LLView* LLLayoutStack::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactor
 	std::string name("stack");
 	node->getAttributeString("name", name);
 	layout_stackp->setName(name);
+	layout_stackp->mAlignOverflowEnd = align_overflow_end;
 	layout_stackp->initFromXML(node, parent);
 	LLXMLNodePtr child;
 	for (child = node->getFirstChild(); child.notNull(); child = child->getNextSibling())

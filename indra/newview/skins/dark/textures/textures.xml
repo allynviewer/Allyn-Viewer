@@ -310,8 +310,8 @@
   <texture name="tool_zoom.png" file_name="tool_zoom.png"/>
   <texture name="tool_zoom_active.tga" file_name="tool_zoom_active.png"/>
   <texture name="tool_zoom_active.png" file_name="tool_zoom_active.png"/>
-  <texture name="toolbar_bg.tga" file_name="toolbar_bg.png"/>
-  <texture name="toolbar_bg.png" file_name="toolbar_bg.png"/>
+  <texture name="toolbar_bg.tga" file_name="toolbar_bg.png" scale.left="0" scale.bottom="0" scale.right="128" scale.top="32"/>
+  <texture name="toolbar_bg.png" file_name="toolbar_bg.png" scale.left="0" scale.bottom="0" scale.right="128" scale.top="32"/>
   <texture name="toolbar_btn_disabled.png" file_name="toolbar_btn_disabled.png"/>
   <texture name="toolbar_btn_enabled.png" file_name="toolbar_btn_enabled.png"/>
   <texture name="toolbar_btn_selected.png" file_name="toolbar_btn_selected.png"/>

@@ -232,6 +232,8 @@
   <texture name="checkbox_disabled_true.tga"	preload="true"/>
   <texture name="checkbox_enabled_false.tga"	preload="true"/>
   <texture name="checkbox_enabled_true.tga"	preload="true"/>
+  <texture name="ao_status_off.png" file_name="ao_status_off.png" preload="true"/>
+  <texture name="ao_status_on.png" file_name="ao_status_on.png" preload="true"/>
   <texture name="close_in_blue.tga"	preload="true"/>
   <texture name="combobox_arrow.tga"	preload="true"/>
   <texture name="ff_visible_map.tga"	preload="true"/>

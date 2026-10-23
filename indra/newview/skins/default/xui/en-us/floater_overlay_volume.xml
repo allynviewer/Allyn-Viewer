@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	name="overlay_volume"
+	title="Volume"
+	can_resize="false"
+	can_minimize="false"
+	can_close="true"
+	width="274"
+	height="262"
+	min_width="274"
+	min_height="262">
+	<panel name="volume_remote" left="0" bottom="0" width="250" height="210" follows="left|bottom" mouse_opaque="true"/>
+</floater>

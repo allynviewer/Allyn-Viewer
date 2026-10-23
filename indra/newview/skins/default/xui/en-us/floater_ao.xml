@@ -8,9 +8,9 @@
 	can_close="true"
 	can_drag_on_left="false"
 	width="300"
-	height="365"
+	height="385"
 	min_width="300"
-	min_height="365">
+	min_height="385">
 
 	<drop_target
 		name="ao_notecard"
@@ -65,8 +65,8 @@
 	<check_box
 		name="AOEnabled"
 		control_name="AOEnabled"
-		label="Enable animations override"
-		tool_tip="Turn the animation overrider on or off"
+		label="AO"
+		tool_tip="Checked turns AO on. Unchecked turns AO off."
 		follows="left|top"
 		font="SansSerifSmall"
 		height="16"
@@ -91,6 +91,20 @@
 		mouse_opaque="true"
 		radio_style="false"/>
 	<check_box
+		name="AOSwimForced"
+		control_name="AOSwimForced"
+		label="Force swim"
+		tool_tip="Force the swim animation and turn swimming override on"
+		follows="left|top"
+		font="SansSerifSmall"
+		height="16"
+		width="280"
+		left="10"
+		bottom="-136"
+		initial_value="false"
+		mouse_opaque="true"
+		radio_style="false"/>
+	<check_box
 		name="AOSitsEnabled"
 		control_name="AOSitsEnabled"
 		label="Enable sits override"
@@ -100,7 +114,7 @@
 		height="16"
 		width="280"
 		left="10"
-		bottom="-136"
+		bottom="-156"
 		initial_value="true"
 		mouse_opaque="true"
 		radio_style="false"/>
@@ -112,7 +126,7 @@
 		height="16"
 		width="280"
 		left="10"
-		bottom="-164"
+		bottom="-184"
 		halign="left"
 		drop_shadow_visible="true">
 		Stands:
@@ -125,7 +139,7 @@
 		height="20"
 		width="280"
 		left="10"
-		bottom="-186"/>
+		bottom="-206"/>
 
 	<button
 		name="prevstand"
@@ -136,7 +150,7 @@
 		font="SansSerifSmall"
 		follows="left|top"
 		left="10"
-		bottom="-214"
+		bottom="-234"
 		width="136"
 		height="26"/>
 	<button
@@ -148,7 +162,7 @@
 		font="SansSerifSmall"
 		follows="left|top"
 		left="154"
-		bottom="-214"
+		bottom="-234"
 		width="136"
 		height="26"/>
 
@@ -162,7 +176,7 @@
 		height="16"
 		width="280"
 		left="10"
-		bottom="-248"
+		bottom="-268"
 		initial_value="false"
 		mouse_opaque="true"
 		radio_style="false"/>
@@ -176,21 +190,21 @@
 		height="16"
 		width="280"
 		left="10"
-		bottom="-268"
+		bottom="-288"
 		initial_value="true"
 		mouse_opaque="true"
 		radio_style="false"/>
 	<check_box
 		name="ao_remote_checkbox"
 		control_name="EnableAORemote"
-		label="Show AO toolbar"
-		tool_tip="Show the AO remote on the bottom toolbar"
+		label="Show AO button"
+		tool_tip="Show or hide the AO button on the overlay bar"
 		follows="left|top"
 		font="SansSerifSmall"
 		height="16"
 		width="280"
 		left="10"
-		bottom="-288"
+		bottom="-308"
 		initial_value="true"
 		mouse_opaque="true"
 		radio_style="false"/>
@@ -205,7 +219,7 @@
 		height="18"
 		width="280"
 		left="10"
-		bottom="-316"
+		bottom="-336"
 		decimal_digits="0"
 		increment="1"
 		initial_val="20"
@@ -238,7 +252,7 @@
 		left="308"
 		bottom="8"
 		width="564"
-		height="349"
+		height="369"
 		tab_min_width="80"
 		tab_position="top"
 		mouse_opaque="false"
@@ -251,7 +265,7 @@
 			left="0"
 			bottom="0"
 			width="564"
-			height="325"
+			height="345"
 			mouse_opaque="true">
 
 			<text name="textdefaultwalk" follows="left|top" font="SansSerifSmall" height="14" width="174" left="10" bottom="-22" drop_shadow_visible="true">Walk:</text>

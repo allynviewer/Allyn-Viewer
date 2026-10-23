@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="overlay">
+	<button name="Mouselook" label="mouselock" label_selected="mouselock" tool_tip="Use o mouse para pilotar sua visão. Se você tiver uma arma, clicando, ela dispara. Clique de novo para sair."/>
 	<layout_stack name="overlay_layout_panel">
 		<layout_panel name="main_panel">
 			<layout_stack name="chatbar_and_buttons">
@@ -7,10 +8,21 @@
 					<button label="IM" label_selected="IM" name="IM Received" tool_tip="Você tem uma IM pendente. Clique para mostrar as IMs."/>
 					<button label="Ajustar para desocupado" label_selected="Ajustar para desocupado" name="Set Not Busy" tool_tip="Conversa e MI estão ocultas para você. Clique aqui para se colocar desocupado."/>
 					<button label="Vista aérea" label_selected="Vista aérea" name="Flycam" tool_tip="Sua cãmera está sob controle do joystick. Clique aqui para liberá-la."/>
-					<button label="Olhar com mouse" label_selected="Olhar com mouse" name="Mouselook" tool_tip="Use o mouse para pilotar sua visão. Se você tiver uma arma, clicando, ela dispara."/>
 					<button label="Levantar" label_selected="Levantar" name="Stand Up" tool_tip="Clique aqui para levantar."/>
 				</layout_panel>
 			</layout_stack>
+		</layout_panel>
+		<layout_panel name="ao_remote_container">
+			<button name="overlay_ao_btn" label="AO OFF" label_selected="AO ON" tool_tip="Mostra AO ON ou AO OFF. Clique para abrir as configurações do AO."/>
+		</layout_panel>
+		<layout_panel name="ao_light_container">
+			<button name="overlay_ao_check" tool_tip="Vermelho deixa o AO OFF. Verde deixa o AO ON. Clique para alternar."/>
+		</layout_panel>
+		<layout_panel name="media_remote_container">
+			<button name="overlay_volume_btn" label="Volume" label_selected="Volume" tool_tip="Volume, música e mídia. Clique para abrir os controles."/>
+		</layout_panel>
+		<layout_panel name="AdvSettings_container" min_width="84" width="84">
+			<button name="overlay_env_btn" label="Clima" label_selected="Clima" width="82" tool_tip="Clima: céu, água, horário e presets. Clique para abrir os controles."/>
 		</layout_panel>
 	</layout_stack>
 </panel>

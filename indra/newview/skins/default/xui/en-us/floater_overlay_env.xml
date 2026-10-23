@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	name="overlay_env"
+	title="Environment"
+	can_resize="false"
+	can_minimize="false"
+	can_close="true"
+	width="424"
+	height="354"
+	min_width="424"
+	min_height="354">
+	<panel name="env_settings" left="0" bottom="0" width="400" height="312" follows="left|bottom" mouse_opaque="true"/>
+</floater>

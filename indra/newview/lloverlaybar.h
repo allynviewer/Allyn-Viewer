@@ -45,9 +45,9 @@ class LLUUID;
 class LLFrameTimer;
 class LLStatGraph;
 class LLSlider;
+class LLFloater;
 class LLVoiceRemoteCtrl;
 class wlfPanel_AdvSettings;
-class AORemoteCtrl;
 class LLChatBar;
 class LLOverlayBar
 :	public LLLayoutPanel
@@ -56,10 +56,12 @@ public:
 	LLOverlayBar();
 	~LLOverlayBar();
 	void refresh();
+	void draw();
 	void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 	BOOL postBuild();
 	LLButton* updateButtonVisiblity(LLButton* button, bool visible);
 	void layoutButtons();
+	void layoutMouselookButton();
 	BOOL musicPlaying() { return mMusicState == PLAYING; }
 	LLView* getChatbarAndButtons() const {return mChatbarAndButtons;}
 	static void onClickIMReceived(void* data);
@@ -78,12 +80,12 @@ public:
 	static void musicStop(void*);
 	static void mediaStop(void*);
 	static void toggleAudioVolumeFloater(void*);
+	static void onClickAO(void* userdata);
+	static void placeFloaterAbove(LLFloater* floater, LLView* anchor);
+	static void fitFloaterToPanel(LLFloater* floater, LLView* panel);
 	void setCancelTPButtonVisible(BOOL b, const std::string& label);
 protected:
-	static void* createMediaRemote(void* userdata);
 	static void* createVoiceRemote(void* userdata);
-	static void* createAdvSettings(void* userdata);
-	static void* createAORemote(void* userdata);
 	static void* createChatBar(void* userdata);
 	void enableMediaButtons();
 protected:
@@ -91,7 +93,9 @@ protected:
 	LLMediaRemoteCtrl*	mMediaRemote;
 	LLVoiceRemoteCtrl*	mVoiceRemote;
 	LLButton*	mCancelBtn;
-	AORemoteCtrl*			mAORemote;
+	LLButton*	mAOButton;
+	LLButton*	mVolumeButton;
+	LLButton*	mEnvButton;
 	bool mBuilt;
 	enum { STOPPED=0, PLAYING=1, PAUSED=2 };
 	S32 mMusicState;
@@ -107,12 +111,20 @@ protected:
 	CachedUICtrl<LLPanel> mVoiceRemoteContainer;
 	CachedUICtrl<LLPanel> mStateManagementContainer;
 	CachedUICtrl<LLPanel> mAORemoteContainer;
+	CachedUICtrl<LLPanel> mAOLightContainer;
 	CachedUICtrl<LLPanel> mAdvSettingsContainer;
 	CachedUICtrl<LLPanel> mMediaRemoteContainer;
 private:
 	bool	updateChatVisible(const LLSD &data);
 	bool	updateAORemoteVisible(const LLSD &data);
 	bool	updateAdvSettingsPopup(const LLSD &data);
+	bool	updateVolumePopup(const LLSD &data);
+	void	stashOverlayFloaters(bool in_mouselook);
+	bool	mAOFloaterWasOpen;
+	bool	mVolumeFloaterWasOpen;
+	bool	mEnvFloaterWasOpen;
+	bool	mVolumeMutedIcon;
+	bool	mVolumeIconReady;
 };
 extern LLOverlayBar* gOverlayBar;
 #endif

@@ -6,6 +6,7 @@
 	<button name="newcard" label="" tool_tip="インベントリに新しいAOノートカードのテンプレートを作成"/>
 	<check_box name="AOEnabled" label="アニメーション上書きを有効にする" tool_tip="アニメーションオーバーライダーのオン/オフ"/>
 	<check_box name="AOSwimEnabled" label="泳ぎの上書きを有効にする" tool_tip="水中では飛行アニメーションを泳ぎに置き換えます"/>
+	<check_box name="AOSwimForced" label="泳ぎを強制" tool_tip="泳ぎのアニメーションを強制し、泳ぎの上書きを有効にします"/>
 	<check_box name="AOSitsEnabled" label="着席の上書きを有効にする" tool_tip="着席と地面着席のアニメーションを上書きします"/>
 	<text name="buttons_desc">スタンド:</text>
 	<combo_box name="stands" tool_tip="現在のスタンドアニメーション"/>
@@ -13,7 +14,7 @@
 	<button name="nextstand" label="" tool_tip="次のスタンド"/>
 	<check_box name="AOStandRandomize" label="スタンド順をランダムにする" tool_tip="スタンドを順番ではなくランダムに切り替えます"/>
 	<check_box name="AONoStandsInMouselook" label="マウスルック中はスタンドを無効" tool_tip="マウスルック中はスタンドアニメーションを停止します"/>
-	<check_box name="ao_remote_checkbox" label="AOツールバーを表示" tool_tip="画面下部のツールバーにAOリモコンを表示します"/>
+	<check_box name="ao_remote_checkbox" label="AOボタンを表示" tool_tip="オーバーレイバーにAOボタンを表示します"/>
 	<spinner name="standtime" label="スタンド時間:" tool_tip="各スタンドの再生時間（秒）"/>
 	<button name="more_btn" label="詳細 &gt;&gt;" label_selected="&lt;&lt; 簡易" tool_tip="デフォルトアニメーションの割り当てを表示/非表示"/>
 	<tab_container name="tabcontainer" label="デフォルト">
