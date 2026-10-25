@@ -4099,6 +4099,9 @@ en [GROUP]
 	<string name="GroupNotifySaveAttachment">
 		Guardar Adjunto
 	</string>
+	<string name="GroupNotifyAccept">
+		Aceptar
+	</string>
 	<string name="BodyPartsRightArm">
 		Brazo Derecho
 	</string>

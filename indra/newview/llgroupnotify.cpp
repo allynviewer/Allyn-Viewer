@@ -44,8 +44,15 @@
 #include "lluiconstants.h"
 #include "llui.h"
 #include "llviewercontrol.h"
+#include "lleventtimer.h"
+#include "llinventorybridge.h"
 #include "llinventoryicon.h"
+#include "llinventorymodel.h"
+#include "llinventoryobserver.h"
 #include "llinventory.h"
+#include "llinventorypanel.h"
+#include "llpanelmaininventory.h"
+#include "llviewerinventory.h"
 #include "lltrans.h"
 #include "llviewerwindow.h"
 #include "llviewerdisplay.h"
@@ -68,6 +75,91 @@ bool is_openable(LLAssetType::EType type)
 		return false;
 	}
 }
+static bool attachment_types_match(LLAssetType::EType offer, LLAssetType::EType got)
+{
+	auto image = [](LLAssetType::EType type)
+	{
+		return type == LLAssetType::AT_TEXTURE
+			|| type == LLAssetType::AT_TEXTURE_TGA
+			|| type == LLAssetType::AT_IMAGE_JPEG
+			|| type == LLAssetType::AT_IMAGE_TGA;
+	};
+	if (image(offer) && image(got))
+		return true;
+	return offer == got;
+}
+static void open_saved_attachment(LLViewerInventoryItem* item)
+{
+	const LLUUID& id = item->getUUID();
+	switch (item->getType())
+	{
+	case LLAssetType::AT_TEXTURE:
+	case LLAssetType::AT_TEXTURE_TGA:
+	case LLAssetType::AT_IMAGE_JPEG:
+	case LLAssetType::AT_IMAGE_TGA:
+		open_texture(id, std::string("Texture: ") + item->getName(), FALSE, LLUUID::null, TRUE);
+		break;
+	case LLAssetType::AT_NOTECARD:
+		open_notecard(item, std::string("Note: ") + item->getName(), LLUUID::null, FALSE, LLUUID::null, TRUE);
+		break;
+	case LLAssetType::AT_LANDMARK:
+		open_landmark(item, std::string("Landmark: ") + item->getName(), FALSE, LLUUID::null, TRUE);
+		break;
+	case LLAssetType::AT_ANIMATION:
+	case LLAssetType::AT_SCRIPT:
+	case LLAssetType::AT_LSL_TEXT:
+	case LLAssetType::AT_SOUND:
+	case LLAssetType::AT_GESTURE:
+		LLInvFVBridgeAction::doAction(item->getType(), id, &gInventory);
+		break;
+	default:
+		if (LLPanelMainInventory* view = LLPanelMainInventory::showAgentInventory(FALSE))
+		{
+			if (LLInventoryPanel* panel = view->getPanel())
+				panel->setSelection(id, TAKE_FOCUS_NO);
+		}
+		break;
+	}
+}
+class LLAcceptedAttachmentOpener final : public LLInventoryObserver, public LLEventTimer
+{
+public:
+	LLAcceptedAttachmentOpener(const std::string& name, LLAssetType::EType type)
+	:	LLEventTimer(20.f),
+		mName(name),
+		mType(type),
+		mOpened(false)
+	{
+		gInventory.addObserver(this);
+	}
+	~LLAcceptedAttachmentOpener() override
+	{
+		gInventory.removeObserver(this);
+	}
+	void changed(U32 mask) override
+	{
+		if (mOpened || !(mask & LLInventoryObserver::ADD))
+			return;
+		for (const LLUUID& id : gInventory.getAddedIDs())
+		{
+			LLViewerInventoryItem* item = gInventory.getItem(id);
+			if (!item || item->getName() != mName || !attachment_types_match(mType, item->getType()))
+				continue;
+			mOpened = true;
+			gInventory.removeObserver(this);
+			open_saved_attachment(item);
+			return;
+		}
+	}
+	BOOL tick() override
+	{
+		return TRUE;
+	}
+private:
+	std::string mName;
+	LLAssetType::EType mType;
+	bool mOpened;
+};
 LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 							 const std::string& message,
 							 const std::string& from_name,
@@ -85,6 +177,8 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 	mNextBtn(NULL),
 	mHideBtn(NULL),
 	mSaveInventoryBtn(NULL),
+	mAcceptBtn(NULL),
+	mAttachmentLine(NULL),
 	mGroupID(group_id),
 	mWellID(),
 	mSubject(subject),
@@ -101,7 +195,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 	constexpr S32 LABEL_WIDTH = 64;
 	constexpr S32 ICON_WIDTH = 64;
 	constexpr S32 HEADER_HEIGHT = 28 + ICON_WIDTH + PAD * 2;
-	const S32 box_bottom = BTN_TOP + (mHasInventory ? (LINE_HEIGHT + 2*PAD) : 0);
+	const S32 box_bottom = BTN_TOP + (mHasInventory ? (BTN_HEIGHT + 2*PAD) : 0);
 	static const auto text_color = gColors.getColor("GroupNotifyTextColor");
 	LLTextEditor* text = new LLViewerTextEditor(std::string("box"),
 		LLRect(HPAD, getRect().getHeight() - HEADER_HEIGHT, RIGHT, box_bottom),
@@ -198,20 +292,29 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 												LLInventoryType::IT_TEXTURE,
 												0, FALSE);
 		x += LABEL_WIDTH + HPAD;
+		const S32 accept_w = 80;
+		const S32 accept_left = RIGHT - HPAD - accept_w;
 		std::stringstream ss;
 		ss << "        " << inventory_name;
-		LLTextBox *line = new LLTextBox(std::string("object_name"),LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),ss.str(),LLFontGL::getFontSansSerif());
-		line->setEnabled(FALSE);
-		line->setBorderVisible(FALSE);
-		line->setDisabledColor(text_color);
-		line->setFontStyle(LLFontGL::NORMAL);
-		line->setBackgroundVisible(FALSE);
-		addChild(line);
+		mAttachmentLine = new LLTextBox(std::string("object_name"), LLRect(x, y, accept_left - PAD, y - BTN_HEIGHT), ss.str(), LLFontGL::getFontSansSerif());
+		mAttachmentLine->setEnabled(TRUE);
+		mAttachmentLine->setBorderVisible(FALSE);
+		mAttachmentLine->setColor(gSavedSettings.getColor4("HTMLLinkColor"));
+		mAttachmentLine->setFontStyle(LLFontGL::UNDERLINE);
+		mAttachmentLine->setBackgroundVisible(FALSE);
+		mAttachmentLine->setUseEllipses(TRUE);
+		mAttachmentLine->setClickedCallback(boost::bind(&LLGroupNotifyBox::acceptInventory, this, true));
+		addChild(mAttachmentLine);
 		icon = new LLIconCtrl(std::string("icon"),
 				LLRect(x, y, x+16, y-16),
 				item_icon->getName());
 		icon->setMouseOpaque(FALSE);
 		addChild(icon);
+		mAcceptBtn = new LLButton(LLTrans::getString("GroupNotifyAccept"),
+			LLRect(accept_left, y, accept_left + accept_w, y - BTN_HEIGHT),
+			LLStringUtil::null,
+			boost::bind(&LLGroupNotifyBox::acceptInventory, this, false));
+		addChild(mAcceptBtn);
 	}
 	mNextBtn = new LLButton(LLTrans::getString("next"),
 				LLRect(getRect().getWidth()-26, BOTTOM_PAD + 20, getRect().getWidth()-2, BOTTOM_PAD),
@@ -249,7 +352,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 									BOTTOM_PAD,
 									wide_btn_width,
 									BTN_HEIGHT);
-		mSaveInventoryBtn = new LLButton(LLTrans::getString(is_openable(mInventoryOffer->mType) ? "GroupNotifyOpenAttachment" : "GroupNotifySaveAttachment"), btn_rect, LLStringUtil::null, boost::bind(&LLGroupNotifyBox::onClickSaveInventory,this));
+		mSaveInventoryBtn = new LLButton(LLTrans::getString(is_openable(mInventoryOffer->mType) ? "GroupNotifyOpenAttachment" : "GroupNotifySaveAttachment"), btn_rect, LLStringUtil::null, boost::bind(&LLGroupNotifyBox::acceptInventory, this, is_openable(mInventoryOffer->mType)));
 		mSaveInventoryBtn->setVisible(mHasInventory);
 		addChild(mSaveInventoryBtn);
 	}
@@ -467,10 +570,19 @@ LLRect LLGroupNotifyBox::getGroupNotifyRect()
 	const S32 LEFT = RIGHT - NOTIFY_WIDTH;
 	return LLRect(LEFT, TOP, RIGHT, TOP-notify_height);
 }
-void LLGroupNotifyBox::onClickSaveInventory()
+void LLGroupNotifyBox::acceptInventory(bool open_item)
 {
+	if (!mInventoryOffer)
+		return;
+	if (open_item)
+		new LLAcceptedAttachmentOpener(mInventoryOffer->mDesc, mInventoryOffer->mType);
 	mInventoryOffer->forceResponse(IOR_ACCEPT);
 	mInventoryOffer = NULL;
 	mHasInventory = false;
-	mSaveInventoryBtn->setEnabled(FALSE);
+	if (mSaveInventoryBtn)
+		mSaveInventoryBtn->setEnabled(FALSE);
+	if (mAcceptBtn)
+		mAcceptBtn->setEnabled(FALSE);
+	if (mAttachmentLine)
+		mAttachmentLine->setEnabled(FALSE);
 }

@@ -4137,6 +4137,9 @@ Where tag = tag string to match.  Removes bot's matching the tag.
 	<string name="GroupNotifySaveAttachment">
 		Сохранить вложение
 	</string>
+	<string name="GroupNotifyAccept">
+		Принять
+	</string>
 	<string name="BodyPartsRightArm">
 		Правая рука
 	</string>

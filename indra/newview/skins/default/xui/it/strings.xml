@@ -3753,6 +3753,9 @@ in [GROUP]</string>
 	<string name="GroupNotifySaveAttachment">
 		Salva allegato
 	</string>
+	<string name="GroupNotifyAccept">
+		Accetta
+	</string>
 	<string name="GroupNotifyViewPastNotices">
 		Consulta gli avvisi precedenti o disattiva la ricezione di questi messaggi qui.
 	</string>

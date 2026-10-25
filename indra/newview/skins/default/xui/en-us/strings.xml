@@ -4144,6 +4144,9 @@ in [GROUP]
 	<string name="GroupNotifySaveAttachment">
 		Save Attachment
 	</string>
+	<string name="GroupNotifyAccept">
+		Accept
+	</string>
 	<string name="BodyPartsRightArm">
 		Right Arm
 	</string>

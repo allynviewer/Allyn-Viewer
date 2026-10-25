@@ -3599,6 +3599,9 @@ dans [GROUP]</string>
 	<string name="GroupNotifySaveAttachment">
 		Enregistrer l'attachement
 	</string>
+	<string name="GroupNotifyAccept">
+		Accepter
+	</string>
 	<string name="GroupNotifyViewPastNotices">
 		Consultez les notices passées ou désabonnez-vous ici.
 	</string>

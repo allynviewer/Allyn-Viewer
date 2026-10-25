@@ -3577,6 +3577,9 @@ im [GROUP]
 	<string name="GroupNotifySaveAttachment">
 		Siehe Anhang
 	</string>
+	<string name="GroupNotifyAccept">
+		Akzeptieren
+	</string>
 	<string name="BodyPartsRightArm">
 		Rechter Arm
 	</string>

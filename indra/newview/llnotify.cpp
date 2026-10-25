@@ -48,7 +48,6 @@
 #include "llfloaterchat.h"
 #include "llfloaternotifywell.h"
 #include "llgroupnotify.h"
-#include "lloverlaybar.h"
 #include "llnavigationbar.h"
 #include "llnotifyiconbar.h"
 #include "lluictrlfactory.h"
@@ -1822,15 +1821,7 @@ S32 LLNotifyBoxView::getStackTop() const
 }
 S32 LLNotifyBoxView::getStackBottom() const
 {
-	S32 min_bottom = 8;
-	if (gOverlayBar && gOverlayBar->getVisible())
-	{
-		LLRect overlay_screen = gOverlayBar->calcScreenBoundingRect();
-		LLRect overlay_local;
-		screenRectToLocal(overlay_screen, &overlay_local);
-		min_bottom = llmax(min_bottom, overlay_local.mTop + 8);
-	}
-	return min_bottom;
+	return 8;
 }
 void LLNotifyBoxView::layoutStack()
 {

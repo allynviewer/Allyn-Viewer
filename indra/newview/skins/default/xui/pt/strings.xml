@@ -1244,6 +1244,9 @@ en [GROUP]
 	<string name="GroupNotifySaveAttachment">
 		Salvar anexo
 	</string>
+	<string name="GroupNotifyAccept">
+		Aceitar
+	</string>
 	<string name="TeleportOffer">
 		Oferta de teletransporte
 	</string>

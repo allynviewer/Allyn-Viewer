@@ -4084,6 +4084,9 @@ Where tag = tag string to match.  Removes bot's matching the tag.
 	<string name="GroupNotifySaveAttachment">
 		Eki Kaydet
 	</string>
+	<string name="GroupNotifyAccept">
+		Kabul Et
+	</string>
 	<string name="BodyPartsRightArm">
 		Sağ Kol
 	</string>

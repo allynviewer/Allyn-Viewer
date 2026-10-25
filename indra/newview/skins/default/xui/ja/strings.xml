@@ -2812,6 +2812,9 @@ tag に一致するボットを削除します。</string>
 	<string name="GroupNotifySaveAttachment">
 		アタッチメントを保存
 	</string>
+	<string name="GroupNotifyAccept">
+		承認
+	</string>
 	<string name="BodyPartsRightArm">
 		右腕
 	</string>

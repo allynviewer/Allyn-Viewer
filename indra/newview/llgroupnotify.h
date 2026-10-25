@@ -39,6 +39,7 @@
 #include "llnotifications.h"
 #include "llnotify.h"
 class LLButton;
+class LLTextBox;
 class LLGroupNotifyBox final
 :	public LLPanel,
 	public LLInitClass<LLGroupNotifyBox>
@@ -71,7 +72,7 @@ protected:
 	void moveToBack();
 	void drawBackground() const;
 	static LLRect getGroupNotifyRect();
-	void onClickSaveInventory();
+	void acceptInventory(bool open_item);
 private:
 	bool mAnimating;
 	bool mSunkToWell;
@@ -79,6 +80,8 @@ private:
 	LLButton* mNextBtn;
 	LLButton* mHideBtn;
 	LLButton* mSaveInventoryBtn;
+	LLButton* mAcceptBtn;
+	LLTextBox* mAttachmentLine;
 	LLUUID mGroupID;
 	LLUUID mWellID;
 	std::string mSubject;
