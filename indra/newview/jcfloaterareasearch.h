@@ -1,4 +1,5 @@
 /* Copyright (c) 2009
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  *
  * Modular Systems. All rights reserved.
  *
@@ -16,7 +17,7 @@
  *      may be used to endorse or promote products derived from this
  *      software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY MODULAR SYSTEMS AND CONTRIBUTORS “AS IS”
+ * THIS SOFTWARE IS PROVIDED BY MODULAR SYSTEMS AND CONTRIBUTORS ï¿½AS ISï¿½
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
  * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
  * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MODULAR SYSTEMS OR CONTRIBUTORS
@@ -36,6 +37,7 @@
 #include "lluuid.h"
 #include "llstring.h"
 #include "llframetimer.h"
+#include "v3dmath.h"
 #include <boost/unordered_map.hpp>
 class LLTextBox;
 class LLScrollListCtrl;
@@ -48,15 +50,25 @@ public:
 	BOOL postBuild();
 	void close(bool app = false);
 	void onOpen();
+	void draw();
+	void setVisible(BOOL visible);
 	void results();
 	static void processObjectPropertiesFamily(LLMessageSystem* msg, void** user_data);
 	struct ObjectData
 	{
+		ObjectData() : has_position(false)
+		{
+			pos_global[0] = 0.0;
+			pos_global[1] = 0.0;
+			pos_global[2] = 0.0;
+		}
 		LLUUID id;
 		std::string name;
 		std::string desc;
 		LLUUID owner_id;
 		LLUUID group_id;
+		double pos_global[3];
+		bool has_position;
 	};
 	const ObjectData* getObjectData(const LLUUID& id) const
 	{
@@ -72,20 +84,27 @@ private:
 		LIST_OBJECT_GROUP,
 		LIST_OBJECT_COUNT
 	};
-	void checkRegion(bool force_clear = false);
+	bool checkRegion(bool force_clear = false);
 	void onStop();
 	void onRefresh();
 	void onCommitLine(LLUICtrl* caller, const LLSD& value, OBJECT_COLUMN_ORDER type);
 	bool requestIfNeeded(LLUUID object_id);
-	class LLViewerObject* getSelectedObject();
+	void updateCover();
+	bool cachedPosition(const LLUUID& id, LLVector3d& pos) const;
 	void onDoubleClick();
 	void teleportToSelected();
 	void lookAtSelected();
 	LLTextBox* mCounterText;
 	LLScrollListCtrl* mResultList;
 	LLFrameTimer mLastUpdateTimer;
+	LLFrameTimer mCoverPulse;
 	LLViewerRegion* mLastRegion;
+	U64 mCoverRegionHandle;
 	bool mStopped;
+	bool mResultsDirty;
+	bool mCovering;
+	S32 mSeenObjects;
+	S32 mRequestBudget;
 	uuid_set_t mPendingObjects;
 	boost::unordered_map<LLUUID, ObjectData> mCachedObjects;
 	std::string mFilterStrings[LIST_OBJECT_COUNT];

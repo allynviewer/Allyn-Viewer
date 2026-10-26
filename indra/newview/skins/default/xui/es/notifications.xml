@@ -6363,4 +6363,14 @@ Ya existe un grid con el mismo apodo.
 			<button index="1" name="cancel" text="Cancelar"/>
 		</form>
 	</notification>
+  <notification
+   icon="alertmodal.tga"
+   name="NonLindenLogin"
+   type="alertmodal">
+Esta grid no es un servidor de Linden Lab. Tu nombre y tu contraseña se enviarán a [URI] ([GRID]), no a Linden Lab. Continúa solo si confías en ese servidor.
+    <usetemplate
+     name="okcancelbuttonscanceldefault"
+     notext="Cancelar"
+     yestext="Continuar"/>
+  </notification>
 </notifications>

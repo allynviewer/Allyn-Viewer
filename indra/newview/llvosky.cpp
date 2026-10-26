@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2001&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -1650,6 +1651,8 @@ void LLVOSky::updateFog(const F32 distance)
 		float water_fog_density = LLWaterParamManager::getInstance()->getFogDensity();
 		LLColor4 water_fog_color = LLDrawPoolWater::sWaterFogColor.mV;
 		float depth_scale = gSavedSettings.getF32("WaterGLFogDepthScale");
+		if (!std::isfinite(depth_scale) || !(depth_scale > 0.f))
+			depth_scale = 50.f;
 		float depth_modifier = 1.0f - llmin(llmax(depth / depth_scale, 0.01f),
 			gSavedSettings.getF32("WaterGLFogDepthFloor"));
 		LLColor4 fogCol = water_fog_color * depth_modifier;

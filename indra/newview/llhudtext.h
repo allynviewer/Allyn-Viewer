@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2002&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -84,7 +85,7 @@ public:
 	void setDoFade(const BOOL do_fade);
 	bool getDoFade() const { return mDoFade; }
 	void setMaxLines(S32 max_lines) { mMaxLines = max_lines; }
-	void setFadeDistance(F32 fade_distance, F32 fade_range) { mFadeDistance = fade_distance; mFadeRange = fade_range; }
+	void setFadeDistance(F32 fade_distance, F32 fade_range) { mFadeDistance = fade_distance; mFadeRange = fade_range; mFadeOverride = TRUE; }
 	void updateVisibility();
 	LLVector2 updateScreenPos(LLVector2 &offset_target);
 	void updateSize();
@@ -111,12 +112,14 @@ protected:
 	LLHUDText(const U8 type);
 	void render();
 	void renderText();
+	void refreshFadeDistance();
 	static void updateAll();
 	S32 getMaxLines();
 private:
 	~LLHUDText();
 	BOOL			mOnHUDAttachment;
 	BOOL			mDoFade;
+	BOOL			mFadeOverride;
 	F32				mFadeRange;
 	F32				mFadeDistance;
 	F32				mLastDistance;

@@ -4738,4 +4738,14 @@ f&#xFC;r Informationen und Download-Links zu neueren Versionen zu &#xF6;ffnen.
 			<button index="1" name="cancel" text="Abbrechen"/>
 		</form>
 	</notification>
+  <notification
+   icon="alertmodal.tga"
+   name="NonLindenLogin"
+   type="alertmodal">
+Dieses Grid ist kein Server von Linden Lab. Anmeldename und Passwort werden an [URI] ([GRID]) gesendet, nicht an Linden Lab. Fahren Sie nur fort, wenn Sie diesem Server vertrauen.
+    <usetemplate
+     name="okcancelbuttonscanceldefault"
+     notext="Abbrechen"
+     yestext="Weiter"/>
+  </notification>
 </notifications>

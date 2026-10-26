@@ -75,6 +75,7 @@ void process_chat_from_simulator(LLMessageSystem *mesgsys, void **user_data);
 void add_floater_chat(const LLChat &chat, const BOOL history);
 void check_translate_chat(const std::string &mesg, LLChat &chat, const BOOL history);
 void send_agent_update(BOOL force_send, BOOL send_reliable = FALSE);
+void set_agent_update_cover_region(bool cover);
 void process_object_update(LLMessageSystem *mesgsys, void **user_data);
 void process_compressed_object_update(LLMessageSystem *mesgsys, void **user_data);
 void process_cached_object_update(LLMessageSystem *mesgsys, void **user_data);

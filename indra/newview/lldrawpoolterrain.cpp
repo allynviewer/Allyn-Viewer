@@ -63,7 +63,13 @@ LLDrawPoolTerrain::LLDrawPoolTerrain(LLViewerTexture *texturep) :
 {
 	U32 format = GL_ALPHA;
 	U32 int_format = GL_ALPHA8;
-	sDetailScale = 1.f/gSavedSettings.getF32("RenderTerrainScale");
+	F32 terrain_scale = gSavedSettings.getF32("RenderTerrainScale");
+	if (!std::isfinite(terrain_scale) || !(terrain_scale > 0.f))
+		terrain_scale = 12.f;
+	F32 detail_scale = 1.f / terrain_scale;
+	if (!std::isfinite(detail_scale))
+		detail_scale = 1.f / 12.f;
+	sDetailScale = detail_scale;
 	sDetailMode = gSavedSettings.getS32("RenderTerrainDetail");
 	m2DAlphaRampImagep = LLViewerTextureManager::getFetchedTextureFromFile("alpha_gradient_2d.j2c",
 													FTT_LOCAL_FILE,

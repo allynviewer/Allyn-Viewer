@@ -35,10 +35,10 @@
 		Second Life
 	</string>
 	<string name="APP_NAME">
-		Allyn Viewer Beta
+		Allyn Viewer
 	</string>
 	<string name="CAPITALIZED_APP_NAME">
-		Allyn Viewer Beta
+		Allyn Viewer
 	</string>
 	<string name="SHORT_APP_NAME">
 		Allyn Viewer
@@ -47,7 +47,7 @@
 		Грид Second Life
 	</string>
 	<string name="SUPPORT_SITE">
-		Портал поддержки Second Life
+		поддержку Allyn Viewer в GitHub, Discord или allynviewer@gmail.com
 	</string>
 	<string name="CURRENCY">
 		L$
@@ -7711,4 +7711,25 @@ HTTP [STATUS]. Получен HTML или не-API ответ вместо JSON.
 	<string name="none_text" value=" (нет) " />
 	<string name="temporary" value=" (временный)" />
 	<string name="worn" value=" (надето)" />
+	<string name="DebugSettingsValue">
+		значение
+	</string>
+	<string name="DebugSettingsLeft">
+		Слева
+	</string>
+	<string name="DebugSettingsRight">
+		Справа
+	</string>
+	<string name="DebugSettingsBottom">
+		Снизу
+	</string>
+	<string name="DebugSettingsTop">
+		Сверху
+	</string>
+	<string name="DebugSettingsAlpha">
+		Альфа
+	</string>
+	<string name="DebugSettingsUnknown">
+		неизвестно
+	</string>
 </strings>

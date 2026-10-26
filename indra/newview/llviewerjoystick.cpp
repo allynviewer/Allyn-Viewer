@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2002&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -483,11 +484,17 @@ void LLViewerJoystick::cursorZoom(F32 inc)
 		}
 	}
 }
+static F32 mappedJoystickAxis(const F32* axes, S32 index)
+{
+	if (index < 0 || index > 5)
+		return 0.f;
+	return axes[index];
+}
 void LLViewerJoystick::resetDeltas(S32 axis[])
 {
 	for (U32 i = 0; i < 6; i++)
 	{
-		sLastDelta[i] = -mAxes[axis[i]];
+		sLastDelta[i] = -mappedJoystickAxis(mAxes, axis[i]);
 		sDelta[i] = 0.f;
 	}
 	sLastDelta[6] = sDelta[6] = 0.f;
@@ -543,7 +550,7 @@ void LLViewerJoystick::moveObjects(bool reset)
 	bool is_zero = true, absolute = gSavedSettings.getBOOL("Cursor3D");
 	for (U32 i = 0; i < 6; i++)
 	{
-		cur_delta[i] = -mAxes[axis[i]];
+		cur_delta[i] = -mappedJoystickAxis(mAxes, axis[i]);
 		F32 tmp = cur_delta[i];
 		if (absolute)
 		{
@@ -683,7 +690,7 @@ void LLViewerJoystick::moveAvatar(bool reset)
 #endif
 	for (U32 i = 0; i < 6; i++)
 	{
-		cur_delta[i] = -mAxes[axis[i]];
+		cur_delta[i] = -mappedJoystickAxis(mAxes, axis[i]);
 		if (absolute)
 		{
 			F32 tmp = cur_delta[i];

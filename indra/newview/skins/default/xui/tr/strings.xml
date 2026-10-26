@@ -34,10 +34,10 @@
 		Second Life
 	</string>
 	<string name="APP_NAME">
-		Allyn Viewer Beta
+		Allyn Viewer
 	</string>
 	<string name="CAPITALIZED_APP_NAME">
-		Allyn Viewer Beta
+		Allyn Viewer
 	</string>
 	<string name="SHORT_APP_NAME">
 		Allyn Viewer
@@ -46,7 +46,7 @@
 		Second Life Grid
 	</string>
 	<string name="SUPPORT_SITE">
-		Second Life Destek Portalı
+		GitHub, Discord veya allynviewer@gmail.com üzerinden Allyn Viewer desteği
 	</string>
 	<string name="CURRENCY">
 		L$
@@ -7634,4 +7634,25 @@ Sağlayıcı yanıtı bekleniyor.
 	<string name="none_text" value=" (yok) " />
 	<string name="temporary" value=" (geçici)" />
 	<string name="worn" value=" (giyiliyor)" />
+	<string name="DebugSettingsValue">
+		değer
+	</string>
+	<string name="DebugSettingsLeft">
+		Sol
+	</string>
+	<string name="DebugSettingsRight">
+		Sağ
+	</string>
+	<string name="DebugSettingsBottom">
+		Alt
+	</string>
+	<string name="DebugSettingsTop">
+		Üst
+	</string>
+	<string name="DebugSettingsAlpha">
+		Alfa
+	</string>
+	<string name="DebugSettingsUnknown">
+		bilinmiyor
+	</string>
 </strings>

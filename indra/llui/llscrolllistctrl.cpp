@@ -6,6 +6,7 @@
  * $LicenseInfo:firstyear=2001&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -716,14 +717,13 @@ void LLScrollListCtrl::swapWithPrevious(S32 index)
 }
 void LLScrollListCtrl::moveToFront(S32 index)
 {
-	if(index == 0 || index >= (S32)mItemList.size())
+	if (index <= 0 || index >= (S32)mItemList.size())
 	{
 		return;
 	}
-	LLScrollListCtrl::item_list::iterator it = mItemList.begin();
-	std::advance(it,index);
-	mItemList.push_front(*it);
-	mItemList.erase(it);
+	LLScrollListItem* item = mItemList[index];
+	mItemList.erase(mItemList.begin() + index);
+	mItemList.push_front(item);
 }
 void LLScrollListCtrl::deleteSingleItem(S32 target_index)
 {

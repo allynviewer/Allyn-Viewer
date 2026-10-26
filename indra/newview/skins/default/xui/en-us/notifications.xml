@@ -11913,4 +11913,14 @@ Please be sure that your report won't be a duplicate of an existing one.
       <button index="1" name="cancel" text="Cancel"/>
     </form>
   </notification>
+  <notification
+   icon="alertmodal.tga"
+   name="NonLindenLogin"
+   type="alertmodal">
+This grid is not a Linden Lab server. Your login name and password will be sent to [URI] ([GRID]), not to Linden Lab. Continue only if you trust that server.
+    <usetemplate
+     name="okcancelbuttonscanceldefault"
+     notext="Cancel"
+     yestext="Continue"/>
+  </notification>
 </notifications>

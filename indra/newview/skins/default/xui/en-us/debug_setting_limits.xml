@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<limits>
+	<limit name="CameraFNumber" min="0.001" />
+	<limit name="CameraFocusTransitionTime" min="0.001" />
+	<limit name="CameraOffsetScale" min="0.001" />
+	<limit name="CameraPreset" min="0" max="3" />
+	<limit name="FPSLogFrequency" min="0" />
+	<limit name="MemoryLogFrequency" min="0" />
+	<limit name="MeshTriangleBudget" min="1" />
+	<limit name="ObjectCostHighThreshold" min="0.001" />
+	<limit name="RenderFarClip" min="0.2" max="100000" />
+	<limit name="RenderGlowResolutionPow" min="0" max="30" />
+	<limit name="RenderSpecularResX" min="2" />
+	<limit name="RenderSpecularResY" min="2" />
+	<limit name="RenderTerrainScale" min="0.001" />
+	<limit name="RenderTextureMemoryMultiple" min="0.001" max="1" />
+	<limit name="SGTextFadeDistance" min="0.001" />
+	<limit name="TextureMemory" min="0" max="8192" />
+	<limit name="WaterGLFogDepthScale" min="0.001" />
+</limits>

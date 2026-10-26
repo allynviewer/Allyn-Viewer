@@ -5877,4 +5877,14 @@ com informações e links de download das versões novas.
 			<button index="1" name="cancel" text="Cancelar"/>
 		</form>
 	</notification>
+  <notification
+   icon="alertmodal.tga"
+   name="NonLindenLogin"
+   type="alertmodal">
+Esta grade não é um servidor da Linden Lab. Seu nome e sua senha serão enviados para [URI] ([GRID]), e não para a Linden Lab. Continue só se você confia nesse servidor.
+    <usetemplate
+     name="okcancelbuttonscanceldefault"
+     notext="Cancelar"
+     yestext="Continuar"/>
+  </notification>
 </notifications>

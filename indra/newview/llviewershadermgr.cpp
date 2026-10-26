@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2005&license=viewergpl$
  * 
  * Copyright (c) 2005-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -222,7 +223,7 @@ void LLViewerShaderMgr::setShaders()
 		}
 	}
 	initAttribsAndUniforms();
-	gPipeline.releaseGLBuffers();
+	gPipeline.releaseGLBuffers(LLPipeline::LUT_ORIGIN_SHADER_INIT);
 	bool want_shaders = LLFeatureManager::getInstance()->isFeatureAvailable("VertexShaderEnable") &&
 						gSavedSettings.getBOOL("VertexShaderEnable") &&
 						(gGLManager.mGLSLVersionMajor > 1 || gGLManager.mGLSLVersionMinor >= 10);
@@ -388,7 +389,7 @@ void LLViewerShaderMgr::setShaders()
 	LLWaterParamManager::getInstance()->updateShaderLinks();
 	LLWLParamManager::getInstance()->updateShaderLinks();
 	gPipeline.refreshCachedSettings();
-	gPipeline.createGLBuffers();
+	gPipeline.createGLBuffers(LLPipeline::LUT_ORIGIN_SHADER_INIT);
 	reentrance = false;
 }
 void LLViewerShaderMgr::unloadShaders()

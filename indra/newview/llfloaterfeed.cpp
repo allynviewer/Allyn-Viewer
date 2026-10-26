@@ -6,6 +6,7 @@
  * 
  * Copyright (c) 2004-2009, Linden Research, Inc.
  * Copyright (c) 2012, Aleric Ingelwood.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab

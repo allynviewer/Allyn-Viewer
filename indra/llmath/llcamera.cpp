@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2000&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -111,6 +112,8 @@ void LLCamera::setNear(F32 near_plane)
 }
 void LLCamera::setFar(F32 far_plane)
 {
+	if (!std::isfinite(far_plane))
+		return;
 	mFarPlane = llclamp(far_plane, MIN_FAR_PLANE, MAX_FAR_PLANE);
 	calculateFrustumPlanes();
 }

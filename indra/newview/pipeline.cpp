@@ -32,6 +32,10 @@
  */
 #include "llviewerprecompiledheaders.h"
 #include "pipeline.h"
+#include "lltimer.h"
+#include <atomic>
+#include <cstdlib>
+#include <cstring>
 #include "llappviewer.h"
 #include "llaudioengine.h"
 #include "imageids.h"
@@ -457,7 +461,7 @@ void LLPipeline::cleanup()
 	delete mBumpPool;
 	mBumpPool = NULL;
 	mWLSkyPool = NULL;
-	releaseGLBuffers();
+	releaseGLBuffers(LUT_ORIGIN_UNSPECIFIED);
 	mFaceSelectImagep = NULL;
 	mMovedBridge.clear();
 	mInitialized = FALSE;
@@ -471,7 +475,7 @@ void LLPipeline::destroyGL()
 	mHighlightFaces.clear();
 	resetDrawOrders();
 	releaseVertexBuffers();
-	releaseGLBuffers();
+	releaseGLBuffers(LUT_ORIGIN_UNSPECIFIED);
 	if (LLVertexBuffer::sEnableVBOs)
 	{
 		if(!LLRenderTarget::sUseFBO)
@@ -833,11 +837,310 @@ void LLPipeline::releaseVertexBuffers()
 	}
 	LLVertexBuffer::unbind();
 }
-void LLPipeline::releaseGLBuffers()
+static S32 clampedGlowResolutionPow(S32 glow_pow)
+{
+	if (glow_pow < 0)
+		return 0;
+	if (glow_pow > 30)
+		return 30;
+	return glow_pow;
+}
+static std::atomic<bool> sSpecularLutSeriesAbort(false);
+static int sSpecularLutMaxTexture = -1;
+static bool specularLutProfileEnabled()
+{
+	static bool ready = false;
+	static bool enabled = false;
+	if (!ready)
+	{
+		const char* env = getenv("ALLYN_LUT_PROFILE");
+		enabled = (env != NULL && strcmp(env, "1") == 0);
+		ready = true;
+	}
+	return enabled;
+}
+static bool specularLutSeriesEnabled()
+{
+	static bool ready = false;
+	static bool enabled = false;
+	if (!ready)
+	{
+		const char* env = getenv("ALLYN_LUT_SERIES");
+		enabled = (env != NULL && strcmp(env, "1") == 0);
+		ready = true;
+	}
+	return enabled;
+}
+static std::string specularLutGlText(GLenum token)
+{
+	if (!gGLManager.mInited || gGLManager.mIsDisabled || !gGLActive || gNoRender)
+		return std::string();
+	const GLubyte* text = glGetString(token);
+	if (!text || !text[0])
+		return std::string();
+	std::string value((const char*)text);
+	for (std::string::size_type i = 0; i < value.size(); ++i)
+	{
+		unsigned char c = (unsigned char)value[i];
+		if (c < 32 || c == '"' || c == '\\')
+			value[i] = ' ';
+	}
+	return value;
+}
+static const std::string& specularLutGlRenderer()
+{
+	static std::string value = "unknown";
+	static bool ready = false;
+	if (!ready)
+	{
+		std::string text = specularLutGlText(GL_RENDERER);
+		if (!text.empty())
+		{
+			value = text;
+			ready = true;
+		}
+	}
+	return value;
+}
+static const std::string& specularLutGlVersion()
+{
+	static std::string value = "unknown";
+	static bool ready = false;
+	if (!ready)
+	{
+		std::string text = specularLutGlText(GL_VERSION);
+		if (!text.empty())
+		{
+			value = text;
+			ready = true;
+		}
+	}
+	return value;
+}
+static std::string specularLutSeconds(F64 value)
+{
+	if (value < 0.0)
+		return std::string("na");
+	return llformat("%.9f", value);
+}
+struct SpecularLutRecord
+{
+	const char* phase;
+	const char* path;
+	LLPipeline::ELutOrigin origin;
+	LLPipeline::ELutControl control;
+	const char* status;
+	bool has_requested;
+	U32 requested_w;
+	U32 requested_h;
+	bool has_effective;
+	U32 effective_w;
+	U32 effective_h;
+	bool has_created;
+	U32 created_w;
+	U32 created_h;
+	bool name_observed;
+	U32 name;
+	bool upload_requested;
+	int compressed;
+	F64 alloc_s;
+	F64 fill_s;
+	F64 upload_s;
+	F64 delete_s;
+	F64 total_s;
+	F64 release_s;
+	const char* repeat_name;
+	const char* within_budget;
+	const char* reason;
+};
+static SpecularLutRecord blankSpecularLutRecord()
+{
+	SpecularLutRecord record;
+	std::memset(&record, 0, sizeof(record));
+	record.phase = "create";
+	record.path = "saved";
+	record.origin = LLPipeline::LUT_ORIGIN_UNSPECIFIED;
+	record.control = LLPipeline::LUT_CONTROL_NONE;
+	record.status = "skipped";
+	record.compressed = -1;
+	record.alloc_s = -1.0;
+	record.fill_s = -1.0;
+	record.upload_s = -1.0;
+	record.delete_s = -1.0;
+	record.total_s = -1.0;
+	record.release_s = -1.0;
+	record.repeat_name = "na";
+	record.within_budget = "na";
+	record.reason = "na";
+	return record;
+}
+static const char* lutOriginToken(LLPipeline::ELutOrigin origin)
+{
+	switch (origin)
+	{
+	case LLPipeline::LUT_ORIGIN_SHADER_INIT:
+		return "shader_init";
+	case LLPipeline::LUT_ORIGIN_SETTING_CHANGE:
+		return "setting_change";
+	case LLPipeline::LUT_ORIGIN_GL_REBUILD:
+		return "gl_rebuild";
+	default:
+		return "unspecified";
+	}
+}
+static const char* lutControlToken(LLPipeline::ELutControl control)
+{
+	switch (control)
+	{
+	case LLPipeline::LUT_CONTROL_RES_X:
+		return "res_x";
+	case LLPipeline::LUT_CONTROL_RES_Y:
+		return "res_y";
+	case LLPipeline::LUT_CONTROL_EXPONENT:
+		return "exponent";
+	default:
+		return "none";
+	}
+}
+static void logSpecularLut(const SpecularLutRecord& record)
+{
+	try
+	{
+		std::string requested = record.has_requested ? llformat("%ux%u", record.requested_w, record.requested_h) : std::string("none");
+		std::string effective = record.has_effective ? llformat("%ux%u", record.effective_w, record.effective_h) : std::string("none");
+		std::string created = record.has_created ? llformat("%ux%u", record.created_w, record.created_h) : std::string("none");
+		std::string name = record.name_observed ? llformat("%u", record.name) : std::string("na");
+		std::string compressed = "na";
+		if (record.compressed == 0)
+			compressed = "0";
+		else if (record.compressed == 1)
+			compressed = "1";
+		std::string max_tex = "unknown";
+		if (sSpecularLutMaxTexture > 0)
+			max_tex = llformat("%d", sSpecularLutMaxTexture);
+		std::string cpu_bytes = "na";
+		std::string gpu_bytes = "na";
+		if (record.has_effective)
+			cpu_bytes = llformat("%llu", (unsigned long long)((U64)record.effective_w * (U64)record.effective_h * 4ull));
+		if (record.has_created)
+			gpu_bytes = llformat("%llu", (unsigned long long)((U64)record.created_w * (U64)record.created_h * 2ull));
+		LL_INFOS("SpecularLUT")
+			<< "phase=" << record.phase
+			<< " path=" << record.path
+			<< " origin=" << lutOriginToken(record.origin)
+			<< " control=" << lutControlToken(record.control)
+			<< " status=" << record.status
+			<< " requested=" << requested
+			<< " effective=" << effective
+			<< " created=" << created
+			<< " name=" << name
+			<< " upload=" << (record.upload_requested ? "requested" : "not_requested")
+			<< " upload_success=unknown"
+			<< " setmanual_compressed=" << compressed
+			<< " alloc_s=" << specularLutSeconds(record.alloc_s)
+			<< " fill_s=" << specularLutSeconds(record.fill_s)
+			<< " upload_submit_s=" << specularLutSeconds(record.upload_s)
+			<< " delete_s=" << specularLutSeconds(record.delete_s)
+			<< " total_s=" << specularLutSeconds(record.total_s)
+			<< " release_s=" << specularLutSeconds(record.release_s)
+			<< " cpu_bytes=" << cpu_bytes
+			<< " gpu_bytes_estimate=" << gpu_bytes
+			<< " repeat=" << record.repeat_name
+			<< " within_budget=" << record.within_budget
+			<< " reason=" << record.reason
+			<< " gl_renderer=\"" << specularLutGlRenderer() << "\""
+			<< " gl_version=\"" << specularLutGlVersion() << "\""
+			<< " gl_max_texture_size=" << max_tex
+			<< LL_ENDL;
+	}
+	catch (...)
+	{
+	}
+}
+static void logSpecularLutRelease(LLPipeline::ELutOrigin origin, F64 release_s)
+{
+	SpecularLutRecord record = blankSpecularLutRecord();
+	record.phase = "release";
+	record.path = "release";
+	record.origin = origin;
+	record.status = "release";
+	record.release_s = release_s;
+	logSpecularLut(record);
+}
+static void pollSeriesStopFile()
+{
+	wchar_t dir[MAX_PATH];
+	DWORD n = GetTempPathW(MAX_PATH, dir);
+	if (n == 0 || n >= MAX_PATH)
+		return;
+	std::wstring path(dir);
+	if (!path.empty() && path[path.size() - 1] != L'\\' && path[path.size() - 1] != L'/')
+		path += L"\\";
+	path += L"ALLYN_LUT_SERIES_STOP";
+	DWORD attr = GetFileAttributesW(path.c_str());
+	if (attr != INVALID_FILE_ATTRIBUTES && (attr & FILE_ATTRIBUTE_DIRECTORY) == 0)
+		sSpecularLutSeriesAbort.store(true, std::memory_order_relaxed);
+}
+static bool fillSpecularLut(F32* ls, U32 lightResX, U32 lightResY, bool honor_abort)
+{
+	for (U32 y = 0; y < lightResY; ++y)
+	{
+		if (honor_abort && (y % 64u) == 0u)
+			pollSeriesStopFile();
+		if (honor_abort && sSpecularLutSeriesAbort.load(std::memory_order_relaxed))
+			return false;
+		for (U32 x = 0; x < lightResX; ++x)
+		{
+			ls[y*lightResX+x] = 0;
+			F32 sa = (F32) x/(lightResX-1);
+			F32 spec = (F32) y/(lightResY-1);
+			F32 n = spec * spec * 368;
+			spec = powf(sa, n);
+			spec *= (((n + 2) * (n + 4)) / (8 * F_PI * (powf(2, -n/2) + n)));
+			ls[y*lightResX+x] = spec;
+		}
+	}
+	return true;
+}
+static U32 uploadSpecularImage(F32* ls, U32 w, U32 h, LLImageGL::GLTextureName& dest, bool& compressed)
+{
+	dest = LLImageGL::createTextureName();
+	U32 tex_name = dest->getTexName();
+	gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, tex_name);
+	compressed = LLImageGL::setManualImage(LLTexUnit::getInternalType(LLTexUnit::TT_TEXTURE), 0, GL_R16F, (S32)w, (S32)h, GL_RED, GL_FLOAT, ls);
+	gGL.getTexUnit(0)->setTextureAddressMode(LLTexUnit::TAM_CLAMP);
+	gGL.getTexUnit(0)->setTextureFilteringOption(LLTexUnit::TFO_TRILINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	return tex_name;
+}
+static void effectiveSpecularSize(U32 requested_w, U32 requested_h, U32& effective_w, U32& effective_h, bool& substituted)
+{
+	effective_w = requested_w;
+	effective_h = requested_h;
+	substituted = false;
+	if (effective_w < 2)
+	{
+		effective_w = 512;
+		substituted = true;
+	}
+	if (effective_h < 2)
+	{
+		effective_h = 128;
+		substituted = true;
+	}
+	if (effective_w > 0xFFFFFFFFu / effective_h)
+	{
+		effective_w = 512;
+		effective_h = 128;
+		substituted = true;
+	}
+}
+void LLPipeline::releaseGLBuffers(ELutOrigin origin)
 {
 	assertInitialized();
 	mNoiseMap.reset();
-	releaseLUTBuffers();
+	releaseLUTBuffers(origin);
 	mWaterRef.release();
 	mWaterDis.release();
 	for (U32 i = 0; i < 2; i++)
@@ -850,9 +1153,16 @@ void LLPipeline::releaseGLBuffers()
 	if(LLPostProcess::instanceExists())
 		LLPostProcess::getInstance()->destroyGL();
 }
-void LLPipeline::releaseLUTBuffers()
+void LLPipeline::releaseLUTBuffers(ELutOrigin origin)
 {
+	if (!specularLutProfileEnabled() || !mLightFunc)
+	{
+		mLightFunc.reset();
+		return;
+	}
+	LLTimer timer;
 	mLightFunc.reset();
+	logSpecularLutRelease(origin, timer.getElapsedTimeF64());
 }
 void LLPipeline::releaseScreenBuffers()
 {
@@ -869,7 +1179,7 @@ void LLPipeline::releaseScreenBuffers()
 		mShadow[i].release();
 	}
 }
-void LLPipeline::createGLBuffers()
+void LLPipeline::createGLBuffers(ELutOrigin origin)
 {
 	stop_glerror();
 	assertInitialized();
@@ -896,8 +1206,8 @@ void LLPipeline::createGLBuffers()
 	GLuint resY = gViewerWindow->getWorldViewHeightRaw();
 	if (LLPipeline::sRenderGlow)
 	{
-		const U32 glow_res = llmax(1,
-			llmin(512, 1 << gSavedSettings.getS32("RenderGlowResolutionPow")));
+		const S32 glow_pow = clampedGlowResolutionPow(gSavedSettings.getS32("RenderGlowResolutionPow"));
+		const U32 glow_res = llmax(1u, llmin(512u, 1u << glow_pow));
 		glClearColor(0,0,0,0);
 		gGL.setColorMask(true, true);
 		for (U32 i = 0; i < 2; i++)
@@ -928,42 +1238,641 @@ void LLPipeline::createGLBuffers()
 			LLImageGL::setManualImage(LLTexUnit::getInternalType(LLTexUnit::TT_TEXTURE), 0, GL_RGB16F_ARB, NOISE_MAP_RES, NOISE_MAP_RES, GL_RGB, GL_FLOAT, noise.data());
 			gGL.getTexUnit(0)->setTextureFilteringOption(LLTexUnit::TFO_POINT);
 		}
-		createLUTBuffers();
+		createLUTBuffers(origin, LUT_CONTROL_NONE);
+		runSpecularLutSeriesOnce(origin);
 	}
 	gBumpImageList.restoreGL();
 }
-void LLPipeline::createLUTBuffers()
+void LLPipeline::createLUTBuffers(ELutOrigin origin, ELutControl control)
 {
-	if (sRenderDeferred)
+	if (!specularLutProfileEnabled())
 	{
-		if (!mLightFunc)
+		if (sRenderDeferred)
 		{
-			U32 lightResX = gSavedSettings.getU32("RenderSpecularResX");
-			U32 lightResY = gSavedSettings.getU32("RenderSpecularResY");
-			F32* ls = new F32[lightResX*lightResY];
-			for (U32 y = 0; y < lightResY; ++y)
+			if (!mLightFunc)
 			{
-				for (U32 x = 0; x < lightResX; ++x)
+				U32 lightResX = gSavedSettings.getU32("RenderSpecularResX");
+				U32 lightResY = gSavedSettings.getU32("RenderSpecularResY");
+				if (lightResX < 2)
+					lightResX = 512;
+				if (lightResY < 2)
+					lightResY = 128;
+				if (lightResX > 0xFFFFFFFFu / lightResY)
 				{
-					ls[y*lightResX+x] = 0;
-					F32 sa = (F32) x/(lightResX-1);
-					F32 spec = (F32) y/(lightResY-1);
-					F32 n = spec * spec * 368;
-					spec = powf(sa, n);
-					spec *= (((n + 2) * (n + 4)) / (8 * F_PI * (powf(2, -n/2) + n)));
-					ls[y*lightResX+x] = spec;
+					lightResX = 512;
+					lightResY = 128;
 				}
+				F32* ls = NULL;
+				try
+				{
+					ls = new F32[(size_t)lightResX * (size_t)lightResY];
+				}
+				catch (const std::bad_alloc&)
+				{
+					lightResX = 512;
+					lightResY = 128;
+					ls = new F32[(size_t)lightResX * (size_t)lightResY];
+				}
+				for (U32 y = 0; y < lightResY; ++y)
+				{
+					for (U32 x = 0; x < lightResX; ++x)
+					{
+						ls[y*lightResX+x] = 0;
+						F32 sa = (F32) x/(lightResX-1);
+						F32 spec = (F32) y/(lightResY-1);
+						F32 n = spec * spec * 368;
+						spec = powf(sa, n);
+						spec *= (((n + 2) * (n + 4)) / (8 * F_PI * (powf(2, -n/2) + n)));
+						ls[y*lightResX+x] = spec;
+					}
+				}
+				U32 pix_format = GL_R16F;
+				mLightFunc = LLImageGL::createTextureName();
+				gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, mLightFunc->getTexName());
+				LLImageGL::setManualImage(LLTexUnit::getInternalType(LLTexUnit::TT_TEXTURE), 0, pix_format, lightResX, lightResY, GL_RED, GL_FLOAT, ls);
+				gGL.getTexUnit(0)->setTextureAddressMode(LLTexUnit::TAM_CLAMP);
+				gGL.getTexUnit(0)->setTextureFilteringOption(LLTexUnit::TFO_TRILINEAR);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+				delete [] ls;
 			}
-			U32 pix_format = GL_R16F;
-			mLightFunc = LLImageGL::createTextureName();
-			gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, mLightFunc->getTexName());
-			LLImageGL::setManualImage(LLTexUnit::getInternalType(LLTexUnit::TT_TEXTURE), 0, pix_format, lightResX, lightResY, GL_RED, GL_FLOAT, ls);
-			gGL.getTexUnit(0)->setTextureAddressMode(LLTexUnit::TAM_CLAMP);
-			gGL.getTexUnit(0)->setTextureFilteringOption(LLTexUnit::TFO_TRILINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-			delete [] ls;
 		}
+		return;
+	}
+	if (!sRenderDeferred || mLightFunc)
+	{
+		SpecularLutRecord record = blankSpecularLutRecord();
+		record.origin = origin;
+		record.control = control;
+		record.status = "skipped";
+		record.has_requested = true;
+		record.requested_w = gSavedSettings.getU32("RenderSpecularResX");
+		record.requested_h = gSavedSettings.getU32("RenderSpecularResY");
+		logSpecularLut(record);
+		return;
+	}
+	U32 requested_w = gSavedSettings.getU32("RenderSpecularResX");
+	U32 requested_h = gSavedSettings.getU32("RenderSpecularResY");
+	U32 effective_w = requested_w;
+	U32 effective_h = requested_h;
+	bool substituted = false;
+	effectiveSpecularSize(requested_w, requested_h, effective_w, effective_h, substituted);
+	SpecularLutRecord record = blankSpecularLutRecord();
+	record.origin = origin;
+	record.control = control;
+	record.status = substituted ? "substituido" : "criado";
+	record.has_requested = true;
+	record.requested_w = requested_w;
+	record.requested_h = requested_h;
+	record.has_effective = true;
+	record.effective_w = effective_w;
+	record.effective_h = effective_h;
+	LLTimer total_timer;
+	LLTimer alloc_timer;
+	F32* ls = NULL;
+	bool alloc_failed = false;
+	try
+	{
+		ls = new F32[(size_t)effective_w * (size_t)effective_h];
+	}
+	catch (const std::bad_alloc&)
+	{
+		alloc_failed = true;
+	}
+	record.alloc_s = alloc_timer.getElapsedTimeF64();
+	if (alloc_failed)
+	{
+		record.status = "alloc_failed";
+		record.total_s = total_timer.getElapsedTimeF64();
+		logSpecularLut(record);
+		createAssignedLutContingency(origin, control);
+		return;
+	}
+	LLTimer fill_timer;
+	fillSpecularLut(ls, effective_w, effective_h, false);
+	record.fill_s = fill_timer.getElapsedTimeF64();
+	LLTimer upload_timer;
+	bool compressed = false;
+	LLImageGL::GLTextureName name;
+	U32 tex_name = 0;
+	try
+	{
+		tex_name = uploadSpecularImage(ls, effective_w, effective_h, name, compressed);
+	}
+	catch (...)
+	{
+		delete [] ls;
+		throw;
+	}
+	record.upload_s = upload_timer.getElapsedTimeF64();
+	LLTimer delete_timer;
+	delete [] ls;
+	record.delete_s = delete_timer.getElapsedTimeF64();
+	mLightFunc = name;
+	record.upload_requested = true;
+	record.compressed = compressed ? 1 : 0;
+	record.name_observed = true;
+	record.name = tex_name;
+	record.has_created = true;
+	record.created_w = effective_w;
+	record.created_h = effective_h;
+	record.total_s = total_timer.getElapsedTimeF64();
+	logSpecularLut(record);
+}
+void LLPipeline::createAssignedLutContingency(ELutOrigin origin, ELutControl control)
+{
+	const U32 side_x = 512;
+	const U32 side_y = 128;
+	SpecularLutRecord record = blankSpecularLutRecord();
+	record.path = "saved";
+	record.origin = origin;
+	record.control = control;
+	record.status = "fallback";
+	record.has_requested = true;
+	record.requested_w = side_x;
+	record.requested_h = side_y;
+	record.has_effective = true;
+	record.effective_w = side_x;
+	record.effective_h = side_y;
+	LLTimer total_timer;
+	LLTimer alloc_timer;
+	F32* ls = NULL;
+	try
+	{
+		ls = new F32[(size_t)side_x * (size_t)side_y];
+	}
+	catch (const std::bad_alloc&)
+	{
+		record.alloc_s = alloc_timer.getElapsedTimeF64();
+		record.total_s = total_timer.getElapsedTimeF64();
+		record.status = "fallback_failed";
+		logSpecularLut(record);
+		throw;
+	}
+	record.alloc_s = alloc_timer.getElapsedTimeF64();
+	LLTimer fill_timer;
+	fillSpecularLut(ls, side_x, side_y, false);
+	record.fill_s = fill_timer.getElapsedTimeF64();
+	LLTimer upload_timer;
+	bool compressed = false;
+	LLImageGL::GLTextureName name;
+	U32 tex_name = 0;
+	try
+	{
+		tex_name = uploadSpecularImage(ls, side_x, side_y, name, compressed);
+	}
+	catch (...)
+	{
+		delete [] ls;
+		throw;
+	}
+	record.upload_s = upload_timer.getElapsedTimeF64();
+	LLTimer delete_timer;
+	delete [] ls;
+	record.delete_s = delete_timer.getElapsedTimeF64();
+	mLightFunc = name;
+	record.upload_requested = true;
+	record.compressed = compressed ? 1 : 0;
+	record.name_observed = true;
+	record.name = tex_name;
+	record.has_created = true;
+	record.created_w = side_x;
+	record.created_h = side_y;
+	record.total_s = total_timer.getElapsedTimeF64();
+	logSpecularLut(record);
+}
+static bool seriesBudgetSeconds(F64& seconds)
+{
+	const char* env = getenv("ALLYN_LUT_SERIES_BUDGET_MS");
+	if (!env || !env[0])
+		return false;
+	char* end = NULL;
+	long ms = strtol(env, &end, 10);
+	if (end == env || *end != '\0' || ms <= 0)
+		return false;
+	seconds = (F64)ms / 1000.0;
+	return true;
+}
+static bool parseSeriesExplicit(U32& w, U32& h)
+{
+	const char* env = getenv("ALLYN_LUT_SERIES_EXPLICIT");
+	if (!env || !env[0])
+		return false;
+	char* end = NULL;
+	unsigned long width = strtoul(env, &end, 10);
+	if (end == env || (*end != 'x' && *end != 'X'))
+		return false;
+	char* end_h = NULL;
+	unsigned long height = strtoul(end + 1, &end_h, 10);
+	if (end_h == end + 1 || *end_h != '\0')
+		return false;
+	if (width > 0xFFFFFFFFul || height > 0xFFFFFFFFul)
+		return false;
+	w = (U32)width;
+	h = (U32)height;
+	return true;
+}
+static bool seriesExplicitRequested()
+{
+	const char* env = getenv("ALLYN_LUT_SERIES_EXPLICIT");
+	return env != NULL && env[0] != '\0';
+}
+static F64 medianSamples(F64* values, int count)
+{
+	F64 sorted[5];
+	for (int i = 0; i < count; ++i)
+		sorted[i] = values[i];
+	for (int i = 1; i < count; ++i)
+	{
+		F64 key = sorted[i];
+		int j = i - 1;
+		while (j >= 0 && sorted[j] > key)
+		{
+			sorted[j + 1] = sorted[j];
+			--j;
+		}
+		sorted[j + 1] = key;
+	}
+	if (count <= 0)
+		return 0.0;
+	if (count % 2)
+		return sorted[count / 2];
+	return (sorted[count / 2 - 1] + sorted[count / 2]) * 0.5;
+}
+static bool seriesAllocationAllowed(U32 w, U32 h, bool automatic, F64 budget, F64 estimate, const char*& reason)
+{
+	if (h == 0 || w > 0xFFFFFFFFu / h)
+	{
+		reason = "u32_product";
+		return false;
+	}
+	U64 cpu = (U64)w * (U64)h * 4ull;
+	if (automatic && cpu > 64ull * 1024ull * 1024ull)
+	{
+		reason = "cpu_64mib";
+		return false;
+	}
+	if (estimate > 0.0 && estimate > budget)
+	{
+		reason = "time_estimate";
+		return false;
+	}
+	U64 peak = cpu + (U64)w * (U64)h * 2ull + cpu;
+	MEMORYSTATUSEX status;
+	status.dwLength = sizeof(status);
+	if (!GlobalMemoryStatusEx(&status))
+	{
+		if (cpu > 256ull * 1024ull)
+		{
+			reason = "memory_query_failed";
+			return false;
+		}
+		return true;
+	}
+	if (cpu > status.ullAvailPhys / 8ull)
+	{
+		reason = "phys_eighth";
+		return false;
+	}
+	if (peak > status.ullAvailPageFile / 8ull)
+	{
+		reason = "commit_eighth";
+		return false;
+	}
+	return true;
+}
+static void querySeriesTextureLimit()
+{
+	sSpecularLutMaxTexture = 0;
+	if (!gGLManager.mInited || gGLManager.mIsDisabled || !gGLActive || gNoRender)
+		return;
+	for (int drain = 0; drain < 32 && glGetError() != GL_NO_ERROR; ++drain)
+	{
+	}
+	GLint max_tex = 0;
+	glGetIntegerv(GL_MAX_TEXTURE_SIZE, &max_tex);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR || max_tex < 2)
+	{
+		sSpecularLutMaxTexture = 0;
+		return;
+	}
+	sSpecularLutMaxTexture = (int)max_tex;
+}
+static void logSeriesStop(LLPipeline::ELutOrigin origin, U32 w, U32 h, bool has_size, const char* reason)
+{
+	SpecularLutRecord record = blankSpecularLutRecord();
+	record.phase = "series_stop";
+	record.path = "series";
+	record.origin = origin;
+	record.status = "series_stopped";
+	record.reason = reason;
+	record.has_requested = has_size;
+	record.requested_w = w;
+	record.requested_h = h;
+	record.has_effective = has_size;
+	record.effective_w = w;
+	record.effective_h = h;
+	logSpecularLut(record);
+}
+static int measureSeriesAttempt(LLPipeline::ELutOrigin origin, U32 width, U32 height, const char* repeat, bool honor_abort, bool allow_upload, SpecularLutRecord& record, LLImageGL::GLTextureName& temp_name)
+{
+	record = blankSpecularLutRecord();
+	record.path = "series";
+	record.phase = "create";
+	record.origin = origin;
+	record.repeat_name = repeat;
+	record.has_requested = true;
+	record.requested_w = width;
+	record.requested_h = height;
+	record.has_effective = true;
+	record.effective_w = width;
+	record.effective_h = height;
+	LLTimer total_timer;
+	LLTimer alloc_timer;
+	F32* ls = NULL;
+	bool alloc_failed = false;
+	try
+	{
+		ls = new F32[(size_t)width * (size_t)height];
+	}
+	catch (const std::bad_alloc&)
+	{
+		alloc_failed = true;
+	}
+	record.alloc_s = alloc_timer.getElapsedTimeF64();
+	if (alloc_failed)
+	{
+		record.status = "alloc_failed";
+		record.total_s = total_timer.getElapsedTimeF64();
+		return 1;
+	}
+	LLTimer fill_timer;
+	bool filled = fillSpecularLut(ls, width, height, honor_abort);
+	record.fill_s = fill_timer.getElapsedTimeF64();
+	if (!filled)
+	{
+		LLTimer delete_timer;
+		delete [] ls;
+		record.delete_s = delete_timer.getElapsedTimeF64();
+		record.status = "aborted";
+		record.total_s = total_timer.getElapsedTimeF64();
+		return 2;
+	}
+	if (!allow_upload)
+	{
+		LLTimer delete_timer;
+		delete [] ls;
+		record.delete_s = delete_timer.getElapsedTimeF64();
+		record.status = "upload_skipped_gpu_limit";
+		record.total_s = total_timer.getElapsedTimeF64();
+		return 0;
+	}
+	LLTimer upload_timer;
+	bool compressed = false;
+	U32 tex_name = 0;
+	try
+	{
+		tex_name = uploadSpecularImage(ls, width, height, temp_name, compressed);
+	}
+	catch (...)
+	{
+		delete [] ls;
+		throw;
+	}
+	record.upload_s = upload_timer.getElapsedTimeF64();
+	record.upload_requested = true;
+	record.compressed = compressed ? 1 : 0;
+	record.name_observed = true;
+	record.name = tex_name;
+	record.has_created = true;
+	record.created_w = width;
+	record.created_h = height;
+	record.status = "criado";
+	LLTimer delete_timer;
+	delete [] ls;
+	record.delete_s = delete_timer.getElapsedTimeF64();
+	record.total_s = total_timer.getElapsedTimeF64();
+	return 0;
+}
+static void measureSeriesContingencyOrThrow(LLPipeline::ELutOrigin origin, const char* repeat, LLImageGL::GLTextureName& temp_name)
+{
+	SpecularLutRecord record = blankSpecularLutRecord();
+	record.path = "series";
+	record.phase = "create";
+	record.origin = origin;
+	record.status = "fallback";
+	record.repeat_name = repeat;
+	record.has_requested = true;
+	record.requested_w = 512;
+	record.requested_h = 128;
+	record.has_effective = true;
+	record.effective_w = 512;
+	record.effective_h = 128;
+	LLTimer total_timer;
+	LLTimer alloc_timer;
+	F32* ls = NULL;
+	try
+	{
+		ls = new F32[(size_t)512 * (size_t)128];
+	}
+	catch (const std::bad_alloc&)
+	{
+		record.alloc_s = alloc_timer.getElapsedTimeF64();
+		record.total_s = total_timer.getElapsedTimeF64();
+		record.status = "fallback_failed";
+		logSpecularLut(record);
+		throw;
+	}
+	record.alloc_s = alloc_timer.getElapsedTimeF64();
+	LLTimer fill_timer;
+	fillSpecularLut(ls, 512, 128, false);
+	record.fill_s = fill_timer.getElapsedTimeF64();
+	LLTimer upload_timer;
+	bool compressed = false;
+	U32 tex_name = 0;
+	try
+	{
+		tex_name = uploadSpecularImage(ls, 512, 128, temp_name, compressed);
+	}
+	catch (...)
+	{
+		delete [] ls;
+		throw;
+	}
+	record.upload_s = upload_timer.getElapsedTimeF64();
+	LLTimer delete_timer;
+	delete [] ls;
+	record.delete_s = delete_timer.getElapsedTimeF64();
+	record.upload_requested = true;
+	record.compressed = compressed ? 1 : 0;
+	record.name_observed = true;
+	record.name = tex_name;
+	record.has_created = true;
+	record.created_w = 512;
+	record.created_h = 128;
+	record.total_s = total_timer.getElapsedTimeF64();
+	logSpecularLut(record);
+}
+void LLPipeline::runSpecularLutSeriesOnce(ELutOrigin origin)
+{
+	if (!specularLutSeriesEnabled() || !sRenderDeferred || !mLightFunc)
+		return;
+	static bool ran = false;
+	if (ran)
+		return;
+	ran = true;
+	F64 budget = 0.0;
+	if (!seriesBudgetSeconds(budget))
+	{
+		logSeriesStop(origin, 0, 0, false, "budget_missing");
+		return;
+	}
+	U32 explicit_w = 0;
+	U32 explicit_h = 0;
+	bool explicit_size = false;
+	if (seriesExplicitRequested())
+	{
+		if (!parseSeriesExplicit(explicit_w, explicit_h))
+		{
+			logSeriesStop(origin, 0, 0, false, "explicit_invalid");
+			return;
+		}
+		explicit_size = true;
+	}
+	querySeriesTextureLimit();
+	static const U32 kSeriesSizes[][2] = {
+		{512, 128},
+		{1000, 128},
+		{1024, 128},
+		{512, 256},
+		{2048, 128},
+		{512, 512},
+		{1024, 256},
+		{4096, 128},
+		{512, 1024},
+		{2048, 512},
+		{8192, 128},
+		{512, 2048},
+		{16384, 128},
+		{512, 4096},
+		{4096, 1024},
+		{32768, 128},
+		{512, 8192},
+		{8192, 2048}
+	};
+	const U32 series_count = explicit_size ? 1u : (U32)(sizeof(kSeriesSizes) / sizeof(kSeriesSizes[0]));
+	F64 basis = 0.0;
+	U64 basis_texels = 0;
+	static const char* kRepeatNames[6] = { "warmup", "1", "2", "3", "4", "5" };
+	for (U32 index = 0; index < series_count; ++index)
+	{
+		U32 width = explicit_size ? explicit_w : kSeriesSizes[index][0];
+		U32 height = explicit_size ? explicit_h : kSeriesSizes[index][1];
+		pollSeriesStopFile();
+		if (sSpecularLutSeriesAbort.load(std::memory_order_relaxed))
+		{
+			logSeriesStop(origin, width, height, true, "operator");
+			break;
+		}
+		if (width < 2 || height < 2)
+		{
+			logSeriesStop(origin, width, height, true, "side");
+			break;
+		}
+		U64 next_texels = (U64)width * (U64)height;
+		F64 estimate = 0.0;
+		if (basis_texels > 0 && basis > 0.0)
+			estimate = basis * ((F64)next_texels / (F64)basis_texels);
+		const char* reason = "na";
+		if (!seriesAllocationAllowed(width, height, !explicit_size, budget, estimate, reason))
+		{
+			logSeriesStop(origin, width, height, true, reason);
+			break;
+		}
+		bool allow_upload = true;
+		bool stop_after = false;
+		const char* skip_reason = "na";
+		U64 cpu = next_texels * 4ull;
+		if (sSpecularLutMaxTexture > 0 && (width > (U32)sSpecularLutMaxTexture || height > (U32)sSpecularLutMaxTexture))
+		{
+			allow_upload = false;
+			stop_after = true;
+			skip_reason = "gl_max_texture_size";
+		}
+		else if (!explicit_size && sSpecularLutMaxTexture == 0 && cpu > 256ull * 1024ull)
+		{
+			allow_upload = false;
+			skip_reason = "gl_max_unknown";
+		}
+		int repeats = allow_upload ? 6 : 1;
+		F64 repeat_totals[5];
+		int repeat_n = 0;
+		F64 warmup_total = 0.0;
+		bool have_warmup = false;
+		bool stop_series = false;
+		for (int repeat = 0; repeat < repeats; ++repeat)
+		{
+			pollSeriesStopFile();
+			if (sSpecularLutSeriesAbort.load(std::memory_order_relaxed))
+			{
+				logSeriesStop(origin, width, height, true, "operator");
+				stop_series = true;
+				break;
+			}
+			LLImageGL::GLTextureName temp_name;
+			SpecularLutRecord record;
+			const char* repeat_name = allow_upload ? kRepeatNames[repeat] : "1";
+			int code = measureSeriesAttempt(origin, width, height, repeat_name, true, allow_upload, record, temp_name);
+			if (code == 1)
+			{
+				logSpecularLut(record);
+				measureSeriesContingencyOrThrow(origin, repeat_name, temp_name);
+				temp_name.reset();
+				if (mLightFunc)
+					gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, mLightFunc->getTexName());
+				stop_series = true;
+				break;
+			}
+			if (code == 2)
+			{
+				logSpecularLut(record);
+				temp_name.reset();
+				stop_series = true;
+				break;
+			}
+			if (!allow_upload)
+				record.reason = skip_reason;
+			record.within_budget = (record.total_s <= budget) ? "1" : "0";
+			logSpecularLut(record);
+			temp_name.reset();
+			if (mLightFunc)
+				gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, mLightFunc->getTexName());
+			if (record.total_s > budget)
+			{
+				stop_series = true;
+				break;
+			}
+			if (allow_upload && repeat == 0)
+			{
+				warmup_total = record.total_s;
+				have_warmup = true;
+			}
+			else if (allow_upload && repeat_n < 5)
+			{
+				repeat_totals[repeat_n] = record.total_s;
+				++repeat_n;
+			}
+		}
+		if (stop_series || stop_after)
+			break;
+		if (!allow_upload)
+			continue;
+		if (repeat_n > 0)
+			basis = medianSamples(repeat_totals, repeat_n);
+		else if (have_warmup)
+			basis = warmup_total;
+		basis_texels = next_texels;
 	}
 }
 void LLPipeline::restoreGL()
@@ -5563,9 +6472,8 @@ void LLPipeline::renderBloom(BOOL for_snapshot, F32 zoom_factor, int subfield, b
 		gGL.getTexUnit(0)->unbind(render_target.getUsage());
 		mGlow[1].flush();
 	}
-	U32 glowResPow = RenderGlowResolutionPow;
-	const U32 glow_res = llmax(1,
-		llmin(1024, 1 << glowResPow));
+	U32 glowResPow = (U32)clampedGlowResolutionPow(RenderGlowResolutionPow);
+	const U32 glow_res = llmax(1u, llmin(1024u, 1u << glowResPow));
 	S32 kernel = RenderGlowIterations*2;
 	F32 delta = RenderGlowWidth * zoom_factor / glow_res;
 	if (glowResPow < 9)
@@ -5661,7 +6569,10 @@ void LLPipeline::renderBloom(BOOL for_snapshot, F32 zoom_factor, int subfield, b
 			}
 			else if (transition_time < 1.f)
 			{
-				transition_time += 1.f/CameraFocusTransitionTime*gFrameIntervalSeconds;
+				F32 focus_transition = CameraFocusTransitionTime;
+				if (!std::isfinite(focus_transition) || !(focus_transition > 0.f))
+					focus_transition = 0.5f;
+				transition_time += 1.f / focus_transition * gFrameIntervalSeconds;
 				transition_time = llmin(transition_time, 1.f);
 				F32 t = cosf(transition_time*F_PI+F_PI)*0.5f+0.5f;
 				current_distance = start_distance + (target_distance-start_distance)*t;
@@ -5672,14 +6583,26 @@ void LLPipeline::renderBloom(BOOL for_snapshot, F32 zoom_factor, int subfield, b
 			}
 			F32 subject_distance = current_distance*1000.f;
 			F32 fnumber = CameraFNumber;
+			if (!std::isfinite(fnumber) || !(fnumber > 0.f))
+				fnumber = 9.f;
 			F32 default_focal_length = CameraFocalLength;
 			F32 fov = LLViewerCamera::getInstance()->getView();
 			const F32 default_fov = CameraFieldOfView * F_PI/180.f;
 			F32 dv = 2.f*default_focal_length * tanf(default_fov/2.f);
 			F32 focal_length = dv/(2*tanf(fov/2.f));
-			F32 blur_constant = focal_length*focal_length/(fnumber*(subject_distance-focal_length));
-			blur_constant /= 1000.f;
-			F32 magnification = focal_length/(subject_distance-focal_length);
+			F32 separation = subject_distance-focal_length;
+			F32 blur_constant = 0.f;
+			F32 magnification = 0.f;
+			if (std::isfinite(focal_length) && std::isfinite(separation) && separation != 0.f)
+			{
+				blur_constant = focal_length*focal_length/(fnumber*separation);
+				blur_constant /= 1000.f;
+				magnification = focal_length/separation;
+				if (!std::isfinite(blur_constant))
+					blur_constant = 0.f;
+				if (!std::isfinite(magnification))
+					magnification = 0.f;
+			}
 			{
 				mDeferredLight.bindTarget();
 				shader = &gDeferredCoFProgram;
@@ -7725,7 +8648,12 @@ void LLPipeline::generateSunShadow(LLCamera& camera)
 	{
 		;
 		LLVector3 p = gAgent.getPositionAgent();
-		p += sunDir * RenderFarClip*2.f;
+		F32 shadow_far = RenderFarClip;
+		if (!std::isfinite(shadow_far))
+			shadow_far = DEFAULT_FAR_PLANE;
+		else
+			shadow_far = llclamp(shadow_far, MIN_FAR_PLANE, MAX_FAR_PLANE);
+		p += sunDir * shadow_far*2.f;
 		shadow_near_clip.setVec(p, sunDir);
 	}
 	LLVector3 lightDir = -sunDir;

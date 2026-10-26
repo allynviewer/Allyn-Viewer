@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
  * Copyright (c) 2002-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -270,7 +271,10 @@ BOOL	LLFloaterTools::postBuild()
 	mSliderDozerSize		= getChild<LLSlider>("slider brush size");
 	getChild<LLUICtrl>("slider brush size")->setValue(gSavedSettings.getF32("LandBrushSize"));
 	mSliderDozerForce		= getChild<LLSlider>("slider force");
-	getChild<LLUICtrl>("slider force")->setValue(log10(gSavedSettings.getF32("LandBrushForce")));
+	F32 brush_force = gSavedSettings.getF32("LandBrushForce");
+	if (!std::isfinite(brush_force) || !(brush_force > 0.f))
+		brush_force = 1.f;
+	getChild<LLUICtrl>("slider force")->setValue(log10(brush_force));
 	mTab = getChild<LLTabContainer>("Object Info Tabs");
 	if(mTab)
 	{

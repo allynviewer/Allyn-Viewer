@@ -112,8 +112,13 @@ static bool handleTerrainDetailChanged(const LLSD& newvalue)
 }
 static bool handleTerrainScaleChanged(const LLSD& inputvalue)
 {
-	LLSD newvalue = 1.f / inputvalue.asReal();
-	LLDrawPoolTerrain::sDetailScale = newvalue.asReal();
+	F32 terrain_scale = (F32)inputvalue.asReal();
+	if (!std::isfinite(terrain_scale) || !(terrain_scale > 0.f))
+		terrain_scale = 12.f;
+	F32 detail_scale = 1.f / terrain_scale;
+	if (!std::isfinite(detail_scale))
+		detail_scale = 1.f / 12.f;
+	LLDrawPoolTerrain::sDetailScale = detail_scale;
 	return true;
 }
 bool handleStateMachineMaxTimeChanged(const LLSD& newvalue)
@@ -186,8 +191,8 @@ bool handleRenderTransparentWaterChanged(const LLSD& newvalue)
 {
 	if (gPipeline.isInit())
 	{
-		gPipeline.releaseGLBuffers();
-		gPipeline.createGLBuffers();
+		gPipeline.releaseGLBuffers(LLPipeline::LUT_ORIGIN_GL_REBUILD);
+		gPipeline.createGLBuffers(LLPipeline::LUT_ORIGIN_GL_REBUILD);
 	}
 	LLWorld::getInstance()->updateWaterObjects();
 	return true;
@@ -196,17 +201,17 @@ static bool handleReleaseGLBufferChanged(const LLSD& newvalue)
 {
 	if (gPipeline.isInit())
 	{
-		gPipeline.releaseGLBuffers();
-		gPipeline.createGLBuffers();
+		gPipeline.releaseGLBuffers(LLPipeline::LUT_ORIGIN_GL_REBUILD);
+		gPipeline.createGLBuffers(LLPipeline::LUT_ORIGIN_GL_REBUILD);
 	}
 	return true;
 }
-static bool handleLUTBufferChanged(const LLSD& newvalue)
+static bool handleLUTBufferChanged(const LLSD& newvalue, LLPipeline::ELutControl control)
 {
 	if (gPipeline.isInit())
 	{
-		gPipeline.releaseLUTBuffers();
-		gPipeline.createLUTBuffers();
+		gPipeline.releaseLUTBuffers(LLPipeline::LUT_ORIGIN_SETTING_CHANGE);
+		gPipeline.createLUTBuffers(LLPipeline::LUT_ORIGIN_SETTING_CHANGE, control);
 	}
 	return true;
 }
@@ -422,8 +427,8 @@ static bool handleRenderUseFBOChanged(const LLSD& newvalue)
 	LLRenderTarget::sUseFBO = newvalue.asBoolean() || LLPipeline::sRenderDeferred;
 	if (gPipeline.isInit())
 	{
-		gPipeline.releaseGLBuffers();
-		gPipeline.createGLBuffers();
+		gPipeline.releaseGLBuffers(LLPipeline::LUT_ORIGIN_GL_REBUILD);
+		gPipeline.createGLBuffers(LLPipeline::LUT_ORIGIN_GL_REBUILD);
 	}
 	return true;
 }
@@ -642,9 +647,9 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("VertexShaderEnable")->getSignal()->connect(boost::bind(&handleSetShaderChanged, _2));
 	gSavedSettings.getControl("RenderDepthOfField")->getSignal()->connect(boost::bind(&handleReleaseGLBufferChanged, _2));
 	gSavedSettings.getControl("RenderFSAASamples")->getSignal()->connect(boost::bind(&handleReleaseGLBufferChanged, _2));
-	gSavedSettings.getControl("RenderSpecularResX")->getSignal()->connect(boost::bind(&handleLUTBufferChanged, _2));
-	gSavedSettings.getControl("RenderSpecularResY")->getSignal()->connect(boost::bind(&handleLUTBufferChanged, _2));
-	gSavedSettings.getControl("RenderSpecularExponent")->getSignal()->connect(boost::bind(&handleLUTBufferChanged, _2));
+	gSavedSettings.getControl("RenderSpecularResX")->getSignal()->connect(boost::bind(&handleLUTBufferChanged, _2, LLPipeline::LUT_CONTROL_RES_X));
+	gSavedSettings.getControl("RenderSpecularResY")->getSignal()->connect(boost::bind(&handleLUTBufferChanged, _2, LLPipeline::LUT_CONTROL_RES_Y));
+	gSavedSettings.getControl("RenderSpecularExponent")->getSignal()->connect(boost::bind(&handleLUTBufferChanged, _2, LLPipeline::LUT_CONTROL_EXPONENT));
 	gSavedSettings.getControl("RenderAnisotropic")->getSignal()->connect(boost::bind(&handleAnisotropicChanged, _2));
 	gSavedSettings.getControl("RenderShadowResolutionScale")->getSignal()->connect(boost::bind(&handleReleaseGLBufferChanged, _2));
 	gSavedSettings.getControl("RenderGlow")->getSignal()->connect(boost::bind(&handleReleaseGLBufferChanged, _2));

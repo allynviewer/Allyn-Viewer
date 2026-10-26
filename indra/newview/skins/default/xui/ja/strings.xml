@@ -34,10 +34,10 @@
 		Second Life
 	</string>
 	<string name="APP_NAME">
-		Allyn Viewer Beta
+		Allyn Viewer
 	</string>
 	<string name="CAPITALIZED_APP_NAME">
-		Allyn Viewer Beta
+		Allyn Viewer
 	</string>
 	<string name="SHORT_APP_NAME">
 		Allyn Viewer
@@ -46,7 +46,7 @@
 		Second Life グリッド
 	</string>
 	<string name="SUPPORT_SITE">
-		Second Life サポートポータル
+		GitHub、Discord、または allynviewer@gmail.com の Allyn Viewer サポート
 	</string>
 	<string name="CURRENCY">
 		L$
@@ -6361,4 +6361,25 @@ HTTP [STATUS]。JSON ではなく HTML または非 API の応答を受け取り
 	<string name="none_text" value=" (なし) " />
 	<string name="temporary" value=" (一時的)" />
 	<string name="worn" value=" (装着中)" />
+	<string name="DebugSettingsValue">
+		値
+	</string>
+	<string name="DebugSettingsLeft">
+		左
+	</string>
+	<string name="DebugSettingsRight">
+		右
+	</string>
+	<string name="DebugSettingsBottom">
+		下
+	</string>
+	<string name="DebugSettingsTop">
+		上
+	</string>
+	<string name="DebugSettingsAlpha">
+		アルファ
+	</string>
+	<string name="DebugSettingsUnknown">
+		不明
+	</string>
 </strings>

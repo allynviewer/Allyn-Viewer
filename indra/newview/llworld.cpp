@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
  * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -737,11 +738,14 @@ F32 LLWorld::getLandFarClip() const
 }
 void LLWorld::setLandFarClip(const F32 far_clip)
 {
+	if (!std::isfinite(far_clip))
+		return;
+	const F32 clipped = llclamp(far_clip, MIN_FAR_PLANE, MAX_FAR_PLANE);
 	S32 const rwidth = (S32)getRegionWidthInMeters();
 	S32 const n1 = (llceil(mLandFarClip) - 1) / rwidth;
-	S32 const n2 = (llceil(far_clip) - 1) / rwidth;
+	S32 const n2 = (llceil(clipped) - 1) / rwidth;
 	bool need_water_objects_update = n1 != n2;
-	mLandFarClip = far_clip;
+	mLandFarClip = clipped;
 	if (need_water_objects_update)
 	{
 		updateWaterObjects();

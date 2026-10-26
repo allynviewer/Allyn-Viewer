@@ -47,6 +47,8 @@
 #include "llhttpclient.h"
 const U32	MAX_OBJECT_CACHE_ENTRIES = 50000;
 const U32 REGION_HANDSHAKE_SUPPORTS_SELF_APPEARANCE = 1U << 2;
+const char IL_MODE_DEFAULT[] = "default";
+const char IL_MODE_360[] = "360";
 class LLEventPoll;
 class LLVLComposition;
 class LLViewerObject;
@@ -189,6 +191,7 @@ public:
 	void failedSeedCapability();
 	S32 getNumSeedCapRetries();
 	void setCapability(const std::string& name, const std::string& url);
+	void setInterestListMode(const std::string& new_mode);
 	void setCapabilityDebug(const std::string& name, const std::string& url);
 	bool isCapabilityAvailable(const std::string& name) const;
     virtual std::string getCapability(const std::string& name) const;
@@ -344,6 +347,8 @@ private:
 	U32 mGamingFlags;
 	LLFrameTimer mMaterialsCapThrottleTimer;
 	LLFrameTimer	mRenderInfoRequestTimer;
+	void postInterestListMode();
+	std::string mInterestListMode;
 };
 inline BOOL LLViewerRegion::getRegionProtocol(U64 protocol) const
 {

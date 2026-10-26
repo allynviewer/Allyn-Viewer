@@ -2598,6 +2598,32 @@ void process_crossed_region(LLMessageSystem* msg, void**)
 const F32 THRESHOLD_HEAD_ROT_QDOT = 0.9997f;
 const F32 MAX_HEAD_ROT_QDOT = 0.99999f;
 static LLTrace::BlockTimerStatHandle FTM_AGENT_UPDATE_SEND("Send Message");
+static bool sCoverWholeRegion = false;
+static F32 whole_region_interest_range()
+{
+	LLViewerRegion* region = gAgent.getRegion();
+	if (!region)
+		return 0.f;
+	const F32 width = region->getWidth();
+	if (!(width > 0.f))
+		return 0.f;
+	const LLVector3 cam = region->getPosRegionFromAgent(gAgentCamera.getCameraPositionAgent());
+	const F32 dx = llmax(fabsf(cam.mV[VX]), fabsf(cam.mV[VX] - width));
+	const F32 dy = llmax(fabsf(cam.mV[VY]), fabsf(cam.mV[VY] - width));
+	const F32 dz = llmax(fabsf(cam.mV[VZ]), fabsf(cam.mV[VZ] - REGION_HEIGHT_METERS));
+	const F32 dist = sqrtf(dx * dx + dy * dy + dz * dz);
+	if (!std::isfinite(dist))
+		return 0.f;
+	return llmin(dist + 16.f, 8192.f);
+}
+void set_agent_update_cover_region(bool cover)
+{
+	if (sCoverWholeRegion == cover)
+		return;
+	sCoverWholeRegion = cover;
+	if (gMessageSystem && !gDisconnected && gAgent.getRegion())
+		send_agent_update(TRUE, TRUE);
+}
 void send_agent_update(BOOL force_send, BOOL send_reliable)
 {
 	if (gAgent.getTeleportState() != LLAgent::TELEPORT_NONE)
@@ -2704,7 +2730,16 @@ void send_agent_update(BOOL force_send, BOOL send_reliable)
 		msg->addVector3Fast(_PREHASH_CameraAtAxis, LLViewerCamera::getInstance()->getAtAxis());
 		msg->addVector3Fast(_PREHASH_CameraLeftAxis, LLViewerCamera::getInstance()->getLeftAxis());
 		msg->addVector3Fast(_PREHASH_CameraUpAxis, LLViewerCamera::getInstance()->getUpAxis());
-		msg->addF32Fast(_PREHASH_Far, gAgentCamera.mDrawDistance);
+		F32 packet_far = gAgentCamera.mDrawDistance;
+		if (sCoverWholeRegion)
+		{
+			const F32 region_far = whole_region_interest_range();
+			if (region_far > packet_far)
+				packet_far = region_far;
+		}
+		if (!std::isfinite(packet_far))
+			packet_far = LLViewerCamera::getInstance()->getFar();
+		msg->addF32Fast(_PREHASH_Far, packet_far);
 		msg->addU32Fast(_PREHASH_ControlFlags, control_flags);
 		if (gDebugClicks)
 		{

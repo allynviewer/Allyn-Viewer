@@ -168,7 +168,10 @@ void LLAgentCamera::init()
 	mFocusOffsetInitial[CAMERA_PRESET_GROUP_VIEW] = gSavedSettings.getControl("FocusOffsetGroupView");
 	mFocusOffsetInitial[CAMERA_PRESET_TPP_VIEW] = gSavedSettings.getControl("FocusOffsetTPPView");
 	mCameraCollidePlane.clearVec();
-	mCurrentCameraDistance = getCameraOffsetInitial().magVec() * gSavedSettings.getF32("CameraOffsetScale");
+	F32 offset_scale = gSavedSettings.getF32("CameraOffsetScale");
+	if (!std::isfinite(offset_scale) || !(offset_scale > 0.f))
+		offset_scale = 1.f;
+	mCurrentCameraDistance = getCameraOffsetInitial().magVec() * offset_scale;
 	mTargetCameraDistance = mCurrentCameraDistance;
 	mCameraZoomFraction = 1.f;
 	mTrackFocusObject = gSavedSettings.getBOOL("TrackFocusObject");
@@ -698,7 +701,10 @@ void LLAgentCamera::cameraOrbitIn(const F32 meters)
 	if (mFocusOnAvatar && mCameraMode == CAMERA_MODE_THIRD_PERSON)
 	{
 		static const LLCachedControl<F32> camera_offset_scale("CameraOffsetScale");
-		F32 camera_offset_dist = llmax(0.001f, getCameraOffsetInitial().magVec() * camera_offset_scale);
+		F32 scale = camera_offset_scale;
+		if (!std::isfinite(scale) || !(scale > 0.f))
+			scale = 1.f;
+		F32 camera_offset_dist = llmax(0.001f, getCameraOffsetInitial().magVec() * scale);
 		mCameraZoomFraction = (mTargetCameraDistance - meters) / camera_offset_dist;
 		static const LLCachedControl<bool> freeze_time("FreezeTime",false);
 		if (!freeze_time && mCameraZoomFraction < MIN_ZOOM_FRACTION && meters > 0.f)
@@ -1315,7 +1321,10 @@ LLVector3d LLAgentCamera::calcCameraPositionTargetGlobal(BOOL *hit_limit)
 		else
 		{
 			static const LLCachedControl<F32> camera_offset_scale("CameraOffsetScale");
-			local_camera_offset = mCameraZoomFraction * getCameraOffsetInitial() * camera_offset_scale;
+			F32 scale = camera_offset_scale;
+			if (!std::isfinite(scale) || !(scale > 0.f))
+				scale = 1.f;
+			local_camera_offset = mCameraZoomFraction * getCameraOffsetInitial() * scale;
 			if (isAgentAvatarValid() && gAgentAvatarp->getParent())
 			{
 				LLQuaternion parent_rot = ((LLViewerObject*)gAgentAvatarp->getParent())->getRenderRotation();
@@ -1541,20 +1550,30 @@ void LLAgentCamera::handleScrollWheel(S32 clicks)
 					const F32 change(static_cast<F32>(clicks) * 0.1f);
 					if (mask & MASK_SHIFT)
 					{
-						change_vec<LLVector3d>(change, mFocusOffsetInitial[mCameraPreset]);
+						std::map<ECameraPreset, LLPointer<LLControlVariable> >::iterator focus_it = mFocusOffsetInitial.find(mCameraPreset);
+						if (focus_it != mFocusOffsetInitial.end() && focus_it->second.notNull())
+							change_vec<LLVector3d>(change, focus_it->second);
 					}
 					if (mask & MASK_CONTROL)
 					{
-						change_vec<LLVector3>(change, mCameraOffsetInitial[mCameraPreset]);
+						std::map<ECameraPreset, LLPointer<LLControlVariable> >::iterator offset_it = mCameraOffsetInitial.find(mCameraPreset);
+						if (offset_it != mCameraOffsetInitial.end() && offset_it->second.notNull())
+							change_vec<LLVector3>(change, offset_it->second);
 					}
 					return;
 				}
 			}
 			F32 camera_offset_initial_mag = getCameraOffsetInitial().magVec();
 			static const LLCachedControl<F32> camera_offset_scale("CameraOffsetScale");
-			F32 current_zoom_fraction = mTargetCameraDistance / (camera_offset_initial_mag * camera_offset_scale);
+			F32 scale = camera_offset_scale;
+			if (!std::isfinite(scale) || !(scale > 0.f))
+				scale = 1.f;
+			F32 denom = camera_offset_initial_mag * scale;
+			if (!(denom > 0.f))
+				return;
+			F32 current_zoom_fraction = mTargetCameraDistance / denom;
 			current_zoom_fraction *= 1.f - pow(ROOT_ROOT_TWO, clicks);
-			cameraOrbitIn(current_zoom_fraction * camera_offset_initial_mag * camera_offset_scale);
+			cameraOrbitIn(current_zoom_fraction * denom);
 		}
 		else
 		{
@@ -1565,8 +1584,14 @@ void LLAgentCamera::handleScrollWheel(S32 clicks)
 }
 void LLAgentCamera::resetPresetOffsets()
 {
-	mFocusOffsetInitial[mCameraPreset]->resetToDefault();
-	mCameraOffsetInitial[mCameraPreset]->resetToDefault();
+	std::map<ECameraPreset, LLPointer<LLControlVariable> >::iterator focus_it = mFocusOffsetInitial.find(mCameraPreset);
+	std::map<ECameraPreset, LLPointer<LLControlVariable> >::iterator offset_it = mCameraOffsetInitial.find(mCameraPreset);
+	if (focus_it == mFocusOffsetInitial.end() || focus_it->second.isNull())
+		return;
+	if (offset_it == mCameraOffsetInitial.end() || offset_it->second.isNull())
+		return;
+	focus_it->second->resetToDefault();
+	offset_it->second->resetToDefault();
 }
 F32 LLAgentCamera::getCameraMinOffGround()
 {

@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2003&license=viewergpl$
  * 
  * Copyright (c) 2003-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -1704,6 +1705,8 @@ void renderPhysicsShape(LLDrawable* drawable, LLVOVolume* volume)
 		return;
 	}
 	F32 threshold = gSavedSettings.getF32("ObjectCostHighThreshold");
+	if (!std::isfinite(threshold) || !(threshold > 0.f))
+		threshold = 50.f;
 	F32 cost = volume->getObjectCost();
 	LLColor4 low = gSavedSettings.getColor4("ObjectCostLowColor");
 	LLColor4 mid = gSavedSettings.getColor4("ObjectCostMidColor");

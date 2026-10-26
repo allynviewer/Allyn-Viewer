@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <strings>
 	<string name="SUPPORT_SITE">
-		Portal de Suporte Second Life
+		suporte do Allyn Viewer pelo GitHub, Discord ou allynviewer@gmail.com
 	</string>
 	<string name="StartupDetectingHardware">
 		Detectando hardware...
@@ -5292,10 +5292,10 @@ Aguarde a resposta do provedor.
 		A forma física não tem a versão correta. Defina a versão correta para o modelo físico.
 	</string>
 	<string name="APP_NAME">
-		Allyn Viewer Beta
+		Allyn Viewer
 	</string>
 	<string name="CAPITALIZED_APP_NAME">
-		Allyn Viewer Beta
+		Allyn Viewer
 	</string>
 	<string name="SHORT_APP_NAME">
 		Allyn Viewer
@@ -7572,5 +7572,26 @@ Se isso continuar acontecendo, fale com o suporte do Second Life em http://suppo
 	</string>
 	<string name="zip_files">
 		Arquivos Zip
+	</string>
+	<string name="DebugSettingsValue">
+		valor
+	</string>
+	<string name="DebugSettingsLeft">
+		Esquerda
+	</string>
+	<string name="DebugSettingsRight">
+		Direita
+	</string>
+	<string name="DebugSettingsBottom">
+		Inferior
+	</string>
+	<string name="DebugSettingsTop">
+		Superior
+	</string>
+	<string name="DebugSettingsAlpha">
+		Alfa
+	</string>
+	<string name="DebugSettingsUnknown">
+		desconhecido
 	</string>
 </strings>

@@ -349,6 +349,7 @@ LLViewerRegion::LLViewerRegion(const U64 &handle,
 	initStats();
 	initPartitions();
 	setCapabilitiesReceivedCallback(boost::bind(&LLAgent::handleServerBakeRegionTransition, &gAgent, _1));
+	mInterestListMode = IL_MODE_DEFAULT;
 }
 void LLViewerRegion::initPartitions()
 {
@@ -1601,6 +1602,7 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 	capabilityNames.append("GroupMemberData");
 	capabilityNames.append("GroupProposalBallot");
 	capabilityNames.append("HomeLocation");
+	capabilityNames.append("InterestList");
 	capabilityNames.append("LandResources");
 	capabilityNames.append("MapLayer");
 	capabilityNames.append("MapLayerGod");
@@ -1736,6 +1738,12 @@ void LLViewerRegion::setCapability(const std::string& name, const std::string& u
 		LLSD gamingRequest = LLSD::emptyMap();
 		LLHTTPClient::post(url, gamingRequest, new BaseFeaturesReceived(url, getHandle(), "GamingDataReceived", &LLViewerRegion::setGamingData));
 	}
+	else if (name == "InterestList")
+	{
+		mImpl->mCapabilities[name] = url;
+		if (mInterestListMode == IL_MODE_360)
+			postInterestListMode();
+	}
 	else
 	{
 		mImpl->mCapabilities[name] = url;
@@ -1778,6 +1786,24 @@ void LLViewerRegion::setCapabilityDebug(const std::string& name, const std::stri
 bool LLViewerRegion::isSpecialCapabilityName(const std::string &name)
 {
 	return name == "EventQueueGet" || name == "UntrustedSimulatorMessage";
+}
+void LLViewerRegion::setInterestListMode(const std::string& new_mode)
+{
+	if (new_mode != IL_MODE_DEFAULT && new_mode != IL_MODE_360)
+		return;
+	if (mInterestListMode == new_mode)
+		return;
+	mInterestListMode = new_mode;
+	postInterestListMode();
+}
+void LLViewerRegion::postInterestListMode()
+{
+	std::map<std::string, std::string>::const_iterator iter = mImpl->mCapabilities.find("InterestList");
+	if (iter == mImpl->mCapabilities.end() || iter->second.empty())
+		return;
+	LLSD body;
+	body["mode"] = mInterestListMode;
+	LLHTTPClient::post(iter->second, body, new LLHTTPClient::ResponderIgnore);
 }
 std::string LLViewerRegion::getCapability(const std::string& name) const
 {

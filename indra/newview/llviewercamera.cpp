@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2002&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -212,6 +213,8 @@ void LLViewerCamera::setPerspective(BOOL for_selection,
 		else
 		{
 			z_far = gAgentCamera.mDrawDistance;
+			if (!std::isfinite(z_far) || !(z_far > z_near))
+				z_far = getFar();
 		}
 	}
 	else

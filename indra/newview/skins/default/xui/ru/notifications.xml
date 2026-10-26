@@ -6962,4 +6962,14 @@ URL-адрес мультимедиа/аудио заблокирован для
       <button index="1" name="cancel" text="Отмена"/>
     </form>
   </notification>
+  <notification
+   icon="alertmodal.tga"
+   name="NonLindenLogin"
+   type="alertmodal">
+Эта сетка не является сервером Linden Lab. Имя и пароль будут отправлены на [URI] ([GRID]), а не в Linden Lab. Продолжайте только если доверяете этому серверу.
+    <usetemplate
+     name="okcancelbuttonscanceldefault"
+     notext="Отмена"
+     yestext="Продолжить"/>
+  </notification>
 </notifications>

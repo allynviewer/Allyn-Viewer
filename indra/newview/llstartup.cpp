@@ -249,6 +249,8 @@ static bool mBenefitsSuccessfullyInit = false;
 boost::scoped_ptr<LLEventPump> LLStartUp::sStateWatcher(new LLEventStream("StartupState"));
 boost::scoped_ptr<LLViewerStats::PhaseMap> LLStartUp::sPhases(new LLViewerStats::PhaseMap);
 void login_show();
+static bool sNonLindenLoginConfirmed = false;
+static bool confirm_non_linden_login(const LLSD& notification, const LLSD& response);
 void show_first_run_dialog();
 bool first_run_dialog_callback(const LLSD& notification, const LLSD& response);
 void set_startup_status(const F32 frac, const std::string& string, const std::string& msg);
@@ -776,16 +778,26 @@ bool idle_startup()
 		{
 			firstname = gSavedSettings.getString("FirstName");
 			lastname = gSavedSettings.getString("LastName");
-			password = LLStartUp::loadPasswordFromDisk();
-			gSavedSettings.setBOOL("RememberName", true);
-			gSavedSettings.setBOOL("RememberPassword", TRUE);
-			show_connect_box = false;
+			if (HippoGridInfo::isLindenLoginUri(gHippoGridManager->getCurrentGrid()->getLoginUri()))
+			{
+				password = LLStartUp::loadPasswordFromDisk();
+				gSavedSettings.setBOOL("RememberName", true);
+				gSavedSettings.setBOOL("RememberPassword", TRUE);
+				show_connect_box = false;
+			}
+			else
+			{
+				show_connect_box = true;
+			}
 		}
 		else
 		{
 			firstname = gSavedSettings.getString("FirstName");
 			lastname = gSavedSettings.getString("LastName");
-			password = LLStartUp::loadPasswordFromDisk();
+			if (HippoGridInfo::isLindenLoginUri(gHippoGridManager->getCurrentGrid()->getLoginUri()))
+			{
+				password = LLStartUp::loadPasswordFromDisk();
+			}
 			show_connect_box = true;
 		}
 		LLStartUp::setStartupState( STATE_BROWSER_INIT );
@@ -878,6 +890,17 @@ bool idle_startup()
 	}
 	if (STATE_LOGIN_CLEANUP == LLStartUp::getStartupState())
 	{
+		HippoGridInfo* grade_login = gHippoGridManager->getCurrentGrid();
+		if (grade_login && !HippoGridInfo::isLindenLoginUri(grade_login->getLoginUri()) && !sNonLindenLoginConfirmed)
+		{
+			LLSD args;
+			args["GRID"] = grade_login->getGridName();
+			args["URI"] = grade_login->getLoginUri();
+			LLNotificationsUtil::add("NonLindenLogin", args, LLSD(), confirm_non_linden_login);
+			LLStartUp::setStartupState(STATE_LOGIN_WAIT);
+			return FALSE;
+		}
+		sNonLindenLoginConfirmed = false;
 		gAcceptTOS = FALSE;
 		gAcceptCriticalMessage = FALSE;
 		if (!LLStartUp::startLLProxy())
@@ -2191,6 +2214,25 @@ bool idle_startup()
 	LL_WARNS("AppInit") << "Reached end of idle_startup for state " << LLStartUp::getStartupState() << LL_ENDL;
 	return TRUE;
 }
+static bool confirm_non_linden_login(const LLSD& notification, const LLSD& response)
+{
+	if (LLNotificationsUtil::getSelectedOption(notification, response) == 0)
+	{
+		sNonLindenLoginConfirmed = true;
+		LLStartUp::setStartupState(STATE_LOGIN_CLEANUP);
+	}
+	else
+	{
+		sNonLindenLoginConfirmed = false;
+		if (gViewerWindow)
+		{
+			gViewerWindow->setShowProgress(FALSE);
+		}
+		login_show();
+		LLStartUp::setStartupState(STATE_LOGIN_WAIT);
+	}
+	return false;
+}
 void login_show()
 {
 	LL_INFOS("AppInit") << "Initializing Login Screen" << LL_ENDL;
@@ -3034,14 +3076,23 @@ bool process_login_success_response(std::string& password, U32& first_sim_size_x
 	if(!text.empty()) lastname.assign(text);
 	gSavedSettings.setString("FirstName", firstname);
 	gSavedSettings.setString("LastName", lastname);
-	if (gSavedSettings.getBOOL("RememberPassword"))
 	{
-		LLStartUp::savePasswordToDisk(password);
-	}
-	else
-	{
-		LLStartUp::deletePasswordFromDisk();
-		password.assign("");
+		bool linden_login = HippoGridInfo::isLindenLoginUri(gHippoGridManager->getConnectedGrid()->getLoginUri());
+		if (gSavedSettings.getBOOL("RememberPassword"))
+		{
+			if (linden_login)
+			{
+				LLStartUp::savePasswordToDisk(password);
+			}
+		}
+		else
+		{
+			if (linden_login)
+			{
+				LLStartUp::deletePasswordFromDisk();
+			}
+			password.assign("");
+		}
 	}
 	persistMFAHash(response, gHippoGridManager->getConnectedGrid()->getGridName(), mfaUserKey(firstname, lastname));
 	sMFAToken.clear();

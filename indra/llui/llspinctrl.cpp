@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
  * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -248,6 +249,12 @@ void LLSpinCtrl::onEditorCommit( const LLSD& data )
 		std::string text = mEditor->getText();
 		LLLocale locale(LLLocale::USER_LOCALE);
 		F32 val = (F32) atof(text.c_str());
+		if (!std::isfinite(val))
+		{
+			reportInvalidData();
+			updateEditor();
+			return;
+		}
 		if (val < mMinValue) val = mMinValue;
 		if (val > mMaxValue) val = mMaxValue;
 		F32 saved_val = mValue;

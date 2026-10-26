@@ -1231,6 +1231,15 @@ void LLPanelLogin::onCurGridChange(HippoGridInfo* new_grid, HippoGridInfo* old_g
 	refreshLoginPage();
 	if (old_grid != new_grid)
 	{
+		clearPassword();
+		if (new_grid && HippoGridInfo::isLindenLoginUri(new_grid->getLoginUri()))
+		{
+			std::string salva = LLStartUp::loadPasswordFromDisk();
+			if (!salva.empty())
+			{
+				mungePassword(salva);
+			}
+		}
 		std::string defaultStartLocation = gSavedSettings.getString("LoginLocation");
 		LLSLURL defaultStart(defaultStartLocation);
 		LLStartUp::setStartSLURL(defaultStart.isSpatial() ? defaultStart : LLSLURL(LLSLURL::SIM_LOCATION_HOME));

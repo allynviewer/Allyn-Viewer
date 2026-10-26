@@ -2631,6 +2631,8 @@ F32 LLMeshRepository::getStreamingCostLegacy(LLSD& header, F32 radius, S32* byte
 	F32 METADATA_DISCOUNT = (F32) mesh_meta_data_discount.get();
 	F32 MINIMUM_SIZE = (F32) mesh_minimum_byte_size.get();
 	F32 bytes_per_triangle = (F32) mesh_bytes_per_triangle.get();
+	if (!(bytes_per_triangle > 0.f))
+		bytes_per_triangle = 16.f;
 	S32 bytes_lowest = header["lowest_lod"]["size"].asInteger();
 	S32 bytes_low = header["low_lod"]["size"].asInteger();
 	S32 bytes_mid = header["medium_lod"]["size"].asInteger();
@@ -2697,7 +2699,10 @@ F32 LLMeshRepository::getStreamingCostLegacy(LLSD& header, F32 radius, S32* byte
 	{
 		*unscaled_value = weighted_avg;
 	}
-	return weighted_avg/mesh_triangle_budget*15000.f;
+	F32 triangle_budget = (F32)mesh_triangle_budget.get();
+	if (!(triangle_budget > 0.f))
+		triangle_budget = 250000.f;
+	return weighted_avg/triangle_budget*15000.f;
 }
 LLMeshCostData::LLMeshCostData()
 {
@@ -2735,6 +2740,8 @@ bool LLMeshCostData::init(const LLSD& header)
     F32 METADATA_DISCOUNT = (F32) gSavedSettings.getU32("MeshMetaDataDiscount");
     F32 MINIMUM_SIZE = (F32) gSavedSettings.getU32("MeshMinimumByteSize");
     F32 bytes_per_triangle = (F32) gSavedSettings.getU32("MeshBytesPerTriangle");
+    if (!(bytes_per_triangle > 0.f))
+        bytes_per_triangle = 16.f;
     for (S32 i=0; i<4; i++)
     {
         mEstTrisByLOD[i] = llmax((F32) mSizeByLOD[i]-METADATA_DISCOUNT, MINIMUM_SIZE)/bytes_per_triangle;
@@ -2823,7 +2830,10 @@ F32 LLMeshCostData::getEstTrisForStreamingCost()
 }
 F32 LLMeshCostData::getRadiusBasedStreamingCost(F32 radius)
 {
-	return getRadiusWeightedTris(radius)/gSavedSettings.getU32("MeshTriangleBudget")*15000.f;
+	U32 budget = gSavedSettings.getU32("MeshTriangleBudget");
+	if (budget == 0)
+		budget = 250000;
+	return getRadiusWeightedTris(radius) / (F32)budget * 15000.f;
 }
 F32 LLMeshCostData::getTriangleBasedStreamingCost()
 {

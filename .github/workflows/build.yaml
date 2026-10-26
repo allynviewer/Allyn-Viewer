@@ -380,7 +380,12 @@ jobs:
           [ "$CHANNEL_TYPE" = "Release" ] || title="$title $CHANNEL_TYPE"
 
           notes=$(mktemp)
-          gh api "repos/$GITHUB_REPOSITORY/releases/generate-notes" -f tag_name="$TAG" -q .body > "$notes"
+          {
+            printf '%s\n\n' 'This software is not provided or supported by Linden Lab, the makers of Second Life.'
+            printf '%s\n\n' 'Read the notice before you install: https://allynviewer.org/aviso and https://github.com/allynviewer/Allyn-Viewer/blob/main/NOTICE.md'
+            printf '%s\n\n' 'Privacy policy: https://allynviewer.org/privacidade and https://github.com/allynviewer/Allyn-Viewer/blob/main/PRIVACY.md'
+          } > "$notes"
+          gh api "repos/$GITHUB_REPOSITORY/releases/generate-notes" -f tag_name="$TAG" -q .body >> "$notes"
           {
             printf '\n\n## Code signing policy\n\n'
             if [ "$SIGNED" = "true" ]; then
@@ -396,7 +401,8 @@ jobs:
           [ "$CHANNEL_TYPE" = "Release" ] || flags+=(--prerelease)
 
           if gh release view "$TAG" >/dev/null 2>&1; then
-            echo "Release $TAG exists - replacing assets"
+            echo "Release $TAG exists - replacing assets and notes"
+            gh release edit "$TAG" --notes-file "$notes"
             gh release upload "$TAG" dist/* --clobber
           else
             echo "Creating release $TAG"

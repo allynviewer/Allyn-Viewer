@@ -7,6 +7,8 @@
 
 This software is not provided or supported by Linden Lab, the makers of Second Life.
 
+Read the notice before you install: [NOTICE.md](NOTICE.md). The same text is at https://allynviewer.org/aviso.
+
 Three priorities: **performance**, **practicality**, and **AI translation inside the viewer** — no in-game HUD.
 
 ---
@@ -21,9 +23,7 @@ It is not a generic “virtual worlds” viewer and it is not an AI platform. It
 2. **Practicality** — what the player needs in the viewer, without depending on objects, scripts, or HUDs attached to the avatar.
 3. **AI translation** — chat translated inside the viewer (incoming and outgoing). You talk in the other player's language without an in-world translator.
 
-Translation runs in the client. No HUD, in-world vendor, or attachment required. It is off until you turn it on and supply your own API key.
-
-Compared with the official Second Life viewer, this build is Windows 64-bit only. Restrained Love (RLVa) is included and is on by default. A script in an object you wear can restrict the viewer, including detaching items, chat, inventory, and teleport. Turn it off in preferences (Restrained Love API). That change applies after a restart.
+Translation runs in the client. No HUD, in-world vendor, or attachment required. Limits, support, and data practices are in [NOTICE.md](NOTICE.md). Privacy policy: [PRIVACY.md](PRIVACY.md).
 
 ---
 
@@ -42,7 +42,7 @@ All versions: [Releases](https://github.com/allynviewer/Allyn-Viewer/releases).
 
 The viewer can offer a newer release. Nothing is downloaded or installed until you accept.
 
-Allyn Viewer does not provide customer support. Bug reports and questions go to [Issues](https://github.com/allynviewer/Allyn-Viewer/issues) and [Discussions](https://github.com/allynviewer/Allyn-Viewer/discussions). Privacy policy: [PRIVACY.md](PRIVACY.md).
+Before you install, read [NOTICE.md](NOTICE.md). Privacy policy: [PRIVACY.md](PRIVACY.md).
 
 ---
 
@@ -57,7 +57,7 @@ Team roles:
 * Committers and reviewers: [@allynviewer](https://github.com/allynviewer)
 * Approvers: [@allynviewer](https://github.com/allynviewer)
 
-The viewer connects to the Second Life grid you log into ([Linden Lab privacy policy](https://lindenlab.com/privacy)). While logged into Second Life, a presence heartbeat (avatar UUID and viewer version) is sent to the project site. The site and the login screen show only the resulting online counts, not the UUID. Passwords are not sent. Details: [PRIVACY.md](PRIVACY.md).
+The viewer connects to the Second Life grid you log into ([Linden Lab privacy policy](https://lindenlab.com/privacy)). While logged into Second Life, a presence heartbeat (avatar UUID and viewer version) is sent to the project site about once a minute. There is no preference to turn it off. It is not sent on other grids. The site and the login screen show only the resulting online counts, not the UUID. Passwords are not sent. Details: [PRIVACY.md](PRIVACY.md).
 
 ---
 
@@ -131,7 +131,7 @@ See [LICENSE](LICENSE).
 * [Discussions](https://github.com/allynviewer/Allyn-Viewer/discussions)
 * [Contributing guide](CONTRIBUTING.md) · [Build instructions](doc/building_windows.md)
 
-Bug reports and pull requests are welcome. There is no private or live customer support.
+Bug reports and pull requests are welcome. Support channels are in [NOTICE.md](NOTICE.md).
 
 ---
 
@@ -141,4 +141,4 @@ The base is **Singularity Viewer**, reviewed and improved in this project.
 
 It also uses code from the **official Second Life viewer** (Linden Lab), plus features that match or are inspired by **Firestorm Viewer**.
 
-Second Life is a trademark of Linden Research, Inc. Allyn Viewer is not affiliated with Linden Lab.
+Second Life is a trademark of Linden Research, Inc. Allyn Viewer is not affiliated with or sponsored by Linden Research.

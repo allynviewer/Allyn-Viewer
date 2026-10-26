@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2008&license=viewergpl$
  * 
  * Copyright (c) 2008, Henri Beauchamp.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * Rewritten in its entirety 2010 Hg Beeks. 
  * 
  * Second Life Viewer Source Code

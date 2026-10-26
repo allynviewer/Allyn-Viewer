@@ -107,11 +107,27 @@ public:
 	void resizeScreenTexture();
 	void releaseOcclusionBuffers();
 	void releaseVertexBuffers();
-	void releaseGLBuffers();
-	void releaseLUTBuffers();
+	enum ELutOrigin
+	{
+		LUT_ORIGIN_SHADER_INIT,
+		LUT_ORIGIN_SETTING_CHANGE,
+		LUT_ORIGIN_GL_REBUILD,
+		LUT_ORIGIN_UNSPECIFIED
+	};
+	enum ELutControl
+	{
+		LUT_CONTROL_NONE,
+		LUT_CONTROL_RES_X,
+		LUT_CONTROL_RES_Y,
+		LUT_CONTROL_EXPONENT
+	};
+	void releaseGLBuffers(ELutOrigin origin);
+	void releaseLUTBuffers(ELutOrigin origin);
 	void releaseScreenBuffers();
-	void createGLBuffers();
-	void createLUTBuffers();
+	void createGLBuffers(ELutOrigin origin);
+	void createLUTBuffers(ELutOrigin origin, ELutControl control);
+	void createAssignedLutContingency(ELutOrigin origin, ELutControl control);
+	void runSpecularLutSeriesOnce(ELutOrigin origin);
 	bool allocateScreenBuffer(U32 resX, U32 resY);
 	typedef enum {
 		FBO_SUCCESS_FULLRES = 0,

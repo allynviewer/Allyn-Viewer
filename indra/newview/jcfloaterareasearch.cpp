@@ -1,4 +1,5 @@
 /* Copyright (c) 2009
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  *
  * Modular Systems Ltd. All rights reserved.
  *
@@ -40,20 +41,38 @@
 #include "llagentcamera.h"
 #include "lltracker.h"
 #include "llviewerobjectlist.h"
+#include "llviewermessage.h"
+#include "llviewerregion.h"
+#include "llworld.h"
 const std::string request_string = "JCFloaterAreaSearch::Requested_\xF8\xA7\xB5";
 const F32 min_refresh_interval = 0.25f;
+const S32 max_property_requests = 30;
 JCFloaterAreaSearch::JCFloaterAreaSearch(const LLSD& data) :
 	LLFloater(),
 	mCounterText(0),
 	mResultList(0),
 	mLastRegion(0),
-	mStopped(false)
+	mCoverRegionHandle(0),
+	mStopped(false),
+	mResultsDirty(false),
+	mCovering(false),
+	mSeenObjects(-1),
+	mRequestBudget(0)
 {
 	mLastUpdateTimer.reset();
 	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_area_search.xml");
 }
 JCFloaterAreaSearch::~JCFloaterAreaSearch()
 {
+	mStopped = true;
+	mCovering = false;
+	if (!LLApp::isExiting() && mCoverRegionHandle && LLWorld::instanceExists())
+	{
+		if (LLViewerRegion* region = LLWorld::getInstance()->getRegionFromHandle(mCoverRegionHandle))
+			region->setInterestListMode(IL_MODE_DEFAULT);
+		mCoverRegionHandle = 0;
+	}
+	set_agent_update_cover_region(false);
 }
 void JCFloaterAreaSearch::close(bool app)
 {
@@ -92,10 +111,40 @@ BOOL JCFloaterAreaSearch::postBuild()
 }
 void JCFloaterAreaSearch::onOpen()
 {
+	mStopped = false;
 	checkRegion();
+	updateCover();
+	mResultsDirty = true;
 	results();
 }
-void JCFloaterAreaSearch::checkRegion(bool force_clear)
+void JCFloaterAreaSearch::draw()
+{
+	if (getVisible())
+	{
+		updateCover();
+		if (!mStopped)
+		{
+			if (checkRegion())
+				mResultsDirty = true;
+			if (gObjectList.getNumObjects() != mSeenObjects)
+				mResultsDirty = true;
+			if (mResultsDirty && mLastUpdateTimer.getElapsedTimeF32() >= min_refresh_interval)
+				results();
+			if (mCoverPulse.getElapsedTimeF32() >= 2.f)
+			{
+				send_agent_update(TRUE);
+				mCoverPulse.reset();
+			}
+		}
+	}
+	LLFloater::draw();
+}
+void JCFloaterAreaSearch::setVisible(BOOL visible)
+{
+	LLFloater::setVisible(visible);
+	updateCover();
+}
+bool JCFloaterAreaSearch::checkRegion(bool force_clear)
 {
 	LLViewerRegion* region = gAgent.getRegion();
 	if (force_clear || region != mLastRegion)
@@ -103,41 +152,96 @@ void JCFloaterAreaSearch::checkRegion(bool force_clear)
 		mLastRegion = region;
 		mPendingObjects.clear();
 		mCachedObjects.clear();
+		mSeenObjects = -1;
 		mResultList->deleteAllItems();
 		mCounterText->setText(std::string("Listed/Pending/Total"));
+		return true;
 	}
+	return false;
 }
-LLViewerObject* JCFloaterAreaSearch::getSelectedObject()
+void JCFloaterAreaSearch::updateCover()
 {
-	if (LLScrollListItem* item = mResultList->getFirstSelected())
-		return gObjectList.findObject(item->getUUID());
-	return NULL;
+	const bool cover = getVisible() && !mStopped;
+	LLViewerRegion* previous = NULL;
+	if (mCoverRegionHandle && LLWorld::instanceExists())
+		previous = LLWorld::getInstance()->getRegionFromHandle(mCoverRegionHandle);
+	LLViewerRegion* region = (cover && LLWorld::instanceExists()) ? gAgent.getRegion() : NULL;
+	if (previous && previous != region)
+		previous->setInterestListMode(IL_MODE_DEFAULT);
+	if (region)
+		region->setInterestListMode(IL_MODE_360);
+	mCoverRegionHandle = region ? region->getHandle() : 0;
+	const bool enabling = cover && !mCovering;
+	mCovering = cover;
+	set_agent_update_cover_region(cover);
+	if (enabling)
+		mCoverPulse.reset();
+}
+bool JCFloaterAreaSearch::cachedPosition(const LLUUID& id, LLVector3d& pos) const
+{
+	boost::unordered_map<LLUUID, ObjectData>::const_iterator it = mCachedObjects.find(id);
+	if (it == mCachedObjects.end() || !it->second.has_position)
+		return false;
+	pos = LLVector3d(it->second.pos_global[0], it->second.pos_global[1], it->second.pos_global[2]);
+	return true;
 }
 void JCFloaterAreaSearch::onDoubleClick()
 {
-	if (LLViewerObject* objectp = getSelectedObject())
-		LLTracker::trackLocation(objectp->getPositionGlobal(), mCachedObjects[objectp->getID()].name, "", LLTracker::LOCATION_ITEM);
+	if (LLScrollListItem* item = mResultList->getFirstSelected())
+	{
+		LLVector3d pos;
+		std::string name;
+		boost::unordered_map<LLUUID, ObjectData>::const_iterator it = mCachedObjects.find(item->getUUID());
+		if (it != mCachedObjects.end())
+			name = it->second.name;
+		if (LLViewerObject* objectp = gObjectList.findObject(item->getUUID()))
+			pos = objectp->getPositionGlobal();
+		else if (!cachedPosition(item->getUUID(), pos))
+			return;
+		LLTracker::trackLocation(pos, name, "", LLTracker::LOCATION_ITEM);
+	}
 }
 void JCFloaterAreaSearch::teleportToSelected()
 {
-	if (LLViewerObject* objectp = getSelectedObject())
-		gAgent.teleportViaLocation(objectp->getPositionGlobal());
+	if (LLScrollListItem* item = mResultList->getFirstSelected())
+	{
+		LLVector3d pos;
+		if (LLViewerObject* objectp = gObjectList.findObject(item->getUUID()))
+			gAgent.teleportViaLocation(objectp->getPositionGlobal());
+		else if (cachedPosition(item->getUUID(), pos))
+			gAgent.teleportViaLocation(pos);
+	}
 }
 void JCFloaterAreaSearch::lookAtSelected()
 {
 	if (LLScrollListItem* item = mResultList->getFirstSelected())
-		gAgentCamera.lookAtObject(item->getUUID(), false);
+	{
+		if (gAgentCamera.lookAtObject(item->getUUID(), false))
+			return;
+		LLVector3d pos;
+		std::string name;
+		boost::unordered_map<LLUUID, ObjectData>::const_iterator it = mCachedObjects.find(item->getUUID());
+		if (it != mCachedObjects.end())
+			name = it->second.name;
+		if (cachedPosition(item->getUUID(), pos))
+			LLTracker::trackLocation(pos, name, "", LLTracker::LOCATION_ITEM);
+	}
 }
 void JCFloaterAreaSearch::onStop()
 {
 	mStopped = true;
 	mPendingObjects.clear();
+	mResultsDirty = false;
+	results();
+	updateCover();
 	mCounterText->setText(std::string("Stopped"));
 }
 void JCFloaterAreaSearch::onRefresh()
 {
 	mStopped = false;
 	checkRegion(true);
+	updateCover();
+	mResultsDirty = true;
 	results();
 }
 void JCFloaterAreaSearch::onCommitLine(LLUICtrl* caller, const LLSD& value, OBJECT_COLUMN_ORDER type)
@@ -153,8 +257,9 @@ bool JCFloaterAreaSearch::requestIfNeeded(LLUUID object_id)
 {
 	if (!mCachedObjects.count(object_id) && !mPendingObjects.count(object_id))
 	{
-		if(mStopped)
+		if (mStopped || mRequestBudget <= 0)
 			return true;
+		--mRequestBudget;
 		mPendingObjects.insert(object_id);
 		LLMessageSystem* msg = gMessageSystem;
 		msg->newMessageFast(_PREHASH_RequestObjectPropertiesFamily);
@@ -172,7 +277,13 @@ bool JCFloaterAreaSearch::requestIfNeeded(LLUUID object_id)
 void JCFloaterAreaSearch::results()
 {
 	if (!getVisible()) return;
-	if (mPendingObjects.size() > 0 && mLastUpdateTimer.getElapsedTimeF32() < min_refresh_interval) return;
+	if (mPendingObjects.size() > 0 && mLastUpdateTimer.getElapsedTimeF32() < min_refresh_interval)
+	{
+		mResultsDirty = true;
+		return;
+	}
+	mResultsDirty = false;
+	mRequestBudget = max_property_requests;
 	uuid_vec_t selected = mResultList->getSelectedIDs();
 	S32 scrollpos = mResultList->getScrollPos();
 	mResultList->deleteAllItems();
@@ -184,57 +295,71 @@ void JCFloaterAreaSearch::results()
 		LLViewerObject *objectp = gObjectList.getObject(i);
 		if (objectp)
 		{
-			if (objectp->getRegion() == our_region && !objectp->isAvatar() && objectp->isRoot() &&
+			if (our_region && objectp->getRegion() == our_region && !objectp->isAvatar() && objectp->isRoot() &&
 				!objectp->flagTemporary() && !objectp->flagTemporaryOnRez())
 			{
 				LLUUID object_id = objectp->getID();
-				if(!requestIfNeeded(object_id))
+				boost::unordered_map<LLUUID, ObjectData>::iterator cached = mCachedObjects.find(object_id);
+				if (cached != mCachedObjects.end())
 				{
-					auto it = mCachedObjects.find(object_id);
-					if(it != mCachedObjects.end())
-					{
-						std::string object_name = it->second.name;
-						std::string object_desc = it->second.desc;
-						std::string object_owner;
-						std::string object_group;
-						gCacheName->getFullName(it->second.owner_id, object_owner);
-						gCacheName->getGroupName(it->second.group_id, object_group);
-						std::string onU = object_owner;
-						std::string cnU = object_group;
-						LLStringUtil::toLower(object_name);
-						LLStringUtil::toLower(object_desc);
-						LLStringUtil::toLower(object_owner);
-						LLStringUtil::toLower(object_group);
-						if ((mFilterStrings[LIST_OBJECT_NAME].empty() || object_name.find(mFilterStrings[LIST_OBJECT_NAME]) != std::string::npos) &&
-							(mFilterStrings[LIST_OBJECT_DESC].empty() || object_desc.find(mFilterStrings[LIST_OBJECT_DESC]) != std::string::npos) &&
-							(mFilterStrings[LIST_OBJECT_OWNER].empty() || object_owner.find(mFilterStrings[LIST_OBJECT_OWNER]) != std::string::npos) &&
-							(mFilterStrings[LIST_OBJECT_GROUP].empty() || object_group.find(mFilterStrings[LIST_OBJECT_GROUP]) != std::string::npos))
-						{
-							LLSD element;
-							element["id"] = object_id;
-							element["columns"][LIST_OBJECT_NAME]["column"] = "Name";
-							element["columns"][LIST_OBJECT_NAME]["type"] = "text";
-							element["columns"][LIST_OBJECT_NAME]["value"] = it->second.name;
-							element["columns"][LIST_OBJECT_DESC]["column"] = "Description";
-							element["columns"][LIST_OBJECT_DESC]["type"] = "text";
-							element["columns"][LIST_OBJECT_DESC]["value"] = it->second.desc;
-							element["columns"][LIST_OBJECT_OWNER]["column"] = "Owner";
-							element["columns"][LIST_OBJECT_OWNER]["type"] = "text";
-							element["columns"][LIST_OBJECT_OWNER]["value"] = onU;
-							element["columns"][LIST_OBJECT_GROUP]["column"] = "Group";
-							element["columns"][LIST_OBJECT_GROUP]["type"] = "text";
-							element["columns"][LIST_OBJECT_GROUP]["value"] = cnU;
-							mResultList->addElement(element, ADD_BOTTOM);
-						}
-					}
+					const LLVector3d pos = objectp->getPositionGlobal();
+					cached->second.pos_global[0] = pos.mdV[0];
+					cached->second.pos_global[1] = pos.mdV[1];
+					cached->second.pos_global[2] = pos.mdV[2];
+					cached->second.has_position = true;
 				}
+				requestIfNeeded(object_id);
 			}
+		}
+	}
+	for (boost::unordered_map<LLUUID, ObjectData>::const_iterator it = mCachedObjects.begin(); it != mCachedObjects.end(); ++it)
+	{
+		if (!mStopped)
+		{
+			LLViewerObject* objectp = gObjectList.findObject(it->first);
+			if (!objectp || objectp->getRegion() != our_region || objectp->isAvatar() || !objectp->isRoot()
+				|| objectp->flagTemporary() || objectp->flagTemporaryOnRez())
+				continue;
+		}
+		std::string object_name = it->second.name;
+		std::string object_desc = it->second.desc;
+		std::string object_owner;
+		std::string object_group;
+		gCacheName->getFullName(it->second.owner_id, object_owner);
+		gCacheName->getGroupName(it->second.group_id, object_group);
+		std::string onU = object_owner;
+		std::string cnU = object_group;
+		LLStringUtil::toLower(object_name);
+		LLStringUtil::toLower(object_desc);
+		LLStringUtil::toLower(object_owner);
+		LLStringUtil::toLower(object_group);
+		if ((mFilterStrings[LIST_OBJECT_NAME].empty() || object_name.find(mFilterStrings[LIST_OBJECT_NAME]) != std::string::npos) &&
+			(mFilterStrings[LIST_OBJECT_DESC].empty() || object_desc.find(mFilterStrings[LIST_OBJECT_DESC]) != std::string::npos) &&
+			(mFilterStrings[LIST_OBJECT_OWNER].empty() || object_owner.find(mFilterStrings[LIST_OBJECT_OWNER]) != std::string::npos) &&
+			(mFilterStrings[LIST_OBJECT_GROUP].empty() || object_group.find(mFilterStrings[LIST_OBJECT_GROUP]) != std::string::npos))
+		{
+			LLSD element;
+			element["id"] = it->first;
+			element["columns"][LIST_OBJECT_NAME]["column"] = "Name";
+			element["columns"][LIST_OBJECT_NAME]["type"] = "text";
+			element["columns"][LIST_OBJECT_NAME]["value"] = it->second.name;
+			element["columns"][LIST_OBJECT_DESC]["column"] = "Description";
+			element["columns"][LIST_OBJECT_DESC]["type"] = "text";
+			element["columns"][LIST_OBJECT_DESC]["value"] = it->second.desc;
+			element["columns"][LIST_OBJECT_OWNER]["column"] = "Owner";
+			element["columns"][LIST_OBJECT_OWNER]["type"] = "text";
+			element["columns"][LIST_OBJECT_OWNER]["value"] = onU;
+			element["columns"][LIST_OBJECT_GROUP]["column"] = "Group";
+			element["columns"][LIST_OBJECT_GROUP]["type"] = "text";
+			element["columns"][LIST_OBJECT_GROUP]["value"] = cnU;
+			mResultList->addElement(element, ADD_BOTTOM);
 		}
 	}
 	mResultList->updateSort();
 	mResultList->selectMultiple(selected);
 	mResultList->setScrollPos(scrollpos);
 	mCounterText->setText(llformat("%d listed/%d pending/%d total", mResultList->getItemCount(), mPendingObjects.size(), mPendingObjects.size()+mCachedObjects.size()));
+	mSeenObjects = total;
 	mLastUpdateTimer.reset();
 }
 void JCFloaterAreaSearch::processObjectPropertiesFamily(LLMessageSystem* msg, void** user_data)
@@ -250,7 +375,15 @@ void JCFloaterAreaSearch::processObjectPropertiesFamily(LLMessageSystem* msg, vo
 		floater->mPendingObjects.erase(it);
 	ObjectData* data = &floater->mCachedObjects[object_id];
 	msg->getUUIDFast(_PREHASH_ObjectData, _PREHASH_OwnerID, data->owner_id);
-	if (auto obj = gObjectList.findObject(object_id)) obj->mOwnerID = data->owner_id;
+	if (LLViewerObject* obj = gObjectList.findObject(object_id))
+	{
+		obj->mOwnerID = data->owner_id;
+		const LLVector3d pos = obj->getPositionGlobal();
+		data->pos_global[0] = pos.mdV[0];
+		data->pos_global[1] = pos.mdV[1];
+		data->pos_global[2] = pos.mdV[2];
+		data->has_position = true;
+	}
 	msg->getUUIDFast(_PREHASH_ObjectData, _PREHASH_GroupID, data->group_id);
 	msg->getStringFast(_PREHASH_ObjectData, _PREHASH_Name, data->name);
 	msg->getStringFast(_PREHASH_ObjectData, _PREHASH_Description, data->desc);

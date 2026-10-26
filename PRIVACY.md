@@ -28,4 +28,4 @@ We do not require personal data to install or uninstall the viewer. We do not se
 
 ## Contact
 
-https://github.com/allynviewer/Allyn-Viewer/issues
+Linden Lab does not support this program. Allyn Viewer support is through GitHub (https://github.com/allynviewer/Allyn-Viewer/issues), Discord (https://discord.gg/y6uaVeD79m), and e-mail (allynviewer@gmail.com).

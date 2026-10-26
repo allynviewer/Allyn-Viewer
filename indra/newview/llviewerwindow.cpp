@@ -3206,7 +3206,11 @@ BOOL LLViewerWindow::mousePointOnLandGlobal(const S32 x, const S32 y, LLVector3d
 	F32			land_z;
 	const F32	FIRST_PASS_STEP = 1.0f;
 	const F32	SECOND_PASS_STEP = 0.1f;
-	const F32	draw_distance = ignore_distance ? MAX_FAR_CLIP : (gAgentCamera.mDrawDistance * 4);
+	F32			draw_distance = ignore_distance ? MAX_FAR_CLIP : (gAgentCamera.mDrawDistance * 4);
+	if (!std::isfinite(draw_distance) || !(draw_distance > 0.f))
+		draw_distance = MAX_FAR_CLIP;
+	else
+		draw_distance = llmin(draw_distance, MAX_FAR_PLANE * 4.f);
 	LLVector3d	camera_pos_global;
 	camera_pos_global = gAgentCamera.getCameraPositionGlobal();
 	LLVector3d		probe_point_global;

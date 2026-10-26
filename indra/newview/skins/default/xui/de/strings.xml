@@ -22,7 +22,7 @@
 		Second Life-Grid:
 	</string>
 	<string name="SUPPORT_SITE">
-		Second Life Support-Portal
+		Allyn Viewer Support über GitHub, Discord oder allynviewer@gmail.com
 	</string>
 	<string name="CURRENCY">
 		L$
@@ -6515,10 +6515,10 @@ Setzen Sie den Editorpfad in Anführungszeichen
 		Teleport abgeschlossen von
 	</string>
 	<string name="APP_NAME">
-		Allyn Viewer Beta
+		Allyn Viewer
 	</string>
 	<string name="CAPITALIZED_APP_NAME">
-		Allyn Viewer Beta
+		Allyn Viewer
 	</string>
 	<string name="SHORT_APP_NAME">
 		Allyn Viewer
@@ -7686,5 +7686,26 @@ Auf Antwort des Anbieters warten.
 	</string>
 	<string name="zip_files">
 		ZIP-Dateien
+	</string>
+	<string name="DebugSettingsValue">
+		Wert
+	</string>
+	<string name="DebugSettingsLeft">
+		Links
+	</string>
+	<string name="DebugSettingsRight">
+		Rechts
+	</string>
+	<string name="DebugSettingsBottom">
+		Unten
+	</string>
+	<string name="DebugSettingsTop">
+		Oben
+	</string>
+	<string name="DebugSettingsAlpha">
+		Alpha
+	</string>
+	<string name="DebugSettingsUnknown">
+		unbekannt
 	</string>
 </strings>

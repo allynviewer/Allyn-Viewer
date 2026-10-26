@@ -1159,6 +1159,8 @@ S32Megabytes LLViewerTextureList::getMinVideoRamSetting()
 }
 S32Megabytes LLViewerTextureList::getMaxVideoRamSetting(bool get_recommended, float mem_multiplier)
 {
+	if (!std::isfinite(mem_multiplier))
+		mem_multiplier = 1.f;
 	S32Megabytes max_texmem;
 	if (gGLManager.mVRAM != 0)
 	{
@@ -1202,7 +1204,9 @@ const S32Megabytes MIN_MEM_FOR_NON_TEXTURE(16);
 void LLViewerTextureList::updateMaxResidentTexMem(S32Megabytes mem)
 {
 	const S32Megabytes cur_mem(gSavedSettings.getS32("TextureMemory"));
-	const F32 mem_multiplier = gSavedSettings.getF32("RenderTextureMemoryMultiple");
+	F32 mem_multiplier = gSavedSettings.getF32("RenderTextureMemoryMultiple");
+	if (!std::isfinite(mem_multiplier))
+		mem_multiplier = 1.f;
 	const S32Megabytes default_mem = getMaxVideoRamSetting(true, mem_multiplier);
 	const S32Megabytes max_mem = getMaxVideoRamSetting(false, mem_multiplier);
 	const S32Megabytes min_mem = getMinVideoRamSetting();

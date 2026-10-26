@@ -35,7 +35,7 @@ Asegúrate de haber ingresado el URI de inicio de sesión correcto. Un ejemplo d
 		Grid Second Life
 	</string>
 	<string name="SUPPORT_SITE">
-		Portal de Soporte de Second Life
+		soporte de Allyn Viewer en GitHub, Discord o allynviewer@gmail.com
 	</string>
 	<string name="StartupDetectingHardware">
 		Detectando hardware...
@@ -7616,10 +7616,10 @@ Espere la respuesta del proveedor.
 		No se ha encontrado arquetipo en el objeto vestible del archivo de importación "[FILE]".
 	</string>
 	<string name="APP_NAME">
-		Allyn Viewer Beta
+		Allyn Viewer
 	</string>
 	<string name="CAPITALIZED_APP_NAME">
-		Allyn Viewer Beta
+		Allyn Viewer
 	</string>
 	<string name="SHORT_APP_NAME">
 		Allyn Viewer
@@ -7718,5 +7718,26 @@ Stop an animation for the current object</string>
 	</string>
 	<string name="refreshing balance">
 		Actualizando saldo de [CURRENCY]
+	</string>
+	<string name="DebugSettingsValue">
+		valor
+	</string>
+	<string name="DebugSettingsLeft">
+		Izquierda
+	</string>
+	<string name="DebugSettingsRight">
+		Derecha
+	</string>
+	<string name="DebugSettingsBottom">
+		Inferior
+	</string>
+	<string name="DebugSettingsTop">
+		Superior
+	</string>
+	<string name="DebugSettingsAlpha">
+		Alfa
+	</string>
+	<string name="DebugSettingsUnknown">
+		desconocido
 	</string>
 </strings>

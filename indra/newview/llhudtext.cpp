@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
  * Copyright (c) 2002-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -68,6 +69,23 @@ std::set<LLPointer<LLHUDText> > LLHUDText::sTextObjects;
 std::vector<LLPointer<LLHUDText> > LLHUDText::sVisibleTextObjects;
 std::vector<LLPointer<LLHUDText> > LLHUDText::sVisibleHUDTextObjects;
 BOOL LLHUDText::sDisplayText = TRUE ;
+static F32 textFadeDistance()
+{
+	static LLCachedControl<F32> setting("SGTextFadeDistance", 8.f);
+	F32 fade = (F32)setting;
+	if (!std::isfinite(fade) || !(fade > 0.f))
+		return 8.f;
+	return fade;
+}
+void LLHUDText::refreshFadeDistance()
+{
+	if (mFadeOverride
+		&& std::isfinite(mFadeDistance) && mFadeDistance > 0.f
+		&& std::isfinite(mFadeRange) && mFadeRange > 0.f)
+		return;
+	mFadeDistance = textFadeDistance();
+	mFadeRange = mFadeDistance * 0.5f;
+}
 bool lltextobject_further_away::operator()(const LLPointer<LLHUDText>& lhs, const LLPointer<LLHUDText>& rhs) const
 {
 	return lhs->getDistance() > rhs->getDistance();
@@ -88,8 +106,9 @@ LLHUDText::LLHUDText(const U8 type) :
 {
 	mColor = LLColor4(1.f, 1.f, 1.f, 1.f);
 	mDoFade = TRUE;
-	mFadeDistance = gSavedSettings.getF32("SGTextFadeDistance");
-	mFadeRange = mFadeDistance/2.f;
+	mFadeOverride = FALSE;
+	mFadeDistance = textFadeDistance();
+	mFadeRange = mFadeDistance * 0.5f;
 	mZCompare = TRUE;
 	mOffscreen = FALSE;
 	mRadius = 0.1f;
@@ -121,6 +140,7 @@ void LLHUDText::renderText()
 	LLColor4 text_color = mColor;
 	if (mDoFade)
 	{
+		refreshFadeDistance();
 		if (mLastDistance > mFadeDistance)
 		{
 			alpha_factor = llmax(0.f, 1.f - (mLastDistance - mFadeDistance)/mFadeRange);
@@ -361,6 +381,8 @@ void LLHUDText::updateVisibility()
 		mPositionAgent -= dir_from_camera * mSourceObject->getVObjRadius();
 	}
 	mLastDistance = (mPositionAgent - LLViewerCamera::getInstance()->getOrigin()).magVec();
+	if (mDoFade)
+		refreshFadeDistance();
 	if (!mTextSegments.size() || (mDoFade && (mLastDistance > mFadeDistance + mFadeRange)))
 	{
 		mVisible = FALSE;

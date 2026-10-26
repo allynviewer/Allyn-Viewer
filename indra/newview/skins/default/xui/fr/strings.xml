@@ -582,10 +582,10 @@
 		Profil
 	</string>
 	<string name="APP_NAME">
-		Allyn Viewer Beta
+		Allyn Viewer
 	</string>
 	<string name="CAPITALIZED_APP_NAME">
-		Allyn Viewer Beta
+		Allyn Viewer
 	</string>
 	<string name="SHORT_APP_NAME">
 		Allyn Viewer
@@ -629,7 +629,7 @@ Assurez-vous d'avoir saisi le bon URI de connexion. Exemple : \"http://cool.grid
 		Grille Second Life
 	</string>
 	<string name="SUPPORT_SITE">
-		Portail d'assistance Second Life
+		support Allyn Viewer sur GitHub, Discord ou allynviewer@gmail.com
 	</string>
 
 	<string name="StartupDetectingHardware">
@@ -6434,5 +6434,26 @@ Returns a handle (a key) that can be used to identify the corresponding dataserv
 <string name="LSLTipText_llXorBase64" translate="false">
 		string llXorBase64(string str1, string str2)
 Returns a string that is a Base64 XOR of Base64-formatted input strings.
+	</string>
+	<string name="DebugSettingsValue">
+		valeur
+	</string>
+	<string name="DebugSettingsLeft">
+		Gauche
+	</string>
+	<string name="DebugSettingsRight">
+		Droite
+	</string>
+	<string name="DebugSettingsBottom">
+		Bas
+	</string>
+	<string name="DebugSettingsTop">
+		Haut
+	</string>
+	<string name="DebugSettingsAlpha">
+		Alpha
+	</string>
+	<string name="DebugSettingsUnknown">
+		inconnu
 	</string>
 </strings>

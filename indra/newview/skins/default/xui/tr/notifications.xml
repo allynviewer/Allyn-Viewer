@@ -6960,4 +6960,14 @@ Lütfen raporunuzun mevcut bir raporun kopyası olmayacağından emin olun.
       <button index="1" name="cancel" text="İptal"/>
     </form>
   </notification>
+  <notification
+   icon="alertmodal.tga"
+   name="NonLindenLogin"
+   type="alertmodal">
+Bu grid bir Linden Lab sunucusu değil. Oturum adınız ve parolanız Linden Lab'e değil, [URI] ([GRID]) adresine gönderilir. Yalnızca bu sunucuya güveniyorsanız devam edin.
+    <usetemplate
+     name="okcancelbuttonscanceldefault"
+     notext="İptal"
+     yestext="Devam"/>
+  </notification>
 </notifications>

@@ -6,6 +6,7 @@
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
  * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -43,6 +44,7 @@
 #include "llpermissions.h"
 #include "llsdserialize.h"
 #include "hippogridmanager.h"
+#include "llcallbacklist.h"
 extern class AIHTTPTimeoutPolicy floaterPermsResponder_timeout;
 U32 LLFloaterPerms::getGroupPerms(std::string prefix)
 {
@@ -117,6 +119,10 @@ namespace
 	}
 }
 static bool mCapSent = false;
+static bool mInitialPermsSend = false;
+static U32 sPermsRequestGeneration = 0;
+static const S32 PERMS_MAX_ATTEMPTS = 5;
+static const F32 PERMS_RETRY_SECONDS = 5.f;
 LLFloaterPermsDefault::LLFloaterPermsDefault(const LLSD& seed)
 	: LLFloater()
 {
@@ -199,89 +205,116 @@ void LLFloaterPermsDefault::onClickCancel()
 	cancel();
 	close();
 }
-struct LLFloaterPermsRequester final : LLSingleton<LLFloaterPermsRequester>
-{
-	friend class LLSingleton<LLFloaterPermsRequester>;
-	std::string mUrl;
-	LLSD mReport;
-	U8 mRetriesCount = 0;
-	static void init(const std::string url, const LLSD report)
-	{
-		auto& inst = instance();
-		inst.mUrl = url;
-		inst.mReport = report;
-		inst.retry();
-	}
-	bool retry();
-};
 class LLFloaterPermsResponder final : public LLHTTPClient::ResponderWithResult
 {
+public:
+	static void send(std::string url, LLSD report, S32 attempt, U32 generation)
+	{
+		if (generation != sPermsRequestGeneration || LLApp::isExiting())
+			return;
+		std::string current = gAgent.getRegionCapability("AgentPreferences");
+		if (!current.empty())
+			url = current;
+		if (url.empty())
+		{
+			if (attempt < PERMS_MAX_ATTEMPTS)
+			{
+				doAfterInterval([report, attempt, generation]()
+				{
+					LLFloaterPermsResponder::send(std::string(), report, attempt + 1, generation);
+				}, PERMS_RETRY_SECONDS);
+				return;
+			}
+			mInitialPermsSend = false;
+			LL_WARNS("ObjectPermissionsFloater") << "Unable to send default permissions. Giving up for now." << LL_ENDL;
+			return;
+		}
+		LLHTTPClient::post(url, report, new LLFloaterPermsResponder(url, report, attempt, generation));
+	}
+	AIHTTPTimeoutPolicy const& getHTTPTimeoutPolicy() const override { return floaterPermsResponder_timeout; }
+	char const* getName() const override { return "LLFloaterPermsResponder"; }
+private:
 	static std::string sPreviousReason;
+	LLFloaterPermsResponder(const std::string& url, const LLSD& report, S32 attempt, U32 generation)
+	:	mUrl(url),
+		mReport(report),
+		mAttempt(attempt),
+		mGeneration(generation)
+	{
+	}
 	void httpFailure() override
 	{
-		auto* requester = LLFloaterPermsRequester::getIfExists();
-		if (!requester || requester->retry()) return;
-		LLFloaterPermsRequester::deleteSingleton();
+		if (mGeneration != sPermsRequestGeneration || LLApp::isExiting())
+			return;
 		const std::string& reason = getReason();
-		if (reason != sPreviousReason)
+		LL_INFOS("ObjectPermissionsFloater") << getURL() << " [" << getStatus() << "]: " << reason << LL_ENDL;
+		if (mCapSent && reason != sPreviousReason)
 		{
 			sPreviousReason = reason;
 			LLSD args;
 			args["REASON"] = reason;
 			LLNotificationsUtil::add("DefaultObjectPermissions", args);
 		}
+		if (mAttempt < PERMS_MAX_ATTEMPTS)
+		{
+			doAfterInterval([url = mUrl, report = mReport, attempt = mAttempt, generation = mGeneration]()
+			{
+				LLFloaterPermsResponder::send(url, report, attempt + 1, generation);
+			}, PERMS_RETRY_SECONDS);
+			return;
+		}
+		mInitialPermsSend = false;
+		LL_WARNS("ObjectPermissionsFloater") << "Unable to send default permissions. Giving up for now." << LL_ENDL;
 	}
 	void httpSuccess() override
 	{
-		sPreviousReason = "";
+		if (mGeneration != sPermsRequestGeneration)
+			return;
+		sPreviousReason.clear();
+		mCapSent = true;
+		mInitialPermsSend = false;
 		LL_INFOS("ObjectPermissionsFloater") << "Default permissions successfully sent to simulator" << LL_ENDL;
 	}
-	AIHTTPTimeoutPolicy const& getHTTPTimeoutPolicy() const override { return floaterPermsResponder_timeout; }
-	char const* getName() const override { return "LLFloaterPermsResponder"; }
+	std::string mUrl;
+	LLSD mReport;
+	S32 mAttempt;
+	U32 mGeneration;
 };
-bool LLFloaterPermsRequester::retry()
-{
-	if (++mRetriesCount < 5)
-	{
-		LLHTTPClient::post(mUrl, mReport, new LLFloaterPermsResponder);
-		return true;
-	}
-	return false;
-}
 std::string LLFloaterPermsResponder::sPreviousReason;
 void LLFloaterPermsDefault::sendInitialPerms()
 {
-	if (!mCapSent)
-	{
+	if (!mCapSent && !mInitialPermsSend)
 		updateCap();
-		mCapSent = true;
-	}
 }
 void LLFloaterPermsDefault::updateCap()
 {
-	std::string object_url = gAgent.getRegionCapability("AgentPreferences");
-	if (!object_url.empty())
+	if (!gAgent.getRegion())
 	{
-		LLSD report = LLSD::emptyMap();
-		report["default_object_perm_masks"]["Group"] =
-			(LLSD::Integer)LLFloaterPerms::getGroupPerms(sCategoryNames[CAT_OBJECTS]);
-		report["default_object_perm_masks"]["Everyone"] =
-			(LLSD::Integer)LLFloaterPerms::getEveryonePerms(sCategoryNames[CAT_OBJECTS]);
-		report["default_object_perm_masks"]["NextOwner"] =
-			(LLSD::Integer)LLFloaterPerms::getNextOwnerPerms(sCategoryNames[CAT_OBJECTS]);
-        {
-            std::ostringstream sent_perms_log;
-            LLSDSerialize::toPrettyXML(report, sent_perms_log);
-            LL_DEBUGS("ObjectPermissionsFloater") << "Sending default permissions to '"
-                                                  << object_url << "'\n"
-                                                  << sent_perms_log.str() << LL_ENDL;
-        }
-        LLFloaterPermsRequester::init(object_url, report);
+		LL_WARNS("Avatar") << "Region not set, cannot request capability update" << LL_ENDL;
+		return;
 	}
-    else
-    {
-        LL_DEBUGS("ObjectPermissionsFloater") << "AgentPreferences cap not available." << LL_ENDL;
-    }
+	std::string object_url = gAgent.getRegionCapability("AgentPreferences");
+	if (object_url.empty())
+	{
+		LL_DEBUGS("ObjectPermissionsFloater") << "AgentPreferences cap not available." << LL_ENDL;
+		return;
+	}
+	LLSD report = LLSD::emptyMap();
+	report["default_object_perm_masks"]["Group"] =
+		(LLSD::Integer)LLFloaterPerms::getGroupPerms(sCategoryNames[CAT_OBJECTS]);
+	report["default_object_perm_masks"]["Everyone"] =
+		(LLSD::Integer)LLFloaterPerms::getEveryonePerms(sCategoryNames[CAT_OBJECTS]);
+	report["default_object_perm_masks"]["NextOwner"] =
+		(LLSD::Integer)LLFloaterPerms::getNextOwnerPerms(sCategoryNames[CAT_OBJECTS]);
+	{
+		std::ostringstream sent_perms_log;
+		LLSDSerialize::toPrettyXML(report, sent_perms_log);
+		LL_DEBUGS("ObjectPermissionsFloater") << "Sending default permissions to '"
+											  << object_url << "'\n"
+											  << sent_perms_log.str() << LL_ENDL;
+	}
+	mInitialPermsSend = true;
+	LLFloaterPermsResponder::send(object_url, report, 1, ++sPermsRequestGeneration);
 }
 void LLFloaterPermsDefault::ok()
 {

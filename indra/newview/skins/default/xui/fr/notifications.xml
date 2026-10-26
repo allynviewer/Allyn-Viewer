@@ -6211,4 +6211,14 @@ afin d'obtenir des informations et des liens de téléchargement des versions pl
 			<button index="1" name="cancel" text="Annuler"/>
 		</form>
 	</notification>
+  <notification
+   icon="alertmodal.tga"
+   name="NonLindenLogin"
+   type="alertmodal">
+Cette grille n'est pas un serveur de Linden Lab. Votre nom et votre mot de passe seront envoyés à [URI] ([GRID]), et non à Linden Lab. Continuez seulement si vous faites confiance à ce serveur.
+    <usetemplate
+     name="okcancelbuttonscanceldefault"
+     notext="Annuler"
+     yestext="Continuer"/>
+  </notification>
 </notifications>

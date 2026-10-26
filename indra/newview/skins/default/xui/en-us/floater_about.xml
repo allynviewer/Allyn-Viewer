@@ -13,7 +13,13 @@
       <text_editor enabled="false" follows="left|top" bg_readonly_color="transparent" left="3" max_length="65536" name="credits_editor" top="-1" bottom="0" width="443" word_wrap="true">
 Allyn Viewer.
 
-Allyn Viewer is based on the Singularity Viewer source code, with additional contributions by Vedned Grau.
+This software is not provided or supported by Linden Lab, the makers of Second Life.
+
+Linden Lab does not support this viewer. Allyn Viewer support is through GitHub, Discord, and e-mail: allynviewer@gmail.com. Full notice: https://allynviewer.org/aviso
+
+Second Life is a trademark of Linden Research, Inc. Allyn Viewer is not affiliated with or sponsored by Linden Research.
+
+Allyn Viewer is based on the Singularity Viewer source code.
       </text_editor>
     </panel>
 

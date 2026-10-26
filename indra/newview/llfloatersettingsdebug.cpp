@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
  * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -41,6 +42,9 @@
 #include "lluictrlfactory.h"
 #include "llviewercontrol.h"
 #include "llwindow.h"
+#include "lltrans.h"
+#include "llstring.h"
+#include "llxmlnode.h"
 LLFloaterSettingsDebug::LLFloaterSettingsDebug()
 :	LLFloater(std::string("Configuration Editor"))
 ,	mOldSearchTerm("---")
@@ -116,19 +120,133 @@ LLControlVariable* LLFloaterSettingsDebug::getControlVariable()
 	LLControlVariable* controlp = static_cast<LLControlVariable*>(item->getUserdata());
 	return controlp ? controlp->getCOAActive() : nullptr;
 }
+static std::string debugSettingText(const char* key, const char* fallback)
+{
+	std::string translated;
+	if (LLTrans::findString(translated, key) && !translated.empty())
+		return translated;
+	return fallback;
+}
+static const std::map<std::string, std::string>& debugSettingComments()
+{
+	static std::map<std::string, std::string> comments;
+	static bool loaded = false;
+	if (!loaded)
+	{
+		loaded = true;
+		LLXMLNodePtr root;
+		if (LLUICtrlFactory::getInstance()->getLayeredXMLNode("debug_settings_strings.xml", root) && root.notNull())
+		{
+			for (LLXMLNodePtr node = root->getFirstChild(); node.notNull(); node = node->getNextSibling())
+			{
+				if (!node->hasName("string"))
+					continue;
+				std::string name;
+				if (!node->getAttributeString("name", name))
+					continue;
+				std::string text = node->getTextContents();
+				LLStringUtil::trim(text);
+				if (!text.empty())
+					comments[name] = text;
+			}
+		}
+	}
+	return comments;
+}
+struct DebugSettingLimit
+{
+	F32 min_value;
+	F32 max_value;
+	bool has_min;
+	bool has_max;
+};
+static const std::map<std::string, DebugSettingLimit>& debugSettingLimits()
+{
+	static std::map<std::string, DebugSettingLimit> limits;
+	static bool loaded = false;
+	if (!loaded)
+	{
+		loaded = true;
+		LLXMLNodePtr root;
+		if (LLUICtrlFactory::getInstance()->getLayeredXMLNode("debug_setting_limits.xml", root) && root.notNull())
+		{
+			for (LLXMLNodePtr node = root->getFirstChild(); node.notNull(); node = node->getNextSibling())
+			{
+				if (!node->hasName("limit"))
+					continue;
+				std::string name;
+				if (!node->getAttributeString("name", name) || name.empty())
+					continue;
+				DebugSettingLimit limit;
+				limit.min_value = 0.f;
+				limit.max_value = 0.f;
+				limit.has_min = node->getAttributeF32("min", limit.min_value);
+				limit.has_max = node->getAttributeF32("max", limit.max_value);
+				if (limit.has_min || limit.has_max)
+					limits[name] = limit;
+			}
+		}
+	}
+	return limits;
+}
+static bool clampDebugNumeric(const std::string& name, F32& value)
+{
+	if (!std::isfinite(value))
+		return false;
+	const std::map<std::string, DebugSettingLimit>& limits = debugSettingLimits();
+	std::map<std::string, DebugSettingLimit>::const_iterator it = limits.find(name);
+	if (it == limits.end())
+		return true;
+	const DebugSettingLimit& limit = it->second;
+	if (limit.has_min && limit.has_max && limit.min_value > limit.max_value)
+		return true;
+	if (limit.has_min && std::isfinite(limit.min_value) && value < limit.min_value)
+		value = limit.min_value;
+	if (limit.has_max && std::isfinite(limit.max_value) && value > limit.max_value)
+		value = limit.max_value;
+	return true;
+}
+static void tightenDebugSpinner(LLSpinCtrl* spin, const std::string& name)
+{
+	const std::map<std::string, DebugSettingLimit>& limits = debugSettingLimits();
+	std::map<std::string, DebugSettingLimit>::const_iterator it = limits.find(name);
+	if (it == limits.end())
+		return;
+	const DebugSettingLimit& limit = it->second;
+	if (limit.has_min && !std::isfinite(limit.min_value))
+		return;
+	if (limit.has_max && !std::isfinite(limit.max_value))
+		return;
+	if (limit.has_min && limit.has_max && limit.min_value > limit.max_value)
+		return;
+	if (limit.has_min && limit.min_value > spin->getMinValue())
+		spin->setMinValue(limit.min_value);
+	if (limit.has_max && limit.max_value < spin->getMaxValue())
+		spin->setMaxValue(limit.max_value);
+}
+static std::string localizedDebugComment(const LLControlVariable* control)
+{
+	const std::map<std::string, std::string>& comments = debugSettingComments();
+	std::map<std::string, std::string>::const_iterator it = comments.find(control->getName());
+	if (it != comments.end())
+		return it->second;
+	return control->getComment();
+}
 void LLFloaterSettingsDebug::addRow(LLControlVariable* control, const std::string& searchTerm)
 {
 	const auto& name = control->getName();
-	const auto& comment = control->getComment();
+	const std::string comment = localizedDebugComment(control);
 	if (!searchTerm.empty())
 	{
 		std::string itemValue = control->getName();
 		LLStringUtil::toLower(itemValue);
 		if (itemValue.find(searchTerm, 0) == std::string::npos)
 		{
-			std::string itemComment = control->getComment();
+			std::string itemComment = comment;
 			LLStringUtil::toLower(itemComment);
-			if (itemComment.find(searchTerm, 0) == std::string::npos)
+			std::string english = control->getComment();
+			LLStringUtil::toLower(english);
+			if (itemComment.find(searchTerm, 0) == std::string::npos && english.find(searchTerm, 0) == std::string::npos)
 				return;
 		}
 	}
@@ -167,14 +285,19 @@ void LLFloaterSettingsDebug::onCommitSettings()
 	switch(controlp->type())
 	{
 	  case TYPE_U32:
-		controlp->set(mValSpinner1->getValue());
-		break;
 	  case TYPE_S32:
-		controlp->set(mValSpinner1->getValue());
-		break;
 	  case TYPE_F32:
-		controlp->set(LLSD(mValSpinner1->getValue().asReal()));
+	  {
+		F32 numeric = (F32)mValSpinner1->getValue().asReal();
+		if (!clampDebugNumeric(controlp->getName(), numeric))
+		{
+			mValSpinner1->setValue(controlp->get());
+			break;
+		}
+		mValSpinner1->setValue(numeric);
+		controlp->set(LLSD(numeric));
 		break;
+	  }
 	  case TYPE_BOOLEAN:
 		controlp->set(mValBool->getValue());
 		break;
@@ -282,7 +405,7 @@ void LLFloaterSettingsDebug::updateControl()
 		eControlType type = mCurrentControlVariable->type();
 		if (!mComment->hasFocus())
 		{
-			mComment->setText(mCurrentControlVariable->getName() + std::string(": ") + mCurrentControlVariable->getComment());
+			mComment->setText(mCurrentControlVariable->getName() + std::string(": ") + localizedDebugComment(mCurrentControlVariable));
 		}
 		mValSpinner1->setMaxValue(F32_MAX);
 		mValSpinner2->setMaxValue(F32_MAX);
@@ -313,31 +436,31 @@ void LLFloaterSettingsDebug::updateControl()
 		{
 		  case TYPE_U32:
 			mValSpinner1->setVisible(TRUE);
-			mValSpinner1->setLabel(LLStringExplicit("value"));
+			mValSpinner1->setLabel(LLStringExplicit(debugSettingText("DebugSettingsValue", "value")));
+			mValSpinner1->setMinValue((F32)U32_MIN);
+			mValSpinner1->setMaxValue((F32)U32_MAX);
 			if (!mValSpinner1->hasFocus())
 			{
 				mValSpinner1->setValue(sd);
-				mValSpinner1->setMinValue((F32)U32_MIN);
-				mValSpinner1->setMaxValue((F32)U32_MAX);
 				mValSpinner1->setIncrement(1.f);
 				mValSpinner1->setPrecision(0);
 			}
 			break;
 		  case TYPE_S32:
 			mValSpinner1->setVisible(TRUE);
-			mValSpinner1->setLabel(LLStringExplicit("value"));
+			mValSpinner1->setLabel(LLStringExplicit(debugSettingText("DebugSettingsValue", "value")));
+			mValSpinner1->setMinValue((F32)S32_MIN);
+			mValSpinner1->setMaxValue((F32)S32_MAX);
 			if (!mValSpinner1->hasFocus())
 			{
 				mValSpinner1->setValue(sd);
-				mValSpinner1->setMinValue((F32)S32_MIN);
-				mValSpinner1->setMaxValue((F32)S32_MAX);
 				mValSpinner1->setIncrement(1.f);
 				mValSpinner1->setPrecision(0);
 			}
 			break;
 		  case TYPE_F32:
 			mValSpinner1->setVisible(TRUE);
-			mValSpinner1->setLabel(LLStringExplicit("value"));
+			mValSpinner1->setLabel(LLStringExplicit(debugSettingText("DebugSettingsValue", "value")));
 			if (!mValSpinner1->hasFocus())
 			{
 				mValSpinner1->setPrecision(3);
@@ -417,13 +540,13 @@ void LLFloaterSettingsDebug::updateControl()
 			LLRect r;
 			r.setValue(sd);
 			mValSpinner1->setVisible(TRUE);
-			mValSpinner1->setLabel(LLStringExplicit("Left"));
+			mValSpinner1->setLabel(LLStringExplicit(debugSettingText("DebugSettingsLeft", "Left")));
 			mValSpinner2->setVisible(TRUE);
-			mValSpinner2->setLabel(LLStringExplicit("Right"));
+			mValSpinner2->setLabel(LLStringExplicit(debugSettingText("DebugSettingsRight", "Right")));
 			mValSpinner3->setVisible(TRUE);
-			mValSpinner3->setLabel(LLStringExplicit("Bottom"));
+			mValSpinner3->setLabel(LLStringExplicit(debugSettingText("DebugSettingsBottom", "Bottom")));
 			mValSpinner4->setVisible(TRUE);
-			mValSpinner4->setLabel(LLStringExplicit("Top"));
+			mValSpinner4->setLabel(LLStringExplicit(debugSettingText("DebugSettingsTop", "Top")));
 			if (!mValSpinner1->hasFocus())
 			{
 				mValSpinner1->setPrecision(0);
@@ -468,7 +591,7 @@ void LLFloaterSettingsDebug::updateControl()
 				mValColor->set(LLColor4(sd), TRUE, FALSE);
 			}
 			mValSpinner4->setVisible(TRUE);
-			mValSpinner4->setLabel(LLStringExplicit("Alpha"));
+			mValSpinner4->setLabel(LLStringExplicit(debugSettingText("DebugSettingsAlpha", "Alpha")));
 			if (!mValSpinner4->hasFocus())
 			{
 				mValSpinner4->setPrecision(3);
@@ -495,7 +618,7 @@ void LLFloaterSettingsDebug::updateControl()
 				mValColor->set(LLColor4(clr), TRUE, FALSE);
 			}
 			mValSpinner4->setVisible(TRUE);
-			mValSpinner4->setLabel(std::string("Alpha"));
+			mValSpinner4->setLabel(LLStringExplicit(debugSettingText("DebugSettingsAlpha", "Alpha")));
 			if(!mValSpinner4->hasFocus())
 			{
 				mValSpinner4->setPrecision(0);
@@ -515,9 +638,11 @@ void LLFloaterSettingsDebug::updateControl()
 			}
 			break;
 		  default:
-			mComment->setText(LLStringExplicit("unknown"));
+			mComment->setText(LLStringExplicit(debugSettingText("DebugSettingsUnknown", "unknown")));
 			break;
 		}
+		if (type == TYPE_U32 || type == TYPE_S32 || type == TYPE_F32)
+			tightenDebugSpinner(mValSpinner1, mCurrentControlVariable->getName());
 	}
 }
 void LLFloaterSettingsDebug::onUpdateFilter(const LLSD& value)

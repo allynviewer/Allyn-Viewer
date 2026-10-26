@@ -28,7 +28,7 @@ Assicurati di aver inserito il Login URI corretto. Un esempio di Login URI è: \
 		Grid Second Life
 	</string>
 	<string name="SUPPORT_SITE">
-		Portale di supporto Second Life
+		supporto di Allyn Viewer su GitHub, Discord o allynviewer@gmail.com
 	</string>
 	<string name="StartupDetectingHardware">
 		Rilevamento hardware...
@@ -868,10 +868,10 @@ Se ritieni che si tratti di un errore, contatta support@secondlife.com
 	Controllare la tua fotocamera
  </string>
  <string name="APP_NAME">
- 	Allyn Viewer Beta
+ 	Allyn Viewer
  </string>
  <string name="CAPITALIZED_APP_NAME">
- 	Allyn Viewer Beta
+ 	Allyn Viewer
  </string>
  <string name="SHORT_APP_NAME">
  	Allyn Viewer
@@ -6358,5 +6358,26 @@ Segnalazione di abuso</string>
 	</string>
 	<string name="zip_files">
 		File Zip
+	</string>
+	<string name="DebugSettingsValue">
+		valore
+	</string>
+	<string name="DebugSettingsLeft">
+		Sinistra
+	</string>
+	<string name="DebugSettingsRight">
+		Destra
+	</string>
+	<string name="DebugSettingsBottom">
+		Basso
+	</string>
+	<string name="DebugSettingsTop">
+		Alto
+	</string>
+	<string name="DebugSettingsAlpha">
+		Alfa
+	</string>
+	<string name="DebugSettingsUnknown">
+		sconosciuto
 	</string>
 </strings>

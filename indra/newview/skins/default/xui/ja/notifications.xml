@@ -6290,4 +6290,14 @@ XMLファイルが不正です。インポートを中止しました。
       <button index="1" name="cancel" text="キャンセル"/>
     </form>
   </notification>
+  <notification
+   icon="alertmodal.tga"
+   name="NonLindenLogin"
+   type="alertmodal">
+このグリッドは Linden Lab のサーバーではありません。ログイン名とパスワードは Linden Lab ではなく [URI]（[GRID]）に送られます。そのサーバーを信頼する場合だけ続行してください。
+    <usetemplate
+     name="okcancelbuttonscanceldefault"
+     notext="キャンセル"
+     yestext="続ける"/>
+  </notification>
 </notifications>

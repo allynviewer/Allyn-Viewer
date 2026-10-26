@@ -35,10 +35,10 @@ Make sure you entered the correct Login URI. An example of a Login URI is: \"htt
 		Second Life
 	</string>
 	<string name="APP_NAME">
-		Allyn Viewer Beta
+		Allyn Viewer
 	</string>
 	<string name="CAPITALIZED_APP_NAME">
-		Allyn Viewer Beta
+		Allyn Viewer
 	</string>
 	<string name="SHORT_APP_NAME">
 		Allyn Viewer
@@ -50,7 +50,7 @@ Make sure you entered the correct Login URI. An example of a Login URI is: \"htt
 		Second Life Grid
 	</string>
 	<string name="SUPPORT_SITE">
-		Second Life Support Portal
+		Allyn Viewer support on GitHub, Discord, or allynviewer@gmail.com
 	</string>
 	<string name="CURRENCY">
 		L$
@@ -7711,5 +7711,26 @@ Waiting for the provider response.
 	</string>
 	<string name="NotifyIconBarIM">
 		Instant Messages
+	</string>
+	<string name="DebugSettingsValue">
+		value
+	</string>
+	<string name="DebugSettingsLeft">
+		Left
+	</string>
+	<string name="DebugSettingsRight">
+		Right
+	</string>
+	<string name="DebugSettingsBottom">
+		Bottom
+	</string>
+	<string name="DebugSettingsTop">
+		Top
+	</string>
+	<string name="DebugSettingsAlpha">
+		Alpha
+	</string>
+	<string name="DebugSettingsUnknown">
+		unknown
 	</string>
 </strings>
