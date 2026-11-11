@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2006&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -34,6 +35,8 @@
 #include "lllandmarklist.h"
 #include "llviewerregion.h"
 #include "llworldmap.h"
+#include "llbutton.h"
+#include "rlvhandler.h"
 void emergency_teleport(const U32& seconds)
 {
 	static const LLCachedControl<U32> time(gSavedSettings, "EmergencyTeleportSeconds");
@@ -88,6 +91,7 @@ static shake_state sShakeState;
 LLFloaterRegionRestarting::LLFloaterRegionRestarting(const LLSD& key) :
 	LLEventTimer(1)
 ,	mRestartSeconds(NULL)
+,	mHomeButton(NULL)
 ,	mSeconds(key["SECONDS"].asInteger())
 ,	mName(key.has("NAME") ? key["NAME"].asString() : gAgent.getRegion()->getName())
 ,	mShakeIterations()
@@ -114,8 +118,10 @@ BOOL LLFloaterRegionRestarting::postBuild()
 	args["[NAME]"] = mName;
 	text = getString("RegionName", args);
 	LLTextBox* textbox = getChild<LLTextBox>("region_name");
-	textbox->setValue(text);
+	textbox->setWrappedText(text);
 	mRestartSeconds = getChild<LLTextBox>("restart_seconds");
+	mHomeButton = getChild<LLButton>("home_btn");
+	mHomeButton->setClickedCallback(boost::bind(&LLFloaterRegionRestarting::onHomeClicked, this));
 	setBackgroundColor(gColors.getColor("NotifyCautionBoxColor"));
 	sShakeState = SHAKE_START;
 	refresh();
@@ -135,6 +141,7 @@ void LLFloaterRegionRestarting::refresh()
 	LLStringUtil::format_map_t args;
 	args["[SECONDS]"] = llformat("%d", mSeconds);
 	mRestartSeconds->setValue(getString("RestartSeconds", args));
+	updateHomeButton();
 	emergency_teleport(mSeconds);
 	if (!mSeconds) return;
 	--mSeconds;
@@ -195,6 +202,19 @@ void LLFloaterRegionRestarting::draw()
 		}
 		mShakeTimer.setTimerExpirySec(SHAKE_INTERVAL);
 	}
+}
+void LLFloaterRegionRestarting::onHomeClicked()
+{
+	gAgent.teleportHome();
+}
+void LLFloaterRegionRestarting::updateHomeButton()
+{
+	if (!mHomeButton)
+	{
+		return;
+	}
+	const bool enable = !(gRlvHandler.hasBehaviour(RLV_BHVR_TPLM) && gRlvHandler.hasBehaviour(RLV_BHVR_TPLOC));
+	mHomeButton->setEnabled(enable);
 }
 void LLFloaterRegionRestarting::updateTime(const U32& time)
 {

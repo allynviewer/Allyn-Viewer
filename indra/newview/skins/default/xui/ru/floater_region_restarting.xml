@@ -22,5 +22,6 @@
 			Секунды до перезапуска:
      32767
 		</text>
+		<button name="home_btn" label="Вернуться домой" tool_tip="Телепортироваться домой"/>
 	</panel>
 </floater>

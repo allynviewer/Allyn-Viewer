@@ -5,5 +5,6 @@
 	<panel name="layout_panel_1">
 		<text name="region_name">La regione in cui ti trovi ora (-The longest region name-) sta per riavviarsi. Se resti qui, verrai disconnesso.</text>
 		<text name="restart_seconds">Secondi al riavvio: 32767</text>
+		<button name="home_btn" label="Torna a casa" tool_tip="Teletrasportati a casa"/>
 	</panel>
 </floater>

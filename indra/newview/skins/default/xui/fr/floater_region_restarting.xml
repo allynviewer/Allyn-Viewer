@@ -13,5 +13,6 @@ Si vous restez ici, vous serez déconnecté(e).</string>
 Si vous restez ici, vous serez déconnecté(e).</text>
 		<text name="restart_seconds">Secondes avant le redémarrage :
  32767</text>
+		<button name="home_btn" label="Retour à la maison" tool_tip="Me téléporter jusqu'à mon domicile"/>
 	</panel>
 </floater>

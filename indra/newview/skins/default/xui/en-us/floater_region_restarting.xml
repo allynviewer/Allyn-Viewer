@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater
- height="140"
- width="360"
+ height="246"
+ width="480"
  layout="topleft"
  name="region_restarting"
  help_topic="floater_region_restarting"
@@ -21,11 +21,11 @@ If you stay here, you'll be logged out.
     </string>
      <panel
      name="layout_panel_1"
-     height="140"
-     width="360"
-     follows="right|top"
-     bottom="-140"
-     left="0"
+     height="200"
+     width="448"
+     follows="left|bottom"
+     bottom="16"
+     left="16"
      mouse_opaque="false"
      background_visible="true"
      bg_opaque_color="NotifyCautionBoxColor"
@@ -37,8 +37,8 @@ If you stay here, you'll be logged out.
      name="icon"
      width="32"
      height="32"
-     bottom="-40"
-     left="8"
+     bottom="168"
+     left="0"
      image_name="notify_caution_icon.tga"
      follows="left|top">
     </icon>
@@ -52,10 +52,10 @@ If you stay here, you'll be logged out.
      text_color="AlertCautionTextColor"
      font="SansSerifBold"
      word_wrap="true"
-     height="100"
-     bottom="-110"
-     left="48"
-     width="320">
+     height="104"
+     bottom="96"
+     left="40"
+     width="408">
 The region you are in now
 (-The longest region name-) is about to restart.
 
@@ -64,19 +64,28 @@ If you stay here, you'll be logged out.
     <text
      type="string"
      length="1"
-     follows="top|left"
+     follows="left|bottom"
      layout="topleft"
      name="restart_seconds"
      text_color="AlertCautionTextColor"
      font="SansSerifBold"
      height="40"
-     bottom_delta="-25"
+     bottom="48"
      left="0"
      halign="center"
-     width="360">
+     width="448">
 Seconds Until Restart:
      32767
     </text>
+    <button
+     follows="left|bottom"
+     font="SansSerif"
+     height="28"
+     width="240"
+     bottom="10"
+     left="104"
+     name="home_btn"
+     label="Go Home"
+     tool_tip="Teleport to your home location"/>
   </panel>
 </floater>
-

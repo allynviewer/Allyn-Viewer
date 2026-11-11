@@ -5,5 +5,6 @@
 	<panel name="layout_panel_1">
 		<text name="region_name">A região em que você está agora (-The longest region name-) está prestes a reiniciar. Se você permanecer aqui, será desconectado.</text>
 		<text name="restart_seconds">Segundos até o reinício: 32767</text>
+		<button name="home_btn" label="Voltar para casa" tool_tip="Teleportar para minha casa"/>
 	</panel>
 </floater>

@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2006&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -41,7 +42,10 @@ private:
 	virtual void refresh();
 	virtual void draw();
 	virtual void regionChange();
+	void onHomeClicked();
+	void updateHomeButton();
 	class LLTextBox* mRestartSeconds;
+	class LLButton* mHomeButton;
 	U32 mSeconds;
 	std::string mName;
 	U32 mShakeIterations;

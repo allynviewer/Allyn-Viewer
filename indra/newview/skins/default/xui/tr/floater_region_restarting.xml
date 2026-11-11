@@ -22,5 +22,6 @@ Burada kalırsan çıkış yapacaksın.
 			Yeniden Başlatmaya Kalan Saniyeler:
      32767
 		</text>
+		<button name="home_btn" label="Eve dön" tool_tip="Ana konumuma ışınla"/>
 	</panel>
 </floater>

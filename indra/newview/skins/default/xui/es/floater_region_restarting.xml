@@ -21,6 +21,7 @@ Si permaneces en esta región, serás desconectado.
  Segundos remanentes para el reinicio:
 32767
  </text>
+ <button name="home_btn" label="Volver a casa" tool_tip="Teleportar a tu casa"/>
  </panel>
 </floater>
 

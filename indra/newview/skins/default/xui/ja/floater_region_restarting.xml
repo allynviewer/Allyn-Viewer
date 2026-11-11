@@ -6,5 +6,6 @@
 		<icon name="icon" />
 		<text name="region_name">現在いるリージョン（-最長リージョン名-）はまもなく再起動します。ここに留まるとログアウトされます。</text>
 		<text name="restart_seconds">再起動までの秒数: 32767</text>
+		<button name="home_btn" label="ホームに戻る" tool_tip="ホームへテレポートします"/>
 	</panel>
 </floater>
