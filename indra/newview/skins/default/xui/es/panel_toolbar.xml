@@ -4,6 +4,7 @@
 		Reacoplar Ventana
 	</string>
 	<string name="ToolbarButtons">Botones de la barra de herramientas</string>
+	<string name="RemoveToolbarButton">Quitar de la barra</string>
 	<string name="IMs">[COUNT] MIs</string>
 	<string name="IM">1 MI</string>
 	<layout_stack name="toolbar_stack">

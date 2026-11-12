@@ -273,7 +273,12 @@ bool LLMenuItemGL::parentIsMenuBar() const
 }
 U32 LLMenuItemGL::measureMenuBarTitleWidth() const
 {
-	U32 width = LEFT_PAD_PIXELS + LEFT_WIDTH_PIXELS + RIGHT_PAD_PIXELS;
+	S32 side = LEFT_PAD_PIXELS + LEFT_WIDTH_PIXELS + RIGHT_PAD_PIXELS;
+	if (LLMenuBarGL* bar = dynamic_cast<LLMenuBarGL*>(getMenu()))
+	{
+		side = bar->getTitleSidePad();
+	}
+	U32 width = side;
 	width += getFont()->getWidth( mLabel.getWString().c_str() );
 	return width;
 }
@@ -282,8 +287,16 @@ void LLMenuItemGL::drawMenuBarTitle()
 	const F32 alpha = getCurrentTransparency();
 	if( getHighlight() )
 	{
-		gGL.color4fv( (mHighlightBackground % alpha).mV );
-		gl_rect_2d( 0, getRect().getHeight(), getRect().getWidth(), 0 );
+		LLMenuBarGL* bar = dynamic_cast<LLMenuBarGL*>(getMenu());
+		if (bar && bar->getHighlightImage().notNull())
+		{
+			bar->getHighlightImage()->draw(getLocalRect(), mHighlightBackground % alpha);
+		}
+		else
+		{
+			gGL.color4fv( (mHighlightBackground % alpha).mV );
+			gl_rect_2d( 0, getRect().getHeight(), getRect().getWidth(), 0 );
+		}
 	}
 	LLFontGL::ShadowType font_shadow = LLFontGL::NO_SHADOW;
 	if (getEnabled() && !getDrawTextDisabled() )
@@ -1316,6 +1329,10 @@ void LLMenuItemBranchDownGL::openMenu( void )
 			LLRect rect = branch->getRect();
 			S32 left = 0;
 			S32 top = getRect().mBottom;
+			if (LLMenuBarGL* bar = dynamic_cast<LLMenuBarGL*>(getMenu()))
+			{
+				top -= bar->getDropOffset();
+			}
 			localPointToOtherView(left, top, &left, &top, branch->getParent());
 			rect.setLeftTopAndSize( left, top,
 									rect.getWidth(), rect.getHeight() );
@@ -3012,7 +3029,9 @@ void LLMenuGL::showPopup(LLView* spawning_view, LLMenuGL* menu, S32 x, S32 y)
 }
 static LLRegisterWidget<LLMenuBarGL> r2("menu_bar");
 LLMenuBarGL::LLMenuBarGL( const std::string& name )
-:	LLMenuGL ( name, name )
+:	LLMenuGL ( name, name ),
+	mTitleSidePad(LEFT_PAD_PIXELS + LEFT_WIDTH_PIXELS + RIGHT_PAD_PIXELS),
+	mDropOffset(0)
 {
 	mHorizontalLayout = TRUE;
 	mKeepFixedSize = TRUE;
@@ -3223,6 +3242,16 @@ void LLMenuBarGL::checkMenuTrigger()
 BOOL LLMenuBarGL::jumpKeysActive()
 {
 	return LLMenuGL::getKeyboardMode() && getHighlightedItem() && LLMenuGL::jumpKeysActive();
+}
+void LLMenuBarGL::setTitleSidePad(S32 pad)
+{
+	pad = llclamp(pad, (S32)10, (S32)(LEFT_PAD_PIXELS + LEFT_WIDTH_PIXELS + RIGHT_PAD_PIXELS));
+	if (pad == mTitleSidePad)
+	{
+		return;
+	}
+	mTitleSidePad = pad;
+	needsArrange();
 }
 void LLMenuBarGL::arrange( void )
 {

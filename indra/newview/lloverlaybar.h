@@ -34,6 +34,7 @@
 #define LL_LLOVERLAYBAR_H
 #include "llpanel.h"
 #include "lllayoutstack.h"
+#include "llfloatingbarstyle.h"
 extern S32 STATUS_BAR_HEIGHT;
 class LLButton;
 class LLLineEditor;
@@ -121,6 +122,14 @@ private:
 	bool	updateAdvSettingsPopup(const LLSD &data);
 	bool	updateVolumePopup(const LLSD &data);
 	void	stashOverlayFloaters(bool in_mouselook);
+	void	layoutOverlayStack();
+	void	layoutNewIM();
+	void	styleOverlayButton(LLButton* button, LLView* container, const std::string& icon, bool label_to_tip);
+	LLLayoutStack*	mOverlayStack;
+	LLRect	mNewIMPill;
+	S32		mStackLift;
+	LLFloatingBarStyle mStyle;
+	boost::signals2::connection mMarginSlot;
 	bool	mAOFloaterWasOpen;
 	bool	mVolumeFloaterWasOpen;
 	bool	mEnvFloaterWasOpen;

@@ -8599,6 +8599,50 @@ This should be as low as possible, but too low may break functionality</string>
       <key>Value</key>
       <integer>-1</integer>
     </map>
+    <key>FloatingBarMargin</key>
+    <map>
+      <key>Comment</key>
+      <string>Distance in pixels between the floating bars (menu, navigation, toolbar) and the window edges (0 to 32)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>8</integer>
+    </map>
+    <key>FloatingBarOpacity</key>
+    <map>
+      <key>Comment</key>
+      <string>Opacity of the floating bar backgrounds (0.2 to 1.0)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>0.92</real>
+    </map>
+    <key>FloatingBarIconSpacing</key>
+    <map>
+      <key>Comment</key>
+      <string>Spacing in pixels between the icons of the bottom floating toolbar (0 to 16)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>4</integer>
+    </map>
+    <key>FloatingBarBottomAlignment</key>
+    <map>
+      <key>Comment</key>
+      <string>Horizontal alignment of the bottom floating toolbar (0 = left, 1 = center, 2 = right)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
     <key>FloaterVoiceEffectRect</key>
     <map>
       <key>Comment</key>

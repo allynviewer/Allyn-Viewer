@@ -2,6 +2,7 @@
 <panel name="toolbar">
 	<string name="Redock Windows">ウィンドウを再ドック</string>
 	<string name="ToolbarButtons">ツールバーボタン</string>
+	<string name="RemoveToolbarButton">ツールバーから削除</string>
 	<string name="IMs">[COUNT] IM</string>
 	<string name="IM">1 IM</string>
 	<layout_stack name="toolbar_stack">

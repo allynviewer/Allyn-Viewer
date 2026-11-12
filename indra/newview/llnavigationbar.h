@@ -5,6 +5,7 @@
 #ifndef LL_LLNAVIGATIONBAR_H
 #define LL_LLNAVIGATIONBAR_H
 #include "llpanel.h"
+#include "llfloatingbarstyle.h"
 #include "llsd.h"
 #include "v3dmath.h"
 #include <vector>
@@ -29,6 +30,9 @@ public:
 	void refresh();
 	void setVisibleForMouselook(bool visible);
 	void updateFloaterViewTop();
+	void updateBarRect();
+	void layoutCompactNow();
+	bool isCompact() const { return mStacked; }
 	S32 getOccupiedHeight() const;
 	void goToHistoryIndex(S32 index);
 private:
@@ -67,6 +71,7 @@ private:
 	void showHistoryMenu(bool backward);
 	void applyVisibility();
 	void applyFlexibleLayout();
+	void onMarginChanged();
 	void setSearchWidth(S32 width);
 	S32 clampSearchWidth(S32 width) const;
 	bool isSearchVisible() const;
@@ -82,6 +87,8 @@ private:
 	LLUICtrl*		mSearchEditor;
 	LLUICtrl*		mSearchBtn;
 	LLView*			mSearchBevel;
+	LLView*			mAddressBlocker;
+	LLView*			mButtonBlocker;
 	std::vector<HistoryItem> mHistory;
 	std::vector<std::string> mTypedHistory;
 	S32				mCurrent;
@@ -90,6 +97,10 @@ private:
 	bool			mIgnoreNavClick;
 	bool			mMouselookHidden;
 	bool			mResizingFields;
+	bool			mSearchFits;
+	bool			mStacked;
+	bool			mRectDirty;
+	S32				mButtonRowRight;
 	S32				mSearchWidth;
 	S32				mDragStartX;
 	S32				mDragStartSearchWidth;
@@ -98,6 +109,8 @@ private:
 	boost::signals2::connection mParcelChangedSlot;
 	boost::signals2::connection mRegionChangedSlot;
 	boost::signals2::connection mShowNavSlot;
+	boost::signals2::connection mMarginSlot;
+	LLFloatingBarStyle mStyle;
 };
 extern LLNavigationBar* gNavigationBar;
 #endif

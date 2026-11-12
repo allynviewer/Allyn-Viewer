@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
  * Copyright (c) 2002-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -34,7 +35,9 @@
 #include "llpanel.h"
 #include "lllayoutstack.h"
 #include "llframetimer.h"
+#include "llfloatingbarstyle.h"
 extern S32 TOOL_BAR_HEIGHT;
+class LLButton;
 class LLFlyoutButton;
 class LLLayoutStack;
 class LLLayoutPanel;
@@ -56,17 +59,40 @@ public:
 	BOOL handleMouseUp(S32 x, S32 y, MASK mask);
 	BOOL handleRightMouseDown(S32 x, S32 y, MASK mask);
 	void onMouseCaptureLost();
+	void draw();
+	void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 	void refresh();
 	void onClickCommunicate(const LLSD& selected);
+	S32 getBarHeight() const;
+	const LLRect& getPillRect() const { return mPillRect; }
+	const LLRect& getAddRect() const { return mAddRect; }
 	static F32 sInventoryAutoOpenTime;
 private:
+	struct Slot
+	{
+		LLLayoutPanel* panel;
+		LLView* main;
+		LLButton* action;
+		LLButton* arrow;
+		LLView* badge;
+		S32 natural;
+	};
+	void buildSlots();
+	void markLayoutDirty();
+	void layoutToolbar();
+	S32 getContentWidth(S32 size) const;
+	void onClickAddButton();
 	void updateCommunicateList();
 	void hookToolbarButtons(LLView* view);
 	void onToolbarButtonMouseDown(LLUICtrl* ctrl, S32 x, S32 y, MASK mask);
 	void onToolbarButtonRightClick(LLUICtrl* ctrl, S32 x, S32 y, MASK mask);
 	void showToolbarContextMenu(S32 x, S32 y);
+	void removeContextButton();
+	static void onRemoveContextButton(void*);
 	void pollToolbarDrag();
 	void updateButtonDrag(S32 x, S32 y);
+	void commitButtonDrag();
+	void syncSlotsToStack();
 	void applySavedButtonOrder();
 	void saveButtonOrder();
 	std::string getPanelGroupKey(LLLayoutPanel* panel) const;
@@ -84,11 +110,25 @@ private:
 	CachedUICtrl<LLButton> mInventoryBtn;
 	LLLayoutStack* mToolbarStack;
 	LLMenuGL* mContextMenu;
+	LLLayoutPanel* mContextPanel;
 	LLLayoutPanel* mDragStartPanel;
 	S32 mDragStartX;
 	S32 mDragStartY;
 	bool mDragging;
+	S32 mDragInsertIndex;
+	bool mDragCaretVisible;
+	LLRect mDragCaretRect;
 	bool mOrderDirty;
+	bool mLayoutDirty;
+	bool mMenuRequested;
+	LLButton* mAddBtn;
+	LLView* mPillBlocker;
+	LLRect mPillRect;
+	LLRect mAddRect;
+	S32 mBarHeight;
+	std::vector<Slot> mSlots;
+	std::vector<boost::signals2::connection> mLayoutSlots;
+	LLFloatingBarStyle mStyle;
 };
 extern LLToolBar *gToolBar;
 #endif

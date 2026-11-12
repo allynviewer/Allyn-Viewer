@@ -2,6 +2,7 @@
 <panel name="toolbar"> 
  <string name="Redock Windows">Fenster andocken</string>
  <string name="ToolbarButtons">Symbolleisten-Schaltflächen</string>
+ <string name="RemoveToolbarButton">Aus der Symbolleiste entfernen</string>
  
  <layout_stack name="toolbar_stack">
 	 

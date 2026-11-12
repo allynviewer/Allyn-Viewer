@@ -2,6 +2,7 @@
 <panel name="status">
 	<text name="ParcelNameText" tool_tip="Название парцела, на котором вы находитесь. Нажмите «О земле».">Название парцела</text>
 	<text name="BalanceText" tool_tip="Баланс счета">Загрузка...</text>
+	<text name="FPSText" tool_tip="Кадров в секунду">FPS: 0</text>
 	<text name="UPCText" tool_tip="Загрузить кредиты">UPC - N/A -</text>
 	<button name="buycurrency" tool_tip="Купить валюту" />
 	<text name="TimeText" tool_tip="Текущее время (Тихоокеанский регион)">12:00 AM</text>

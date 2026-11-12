@@ -6,6 +6,9 @@
 	<text name="BalanceText" tool_tip="Solde du compte">
 		Chargement
 	</text>
+	<text name="FPSText" tool_tip="Images par seconde">
+		FPS: 0
+	</text>
 	<button name="buycurrency" tool_tip="Acheter des devises"/>
 	<text name="TimeText" tool_tip="Heure actuelle (Californie)">
 		midi

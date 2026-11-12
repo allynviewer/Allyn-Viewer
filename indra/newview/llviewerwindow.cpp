@@ -1598,6 +1598,7 @@ void LLViewerWindow::initWorldUI_postLogin()
 		gStatusBar->translate(0, root_rect.getHeight() - gStatusBar->getRect().getHeight());
 		gStatusBar->setBackgroundColor( gMenuBarView->getBackgroundColor() );
 		getRootView()->addChild(gStatusBar);
+		gStatusBar->updateBarRect();
 		S32 nav_h = NAV_BAR_HEIGHT;
 		if (nav_h <= 0)
 		{
@@ -1610,24 +1611,15 @@ void LLViewerWindow::initWorldUI_postLogin()
 		gNavigationBar->setBackgroundColor(gMenuBarView->getBackgroundColor());
 		getRootView()->addChild(gNavigationBar);
 		getRootView()->sendChildToFront(gNavigationBar);
-		S32 icon_h = NOTIFY_ICON_BAR_HEIGHT;
-		S32 icon_w = NOTIFY_ICON_BAR_WIDTH;
-		if (icon_h <= 0)
-		{
-			icon_h = 27;
-		}
-		if (icon_w <= 0)
-		{
-			icon_w = 36;
-		}
-		const S32 icon_pad = 3;
-		LLRect icon_rect(root_rect.getWidth() - icon_w - icon_pad,
-						 root_rect.getHeight() - menu_bar_height - nav_h - icon_pad,
-						 root_rect.getWidth() - icon_pad,
-						 root_rect.getHeight() - menu_bar_height - nav_h - icon_pad - icon_h);
+		gNavigationBar->updateBarRect();
+		LLRect icon_rect(root_rect.getWidth() - NOTIFY_ICON_BAR_WIDTH,
+						 root_rect.getHeight(),
+						 root_rect.getWidth(),
+						 root_rect.getHeight() - NOTIFY_ICON_BAR_HEIGHT);
 		gNotifyIconBar = new LLNotifyIconBar(std::string("notify_icon_bar"), icon_rect);
 		getRootView()->addChild(gNotifyIconBar);
 		getRootView()->sendChildToFront(gNotifyIconBar);
+		gNotifyIconBar->updatePosition();
 		gNavigationBar->updateFloaterViewTop();
 		getRootView()->sendChildToFront(gMenuHolder);
 		if ( gSavedPerAccountSettings.getBOOL("LogShowHistory") )
@@ -2505,6 +2497,61 @@ void LLViewerWindow::updateUI()
 	}
 	return;
 }
+static void raiseFloatersOverChrome(LLView* root, LLView* progress)
+{
+	if (!root || !gFloaterView)
+	{
+		return;
+	}
+	const LLRect root_rect = root->getRect();
+	LLRect floater_rect = gFloaterView->getRect();
+	if (floater_rect.mLeft != 0 || floater_rect.mBottom != 0
+		|| floater_rect.mRight != root_rect.getWidth()
+		|| floater_rect.mTop != root_rect.getHeight())
+	{
+		floater_rect.set(0, root_rect.getHeight(), root_rect.getWidth(), 0);
+		gFloaterView->setRect(floater_rect);
+	}
+	gFloaterView->setSnapOffsetBottom(0);
+	if (gStatusBar)
+	{
+		root->sendChildToFront(gStatusBar);
+	}
+	if (gNavigationBar)
+	{
+		root->sendChildToFront(gNavigationBar);
+	}
+	if (gNotifyIconBar)
+	{
+		root->sendChildToFront(gNotifyIconBar);
+	}
+	if (gBottomPanel)
+	{
+		root->sendChildToFront(gBottomPanel);
+	}
+	const bool menu_open = gMenuHolder && gMenuHolder->hasVisibleMenu();
+	if (gMenuHolder && !menu_open)
+	{
+		root->sendChildToFront(gMenuHolder);
+	}
+	root->sendChildToFront(gFloaterView);
+	if (gSnapshotFloaterView)
+	{
+		root->sendChildToFront(gSnapshotFloaterView);
+	}
+	if (gNotifyBoxView)
+	{
+		root->sendChildToFront(gNotifyBoxView);
+	}
+	if (gMenuHolder && menu_open)
+	{
+		root->sendChildToFront(gMenuHolder);
+	}
+	if (progress)
+	{
+		root->sendChildToFront(progress);
+	}
+}
 void LLViewerWindow::updateLayout()
 {
 	static const LLCachedControl<bool> freeze_time("FreezeTime",0);
@@ -2560,59 +2607,13 @@ void LLViewerWindow::updateLayout()
 	if (gOverlayBar && gNotifyBoxView && gToolBar && gHUDView)
 	{
 		LLRect bar_rect(-1, STATUS_BAR_HEIGHT, getWindowWidth()+1, -1);
-		S32 occupied_nav = (gNavigationBar) ? gNavigationBar->getOccupiedHeight() : 0;
-		S32 menu_h = (gMenuBarView) ? gMenuBarView->getRect().getHeight() : MENU_BAR_HEIGHT;
-		S32 desired_top = getRootView()->getRect().getHeight() - menu_h - occupied_nav;
-		S32 notify_top = getRootView()->getRect().getHeight() - menu_h;
+		S32 notify_top = getRootView()->getRect().getHeight() - LLFloatingBarStyle::topBarInset();
 		LLRect notify_box_rect = gNotifyBoxView->getRect();
-		notify_box_rect.mBottom = bar_rect.mBottom;
-		notify_box_rect.mTop = notify_top;
-		gNotifyBoxView->reshape(notify_box_rect.getWidth(), notify_box_rect.getHeight());
-		gNotifyBoxView->setShape(notify_box_rect);
-		LLRect floater_rect = gFloaterView->getRect();
-		bool floater_rect_changed = false;
-		if (floater_rect.mBottom != bar_rect.mBottom+1)
+		if (notify_box_rect.mBottom != bar_rect.mBottom || notify_box_rect.mTop != notify_top)
 		{
-			floater_rect.mBottom = bar_rect.mBottom+1;
-			floater_rect_changed = true;
-		}
-		if (floater_rect.mTop != desired_top)
-		{
-			floater_rect.mTop = desired_top;
-			floater_rect_changed = true;
-		}
-		if (floater_rect_changed)
-		{
-			gFloaterView->reshapeFloater(floater_rect.getWidth(), floater_rect.getHeight(),
-										 TRUE, ADJUST_VERTICAL_NO);
-			gFloaterView->setShape(floater_rect);
-		}
-		LLView* chatbar_and_buttons = gOverlayBar->getChatbarAndButtons();
-		if (chatbar_and_buttons && chatbar_and_buttons->getLocalBoundingRect().notEmpty())
-		{
-			S32 top, left;
-			chatbar_and_buttons->localPointToOtherView(
-												chatbar_and_buttons->getLocalBoundingRect().mLeft,
-												chatbar_and_buttons->getLocalBoundingRect().mTop,
-												&left,
-												&top,
-												gFloaterView);
-			gFloaterView->setSnapOffsetBottom(top);
-		}
-		else if (gToolBar->getVisible())
-		{
-			S32 top, left;
-			gToolBar->localPointToOtherView(
-											gToolBar->getLocalBoundingRect().mLeft,
-											gToolBar->getLocalBoundingRect().mTop,
-											&left,
-											&top,
-											gFloaterView);
-			gFloaterView->setSnapOffsetBottom(top);
-		}
-		else
-		{
-			gFloaterView->setSnapOffsetBottom(0);
+			notify_box_rect.mBottom = bar_rect.mBottom;
+			notify_box_rect.mTop = notify_top;
+			gNotifyBoxView->setShape(notify_box_rect);
 		}
 	}
 	if (gConsole)
@@ -2630,6 +2631,7 @@ void LLViewerWindow::updateLayout()
 	{
 		LLChatBar::startChat(NULL);
 	}
+	raiseFloatersOverChrome(getRootView(), mProgressView);
 }
 void LLViewerWindow::updateMouseDelta()
 {
@@ -4263,7 +4265,7 @@ S32 LLViewerWindow::getChatConsoleBottomPad()
 	static const LLCachedControl<S32> user_offset("ConsoleBottomOffset");
 	S32 offset = user_offset;
 	if(gToolBar && gToolBar->getVisible())
-		offset += TOOL_BAR_HEIGHT;
+		offset += gToolBar->getBarHeight();
 	return offset;
 }
 LLRect LLViewerWindow::getChatConsoleRect()

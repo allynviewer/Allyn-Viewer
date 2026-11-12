@@ -6,6 +6,9 @@
 	<text name="BalanceText" tool_tip="Saldo dell&apos;Account">
 		In caricamento ...
 	</text>
+	<text name="FPSText" tool_tip="Fotogrammi al secondo">
+		FPS: 0
+	</text>
 	<button label="" label_selected="" name="buycurrency" tool_tip="Acquista valuta"/>
 	<text name="TimeText" tool_tip="Ora corrente (Pacifico)">
 		12:00 AM

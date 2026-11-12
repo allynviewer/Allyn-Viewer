@@ -2,6 +2,7 @@
 <panel name="toolbar">
  <string name="Redock Windows">établir les fenêtres</string>
  <string name="ToolbarButtons">Boutons de la barre d'outils</string>
+ <string name="RemoveToolbarButton">Retirer de la barre d'outils</string>
  <layout_stack name="toolbar_stack">
  <layout_panel name="panel2">
  <button name="chat_btn" tool_tip="Affiche la barre de chat.(Entrée)"/>

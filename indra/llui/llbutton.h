@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
  * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -173,8 +174,11 @@ public:
 	S32 			getImageOverlayTopPad() const				{ return mImageOverlayTopPad; }
 	void 			setImageOverlayBottomPad( S32 pad )			{ mImageOverlayBottomPad = pad; }
 	S32 			getImageOverlayBottomPad() const			{ return mImageOverlayBottomPad; }
+	void			setFitImageOverlay(BOOL fit)				{ mFitImageOverlay = fit; }
 	const std::string	getLabelUnselected() const { return wstring_to_utf8str(mUnselectedLabel); }
 	const std::string	getLabelSelected() const { return wstring_to_utf8str(mSelectedLabel); }
+	void			setShowLabelInToolTip(BOOL show)		{ mShowLabelInToolTip = show; }
+	const std::string& getToolTip() const;
 	void			setImageColor(const LLColor4& c);
 	void	setColor(const LLColor4& c);
 	void			setImages(const std::string &image_name, const std::string &selected_name);
@@ -199,6 +203,7 @@ public:
 	BOOL			getScaleImage() const				{ return mScaleImage; }
 	void			setDropShadowedText(BOOL b)			{ mDropShadowedText = b; }
 	void			setBorderEnabled(BOOL b)					{ mBorderEnabled = b; }
+	void			setHandleRightMouse(bool handle)			{ mHandleRightMouse = handle; }
 	void			setUsePrimaryChrome(BOOL use_primary);
 	void			setHoverGlowStrength(F32 strength) { mHoverGlowStrength = strength; }
 	void			setImageUnselected(LLPointer<LLUIImage> image);
@@ -208,6 +213,9 @@ public:
 	void			setImageDisabled(LLPointer<LLUIImage> image);
 	void			setImageDisabledSelected(LLPointer<LLUIImage> image);
 	void			setImageFlash(LLPointer<LLUIImage> image);
+	void			setImagePressed(LLPointer<LLUIImage> image)			{ mImagePressed = image; }
+	void			setImagePressedSelected(LLPointer<LLUIImage> image)	{ mImagePressedSelected = image; }
+	void			setImageOverlaySelectedColor(const LLColor4& c)		{ mImageOverlaySelectedColor = c; }
 	void			setHelpURLCallback(const std::string &help_url);
 	const std::string&	getHelpURL() const { return mHelpURL; }
 	void		setForcePressedState(bool b) { mForcePressedState = b; }
@@ -271,6 +279,7 @@ protected:
 	S32							mBottomVPad;
 	S32							mImageOverlayTopPad;
 	S32							mImageOverlayBottomPad;
+	BOOL						mFitImageOverlay;
 	S32							mImgOverlayLabelSpace;
 	F32							mHoverGlowStrength;
 	F32							mCurGlowStrength;
@@ -282,6 +291,8 @@ protected:
 	LLFrameTimer				mFlashingTimer;
 	bool						mHandleRightMouse;
 	F32							mAlpha;
+	bool						mShowLabelInToolTip = false;
+	mutable std::string			mDynamicToolTip;
 protected:
 	virtual std::string _getSearchText() const
 	{

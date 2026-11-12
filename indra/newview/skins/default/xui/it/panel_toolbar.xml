@@ -4,6 +4,7 @@
 		Riunisci tutte le finestre
 	</string>
 	<string name="ToolbarButtons">Pulsanti della barra degli strumenti</string>
+	<string name="RemoveToolbarButton">Rimuovi dalla barra</string>
 	<layout_stack name="toolbar_stack">
 		<layout_panel name="panel2" >
 			<button label="" name="chat_btn" tool_tip="Mostra la barra della chat. (Invio)"/>

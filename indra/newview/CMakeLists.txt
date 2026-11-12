@@ -290,6 +290,7 @@ set(viewer_SOURCE_FILES
     llfloatertelehub.cpp
     llfloaterteleporthistory.cpp
     llfloatertoolbarprefs.cpp
+    llfloatingbarstyle.cpp
     llfloatertest.cpp
     llfloatertools.cpp
     llfloatertopobjects.cpp
@@ -857,6 +858,7 @@ set(viewer_HEADER_FILES
     llfloatertelehub.h
     llfloaterteleporthistory.h
     llfloatertoolbarprefs.h
+    llfloatingbarstyle.h
     llfloatertest.h
     llfloatertools.h
     llfloatertopobjects.h

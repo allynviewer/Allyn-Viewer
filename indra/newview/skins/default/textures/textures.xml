@@ -68,6 +68,13 @@
   <texture name="Rounded_Square" file_name="rounded_square.j2c" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16"/>
   
   <texture name="Rounded_Square_Soft"	file_name="rounded_square_soft.j2c" preload="true" scale.left="16" scale.top="16" scale.right="112" scale.bottom="16" />
+  <texture name="Floating_Pill" file_name="floating_ui/pill.png" preload="true" scale.left="31" scale.top="33" scale.right="33" scale.bottom="31" />
+  <texture name="Floating_Pill_Border" file_name="floating_ui/pill_border.png" preload="true" scale.left="31" scale.top="33" scale.right="33" scale.bottom="31" />
+  <texture name="Floating_Btn_Idle" file_name="floating_ui/btn_idle.png" preload="true" />
+  <texture name="Floating_Btn_Hover" file_name="floating_ui/btn_hover.png" preload="true" scale.left="12" scale.top="20" scale.right="20" scale.bottom="12" />
+  <texture name="Floating_Btn_Pressed" file_name="floating_ui/btn_pressed.png" preload="true" scale.left="12" scale.top="20" scale.right="20" scale.bottom="12" />
+  <texture name="Floating_Btn_Active" file_name="floating_ui/btn_active.png" preload="true" scale.left="12" scale.top="20" scale.right="20" scale.bottom="12" />
+  <texture name="Floating_Btn_Active_Hover" file_name="floating_ui/btn_active_hover.png" preload="true" scale.left="12" scale.top="20" scale.right="20" scale.bottom="12" />
   <texture name="SliderTrack_Horiz" file_name="icn_slide-groove_dark.tga" scale.left="2" scale.top="5" scale.right="29" scale.bottom="4" />
   <texture name="SliderTrack_Horiz_Highlight" file_name="icn_slide-highlight.tga" scale.left="2" scale.top="5" scale.right="29" scale.bottom="4"/>
   <texture name="SliderThumb_Off" file_name="icn_slide-thumb_dark.tga"/>

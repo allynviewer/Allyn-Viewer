@@ -14,6 +14,7 @@
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
  * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -200,14 +201,23 @@ public:
 	void			setEnableLineHistory( BOOL enabled ) { mHaveHistory = enabled; }
 	void			updateHistory();
 	void			setReplaceNewlinesWithSpaces(BOOL replace);
+	void			setMultiline(BOOL multiline) { mMultiline = multiline; }
+	S32				getMultilineHeight() const;
+	void			insertLineBreak();
 	void			setContextMenu(LLMenuGL* new_context_menu);
 private:
 	void            pasteHelper(bool is_primary);
 	void			removeChar();
 	void			removeWord(bool prev);
 	void			addChar(const llwchar c);
-	void			setCursorAtLocalPos(S32 local_mouse_x);
-	S32				calculateCursorFromMouse(S32 local_mouse_x);
+	void			setCursorAtLocalPos(S32 local_mouse_x, S32 local_mouse_y = -1);
+	S32				cursorFromLocalPos(S32 local_mouse_x, S32 local_mouse_y) const;
+	void			lineRange(S32 index, S32& begin, S32& end) const;
+	S32				lineCount() const;
+	S32				linePixelHeight() const;
+	void			scrollMultiline();
+	void			drawMultilineContents(const LLColor4& text_color, const LLColor4& label_color, const LLColor4& bg_color, F32 alpha);
+	S32				calculateCursorFromMouse(S32 local_mouse_x) const;
 	S32				findPixelNearestPos(S32 cursor_offset = 0) const;
 	void			reportBadKeystroke();
 	BOOL			handleSpecialKey(KEY key, MASK mask);
@@ -288,6 +298,7 @@ private:
 	static LLPointer<LLUIImage> sImage;
 	LLPointer<LLUIImage> mImage;
 	BOOL        mReplaceNewlinesWithSpaces;
+	BOOL        mMultiline;
 	class LLLineEditorRollback
 	{
 	public:

@@ -507,12 +507,20 @@ public:
 	virtual BOOL handleHover( S32 x, S32 y, MASK mask );
 	S32 getRightmostMenuEdge();
 	void resetMenuTrigger() { mAltKeyTrigger = FALSE; }
+	void setFloatingStyle(S32 drop_offset, LLUIImagePtr highlight_image) { mDropOffset = drop_offset; mHighlightImage = highlight_image; }
+	void setTitleSidePad(S32 pad);
+	S32 getTitleSidePad() const { return mTitleSidePad; }
+	S32 getDropOffset() const { return mDropOffset; }
+	const LLUIImagePtr& getHighlightImage() const { return mHighlightImage; }
 private:
 	virtual BOOL appendMenu( LLMenuGL* menu );
 	virtual void arrange( void );
 	void checkMenuTrigger();
 	std::list <LLKeyBinding*>	mAccelerators;
 	BOOL						mAltKeyTrigger;
+	S32							mTitleSidePad;
+	S32							mDropOffset;
+	LLUIImagePtr				mHighlightImage;
 };
 class LLMenuHolderGL : public LLPanel
 {

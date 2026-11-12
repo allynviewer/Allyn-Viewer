@@ -23,6 +23,14 @@
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-20" disabled_color="BalanceTextColor" drop_shadow_visible="true"
 	     enabled="true" follows="right|bottom" font="SansSerifSmall" h_pad="0"
+	     halign="left" height="18" left="-190" mouse_opaque="true"
+	     name="FPSText" text_color="BalanceTextColor" tool_tip="Frames per second"
+	     v_pad="2" width="72">
+		FPS: 0
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-20" disabled_color="BalanceTextColor" drop_shadow_visible="true"
+	     enabled="true" follows="right|bottom" font="SansSerifSmall" h_pad="0"
 	     halign="right" height="18" left="-350" mouse_opaque="true"
 	     name="UPCText" text_color="BalanceTextColor" tool_tip="Upload credits"
 	     v_pad="2" width="106">

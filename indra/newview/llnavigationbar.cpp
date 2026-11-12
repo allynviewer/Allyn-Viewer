@@ -24,6 +24,7 @@
 #include "lllineeditor.h"
 #include "llmenugl.h"
 #include "llnotify.h"
+#include "llstatusbar.h"
 #include "llnotifyiconbar.h"
 #include "llslurl.h"
 #include "llstring.h"
@@ -48,26 +49,53 @@ S32 NAV_BAR_HEIGHT = 29;
 extern S32 MENU_BAR_HEIGHT;
 static const S32 TYPED_HISTORY_MAX = 20;
 static const S32 LANDMARK_LIST_MAX = 30;
-static const S32 NAV_LOCATION_LEFT = 240;
-static const S32 NAV_FIELD_BOTTOM = 1;
-static const S32 NAV_FIELD_HEIGHT = 27;
-static const S32 NAV_ADD_WIDTH = 22;
-static const S32 NAV_SEARCH_RIGHT_INSET = 21;
-static const S32 NAV_SEARCH_BTN_WIDTH = 16;
+static const S32 NAV_ICON_WIDTH = 22;
+static const S32 NAV_ICON_GAP = 2;
+static const S32 NAV_ICON_COUNT = 5;
+static const S32 NAV_LOCATION_LEFT = LLFloatingBarStyle::CAP_PAD + NAV_ICON_COUNT * (NAV_ICON_WIDTH + NAV_ICON_GAP) + 4;
+static const S32 NAV_FIELD_HEIGHT = 22;
+static const S32 NAV_FIELD_BOTTOM = LLFloatingBarStyle::NAV_BAR_PAD;
+static const S32 NAV_ADD_WIDTH = NAV_ICON_WIDTH;
+static const S32 NAV_SEARCH_BTN_WIDTH = NAV_ICON_WIDTH;
+static const S32 NAV_SEARCH_BTN_GAP = 2;
+static const S32 NAV_SEARCH_RIGHT_INSET = LLFloatingBarStyle::CAP_PAD + NAV_SEARCH_BTN_WIDTH + NAV_SEARCH_BTN_GAP;
 static const S32 NAV_GAP_COMBO_ADD = 6;
 static const S32 NAV_GAP_ADD_SEARCH = 3;
 static const S32 NAV_SPLITTER_PAD = 4;
 static const S32 NAV_MIN_SEARCH_WIDTH = 80;
 static const S32 NAV_MIN_LOCATION_WIDTH = 120;
 static const S32 NAV_DEFAULT_SEARCH_WIDTH = 226;
-static const S32 NAV_ADD_RIGHT_MARGIN = 6;
-static void placeNavCtrl(LLView* view, S32 left, S32 right)
+static const S32 NAV_ADD_RIGHT_MARGIN = LLFloatingBarStyle::CAP_PAD;
+static const S32 NAV_MIN_WIDTH_WITH_SEARCH = NAV_LOCATION_LEFT + NAV_MIN_LOCATION_WIDTH + NAV_GAP_COMBO_ADD
+	+ NAV_ADD_WIDTH + NAV_GAP_ADD_SEARCH + NAV_MIN_SEARCH_WIDTH + NAV_SEARCH_RIGHT_INSET;
+static const S32 NAV_MIN_STACKED_WIDTH_WITH_SEARCH = NAV_LOCATION_LEFT + NAV_MIN_SEARCH_WIDTH + NAV_SEARCH_RIGHT_INSET;
+static const S32 NAV_STACK_WINDOW_WIDTH = 750;
+static const S32 NAV_ROW_HEIGHT = NAV_FIELD_HEIGHT + 2 * NAV_FIELD_BOTTOM;
+static void styleNavButton(LLButton* button, const std::string& icon, bool label_to_tip)
+{
+	if (!button)
+	{
+		return;
+	}
+	if (label_to_tip)
+	{
+		LLFloatingBarStyle::labelToToolTip(button);
+	}
+	else
+	{
+		button->setLabel(LLStringExplicit(""));
+	}
+	LLFloatingBarStyle::styleIconButton(button);
+	button->setFitImageOverlay(TRUE);
+	button->setImageOverlay(icon, LLFontGL::HCENTER, LLColor4::white);
+}
+static void placeNavCtrl(LLView* view, S32 left, S32 right, S32 row_bottom)
 {
 	if (!view)
 	{
 		return;
 	}
-	LLRect r(left, NAV_FIELD_BOTTOM + NAV_FIELD_HEIGHT, right, NAV_FIELD_BOTTOM);
+	LLRect r(left, row_bottom + NAV_FIELD_BOTTOM + NAV_FIELD_HEIGHT, right, row_bottom + NAV_FIELD_BOTTOM);
 	view->setRect(r);
 	view->reshape(r.getWidth(), r.getHeight(), TRUE);
 }
@@ -83,23 +111,34 @@ LLNavigationBar::LLNavigationBar(const std::string& name, const LLRect& rect)
 	mSearchEditor(NULL),
 	mSearchBtn(NULL),
 	mSearchBevel(NULL),
+	mAddressBlocker(NULL),
+	mButtonBlocker(NULL),
 	mCurrent(-1),
 	mPendingIndex(-1),
 	mNavigating(false),
 	mIgnoreNavClick(false),
 	mMouselookHidden(false),
 	mResizingFields(false),
+	mSearchFits(true),
+	mStacked(false),
+	mRectDirty(true),
+	mButtonRowRight(0),
 	mSearchWidth(NAV_DEFAULT_SEARCH_WIDTH),
 	mDragStartX(0),
 	mDragStartSearchWidth(NAV_DEFAULT_SEARCH_WIDTH)
 {
-	setMouseOpaque(TRUE);
 	setIsChrome(TRUE);
 	setFocusRoot(TRUE);
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_navigation_bar.xml");
-	reshape(rect.getWidth(), llmax(rect.getHeight(), NAV_BAR_HEIGHT), TRUE);
+	mAddressBlocker = new LLView(std::string("nav_address_row"), LLRect(), TRUE);
+	mButtonBlocker = new LLView(std::string("nav_button_row"), LLRect(), TRUE);
+	addChildInBack(mAddressBlocker);
+	addChildInBack(mButtonBlocker);
+	setMouseOpaque(FALSE);
+	reshape(rect.getWidth(), NAV_ROW_HEIGHT, TRUE);
 	translate(0, rect.mBottom - getRect().mBottom);
 	setFollows(FOLLOWS_LEFT | FOLLOWS_RIGHT | FOLLOWS_TOP);
+	setBackgroundVisible(FALSE);
 	mBtnBack = getChild<LLButton>("back_btn");
 	mBtnForward = getChild<LLButton>("forward_btn");
 	mBtnHome = getChild<LLButton>("home_btn");
@@ -142,17 +181,13 @@ LLNavigationBar::LLNavigationBar(const std::string& name, const LLRect& rect)
 		search->setFocusBgColor(field_focus);
 		search->setUIImage(LLUI::getUIImage("sm_rounded_corners_simple.tga"));
 	}
-	if (LLButton* search_btn = getChild<LLButton>("search_btn", TRUE, FALSE))
-	{
-		LLPointer<LLUIImage> btn = LLUI::getUIImage("square_btn_32x128.tga");
-		LLPointer<LLUIImage> btn_sel = LLUI::getUIImage("square_btn_selected_32x128.tga");
-		search_btn->setImageUnselected(btn);
-		search_btn->setImageSelected(btn_sel);
-		search_btn->setImageDisabled(btn);
-		search_btn->setImageDisabledSelected(btn_sel);
-		search_btn->setScaleImage(TRUE);
-		search_btn->setImageOverlay("nav_search_icon.png", LLFontGL::HCENTER, LLColor4::white);
-	}
+	styleNavButton(getChild<LLButton>("search_btn", TRUE, FALSE), "floating_ui/nav_search.png", true);
+	styleNavButton(mBtnBack, "floating_ui/nav_back.png", true);
+	styleNavButton(mBtnForward, "floating_ui/nav_forward.png", true);
+	styleNavButton(mBtnHome, "floating_ui/nav_home.png", true);
+	styleNavButton(mBtnLand, "floating_ui/nav_land.png", true);
+	styleNavButton(mBtnLighting, "floating_ui/nav_lighting.png", true);
+	styleNavButton(mBtnAddLandmark, "floating_ui/nav_landmark.png", true);
 	if (LLLineEditor* location = mLocationCombo->getChild<LLLineEditor>("combo_text_entry", TRUE, FALSE))
 	{
 		location->setVAlign(LLFontGL::VCENTER);
@@ -189,27 +224,55 @@ LLNavigationBar::LLNavigationBar(const std::string& name, const LLRect& rect)
 		mShowNavSlot = ctrl->getSignal()->connect(
 			boost::bind(&LLNavigationBar::applyVisibility, this));
 	}
+	mMarginSlot = LLFloatingBarStyle::connectSetting("FloatingBarMargin", boost::bind(&LLNavigationBar::onMarginChanged, this));
 }
 LLNavigationBar::~LLNavigationBar()
 {
+	if (gStatusBar)
+	{
+		gStatusBar->setParcelHost(NULL);
+		gStatusBar->setCompactHost(NULL);
+	}
 	mTeleportFinishedSlot.disconnect();
 	mTeleportFailedSlot.disconnect();
 	mParcelChangedSlot.disconnect();
 	mRegionChangedSlot.disconnect();
 	mShowNavSlot.disconnect();
+	mMarginSlot.disconnect();
 }
 void LLNavigationBar::draw()
 {
-	applyVisibility();
+	refresh();
+	if (mStacked)
+	{
+		const S32 height = getRect().getHeight();
+		const S32 width = getRect().getWidth();
+		mStyle.drawPill(LLRect(0, height, width, height - NAV_ROW_HEIGHT), getBackgroundColor());
+		mStyle.drawPill(LLRect(0, NAV_ROW_HEIGHT, width, 0), getBackgroundColor());
+	}
+	else
+	{
+		mStyle.drawPill(getLocalRect(), getBackgroundColor());
+	}
 	LLPanel::draw();
 }
 void LLNavigationBar::refresh()
 {
+	if (mRectDirty)
+	{
+		const S32 old_height = getRect().getHeight();
+		updateBarRect();
+		if (getRect().getHeight() != old_height)
+		{
+			LLFloatingBarStyle::applyTopLayout();
+		}
+	}
 	applyVisibility();
 }
 void LLNavigationBar::reshape(S32 width, S32 height, BOOL called_from_parent)
 {
 	LLPanel::reshape(width, height, called_from_parent);
+	mRectDirty = true;
 	applyFlexibleLayout();
 }
 BOOL LLNavigationBar::handleMouseDown(S32 x, S32 y, MASK mask)
@@ -256,7 +319,7 @@ BOOL LLNavigationBar::handleHover(S32 x, S32 y, MASK mask)
 bool LLNavigationBar::isSearchVisible() const
 {
 	static const LLCachedControl<bool> show_search(gSavedSettings, "ShowSearchBar", true);
-	return show_search;
+	return show_search && mSearchFits;
 }
 S32 LLNavigationBar::clampSearchWidth(S32 width) const
 {
@@ -283,11 +346,56 @@ void LLNavigationBar::applyFlexibleLayout()
 	}
 	const std::string saved_location = getLocationText();
 	const S32 bar_w = getRect().getWidth();
+	const S32 address_row = mStacked ? NAV_ROW_HEIGHT + LLFloatingBarStyle::BAR_GAP : 0;
+	mSearchFits = bar_w >= (mStacked ? NAV_MIN_STACKED_WIDTH_WITH_SEARCH : NAV_MIN_WIDTH_WITH_SEARCH);
 	const bool show_search = isSearchVisible();
+	S32 icon_left = LLFloatingBarStyle::CAP_PAD;
+	const S32 icon_row = mStacked ? address_row : 0;
+	LLButton* icon_buttons[NAV_ICON_COUNT] = { mBtnBack, mBtnForward, mBtnHome, mBtnLand, mBtnLighting };
+	for (LLButton* button : icon_buttons)
+	{
+		placeNavCtrl(button, icon_left, icon_left + NAV_ICON_WIDTH, icon_row);
+		icon_left += NAV_ICON_WIDTH + NAV_ICON_GAP;
+	}
 	S32 add_left;
 	S32 add_right;
+	S32 combo_left = NAV_LOCATION_LEFT;
 	S32 combo_right;
-	if (show_search && mSearchEditor)
+	if (mStacked)
+	{
+		add_right = bar_w - LLFloatingBarStyle::CAP_PAD;
+		add_left = add_right - NAV_ADD_WIDTH;
+		combo_right = add_left - NAV_GAP_COMBO_ADD;
+		if (combo_right < combo_left + 48)
+		{
+			combo_right = combo_left + 48;
+		}
+		const S32 account_w = gStatusBar ? gStatusBar->layoutCompactAccount(0, 0, NAV_FIELD_HEIGHT, false) : 0;
+		const S32 info_left = LLFloatingBarStyle::CAP_PAD;
+		const S32 info_right = bar_w - LLFloatingBarStyle::CAP_PAD;
+		S32 search_room = info_right - info_left - account_w - NAV_GAP_ADD_SEARCH;
+		mSearchFits = search_room >= NAV_MIN_SEARCH_WIDTH + NAV_SEARCH_BTN_GAP + NAV_SEARCH_BTN_WIDTH;
+		const bool stacked_search = isSearchVisible();
+		S32 account_left = info_left;
+		if (stacked_search && mSearchEditor)
+		{
+			const S32 search_left = info_left;
+			S32 search_right = info_right - account_w - NAV_GAP_ADD_SEARCH - NAV_SEARCH_BTN_GAP - NAV_SEARCH_BTN_WIDTH;
+			if (search_right < search_left + 40)
+			{
+				search_right = search_left + 40;
+			}
+			placeNavCtrl(mSearchEditor, search_left, search_right, 0);
+			placeNavCtrl(mSearchBtn, search_right + NAV_SEARCH_BTN_GAP, search_right + NAV_SEARCH_BTN_GAP + NAV_SEARCH_BTN_WIDTH, 0);
+			account_left = search_right + NAV_SEARCH_BTN_GAP + NAV_SEARCH_BTN_WIDTH + NAV_GAP_ADD_SEARCH;
+		}
+		if (gStatusBar)
+		{
+			gStatusBar->layoutCompactAccount(account_left, NAV_FIELD_BOTTOM, NAV_FIELD_HEIGHT, true);
+		}
+		mButtonRowRight = bar_w;
+	}
+	else if (show_search && mSearchEditor)
 	{
 		const S32 search_w = clampSearchWidth(mSearchWidth);
 		const S32 search_right = bar_w - NAV_SEARCH_RIGHT_INSET;
@@ -295,21 +403,48 @@ void LLNavigationBar::applyFlexibleLayout()
 		add_right = search_left - NAV_GAP_ADD_SEARCH;
 		add_left = add_right - NAV_ADD_WIDTH;
 		combo_right = add_left - NAV_GAP_COMBO_ADD;
-		placeNavCtrl(mSearchEditor, search_left, search_right);
-		placeNavCtrl(mSearchBtn, search_right, search_right + NAV_SEARCH_BTN_WIDTH);
+		placeNavCtrl(mSearchEditor, search_left, search_right, 0);
+		placeNavCtrl(mSearchBtn, search_right + NAV_SEARCH_BTN_GAP, search_right + NAV_SEARCH_BTN_GAP + NAV_SEARCH_BTN_WIDTH, 0);
+		mButtonRowRight = bar_w;
 	}
 	else
 	{
 		add_right = bar_w - NAV_ADD_RIGHT_MARGIN;
 		add_left = add_right - NAV_ADD_WIDTH;
 		combo_right = add_left - NAV_GAP_COMBO_ADD;
+		mButtonRowRight = bar_w;
 	}
-	if (combo_right < NAV_LOCATION_LEFT + NAV_MIN_LOCATION_WIDTH)
+	if (!mStacked && combo_right < combo_left + NAV_MIN_LOCATION_WIDTH)
 	{
-		combo_right = NAV_LOCATION_LEFT + NAV_MIN_LOCATION_WIDTH;
+		combo_right = combo_left + NAV_MIN_LOCATION_WIDTH;
 	}
-	placeNavCtrl(mLocationCombo, NAV_LOCATION_LEFT, combo_right);
-	placeNavCtrl(mBtnAddLandmark, add_left, add_right);
+	if (combo_right < combo_left + NAV_ICON_WIDTH)
+	{
+		combo_right = combo_left + NAV_ICON_WIDTH;
+	}
+	placeNavCtrl(mLocationCombo, combo_left, combo_right, address_row);
+	placeNavCtrl(mBtnAddLandmark, add_left, add_right, address_row);
+	if (gStatusBar && gStatusBar->hasParcelHost() && mLocationCombo)
+	{
+		const LLRect combo = mLocationCombo->getRect();
+		S32 editor_right = combo.getWidth();
+		if (LLLineEditor* editor = getLocationEditor())
+		{
+			editor_right = editor->getRect().mRight;
+		}
+		const S32 icons_right = combo.mLeft + llmax(0, editor_right - 8);
+		const S32 placed = gStatusBar->layoutCompactParcelIcons(icons_right, combo.mBottom, combo.getHeight(), true);
+		if (LLLineEditor* editor = getLocationEditor())
+		{
+			editor->setTextPadding(4, placed > 0 ? placed + 12 : 2);
+		}
+	}
+	if (mAddressBlocker && mButtonBlocker)
+	{
+		const S32 bar_h = getRect().getHeight();
+		mAddressBlocker->setRect(mStacked ? LLRect(0, bar_h, bar_w, bar_h - NAV_ROW_HEIGHT) : LLRect());
+		mButtonBlocker->setRect(LLRect(0, NAV_ROW_HEIGHT, mButtonRowRight, 0));
+	}
 	if (isLocationFieldFocused())
 	{
 		if (LLLineEditor* editor = getLocationEditor())
@@ -327,7 +462,7 @@ void LLNavigationBar::applyFlexibleLayout()
 }
 bool LLNavigationBar::isOverSplitter(S32 x, S32 y) const
 {
-	if (!isSearchVisible() || !mLocationCombo || !mSearchEditor)
+	if (mStacked || !isSearchVisible() || !mLocationCombo || !mSearchEditor)
 	{
 		return false;
 	}
@@ -365,8 +500,7 @@ void LLNavigationBar::applyVisibility()
 		}
 		updateFloaterViewTop();
 	}
-	static const LLCachedControl<bool> show_search(gSavedSettings, "ShowSearchBar", true);
-	const bool search_vis = show_search;
+	const bool search_vis = isSearchVisible();
 	bool search_changed = false;
 	if (mSearchEditor)
 	{
@@ -388,54 +522,50 @@ void LLNavigationBar::applyVisibility()
 }
 S32 LLNavigationBar::getOccupiedHeight() const
 {
-	return getVisible() ? getRect().getHeight() : 0;
+	return getVisible() ? getRect().getHeight() + LLFloatingBarStyle::BAR_GAP : 0;
 }
-void LLNavigationBar::updateFloaterViewTop()
+void LLNavigationBar::updateBarRect()
 {
-	LLView* parent = NULL;
-	if (gFloaterView)
-	{
-		parent = gFloaterView->getParent();
-	}
-	if (!parent && gViewerWindow)
-	{
-		parent = gViewerWindow->getRootView();
-	}
+	LLView* parent = getParent();
 	if (!parent)
 	{
 		return;
 	}
-	S32 occupied = getOccupiedHeight();
-	S32 menu_h = (gMenuBarView) ? gMenuBarView->getRect().getHeight() : MENU_BAR_HEIGHT;
-	S32 desired_top = parent->getRect().getHeight() - menu_h - occupied;
-	if (gFloaterView)
+	const S32 margin = LLFloatingBarStyle::margin();
+	const bool was_stacked = mStacked;
+	mStacked = parent->getRect().getWidth() < NAV_STACK_WINDOW_WIDTH;
+	if (gStatusBar)
 	{
-		LLRect r = gFloaterView->getRect();
-		if (r.mTop != desired_top)
+		gStatusBar->setParcelHost(this);
+		if (was_stacked != mStacked)
 		{
-			r.mTop = desired_top;
-			gFloaterView->reshapeFloater(r.getWidth(), r.getHeight(), TRUE, ADJUST_VERTICAL_NO);
-			gFloaterView->setShape(r);
+			gStatusBar->setCompactHost(mStacked ? this : NULL);
+		}
+		if (was_stacked != mStacked || mStacked)
+		{
+			gStatusBar->updateBarRect();
 		}
 	}
-	if (gHUDView)
-	{
-		LLRect hud = gHUDView->getRect();
-		if (hud.mTop != desired_top)
-		{
-			hud.mTop = desired_top;
-			gHUDView->reshape(hud.getWidth(), hud.getHeight(), TRUE);
-			gHUDView->setRect(hud);
-		}
-	}
-	if (gNotifyIconBar)
-	{
-		gNotifyIconBar->updatePosition();
-	}
-	if (gNotifyBoxView)
-	{
-		gNotifyBoxView->layoutStack();
-	}
+	LLRect r;
+	r.mLeft = margin;
+	r.mRight = llmax(r.mLeft + NAV_MIN_LOCATION_WIDTH, parent->getRect().getWidth() - margin);
+	r.mTop = parent->getRect().getHeight() - LLFloatingBarStyle::topBarInset();
+	r.mBottom = r.mTop - (mStacked ? 2 * NAV_ROW_HEIGHT + LLFloatingBarStyle::BAR_GAP : NAV_ROW_HEIGHT);
+	setShape(r);
+	mRectDirty = false;
+}
+void LLNavigationBar::layoutCompactNow()
+{
+	applyFlexibleLayout();
+}
+void LLNavigationBar::onMarginChanged()
+{
+	updateBarRect();
+	LLFloatingBarStyle::applyTopLayout();
+}
+void LLNavigationBar::updateFloaterViewTop()
+{
+	LLFloatingBarStyle::applyTopLayout();
 }
 void LLNavigationBar::setVisibleForMouselook(bool visible)
 {

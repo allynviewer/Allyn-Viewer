@@ -4,8 +4,8 @@
 	<layout_stack name="overlay_layout_panel">
 		<layout_panel name="main_panel">
 			<layout_stack name="chatbar_and_buttons">
-				<layout_panel name="state_buttons">
-					<button label="IM" label_selected="IM" name="IM Received" tool_tip="Você tem uma IM pendente. Clique para mostrar as IMs."/>
+				<layout_panel name="state_management_buttons_container">
+					<button label="IM" label_selected="IM" name="New IM" tool_tip="Você tem uma IM pendente. Clique para mostrar as IMs."/>
 					<button label="Ajustar para desocupado" label_selected="Ajustar para desocupado" name="Set Not Busy" tool_tip="Conversa e MI estão ocultas para você. Clique aqui para se colocar desocupado."/>
 					<button label="Vista aérea" label_selected="Vista aérea" name="Flycam" tool_tip="Sua cãmera está sob controle do joystick. Clique aqui para liberá-la."/>
 					<button label="Levantar" label_selected="Levantar" name="Stand Up" tool_tip="Clique aqui para levantar."/>

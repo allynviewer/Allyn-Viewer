@@ -55,11 +55,18 @@
 #include "llvoavatarself.h"
 #include "llvoiceremotectrl.h"
 #include "llselectmgr.h"
+#include "lltoolbar.h"
 #include "wlfPanel_AdvSettings.h"
 #include "llpanelnearbymedia.h"
 #include "rlvhandler.h"
 #include <boost/range/adaptor/reversed.hpp>
 LLOverlayBar *gOverlayBar = NULL;
+static const S32 OVERLAY_BUTTON_HEIGHT = 29;
+static const S32 OVERLAY_ICON_BUTTON_WIDTH = 30;
+static const S32 OVERLAY_ICON_PANEL_WIDTH = 34;
+static const S32 OVERLAY_PILL_PAD = 3;
+static const S32 OVERLAY_PILL_CAP = 8;
+static const S32 OVERLAY_MOUSELOOK_SIZE = 30;
 void* LLOverlayBar::createVoiceRemote(void* userdata)
 {
 	LLOverlayBar *self = (LLOverlayBar*)userdata;
@@ -78,6 +85,8 @@ LLOverlayBar::LLOverlayBar()
 		mAOButton(NULL),
 		mVolumeButton(NULL),
 		mEnvButton(NULL),
+		mOverlayStack(NULL),
+		mStackLift(0),
 		mAOFloaterWasOpen(false),
 		mVolumeFloaterWasOpen(false),
 		mEnvFloaterWasOpen(false),
@@ -259,6 +268,23 @@ BOOL LLOverlayBar::postBuild()
 	updateChatVisible(gSavedSettings.getBOOL("ChatVisible"));
 	updateAORemoteVisible(gSavedSettings.getBOOL("EnableAORemote"));
 	mOriginalIMLabel = mNewIM->getLabelSelected();
+	if (LLView* parent = mNewIM->getParent())
+	{
+		if (parent != this)
+		{
+			parent->removeChild(mNewIM);
+			addChild(mNewIM);
+		}
+	}
+	LLFloatingBarStyle::styleIconButton(mNewIM);
+	mNewIM->setFollows(FOLLOWS_LEFT | FOLLOWS_BOTTOM);
+	mOverlayStack = findChild<LLLayoutStack>("overlay_layout_panel");
+	styleOverlayButton(mAOButton, mAORemoteContainer, "floating_ui/ao.png", true);
+	styleOverlayButton(mVolumeButton, mMediaRemoteContainer, "floating_ui/volume.png", true);
+	styleOverlayButton(mEnvButton, mAdvSettingsContainer, "floating_ui/environment.png", true);
+	styleOverlayButton(mMouseLook, NULL, "floating_ui/mouselook.png", true);
+	mMarginSlot = LLFloatingBarStyle::connectSetting("FloatingBarMargin", boost::bind(&LLOverlayBar::layoutOverlayStack, this));
+	layoutOverlayStack();
 	if (mVoiceRemote)
 		mVoiceRemote->layoutControls();
 	layoutButtons();
@@ -274,11 +300,51 @@ BOOL LLOverlayBar::postBuild()
 }
 LLOverlayBar::~LLOverlayBar()
 {
+	mMarginSlot.disconnect();
+}
+void LLOverlayBar::styleOverlayButton(LLButton* button, LLView* container, const std::string& icon, bool label_to_tip)
+{
+	if (!button)
+		return;
+	if (label_to_tip)
+		LLFloatingBarStyle::labelToToolTip(button);
+	else
+		button->setLabel(LLStringExplicit(""));
+	LLFloatingBarStyle::styleIconButton(button);
+	button->setImageOverlay(icon, LLFontGL::HCENTER, LLColor4::white);
+	button->setImageOverlaySelectedColor(LLFloatingBarStyle::accentColor());
+	button->setFollows(FOLLOWS_LEFT | FOLLOWS_BOTTOM);
+	if (LLLayoutPanel* panel = dynamic_cast<LLLayoutPanel*>(container))
+	{
+		panel->setMinDim(OVERLAY_ICON_PANEL_WIDTH);
+		panel->reshape(OVERLAY_ICON_PANEL_WIDTH, panel->getRect().getHeight());
+		const S32 left = (OVERLAY_ICON_PANEL_WIDTH - OVERLAY_ICON_BUTTON_WIDTH) / 2;
+		button->setShape(LLRect(left, OVERLAY_BUTTON_HEIGHT, left + OVERLAY_ICON_BUTTON_WIDTH, 0));
+	}
+}
+void LLOverlayBar::layoutOverlayStack()
+{
+	if (!mOverlayStack)
+		return;
+	const S32 margin = LLFloatingBarStyle::margin();
+	const bool toolbar_visible = gToolBar && gToolBar->getVisible();
+	mStackLift = toolbar_visible ? 0 : llmax(margin, OVERLAY_PILL_PAD);
+	LLRect r;
+	r.mLeft = margin;
+	r.mRight = llmax(r.mLeft, getRect().getWidth() - margin - OVERLAY_PILL_CAP);
+	r.mBottom = mStackLift;
+	r.mTop = r.mBottom + mOverlayStack->getRect().getHeight();
+	mOverlayStack->setShape(r);
+	mOverlayStack->updateLayout();
 }
 void LLOverlayBar::draw()
 {
-	if (LLLayoutStack* stack = findChild<LLLayoutStack>("overlay_layout_panel"))
-		stack->updateLayout();
+	layoutNewIM();
+	const bool toolbar_visible = gToolBar && gToolBar->getVisible();
+	if (mOverlayStack && (mStackLift == 0) != toolbar_visible)
+		layoutOverlayStack();
+	if (mOverlayStack)
+		mOverlayStack->updateLayout();
 	layoutMouselookButton();
 	S32 left = S32_MAX;
 	S32 right = 0;
@@ -298,12 +364,28 @@ void LLOverlayBar::draw()
 	}
 	if (right > left)
 	{
-		left = llmax(0, left - 2);
-		right = llmin(getRect().getWidth(), right);
-		const LLColor4 bar_color = LLUI::sColorsGroup->getColor("MenuBarBgColor");
-		gl_rect_2d(LLRect(left, 31, right, 0), bar_color, TRUE);
+		const S32 bottom = mStackLift - OVERLAY_PILL_PAD;
+		mStyle.drawPill(LLRect(left - OVERLAY_PILL_CAP, bottom + OVERLAY_BUTTON_HEIGHT + 2 * OVERLAY_PILL_PAD, right + OVERLAY_PILL_CAP - 2, bottom), LLFloatingBarStyle::barColor());
+	}
+	if (mMouseLook && mMouseLook->getVisible())
+	{
+		mStyle.drawPill(mMouseLook->getRect(), LLFloatingBarStyle::barColor());
+	}
+	if (mNewIM && mNewIM->getVisible())
+	{
+		mStyle.drawPill(mNewIMPill, LLFloatingBarStyle::barColor());
 	}
 	LLPanel::draw();
+	if (mNewIM && mNewIM->getVisible())
+	{
+		LLUIImagePtr border = LLUI::getUIImage("Floating_Pill_Border");
+		if (border.notNull())
+		{
+			const F32 wave = 0.5f + 0.5f * sinf((F32)LLFrameTimer::getElapsedSeconds() * 6.f);
+			LLColor4 orange(1.f, 0.42f, 0.f, 0.2f + 0.8f * wave);
+			border->draw(mNewIMPill, orange);
+		}
+	}
 }
 void LLOverlayBar::reshape(S32 width, S32 height, BOOL called_from_parent)
 {
@@ -314,21 +396,18 @@ void LLOverlayBar::reshape(S32 width, S32 height, BOOL called_from_parent)
 	LLView::reshape(width, height, called_from_parent);
 	if (mBuilt)
 	{
+		layoutOverlayStack();
 		layoutButtons();
+		layoutNewIM();
 	}
 }
 void LLOverlayBar::layoutMouselookButton()
 {
 	if (!mMouseLook)
 		return;
-	S32 width = mMouseLook->getRect().getWidth();
-	if (const LLFontGL* font = mMouseLook->getFont())
-	{
-		const S32 text_width = font->getWidth(mMouseLook->getCurrentLabel().getString());
-		width = mMouseLook->getLeftHPad() + 17 + text_width + mMouseLook->getRightHPad();
-	}
-	S32 right = getRect().getWidth();
-	S32 bottom = 0;
+	const S32 width = OVERLAY_MOUSELOOK_SIZE;
+	S32 right = getRect().getWidth() - LLFloatingBarStyle::margin();
+	S32 bottom = mStackLift;
 	if (mAdvSettingsContainer && mAdvSettingsContainer->getVisible() && mAdvSettingsContainer->getRect().getWidth() > 0)
 	{
 		LLRect climate = mAdvSettingsContainer->getRect();
@@ -343,11 +422,9 @@ void LLOverlayBar::layoutMouselookButton()
 		}
 		right = climate.mRight;
 		bottom = climate.mBottom;
-		if (mEnvButton && mEnvButton->getRect().getWidth() > width)
-			width = mEnvButton->getRect().getWidth();
 	}
-	const S32 height = 29;
-	const S32 y = bottom + height + 2;
+	const S32 height = OVERLAY_MOUSELOOK_SIZE;
+	const S32 y = bottom + OVERLAY_BUTTON_HEIGHT + OVERLAY_PILL_PAD + LLFloatingBarStyle::BAR_GAP;
 	S32 left = right - width;
 	if (left < 0)
 		left = 0;
@@ -356,7 +433,7 @@ void LLOverlayBar::layoutMouselookButton()
 	{
 		LLRect r;
 		r.setOriginAndSize(left, y, width, height);
-		mMouseLook->setRect(r);
+		mMouseLook->setShape(r);
 	}
 }
 void LLOverlayBar::layoutButtons()
@@ -388,6 +465,55 @@ void LLOverlayBar::layoutButtons()
 			viewp->setRect(r);
 			left += segment_width;
 		}
+	}
+	layoutNewIM();
+}
+void LLOverlayBar::layoutNewIM()
+{
+	if (!mNewIM)
+	{
+		return;
+	}
+	const LLFontGL* font = mNewIM->getFont();
+	const S32 text_w = font ? font->getWidth(mNewIM->getLabelUnselected()) : 64;
+	const S32 pill_h = 28;
+	const S32 pad_y = 3;
+	const S32 btn_h = pill_h - pad_y * 2;
+	const S32 pad_x = 14;
+	const S32 btn_w = llmax(text_w + pad_x * 2, btn_h);
+	const S32 pill_w = btn_w + pad_y * 2;
+	S32 center = getRect().getWidth() / 2;
+	S32 bottom = LLFloatingBarStyle::BAR_GAP;
+	if (gToolBar && gToolBar->getVisible() && gToolBar->getPillRect().getWidth() > 0)
+	{
+		const LLRect& pill = gToolBar->getPillRect();
+		const LLRect& add = gToolBar->getAddRect();
+		const S32 chrome_top = llmax(pill.mTop, add.mTop);
+		const S32 inset = llmax(0, gToolBar->getRect().getHeight() - chrome_top);
+		center = (pill.mLeft + pill.mRight) / 2;
+		bottom = llmax(0, LLFloatingBarStyle::BAR_GAP - inset);
+	}
+	S32 left = center - pill_w / 2;
+	left = llclamp(left, 0, llmax(0, getRect().getWidth() - pill_w));
+	if (mChatBar && mChatBar->getVisible())
+	{
+		S32 chat_left = 0;
+		S32 chat_bottom = 0;
+		S32 chat_right = 0;
+		S32 chat_top = 0;
+		mChatBar->localPointToOtherView(0, 0, &chat_left, &chat_bottom, this);
+		mChatBar->localPointToOtherView(mChatBar->getRect().getWidth(), mChatBar->getRect().getHeight(), &chat_right, &chat_top, this);
+		const S32 btn_right = left + pill_w;
+		if (btn_right > chat_left && left < chat_right && bottom < chat_top && bottom + pill_h > chat_bottom)
+		{
+			bottom = chat_top + LLFloatingBarStyle::BAR_GAP;
+		}
+	}
+	mNewIMPill.setOriginAndSize(left, bottom, pill_w, pill_h);
+	const LLRect button_rect(left + pad_y, bottom + pad_y + btn_h, left + pad_y + btn_w, bottom + pad_y);
+	if (mNewIM->getRect() != button_rect)
+	{
+		mNewIM->setShape(button_rect);
 	}
 }
 LLButton* LLOverlayBar::updateButtonVisiblity(LLButton* button, bool visible)
@@ -442,7 +568,8 @@ void LLOverlayBar::refresh()
 	{
 		mVolumeMutedIcon = muted;
 		mVolumeIconReady = true;
-		mVolumeButton->setImageOverlay(muted ? "icn_speaker-muted_dark.tga" : "icn_speaker_dark.tga", LLFontGL::LEFT);
+		mVolumeButton->setImageOverlay(muted ? "floating_ui/volume_muted.png" : "floating_ui/volume.png", LLFontGL::HCENTER, LLColor4::white);
+		mVolumeButton->setImageOverlaySelectedColor(LLFloatingBarStyle::accentColor());
 	}
 	static BOOL last_mouselook = FALSE;
 	BOOL in_mouselook = gAgentCamera.cameraMouselook();

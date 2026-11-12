@@ -4,6 +4,7 @@
 		Reagrupar as janelas
 	</string>
 	<string name="ToolbarButtons">Botões da barra de ferramentas</string>
+	<string name="RemoveToolbarButton">Remover da barra</string>
 	<layout_stack name="toolbar_stack">
  <layout_panel name="panel2">
  <button label="" name="chat_btn" tool_tip="Mostrar a barra de Conversa por Texto. (Enter)"/>

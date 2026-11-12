@@ -120,6 +120,7 @@ LLButton::LLButton(	const std::string& name, const LLRect& rect, const std::stri
 	mImageFlash(NULL),
 	mImageOverlayTopPad(0),
 	mImageOverlayBottomPad(0),
+	mFitImageOverlay(FALSE),
 	mImgOverlayLabelSpace(1),
 	mDropShadowedText(TRUE),
 	mForcePressedState(false),
@@ -158,6 +159,7 @@ LLButton::LLButton(const std::string& name, const LLRect& rect,
 	mImageFlash(NULL),
 	mImageOverlayTopPad(0),
 	mImageOverlayBottomPad(0),
+	mFitImageOverlay(FALSE),
 	mImgOverlayLabelSpace(1),
 	mDropShadowedText(TRUE),
 	mForcePressedState(false),
@@ -206,6 +208,7 @@ LLButton::LLButton(const Params& params)
 	mImageFlash(NULL),
 	mImageOverlayTopPad(0),
 	mImageOverlayBottomPad(0),
+	mFitImageOverlay(FALSE),
 	mImgOverlayLabelSpace(1),
 	mDropShadowedText(TRUE),
 	mForcePressedState(false),
@@ -630,6 +633,10 @@ void LLButton::draw()
 		label_color = ll::ui::SearchableControl::getHighlightFontColor();
 	}
 	LLWString label = getCurrentLabel();
+	if (mShowLabelInToolTip)
+	{
+		label.clear();
+	}
 	std::string unread_label;
 	S32 unread_width = 0;
 	if (mUnreadCount > 0 && !getToggleState())
@@ -722,6 +729,17 @@ void LLButton::draw()
 		S32 overlay_width;
 		S32 overlay_height;
 		getOverlayImageSize(overlay_width, overlay_height);
+		if (mFitImageOverlay)
+		{
+			const S32 limit = llmin(getRect().getWidth(), getRect().getHeight()) - 2;
+			const S32 longest = llmax(overlay_width, overlay_height);
+			if (limit > 0 && longest > limit)
+			{
+				const F32 scale = (F32)limit / (F32)longest;
+				overlay_width = llmax((S32)1, ll_round((F32)overlay_width * scale));
+				overlay_height = llmax((S32)1, ll_round((F32)overlay_height * scale));
+			}
+		}
 		S32 center_x = getLocalRect().getCenterX();
 		S32 center_y = getLocalRect().getCenterY();
 		if (pressed && mDisplayPressedState)
@@ -909,6 +927,40 @@ const LLUIString& LLButton::getCurrentLabel() const
 	{
 		return mUnselectedLabel;
 	}
+}
+const std::string& LLButton::getToolTip() const
+{
+	if (!mShowLabelInToolTip)
+	{
+		return LLView::getToolTip();
+	}
+	std::string name = getToggleState() ? getLabelSelected() : getLabelUnselected();
+	LLStringUtil::trim(name);
+	if (name.empty())
+	{
+		name = getLabelUnselected();
+		LLStringUtil::trim(name);
+	}
+	const std::string& detail = LLView::getToolTip();
+	std::string plain = getLabelUnselected();
+	LLStringUtil::trim(plain);
+	if (name.empty())
+	{
+		return detail;
+	}
+	if (detail.empty() || detail == name || (name != plain && detail == plain))
+	{
+		mDynamicToolTip = name;
+	}
+	else if (detail.compare(0, name.size(), name) == 0)
+	{
+		mDynamicToolTip = detail;
+	}
+	else
+	{
+		mDynamicToolTip = name + "\n" + detail;
+	}
+	return mDynamicToolTip;
 }
 void LLButton::setImageUnselected(LLPointer<LLUIImage> image)
 {

@@ -41,6 +41,7 @@
 #include "llmenugl.h"
 #include "llscrolllistitem.h"
 #include "llui.h"
+#include "llrender2dutils.h"
 #include "llwindow.h"
 #include "llagent.h"
 #include "llagentcamera.h"
@@ -59,6 +60,18 @@
 LLToolBar *gToolBar = NULL;
 S32 TOOL_BAR_HEIGHT = 25;
 F32	LLToolBar::sInventoryAutoOpenTime = 1.f;
+static const S32 TOOLBAR_BUTTON_SIZE = LLFloatingBarStyle::ICON_BUTTON_SIZE;
+static const S32 TOOLBAR_MIN_BUTTON_SIZE = 20;
+static const S32 TOOLBAR_ROW_GAP = 4;
+static const S32 TOOLBAR_ARROW_WIDTH = 20;
+static const S32 TOOLBAR_BADGE_SIZE = 14;
+static const S32 TOOLBAR_PILL_LEFT_PAD = 10;
+static const S32 TOOLBAR_ADD_SIZE = 44;
+static const S32 TOOLBAR_ADD_GAP = 6;
+static const S32 TOOLBAR_ADD_OVERHANG = 4;
+static const S32 TOOLBAR_ADD_RISE = (TOOLBAR_ADD_SIZE - LLFloatingBarStyle::BOTTOM_BAR_HEIGHT) / 2;
+static const S32 TOOLBAR_TOP_GAP = 4;
+static const S32 TOOLBAR_CHROME_WIDTH = TOOLBAR_PILL_LEFT_PAD + TOOLBAR_ADD_GAP + TOOLBAR_ADD_SIZE;
 void show_floater(const std::string& floater_name);
 void show_inv_floater(const LLSD& userdata, const std::string& field);
 void show_web_floater(const std::string& type);
@@ -66,11 +79,19 @@ LLToolBar::LLToolBar()
 :	LLLayoutPanel()
 ,	mToolbarStack(NULL)
 ,	mContextMenu(NULL)
+,	mContextPanel(NULL)
 ,	mDragStartPanel(NULL)
 ,	mDragStartX(0)
 ,	mDragStartY(0)
 ,	mDragging(false)
+,	mDragInsertIndex(-1)
+,	mDragCaretVisible(false)
 ,	mOrderDirty(false)
+,	mLayoutDirty(true)
+,	mMenuRequested(false)
+,	mAddBtn(NULL)
+,	mPillBlocker(NULL)
+,	mBarHeight(0)
 {
 	setIsChrome(TRUE);
 	setFocusRoot(TRUE);
@@ -92,10 +113,35 @@ BOOL LLToolBar::postBuild()
 	mToolbarStack = findChild<LLLayoutStack>("toolbar_stack");
 	hookToolbarButtons(this);
 	applySavedButtonOrder();
+	setMouseOpaque(FALSE);
+	setBackgroundVisible(FALSE);
+	if (mToolbarStack)
+	{
+		mToolbarStack->setFollows(FOLLOWS_LEFT | FOLLOWS_BOTTOM);
+	}
+	buildSlots();
+	mPillBlocker = new LLView(std::string("toolbar_pill"), LLRect(), TRUE);
+	addChildInBack(mPillBlocker);
+	mAddBtn = new LLButton(std::string("toolbar_add_btn"), LLRect(), LLStringUtil::null, boost::bind(&LLToolBar::onClickAddButton, this));
+	mAddBtn->setLabel(LLStringExplicit(""));
+	mAddBtn->setFollows(FOLLOWS_LEFT | FOLLOWS_BOTTOM);
+	mAddBtn->setTabStop(FALSE);
+	LLFloatingBarStyle::styleRoundButton(mAddBtn);
+	mAddBtn->setImageOverlay("floating_ui/plus.png", LLFontGL::HCENTER, LLColor4::white);
+	mAddBtn->setToolTip(LLStringExplicit(getString("ToolbarButtons")));
+	addChild(mAddBtn);
+	mLayoutSlots.push_back(LLFloatingBarStyle::connectSetting("FloatingBarMargin", boost::bind(&LLToolBar::markLayoutDirty, this)));
+	mLayoutSlots.push_back(LLFloatingBarStyle::connectSetting("FloatingBarIconSpacing", boost::bind(&LLToolBar::markLayoutDirty, this)));
+	mLayoutSlots.push_back(LLFloatingBarStyle::connectSetting("FloatingBarBottomAlignment", boost::bind(&LLToolBar::markLayoutDirty, this)));
+	mLayoutDirty = true;
 	return TRUE;
 }
 LLToolBar::~LLToolBar()
 {
+	for (boost::signals2::connection& slot : mLayoutSlots)
+	{
+		slot.disconnect();
+	}
 	if (mContextMenu)
 	{
 		mContextMenu->die();
@@ -110,12 +156,14 @@ BOOL LLToolBar::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 {
 	LLButton* inventory_btn = mInventoryBtn;
 	if (!inventory_btn || !inventory_btn->getVisible()) return FALSE;
+	S32 button_x = 0;
+	S32 button_y = 0;
 	LLPanelMainInventory* active_inventory = LLPanelMainInventory::getActiveInventory();
 	if (active_inventory && active_inventory->getVisible())
 	{
 		mInventoryAutoOpenTimer.stop();
 	}
-	else if (inventory_btn->getRect().pointInRect(x, y))
+	else if (localPointToOtherView(x, y, &button_x, &button_y, inventory_btn) && inventory_btn->pointInView(button_x, button_y))
 	{
 		if (mInventoryAutoOpenTimer.getStarted())
 		{
@@ -264,9 +312,301 @@ void LLToolBar::onClickCommunicate(const LLSD& selected_option)
 		LLFloaterChatterBox::showInstance(selected_option);
 	}
 }
-static void open_toolbar_prefs(void*)
+static S32 scale_toolbar_dim(S32 value, S32 size)
+{
+	return (value * size + TOOLBAR_BUTTON_SIZE / 2) / TOOLBAR_BUTTON_SIZE;
+}
+void LLToolBar::buildSlots()
+{
+	mSlots.clear();
+	if (!mToolbarStack)
+	{
+		return;
+	}
+	const S32 n = mToolbarStack->getNumPanels();
+	mSlots.reserve(n);
+	for (S32 i = 0; i < n; ++i)
+	{
+		LLLayoutPanel* panel = mToolbarStack->getPanelByIndex(i);
+		if (!panel)
+		{
+			continue;
+		}
+		Slot slot;
+		slot.panel = panel;
+		slot.main = NULL;
+		slot.action = NULL;
+		slot.arrow = NULL;
+		slot.badge = NULL;
+		slot.natural = panel->getRect().getWidth();
+		for (LLView* child : *panel->getChildList())
+		{
+			if (!dynamic_cast<LLButton*>(child) && !dynamic_cast<LLFlyoutButton*>(child))
+			{
+				continue;
+			}
+			if (!slot.main || child->getRect().getWidth() > slot.main->getRect().getWidth())
+			{
+				slot.main = child;
+			}
+		}
+		for (LLView* child : *panel->getChildList())
+		{
+			if (child != slot.main && dynamic_cast<LLButton*>(child))
+			{
+				slot.badge = child;
+				child->setFollows(FOLLOWS_LEFT | FOLLOWS_BOTTOM);
+			}
+		}
+		if (slot.main)
+		{
+			slot.main->setFollows(FOLLOWS_LEFT | FOLLOWS_BOTTOM);
+			if (LLFlyoutButton* flyout = dynamic_cast<LLFlyoutButton*>(slot.main))
+			{
+				std::string label;
+				for (LLView* child : *flyout->getChildList())
+				{
+					LLButton* button = dynamic_cast<LLButton*>(child);
+					if (!button)
+					{
+						continue;
+					}
+					if (button->getRect().mLeft == 0)
+					{
+						slot.action = button;
+						label = button->getLabelUnselected();
+					}
+					else
+					{
+						slot.arrow = button;
+					}
+					button->setFollows(FOLLOWS_LEFT | FOLLOWS_BOTTOM);
+					LLFloatingBarStyle::styleIconButton(button);
+				}
+				if (slot.action)
+				{
+					LLStringUtil::trim(label);
+					std::string tip = slot.action->getToolTip();
+					if (tip.empty())
+					{
+						tip = flyout->getToolTip();
+					}
+					if (slot.action->getToolTip().empty() && !tip.empty())
+					{
+						slot.action->setToolTip(LLStringExplicit(tip));
+					}
+					slot.action->setShowLabelInToolTip(TRUE);
+					slot.action->setImageOverlay("icn_toolbar_im.tga", LLFontGL::HCENTER, LLColor4::white);
+					slot.action->setImageOverlaySelectedColor(LLFloatingBarStyle::accentColor());
+					if (slot.arrow)
+					{
+						if (!label.empty())
+						{
+							slot.arrow->setLabelUnselected(LLStringExplicit(label));
+							slot.arrow->setLabelSelected(LLStringExplicit(slot.action->getLabelSelected().empty() ? label : slot.action->getLabelSelected()));
+						}
+						if (!tip.empty())
+						{
+							slot.arrow->setToolTip(LLStringExplicit(tip));
+						}
+						slot.arrow->setShowLabelInToolTip(TRUE);
+					}
+				}
+			}
+			else if (LLButton* button = dynamic_cast<LLButton*>(slot.main))
+			{
+				LLFloatingBarStyle::labelToToolTip(button);
+				LLFloatingBarStyle::styleIconButton(button);
+			}
+		}
+		if (LLControlVariable* control = panel->getMakeVisibleControlVariable())
+		{
+			mLayoutSlots.push_back(control->getSignal()->connect(boost::bind(&LLToolBar::markLayoutDirty, this)));
+		}
+		mSlots.push_back(slot);
+	}
+}
+void LLToolBar::markLayoutDirty()
+{
+	mLayoutDirty = true;
+}
+S32 LLToolBar::getBarHeight() const
+{
+	if (mBarHeight > 0)
+	{
+		return mBarHeight;
+	}
+	return llmax(LLFloatingBarStyle::margin(), TOOLBAR_ADD_RISE) + LLFloatingBarStyle::BOTTOM_BAR_HEIGHT + TOOLBAR_TOP_GAP;
+}
+void LLToolBar::onClickAddButton()
 {
 	show_floater("floater_toolbar_prefs.xml");
+}
+void LLToolBar::reshape(S32 width, S32 height, BOOL called_from_parent)
+{
+	if (width == getRect().getWidth() && height == getRect().getHeight())
+	{
+		return;
+	}
+	LLLayoutPanel::reshape(width, height, called_from_parent);
+	mLayoutDirty = true;
+}
+void LLToolBar::draw()
+{
+	if (mLayoutDirty)
+	{
+		layoutToolbar();
+	}
+	mStyle.drawPill(mPillRect, LLFloatingBarStyle::barColor());
+	mStyle.drawDisc(mAddRect, LLFloatingBarStyle::accentColor());
+	LLLayoutPanel::draw();
+	if (mDragging && mDragCaretVisible)
+	{
+		gl_rect_2d(mDragCaretRect, LLFloatingBarStyle::accentColor(), TRUE);
+	}
+}
+S32 LLToolBar::getContentWidth(S32 size) const
+{
+	const S32 spacing = scale_toolbar_dim(LLFloatingBarStyle::iconSpacing(), size);
+	const S32 arrow_width = scale_toolbar_dim(TOOLBAR_ARROW_WIDTH, size);
+	S32 width = 0;
+	for (const Slot& slot : mSlots)
+	{
+		if (!slot.panel->getVisible())
+		{
+			continue;
+		}
+		if (slot.main)
+		{
+			width += size + spacing + (slot.arrow ? arrow_width : 0);
+		}
+		else
+		{
+			width += slot.natural;
+		}
+	}
+	return width;
+}
+void LLToolBar::layoutToolbar()
+{
+	mLayoutDirty = false;
+	if (!mToolbarStack || !mAddBtn || !mPillBlocker)
+	{
+		return;
+	}
+	const S32 margin = LLFloatingBarStyle::margin();
+	const S32 width = getRect().getWidth();
+	S32 available = width - 2 * margin - TOOLBAR_CHROME_WIDTH;
+	if (available < TOOLBAR_MIN_BUTTON_SIZE)
+	{
+		available = TOOLBAR_MIN_BUTTON_SIZE;
+	}
+	S32 size = TOOLBAR_BUTTON_SIZE;
+	while (size > TOOLBAR_MIN_BUTTON_SIZE && getContentWidth(size) > available)
+	{
+		--size;
+	}
+	const S32 spacing = scale_toolbar_dim(LLFloatingBarStyle::iconSpacing(), size);
+	const S32 arrow_width = scale_toolbar_dim(TOOLBAR_ARROW_WIDTH, size);
+	const S32 pad = spacing / 2;
+	std::vector<std::vector<S32>> rows(1);
+	S32 row_width = 0;
+	S32 content = 0;
+	for (S32 i = 0; i < (S32)mSlots.size(); ++i)
+	{
+		const Slot& slot = mSlots[i];
+		if (!slot.panel->getVisible())
+		{
+			continue;
+		}
+		const S32 slot_width = slot.main ? size + spacing + (slot.arrow ? arrow_width : 0) : slot.natural;
+		if (row_width > 0 && row_width + slot_width > available)
+		{
+			content = llmax(content, row_width);
+			rows.push_back(std::vector<S32>());
+			row_width = 0;
+		}
+		rows.back().push_back(i);
+		row_width += slot_width;
+	}
+	content = llmax(content, row_width);
+	const S32 row_count = rows.back().empty() ? 1 : (S32)rows.size();
+	const S32 rows_h = row_count * size + (row_count - 1) * TOOLBAR_ROW_GAP;
+	const S32 pad_y = (LLFloatingBarStyle::BOTTOM_BAR_HEIGHT - TOOLBAR_BUTTON_SIZE) / 2;
+	const S32 pill_h = llmax(LLFloatingBarStyle::BOTTOM_BAR_HEIGHT, rows_h + pad_y * 2);
+	const S32 bottom = llmax(margin, (TOOLBAR_ADD_SIZE - pill_h) / 2);
+	const S32 add_y = bottom + (pill_h - TOOLBAR_ADD_SIZE) / 2;
+	mBarHeight = llmax(bottom + pill_h, add_y + TOOLBAR_ADD_SIZE) + TOOLBAR_TOP_GAP;
+	if (getRect().getHeight() != mBarHeight)
+	{
+		reshape(width, mBarHeight);
+		mLayoutDirty = false;
+	}
+	for (S32 i = 0; i < (S32)mSlots.size(); ++i)
+	{
+		const Slot& slot = mSlots[i];
+		const S32 slot_width = slot.panel->getVisible()
+			? (slot.main ? size + spacing + (slot.arrow ? arrow_width : 0) : slot.natural)
+			: 0;
+		const S32 panel_width = llmax(slot_width, 1);
+		if (slot.panel->getRect().getWidth() != panel_width || slot.panel->getRect().getHeight() != size)
+		{
+			slot.panel->reshape(panel_width, size);
+		}
+	}
+	const S32 group = TOOLBAR_CHROME_WIDTH + content;
+	S32 left = (width - group) / 2;
+	switch (LLFloatingBarStyle::bottomAlignment())
+	{
+	case LLFloatingBarStyle::ALIGN_LEFT:
+		left = margin;
+		break;
+	case LLFloatingBarStyle::ALIGN_RIGHT:
+		left = width - margin - group;
+		break;
+	default:
+		break;
+	}
+	left = llmax(margin, left);
+	const S32 stack_left = left + TOOLBAR_PILL_LEFT_PAD;
+	const S32 stack_bottom = bottom + (pill_h - rows_h) / 2;
+	mToolbarStack->setOrigin(stack_left, stack_bottom);
+	mToolbarStack->reshape(llmax(content, 1), rows_h);
+	mToolbarStack->updateLayout();
+	S32 y = 0;
+	for (const std::vector<S32>& row : rows)
+	{
+		S32 x = 0;
+		for (S32 index : row)
+		{
+			const Slot& slot = mSlots[index];
+			const S32 slot_width = slot.main ? size + spacing + (slot.arrow ? arrow_width : 0) : slot.natural;
+			slot.panel->setRect(LLRect(x, y + size, x + slot_width, y));
+			if (slot.main)
+			{
+				const S32 main_width = size + (slot.arrow ? arrow_width : 0);
+				slot.main->setShape(LLRect(pad, size, pad + main_width, 0));
+				if (slot.action && slot.arrow)
+				{
+					slot.action->setShape(LLRect(0, size, size, 0));
+					slot.arrow->setShape(LLRect(size, size, main_width, 0));
+					slot.arrow->setImageOverlay("floating_ui/chevron_up.png", LLFontGL::HCENTER, LLColor4::white);
+					slot.arrow->setImageOverlaySelectedColor(LLFloatingBarStyle::accentColor());
+				}
+				if (slot.badge)
+				{
+					const S32 badge = llmax(6, scale_toolbar_dim(TOOLBAR_BADGE_SIZE, size));
+					slot.badge->setShape(LLRect(pad + size - badge, badge, pad + size, 0));
+				}
+			}
+			x += slot_width;
+		}
+		y += size + TOOLBAR_ROW_GAP;
+	}
+	mAddRect.setOriginAndSize(stack_left + content + TOOLBAR_ADD_GAP, add_y, TOOLBAR_ADD_SIZE, TOOLBAR_ADD_SIZE);
+	mPillRect.set(left, bottom + pill_h, mAddRect.mRight - TOOLBAR_ADD_OVERHANG, bottom);
+	mAddBtn->setShape(mAddRect);
+	mPillBlocker->setShape(mPillRect);
 }
 void LLToolBar::hookToolbarButtons(LLView* view)
 {
@@ -276,6 +616,7 @@ void LLToolBar::hookToolbarButtons(LLView* view)
 	}
 	if (LLButton* btn = dynamic_cast<LLButton*>(view))
 	{
+		btn->setHandleRightMouse(true);
 		btn->LLUICtrl::setMouseDownCallback(boost::bind(&LLToolBar::onToolbarButtonMouseDown, this, _1, _2, _3, _4));
 		btn->setRightMouseDownCallback(boost::bind(&LLToolBar::onToolbarButtonRightClick, this, _1, _2, _3, _4));
 	}
@@ -303,6 +644,7 @@ void LLToolBar::onToolbarButtonMouseDown(LLUICtrl* ctrl, S32 x, S32 y, MASK mask
 void LLToolBar::onToolbarButtonRightClick(LLUICtrl* ctrl, S32 x, S32 y, MASK mask)
 {
 	gFocusMgr.setMouseCapture(NULL);
+	mContextPanel = ctrl ? findLayoutPanelFromChild(ctrl) : NULL;
 	S32 local_x = x;
 	S32 local_y = y;
 	if (ctrl)
@@ -311,22 +653,58 @@ void LLToolBar::onToolbarButtonRightClick(LLUICtrl* ctrl, S32 x, S32 y, MASK mas
 	}
 	showToolbarContextMenu(local_x, local_y);
 }
+void LLToolBar::onRemoveContextButton(void*)
+{
+	if (gToolBar)
+	{
+		gToolBar->removeContextButton();
+	}
+}
+void LLToolBar::removeContextButton()
+{
+	LLLayoutPanel* panel = mContextPanel;
+	mContextPanel = NULL;
+	if (!panel)
+	{
+		return;
+	}
+	if (LLControlVariable* vis = panel->getMakeVisibleControlVariable())
+	{
+		vis->setValue(LLSD(false));
+	}
+}
 void LLToolBar::showToolbarContextMenu(S32 x, S32 y)
 {
-	if (!mContextMenu)
+	if (mContextMenu)
 	{
-		mContextMenu = new LLMenuGL("toolbar_context");
-		mContextMenu->setCanTearOff(FALSE);
-		mContextMenu->addChild(new LLMenuItemCallGL(getString("ToolbarButtons"), open_toolbar_prefs));
-		mContextMenu->updateParent(LLMenuGL::sMenuContainer);
+		mContextMenu->die();
+		mContextMenu = NULL;
 	}
+	LLControlVariable* vis = mContextPanel ? mContextPanel->getMakeVisibleControlVariable() : NULL;
+	if (!vis)
+	{
+		mMenuRequested = true;
+		return;
+	}
+	mContextMenu = new LLMenuGL("toolbar_context");
+	mContextMenu->setCanTearOff(FALSE);
+	mContextMenu->addChild(new LLMenuItemCallGL(getString("RemoveToolbarButton"), onRemoveContextButton));
+	mContextMenu->updateParent(LLMenuGL::sMenuContainer);
 	gFocusMgr.setMouseCapture(NULL);
+	mMenuRequested = true;
 	LLMenuGL::showPopup(this, mContextMenu, x, y);
 }
 BOOL LLToolBar::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
+	mMenuRequested = false;
+	mContextPanel = NULL;
 	if (!childrenHandleRightMouseDown(x, y, mask))
 	{
+		return FALSE;
+	}
+	if (!mMenuRequested)
+	{
+		mContextPanel = findPanelAt(x, y);
 		showToolbarContextMenu(x, y);
 	}
 	return TRUE;
@@ -346,12 +724,11 @@ BOOL LLToolBar::handleMouseUp(S32 x, S32 y, MASK mask)
 	if (mDragging)
 	{
 		updateButtonDrag(x, y);
-		if (mOrderDirty)
-		{
-			saveButtonOrder();
-		}
+		commitButtonDrag();
 		mDragging = false;
+		mDragCaretVisible = false;
 		mDragStartPanel = NULL;
+		mDragInsertIndex = -1;
 		mOrderDirty = false;
 		if (hasMouseCapture())
 		{
@@ -365,7 +742,9 @@ BOOL LLToolBar::handleMouseUp(S32 x, S32 y, MASK mask)
 void LLToolBar::onMouseCaptureLost()
 {
 	mDragging = false;
+	mDragCaretVisible = false;
 	mDragStartPanel = NULL;
+	mDragInsertIndex = -1;
 	LLLayoutPanel::onMouseCaptureLost();
 }
 void LLToolBar::pollToolbarDrag()
@@ -476,30 +855,53 @@ LLLayoutPanel* LLToolBar::findPanelAt(S32 x, S32 y) const
 }
 void LLToolBar::updateButtonDrag(S32 x, S32 y)
 {
+	mDragCaretVisible = false;
+	mDragInsertIndex = -1;
 	if (!mDragging || !mDragStartPanel || !mToolbarStack)
-	{
-		return;
-	}
-	LLLayoutPanel* over = findPanelAt(x, y);
-	if (!over || over == mDragStartPanel)
-	{
-		return;
-	}
-	if (getPanelGroupKey(over) == getPanelGroupKey(mDragStartPanel))
-	{
-		return;
-	}
-	S32 src_start = 0;
-	S32 src_count = 0;
-	S32 dst_start = 0;
-	S32 dst_count = 0;
-	if (!getGroupRange(mDragStartPanel, src_start, src_count) || !getGroupRange(over, dst_start, dst_count))
 	{
 		return;
 	}
 	S32 sx = x;
 	S32 sy = y;
-	localPointToOtherView(x, y, &sx, &sy, mToolbarStack);
+	if (!localPointToOtherView(x, y, &sx, &sy, mToolbarStack))
+	{
+		return;
+	}
+	LLLayoutPanel* over = NULL;
+	S32 best = S32_MAX;
+	const S32 n = mToolbarStack->getNumPanels();
+	for (S32 i = 0; i < n; ++i)
+	{
+		LLLayoutPanel* panel = mToolbarStack->getPanelByIndex(i);
+		if (!panel || !panel->getVisible() || panel->getRect().getWidth() <= 1)
+		{
+			continue;
+		}
+		LLRect hit = panel->getRect();
+		hit.stretch(6);
+		if (!hit.pointInRect(sx, sy))
+		{
+			continue;
+		}
+		const S32 dx = sx - (panel->getRect().mLeft + panel->getRect().mRight) / 2;
+		const S32 dy = sy - (panel->getRect().mBottom + panel->getRect().mTop) / 2;
+		const S32 dist = dx * dx + dy * dy;
+		if (dist < best)
+		{
+			best = dist;
+			over = panel;
+		}
+	}
+	if (!over)
+	{
+		return;
+	}
+	S32 dst_start = 0;
+	S32 dst_count = 0;
+	if (!getGroupRange(over, dst_start, dst_count))
+	{
+		return;
+	}
 	LLLayoutPanel* first_dst = mToolbarStack->getPanelByIndex(dst_start);
 	LLLayoutPanel* last_dst = mToolbarStack->getPanelByIndex(dst_start + dst_count - 1);
 	if (!first_dst || !last_dst)
@@ -508,13 +910,70 @@ void LLToolBar::updateButtonDrag(S32 x, S32 y)
 	}
 	const S32 mid_x = (first_dst->getRect().mLeft + last_dst->getRect().mRight) / 2;
 	const S32 insert_index = (sx < mid_x) ? dst_start : (dst_start + dst_count);
-	if (insert_index == src_start || (insert_index > src_start && insert_index <= src_start + src_count))
+	LLLayoutPanel* edge = (insert_index == dst_start) ? first_dst : last_dst;
+	const S32 ex = (insert_index == dst_start) ? edge->getRect().mLeft : edge->getRect().mRight;
+	S32 caret_x = 0;
+	S32 caret_bottom = 0;
+	S32 caret_top = 0;
+	S32 ignored = 0;
+	mToolbarStack->localPointToOtherView(ex, edge->getRect().mBottom, &caret_x, &caret_bottom, this);
+	mToolbarStack->localPointToOtherView(ex, edge->getRect().mTop, &ignored, &caret_top, this);
+	mDragCaretRect.set(caret_x - 1, caret_top, caret_x + 2, caret_bottom);
+	mDragInsertIndex = insert_index;
+	mDragCaretVisible = true;
+}
+void LLToolBar::commitButtonDrag()
+{
+	if (!mDragCaretVisible || !mDragStartPanel || !mToolbarStack || mDragInsertIndex < 0)
 	{
 		return;
 	}
-	mToolbarStack->movePanelRange(src_start, src_count, insert_index);
-	mToolbarStack->updateLayout();
-	mOrderDirty = true;
+	S32 src_start = 0;
+	S32 src_count = 0;
+	if (!getGroupRange(mDragStartPanel, src_start, src_count))
+	{
+		return;
+	}
+	if (mDragInsertIndex == src_start || (mDragInsertIndex > src_start && mDragInsertIndex <= src_start + src_count))
+	{
+		return;
+	}
+	mToolbarStack->movePanelRange(src_start, src_count, mDragInsertIndex);
+	syncSlotsToStack();
+	mLayoutDirty = true;
+	saveButtonOrder();
+}
+void LLToolBar::syncSlotsToStack()
+{
+	if (!mToolbarStack)
+	{
+		return;
+	}
+	std::vector<Slot> ordered;
+	std::vector<bool> used(mSlots.size(), false);
+	ordered.reserve(mSlots.size());
+	const S32 n = mToolbarStack->getNumPanels();
+	for (S32 i = 0; i < n; ++i)
+	{
+		LLLayoutPanel* panel = mToolbarStack->getPanelByIndex(i);
+		for (S32 s = 0; s < (S32)mSlots.size(); ++s)
+		{
+			if (!used[s] && mSlots[s].panel == panel)
+			{
+				ordered.push_back(mSlots[s]);
+				used[s] = true;
+				break;
+			}
+		}
+	}
+	for (S32 s = 0; s < (S32)mSlots.size(); ++s)
+	{
+		if (!used[s])
+		{
+			ordered.push_back(mSlots[s]);
+		}
+	}
+	mSlots.swap(ordered);
 }
 void LLToolBar::applySavedButtonOrder()
 {

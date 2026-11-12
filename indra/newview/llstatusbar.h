@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
  * Copyright (c) 2002-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -33,6 +34,7 @@
 #define LL_LLSTATUSBAR_H
 #include "llpanel.h"
 #include "llpathfindingnavmesh.h"
+#include "llfloatingbarstyle.h"
 extern S32 STATUS_BAR_HEIGHT;
 class LLButton;
 class LLLineEditor;
@@ -61,6 +63,13 @@ public:
 	void setLandCommitted(S32 committed);
 	void		refresh();
 	void setVisibleForMouselook(bool visible);
+	void updateBarRect();
+	void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE) override;
+	void setCompactHost(LLPanel* host);
+	void setParcelHost(LLPanel* host);
+	bool hasParcelHost() const { return mParcelHost != NULL; }
+	S32 layoutCompactParcelIcons(S32 right, S32 bottom, S32 row_h, bool place);
+	S32 layoutCompactAccount(S32 left, S32 bottom, S32 row_h, bool place);
 	S32			getBalance() const;
 	S32			getHealth() const;
 	BOOL isUserTiered() const;
@@ -69,11 +78,18 @@ public:
 	S32 getSquareMetersLeft() const;
 private:
 	void setupDate();
+	void updateClock();
+	void layoutBar(U32 icon_mask, S32 menu_right);
+	void updateFPS();
+	void moveHosted(LLPanel*& slot, LLPanel* host, LLView* const* widgets, S32 count);
+	void fitMenuBar();
+	void onMarginChanged();
 	void onRegionBoundaryCrossed();
 	void createNavMeshStatusListenerForCurrentRegion();
 	void onNavMeshStatusChange(const LLPathfindingNavMeshStatus &pNavMeshStatus);
 private:
 	LLTextBox	*mTextBalance;
+	LLTextBox	*mTextFPS;
 	LLTextBox	*mTextUPC;
 	LLTextBox	*mTextHealth;
 	LLTextBox	*mTextTime;
@@ -98,6 +114,10 @@ private:
 	LLView*		mSearchBevel;
 	LLTextBox*	mStatBtn;
 	S32				mBalance;
+	S32				mLastFPS;
+	F32				mSmoothFPS;
+	F32				mFPSRefresh;
+	S32				mFPSWidth;
 	S32				mUPC;
 	S32				mHealth;
 	S32				mSquareMetersCredit;
@@ -108,6 +128,23 @@ private:
 	LLPathfindingNavMesh::navmesh_slot_t mNavMeshSlot;
 	bool mIsNavMeshDirty;
 	bool mUPCSupported;
+	bool mMouselookHidden;
+	bool mLayoutDirty;
+	LLPanel* mCompactHost;
+	LLPanel* mParcelHost;
+	S32 mCompactParcelW;
+	S32 mCompactAccountW;
+	bool mUpdatingRect;
+	bool mClockLocal;
+	time_t mClockTime;
+	U32 mIconMask;
+	S32 mMenuRight;
+	S32 mLayoutWidth;
+	S32 mLeftEnd;
+	std::string mClockText;
+	std::string mClockDate;
+	LLFloatingBarStyle mStyle;
+	boost::signals2::connection mMarginSlot;
 	static std::vector<std::string> sDays;
 	static std::vector<std::string> sMonths;
 	static const U32 MAX_DATE_STRING_LENGTH;

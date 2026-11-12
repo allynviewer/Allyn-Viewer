@@ -2,6 +2,7 @@
 <panel name="status">
 	<text name="ParcelNameText" tool_tip="Üzerinde durduğunuz arsanın adı. Arsa Hakkında için tıklayınız.">parsel adı buraya gelecek</text>
 	<text name="BalanceText" tool_tip="Hesap Bakiyesi">Yükleniyor...</text>
+	<text name="FPSText" tool_tip="Saniyedeki kare sayısı">FPS: 0</text>
 	<text name="UPCText" tool_tip="Kredi yükle">UPC - N/A -</text>
 	<button name="buycurrency" tool_tip="Para birimi satın al" />
 	<text name="TimeText" tool_tip="Şimdiki Saat (Pasifik)">12:00 AM</text>

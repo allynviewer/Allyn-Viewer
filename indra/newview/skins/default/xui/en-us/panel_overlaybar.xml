@@ -38,10 +38,10 @@
 					     scale_image="true" tool_tip="Click here to cancel the current teleport process." width="102" />
         </layout_panel>
         <layout_panel auto_resize="false" background_visible="false" border="false" bottom="0"
-            follows="left|right|bottom" left="0" min_height="24" mouse_opaque="false" name="chat_bar_layout_panel" user_resize="false"
+            follows="left|right|bottom" height="40" left="0" min_height="40" mouse_opaque="false" name="chat_bar_layout_panel" user_resize="false"
             use_bounding_rect="true" width="395" >
-                <panel name="chat_bar" filename="panel_chat_bar.xml" width="395" mouse_opaque="false"
-                    bottom="0" default_tab_group="1" follows="left|bottom|right" height="25"
+                <panel name="chat_bar" filename="panel_chat_bar.xml" width="395" mouse_opaque="true"
+                    bottom="0" default_tab_group="1" follows="left|bottom|right" height="40"
                     left="0"/>
         </layout_panel>
 			</layout_stack>

@@ -2,6 +2,7 @@
 <panel name="status">
 	<text name="ParcelNameText" tool_tip="現在立っている土地パーセルの名前です。クリックすると「土地について」が開きます。">パーセル名</text>
 	<text name="BalanceText" tool_tip="アカウント残高">読み込み中...</text>
+	<text name="FPSText" tool_tip="フレームレート">FPS: 0</text>
 	<text name="UPCText" tool_tip="アップロードクレジット">UPC - N/A -</text>
 	<button name="buycurrency" tool_tip="通貨を購入" />
 	<text name="TimeText" tool_tip="現在時刻（太平洋時間）">12:00 AM</text>

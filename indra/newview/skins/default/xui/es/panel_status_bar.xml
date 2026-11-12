@@ -6,6 +6,9 @@
 	<text name="BalanceText" tool_tip="Saldo de tu cuenta">
 		Cargando...
 	</text>
+	<text name="FPSText" tool_tip="Imágenes por segundo">
+		FPS: 0
+	</text>
 	<text name="UPCText" tool_tip="Subir Créditos">
 		UPC - N/A -
 	</text>	

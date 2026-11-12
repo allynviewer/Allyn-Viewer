@@ -6,6 +6,7 @@
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
  * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -587,7 +588,7 @@ BOOL LLView::handleToolTip(S32 x, S32 y, std::string& msg, LLRect* sticky_rect_s
 			break;
 		}
 	}
-	tool_tip = mToolTipMsg.getString();
+	tool_tip = getToolTip();
 	if (
 		LLUI::sShowXUINames
 		&& (tool_tip.find(".xml", 0) == std::string::npos)

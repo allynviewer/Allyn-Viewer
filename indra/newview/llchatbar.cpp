@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
  * Copyright (c) 2002-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -43,12 +44,14 @@
 #include "llautoreplace.h"
 #include "llbutton.h"
 #include "llcombobox.h"
+#include "llflyoutbutton.h"
 #include "llcommandhandler.h"
 #include "llviewercontrol.h"
 #include "llfloaterchat.h"
 #include "llchataitranslate.h"
 #include "llgesturemgr.h"
 #include "llkeyboard.h"
+#include "lllayoutstack.h"
 #include "lllineeditor.h"
 #include "llstatusbar.h"
 #include "lltextbox.h"
@@ -90,9 +93,12 @@ private:
 LLChatBar::LLChatBar()
 :	LLPanel(),
 	mInputEditor(nullptr),
+	mHistoryBtn(nullptr),
+	mSayBtn(nullptr),
 	mGestureLabelTimer(),
 	mLastSpecialChatChannel(0),
 	mIsBuilt(FALSE),
+	mAdjusting(FALSE),
 	mGestureCombo(nullptr),
 	mObserver(nullptr)
 {
@@ -128,9 +134,180 @@ BOOL LLChatBar::postBuild()
 		mInputEditor->setPassDelete(TRUE);
 		mInputEditor->setReplaceNewlinesWithSpaces(FALSE);
 		mInputEditor->setEnableLineHistory(TRUE);
+		mInputEditor->setUIImage(NULL);
+		mInputEditor->setWriteableBgColor(LLColor4(0.f, 0.f, 0.f, 0.f));
+		mInputEditor->setReadOnlyBgColor(LLColor4(0.f, 0.f, 0.f, 0.f));
+		mInputEditor->setFocusBgColor(LLColor4(1.f, 1.f, 1.f, 0.08f));
+		mInputEditor->setVAlign(LLFontGL::BOTTOM);
+		mInputEditor->setMultiline(TRUE);
 	}
+	mHistoryBtn = findChild<LLButton>("History");
+	if (mHistoryBtn)
+	{
+		LLFloatingBarStyle::labelToToolTip(mHistoryBtn);
+		LLFloatingBarStyle::styleIconButton(mHistoryBtn);
+		mHistoryBtn->setImageOverlay("floating_ui/history.png", LLFontGL::HCENTER, LLColor4::white);
+		mHistoryBtn->setImageOverlaySelectedColor(LLFloatingBarStyle::accentColor());
+	}
+	mSayBtn = findChild<LLFlyoutButton>("Say");
+	if (mSayBtn)
+	{
+		for (LLView* child : *mSayBtn->getChildList())
+		{
+			LLButton* button = dynamic_cast<LLButton*>(child);
+			if (!button)
+			{
+				continue;
+			}
+			if (button->getRect().mLeft != 0)
+			{
+				button->setLabel(LLStringExplicit(""));
+			}
+			LLFloatingBarStyle::styleIconButton(button);
+		}
+	}
+	if (mGestureCombo)
+	{
+		for (LLView* child : *mGestureCombo->getChildList())
+		{
+			LLButton* button = dynamic_cast<LLButton*>(child);
+			if (!button)
+			{
+				continue;
+			}
+			LLFloatingBarStyle::styleIconButton(button);
+		}
+		mGestureCombo->setButtonOverlay("floating_ui/chevron_up.png", LLFontGL::RIGHT, LLColor4::white);
+	}
+	for (LLView* child : *getChildList())
+	{
+		if (!dynamic_cast<LLButton*>(child) && !dynamic_cast<LLLineEditor*>(child) && !dynamic_cast<LLComboBox*>(child))
+		{
+			child->setVisible(FALSE);
+		}
+	}
+	setBackgroundVisible(FALSE);
+	setMouseOpaque(FALSE);
 	mIsBuilt = TRUE;
+	layoutChatBar();
 	return TRUE;
+}
+void LLChatBar::draw()
+{
+	mStyle.drawPill(mPillRect, LLFloatingBarStyle::barColor());
+	LLPanel::draw();
+}
+S32 LLChatBar::desiredHeight() const
+{
+	static const S32 CHAT_BUTTON_SIZE = 32;
+	static const S32 CHAT_PAD_Y = 4;
+	const S32 field_h = mInputEditor ? mInputEditor->getMultilineHeight() : CHAT_BUTTON_SIZE;
+	return llmax(CHAT_BUTTON_SIZE + CHAT_PAD_Y * 2, field_h + CHAT_PAD_Y * 2);
+}
+void LLChatBar::reshape(S32 width, S32 height, BOOL called_from_parent)
+{
+	const S32 pill = desiredHeight();
+	if (getRect().getWidth() != width || getRect().getHeight() != pill)
+	{
+		LLPanel::reshape(width, pill, called_from_parent);
+	}
+	layoutChatBar();
+}
+void LLChatBar::layoutChatBar()
+{
+	if (!mInputEditor)
+	{
+		return;
+	}
+	static const S32 CHAT_BUTTON_SIZE = 32;
+	static const S32 CHAT_SIDE_PAD = 4;
+	static const S32 CHAT_GAP = 4;
+	static const S32 CHAT_PAD_Y = 4;
+	const S32 full = getRect().getWidth();
+	S32 width = full - full / 6;
+	if (width < 280)
+	{
+		width = llmin(full, 280);
+	}
+	const S32 field_h = mInputEditor->getMultilineHeight();
+	const S32 pill_h = desiredHeight();
+	const S32 y = CHAT_PAD_Y;
+	const S32 field_y = field_h < CHAT_BUTTON_SIZE ? y + (CHAT_BUTTON_SIZE - field_h) / 2 : y;
+	S32 say_w = 96;
+	if (mSayBtn)
+	{
+		S32 label_w = 48;
+		for (LLView* child : *mSayBtn->getChildList())
+		{
+			LLButton* button = dynamic_cast<LLButton*>(child);
+			if (!button || button->getRect().mLeft != 0)
+			{
+				continue;
+			}
+			if (const LLFontGL* font = button->getFont())
+			{
+				label_w = font->getWidth(button->getLabelUnselected());
+			}
+		}
+		say_w = llclamp(label_w + 44, 84, 180);
+	}
+	S32 gesture_w = 132;
+	S32 left = CHAT_SIDE_PAD;
+	S32 right = llmax(left, width - CHAT_SIDE_PAD);
+	if (mHistoryBtn)
+	{
+		mHistoryBtn->setShape(LLRect(left, y + CHAT_BUTTON_SIZE, left + CHAT_BUTTON_SIZE, y));
+		left += CHAT_BUTTON_SIZE + CHAT_GAP;
+	}
+	const S32 room = right - left;
+	if (room < say_w + gesture_w + 80 + CHAT_GAP * 2)
+	{
+		const S32 budget = llmax(0, room - 80 - CHAT_GAP * 2);
+		say_w = llmin(say_w, llmax(72, budget / 2));
+		gesture_w = llmin(gesture_w, llmax(72, budget - say_w));
+	}
+	if (mGestureCombo)
+	{
+		mGestureCombo->setShape(LLRect(right - gesture_w, y + CHAT_BUTTON_SIZE, right, y));
+		right -= gesture_w + CHAT_GAP;
+	}
+	if (mSayBtn)
+	{
+		mSayBtn->setShape(LLRect(right - say_w, y + CHAT_BUTTON_SIZE, right, y));
+		right -= say_w + CHAT_GAP;
+		for (LLView* child : *mSayBtn->getChildList())
+		{
+			LLButton* button = dynamic_cast<LLButton*>(child);
+			if (!button || button->getRect().mLeft == 0)
+			{
+				continue;
+			}
+			button->setImageOverlay("floating_ui/chevron_up.png", LLFontGL::HCENTER, LLColor4::white);
+			button->setImageOverlaySelectedColor(LLFloatingBarStyle::accentColor());
+		}
+	}
+	if (right < left + 40)
+	{
+		right = left + 40;
+	}
+	mInputEditor->setShape(LLRect(left, field_y + field_h, right, field_y));
+	mPillRect.set(0, pill_h, width, 0);
+	if (!mAdjusting)
+	{
+		if (LLLayoutPanel* panel = dynamic_cast<LLLayoutPanel*>(getParent()))
+		{
+			if (panel->getName() == "chat_bar_layout_panel"
+				&& panel->getLayoutDim() == panel->getRect().getHeight()
+				&& panel->getRect().getHeight() != pill_h)
+			{
+				mAdjusting = TRUE;
+				panel->setMinDim(pill_h);
+				panel->setExpandedMinDim(pill_h);
+				panel->setTargetDim(pill_h);
+				mAdjusting = FALSE;
+			}
+		}
+	}
 }
 BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 {
@@ -144,7 +321,10 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 		}
 		else if (mask == MASK_SHIFT)
 		{
-			sendChat(CHAT_TYPE_WHISPER);
+			if (mInputEditor)
+			{
+				mInputEditor->insertLineBreak();
+			}
 			handled = TRUE;
 		}
 		else if (mask == MASK_NONE)
@@ -388,6 +568,7 @@ void LLChatBar::sendChat( EChatType type )
 		}
 	}
 	childSetValue("Chat Editor", LLStringUtil::null);
+	layoutChatBar();
 	gAgent.stopTyping();
 	if (gChatBar == this && gSavedSettings.getBOOL("CloseChatOnReturn"))
 	{
@@ -456,6 +637,7 @@ void LLChatBar::onInputEditorKeystroke()
 			}
 		}
 	}
+	layoutChatBar();
 }
 void LLChatBar::onInputEditorFocusLost()
 {

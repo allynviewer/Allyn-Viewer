@@ -17,10 +17,8 @@
 #include "llviewermenu.h"
 #include "llviewerwindow.h"
 LLNotifyIconBar* gNotifyIconBar = NULL;
-S32 NOTIFY_ICON_BAR_HEIGHT = 27;
-S32 NOTIFY_ICON_BAR_WIDTH = 36;
-static const S32 NOTIFY_ICON_BAR_FLOAT_PAD = 3;
-extern S32 MENU_BAR_HEIGHT;
+S32 NOTIFY_ICON_BAR_HEIGHT = LLFloatingBarStyle::ROUND_BUTTON_SIZE;
+S32 NOTIFY_ICON_BAR_WIDTH = LLFloatingBarStyle::ROUND_BUTTON_SIZE;
 LLNotifyIconBar::LLNotifyIconBar(const std::string& name, const LLRect& rect)
 :	LLPanel(name, LLRect(), FALSE),
 	mWellBtn(NULL),
@@ -32,8 +30,7 @@ LLNotifyIconBar::LLNotifyIconBar(const std::string& name, const LLRect& rect)
 	setBackgroundVisible(FALSE);
 	setBackgroundOpaque(FALSE);
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_notify_icon_bar.xml");
-	reshape(llmax(rect.getWidth(), NOTIFY_ICON_BAR_WIDTH),
-			llmax(rect.getHeight(), NOTIFY_ICON_BAR_HEIGHT), TRUE);
+	reshape(LLFloatingBarStyle::ROUND_BUTTON_SIZE, LLFloatingBarStyle::ROUND_BUTTON_SIZE, TRUE);
 	setFollows(FOLLOWS_RIGHT | FOLLOWS_TOP);
 	mWellBtn = getChild<LLButton>("notify_well_btn", TRUE, FALSE);
 	if (mWellBtn)
@@ -41,27 +38,17 @@ LLNotifyIconBar::LLNotifyIconBar(const std::string& name, const LLRect& rect)
 		mWellBtn->setClickedCallback(boost::bind(&LLNotifyIconBar::onWellClicked, this));
 		mWellBtn->setFont(LLFontGL::getFontSansSerifBold());
 		mWellBtn->setHAlign(LLFontGL::HCENTER);
-		mWellBtn->setScaleImage(TRUE);
-		LLUIImagePtr chrome = LLUI::getUIImage("Rounded_Square");
-		if (chrome.notNull())
-		{
-			mWellBtn->setImageUnselected(chrome);
-			mWellBtn->setImageSelected(chrome);
-			mWellBtn->setImageHoverUnselected(chrome);
-			mWellBtn->setImageHoverSelected(chrome);
-			mWellBtn->setImageDisabled(chrome);
-		}
-		const LLColor4 fill(18.f / 255.f, 20.f / 255.f, 43.f / 255.f, 0.62f);
-		mWellBtn->setImageColor(fill);
+		LLFloatingBarStyle::styleRoundButton(mWellBtn);
 		mWellBtn->setUnselectedLabelColor(LLColor4::white);
 		mWellBtn->setSelectedLabelColor(LLColor4::white);
 		mWellBtn->setDropShadowedText(TRUE);
-		mWellBtn->setHoverGlowStrength(0.18f);
 	}
 	setRect(rect);
+	mMarginSlot = LLFloatingBarStyle::connectSetting("FloatingBarMargin", boost::bind(&LLNotifyIconBar::updatePosition, this));
 }
 LLNotifyIconBar::~LLNotifyIconBar()
 {
+	mMarginSlot.disconnect();
 	if (gNotifyIconBar == this)
 	{
 		gNotifyIconBar = NULL;
@@ -70,7 +57,18 @@ LLNotifyIconBar::~LLNotifyIconBar()
 void LLNotifyIconBar::draw()
 {
 	refreshBadges();
+	mStyle.drawPill(getLocalRect(), mLastNotifyCount > 0 ? LLFloatingBarStyle::accentColor() : LLFloatingBarStyle::barColor());
 	LLPanel::draw();
+	if (mLastNotifyCount > 0)
+	{
+		LLUIImagePtr border = LLUI::getUIImage("Floating_Pill_Border");
+		if (border.notNull())
+		{
+			const F32 wave = 0.5f + 0.5f * sinf((F32)LLFrameTimer::getElapsedSeconds() * 6.f);
+			LLColor4 orange(1.f, 0.42f, 0.f, 0.2f + 0.8f * wave);
+			border->draw(getLocalRect(), orange);
+		}
+	}
 }
 void LLNotifyIconBar::setVisibleForMouselook(bool visible)
 {
@@ -79,7 +77,6 @@ void LLNotifyIconBar::setVisibleForMouselook(bool visible)
 	if (getVisible() != (BOOL)show)
 	{
 		setVisible(show);
-		updatePosition();
 		if (gNotifyBoxView)
 		{
 			gNotifyBoxView->layoutStack();
@@ -93,21 +90,11 @@ void LLNotifyIconBar::updatePosition()
 	{
 		return;
 	}
-	S32 menu_h = (gMenuBarView) ? gMenuBarView->getRect().getHeight() : MENU_BAR_HEIGHT;
-	S32 nav_h = (gNavigationBar) ? gNavigationBar->getOccupiedHeight() : 0;
-	S32 top = parent->getRect().getHeight() - menu_h - nav_h - NOTIFY_ICON_BAR_FLOAT_PAD;
-	S32 w = llmax(getRect().getWidth(), NOTIFY_ICON_BAR_WIDTH);
-	S32 h = llmax(getRect().getHeight(), NOTIFY_ICON_BAR_HEIGHT);
-	S32 right = parent->getRect().getWidth() - NOTIFY_ICON_BAR_FLOAT_PAD;
-	setRect(LLRect(right - w, top, right, top - h));
-}
-S32 LLNotifyIconBar::getOccupiedHeight() const
-{
-	if (!getVisible())
-	{
-		return 0;
-	}
-	return getRect().getHeight() + NOTIFY_ICON_BAR_FLOAT_PAD;
+	const S32 margin = LLFloatingBarStyle::margin();
+	const S32 size = LLFloatingBarStyle::ROUND_BUTTON_SIZE;
+	const S32 top = parent->getRect().getHeight() - margin;
+	const S32 right = parent->getRect().getWidth() - margin;
+	setShape(LLRect(right - size, top, right, top - size));
 }
 void LLNotifyIconBar::refreshBadges()
 {
@@ -123,7 +110,7 @@ void LLNotifyIconBar::refreshBadges()
 		else
 		{
 			mWellBtn->setLabel(LLStringExplicit(""));
-			mWellBtn->setImageOverlay("notify_box_icon.tga", LLFontGL::HCENTER, LLColor4::white);
+			mWellBtn->setImageOverlay("floating_ui/bell.png", LLFontGL::HCENTER, LLColor4::white);
 		}
 	}
 }

@@ -2,6 +2,7 @@
 <panel name="toolbar">
 	<string name="Redock Windows">Windows'u Yeniden Yerleştir</string>
 	<string name="ToolbarButtons">Araç çubuğu düğmeleri</string>
+	<string name="RemoveToolbarButton">Araç çubuğundan kaldır</string>
 	<string name="IMs">[COUNT] IM</string>
 	<string name="IM">1 IM</string>
 	<layout_stack name="toolbar_stack">

@@ -2,6 +2,7 @@
 <panel name="status">
 	<text name="ParcelNameText" tool_tip="Der Name der Parzelle, auf der Sie sich befinden. Klicken Sie für Land-Informationen.">Parzellenname hier</text>
 	<text name="BalanceText" tool_tip="Kontostand">Wird geladen...</text>
+	<text name="FPSText" tool_tip="Bilder pro Sekunde">FPS: 0</text>
 	<text name="UPCText" tool_tip="Upload credits">UPC - N/A -</text>
 	<button name="buycurrency" tool_tip="Geld kaufen"/>
 	<text name="TimeText" tool_tip="Aktuelle Zeit (Pazifik)">12:00</text>

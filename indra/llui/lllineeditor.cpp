@@ -49,6 +49,7 @@
 #include "llstring.h"
 #include "llwindow.h"
 #include "llui.h"
+#include <algorithm>
 #include "lluictrlfactory.h"
 #include "../newview/lgghunspell_wrapper.h"
 const S32	UI_LINEEDITOR_CURSOR_THICKNESS = 2;
@@ -117,6 +118,7 @@ LLLineEditor::LLLineEditor(const std::string& name, const LLRect& rect,
 		mVAlign(LLFontGL::BOTTOM),
 		mImage( sImage ),
 		mReplaceNewlinesWithSpaces( TRUE ),
+		mMultiline( FALSE ),
 		mSpellCheckable( FALSE ),
 	mContextMenuHandle()
 {
@@ -260,7 +262,7 @@ void LLLineEditor::setText(const LLStringExplicit &new_text)
 	}
 	mPrevText = mText;
 }
-S32 LLLineEditor::calculateCursorFromMouse( S32 local_mouse_x )
+S32 LLLineEditor::calculateCursorFromMouse( S32 local_mouse_x ) const
 {
 	const llwchar* wtext = mText.getWString().c_str();
 	LLWString asterix_text;
@@ -278,14 +280,19 @@ S32 LLLineEditor::calculateCursorFromMouse( S32 local_mouse_x )
 			(F32)(local_mouse_x - mMinHPixels),
 			(F32)(mMaxHPixels - mMinHPixels + 1));
 }
-void LLLineEditor::setCursorAtLocalPos( S32 local_mouse_x )
+void LLLineEditor::setCursorAtLocalPos( S32 local_mouse_x, S32 local_mouse_y )
 {
-	setCursor(calculateCursorFromMouse(local_mouse_x));
+	setCursor(cursorFromLocalPos(local_mouse_x, local_mouse_y));
 }
 void LLLineEditor::setCursor( S32 pos )
 {
 	S32 old_cursor_pos = getCursor();
 	mCursorPos = llclamp( pos, 0, mText.length());
+	if (mMultiline)
+	{
+		scrollMultiline();
+		return;
+	}
 	S32 pixels_after_scroll = findPixelNearestPos();
 	if( pixels_after_scroll > mMaxHPixels )
 	{
@@ -463,7 +470,7 @@ BOOL LLLineEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 		if (mask & MASK_SHIFT)
 		{
 			S32 old_cursor_pos = getCursor();
-			setCursorAtLocalPos(x);
+			setCursorAtLocalPos(x, y);
 			if (hasSelection())
 			{
 				mSelectionEnd = getCursor();
@@ -479,7 +486,7 @@ BOOL LLLineEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 		{
 			mLastSelectionStart = mSelectionStart;
 			mLastSelectionEnd = mSelectionEnd;
-			setCursorAtLocalPos( x );
+			setCursorAtLocalPos( x, y );
 			deselect();
 			startSelection();
 		}
@@ -493,7 +500,7 @@ BOOL LLLineEditor::handleMiddleMouseDown(S32 x, S32 y, MASK mask)
 	setFocus( TRUE );
 	if( canPastePrimary() )
 	{
-		setCursorAtLocalPos(x);
+		setCursorAtLocalPos(x, y);
 		pastePrimary();
 	}
 	return TRUE;
@@ -542,7 +549,7 @@ BOOL LLLineEditor::handleHover(S32 x, S32 y, MASK mask)
 				}
 			}
 		}
-		setCursorAtLocalPos( x );
+		setCursorAtLocalPos( x, y );
 		mSelectionEnd = getCursor();
 		mKeystrokeTimer.reset();
 		getWindow()->setCursor(UI_CURSOR_IBEAM);
@@ -571,7 +578,7 @@ BOOL LLLineEditor::handleMouseUp(S32 x, S32 y, MASK mask)
 	}
 	if( mIsSelecting )
 	{
-		setCursorAtLocalPos( x );
+		setCursorAtLocalPos( x, y );
 		mSelectionEnd = getCursor();
 		handled = TRUE;
 	}
@@ -1026,21 +1033,57 @@ BOOL LLLineEditor::handleSpecialKey(KEY key, MASK mask)
 		}
 		break;
 	case KEY_PAGE_UP:
-	case KEY_HOME:
 		if (!mIgnoreArrowKeys)
 		{
 			setCursor(0);
 			handled = TRUE;
 		}
 		break;
+	case KEY_HOME:
+		if (!mIgnoreArrowKeys)
+		{
+			if (mMultiline && (mask & MASK_CONTROL) == 0)
+			{
+				S32 begin = 0;
+				S32 end = 0;
+				lineRange(getCursor(), begin, end);
+				setCursor(begin);
+			}
+			else
+			{
+				setCursor(0);
+			}
+			handled = TRUE;
+		}
+		break;
 	case KEY_PAGE_DOWN:
-	case KEY_END:
 		if (!mIgnoreArrowKeys)
 		{
 			S32 len = mText.length();
 			if( len )
 			{
 				setCursor(len);
+			}
+			handled = TRUE;
+		}
+		break;
+	case KEY_END:
+		if (!mIgnoreArrowKeys)
+		{
+			if (mMultiline && (mask & MASK_CONTROL) == 0)
+			{
+				S32 begin = 0;
+				S32 end = 0;
+				lineRange(getCursor(), begin, end);
+				setCursor(end);
+			}
+			else
+			{
+				S32 len = mText.length();
+				if( len )
+				{
+					setCursor(len);
+				}
 			}
 			handled = TRUE;
 		}
@@ -1098,7 +1141,23 @@ BOOL LLLineEditor::handleSpecialKey(KEY key, MASK mask)
 		}
 		break;
 	case KEY_UP:
-		if( mHaveHistory && ( MASK_CONTROL == mask ) )
+		if (mMultiline && (mask & MASK_CONTROL) == 0)
+		{
+			S32 begin = 0;
+			S32 end = 0;
+			lineRange(getCursor(), begin, end);
+			const S32 col = getCursor() - begin;
+			if (begin > 0)
+			{
+				S32 prev_begin = 0;
+				S32 prev_end = 0;
+				lineRange(begin - 1, prev_begin, prev_end);
+				const S32 span = prev_end - prev_begin;
+				setCursor(prev_begin + llmin(col, span));
+			}
+			handled = TRUE;
+		}
+		else if( mHaveHistory && ( MASK_CONTROL == mask ) )
 		{
 			if( mCurrentHistoryLine > mLineHistory.begin() )
 			{
@@ -1113,7 +1172,23 @@ BOOL LLLineEditor::handleSpecialKey(KEY key, MASK mask)
 		}
 		break;
 	case KEY_DOWN:
-		if( mHaveHistory  && ( MASK_CONTROL == mask ) )
+		if (mMultiline && (mask & MASK_CONTROL) == 0)
+		{
+			S32 begin = 0;
+			S32 end = 0;
+			lineRange(getCursor(), begin, end);
+			const S32 col = getCursor() - begin;
+			if (end < mText.length())
+			{
+				S32 next_begin = 0;
+				S32 next_end = 0;
+				lineRange(end + 1, next_begin, next_end);
+				const S32 span = next_end - next_begin;
+				setCursor(next_begin + llmin(col, span));
+			}
+			handled = TRUE;
+		}
+		else if( mHaveHistory  && ( MASK_CONTROL == mask ) )
 		{
 			if( !mLineHistory.empty() && mCurrentHistoryLine < mLineHistory.end() - 1 )
 			{
@@ -1128,8 +1203,19 @@ BOOL LLLineEditor::handleSpecialKey(KEY key, MASK mask)
 		}
 		break;
 	case KEY_RETURN:
-		if (getCommitOnReturn()) onCommit();
-		else updateHistory();
+		if (mMultiline && mask == MASK_SHIFT)
+		{
+			addChar((llwchar)182);
+			handled = TRUE;
+		}
+		else if (getCommitOnReturn())
+		{
+			onCommit();
+		}
+		else
+		{
+			updateHistory();
+		}
 		break;
 	case KEY_ESCAPE:
 	    if (mask == MASK_NONE && mRevertOnEsc && mText.getString() != mPrevText)
@@ -1315,6 +1401,10 @@ void LLLineEditor::doDelete()
 }
 void LLLineEditor::drawMisspelled(LLRect background)
 {
+	if (mMultiline && lineCount() > 1)
+	{
+		return;
+	}
 	if (!mReadOnly && mSpellCheckable)
 	{
 		S32 newStartSpellHere =mScrollHPos;
@@ -1473,9 +1563,13 @@ void LLLineEditor::draw()
 			}
 		}
 	}
+	if (mMultiline)
+	{
+		drawMultilineContents(text_color, label_color, bg_color, alpha);
+	}
 	S32 rendered_text = 0;
 	F32 rendered_pixels_right = (F32)mMinHPixels;
-	if( (gFocusMgr.getKeyboardFocus() == this) && hasSelection() )
+	if( !mMultiline && (gFocusMgr.getKeyboardFocus() == this) && hasSelection() )
 	{
 		S32 select_left;
 		S32 select_right;
@@ -1534,7 +1628,7 @@ void LLLineEditor::draw()
 				&rendered_pixels_right);
 		}
 	}
-	else
+	else if (!mMultiline)
 	{
 			rendered_text = mGLFont->render(
 			mText, mScrollHPos,
@@ -1555,7 +1649,7 @@ void LLLineEditor::draw()
 	resetSpellDirty();
 	if( gFocusMgr.getKeyboardFocus() == this)
 	{
-		if (gShowTextEditCursor && !mReadOnly)
+		if (gShowTextEditCursor && !mReadOnly && !mMultiline)
 		{
 			F32 elapsed = mKeystrokeTimer.getElapsedTimeF32();
 			if( (elapsed < CURSOR_FLASH_DELAY ) || (S32(elapsed * 2) & 1) )
@@ -1593,7 +1687,7 @@ void LLLineEditor::draw()
 				getWindow()->setLanguageTextInput( ime_pos );
 			}
 		}
-		if (0 == mText.length() && mReadOnly)
+		if (0 == mText.length() && mReadOnly && !mMultiline)
 		{
 			mGLFont->render(mLabel.getWString(), 0,
 							mMinHPixels, (F32)text_bottom,
@@ -1612,7 +1706,7 @@ void LLLineEditor::draw()
 	}
 	else
 	{
-		if (0 == mText.length())
+		if (0 == mText.length() && !mMultiline)
 		{
 			mGLFont->render(mLabel.getWString(), 0,
 							mMinHPixels, (F32)text_bottom,
@@ -2386,9 +2480,290 @@ S32 LLLineEditor::getPreeditFontSize() const
 {
 	return ll_round(mGLFont->getLineHeight() * LLUI::getScaleFactor().mV[VY]);
 }
+static bool is_line_break(llwchar c)
+{
+	return c == '\n' || c == (llwchar)182;
+}
 void LLLineEditor::setReplaceNewlinesWithSpaces(BOOL replace)
 {
 	mReplaceNewlinesWithSpaces = replace;
+}
+S32 LLLineEditor::linePixelHeight() const
+{
+	return llmax(1, llceil(mGLFont->getLineHeight()));
+}
+S32 LLLineEditor::lineCount() const
+{
+	S32 count = 1;
+	const LLWString& text = mText.getWString();
+	for (S32 i = 0; i < (S32)text.length(); ++i)
+	{
+		if (is_line_break(text[i]))
+		{
+			++count;
+		}
+	}
+	return count;
+}
+void LLLineEditor::lineRange(S32 index, S32& begin, S32& end) const
+{
+	const LLWString& text = mText.getWString();
+	const S32 n = (S32)text.length();
+	S32 i = llclamp(index, 0, n);
+	begin = i;
+	while (begin > 0 && !is_line_break(text[begin - 1]))
+	{
+		--begin;
+	}
+	end = i;
+	while (end < n && !is_line_break(text[end]))
+	{
+		++end;
+	}
+}
+S32 LLLineEditor::getMultilineHeight() const
+{
+	S32 lines = lineCount();
+	if (lines > 8)
+	{
+		lines = 8;
+	}
+	return lines * linePixelHeight() + 1;
+}
+void LLLineEditor::insertLineBreak()
+{
+	if (mReadOnly)
+	{
+		return;
+	}
+	LLLineEditorRollback rollback(this);
+	addChar((llwchar)182);
+	mKeystrokeTimer.reset();
+	deselect();
+	if (mPrevalidateFunc && !mPrevalidateFunc(mText.getWString()))
+	{
+		rollback.doRollback(this);
+		reportBadKeystroke();
+		return;
+	}
+	onKeystroke();
+}
+void LLLineEditor::scrollMultiline()
+{
+	const LLWString& text = mText.getWString();
+	S32 begin = 0;
+	S32 end = 0;
+	lineRange(getCursor(), begin, end);
+	if (mScrollHPos < begin || mScrollHPos > getCursor())
+	{
+		mScrollHPos = begin;
+	}
+	while (mScrollHPos < getCursor()
+		&& mGLFont->getWidth(text.c_str(), mScrollHPos, getCursor() - mScrollHPos) + mMinHPixels > mMaxHPixels)
+	{
+		++mScrollHPos;
+	}
+	if (mScrollHPos < begin)
+	{
+		mScrollHPos = begin;
+	}
+}
+S32 LLLineEditor::cursorFromLocalPos(S32 local_mouse_x, S32 local_mouse_y) const
+{
+	if (!mMultiline || local_mouse_y < 0)
+	{
+		return calculateCursorFromMouse(local_mouse_x);
+	}
+	const LLWString& text = mText.getWString();
+	const S32 n = (S32)text.length();
+	const S32 line_h = linePixelHeight();
+	const S32 lines = lineCount();
+	S32 visible = lines > 8 ? 8 : lines;
+	S32 first = 0;
+	if (lines > visible)
+	{
+		S32 cursor_line = 0;
+		for (S32 i = 0; i < getCursor() && i < n; ++i)
+		{
+			if (is_line_break(text[i]))
+			{
+				++cursor_line;
+			}
+		}
+		first = cursor_line - (visible - 1);
+		if (first < 0)
+		{
+			first = 0;
+		}
+		if (first > lines - visible)
+		{
+			first = lines - visible;
+		}
+	}
+	S32 from_bottom = local_mouse_y / line_h;
+	if (from_bottom < 0)
+	{
+		from_bottom = 0;
+	}
+	if (from_bottom >= visible)
+	{
+		from_bottom = visible - 1;
+	}
+	const S32 line = first + (visible - 1 - from_bottom);
+	S32 index = 0;
+	S32 seen = 0;
+	while (index < n && seen < line)
+	{
+		if (is_line_break(text[index]))
+		{
+			++seen;
+		}
+		++index;
+	}
+	const S32 begin = index;
+	while (index < n && !is_line_break(text[index]))
+	{
+		++index;
+	}
+	const S32 end = index;
+	S32 scroll = mScrollHPos;
+	if (scroll < begin || scroll > end)
+	{
+		scroll = begin;
+	}
+	const S32 offset = mGLFont->charFromPixelOffset(
+		text.c_str(), scroll,
+		(F32)(local_mouse_x - mMinHPixels),
+		(F32)(mMaxHPixels - mMinHPixels + 1),
+		end - scroll);
+	return llclamp(scroll + offset, begin, end);
+}
+void LLLineEditor::drawMultilineContents(const LLColor4& text_color, const LLColor4& label_color, const LLColor4& bg_color, F32 alpha)
+{
+	const LLWString& text = mText.getWString();
+	const S32 n = (S32)text.length();
+	const S32 line_h = linePixelHeight();
+	const S32 lines = lineCount();
+	S32 visible = lines > 8 ? 8 : lines;
+	S32 cursor_line = 0;
+	for (S32 i = 0; i < getCursor() && i < n; ++i)
+	{
+		if (is_line_break(text[i]))
+		{
+			++cursor_line;
+		}
+	}
+	S32 first = 0;
+	if (lines > visible)
+	{
+		first = cursor_line - (visible - 1);
+		if (first < 0)
+		{
+			first = 0;
+		}
+		if (first > lines - visible)
+		{
+			first = lines - visible;
+		}
+	}
+	S32 select_left = mSelectionStart;
+	S32 select_right = mSelectionEnd;
+	if (select_left > select_right)
+	{
+		std::swap(select_left, select_right);
+	}
+	const bool show_select = (gFocusMgr.getKeyboardFocus() == this) && hasSelection();
+	S32 index = 0;
+	S32 line = 0;
+	while (line < first && index < n)
+	{
+		if (is_line_break(text[index]))
+		{
+			++line;
+		}
+		++index;
+	}
+	for (S32 slot = 0; slot < visible; ++slot)
+	{
+		const S32 begin = index;
+		while (index < n && !is_line_break(text[index]))
+		{
+			++index;
+		}
+		const S32 end = index;
+		const S32 y = (visible - 1 - slot) * line_h;
+		S32 scroll = mScrollHPos;
+		if (scroll < begin || scroll > end)
+		{
+			scroll = begin;
+		}
+		F32 x = (F32)mMinHPixels;
+		if (show_select && select_right > begin && select_left < end)
+		{
+			const S32 sel_a = llmax(select_left, begin);
+			const S32 sel_b = llmin(select_right, end);
+			if (scroll < sel_a)
+			{
+				mGLFont->render(text, scroll, x, (F32)y, text_color,
+					LLFontGL::LEFT, LLFontGL::BOTTOM, LLFontGL::NORMAL, LLFontGL::NO_SHADOW,
+					sel_a - scroll, mMaxHPixels - ll_round(x), &x);
+			}
+			if (llmax(scroll, sel_a) < sel_b)
+			{
+				const S32 from = llmax(scroll, sel_a);
+				S32 width = mGLFont->getWidth(text.c_str(), from, sel_b - from);
+				width = llmin(width, mMaxHPixels - ll_round(x));
+				gl_rect_2d(ll_round(x), y + line_h, ll_round(x) + width, y,
+					LLColor4(1.f - bg_color.mV[0], 1.f - bg_color.mV[1], 1.f - bg_color.mV[2], alpha));
+				LLColor4 inverted(1.f - text_color.mV[0], 1.f - text_color.mV[1], 1.f - text_color.mV[2], alpha);
+				mGLFont->render(text, from, x, (F32)y, inverted,
+					LLFontGL::LEFT, LLFontGL::BOTTOM, LLFontGL::NORMAL, LLFontGL::NO_SHADOW,
+					sel_b - from, mMaxHPixels - ll_round(x), &x);
+			}
+			if (end > llmax(scroll, sel_b))
+			{
+				const S32 from = llmax(scroll, sel_b);
+				mGLFont->render(text, from, x, (F32)y, text_color,
+					LLFontGL::LEFT, LLFontGL::BOTTOM, LLFontGL::NORMAL, LLFontGL::NO_SHADOW,
+					end - from, mMaxHPixels - ll_round(x), &x);
+			}
+		}
+		else if (end > scroll)
+		{
+			mGLFont->render(text, scroll, x, (F32)y, text_color,
+				LLFontGL::LEFT, LLFontGL::BOTTOM, LLFontGL::NORMAL, LLFontGL::NO_SHADOW,
+				end - scroll, mMaxHPixels - ll_round(x), &x);
+		}
+		if (index < n && is_line_break(text[index]))
+		{
+			++index;
+		}
+	}
+	if (n == 0)
+	{
+		mGLFont->render(mLabel.getWString(), 0, (F32)mMinHPixels, 0.f, label_color,
+			LLFontGL::LEFT, LLFontGL::BOTTOM, LLFontGL::NORMAL, LLFontGL::NO_SHADOW,
+			S32_MAX, mMaxHPixels - mMinHPixels, NULL, FALSE);
+	}
+	if (gFocusMgr.getKeyboardFocus() == this && gShowTextEditCursor && !mReadOnly)
+	{
+		F32 elapsed = mKeystrokeTimer.getElapsedTimeF32();
+		if ((elapsed < CURSOR_FLASH_DELAY) || (S32(elapsed * 2) & 1))
+		{
+			const S32 slot = cursor_line - first;
+			const S32 y = (visible - 1 - slot) * line_h;
+			S32 cursor_left = findPixelNearestPos();
+			cursor_left -= UI_LINEEDITOR_CURSOR_THICKNESS / 2;
+			S32 cursor_right = cursor_left + UI_LINEEDITOR_CURSOR_THICKNESS;
+			gl_rect_2d(cursor_left, y + line_h, cursor_right, y, text_color);
+			S32 pixels_after_scroll = findPixelNearestPos();
+			LLRect screen_pos = calcScreenRect();
+			LLCoordGL ime_pos(screen_pos.mLeft + pixels_after_scroll, screen_pos.mBottom + y);
+			ime_pos.mX = (S32)(ime_pos.mX * LLUI::getScaleFactor().mV[VX]);
+			ime_pos.mY = (S32)(ime_pos.mY * LLUI::getScaleFactor().mV[VY]);
+			getWindow()->setLanguageTextInput(ime_pos);
+		}
+	}
 }
 LLWString LLLineEditor::getConvertedText() const
 {

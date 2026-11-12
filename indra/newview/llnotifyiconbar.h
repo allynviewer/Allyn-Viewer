@@ -5,6 +5,7 @@
 #ifndef LL_LLNOTIFYICONBAR_H
 #define LL_LLNOTIFYICONBAR_H
 #include "llpanel.h"
+#include "llfloatingbarstyle.h"
 class LLButton;
 extern S32 NOTIFY_ICON_BAR_HEIGHT;
 extern S32 NOTIFY_ICON_BAR_WIDTH;
@@ -16,13 +17,14 @@ public:
 	void draw() override;
 	void setVisibleForMouselook(bool visible);
 	void updatePosition();
-	S32 getOccupiedHeight() const;
 private:
 	void refreshBadges();
 	void onWellClicked();
 	LLButton* mWellBtn;
 	bool mMouselookHidden;
 	S32 mLastNotifyCount;
+	LLFloatingBarStyle mStyle;
+	boost::signals2::connection mMarginSlot;
 };
 extern LLNotifyIconBar* gNotifyIconBar;
 #endif

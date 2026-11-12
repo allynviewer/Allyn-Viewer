@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
  * Copyright (c) 2002-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -33,7 +34,10 @@
 #define LL_LLCHATBAR_H
 #include "llframetimer.h"
 #include "llchat.h"
+#include "llfloatingbarstyle.h"
 #include "llpanel.h"
+class LLButton;
+class LLFlyoutButton;
 class LLLineEditor;
 class LLMessageSystem;
 class LLUICtrl;
@@ -47,6 +51,8 @@ class LLChatBar final
 public:
 	LLChatBar();
 	BOOL		postBuild() override;
+	void		draw() override;
+	void		reshape(S32 width, S32 height, BOOL called_from_parent = TRUE) override;
 	BOOL		handleKeyHere(KEY key, MASK mask) override;
 	void		onFocusLost() override;
 	void		refresh() override;
@@ -70,10 +76,17 @@ protected:
 	~LLChatBar();
 	void sendChat(EChatType type);
 	void updateChat();
+	void layoutChatBar();
+	S32 desiredHeight() const;
 	LLLineEditor*	mInputEditor;
+	LLButton*		mHistoryBtn;
+	LLFlyoutButton*	mSayBtn;
+	LLFloatingBarStyle mStyle;
+	LLRect			mPillRect;
 	LLFrameTimer	mGestureLabelTimer;
 	S32				mLastSpecialChatChannel;
 	BOOL			mIsBuilt;
+	BOOL			mAdjusting;
 	LLComboBox*		mGestureCombo;
 	LLChatBarGestureObserver* mObserver;
 };

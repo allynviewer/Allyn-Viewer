@@ -69,6 +69,8 @@
 <DefaultListText value="0, 0, 0, 255"/>
 
 <MenuBarBgColor value="62, 62, 62, 255" />
+<FloatingBarBorderColor value="255, 255, 255, 28" />
+<FloatingBarAccentColor value="139, 92, 246, 255" />
 <MenuBarGodBgColor value="62, 128, 62, 255" />
 <MenuNonProductionGodBgColor value="0, 128, 0, 255" />
 <MenuNonProductionBgColor value="128, 0, 0, 255" />

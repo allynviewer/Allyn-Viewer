@@ -1813,10 +1813,6 @@ S32 LLNotifyBoxView::getStackTop() const
 	{
 		top -= gNavigationBar->getOccupiedHeight();
 	}
-	if (gNotifyIconBar)
-	{
-		top -= gNotifyIconBar->getOccupiedHeight();
-	}
 	return top - STACK_TOP_PAD;
 }
 S32 LLNotifyBoxView::getStackBottom() const
