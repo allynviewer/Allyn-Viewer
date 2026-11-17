@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2001&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,6 +28,7 @@
 #include "llimagegl.h"
 #include "llerror.h"
 #include "llimage.h"
+#include "llimagebc7.h"
 #include "llmath.h"
 #include "llgl.h"
 #include "llglslshader.h"
@@ -44,6 +46,7 @@ F32 LLImageGL::sLastFrameTime			= 0.f;
 BOOL LLImageGL::sAllowReadBackRaw       = FALSE ;
 LLImageGL* LLImageGL::sDefaultGLTexture = NULL ;
 bool LLImageGL::sCompressTextures = false;
+bool LLImageGL::sUseBC7 = false;
 std::set<LLImageGL*> LLImageGL::sImageList;
 BOOL gAuditTexture = FALSE ;
 #define MAX_TEXTURE_LOG_SIZE 22
@@ -579,6 +582,34 @@ void LLImageGL::setImage(const U8* data_in, BOOL data_hasmips)
 	}
 	llverify(gGL.getTexUnit(0)->bind(this));
 	mIsCompressed = false;
+	mIsBC7 = false;
+	if (mBC7Chain && mUseMipMaps && !data_hasmips)
+	{
+		const S32 levels = llmin(mBC7Chain->getLevels(), (S32)mMaxDiscardLevel - (S32)mCurrentDiscardLevel + 1);
+		if (!LLRender::sGLCoreProfile)
+		{
+			glTexParameteri(mTarget, GL_GENERATE_MIPMAP, GL_FALSE);
+		}
+		S32 bytes = 0;
+		for (S32 level = 0; level < levels; ++level)
+		{
+			glCompressedTexImage2DARB(mTarget, level, GL_COMPRESSED_RGBA_BPTC_UNORM,
+				mBC7Chain->getWidth(level), mBC7Chain->getHeight(level), 0,
+				mBC7Chain->getSize(level), (GLvoid*)mBC7Chain->getData(level));
+			stop_glerror();
+			bytes += mBC7Chain->getSize(level);
+		}
+		mMipLevels = levels - 1;
+		const S32 w = getWidth(mCurrentDiscardLevel);
+		const S32 h = getHeight(mCurrentDiscardLevel);
+		analyzeAlpha(data_in, w, h);
+		updatePickMask(w, h, data_in);
+		mIsBC7 = true;
+		LLImageBC7::countUpload(bytes);
+		stop_glerror();
+		mGLTextureCreated = true;
+		return;
+	}
 	if (mUseMipMaps)
 	{
 		if (data_hasmips)
@@ -1113,7 +1144,17 @@ BOOL LLImageGL::createGLTexture(S32 discard_level, const LLImageRaw* imageraw, G
 	}
 	setCategory(category);
  	const U8* rawdata = imageraw->getData();
-	return createGLTexture(discard_level, rawdata, FALSE, usename);
+	if (sUseBC7 && !mHasExplicitFormat && mUseMipMaps && mTarget == GL_TEXTURE_2D && (mComponents == 3 || mComponents == 4))
+	{
+		const std::shared_ptr<const LLImageBC7Chain>& chain = imageraw->getBC7Chain();
+		if (chain && chain->getLevels() > 0 && chain->getWidth(0) == raw_w && chain->getHeight(0) == raw_h)
+		{
+			mBC7Chain = chain;
+		}
+	}
+	BOOL res = createGLTexture(discard_level, rawdata, FALSE, usename);
+	mBC7Chain.reset();
+	return res;
 }
 static LLTrace::BlockTimerStatHandle FTM_CREATE_GL_TEXTURE3("createGLTexture3(data)");
 BOOL LLImageGL::createGLTexture(S32 discard_level, const U8* data_in, BOOL data_hasmips, GLTextureName* usename)
@@ -1362,7 +1403,11 @@ S32 LLImageGL::getBytes(S32 discard_level) const
 	S32 h = mHeight>>discard_level;
 	if (w == 0) w = 1;
 	if (h == 0) h = 1;
-	return dataFormatBytes(mFormatPrimary, w, h);
+	return formatBytes(w, h);
+}
+S32 LLImageGL::formatBytes(S32 width, S32 height) const
+{
+	return mIsBC7 ? LLImageBC7::levelBytes(width, height) : dataFormatBytes(mFormatPrimary, width, height);
 }
 S32 LLImageGL::getMipBytes(S32 discard_level) const
 {
@@ -1372,14 +1417,14 @@ S32 LLImageGL::getMipBytes(S32 discard_level) const
 	}
 	S32 w = mWidth>>discard_level;
 	S32 h = mHeight>>discard_level;
-	S32 res = dataFormatBytes(mFormatPrimary, w, h);
+	S32 res = formatBytes(w, h);
 	if (mUseMipMaps)
 	{
 		while (w > 1 && h > 1)
 		{
 			w >>= 1; if (w == 0) w = 1;
 			h >>= 1; if (h == 0) h = 1;
-			res += dataFormatBytes(mFormatPrimary, w, h);
+			res += formatBytes(w, h);
 		}
 	}
 	return res;

@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2000&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,7 +27,9 @@
 #ifndef LL_LLIMAGEWORKER_H
 #define LL_LLIMAGEWORKER_H
 #include "llimage.h"
+#include "llimagebc7.h"
 #include "llpointer.h"
+#include "lluuid.h"
 #include "llthread.h"
 #include "llworkerthread.h"
 #include <vector>
@@ -47,7 +50,8 @@ public:
 	public:
 		ImageRequest(handle_t handle, LLImageFormatted* image,
 					 U32 priority, S32 discard, BOOL needs_aux,
-					 LLImageDecodeThread::Responder* responder);
+					 LLImageDecodeThread::Responder* responder,
+					 const LLUUID& id = LLUUID::null, bool transcoded_ok = false);
 		bool processRequest();
 		void finishRequest(bool completed);
 		bool tut_isOK();
@@ -60,6 +64,12 @@ public:
 		BOOL mDecodedRaw;
 		BOOL mDecodedAux;
 		LLPointer<LLImageDecodeThread::Responder> mResponder;
+		LLUUID mID;
+		bool mTranscodedOK;
+		LLImageBC7Cache::EState mBC7State;
+		LLImageBC7ChainPtr mBC7Chain;
+		bool readBC7();
+		void attachBC7();
 	};
 public:
 	LLImageDecodeThread(bool threaded = true, S32 extra_workers = 0);
@@ -67,7 +77,8 @@ public:
 	void shutdown();
 	handle_t decodeImage(LLImageFormatted* image,
 						 U32 priority, S32 discard, BOOL needs_aux,
-						 Responder* responder);
+						 Responder* responder,
+						 const LLUUID& id = LLUUID::null, bool transcoded_ok = false);
 	S32 update(F32 max_time_ms);
 	S32 tut_size();
 	S32 decodeOne() { return processNextRequest(); }
@@ -89,8 +100,10 @@ private:
 		S32 discard;
 		BOOL needs_aux;
 		LLPointer<Responder> responder;
-		creation_info(handle_t h, LLImageFormatted* i, U32 p, S32 d, BOOL aux, Responder* r)
-			: handle(h), image(i), priority(p), discard(d), needs_aux(aux), responder(r)
+		LLUUID id;
+		bool transcoded_ok;
+		creation_info(handle_t h, LLImageFormatted* i, U32 p, S32 d, BOOL aux, Responder* r, const LLUUID& u, bool t)
+			: handle(h), image(i), priority(p), discard(d), needs_aux(aux), responder(r), id(u), transcoded_ok(t)
 		{}
 	};
 	typedef std::list<creation_info> creation_list_t;

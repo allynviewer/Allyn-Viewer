@@ -33,6 +33,7 @@
 #include "llglheaders.h"
 #include "llhost.h"
 #include "llimage.h"
+#include "llimagebc7.h"
 #include "llimagebmp.h"
 #include "llimagej2c.h"
 #include "llimagetga.h"
@@ -884,6 +885,7 @@ void LLViewerFetchedTexture::init(bool firstinit)
 	mFetchDeltaTime = 999999.f;
 	mRequestDeltaTime = 0.f;
 	mForSculpt = FALSE;
+	mTranscodedPixels = FALSE;
 	mIsFetched = FALSE;
 	if(!firstinit && mCachedRawImage.notNull())
 		mCachedRawImage->setInCache(false);
@@ -963,6 +965,7 @@ void LLViewerFetchedTexture::forceRefetch()
 void LLViewerFetchedTexture::setForSculpt()
 {
 	static const S32 MAX_INTERVAL = 8;
+	requireExactPixels();
 	mForSculpt = TRUE;
 	if(isForSculptOnly() && hasGLTexture() && !getBoundRecently())
 	{
@@ -1158,8 +1161,10 @@ void LLViewerFetchedTexture::addToCreateTexture()
 							return;
 						}
 						{
+							const LLImageBC7ChainPtr chain = mRawImage->getBC7Chain();
 							mRawImage = mRawImage->duplicate();
 							mRawImage->scale(w >> i, h >> i);
+							LLImageBC7::inherit(chain, mRawImage, i);
 						}
 					}
 				}
@@ -1637,6 +1642,22 @@ bool LLViewerFetchedTexture::updateFetch()
 			mHasAux = TRUE;
 			sAuxCount++;
 		}
+		if (mRawImage.notNull() && mRawImage->isTranscoded())
+		{
+			if (needsExactPixels())
+			{
+				sRawCount--;
+				mRawImage = NULL;
+				mIsRawImageValid = FALSE;
+				mRawDiscardLevel = INVALID_DISCARD_LEVEL;
+				LLAppViewer::getTextureFetch()->deleteRequest(getID(), true);
+				mHasFetcher = FALSE;
+				mIsFetching = FALSE;
+				mLastPacketTimer.reset();
+				return false;
+			}
+			mTranscodedPixels = TRUE;
+		}
 		if (finished)
 		{
 			mIsFetching = FALSE;
@@ -1813,7 +1834,7 @@ bool LLViewerFetchedTexture::updateFetch()
 		}
 		bool fetch_request_created = false;
 		fetch_request_created = LLAppViewer::getTextureFetch()->createRequest(mFTType, mUrl, getID(), getTargetHost(), decode_priority,
-																			  w, h, c, desired_discard, needsAux(), mCanUseHTTP);
+																			  w, h, c, desired_discard, needsAux(), mCanUseHTTP, !needsExactPixels());
 		if (fetch_request_created)
 		{
 			mHasFetcher = TRUE;
@@ -1899,6 +1920,10 @@ void LLViewerFetchedTexture::setLoadedCallback( loaded_callback_func loaded_call
 									   S32 discard_level, BOOL keep_imageraw, BOOL needs_aux, void* userdata,
 									   LLLoadedCallbackEntry::source_callback_list_t* src_callback_list, BOOL pause)
 {
+	if (keep_imageraw || needs_aux)
+	{
+		requireExactPixels();
+	}
 	if (mLoadedCallbackList.empty())
 	{
 		gTextureList.mCallbackList.insert(this);
@@ -2256,6 +2281,11 @@ LLImageRaw* LLViewerFetchedTexture::reloadRawImage(S8 discard_level)
 	{
 		return NULL;
 	}
+	if (mTranscodedPixels)
+	{
+		requireExactPixels();
+		return NULL;
+	}
 	if(mSavedRawDiscardLevel >= 0 && mSavedRawDiscardLevel <= discard_level)
 	{
 		if (mSavedRawDiscardLevel != discard_level && mBoostLevel != BOOST_ICON)
@@ -2297,6 +2327,19 @@ LLImageRaw* LLViewerFetchedTexture::reloadRawImage(S8 discard_level)
 bool LLViewerFetchedTexture::needsToSaveRawImage()
 {
 	return mForceToSaveRawImage || mSaveRawImage;
+}
+bool LLViewerFetchedTexture::needsExactPixels() const
+{
+	return mFTType != FTT_DEFAULT || !mUseMipMaps || mForSculpt || mNeedsAux || mForceToSaveRawImage || mSaveRawImage
+		|| mBoostLevel == LLGLTexture::BOOST_SCULPTED || mBoostLevel == LLGLTexture::BOOST_BUMP
+		|| mBoostLevel == LLGLTexture::BOOST_TERRAIN || mBoostLevel == LLGLTexture::BOOST_ICON;
+}
+void LLViewerFetchedTexture::requireExactPixels()
+{
+	if (mTranscodedPixels)
+	{
+		forceRefetch();
+	}
 }
 void LLViewerFetchedTexture::destroyRawImage()
 {
@@ -2483,6 +2526,7 @@ void LLViewerFetchedTexture::saveRawImage()
 }
 void LLViewerFetchedTexture::forceToRefetchTexture(S32 desired_discard, F32 kept_time)
 {
+	requireExactPixels();
 	if(mForceToSaveRawImage)
 	{
 		desired_discard = llmin(desired_discard, mDesiredSavedRawDiscardLevel);
@@ -2497,6 +2541,7 @@ void LLViewerFetchedTexture::forceToRefetchTexture(S32 desired_discard, F32 kept
 }
 void LLViewerFetchedTexture::forceToSaveRawImage(S32 desired_discard, F32 kept_time)
 {
+	requireExactPixels();
 	mKeptSavedRawImageTime = kept_time;
 	mLastReferencedSavedRawImageTime = sCurrentTime;
 	if(mSavedRawDiscardLevel > -1 && mSavedRawDiscardLevel <= desired_discard)

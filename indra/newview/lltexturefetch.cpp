@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2000&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -256,6 +257,7 @@ private:
 	BOOL mDecoded;
 	BOOL mWritten;
 	BOOL mNeedsAux;
+	bool mTranscodedOK;
 	BOOL mHaveAllData;
 	BOOL mInLocalCache;
 	bool                        mCanUseHTTP,
@@ -604,6 +606,7 @@ LLTextureFetchWorker::LLTextureFetchWorker(LLTextureFetch* fetcher,
 	  mDecoded(FALSE),
 	  mWritten(FALSE),
 	  mNeedsAux(FALSE),
+	  mTranscodedOK(false),
 	  mHaveAllData(FALSE),
 	  mInLocalCache(FALSE),
 	  mCanUseHTTP(true),
@@ -1432,7 +1435,8 @@ bool LLTextureFetchWorker::doWork(S32 param)
 		LL_DEBUGS(LOG_TXT) << mID << ": Decoding. Bytes: " << mFormattedImage->getDataSize() << " Discard: " << discard
 				<< " All Data: " << mHaveAllData << LL_ENDL;
 		mDecodeHandle = mFetcher->mImageDecodeThread->decodeImage(mFormattedImage, image_priority, discard, mNeedsAux,
-																  new DecodeResponder(mFetcher, mID, this));
+																  new DecodeResponder(mFetcher, mID, this),
+																  mFTType == FTT_DEFAULT ? mID : LLUUID::null, mTranscodedOK);
 	}
 	if (mState == DECODE_IMAGE_UPDATE)
 	{
@@ -1874,7 +1878,7 @@ LLTextureFetch::~LLTextureFetch()
 	}
 }
 bool LLTextureFetch::createRequest(FTType f_type, const std::string& url, const LLUUID& id, const LLHost& host, F32 priority,
-								   S32 w, S32 h, S32 c, S32 desired_discard, bool needs_aux, bool can_use_http)
+								   S32 w, S32 h, S32 c, S32 desired_discard, bool needs_aux, bool can_use_http, bool transcoded_ok)
 {
 	if (mDebugPause)
 	{
@@ -1933,6 +1937,7 @@ bool LLTextureFetch::createRequest(FTType f_type, const std::string& url, const 
 		worker->lockWorkMutex();
 		worker->mActiveCount++;
 		worker->mNeedsAux = needs_aux;
+		worker->mTranscodedOK = transcoded_ok;
 		worker->setImagePriority(priority);
 		worker->setDesiredDiscard(desired_discard, desired_size);
 		worker->setCanUseHTTP(can_use_http) ;
@@ -1956,6 +1961,7 @@ bool LLTextureFetch::createRequest(FTType f_type, const std::string& url, const 
 		worker->lockWorkMutex();
 		worker->mActiveCount++;
 		worker->mNeedsAux = needs_aux;
+		worker->mTranscodedOK = transcoded_ok;
 		worker->setCanUseHTTP(can_use_http) ;
 		worker->unlockWorkMutex();
 	}

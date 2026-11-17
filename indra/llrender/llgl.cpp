@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2001&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -38,6 +39,7 @@
 #include "llstacktrace.h"
 #include "llglheaders.h"
 #include "llglslshader.h"
+#include "llimagebc7.h"
 #ifdef _DEBUG
 #endif
 BOOL gDebugSession = FALSE;
@@ -433,6 +435,7 @@ LLGLManager::LLGLManager() :
 	mNumTextureUnits(1),
 	mHasMipMapGeneration(FALSE),
 	mHasCompressedTextures(FALSE),
+	mHasTextureCompressionBPTC(FALSE),
 	mHasFramebufferObject(FALSE),
 	mMaxSamples(0),
 	mHasFramebufferMultisample(FALSE),
@@ -698,6 +701,12 @@ bool LLGLManager::initGL()
 	{
 		LLImageGL::sCompressTextures = false;
 	}
+	if (!mHasCompressedTextures || !mHasTextureCompressionBPTC)
+	{
+		LLImageGL::sUseBC7 = false;
+	}
+	LLImageBC7::setEnabled(LLImageGL::sUseBC7);
+	LL_INFOS("RenderInit") << "BC7 textures: " << (LLImageGL::sUseBC7 ? "on" : "off") << LL_ENDL;
 	S32 old_vram = mVRAM;
 	if (mHasATIMemInfo)
 	{
@@ -951,6 +960,7 @@ void LLGLManager::initExtensions()
 #ifdef GL_ARB_texture_swizzle
 	mHasTextureSwizzle = mGLVersion >= 3.3f || ExtensionExists("GL_ARB_texture_swizzle");
 #endif
+	mHasTextureCompressionBPTC = mGLVersion >= 4.2f || ExtensionExists("GL_ARB_texture_compression_bptc") || ExtensionExists("GL_EXT_texture_compression_bptc");
 #if LL_SOLARIS
 	LL_INFOS() << "initExtensions() checking shell variables to adjust features..." << LL_ENDL;
 	if (getenv("LL_GL_NOEXT"))

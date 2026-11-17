@@ -29,6 +29,7 @@
 #include "llapr.h"
 #include "lldir.h"
 #include "llimage.h"
+#include "llimagebc7.h"
 #include "lllfsthread.h"
 #include "llviewercontrol.h"
 #include "llappviewer.h"
@@ -763,6 +764,10 @@ U64 LLTextureCache::initCache(ELLPath location, U64 max_size, BOOL texture_cache
 	LL_INFOS("TextureCache") << "Headers: " << sCacheMaxEntries
 			<< " Textures size: " << sCacheMaxTexturesSize / (1024 * 1024) << " MB" << LL_ENDL;
 	setDirNames(location);
+	if (gSavedSettings.getBOOL("RenderTextureBC7Cache"))
+	{
+		LLImageBC7Cache::init(mTexturesDirName, sCacheMaxTexturesSize / 4, mReadOnly);
+	}
 	if(texture_cache_mismatch)
 	{
 		purgeAllTextures(true);
@@ -1237,6 +1242,7 @@ void LLTextureCache::purgeAllTextures(bool purge_directories)
 			gDirUtilp->deleteFilesInDir(mTexturesDirName, mask);
 			LLFile::rmdir(mTexturesDirName);
 		}
+		LLImageBC7Cache::clear();
 	}
 	mHeaderIDMap.clear();
 	mTexturesSizeMap.clear();
@@ -1526,6 +1532,7 @@ void LLTextureCache::removeCachedTexture(const LLUUID& id)
 	}
 	mHeaderIDMap.erase(id);
 	LLAPRFile::remove(getTextureFileName(id));
+	LLImageBC7Cache::remove(id);
 }
 void LLTextureCache::removeEntry(S32 idx, Entry& entry, std::string& filename)
 {
@@ -1546,6 +1553,7 @@ void LLTextureCache::removeEntry(S32 idx, Entry& entry, std::string& filename)
 		mTexturesSizeTotal -= entry.mBodySize;
 		entry.mImageSize = -1;
 		entry.mBodySize = 0;
+		LLImageBC7Cache::remove(entry.mID);
 		mHeaderIDMap.erase(entry.mID);
 		mTexturesSizeMap.erase(entry.mID);
 		mFreeList.insert(idx);
@@ -1565,6 +1573,7 @@ bool LLTextureCache::removeFromCache(const LLUUID& id)
 		S32 idx = openAndReadEntry(id, entry, false);
 		std::string tex_filename = getTextureFileName(id);
 		removeEntry(idx, entry, tex_filename);
+		LLImageBC7Cache::remove(id);
 		if (idx >= 0)
 		{
 			writeEntryToHeaderImmediately(idx, entry);

@@ -22,7 +22,9 @@ include_directories(
     )
 
 set(llimage_SOURCE_FILES
+    bcdec/bcdec.c
     llimage.cpp
+    llimagebc7.cpp
     llimagebmp.cpp
     llimagedxt.cpp
     llimagej2c.cpp
@@ -36,7 +38,9 @@ set(llimage_SOURCE_FILES
 set(llimage_HEADER_FILES
     CMakeLists.txt
 
+    bcdec/bcdec.h
     llimage.h
+    llimagebc7.h
     llimagebmp.h
     llimagedxt.h
     llimagej2c.h
@@ -51,6 +55,11 @@ set(llimage_HEADER_FILES
 set_source_files_properties(${llimage_HEADER_FILES}
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
+if (MSVC)
+  set_source_files_properties(bcdec/bcdec.c
+                              PROPERTIES COMPILE_FLAGS "/W0 /WX-")
+endif (MSVC)
+
 list(APPEND llimage_SOURCE_FILES ${llimage_HEADER_FILES})
 
 add_library (llimage ${llimage_SOURCE_FILES})
@@ -62,6 +71,7 @@ target_link_libraries(
     ${JPEG_LIBRARIES}
     ${PNG_LIBRARIES}
     ${ZLIB_LIBRARIES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/ispc_texcomp/kernelx86_64-pc-windows-msvc.lib
     )
 
 if (LL_TESTS)

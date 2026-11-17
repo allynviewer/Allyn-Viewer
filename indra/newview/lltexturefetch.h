@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2000&license=viewergpl$
  * 
  * Copyright (c) 2000-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -61,7 +62,7 @@ public:
 	void shutDownTextureCacheThread() ;
 	void shutDownImageDecodeThread() ;
 	bool createRequest(FTType f_type, const std::string& url, const LLUUID& id, const LLHost& host, F32 priority,
-					   S32 w, S32 h, S32 c, S32 discard, bool needs_aux, bool can_use_http);
+					   S32 w, S32 h, S32 c, S32 discard, bool needs_aux, bool can_use_http, bool transcoded_ok = false);
 	void deleteRequest(const LLUUID& id, bool cancel);
 	void deleteAllRequests();
 	bool getRequestFinished(const LLUUID& id, S32& discard_level,

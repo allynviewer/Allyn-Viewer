@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2001&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -282,12 +283,14 @@ LLImageRaw::~LLImageRaw()
 }
 U8* LLImageRaw::allocateData(S32 size)
 {
+	mBC7Chain.reset();
 	U8* res = LLImageBase::allocateData(size);
 	*AIAccess<S64>(sGlobalRawMemory) += getDataSize();
 	return res;
 }
 U8* LLImageRaw::reallocateData(S32 size)
 {
+	mBC7Chain.reset();
 	S32 old_data_size = getDataSize();
 	U8* res = LLImageBase::reallocateData(size);
 	*AIAccess<S64>(sGlobalRawMemory) += getDataSize() - old_data_size;
@@ -295,6 +298,7 @@ U8* LLImageRaw::reallocateData(S32 size)
 }
 void LLImageRaw::deleteData()
 {
+	mBC7Chain.reset();
 	{
 		*AIAccess<S64>(sGlobalRawMemory) -= getDataSize();
 	}

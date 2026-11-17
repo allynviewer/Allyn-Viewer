@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2000&license=viewergpl$
  * 
  * Copyright (c) 2000-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -35,6 +36,7 @@
 #include "llstring.h"
 #include "llthread.h"
 #include "aithreadsafe.h"
+#include <memory>
 const S32 MIN_IMAGE_MIP =  2;
 const S32 MAX_IMAGE_MIP = 11;
 const S32 MAX_DISCARD_LEVEL = 5;
@@ -48,6 +50,7 @@ const S32 FIRST_PACKET_SIZE = 600;
 const S32 MAX_IMG_PACKET_SIZE = 1000;
 class LLImageFormatted;
 class LLImageRaw;
+class LLImageBC7Chain;
 class LLColor4U;
 class LLPrivateMemoryPool;
 typedef enum e_image_codec
@@ -158,6 +161,13 @@ public:
 	void compositeUnscaled4onto3( LLImageRaw* src );
 	std::string getComment() const { return mComment; }
 	std::string mComment;
+	void setBC7Chain(const std::shared_ptr<const LLImageBC7Chain>& chain) { mBC7Chain = chain; }
+	const std::shared_ptr<const LLImageBC7Chain>& getBC7Chain() const { return mBC7Chain; }
+	void setTranscoded(bool transcoded) { mTranscoded = transcoded; }
+	bool isTranscoded() const { return mTranscoded; }
+private:
+	std::shared_ptr<const LLImageBC7Chain> mBC7Chain;
+	bool mTranscoded = false;
 protected:
 	void copyLineScaled( U8* in, U8* out, S32 in_pixel_len, S32 out_pixel_len, S32 in_pixel_step, S32 out_pixel_step );
 	void compositeRowScaled4onto3( U8* in, U8* out, S32 in_pixel_len, S32 out_pixel_len );

@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2001&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -193,6 +194,9 @@ private:
 	S8       mCurrentDiscardLevel;
 	bool mAllowCompression;
 	bool mIsCompressed = false;
+	bool mIsBC7 = false;
+	std::shared_ptr<const LLImageBC7Chain> mBC7Chain;
+	S32 formatBytes(S32 width, S32 height) const;
 protected:
 	LLGLenum mTarget;
 	LLTexUnit::eTextureType mBindTarget;
@@ -220,6 +224,7 @@ public:
 	static BOOL sGlobalUseAnisotropic;
 	static LLImageGL* sDefaultGLTexture ;
  	static bool sCompressTextures;
+	static bool sUseBC7;
 #if DEBUG_MISS
 	BOOL mMissed;
 	BOOL getMissed() const { return mMissed; };
