@@ -210,15 +210,24 @@ namespace
 
 void LLPBRGraphics::update()
 {
-	gPBR.detail = gSavedSettings.getS32("RenderReflectionProbeDetail");
-	gPBR.coverage = gSavedSettings.getS32("RenderReflectionProbeLevel");
-	gPBR.probes = gSavedSettings.getS32("RenderReflectionProbeCount");
-	gPBR.hdr = gSavedSettings.getBOOL("RenderDisableVintageMode");
-	gPBR.exposure = gSavedSettings.getF32("RenderExposure");
-	gPBR.ssr = gSavedSettings.getBOOL("RenderScreenSpaceReflections");
-	gPBR.mirrors = gSavedSettings.getBOOL("RenderMirrors");
-	gPBR.tonemap = gSavedSettings.getS32("RenderTonemapType");
-	gPBR.mix = gSavedSettings.getF32("RenderTonemapMix");
+	static const LLCachedControl<S32> detail("RenderReflectionProbeDetail");
+	static const LLCachedControl<S32> coverage("RenderReflectionProbeLevel");
+	static const LLCachedControl<S32> probes("RenderReflectionProbeCount");
+	static const LLCachedControl<bool> hdr("RenderDisableVintageMode");
+	static const LLCachedControl<F32> exposure("RenderExposure");
+	static const LLCachedControl<bool> ssr("RenderScreenSpaceReflections");
+	static const LLCachedControl<bool> mirrors("RenderMirrors");
+	static const LLCachedControl<S32> tonemap("RenderTonemapType");
+	static const LLCachedControl<F32> mix("RenderTonemapMix");
+	gPBR.detail = detail;
+	gPBR.coverage = coverage;
+	gPBR.probes = probes;
+	gPBR.hdr = hdr;
+	gPBR.exposure = exposure;
+	gPBR.ssr = ssr;
+	gPBR.mirrors = mirrors;
+	gPBR.tonemap = tonemap;
+	gPBR.mix = mix;
 }
 
 void LLPBRGraphics::bindGlobals(LLGLSLShader* shader)
