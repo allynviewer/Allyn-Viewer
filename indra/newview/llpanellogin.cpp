@@ -1152,7 +1152,8 @@ void LLPanelLogin::loadLoginPage()
 		splash_path += LLUI::getLanguage();
 		login_uri = LLURI(Allyn_splash_uri + splash_path);
 		auto& params_map = params.map();
-		for (auto&& pair : login_uri.queryMap().map())
+		const LLSD splash_query(login_uri.queryMap());
+		for (auto&& pair : splash_query.map())
 			params_map.emplace(pair);
 		login_uri = uri_with_params(login_uri, params);
 	}
