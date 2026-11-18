@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2004&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -32,6 +33,7 @@
 #include "llinventoryobserver.h"
 #include "llviewerinventory.h"
 #include "llhttpclient.h"
+#include <memory>
 class LLWearable;
 class LLWearableHoldingPattern;
 class LLInventoryCallback;
@@ -167,7 +169,7 @@ private:
 	bool mIsInUpdateAppearanceFromCOF;
 	boost::intrusive_ptr<RequestAgentUpdateAppearanceResponder> mAppearanceResponder;
 	bool mOutfitLocked;
-	std::auto_ptr<LLOutfitUnLockTimer> mUnlockOutfitTimer;
+	std::unique_ptr<LLOutfitUnLockTimer> mUnlockOutfitTimer;
 	typedef uuid_set_t doomed_temp_attachments_t;
 	doomed_temp_attachments_t	mDoomedTempAttachmentIDs;
 	void addDoomedTempAttachment(const LLUUID& id_to_remove);

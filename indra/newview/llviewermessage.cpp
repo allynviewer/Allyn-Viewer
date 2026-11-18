@@ -1583,7 +1583,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			{
 				LLSD args;
 				args["SOURCE"] = from_id;
-				args["AMOUNT"] = fmt::to_string(SpamNewlines);
+				args["AMOUNT"] = fmt::to_string(SpamNewlines.get());
 				LLNotificationsUtil::add("AntiSpamNewlineFlood", args);
 			}
 			return;

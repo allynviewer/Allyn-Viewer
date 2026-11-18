@@ -6,6 +6,7 @@
  * $LicenseInfo:firstyear=2004&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -430,9 +431,7 @@ void LLFloaterRegionInfo::refreshFromRegion(LLViewerRegion* region)
 	std::for_each(
 		mInfoPanels.begin(),
 		mInfoPanels.end(),
-		llbind2nd(
-			std::mem_fun(&LLPanelRegionInfo::refreshFromRegion),
-			region));
+		[region](auto* panel) { panel->refreshFromRegion(region); });
 }
 void LLFloaterRegionInfo::refresh()
 {

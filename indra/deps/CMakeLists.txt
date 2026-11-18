@@ -210,45 +210,54 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 FetchContent_Declare(
   Catch2
   GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-  GIT_TAG        v2.11.0
+  GIT_TAG        v3.9.1
   GIT_SHALLOW    TRUE
   )
 FetchContent_Declare(
   fmt
   GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-  GIT_TAG        8d78045e7cb44d39ad4cd95dd27816b8749e1944
+  GIT_TAG        12.2.1
+  GIT_SHALLOW    TRUE
   )
 FetchContent_Declare(
   nlohmann_json
   GIT_REPOSITORY https://github.com/nlohmann/json.git
-  GIT_TAG        v3.7.3
+  GIT_TAG        v3.12.0
   GIT_SHALLOW    TRUE
   )
 FetchContent_Declare(
   absl
   GIT_REPOSITORY https://github.com/abseil/abseil-cpp.git
-  GIT_TAG        768eb2ca2857342673fcd462792ce04b8bac3fa3
+  GIT_TAG        20260817.0
+  GIT_SHALLOW    TRUE
 )
 
-# This is a hack because absl has dumb cmake
-set(OLD_BUILD_TEST ${BUILD_TESTING})
-set(BUILD_TESTING OFF)
+set(ABSL_BUILD_TESTING OFF CACHE BOOL "" FORCE)
+set(ABSL_PROPAGATE_CXX_STD ON CACHE BOOL "" FORCE)
+set(ABSL_ENABLE_INSTALL OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(absl)
-set(BUILD_TESTING ${OLD_BUILD_TEST})
 
-# Supress warnings inside abseil under MSVC
 if(WINDOWS)
-  target_compile_options(absl_strings PRIVATE /wd4018)
-  target_compile_options(absl_str_format_internal PRIVATE /wd4018)
-  target_compile_options(absl_flags_usage_internal PRIVATE /wd4018)
+  foreach(_allyn_absl IN ITEMS absl_strings absl_str_format_internal absl_flags_usage_internal)
+    if(TARGET ${_allyn_absl})
+      target_compile_options(${_allyn_absl} PRIVATE /wd4018)
+    endif()
+  endforeach()
 endif()
 
 
 if (BUILD_TESTING)
+  set(CATCH_INSTALL_DOCS OFF CACHE BOOL "" FORCE)
+  set(CATCH_INSTALL_EXTRAS OFF CACHE BOOL "" FORCE)
+  set(CATCH_BUILD_TESTING OFF CACHE BOOL "" FORCE)
+  set(CATCH_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
   FetchContent_MakeAvailable(Catch2)
 endif()
 
-#Download the rest of the libraries
+set(FMT_INSTALL OFF CACHE BOOL "" FORCE)
+set(FMT_DOC OFF CACHE BOOL "" FORCE)
+set(FMT_TEST OFF CACHE BOOL "" FORCE)
+set(FMT_MODULE OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(fmt)
 
 # Typically you don't care so much for a third party library's tests to be
@@ -268,23 +277,29 @@ set(CARES_BUILD_TOOLS OFF CACHE BOOL "Do not build c-ares tools" FORCE)
 FetchContent_Declare(
   c-ares
   GIT_REPOSITORY https://github.com/c-ares/c-ares.git
-  GIT_TAG        v1.34.4
+  GIT_TAG        v1.34.9
   GIT_SHALLOW    TRUE
 )
 FetchContent_MakeAvailable(c-ares)
 
 # xmlrpc-epi has no public windows64 package compatible with our expat 2.6.4.
 include(EXPAT)
-FetchContent_Declare(
-  xmlrpc_epi_src
+set(_allyn_xmlrpc_populate_args
   GIT_REPOSITORY https://github.com/secondlife/3p-xmlrpc-epi.git
   GIT_TAG        v0.54.1-r5
   GIT_SHALLOW    TRUE
+  SOURCE_DIR     "${FETCHCONTENT_BASE_DIR}/xmlrpc_epi_src-src"
+  BINARY_DIR     "${FETCHCONTENT_BASE_DIR}/xmlrpc_epi_src-build"
+  SUBBUILD_DIR   "${FETCHCONTENT_BASE_DIR}/xmlrpc_epi_src-subbuild"
 )
-FetchContent_GetProperties(xmlrpc_epi_src)
-if (NOT xmlrpc_epi_src_POPULATED)
-  FetchContent_Populate(xmlrpc_epi_src)
-endif ()
+if(FETCHCONTENT_QUIET)
+  list(APPEND _allyn_xmlrpc_populate_args QUIET)
+endif()
+if(FETCHCONTENT_UPDATES_DISCONNECTED OR FETCHCONTENT_UPDATES_DISCONNECTED_XMLRPC_EPI_SRC)
+  list(APPEND _allyn_xmlrpc_populate_args UPDATE_DISCONNECTED TRUE)
+endif()
+FetchContent_Populate(xmlrpc_epi_src ${_allyn_xmlrpc_populate_args})
+unset(_allyn_xmlrpc_populate_args)
 
 # Upstream xmlrpc-epi still mixes XMLRPC_VALUE_TYPE with XMLRPC_VALUE_TYPE_EASY
 # and leaves an unused `tm` on MSVC (gmtime vs gmtime_r). Patch the fetched

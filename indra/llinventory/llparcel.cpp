@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2002&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -1106,5 +1107,5 @@ U32 LLParcel::countExperienceKeyType(U32 type)
 	return std::count_if(
 		boost::begin(mExperienceKeys | boost::adaptors::map_values),
 		boost::end(mExperienceKeys | boost::adaptors::map_values),
-		std::bind2nd(std::equal_to<U32>(), type));
+		[type](U32 value) { return value == type; });
 }

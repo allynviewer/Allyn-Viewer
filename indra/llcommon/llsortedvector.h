@@ -7,6 +7,7 @@
  * 
  * $LicenseInfo:firstyear=2012&license=viewerlgpl$
  * Copyright (c) 2012, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * $/LicenseInfo$
  */
 #if ! defined(LL_LLSORTEDVECTOR_H)
@@ -88,10 +89,7 @@ private:
     template <typename T>
     struct less: public std::less<T> {};
     template <typename T>
-    struct less< std::pair<std::type_info*, T> >:
-        public std::binary_function<std::pair<std::type_info*, T>,
-                                    std::pair<std::type_info*, T>,
-                                    bool>
+    struct less< std::pair<std::type_info*, T> >
     {
         bool operator()(const std::pair<std::type_info*, T>& lhs,
                         const std::pair<std::type_info*, T>& rhs) const
@@ -100,10 +98,7 @@ private:
         }
     };
     template <typename T>
-    struct less< std::pair<const std::type_info*, T> >:
-        public std::binary_function<std::pair<const std::type_info*, T>,
-                                    std::pair<const std::type_info*, T>,
-                                    bool>
+    struct less< std::pair<const std::type_info*, T> >
     {
         bool operator()(const std::pair<const std::type_info*, T>& lhs,
                         const std::pair<const std::type_info*, T>& rhs) const

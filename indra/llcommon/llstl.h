@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2003&license=viewergpl$
  * 
  * Copyright (c) 2003-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -101,8 +102,10 @@ struct DeletePairedPointerArray
 	}
 };
 template<typename T>
-struct DeletePointerFunctor : public std::unary_function<T*, bool>
+struct DeletePointerFunctor
 {
+	typedef T* argument_type;
+	typedef bool result_type;
 	bool operator()(T* ptr) const
 	{
 		delete ptr;
@@ -110,8 +113,10 @@ struct DeletePointerFunctor : public std::unary_function<T*, bool>
 	}
 };
 template<typename T>
-struct DeleteArrayFunctor : public std::unary_function<T*, bool>
+struct DeleteArrayFunctor
 {
+	typedef T* argument_type;
+	typedef bool result_type;
 	bool operator()(T* ptr) const
 	{
 		delete[] ptr;
@@ -267,14 +272,18 @@ OutputIter ll_transform_n(
 	return result;
 }
 template <class _Pair>
-struct _LLSelect1st : public std::unary_function<_Pair, typename _Pair::first_type> {
+struct _LLSelect1st {
+  typedef _Pair argument_type;
+  typedef typename _Pair::first_type result_type;
   const typename _Pair::first_type& operator()(const _Pair& __x) const {
 	return __x.first;
   }
 };
 template <class _Pair>
-struct _LLSelect2nd : public std::unary_function<_Pair, typename _Pair::second_type>
+struct _LLSelect2nd
 {
+  typedef _Pair argument_type;
+  typedef typename _Pair::second_type result_type;
   const typename _Pair::second_type& operator()(const _Pair& __x) const {
 	return __x.second;
   }
@@ -282,10 +291,11 @@ struct _LLSelect2nd : public std::unary_function<_Pair, typename _Pair::second_t
 template <class _Pair> struct llselect1st : public _LLSelect1st<_Pair> {};
 template <class _Pair> struct llselect2nd : public _LLSelect2nd<_Pair> {};
 template <class _Operation1, class _Operation2>
-class ll_unary_compose :
-	public std::unary_function<typename _Operation2::argument_type,
-							   typename _Operation1::result_type>
+class ll_unary_compose
 {
+public:
+  typedef typename _Operation2::argument_type argument_type;
+  typedef typename _Operation1::result_type result_type;
 protected:
   _Operation1 __op1;
   _Operation2 __op2;
@@ -304,9 +314,10 @@ llcompose1(const _Operation1& __op1, const _Operation2& __op2)
   return ll_unary_compose<_Operation1,_Operation2>(__op1, __op2);
 }
 template <class _Operation1, class _Operation2, class _Operation3>
-class ll_binary_compose
-  : public std::unary_function<typename _Operation2::argument_type,
-							   typename _Operation1::result_type> {
+class ll_binary_compose {
+public:
+  typedef typename _Operation2::argument_type argument_type;
+  typedef typename _Operation1::result_type result_type;
 protected:
   _Operation1 _M_op1;
   _Operation2 _M_op2;
@@ -329,9 +340,10 @@ llcompose2(const _Operation1& __op1, const _Operation2& __op2,
 	(__op1, __op2, __op3);
 }
 template <class _Operation>
-class llbinder1st :
-	public std::unary_function<typename _Operation::second_argument_type,
-							   typename _Operation::result_type> {
+class llbinder1st {
+public:
+  typedef typename _Operation::second_argument_type argument_type;
+  typedef typename _Operation::result_type result_type;
 protected:
   _Operation op;
   typename _Operation::first_argument_type value;
@@ -352,9 +364,10 @@ llbind1st(const _Operation& __oper, const _Tp& __x)
   return llbinder1st<_Operation>(__oper, _Arg1_type(__x));
 }
 template <class _Operation>
-class llbinder2nd
-	: public std::unary_function<typename _Operation::first_argument_type,
-								 typename _Operation::result_type> {
+class llbinder2nd {
+public:
+  typedef typename _Operation::first_argument_type argument_type;
+  typedef typename _Operation::result_type result_type;
 protected:
 	_Operation op;
 	typename _Operation::second_argument_type value;
@@ -382,8 +395,7 @@ bool before(const std::type_info* lhs, const std::type_info* rhs)
 namespace std
 {
 	template <>
-	struct less<const std::type_info*>:
-		public std::binary_function<const std::type_info*, const std::type_info*, bool>
+	struct less<const std::type_info*>
 	{
 		bool operator()(const std::type_info* lhs, const std::type_info* rhs) const
 		{
@@ -391,8 +403,7 @@ namespace std
 		}
 	};
 	template <>
-	struct less<std::type_info*>:
-		public std::binary_function<std::type_info*, std::type_info*, bool>
+	struct less<std::type_info*>
 	{
 		bool operator()(std::type_info* lhs, std::type_info* rhs) const
 		{

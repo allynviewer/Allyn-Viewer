@@ -1,7 +1,7 @@
 /**
  * @file llfloaterao.cpp
  * @brief clientside animation overrider floater
- * by Skills Hak & Liru Fùrs
+ * by Skills Hak & Liru F√¶rs
  */
 #include "llviewerprecompiledheaders.h"
 #include "floaterao.h"

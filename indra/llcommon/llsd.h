@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2005&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -182,43 +183,55 @@ private:
 public:
 	static std::string		typeString(Type type);
 };
-struct llsd_select_bool : public std::unary_function<LLSD, LLSD::Boolean>
+struct llsd_select_bool
 {
+	typedef LLSD argument_type;
+	typedef LLSD::Boolean result_type;
 	LLSD::Boolean operator()(const LLSD& sd) const
 	{
 		return sd.asBoolean();
 	}
 };
-struct llsd_select_integer : public std::unary_function<LLSD, LLSD::Integer>
+struct llsd_select_integer
 {
+	typedef LLSD argument_type;
+	typedef LLSD::Integer result_type;
 	LLSD::Integer operator()(const LLSD& sd) const
 	{
 		return sd.asInteger();
 	}
 };
-struct llsd_select_real : public std::unary_function<LLSD, LLSD::Real>
+struct llsd_select_real
 {
+	typedef LLSD argument_type;
+	typedef LLSD::Real result_type;
 	LLSD::Real operator()(const LLSD& sd) const
 	{
 		return sd.asReal();
 	}
 };
-struct llsd_select_float : public std::unary_function<LLSD, F32>
+struct llsd_select_float
 {
+	typedef LLSD argument_type;
+	typedef F32 result_type;
 	F32 operator()(const LLSD& sd) const
 	{
 		return (F32)sd.asReal();
 	}
 };
-struct llsd_select_uuid : public std::unary_function<LLSD, LLSD::UUID>
+struct llsd_select_uuid
 {
+	typedef LLSD argument_type;
+	typedef LLSD::UUID result_type;
 	LLSD::UUID operator()(const LLSD& sd) const
 	{
 		return sd.asUUID();
 	}
 };
-struct llsd_select_string : public std::unary_function<LLSD, LLSD::String>
+struct llsd_select_string
 {
+	typedef LLSD argument_type;
+	typedef LLSD::String result_type;
 	LLSD::String operator()(const LLSD& sd) const
 	{
 		return sd.asString();

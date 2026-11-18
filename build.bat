@@ -32,6 +32,7 @@ for /f "tokens=2 delims=:" %%C in ('chcp') do set "ORIG_CP=%%C"
 set "ORIG_CP=%ORIG_CP: =%"
 set "ORIG_CP=%ORIG_CP:.=%"
 chcp 65001 >nul
+if not defined PYTHONUTF8 set "PYTHONUTF8=1"
 
 set "LANG_DIR=%REPO_ROOT%build-lang"
 set "SUPPORTED_LANGS=de en-us es fr it ja pt ru tr"
@@ -41,7 +42,7 @@ set "ADDRSIZE=64"
 set "BUILD_DIR=build-vc-%ADDRSIZE%"
 REM Release = official build (O2 + LTO). RelWithDebInfo on Windows uses /Od (no optimization).
 set "CONFIG=Release"
-set "CMAKE_BASE_FLAGS=-DUSE_OPENAL:BOOL=ON -DUSE_NVAPI=ON -DUSE_LTO=ON -DVS_DISABLE_FATAL_WARNINGS=ON -DREVISION_FROM_VCS=FALSE -DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+set "CMAKE_BASE_FLAGS=-DUSE_OPENAL:BOOL=ON -DUSE_NVAPI=ON -DUSE_LTO=ON -DVS_DISABLE_FATAL_WARNINGS=ON -DREVISION_FROM_VCS=FALSE -DCMAKE_POLICY_VERSION_MINIMUM=3.10"
 set "CMAKE_EXTRA_FLAGS=%CMAKE_BASE_FLAGS%"
 set "SLN=%BUILD_DIR%\Allyn.sln"
 set "SLNX=%BUILD_DIR%\Allyn.slnx"

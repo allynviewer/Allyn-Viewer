@@ -6,6 +6,7 @@
  * 
  * $LicenseInfo:firstyear=2012&license=viewerlgpl$
  * Copyright (c) 2012, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * $/LicenseInfo$
  */
 #if ! defined(LL_LLTYPEINFOLOOKUP_H)
@@ -15,7 +16,7 @@
 #include <boost/optional.hpp>
 #include <functional>
 #include <typeinfo>
-struct const_char_star_hash: public std::unary_function<const char*, std::size_t>
+struct const_char_star_hash
 {
     std::size_t operator()(const char* str) const
     {
@@ -27,7 +28,7 @@ struct const_char_star_hash: public std::unary_function<const char*, std::size_t
         return seed;
     }
 };
-struct const_char_star_equal: public std::binary_function<const char*, const char*, bool>
+struct const_char_star_equal
 {
     bool operator()(const char* lhs, const char* rhs) const
     {

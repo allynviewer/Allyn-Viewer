@@ -70,7 +70,7 @@ Official builds use **Visual Studio 2022**. Visual Studio 2026 also works (`buil
 
 - Install [CMake](https://cmake.org/download/) 3.16 or newer (tested with 3.28 through 4.4).
 - At the "Install options" screen select **Add CMake to the system PATH for all users**.
-- CMake 4.x is supported; `build.bat` passes `-DCMAKE_POLICY_VERSION_MINIMUM=3.5` so the older third-party CMake files still configure.
+- CMake 4.x is supported; `build.bat` passes `-DCMAKE_POLICY_VERSION_MINIMUM=3.10` so the older third-party CMake files still configure without a deprecation warning.
 
 ### Python 3
 
@@ -203,7 +203,7 @@ Everything `build.bat` does can be typed by hand. Use a Command Prompt in the re
 set AUTOBUILD_VSVER=170
 set AUTOBUILD_ADDRSIZE=64
 set AUTOBUILD_INSTALLABLE_CACHE=%CD%\.cache\autobuild
-autobuild configure -A 64 -c Release -- -DUSE_OPENAL:BOOL=ON -DUSE_NVAPI=ON -DUSE_LTO=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+autobuild configure -A 64 -c Release -- -DUSE_OPENAL:BOOL=ON -DUSE_NVAPI=ON -DUSE_LTO=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.10
 ```
 
 Use `AUTOBUILD_VSVER=180` for Visual Studio 2026.
@@ -227,7 +227,7 @@ Pass switches after the `--` separator of `autobuild configure`. `OFF`/`NO`/`FAL
 - **`-DLL_TESTS:BOOL=ON`** – build and run the unit tests (off by default).
 - **`-DPACKAGE:BOOL=OFF`** – skip the `llpackage` target (installer). On by default; without NSIS it only warns.
 - **`-DUSE_PRECOMPILED_HEADERS:BOOL=OFF`** – disable PCH.
-- **`-DCMAKE_POLICY_VERSION_MINIMUM=3.5`** – required with CMake 4.x.
+- **`-DCMAKE_POLICY_VERSION_MINIMUM=3.10`** – required with CMake 4.x. CMake 4 removes support for projects that declare a minimum below 3.5, and warns for anything below 3.10. `fmt`, `nlohmann_json` and `abseil` still declare an older minimum; 3.10 lets them configure without that warning.
 - **`-DVIEWER_CHANNEL_BASE:STRING="Allyn Viewer"`** and **`-DVIEWER_CHANNEL_TYPE:STRING=Beta`** – channel name. Set `VIEWER_CHANNEL_TYPE` to `Test` for private builds so they are not confused with releases. Both can also be provided as environment variables.
 - **`-DUSE_CRASHPAD:BOOL=ON`** – crash reporting (off; requires a Crashpad endpoint).
 
@@ -337,7 +337,7 @@ LTO linking of the viewer needs several GB of RAM and can take 5–10 minutes wi
 
 ### CMake complains about `cmake_minimum_required` / policy versions
 
-You are using CMake 4.x. Pass `-DCMAKE_POLICY_VERSION_MINIMUM=3.5` to the configure step (`build.bat` already does).
+You are using CMake 4.x. Pass `-DCMAKE_POLICY_VERSION_MINIMUM=3.10` to the configure step (`build.bat` already does).
 
 ### The viewer exits immediately
 

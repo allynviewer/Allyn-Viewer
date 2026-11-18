@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2007&license=viewergpl$
  * 
  * Copyright (c) 2007-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -184,7 +185,7 @@ void LLWatchdog::run()
 		LL_INFOS() << "Watchdog thread delayed: resetting entries." << LL_ENDL;
 		std::for_each(mSuspects.begin(),
 			mSuspects.end(),
-			std::mem_fun(&LLWatchdogEntry::reset)
+			[](auto* entry) { entry->reset(); }
 			);
 	}
 	else
@@ -192,7 +193,7 @@ void LLWatchdog::run()
 		SuspectsRegistry::iterator result =
 			std::find_if(mSuspects.begin(),
 				mSuspects.end(),
-				std::not1(std::mem_fun(&LLWatchdogEntry::isAlive))
+				[](auto* entry) { return !entry->isAlive(); }
 				);
 		if(result != mSuspects.end())
 		{
