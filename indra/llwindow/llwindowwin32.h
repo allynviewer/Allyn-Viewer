@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2001&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -176,6 +177,7 @@ protected:
 	HRESULT(WINAPI *GetDpiForMonitorFn)(HMONITOR, INT, UINT *, UINT *);
 	friend class LLWindowManager;
 };
+struct AllynSplashState;
 class LLSplashScreenWin32 : public LLSplashScreen
 {
 public:
@@ -190,7 +192,14 @@ public:
 #endif
 private:
 #if LL_WINDOWS
+	void loadLogo();
+	void runSplash();
+	void presentFrame();
+	static unsigned __stdcall animThread(void* param);
 	HWND mWindow;
+	HANDLE mThread;
+	unsigned mThreadId;
+	AllynSplashState* mState;
 #endif
 };
 extern LLW32MsgCallback gAsyncMsgCallback;

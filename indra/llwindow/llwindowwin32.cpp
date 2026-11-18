@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2001&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -2468,50 +2469,6 @@ BOOL LLWindowWin32::resetDisplayResolution()
 void LLWindowWin32::swapBuffers()
 {
 	SwapBuffers(mhDC);
-}
-LLSplashScreenWin32::LLSplashScreenWin32()
-:	mWindow(NULL)
-{
-}
-LLSplashScreenWin32::~LLSplashScreenWin32()
-{
-}
-void LLSplashScreenWin32::showImpl()
-{
-	HINSTANCE hinst = GetModuleHandle(NULL);
-	mWindow = CreateDialog(hinst,
-		TEXT("SPLASHSCREEN"),
-		NULL,
-		(DLGPROC) LLSplashScreenWin32::windowProc);
-	ShowWindow(mWindow, SW_SHOW);
-}
-void LLSplashScreenWin32::updateImpl(const std::string& mesg)
-{
-	if (!mWindow) return;
-	int output_str_len = MultiByteToWideChar(CP_UTF8, 0, mesg.c_str(), mesg.length(), NULL, 0);
-	if( output_str_len>1024 )
-		return;
-	WCHAR w_mesg[1025];
-	MultiByteToWideChar (CP_UTF8, 0, mesg.c_str(), mesg.length(), w_mesg, output_str_len);
-	w_mesg[output_str_len] = 0;
-	SendDlgItemMessage(mWindow,
-		666,
-		WM_SETTEXT,
-		FALSE,
-		(LPARAM)w_mesg);
-}
-void LLSplashScreenWin32::hideImpl()
-{
-	if (mWindow)
-	{
-		DestroyWindow(mWindow);
-		mWindow = NULL;
-	}
-}
-LRESULT CALLBACK LLSplashScreenWin32::windowProc(HWND h_wnd, UINT u_msg,
-											WPARAM w_param, LPARAM l_param)
-{
-	return DefWindowProc(h_wnd, u_msg, w_param, l_param);
 }
 S32 OSMessageBoxWin32(const std::string& text, const std::string& caption, U32 type)
 {

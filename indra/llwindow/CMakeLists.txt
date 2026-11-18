@@ -63,6 +63,7 @@ if (WINDOWS)
        lldxhardware.cpp
        llkeyboardwin32.cpp
        llwindowwin32.cpp
+       llsplashwin32.cpp
        )
   list(APPEND llwindow_HEADER_FILES
        lldragdropwin32.h
@@ -73,6 +74,7 @@ if (WINDOWS)
   list(APPEND llwindow_LINK_LIBRARIES
        comdlg32     # Common Dialogs for ChooseColor
        ole32
+       windowscodecs
        )
 endif (WINDOWS)
 
