@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2001&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -33,6 +34,29 @@
 #include "message.h"
 #include <boost/tokenizer.hpp>
 #include "llsdutil.h"
+#include <string>
+namespace
+{
+	bool readInvLine(std::istream& input_stream, std::string& line)
+	{
+		if (!std::getline(input_stream, line))
+		{
+			return false;
+		}
+		if (!line.empty() && line[line.size() - 1] == '\r')
+		{
+			line.erase(line.size() - 1);
+		}
+		return true;
+	}
+
+	void scanInvKeyword(const std::string& line, char* keyword, char* valuestr)
+	{
+		keyword[0] = '\0';
+		valuestr[0] = '\0';
+		sscanf(line.c_str(), " %254s %254s", keyword, valuestr);
+	}
+}
 static const std::string INV_ITEM_ID_LABEL("item_id");
 static const std::string INV_FOLDER_ID_LABEL("folder_id");
 static const std::string INV_PARENT_ID_LABEL("parent_id");
@@ -129,15 +153,18 @@ void LLInventoryObject::setType(LLAssetType::EType type)
 }
 BOOL LLInventoryObject::importLegacyStream(std::istream& input_stream)
 {
-	char buffer[MAX_STRING];
 	char keyword[MAX_STRING];
 	char valuestr[MAX_STRING];
+	std::string line;
 	keyword[0] = '\0';
 	valuestr[0] = '\0';
-	while(input_stream.good())
+	while (readInvLine(input_stream, line))
 	{
-		input_stream.getline(buffer, MAX_STRING);
-		if (sscanf(buffer, " %254s %254s", keyword, valuestr) < 1) continue;
+		scanInvKeyword(line, keyword, valuestr);
+		if (keyword[0] == '\0')
+		{
+			continue;
+		}
 		if(0 == strcmp("{",keyword))
 		{
 			continue;
@@ -145,6 +172,10 @@ BOOL LLInventoryObject::importLegacyStream(std::istream& input_stream)
 		if(0 == strcmp("}", keyword))
 		{
 			break;
+		}
+		else if(0 == strcmp("|", keyword))
+		{
+			continue;
 		}
 		else if(0 == strcmp("obj_id", keyword))
 		{
@@ -158,13 +189,33 @@ BOOL LLInventoryObject::importLegacyStream(std::istream& input_stream)
 		{
 			mType = LLAssetType::lookup(valuestr);
 		}
+		else if(0 == strcmp("metadata", keyword))
+		{
+		}
 		else if(0 == strcmp("name", keyword))
 		{
 			sscanf(
-				buffer,
+				line.c_str(),
 				" %254s %254[^|]",
 				keyword, valuestr);
+			if (valuestr[0] == '|')
+			{
+				valuestr[0] = '\000';
+			}
 			mName.assign(valuestr);
+			while (strchr(line.c_str(), '|') == NULL && readInvLine(input_stream, line))
+			{
+				char* pipe_pos = strchr(&line[0], '|');
+				if (pipe_pos)
+				{
+					*pipe_pos = '\0';
+					mName += ' ';
+					mName += line;
+					break;
+				}
+				mName += ' ';
+				mName += line;
+			}
 			correctInventoryName(mName);
 		}
 		else
@@ -529,6 +580,9 @@ BOOL LLInventoryItem::importFile(LLFILE* fp)
 		{
 			mType = LLAssetType::lookup(valuestr);
 		}
+		else if(0 == strcmp("metadata", keyword))
+		{
+		}
 		else if(0 == strcmp("inv_type", keyword))
 		{
 			mInventoryType = LLInventoryType::lookup(std::string(valuestr));
@@ -630,22 +684,22 @@ BOOL LLInventoryItem::exportFile(LLFILE* fp, BOOL include_asset_key) const
 }
 BOOL LLInventoryItem::importLegacyStream(std::istream& input_stream)
 {
-	char buffer[MAX_STRING];
 	char keyword[MAX_STRING];
 	char valuestr[MAX_STRING];
 	char junk[MAX_STRING];
 	BOOL success = TRUE;
+	std::string line;
 	keyword[0] = '\0';
 	valuestr[0] = '\0';
 	mInventoryType = LLInventoryType::IT_NONE;
 	mAssetUUID.setNull();
-	while(success && input_stream.good())
+	while (success && readInvLine(input_stream, line))
 	{
-		input_stream.getline(buffer, MAX_STRING);
-		if (sscanf(
-			buffer,
-			" %254s %254s",
-			keyword, valuestr) < 1) continue;
+		scanInvKeyword(line, keyword, valuestr);
+		if (keyword[0] == '\0')
+		{
+			continue;
+		}
 		if(0 == strcmp("{",keyword))
 		{
 			continue;
@@ -653,6 +707,10 @@ BOOL LLInventoryItem::importLegacyStream(std::istream& input_stream)
 		if(0 == strcmp("}", keyword))
 		{
 			break;
+		}
+		else if(0 == strcmp("|", keyword))
+		{
+			continue;
 		}
 		else if(0 == strcmp("item_id", keyword))
 		{
@@ -698,6 +756,9 @@ BOOL LLInventoryItem::importLegacyStream(std::istream& input_stream)
 		{
 			mType = LLAssetType::lookup(valuestr);
 		}
+		else if(0 == strcmp("metadata", keyword))
+		{
+		}
 		else if(0 == strcmp("inv_type", keyword))
 		{
 			mInventoryType = LLInventoryType::lookup(std::string(valuestr));
@@ -709,7 +770,7 @@ BOOL LLInventoryItem::importLegacyStream(std::istream& input_stream)
 		else if(0 == strcmp("name", keyword))
 		{
 			sscanf(
-				buffer,
+				line.c_str(),
 				" %254s%254[\t]%254[^|]",
 				keyword, junk, valuestr);
 			if (valuestr[0] == '|')
@@ -717,13 +778,26 @@ BOOL LLInventoryItem::importLegacyStream(std::istream& input_stream)
 				valuestr[0] = '\000';
 			}
 			mName.assign(valuestr);
+			while (strchr(line.c_str(), '|') == NULL && readInvLine(input_stream, line))
+			{
+				char* pipe_pos = strchr(&line[0], '|');
+				if (pipe_pos)
+				{
+					*pipe_pos = '\0';
+					mName += ' ';
+					mName += line;
+					break;
+				}
+				mName += ' ';
+				mName += line;
+			}
 			LLStringUtil::replaceNonstandardASCII(mName, ' ');
 			LLStringUtil::replaceChar(mName, '|', ' ');
 		}
 		else if(0 == strcmp("desc", keyword))
 		{
 			sscanf(
-				buffer,
+				line.c_str(),
 				" %254s%254[\t]%254[^|]",
 				keyword, junk, valuestr);
 			if (valuestr[0] == '|')
@@ -731,6 +805,19 @@ BOOL LLInventoryItem::importLegacyStream(std::istream& input_stream)
 				valuestr[0] = '\000';
 			}
 			mDescription.assign(valuestr);
+			while (strchr(line.c_str(), '|') == NULL && readInvLine(input_stream, line))
+			{
+				char* pipe_pos = strchr(&line[0], '|');
+				if (pipe_pos)
+				{
+					*pipe_pos = '\0';
+					mDescription += '\n';
+					mDescription += line;
+					break;
+				}
+				mDescription += '\n';
+				mDescription += line;
+			}
 			LLStringUtil::replaceNonstandardASCII(mDescription, ' ');
 		}
 		else if(0 == strcmp("creation_date", keyword))
@@ -1221,6 +1308,9 @@ BOOL LLInventoryCategory::importFile(LLFILE* fp)
 		{
 			mType = LLAssetType::lookup(valuestr);
 		}
+		else if(0 == strcmp("metadata", keyword))
+		{
+		}
 		else if(0 == strcmp("pref_type", keyword))
 		{
 			mPreferredType = LLFolderType::lookup(valuestr);
@@ -1290,6 +1380,9 @@ BOOL LLInventoryCategory::importLegacyStream(std::istream& input_stream)
 		else if(0 == strcmp("type", keyword))
 		{
 			mType = LLAssetType::lookup(valuestr);
+		}
+		else if(0 == strcmp("metadata", keyword))
+		{
 		}
 		else if(0 == strcmp("pref_type", keyword))
 		{

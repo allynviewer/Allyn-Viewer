@@ -14,11 +14,36 @@ namespace
 
 	F32 jsonReal(const nlohmann::json& value, F32 fallback)
 	{
-		if (!value.is_number())
+		if (value.is_number_float())
 		{
-			return fallback;
+			return (F32)value.get<double>();
 		}
-		return (F32)value.get<double>();
+		if (value.is_number_integer())
+		{
+			return (F32)value.get<std::int64_t>();
+		}
+		if (value.is_number_unsigned())
+		{
+			return (F32)value.get<std::uint64_t>();
+		}
+		return fallback;
+	}
+
+	int jsonIndex(const nlohmann::json& value)
+	{
+		if (value.is_number_integer())
+		{
+			return (int)value.get<std::int64_t>();
+		}
+		if (value.is_number_unsigned())
+		{
+			return (int)value.get<std::uint64_t>();
+		}
+		if (value.is_number_float())
+		{
+			return (int)value.get<double>();
+		}
+		return -1;
 	}
 
 	LLUUID textureIdFromGltf(const nlohmann::json& model, const nlohmann::json& texture_info)
@@ -27,7 +52,7 @@ namespace
 		{
 			return LLUUID::null;
 		}
-		const int texture_index = (int)texture_info["index"].get<double>();
+		const int texture_index = jsonIndex(texture_info["index"]);
 		if (texture_index < 0 || !model.contains("textures") || !model["textures"].is_array())
 		{
 			return LLUUID::null;
@@ -42,7 +67,7 @@ namespace
 		{
 			return LLUUID::null;
 		}
-		const int image_index = (int)texture["source"].get<double>();
+		const int image_index = jsonIndex(texture["source"]);
 		if (image_index < 0 || !model.contains("images") || !model["images"].is_array())
 		{
 			return LLUUID::null;
@@ -280,11 +305,23 @@ bool LLGLTFMaterial::fromJsonText(const std::string& json)
 		}
 		return fromJsonText(model["data"].get<std::string>());
 	}
-	if (!applyGltfJson(*this, model))
+	try
 	{
-		if (mParseError.empty())
+		if (!applyGltfJson(*this, model))
 		{
-			mParseError = "gltf json recusado";
+			if (mParseError.empty())
+			{
+				mParseError = "gltf json recusado";
+			}
+			return false;
+		}
+	}
+	catch (const std::exception& e)
+	{
+		mParseError = std::string("gltf excecao ") + e.what();
+		if (mParseError.size() > 80)
+		{
+			mParseError.resize(80);
 		}
 		return false;
 	}

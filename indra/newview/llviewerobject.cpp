@@ -25,6 +25,7 @@
  * $/LicenseInfo$
  */
 #include "llviewerprecompiledheaders.h"
+#include <limits>
 #include "llviewerobject.h"
 #include "llaudioengine.h"
 #include "imageids.h"
@@ -77,6 +78,7 @@
 #include "llviewerstats.h"
 #include "llviewertextureanim.h"
 #include "llviewerwindow.h"
+#include "llgltfmateriallist.h"
 #include "llvoavatar.h"
 #include "llvoavatarself.h"
 #include "llvoclouds.h"
@@ -2565,11 +2567,18 @@ BOOL LLViewerObject::loadTaskInvFile(const std::string& filename)
 		while(ifs.good())
 		{
 			ifs.getline(buffer, MAX_STRING);
+			if (ifs.fail() && !ifs.eof())
+			{
+				ifs.clear();
+				ifs.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			}
 			if (sscanf(buffer, " %254s", keyword) == EOF)
 			{
-				LL_WARNS() << "Issue reading from file '"
-						<< filename << "'" << LL_ENDL;
-				break;
+				continue;
+			}
+			else if(0 == strcmp("|", keyword))
+			{
+				continue;
 			}
 			else if(0 == strcmp("inv_item", keyword))
 			{
@@ -4833,10 +4842,15 @@ void LLViewerObject::applyRenderMaterials()
 		{
 			id = mRenderMaterialParams.getMaterial((U8)te);
 		}
-		if (entry->getGLTFMaterialId() != id)
+		LLGLTFMaterial* mat = NULL;
+		if (id.notNull() && LLGLTFMaterialList::instanceExists())
+		{
+			mat = LLGLTFMaterialList::instance().getMaterial(id);
+		}
+		if (entry->getGLTFMaterialId() != id || entry->getGLTFMaterial() != mat)
 		{
 			entry->setGLTFMaterialId(id);
-			entry->setGLTFMaterial(NULL);
+			entry->setGLTFMaterial(mat);
 			changed = true;
 		}
 	}

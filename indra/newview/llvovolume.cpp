@@ -649,6 +649,23 @@ static bool isSentinelTexture(const LLViewerTexture* image)
 	}
 	return isReservedClassicId(image->getID());
 }
+static bool textureReadyToDraw(LLViewerTexture* image)
+{
+	if (!image || isSentinelTexture(image))
+	{
+		return false;
+	}
+	LLViewerFetchedTexture* fetched = LLViewerTextureManager::staticCastToFetchedTexture(image, FALSE);
+	if (!fetched)
+	{
+		return image->hasGLTexture();
+	}
+	if (fetched->isMissingAsset() || fetched->getDiscardLevel() < 0 || !fetched->hasGLTexture())
+	{
+		return false;
+	}
+	return true;
+}
 static bool classicTextureIsSolid(LLViewerFetchedTexture* fetched)
 {
 	if (!fetched || fetched->getDiscardLevel() < 0 || !fetched->hasGLTexture())
@@ -820,7 +837,7 @@ static void queuePBRMap(LLVOVolume* vol, const LLUUID& tex_id, const LLUUID& mat
 	{
 		want = (S32)LLGLTexture::BOOST_HUD;
 	}
-	else if (vol->isAttachment() && vol->permYouOwner())
+	else if (vol->isAttachment())
 	{
 		want = llmax(want, (S32)LLGLTexture::BOOST_HIGH);
 	}
@@ -831,6 +848,10 @@ static void queuePBRMap(LLVOVolume* vol, const LLUUID& tex_id, const LLUUID& mat
 	if (vsize > 0.f)
 	{
 		image->addTextureStats(vsize);
+	}
+	if (img && (img->getDiscardLevel() < 0 || !img->hasGLTexture()))
+	{
+		gTextureList.forceImmediateUpdate(img);
 	}
 }
 static void releaseFetchIfUnused(LLViewerTexture* image)
@@ -1020,12 +1041,12 @@ static LLViewerTexture* pbrDrawTexture(LLVOVolume* vol, LLTextureEntry* te, LLVi
 		return classic;
 	}
 	LLViewerTexture* baked = vol->getBakedTextureForMagicId(base_id);
-	if (baked)
+	if (baked && textureReadyToDraw(baked))
 	{
 		return baked;
 	}
 	LLViewerFetchedTexture* img = LLViewerTextureManager::getFetchedTexture(base_id, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE);
-	if (!img || isSentinelTexture(img) || img->isMissingAsset())
+	if (!textureReadyToDraw(img))
 	{
 		return classic;
 	}
@@ -1163,8 +1184,7 @@ static void applyPBRFallback(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize
 		rebuildWornFace(vol, restoreClassicFace(vol, face, te, classic));
 		return;
 	}
-	LLViewerFetchedTexture* classic_fetched = LLViewerTextureManager::staticCastToFetchedTexture(classic, FALSE);
-	if (!renderPBREnabled() && faceHasValidClassicTexture(te, classic) && !classicTextureIsSolid(classic_fetched))
+	if (!renderPBREnabled() && faceHasValidClassicTexture(te, classic))
 	{
 		bool changed = restoreClassicFace(vol, face, te, classic);
 		reactivateBoundClassic(vol, face, classic, vsize);
@@ -1205,7 +1225,7 @@ static void applyPBRFallback(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize
 			gPipeline.markTextured(vol->mDrawable);
 		}
 	}
-	if (draw != classic && faceHasValidClassicTexture(te, classic))
+	if (draw != classic && faceHasValidClassicTexture(te, classic) && textureReadyToDraw(draw))
 	{
 		if (!textureStillNeeded(classic->getID()))
 		{
@@ -1228,6 +1248,10 @@ static void applyPBRFallback(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize
 				{
 					normal = LLViewerTextureManager::getFetchedTexture(normal_id, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE);
 				}
+				if (!textureReadyToDraw(normal))
+				{
+					normal = NULL;
+				}
 			}
 			if (pbrMapUsable(orm_id, te->getGLTFMaterialId()))
 			{
@@ -1235,6 +1259,10 @@ static void applyPBRFallback(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize
 				if (!orm)
 				{
 					orm = LLViewerTextureManager::getFetchedTexture(orm_id, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE);
+				}
+				if (!textureReadyToDraw(orm))
+				{
+					orm = NULL;
 				}
 			}
 		}
@@ -1321,6 +1349,15 @@ void LLVOVolume::updateTextureVirtualSize(bool forced)
 			{
 				F32 fallback_size = wornFaceArea(this);
 				applyPBRFallback(this, face, i, fallback_size);
+				LLViewerTexture* draw = face->getTexture();
+				if (draw && fallback_size > 0.f)
+				{
+					draw->addTextureStats(fallback_size);
+					if (isAttachment())
+					{
+						draw->setBoostLevel(LLGLTexture::BOOST_HIGH);
+					}
+				}
 			}
 			continue;
 		}
@@ -1339,10 +1376,7 @@ void LLVOVolume::updateTextureVirtualSize(bool forced)
 			vsize = face->getTextureVirtualSize();
 			if (isAttachment())
 			{
-				if (permYouOwner())
-				{
-					imagep->setBoostLevel(LLGLTexture::BOOST_HIGH);
-				}
+				imagep->setBoostLevel(LLGLTexture::BOOST_HIGH);
 			}
 		}
 		if (isAttachment() && vsize <= 0.f)
@@ -1955,7 +1989,7 @@ void LLVOVolume::regenFaces()
 		if (!facep) continue;
 		facep->setTEOffset(i);
 		facep->setTexture(getTEImage(i));
-		applyPBRFallback(this, facep, i, 0.f);
+		applyPBRFallback(this, facep, i, wornFaceArea(this));
 		if (facep->getTextureEntry()->getMaterialParams().notNull())
 		{
 			facep->setNormalMap(getTENormalMap(i));

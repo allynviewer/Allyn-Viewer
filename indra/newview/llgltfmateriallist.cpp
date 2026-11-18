@@ -29,16 +29,8 @@ void LLGLTFMaterialList::onAssetArrived(LLVFS* vfs, const LLUUID& asset_id, S32 
 	if (status < 0 || !vfs)
 	{
 		++entry.tries;
-		if (entry.tries < 4)
-		{
-			entry.next = LLFrameTimer::getTotalSeconds() + 2.0 * entry.tries;
-		}
-		else
-		{
-			entry.mat->mReady = true;
-			++mReadyGeneration;
-			LL_WARNS("GLTF") << "material " << asset_id << " status " << status << LL_ENDL;
-		}
+		entry.next = LLFrameTimer::getTotalSeconds() + 2.0 * llmax(entry.tries, 1);
+		LL_WARNS("GLTF") << "material " << asset_id << " status " << status << " try " << entry.tries << LL_ENDL;
 		return;
 	}
 	LLVFile file(vfs, asset_id, LLAssetType::AT_MATERIAL, LLVFile::READ);
@@ -46,48 +38,29 @@ void LLGLTFMaterialList::onAssetArrived(LLVFS* vfs, const LLUUID& asset_id, S32 
 	if (size <= 0)
 	{
 		++entry.tries;
-		if (entry.tries < 4)
-		{
-			entry.next = LLFrameTimer::getTotalSeconds() + 2.0 * entry.tries;
-		}
-		else
-		{
-			entry.mat->mReady = true;
-			++mReadyGeneration;
-		}
+		entry.next = LLFrameTimer::getTotalSeconds() + 2.0 * llmax(entry.tries, 1);
+		LL_WARNS("GLTF") << "material " << asset_id << " empty try " << entry.tries << LL_ENDL;
 		return;
 	}
 	std::vector<U8> buffer((size_t)size);
 	if (!file.read(&buffer[0], size, FALSE))
 	{
 		++entry.tries;
-		if (entry.tries < 4)
-		{
-			entry.next = LLFrameTimer::getTotalSeconds() + 2.0 * entry.tries;
-		}
-		else
-		{
-			entry.mat->mReady = true;
-			++mReadyGeneration;
-		}
+		entry.next = LLFrameTimer::getTotalSeconds() + 2.0 * llmax(entry.tries, 1);
+		LL_WARNS("GLTF") << "material " << asset_id << " read fail try " << entry.tries << LL_ENDL;
 		return;
 	}
 	if (!entry.mat->fromBytes(&buffer[0], size))
 	{
 		++entry.tries;
-		if (entry.tries < 4)
-		{
-			entry.next = LLFrameTimer::getTotalSeconds() + 2.0 * entry.tries;
-		}
-		else
-		{
-			entry.mat->mReady = true;
-			++mReadyGeneration;
-		}
-		LL_WARNS("GLTF") << "material " << asset_id << " " << entry.mat->mParseError << LL_ENDL;
+		entry.next = LLFrameTimer::getTotalSeconds() + 2.0 * llmax(entry.tries, 1);
+		LL_WARNS("GLTF") << "material " << asset_id << " " << entry.mat->mParseError << " try " << entry.tries << LL_ENDL;
 		return;
 	}
+	entry.tries = 0;
 	++mReadyGeneration;
+	LL_INFOS("GLTF") << "material ready " << asset_id
+		<< " base=" << entry.mat->getTextureId(LLGLTFMaterial::BASE_COLOR) << LL_ENDL;
 }
 
 LLGLTFMaterial* LLGLTFMaterialList::findMaterial(const LLUUID& id) const
@@ -115,13 +88,19 @@ LLGLTFMaterial* LLGLTFMaterialList::getMaterial(const LLUUID& id)
 		entry.mat = new LLGLTFMaterial();
 		entry.mat->mAssetId = id;
 	}
-	if (entry.mat->mReady || entry.pending || entry.tries >= 4)
+	if (entry.mat->mReady || entry.pending)
 	{
 		return entry.mat;
 	}
 	const F64 now = LLFrameTimer::getTotalSeconds();
 	if (entry.tries > 0 && now < entry.next)
 	{
+		return entry.mat;
+	}
+	if (entry.tries >= 8)
+	{
+		entry.next = now + 30.0;
+		entry.tries = 4;
 		return entry.mat;
 	}
 	if (!gAssetStorage)

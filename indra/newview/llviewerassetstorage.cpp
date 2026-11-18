@@ -337,7 +337,9 @@ private:
 		LLExtStat ext_status = LL_EXSTAT_NONE;
 		if (!isGoodStatus(mStatus))
 		{
-			LL_DEBUGS("ViewerAsset") << "request failed, status " << mStatus << LL_ENDL;
+			LL_WARNS("ViewerAsset") << "request failed, status " << mStatus
+				<< " type " << LLAssetType::lookup(atype)
+				<< " id " << uuid << LL_ENDL;
 			result_code = LL_ERR_ASSET_REQUEST_FAILED;
 			ext_status = LL_EXSTAT_NONE;
 		}
