@@ -220,7 +220,10 @@ void LLImageDecodeThread::ImageRequest::attachBC7()
 	}
 	if (attached)
 	{
-		LLImageBC7Cache::write(mID, mFormattedImage->getWidth(), mFormattedImage->getHeight(), components, raw->getBC7Chain());
+		if (llmax(width, height) >= 256)
+		{
+			LLImageBC7Cache::write(mID, mFormattedImage->getWidth(), mFormattedImage->getHeight(), components, raw->getBC7Chain());
+		}
 	}
 	else if (llmax(width, height) >= 128)
 	{

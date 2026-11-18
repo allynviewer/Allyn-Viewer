@@ -1206,7 +1206,10 @@ BOOL LLImageGL::createGLTexture(S32 discard_level, const U8* data_in, BOOL data_
 	}
 	mCurrentDiscardLevel = discard_level;
 	setImage(data_in, data_hasmips);
-	glTexParameteri(LLTexUnit::getInternalType(mBindTarget), GL_TEXTURE_MAX_LEVEL, mMaxDiscardLevel - discard_level);
+	{
+		const S32 max_level = mIsBC7 ? llmax((S32)0, (S32)mMipLevels) : (mMaxDiscardLevel - discard_level);
+		glTexParameteri(LLTexUnit::getInternalType(mBindTarget), GL_TEXTURE_MAX_LEVEL, max_level);
+	}
 	gGL.getTexUnit(0)->setHasMipMaps(mHasMipMaps);
 	gGL.getTexUnit(0)->setTextureAddressMode(mAddressMode);
 	gGL.getTexUnit(0)->setTextureFilteringOption(mFilterOption);

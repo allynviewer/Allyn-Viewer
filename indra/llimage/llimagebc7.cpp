@@ -841,6 +841,7 @@ namespace
 	const U32 CACHE_KIND_KEEP_RGBA = 2;
 	const size_t CACHE_HEAD_WORDS = 9;
 	const U32 CACHE_MAX_DIMENSION = 8192;
+	const S32 CACHE_MIN_LEVEL = 256;
 	const S64 CACHE_TOUCH_SECONDS = 86400;
 	const char CACHE_SUBDIRS[] = "0123456789abcdef";
 	const char CACHE_DELIM[] = "\\";
@@ -1064,8 +1065,8 @@ LLImageBC7Cache::EState LLImageBC7Cache::read(const LLUUID& id, S32 width, S32 h
 	{
 		return STATE_OFF;
 	}
-	const S32 want_width = (width + (1 << discard) - 1) >> discard;
-	const S32 want_height = (height + (1 << discard) - 1) >> discard;
+	const S32 want_width = llmax(width >> discard, 1);
+	const S32 want_height = llmax(height >> discard, 1);
 	const std::string path = cache_path(id);
 	LLFILE* file = LLFile::fopen(path, "rb");
 	if (!file)
@@ -1084,7 +1085,15 @@ LLImageBC7Cache::EState LLImageBC7Cache::read(const LLUUID& id, S32 width, S32 h
 		}
 		else if (head[2] == CACHE_KIND_BC7 && head[8] > 0 && head[8] <= (U32)MAX_LEVELS)
 		{
-			state = cache_read_levels(file, head[8], want_width, want_height, components, chain);
+			const U32 top = llmax(head[6], head[7]);
+			if (top < (U32)CACHE_MIN_LEVEL && (head[6] < (U32)width || head[7] < (U32)height))
+			{
+				state = STATE_MISSING;
+			}
+			else
+			{
+				state = cache_read_levels(file, head[8], want_width, want_height, components, chain);
+			}
 		}
 	}
 	fclose(file);
@@ -1101,6 +1110,10 @@ LLImageBC7Cache::EState LLImageBC7Cache::read(const LLUUID& id, S32 width, S32 h
 void LLImageBC7Cache::write(const LLUUID& id, S32 width, S32 height, S32 components, const LLImageBC7ChainPtr& chain)
 {
 	if (!sCacheOn || sCacheReadOnly || id.isNull() || !chain || chain->getLevels() <= 0 || chain->getLevels() > (S32)MAX_LEVELS)
+	{
+		return;
+	}
+	if (llmax(chain->getWidth(0), chain->getHeight(0)) < CACHE_MIN_LEVEL)
 	{
 		return;
 	}

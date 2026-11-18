@@ -49,6 +49,7 @@
 #include "llmenugl.h"
 #include "llmenuoptionpathfindingrebakenavmesh.h"
 #include "llnotify.h"
+#include "llnotifyiconbar.h"
 #include "llpathfindingmanager.h"
 #include "llpathfindingnavmeshstatus.h"
 #include "llimview.h"
@@ -343,7 +344,7 @@ void LLStatusBar::updateBarRect()
 		return;
 	}
 	const S32 margin = LLFloatingBarStyle::margin();
-	const S32 right_slot = LLFloatingBarStyle::ROUND_BUTTON_SIZE + LLFloatingBarStyle::BAR_GAP;
+	const S32 right_slot = NOTIFY_ICON_BAR_WIDTH + LLFloatingBarStyle::BAR_GAP;
 	LLRect r;
 	r.mLeft = margin;
 	r.mRight = llmax(r.mLeft + 2 * STATUS_HPAD, parent->getRect().getWidth() - margin - right_slot);
