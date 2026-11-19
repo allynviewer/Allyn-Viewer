@@ -10,13 +10,35 @@ if (NOT DEFINED VIEWER_SHORT_VERSION) # will be true in indra/, false in indra/n
         string(REGEX REPLACE "^[0-9]+\\.([0-9]+)\\.[0-9]+" "\\1" VIEWER_VERSION_MINOR ${VIEWER_SHORT_VERSION})
         string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+)" "\\1" VIEWER_VERSION_PATCH ${VIEWER_SHORT_VERSION})
 
+        set(VIEWER_VERSION_REVISION "")
         if (DEFINED ENV{revision})
-           set(VIEWER_VERSION_REVISION $ENV{revision})
-           message("Revision (from environment): ${VIEWER_VERSION_REVISION}")
-        else()
-           set(VIEWER_VERSION_REVISION 1)
-           message("Revision (default): ${VIEWER_VERSION_REVISION}")
-        endif()
+            set(VIEWER_VERSION_REVISION "$ENV{revision}")
+            string(STRIP "${VIEWER_VERSION_REVISION}" VIEWER_VERSION_REVISION)
+        endif ()
+        if (VIEWER_VERSION_REVISION MATCHES "^[0-9]+$")
+            message("Revision (from environment): ${VIEWER_VERSION_REVISION}")
+        else ()
+            find_package(Git QUIET)
+            if (Git_FOUND)
+                execute_process(
+                    COMMAND "${GIT_EXECUTABLE}" rev-list --count HEAD
+                    WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
+                    RESULT_VARIABLE _allyn_git_revision_rc
+                    OUTPUT_VARIABLE VIEWER_VERSION_REVISION
+                    OUTPUT_STRIP_TRAILING_WHITESPACE
+                    ERROR_QUIET
+                )
+                if (NOT _allyn_git_revision_rc EQUAL 0)
+                    set(VIEWER_VERSION_REVISION "")
+                endif ()
+            endif ()
+            if (VIEWER_VERSION_REVISION MATCHES "^[0-9]+$")
+                message("Revision (from git): ${VIEWER_VERSION_REVISION}")
+            else ()
+                message("Revision could not be read from git: will use 0")
+                set(VIEWER_VERSION_REVISION 0)
+            endif ()
+        endif ()
         message("Building '${VIEWER_CHANNEL}' Version ${VIEWER_SHORT_VERSION} (${VIEWER_VERSION_REVISION})")
     else ( EXISTS ${VIEWER_VERSION_BASE_FILE} )
         message(SEND_ERROR "Cannot get viewer version from '${VIEWER_VERSION_BASE_FILE}'") 

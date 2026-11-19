@@ -191,7 +191,7 @@ build.bat smoke       REM make sure it still starts
 
 The script sets `AUTOBUILD_VSVER` (170 for VS 2022, 180 for VS 2026), `AUTOBUILD_WIN_CMAKE_GEN`, `AUTOBUILD_ADDRSIZE=64` and stores downloaded packages in `.cache\autobuild` inside the repository so a `rebuild` does not download them again.
 
-The viewer version's build number comes from `git rev-list --count HEAD` (exported as the `revision` environment variable). Builds made from a `.zip` download without Git history get build number `0`.
+The viewer version's build number is `git rev-list --count HEAD`. CMake runs that command itself while configuring, so a configure started without extra variables still gets the commit count. The `revision` environment variable, when it is a number, overrides that count; tag builds use it so the package matches the tag. A tree without Git history gets build number `0`.
 
 ## Building manually with autobuild
 
