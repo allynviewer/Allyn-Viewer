@@ -64,6 +64,14 @@ public:
 	void refresh();
 	void onClickCommunicate(const LLSD& selected);
 	S32 getBarHeight() const;
+	S32 getVisibleIconCount() const;
+	S32 getRowCount() const { return mRowCount; }
+	S32 getCompanionReserve() const { return mCompanionReserve; }
+	bool getCenterOverride() const { return mCenterOverride; }
+	bool isLayoutDirty() const { return mLayoutDirty; }
+	void setCompanionReserve(S32 width);
+	void setCenterOverride(bool center);
+	void layoutNow();
 	const LLRect& getPillRect() const { return mPillRect; }
 	const LLRect& getAddRect() const { return mAddRect; }
 	static F32 sInventoryAutoOpenTime;
@@ -126,6 +134,9 @@ private:
 	LLRect mPillRect;
 	LLRect mAddRect;
 	S32 mBarHeight;
+	S32 mRowCount;
+	S32 mCompanionReserve;
+	bool mCenterOverride;
 	std::vector<Slot> mSlots;
 	std::vector<boost::signals2::connection> mLayoutSlots;
 	LLFloatingBarStyle mStyle;

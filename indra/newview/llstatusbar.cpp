@@ -171,7 +171,10 @@ mClockTime(0),
 mIconMask(0),
 mMenuRight(-1),
 mLayoutWidth(-1),
-mLeftEnd(0)
+mLeftEnd(0),
+mBalanceKnown(false),
+mBalanceAutoRequested(false),
+mBalanceAutoAt(0.0)
 {
 	mUPCSupported = gHippoGridManager->getConnectedGrid()->getUPCSupported();
 	if (mUPCSupported)
@@ -187,6 +190,8 @@ mLeftEnd(0)
 	setupDate();
 	mTextParcelName = getChild<LLTextBox>("ParcelNameText" );
 	mTextBalance = getChild<LLTextBox>("BalanceText" );
+	mBalanceLoadingText = mTextBalance->getText();
+	LLStringUtil::trim(mBalanceLoadingText);
 	mTextFPS = getChild<LLTextBox>("FPSText");
 	mTextFPS->setText(LLStringExplicit("FPS: 0"));
 	if (const LLFontGL* font = mTextFPS->getFont())
@@ -434,6 +439,17 @@ void LLStatusBar::refresh()
 {
 	if(gDisconnected)
 	return;
+	if (!mBalanceKnown && !mBalanceAutoRequested && mBalanceAutoAt > 0.0
+		&& LLFrameTimer::getTotalSeconds() >= mBalanceAutoAt && mTextBalance)
+	{
+		std::string label = mTextBalance->getText();
+		LLStringUtil::trim(label);
+		if (label == mBalanceLoadingText)
+		{
+			mBalanceAutoRequested = true;
+			sendMoneyBalanceRequest(true);
+		}
+	}
 	F32 bwtotal = gViewerThrottle.getMaxBandwidth() / 1000.f;
 	if (gViewerThrottle.isUnlimited())
 	{
@@ -920,6 +936,7 @@ void LLStatusBar::creditBalance(S32 credit)
 }
 void LLStatusBar::setBalance(S32 balance)
 {
+	mBalanceKnown = true;
 	mTextBalance->setText(gHippoGridManager->getConnectedGrid()->getCurrencySymbol().c_str() +
 		LLResMgr::getInstance()->getMonetaryString(balance - mUPC));
 	mLayoutDirty = true;
@@ -947,6 +964,10 @@ void LLStatusBar::sendMoneyBalanceRequest(bool from_user)
 {
 	void cmdline_printchat(const std::string& message);
 	if (from_user) cmdline_printchat(LLTrans::getString("refreshing balance"));
+	if (!from_user && gStatusBar && !gStatusBar->mBalanceKnown && gStatusBar->mBalanceAutoAt <= 0.0)
+	{
+		gStatusBar->mBalanceAutoAt = LLFrameTimer::getTotalSeconds() + 120.0;
+	}
 	LLMessageSystem* msg = gMessageSystem;
 	msg->newMessageFast(_PREHASH_MoneyBalanceRequest);
 	msg->nextBlockFast(_PREHASH_AgentData);

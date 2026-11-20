@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="overlay">
 	<button name="Mouselook" label="mouselock" label_selected="mouselock" tool_tip="Benutzen Sie Maus um die Ansicht zu steuern. Wenn sie eine Waffe haben, klicken Sie zum Schiessen."/>
-	<layout_stack name="overlay_layout_panel">
+	<layout_stack align_overflow_end="true" animate="false" bottom="0" follows="left|right|bottom" height="300" left="0"
+	     mouse_opaque="false" name="overlay_layout_panel" orientation="horizontal"
+	     right="-1" use_bounding_rect="true">
 		<layout_panel name="main_panel">
 			<layout_stack name="chatbar_and_buttons">
 				

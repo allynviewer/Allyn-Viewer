@@ -141,6 +141,10 @@ private:
 	S32 mMenuRight;
 	S32 mLayoutWidth;
 	S32 mLeftEnd;
+	bool mBalanceKnown;
+	bool mBalanceAutoRequested;
+	F64 mBalanceAutoAt;
+	std::string mBalanceLoadingText;
 	std::string mClockText;
 	std::string mClockDate;
 	LLFloatingBarStyle mStyle;

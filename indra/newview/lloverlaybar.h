@@ -128,6 +128,10 @@ private:
 	LLLayoutStack*	mOverlayStack;
 	LLRect	mNewIMPill;
 	S32		mStackLift;
+	S32		mStackNaturalHeight;
+	S32		mBesideHoldWidth;
+	S32		mBesideHoldIcons;
+	S32		mBesideHoldCluster;
 	LLFloatingBarStyle mStyle;
 	boost::signals2::connection mMarginSlot;
 	bool	mAOFloaterWasOpen;

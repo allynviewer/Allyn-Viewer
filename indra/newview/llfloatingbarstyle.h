@@ -40,7 +40,7 @@ public:
 	static const S32 COMPACT_TOP_BAR_HEIGHT = 22;
 	static const S32 NAV_BAR_PAD = 3;
 	static const S32 BOTTOM_BAR_HEIGHT = 40;
-	static const S32 BAR_GAP = 5;
+	static const S32 BAR_GAP = 4;
 	static const S32 CAP_PAD = 12;
 	static const S32 ROUND_BUTTON_SIZE = 28;
 	static const S32 ICON_BUTTON_SIZE = 32;

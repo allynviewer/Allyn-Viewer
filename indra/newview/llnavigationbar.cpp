@@ -373,21 +373,21 @@ void LLNavigationBar::applyFlexibleLayout()
 		const S32 account_w = gStatusBar ? gStatusBar->layoutCompactAccount(0, 0, NAV_FIELD_HEIGHT, false) : 0;
 		const S32 info_left = LLFloatingBarStyle::CAP_PAD;
 		const S32 info_right = bar_w - LLFloatingBarStyle::CAP_PAD;
-		S32 search_room = info_right - info_left - account_w - NAV_GAP_ADD_SEARCH;
+		const S32 account_left = info_right - account_w;
+		const S32 search_limit = account_left - NAV_GAP_ADD_SEARCH;
+		const S32 search_room = search_limit - info_left;
 		mSearchFits = search_room >= NAV_MIN_SEARCH_WIDTH + NAV_SEARCH_BTN_GAP + NAV_SEARCH_BTN_WIDTH;
 		const bool stacked_search = isSearchVisible();
-		S32 account_left = info_left;
 		if (stacked_search && mSearchEditor)
 		{
 			const S32 search_left = info_left;
-			S32 search_right = info_right - account_w - NAV_GAP_ADD_SEARCH - NAV_SEARCH_BTN_GAP - NAV_SEARCH_BTN_WIDTH;
+			S32 search_right = search_limit - NAV_SEARCH_BTN_WIDTH - NAV_SEARCH_BTN_GAP;
 			if (search_right < search_left + 40)
 			{
 				search_right = search_left + 40;
 			}
 			placeNavCtrl(mSearchEditor, search_left, search_right, 0);
 			placeNavCtrl(mSearchBtn, search_right + NAV_SEARCH_BTN_GAP, search_right + NAV_SEARCH_BTN_GAP + NAV_SEARCH_BTN_WIDTH, 0);
-			account_left = search_right + NAV_SEARCH_BTN_GAP + NAV_SEARCH_BTN_WIDTH + NAV_GAP_ADD_SEARCH;
 		}
 		if (gStatusBar)
 		{
