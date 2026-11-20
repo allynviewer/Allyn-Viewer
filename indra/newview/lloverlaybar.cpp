@@ -67,8 +67,8 @@ static const S32 OVERLAY_ICON_PANEL_WIDTH = 34;
 static const S32 OVERLAY_PILL_PAD = 3;
 static const S32 OVERLAY_PILL_CAP = 8;
 static const S32 OVERLAY_MOUSELOOK_SIZE = 30;
-static const S32 OVERLAY_BESIDE_MAX_ICONS = 8;
-static const S32 OVERLAY_BESIDE_MIN_WIDTH = 600;
+static const S32 OVERLAY_SECONDARY_RESERVE = 160;
+static const F32 OVERLAY_SLIDE_SECONDS = 0.18f;
 void* LLOverlayBar::createVoiceRemote(void* userdata)
 {
 	LLOverlayBar *self = (LLOverlayBar*)userdata;
@@ -90,9 +90,16 @@ LLOverlayBar::LLOverlayBar()
 		mOverlayStack(NULL),
 		mStackLift(0),
 		mStackNaturalHeight(0),
-		mBesideHoldWidth(-1),
-		mBesideHoldIcons(-1),
-		mBesideHoldCluster(-1),
+		mOverlayLayoutDirty(true),
+		mSecondaryPillValid(false),
+		mWasBeside(false),
+		mSlidePrimed(false),
+		mStackSliding(false),
+		mFromBottom(0),
+		mToBottom(0),
+		mVisualBottom(0),
+		mSlideTop(0),
+		mSlideStart(0.0),
 		mAOFloaterWasOpen(false),
 		mVolumeFloaterWasOpen(false),
 		mEnvFloaterWasOpen(false),
@@ -289,7 +296,7 @@ BOOL LLOverlayBar::postBuild()
 	styleOverlayButton(mVolumeButton, mMediaRemoteContainer, "floating_ui/volume.png", true);
 	styleOverlayButton(mEnvButton, mAdvSettingsContainer, "floating_ui/environment.png", true);
 	styleOverlayButton(mMouseLook, NULL, "floating_ui/mouselook.png", true);
-	mMarginSlot = LLFloatingBarStyle::connectSetting("FloatingBarMargin", boost::bind(&LLOverlayBar::layoutOverlayStack, this));
+	mMarginSlot = LLFloatingBarStyle::connectSetting("FloatingBarMargin", boost::bind(&LLOverlayBar::requestLayout, this));
 	layoutOverlayStack();
 	if (mVoiceRemote)
 		mVoiceRemote->layoutControls();
@@ -335,6 +342,162 @@ static void apply_stack_rect(LLView* stack, const LLRect& rect)
 		stack->setShape(rect);
 	}
 }
+void LLOverlayBar::liftMainPanel(S32 lift)
+{
+	if (!mOverlayStack)
+	{
+		return;
+	}
+	if (lift < 0)
+	{
+		lift = 0;
+	}
+	for (S32 i = 0; i < mOverlayStack->getNumPanels(); ++i)
+	{
+		LLLayoutPanel* panel = mOverlayStack->getPanelByIndex(i);
+		if (!panel || panel->getName() != "main_panel")
+		{
+			continue;
+		}
+		LLRect main_rect = panel->getRect();
+		if (main_rect.mBottom != lift)
+		{
+			main_rect.translate(0, lift - main_rect.mBottom);
+			panel->setRect(main_rect);
+		}
+		break;
+	}
+}
+void LLOverlayBar::applyStackMotion(const LLRect& rect, bool reflow)
+{
+	if (!mOverlayStack)
+	{
+		return;
+	}
+	if (reflow)
+	{
+		if (mOverlayStack->getRect() != rect)
+		{
+			mOverlayStack->setShape(rect);
+		}
+		if (mOverlayStack->needsLayout())
+		{
+			mOverlayStack->updateLayout();
+		}
+	}
+	else if (mOverlayStack->getRect() != rect)
+	{
+		mOverlayStack->setRect(rect);
+	}
+	S32 lift = mStackLift - rect.mBottom;
+	if (lift < 0)
+	{
+		lift = 0;
+	}
+	liftMainPanel(lift);
+	layoutMouselookButton();
+	cacheSecondaryPill();
+	mVisualBottom = rect.mBottom;
+}
+void LLOverlayBar::presentStack(const LLRect& desired, bool animate_bottom)
+{
+	if (!mOverlayStack)
+	{
+		return;
+	}
+	const S32 bottom = desired.mBottom;
+	if (!mSlidePrimed || !animate_bottom)
+	{
+		if (mStackSliding)
+		{
+			mToBottom = bottom;
+			mSlideTop = desired.mTop;
+			if (bottom == mVisualBottom)
+			{
+				mStackSliding = false;
+				LLRect settled = desired;
+				if (mOverlayStack->getRect() == settled)
+				{
+					mOverlayStack->reshape(settled.getWidth(), settled.getHeight());
+				}
+				applyStackMotion(settled, true);
+				return;
+			}
+			LLRect shown = desired;
+			shown.mBottom = mVisualBottom;
+			shown.mTop = mSlideTop;
+			applyStackMotion(shown, false);
+			return;
+		}
+		mStackSliding = false;
+		mFromBottom = bottom;
+		mToBottom = bottom;
+		mSlideTop = desired.mTop;
+		applyStackMotion(desired, true);
+		return;
+	}
+	if (mStackSliding && bottom == mToBottom)
+	{
+		mSlideTop = desired.mTop;
+		LLRect shown = desired;
+		shown.mBottom = mVisualBottom;
+		shown.mTop = mSlideTop;
+		applyStackMotion(shown, false);
+		return;
+	}
+	const S32 current = mOverlayStack->getRect().mBottom;
+	mFromBottom = current;
+	mVisualBottom = current;
+	mToBottom = bottom;
+	mSlideTop = desired.mTop;
+	mSlideStart = LLFrameTimer::getTotalSeconds();
+	mStackSliding = current != bottom;
+	if (!mStackSliding)
+	{
+		applyStackMotion(desired, true);
+		return;
+	}
+	LLRect shown = desired;
+	shown.mBottom = current;
+	shown.mTop = mSlideTop;
+	applyStackMotion(shown, false);
+}
+void LLOverlayBar::tickStackSlide()
+{
+	if (!mStackSliding || !mOverlayStack)
+	{
+		return;
+	}
+	F32 t = (F32)((LLFrameTimer::getTotalSeconds() - mSlideStart) / OVERLAY_SLIDE_SECONDS);
+	const bool done = t >= 1.f;
+	if (done)
+	{
+		t = 1.f;
+	}
+	else
+	{
+		t = t * t * (3.f - 2.f * t);
+	}
+	const S32 bottom = done ? mToBottom : mFromBottom + (S32)ll_round((F32)(mToBottom - mFromBottom) * t);
+	if (!done && bottom == mVisualBottom)
+	{
+		return;
+	}
+	LLRect rect = mOverlayStack->getRect();
+	rect.mBottom = bottom;
+	rect.mTop = mSlideTop;
+	if (done)
+	{
+		mStackSliding = false;
+		if (mOverlayStack->getRect() == rect)
+		{
+			mOverlayStack->reshape(rect.getWidth(), rect.getHeight());
+		}
+		applyStackMotion(rect, true);
+		return;
+	}
+	applyStackMotion(rect, false);
+}
 void LLOverlayBar::layoutOverlayStack()
 {
 	if (!mOverlayStack)
@@ -361,7 +524,10 @@ void LLOverlayBar::layoutOverlayStack()
 		width_rect.mRight = stack_right;
 		apply_stack_rect(mOverlayStack, width_rect);
 	}
-	mOverlayStack->updateLayout();
+	if (mOverlayStack->needsLayout())
+	{
+		mOverlayStack->updateLayout();
+	}
 	LLView* remote_panels[5] = {
 		mAOLightContainer, mAORemoteContainer, mVoiceRemoteContainer, mMediaRemoteContainer, mAdvSettingsContainer
 	};
@@ -380,50 +546,29 @@ void LLOverlayBar::layoutOverlayStack()
 		cluster_right = llmax(cluster_right, right);
 	}
 	const S32 cluster = cluster_right > cluster_left ? cluster_right - cluster_left : 0;
-	const S32 icons = toolbar_visible ? gToolBar->getVisibleIconCount() : 0;
-	bool beside = toolbar_visible && width >= OVERLAY_BESIDE_MIN_WIDTH && icons <= OVERLAY_BESIDE_MAX_ICONS && cluster > 0;
-	if (gToolBar)
+	const S32 gap = LLFloatingBarStyle::BAR_GAP;
+	bool beside = false;
+	if (toolbar_visible && cluster > 0)
 	{
-		gToolBar->setCenterOverride(icons > OVERLAY_BESIDE_MAX_ICONS);
-	}
-	if (beside && mBesideHoldWidth == width && mBesideHoldIcons == icons && mBesideHoldCluster == cluster)
-	{
-		beside = false;
+		const S32 main_width = gToolBar->getPreferredWidth();
+		beside = main_width + OVERLAY_SECONDARY_RESERVE + gap + 2 * margin <= width;
 	}
 	if (beside)
 	{
-		const S32 reserve = cluster + 2 * OVERLAY_PILL_CAP + LLFloatingBarStyle::BAR_GAP;
+		const S32 reserve = OVERLAY_SECONDARY_RESERVE + gap;
 		if (gToolBar->getCompanionReserve() != reserve || gToolBar->isLayoutDirty())
 		{
 			gToolBar->setCompanionReserve(reserve);
 			gToolBar->layoutNow();
 		}
-		S32 pill_right = 0;
-		S32 pill_y = 0;
-		gToolBar->localPointToOtherView(gToolBar->getPillRect().mRight, 0, &pill_right, &pill_y, this);
-		const S32 secondary_left = cluster_left - OVERLAY_PILL_CAP;
-		const bool pill_ready = gToolBar->getPillRect().getWidth() > 0;
-		const bool fits = pill_ready && gToolBar->getRowCount() <= 1
-			&& pill_right + LLFloatingBarStyle::BAR_GAP <= secondary_left;
-		if (!fits)
-		{
-			beside = false;
-			if (pill_ready)
-			{
-				mBesideHoldWidth = width;
-				mBesideHoldIcons = icons;
-				mBesideHoldCluster = cluster;
-			}
-		}
-		else
-		{
-			mBesideHoldWidth = -1;
-		}
 	}
 	if (gToolBar && !beside && gToolBar->getCompanionReserve() != 0)
 	{
 		gToolBar->setCompanionReserve(0);
-		gToolBar->layoutNow();
+	}
+	if (gToolBar)
+	{
+		gToolBar->setCenterOverride(!beside && cluster > 0 && toolbar_visible);
 	}
 	if (gToolBar && gToolBar->isLayoutDirty())
 	{
@@ -446,6 +591,10 @@ void LLOverlayBar::layoutOverlayStack()
 			if (gToolBar->getCompanionReserve() != 0)
 			{
 				gToolBar->setCompanionReserve(0);
+			}
+			gToolBar->setCenterOverride(cluster > 0 && toolbar_visible);
+			if (gToolBar->isLayoutDirty())
+			{
 				gToolBar->layoutNow();
 			}
 		}
@@ -455,38 +604,18 @@ void LLOverlayBar::layoutOverlayStack()
 	desired.mRight = stack_right;
 	desired.mBottom = beside ? target_bottom : mStackLift;
 	desired.mTop = mStackLift + stack_h;
-	apply_stack_rect(mOverlayStack, desired);
-	mOverlayStack->updateLayout();
-	if (!beside)
-	{
-		return;
-	}
-	const S32 lift = mStackLift - mOverlayStack->getRect().mBottom;
-	if (lift <= 0)
-	{
-		return;
-	}
-	for (S32 i = 0; i < mOverlayStack->getNumPanels(); ++i)
-	{
-		LLLayoutPanel* panel = mOverlayStack->getPanelByIndex(i);
-		if (!panel || panel->getName() != "main_panel")
-		{
-			continue;
-		}
-		LLRect main_rect = panel->getRect();
-		if (main_rect.mBottom != lift)
-		{
-			main_rect.translate(0, lift - main_rect.mBottom);
-			panel->setRect(main_rect);
-		}
-		break;
-	}
+	const bool animate_bottom = mSlidePrimed && beside != mWasBeside;
+	mWasBeside = beside;
+	presentStack(desired, animate_bottom);
+	mOverlayLayoutDirty = false;
 }
-void LLOverlayBar::draw()
+void LLOverlayBar::requestLayout()
 {
-	layoutOverlayStack();
-	layoutNewIM();
-	layoutMouselookButton();
+	mOverlayLayoutDirty = true;
+}
+void LLOverlayBar::cacheSecondaryPill()
+{
+	mSecondaryPillValid = false;
 	S32 left = S32_MAX;
 	S32 right = 0;
 	S32 panel_bottom = 0;
@@ -495,7 +624,9 @@ void LLOverlayBar::draw()
 	for (const LLView* panel : panels)
 	{
 		if (!panel || !panel->getVisible() || panel->getRect().getWidth() <= 0)
+		{
 			continue;
+		}
 		LLRect screen = panel->getRect();
 		if (const LLView* parent = panel->getParent())
 		{
@@ -514,7 +645,28 @@ void LLOverlayBar::draw()
 	if (right > left && have_panel)
 	{
 		const S32 bottom = panel_bottom - OVERLAY_PILL_PAD;
-		mStyle.drawPill(LLRect(left - OVERLAY_PILL_CAP, bottom + OVERLAY_BUTTON_HEIGHT + 2 * OVERLAY_PILL_PAD, right + OVERLAY_PILL_CAP - 2, bottom), LLFloatingBarStyle::barColor());
+		mSecondaryPill.set(left - OVERLAY_PILL_CAP, bottom + OVERLAY_BUTTON_HEIGHT + 2 * OVERLAY_PILL_PAD, right + OVERLAY_PILL_CAP - 2, bottom);
+		mSecondaryPillValid = true;
+	}
+}
+void LLOverlayBar::draw()
+{
+	if (mOverlayLayoutDirty || (mOverlayStack && mOverlayStack->needsLayout()) || (gToolBar && gToolBar->isLayoutDirty()))
+	{
+		layoutOverlayStack();
+	}
+	else if (mStackSliding)
+	{
+		tickStackSlide();
+	}
+	mSlidePrimed = true;
+	if (mNewIM && mNewIM->getVisible())
+	{
+		layoutNewIM();
+	}
+	if (mSecondaryPillValid)
+	{
+		mStyle.drawPill(mSecondaryPill, LLFloatingBarStyle::barColor());
 	}
 	if (mMouseLook && mMouseLook->getVisible())
 	{
@@ -547,7 +699,10 @@ void LLOverlayBar::reshape(S32 width, S32 height, BOOL called_from_parent)
 	{
 		layoutOverlayStack();
 		layoutButtons();
-		layoutNewIM();
+		if (mNewIM && mNewIM->getVisible())
+		{
+			layoutNewIM();
+		}
 	}
 }
 void LLOverlayBar::layoutMouselookButton()

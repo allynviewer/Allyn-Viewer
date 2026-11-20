@@ -33,6 +33,7 @@
  */
 #include "llviewerprecompiledheaders.h"
 #include "lltoolbar.h"
+#include "lloverlaybar.h"
 #include "llbutton.h"
 #include "llcontrol.h"
 #include "llfloatertoolbarprefs.h"
@@ -71,6 +72,7 @@ static const S32 TOOLBAR_ADD_GAP = 6;
 static const S32 TOOLBAR_ADD_OVERHANG = 4;
 static const S32 TOOLBAR_ADD_RISE = (TOOLBAR_ADD_SIZE - LLFloatingBarStyle::BOTTOM_BAR_HEIGHT) / 2;
 static const S32 TOOLBAR_TOP_GAP = 3;
+static const F32 TOOLBAR_SLIDE_SECONDS = 0.18f;
 static const S32 TOOLBAR_CHROME_WIDTH = TOOLBAR_PILL_LEFT_PAD + TOOLBAR_ADD_GAP + TOOLBAR_ADD_SIZE;
 void show_floater(const std::string& floater_name);
 void show_inv_floater(const LLSD& userdata, const std::string& field);
@@ -95,6 +97,16 @@ LLToolBar::LLToolBar()
 ,	mRowCount(1)
 ,	mCompanionReserve(0)
 ,	mCenterOverride(false)
+,	mVisualLeft(0)
+,	mFromLeft(0)
+,	mTargetLeft(0)
+,	mAppliedLeft(0)
+,	mSlideStart(0.0)
+,	mSliding(false)
+,	mPlacementReady(false)
+,	mWasDockLeft(false)
+,	mWasCenter(false)
+,	mLayoutPillRight(0)
 {
 	setIsChrome(TRUE);
 	setFocusRoot(TRUE);
@@ -460,6 +472,11 @@ void LLToolBar::draw()
 	{
 		layoutToolbar();
 	}
+	else if (mSliding)
+	{
+		tickSlide();
+	}
+	mPlacementReady = true;
 	mStyle.drawPill(mPillRect, LLFloatingBarStyle::barColor());
 	mStyle.drawDisc(mAddRect, LLFloatingBarStyle::accentColor());
 	LLLayoutPanel::draw();
@@ -468,17 +485,9 @@ void LLToolBar::draw()
 		gl_rect_2d(mDragCaretRect, LLFloatingBarStyle::accentColor(), TRUE);
 	}
 }
-S32 LLToolBar::getVisibleIconCount() const
+S32 LLToolBar::getPreferredWidth() const
 {
-	S32 count = 0;
-	for (const Slot& slot : mSlots)
-	{
-		if (slot.main && slot.panel && slot.panel->getVisible())
-		{
-			++count;
-		}
-	}
-	return count;
+	return getContentWidth(TOOLBAR_BUTTON_SIZE) + TOOLBAR_CHROME_WIDTH;
 }
 void LLToolBar::setCompanionReserve(S32 width)
 {
@@ -505,6 +514,81 @@ void LLToolBar::setCenterOverride(bool center)
 void LLToolBar::layoutNow()
 {
 	layoutToolbar();
+}
+void LLToolBar::retargetLeft(S32 left, bool animate)
+{
+	if (!mPlacementReady)
+	{
+		mFromLeft = mVisualLeft = mTargetLeft = left;
+		mSliding = false;
+		return;
+	}
+	if (!animate)
+	{
+		if (mSliding)
+		{
+			mTargetLeft = left;
+			if (left == mVisualLeft)
+			{
+				mFromLeft = left;
+				mSliding = false;
+			}
+			return;
+		}
+		mFromLeft = mVisualLeft = mTargetLeft = left;
+		return;
+	}
+	if (left == mTargetLeft)
+	{
+		return;
+	}
+	mFromLeft = mVisualLeft;
+	mTargetLeft = left;
+	mSlideStart = LLFrameTimer::getTotalSeconds();
+	mSliding = mFromLeft != left;
+}
+S32 LLToolBar::sampleLeft()
+{
+	if (!mSliding)
+	{
+		return mTargetLeft;
+	}
+	F32 t = (F32)((LLFrameTimer::getTotalSeconds() - mSlideStart) / TOOLBAR_SLIDE_SECONDS);
+	if (t >= 1.f)
+	{
+		mSliding = false;
+		mVisualLeft = mTargetLeft;
+		return mTargetLeft;
+	}
+	t = t * t * (3.f - 2.f * t);
+	mVisualLeft = mFromLeft + (S32)ll_round((mTargetLeft - mFromLeft) * t);
+	return mVisualLeft;
+}
+void LLToolBar::tickSlide()
+{
+	const S32 left = sampleLeft();
+	const S32 delta = left - mAppliedLeft;
+	if (!delta)
+	{
+		return;
+	}
+	if (mToolbarStack)
+	{
+		LLRect stack_rect = mToolbarStack->getRect();
+		stack_rect.translate(delta, 0);
+		mToolbarStack->setRect(stack_rect);
+	}
+	mAddRect.translate(delta, 0);
+	mPillRect.translate(delta, 0);
+	if (mAddBtn)
+	{
+		mAddBtn->setRect(mAddRect);
+	}
+	if (mPillBlocker)
+	{
+		mPillBlocker->setRect(mPillRect);
+	}
+	mAppliedLeft = left;
 }
 S32 LLToolBar::getContentWidth(S32 size) const
 {
@@ -598,26 +682,33 @@ void LLToolBar::layoutToolbar()
 		}
 	}
 	const S32 group = TOOLBAR_CHROME_WIDTH + content;
-	S32 left = (width - group) / 2;
+	S32 target_left = (width - group) / 2;
 	if (mCompanionReserve > 0)
 	{
-		left = margin;
+		target_left = margin;
 	}
 	else if (!mCenterOverride)
 	{
 		switch (LLFloatingBarStyle::bottomAlignment())
 		{
 		case LLFloatingBarStyle::ALIGN_LEFT:
-			left = margin;
+			target_left = margin;
 			break;
 		case LLFloatingBarStyle::ALIGN_RIGHT:
-			left = width - margin - group;
+			target_left = width - margin - group;
 			break;
 		default:
 			break;
 		}
 	}
-	left = llmax(margin, left);
+	target_left = llmax(margin, target_left);
+	mLayoutPillRight = target_left + TOOLBAR_PILL_LEFT_PAD + content + TOOLBAR_ADD_GAP + TOOLBAR_ADD_SIZE - TOOLBAR_ADD_OVERHANG;
+	const bool dock_left = mCompanionReserve > 0;
+	const bool animate = mPlacementReady && (dock_left != mWasDockLeft || mCenterOverride != mWasCenter);
+	mWasDockLeft = dock_left;
+	mWasCenter = mCenterOverride;
+	retargetLeft(target_left, animate);
+	const S32 left = sampleLeft();
 	const S32 stack_left = left + TOOLBAR_PILL_LEFT_PAD;
 	const S32 stack_bottom = bottom + (pill_h - rows_h) / 2;
 	mToolbarStack->setOrigin(stack_left, stack_bottom);
@@ -657,6 +748,11 @@ void LLToolBar::layoutToolbar()
 	mPillRect.set(left, bottom + pill_h, mAddRect.mRight - TOOLBAR_ADD_OVERHANG, bottom);
 	mAddBtn->setShape(mAddRect);
 	mPillBlocker->setShape(mPillRect);
+	mAppliedLeft = left;
+	if (gOverlayBar)
+	{
+		gOverlayBar->requestLayout();
+	}
 }
 void LLToolBar::hookToolbarButtons(LLView* view)
 {

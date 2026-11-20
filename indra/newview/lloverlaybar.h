@@ -64,6 +64,7 @@ public:
 	LLButton* updateButtonVisiblity(LLButton* button, bool visible);
 	void layoutButtons();
 	void layoutMouselookButton();
+	void requestLayout();
 	BOOL musicPlaying() { return mMusicState == PLAYING; }
 	LLView* getChatbarAndButtons() const {return mChatbarAndButtons;}
 	static void onClickIMReceived(void* data);
@@ -123,15 +124,28 @@ private:
 	bool	updateVolumePopup(const LLSD &data);
 	void	stashOverlayFloaters(bool in_mouselook);
 	void	layoutOverlayStack();
+	void	liftMainPanel(S32 lift);
+	void	applyStackMotion(const LLRect& rect, bool reflow);
+	void	presentStack(const LLRect& desired, bool animate_bottom);
+	void	tickStackSlide();
+	void	cacheSecondaryPill();
 	void	layoutNewIM();
 	void	styleOverlayButton(LLButton* button, LLView* container, const std::string& icon, bool label_to_tip);
 	LLLayoutStack*	mOverlayStack;
 	LLRect	mNewIMPill;
 	S32		mStackLift;
 	S32		mStackNaturalHeight;
-	S32		mBesideHoldWidth;
-	S32		mBesideHoldIcons;
-	S32		mBesideHoldCluster;
+	LLRect	mSecondaryPill;
+	bool	mOverlayLayoutDirty;
+	bool	mSecondaryPillValid;
+	bool	mWasBeside;
+	bool	mSlidePrimed;
+	bool	mStackSliding;
+	S32		mFromBottom;
+	S32		mToBottom;
+	S32		mVisualBottom;
+	S32		mSlideTop;
+	F64		mSlideStart;
 	LLFloatingBarStyle mStyle;
 	boost::signals2::connection mMarginSlot;
 	bool	mAOFloaterWasOpen;

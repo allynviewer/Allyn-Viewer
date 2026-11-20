@@ -64,7 +64,7 @@ public:
 	void refresh();
 	void onClickCommunicate(const LLSD& selected);
 	S32 getBarHeight() const;
-	S32 getVisibleIconCount() const;
+	S32 getPreferredWidth() const;
 	S32 getRowCount() const { return mRowCount; }
 	S32 getCompanionReserve() const { return mCompanionReserve; }
 	bool getCenterOverride() const { return mCenterOverride; }
@@ -72,6 +72,7 @@ public:
 	void setCompanionReserve(S32 width);
 	void setCenterOverride(bool center);
 	void layoutNow();
+	S32 getLayoutPillRight() const { return mLayoutPillRight; }
 	const LLRect& getPillRect() const { return mPillRect; }
 	const LLRect& getAddRect() const { return mAddRect; }
 	static F32 sInventoryAutoOpenTime;
@@ -88,6 +89,9 @@ private:
 	void buildSlots();
 	void markLayoutDirty();
 	void layoutToolbar();
+	void retargetLeft(S32 left, bool animate);
+	S32 sampleLeft();
+	void tickSlide();
 	S32 getContentWidth(S32 size) const;
 	void onClickAddButton();
 	void updateCommunicateList();
@@ -137,6 +141,16 @@ private:
 	S32 mRowCount;
 	S32 mCompanionReserve;
 	bool mCenterOverride;
+	S32 mVisualLeft;
+	S32 mFromLeft;
+	S32 mTargetLeft;
+	S32 mAppliedLeft;
+	F64 mSlideStart;
+	bool mSliding;
+	bool mPlacementReady;
+	bool mWasDockLeft;
+	bool mWasCenter;
+	S32 mLayoutPillRight;
 	std::vector<Slot> mSlots;
 	std::vector<boost::signals2::connection> mLayoutSlots;
 	LLFloatingBarStyle mStyle;

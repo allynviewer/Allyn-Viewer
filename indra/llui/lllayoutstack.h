@@ -59,6 +59,7 @@ public:
 	LLLayoutPanel* getPanelByIndex(S32 index) const;
 	void movePanelRange(S32 from_index, S32 count, S32 insert_index);
 	void updateLayout();
+	bool needsLayout() const { return mNeedsLayout; }
 	S32 getPanelSpacing() const { return mPanelSpacing; }
 	static void updateClass();
 protected:
