@@ -34,6 +34,7 @@
 #define LL_LLTEXTUREFETCH_H
 #include <vector>
 #include <map>
+#include <set>
 #include "lldir.h"
 #include "llimage.h"
 #include "lluuid.h"
@@ -62,11 +63,13 @@ public:
 	void shutDownTextureCacheThread() ;
 	void shutDownImageDecodeThread() ;
 	bool createRequest(FTType f_type, const std::string& url, const LLUUID& id, const LLHost& host, F32 priority,
-					   S32 w, S32 h, S32 c, S32 discard, bool needs_aux, bool can_use_http, bool transcoded_ok = false);
+					   S32 w, S32 h, S32 c, S32 discard, bool needs_aux, bool can_use_http, bool transcoded_ok = false, F32 screen_px = 0.f,
+					   bool first_show = false, bool urgent = false, bool interface_image = false);
 	void deleteRequest(const LLUUID& id, bool cancel);
 	void deleteAllRequests();
 	bool getRequestFinished(const LLUUID& id, S32& discard_level,
 							LLPointer<LLImageRaw>& raw, LLPointer<LLImageRaw>& aux);
+	bool getRequestCannotRefine(const LLUUID& id);
 	bool updateRequestPriority(const LLUUID& id, F32 priority);
 	bool receiveImageHeader(const LLHost& host, const LLUUID& id, U8 codec, U16 packets, U32 totalbytes, U16 data_size, U8* data);
 	bool receiveImagePacket(const LLHost& host, const LLUUID& id, U16 packet_num, U16 data_size, U8* data);
@@ -75,6 +78,7 @@ public:
 					  U32& fetch_priority_p, F32& fetch_dtime_p, F32& request_dtime_p, bool& can_use_http);
 	void dump();
 	S32 getNumRequests();
+	void logQueue();
 	S32 getNumHTTPRequests();
 	U32 getTotalNumHTTPRequests();
 	void recordHttpResult(S32 status, bool is_map_tile, S32 received_bytes);
@@ -104,6 +108,8 @@ protected:
 	void removeFromNetworkQueue(LLTextureFetchWorker* worker, bool cancel);
 	void addToHTTPQueue(const LLUUID& id);
 	void removeFromHTTPQueue(const LLUUID& id, S32 received_size = 0);
+	void noteHttpWait(U32& posted, bool& active, U32 rank);
+	void clearHttpWait(U32 posted, bool& active);
 	void removeRequest(LLTextureFetchWorker* worker, bool cancel, bool bNeedsLock = true);
 	bool runCondition();
 private:
@@ -111,6 +117,7 @@ private:
 	void startThread(void);
 	void endThread(void);
 	void threadedUpdate(void);
+	void serviceWaits();
 	void commonUpdate();
 	void cmdEnqueue(TFRequest *);
 	TFRequest * cmdDequeue();
@@ -135,6 +142,7 @@ private:
 	typedef uuid_set_t queue_t;
 	queue_t mNetworkQueue;
 	queue_t mHTTPTextureQueue;
+	std::multiset<U32> mHttpWaitRanks;
 	typedef std::map<LLHost,uuid_set_t > cancel_queue_t;
 	cancel_queue_t mCancelQueue;
 	LLTextureInfo mTextureInfo;
@@ -151,6 +159,15 @@ private:
 	LLAtomicU32 mHttpOtherFailCount;
 	LLAtomicU32 mHttpMapFailCount;
 	LLAtomicU32 mHttpTextureBytes;
+	S32 mDecodeSlots;
+	LLAtomicS32 mDecodesInFlight;
+	LLAtomicS32 mFirstShowWaiting;
+	LLAtomicU32 mYieldMesh;
+	LLAtomicU32 mYieldApprove;
+	LLAtomicU32 mYieldDecode;
+	LLAtomicU32 mDecodeStarted;
+	LLAtomicU32 mWakeHttp;
+	LLAtomicU32 mWakeDecode;
 public:
 	static volatile bool svMetricsDataBreak;
 };

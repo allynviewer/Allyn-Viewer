@@ -4,6 +4,7 @@
  * $LicenseInfo:firstyear=2001&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -627,7 +628,7 @@ BOOL LLImageTGA::decodeTruecolorRle32( LLImageRaw* raw_image, BOOL &alpha_opaque
 				alpha_opaque = FALSE;
 			}
 			src += 4;
-			register U32 value = rgba;
+			U32 value = rgba;
 			do
 			{
 				*dst_pixels = value;

@@ -15124,17 +15124,6 @@ This should be as low as possible, but too low may break functionality</string>
 		<key>Value</key>
 		<integer>0</integer>
 	</map>
-    <key>RenderUsePBR</key>
-    <map>
-      <key>Comment</key>
-      <string>When true (PBR ON), a valid PBR material is drawn instead of a classic texture. When false (PBR OFF), a valid classic texture is preferred. A face with no valid classic texture keeps its PBR material. PBR asset ids are kept either way.</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>1</integer>
-    </map>
     <key>RenderReflectionProbeDetail</key>
     <map>
       <key>Comment</key>
@@ -15211,6 +15200,17 @@ This should be as low as possible, but too low may break functionality</string>
       <string>Boolean</string>
       <key>Value</key>
       <integer>0</integer>
+    </map>
+    <key>RenderMirrorDetail</key>
+    <map>
+      <key>Comment</key>
+      <string>Planar mirror resolution. 0 off, 1 quarter, 2 half, 3 three quarters, 4 full.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>1</integer>
     </map>
     <key>RenderTonemapType</key>
     <map>

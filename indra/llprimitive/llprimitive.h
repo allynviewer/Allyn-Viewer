@@ -86,7 +86,8 @@ public:
 		PARAMS_MESH     = 0x60,
 		PARAMS_EXTENDED_MESH = 0x70,
 		PARAMS_RENDER_MATERIAL = 0x80,
-		PARAMS_MAX = PARAMS_RENDER_MATERIAL
+		PARAMS_REFLECTION_PROBE = 0x90,
+		PARAMS_MAX = PARAMS_REFLECTION_PROBE
 	};
 public:
 	U16 mType;
@@ -257,6 +258,41 @@ public:
 	void setMaterial(U8 te_idx, const LLUUID& id);
 	const LLUUID& getMaterial(U8 te_idx) const;
 	bool isEmpty() const { return mEntries.empty(); }
+};
+extern const F32 REFLECTION_PROBE_MIN_AMBIANCE;
+extern const F32 REFLECTION_PROBE_MAX_AMBIANCE;
+extern const F32 REFLECTION_PROBE_DEFAULT_AMBIANCE;
+extern const F32 REFLECTION_PROBE_MIN_CLIP_DISTANCE;
+extern const F32 REFLECTION_PROBE_MAX_CLIP_DISTANCE;
+extern const F32 REFLECTION_PROBE_DEFAULT_CLIP_DISTANCE;
+class LLReflectionProbeParams : public LLNetworkData
+{
+protected:
+	F32 mAmbiance;
+	F32 mClipDistance;
+	U8 mFlags;
+public:
+	static const U8 FLAG_BOX_VOLUME = 0x01;
+	static const U8 FLAG_DYNAMIC = 0x02;
+	static const U8 FLAG_MIRROR = 0x04;
+	LLReflectionProbeParams();
+	BOOL pack(LLDataPacker &dp) const;
+	BOOL unpack(LLDataPacker &dp);
+	bool operator==(const LLNetworkData& data) const;
+	void copy(const LLNetworkData& data);
+	LLSD asLLSD() const;
+	operator LLSD() const { return asLLSD(); }
+	bool fromLLSD(LLSD& sd);
+	void setAmbiance(F32 ambiance) { mAmbiance = llclamp(ambiance, REFLECTION_PROBE_MIN_AMBIANCE, REFLECTION_PROBE_MAX_AMBIANCE); }
+	void setClipDistance(F32 distance) { mClipDistance = llclamp(distance, REFLECTION_PROBE_MIN_CLIP_DISTANCE, REFLECTION_PROBE_MAX_CLIP_DISTANCE); }
+	void setIsBox(bool is_box);
+	void setIsDynamic(bool is_dynamic);
+	void setIsMirror(bool is_mirror);
+	F32 getAmbiance() const { return mAmbiance; }
+	F32 getClipDistance() const { return mClipDistance; }
+	bool getIsBox() const { return (mFlags & FLAG_BOX_VOLUME) != 0; }
+	bool getIsDynamic() const { return (mFlags & FLAG_DYNAMIC) != 0; }
+	bool getIsMirror() const { return (mFlags & FLAG_MIRROR) != 0; }
 };
 struct LLTEContents
 {

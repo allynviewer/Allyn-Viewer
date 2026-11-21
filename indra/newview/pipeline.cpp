@@ -32,6 +32,8 @@
  */
 #include "llviewerprecompiledheaders.h"
 #include "pipeline.h"
+#include "llreflectionprobe.h"
+#include "llgltfmaterial.h"
 #include "lltimer.h"
 #include <atomic>
 #include <cstdlib>
@@ -213,6 +215,8 @@ std::string gPoolNames[] =
 	"POOL_WATER",
 	"POOL_GLOW",
 	"POOL_ALPHA",
+	"POOL_GLTF_PBR",
+	"POOL_GLTF_PBR_ALPHA_MASK",
 	"POOL_INVALID_OUCH_CATASTROPHE_ERROR"
 };
 void drawBox(const LLVector3& c, const LLVector3& r);
@@ -291,6 +295,7 @@ S32		LLPipeline::sVisibleLightCount = 0;
 F32		LLPipeline::sMinRenderSize = 0.f;
 BOOL	LLPipeline::sRenderingHUDs = FALSE;
 static LLCullResult* sCull = NULL;
+static BOOL sProbeCapture = FALSE;
 static const U32 gl_cube_face[] =
 {
 	GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB,
@@ -303,8 +308,10 @@ static const U32 gl_cube_face[] =
 void validate_framebuffer_object();
 bool addDeferredAttachments(LLRenderTarget& target)
 {
-	return target.addColorAttachment(GL_SRGB8_ALPHA8) &&
-			target.addColorAttachment(GL_RGB10_A2);
+	GLenum emissive = allynHDRColorTarget() ? GL_RGBA16F_ARB : GL_RGBA;
+	return target.addColorAttachment(GL_RGBA)
+		&& target.addColorAttachment(GL_RGB10_A2)
+		&& target.addColorAttachment(emissive);
 }
 LLPipeline::LLPipeline() :
 	mBackfaceCull(FALSE),
@@ -341,6 +348,9 @@ LLPipeline::LLPipeline() :
 	mBumpPool(NULL),
 	mMaterialsPool(NULL),
 	mWLSkyPool(NULL),
+	mPBRPool(NULL),
+	mPBRMaskPool(NULL),
+	mCaptureGBuffer(NULL),
 	mLightMask(0),
 	mLightMode(LIGHT_MODE_NORMAL)
 {}
@@ -357,6 +367,8 @@ void LLPipeline::init()
 	getPool(LLDrawPool::POOL_FULLBRIGHT);
 	getPool(LLDrawPool::POOL_BUMP);
 	getPool(LLDrawPool::POOL_MATERIALS);
+	getPool(LLDrawPool::POOL_GLTF_PBR);
+	getPool(LLDrawPool::POOL_GLTF_PBR_ALPHA_MASK);
 	getPool(LLDrawPool::POOL_GLOW);
 	LLViewerStats::getInstance()->mTrianglesDrawnStat.reset();
 	resetFrameStats();
@@ -626,19 +638,43 @@ bool LLPipeline::allocateScreenBuffer(U32 resX, U32 resY, U32 samples)
 		static const LLCachedControl<bool> RenderDepthOfField("RenderDepthOfField",false);
 		static const LLCachedControl<F32> RenderShadowResolutionScale("RenderShadowResolutionScale",1.0f);
 		static const LLCachedControl<F32> RenderSSAOResolutionScale("SHRenderSSAOResolutionScale",.5f);
+		bool want_float = gSavedSettings.getBOOL("RenderDisableVintageMode") && gGLManager.mGLVersion >= 3.f;
+		allynSetHDRColorTarget(want_float);
+		GLuint screenFormat = want_float ? GL_RGBA16F_ARB : (gGLManager.mIsATI ? GL_RGBA12 : GL_RGBA16);
 		if (!mDeferredScreen.allocate(resX, resY, GL_SRGB8_ALPHA8, TRUE, TRUE, LLTexUnit::TT_TEXTURE, FALSE)) return false;
 		if (!mDeferredDepth.allocate(resX, resY, 0, TRUE, FALSE, LLTexUnit::TT_TEXTURE, FALSE)) return false;
-		if (!addDeferredAttachments(mDeferredScreen)) return false;
-		GLuint screenFormat = GL_RGBA16;
-		if (gGLManager.mIsATI)
+		if (!addDeferredAttachments(mDeferredScreen))
 		{
-			screenFormat = GL_RGBA12;
+			if (!want_float)
+			{
+				return false;
+			}
+			mDeferredScreen.release();
+			mDeferredDepth.release();
+			allynSetHDRColorTarget(false);
+			want_float = false;
+			screenFormat = gGLManager.mIsATI ? GL_RGBA12 : GL_RGBA16;
+			if (!mDeferredScreen.allocate(resX, resY, GL_SRGB8_ALPHA8, TRUE, TRUE, LLTexUnit::TT_TEXTURE, FALSE)) return false;
+			if (!mDeferredDepth.allocate(resX, resY, 0, TRUE, FALSE, LLTexUnit::TT_TEXTURE, FALSE)) return false;
+			if (!addDeferredAttachments(mDeferredScreen)) return false;
 		}
-		if (gGLManager.mGLVersion < 4.f && gGLManager.mIsNVIDIA)
+		if (!mScreen.allocate(resX, resY, screenFormat, FALSE, FALSE, LLTexUnit::TT_TEXTURE, FALSE))
 		{
-			screenFormat = GL_RGBA16F_ARB;
+			if (!want_float)
+			{
+				return false;
+			}
+			mDeferredScreen.release();
+			mDeferredDepth.release();
+			mScreen.release();
+			allynSetHDRColorTarget(false);
+			want_float = false;
+			screenFormat = gGLManager.mIsATI ? GL_RGBA12 : GL_RGBA16;
+			if (!mDeferredScreen.allocate(resX, resY, GL_SRGB8_ALPHA8, TRUE, TRUE, LLTexUnit::TT_TEXTURE, FALSE)) return false;
+			if (!mDeferredDepth.allocate(resX, resY, 0, TRUE, FALSE, LLTexUnit::TT_TEXTURE, FALSE)) return false;
+			if (!addDeferredAttachments(mDeferredScreen)) return false;
+			if (!mScreen.allocate(resX, resY, screenFormat, FALSE, FALSE, LLTexUnit::TT_TEXTURE, FALSE)) return false;
 		}
-		if (!mScreen.allocate(resX, resY, screenFormat, FALSE, FALSE, LLTexUnit::TT_TEXTURE, FALSE)) return false;
 		if (!mFinalScreen.allocate(resX, resY, GL_RGBA, FALSE, FALSE, LLTexUnit::TT_TEXTURE, FALSE)) return false;
 		if (samples > 0)
 		{
@@ -1148,6 +1184,7 @@ void LLPipeline::releaseGLBuffers(ELutOrigin origin)
 		mGlow[i].release();
 	}
 	releaseScreenBuffers();
+	allynReleaseReflections();
 	gBumpImageList.destroyGL();
 	LLVOAvatar::resetImpostors();
 	if(LLPostProcess::instanceExists())
@@ -2022,6 +2059,12 @@ LLDrawPool *LLPipeline::findPool(const U32 type, LLViewerTexture *tex0)
 	case LLDrawPool::POOL_MATERIALS:
 		poolp = mMaterialsPool;
 		break;
+	case LLDrawPool::POOL_GLTF_PBR:
+		poolp = mPBRPool;
+		break;
+	case LLDrawPool::POOL_GLTF_PBR_ALPHA_MASK:
+		poolp = mPBRMaskPool;
+		break;
 	case LLDrawPool::POOL_ALPHA:
 		poolp = mAlphaPool;
 		break;
@@ -2067,6 +2110,15 @@ U32 LLPipeline::getPoolTypeFromTE(const LLTextureEntry* te, LLViewerTexture* ima
 	if (!te || !imagep)
 	{
 		return 0;
+	}
+	if (!te->getGLTFMaterialId().isNull())
+	{
+		LLGLTFMaterial* gltf = te->getGLTFMaterial();
+		if (gltf && gltf->mReady && gltf->mAlphaMode == LLGLTFMaterial::ALPHA_MODE_MASK)
+		{
+			return LLDrawPool::POOL_GLTF_PBR_ALPHA_MASK;
+		}
+		return LLDrawPool::POOL_GLTF_PBR;
 	}
 	LLMaterial* mat = te->getMaterialParams().get();
 	bool color_alpha = te->getColor().mV[3] < 0.999f;
@@ -2709,6 +2761,12 @@ BOOL LLPipeline::getVisibleExtents(LLCamera& camera, LLVector3& min, LLVector3& 
 static LLTrace::BlockTimerStatHandle FTM_CULL("Object Culling");
 void LLPipeline::updateCull(LLCamera& camera, LLCullResult& result, S32 water_clip, LLPlane* planep)
 {
+	if (!sProbeCapture && !LLPipeline::sReflectionRender && LLViewerCamera::sCurCameraID == LLViewerCamera::CAMERA_WORLD)
+	{
+		sProbeCapture = TRUE;
+		allynCaptureReflections();
+		sProbeCapture = FALSE;
+	}
 	LL_RECORD_BLOCK_TIME(FTM_CULL);
 	grabReferences(result);
 	sCull->clear();
@@ -3944,11 +4002,12 @@ void LLPipeline::postSort(LLCamera& camera)
 				}
 			}
 		}
-		if (hasRenderType(LLPipeline::RENDER_TYPE_PASS_ALPHA))
-		{
 		LLSpatialGroup::draw_map_t::iterator alpha = group->mDrawMap.find(LLRenderPass::PASS_ALPHA);
-			if (alpha != group->mDrawMap.end())
-			{
+		LLSpatialGroup::draw_map_t::iterator pbr_blend = group->mDrawMap.find(LLRenderPass::PASS_GLTF_PBR_BLEND);
+		bool alpha_group = hasRenderType(LLPipeline::RENDER_TYPE_PASS_ALPHA) && alpha != group->mDrawMap.end();
+		bool pbr_group = LLPipeline::sRenderDeferred && pbr_blend != group->mDrawMap.end() && !pbr_blend->second.empty();
+		if (alpha_group || pbr_group)
+		{
 				LLSpatialBridge* bridge = group->getSpatialPartition()->asBridge();
 				if (LLViewerCamera::sCurCameraID == LLViewerCamera::CAMERA_WORLD)
 				{
@@ -3966,7 +4025,6 @@ void LLPipeline::postSort(LLCamera& camera)
 				{
 					sCull->pushAlphaGroup(group);
 				}
-			}
 		}
 	}
 	LLVOPartGroup::sVB->flush();
@@ -5013,6 +5071,28 @@ void LLPipeline::addToQuickLookup( LLDrawPool* new_poolp )
 			mMaterialsPool = new_poolp;
 		}
 		break;
+	case LLDrawPool::POOL_GLTF_PBR:
+		if (mPBRPool)
+		{
+			llassert(0);
+			LL_WARNS() << "Ignoring duplicate PBR pool." << LL_ENDL;
+		}
+		else
+		{
+			mPBRPool = new_poolp;
+		}
+		break;
+	case LLDrawPool::POOL_GLTF_PBR_ALPHA_MASK:
+		if (mPBRMaskPool)
+		{
+			llassert(0);
+			LL_WARNS() << "Ignoring duplicate PBR mask pool." << LL_ENDL;
+		}
+		else
+		{
+			mPBRMaskPool = new_poolp;
+		}
+		break;
 	case LLDrawPool::POOL_ALPHA:
 		if( mAlphaPool )
 		{
@@ -5143,6 +5223,14 @@ void LLPipeline::removeFromQuickLookup( LLDrawPool* poolp )
 	case LLDrawPool::POOL_MATERIALS:
 		llassert(poolp == mMaterialsPool);
 		mMaterialsPool = NULL;
+		break;
+	case LLDrawPool::POOL_GLTF_PBR:
+		llassert(poolp == mPBRPool);
+		mPBRPool = NULL;
+		break;
+	case LLDrawPool::POOL_GLTF_PBR_ALPHA_MASK:
+		llassert(poolp == mPBRMaskPool);
+		mPBRMaskPool = NULL;
 		break;
 	case LLDrawPool::POOL_ALPHA:
 		llassert( poolp == mAlphaPool );
@@ -6842,31 +6930,36 @@ void LLPipeline::bindDeferredShader(LLGLSLShader& shader, LLRenderTarget* diffus
 		diffuse_source->bindTexture(0, channel);
 		gGL.getTexUnit(channel)->setTextureFilteringOption(LLTexUnit::TFO_POINT);
 	}
-	channel = shader.enableTexture(LLShaderMgr::DEFERRED_SPECULAR, mDeferredScreen.getUsage());
+	LLRenderTarget* gbuf = mCaptureGBuffer ? mCaptureGBuffer : &mDeferredScreen;
+	LLRenderTarget* depth_src = mCaptureGBuffer ? mCaptureGBuffer : &mDeferredDepth;
+	channel = shader.enableTexture(LLShaderMgr::DEFERRED_SPECULAR, gbuf->getUsage());
 	if (channel > -1)
 	{
-		mDeferredScreen.bindTexture(1, channel);
+		gbuf->bindTexture(1, channel);
 		gGL.getTexUnit(channel)->setTextureFilteringOption(LLTexUnit::TFO_POINT);
 	}
-	channel = shader.enableTexture(LLShaderMgr::DEFERRED_NORMAL, mDeferredScreen.getUsage());
+	channel = shader.enableTexture(LLShaderMgr::DEFERRED_NORMAL, gbuf->getUsage());
 	if (channel > -1)
 	{
-		mDeferredScreen.bindTexture(2, channel);
+		gbuf->bindTexture(2, channel);
 		gGL.getTexUnit(channel)->setTextureFilteringOption(LLTexUnit::TFO_POINT);
 	}
-	S32 channel2 = shader.enableTexture(LLShaderMgr::DEFERRED_DOWNSAMPLED_DEPTH, mDeferredDepth.getUsage());
-	channel = shader.enableTexture(LLShaderMgr::DEFERRED_DEPTH, mDeferredDepth.getUsage());
+	gbuf->bindTexture(3, 7);
+	gGL.getTexUnit(7)->setTextureFilteringOption(LLTexUnit::TFO_POINT);
+	shader.uniform1i(LLStaticHashedString("emissiveRect"), 7);
+	S32 channel2 = shader.enableTexture(LLShaderMgr::DEFERRED_DOWNSAMPLED_DEPTH, depth_src->getUsage());
+	channel = shader.enableTexture(LLShaderMgr::DEFERRED_DEPTH, depth_src->getUsage());
 	if (channel > -1 || channel2 >= -1)
 	{
 		if(channel > -1)
-			gGL.getTexUnit(channel)->bind(&mDeferredDepth, TRUE);
+			gGL.getTexUnit(channel)->bind(depth_src, TRUE);
 		if(channel2 > -1)
 		{
 			F32 scale = llclamp(RenderSSAOResolutionScale.get(),.01f,1.f);
-			if(scale < 1.f)
+			if(!mCaptureGBuffer && scale < 1.f)
 				gGL.getTexUnit(channel2)->bind(&mDeferredDownsampledDepth, TRUE);
 			else
-				gGL.getTexUnit(channel2)->bind(&mDeferredDepth, TRUE);
+				gGL.getTexUnit(channel2)->bind(depth_src, TRUE);
 		}
 		stop_glerror();
 		stop_glerror();
@@ -6962,7 +7055,8 @@ void LLPipeline::bindDeferredShader(LLGLSLShader& shader, LLRenderTarget* diffus
 	shader.uniform1f(LLShaderMgr::DEFERRED_SSAO_FACTOR_INV, 1.f/ssao_factor);
 	LLVector3 ssao_effect = RenderSSAOEffect;
 	shader.uniform1f(LLShaderMgr::DEFERRED_SSAO_EFFECT, ssao_effect[0]);
-	shader.uniform2f(LLShaderMgr::DEFERRED_KERN_SCALE, 1.f / mDeferredScreen.getWidth(), 1.f / mDeferredScreen.getHeight());
+	LLRenderTarget* kern_target = mCaptureGBuffer ? mCaptureGBuffer : &mDeferredScreen;
+	shader.uniform2f(LLShaderMgr::DEFERRED_KERN_SCALE, 1.f / kern_target->getWidth(), 1.f / kern_target->getHeight());
 	shader.uniform2f(LLShaderMgr::DEFERRED_NOISE_SCALE, mDeferredScreen.getWidth() / NOISE_MAP_RES, mDeferredScreen.getHeight() / NOISE_MAP_RES);
 	F32 shadow_bias_error = RenderShadowBiasError * fabsf(LLViewerCamera::getInstance()->getOrigin().mV[2])/3000.f;
 	shader.uniform1f(LLShaderMgr::DEFERRED_NEAR_CLIP, LLViewerCamera::getInstance()->getNear()*2.f);
@@ -6982,6 +7076,9 @@ void LLPipeline::bindDeferredShader(LLGLSLShader& shader, LLRenderTarget* diffus
 		norm_mat.transpose();
 		shader.uniformMatrix4fv(LLShaderMgr::DEFERRED_NORM_MATRIX, 1, FALSE, norm_mat.getF32ptr());
 	}
+	allynBindReflectionState(&shader, 8);
+	shader.uniform1f(LLStaticHashedString("pbr_hdr"), allynHDRColorTarget() ? 1.f : 0.f);
+	shader.uniform1f(LLStaticHashedString("pbr_is_hud"), 0.f);
 }
 static LLTrace::BlockTimerStatHandle FTM_GI_TRACE("Trace");
 static LLTrace::BlockTimerStatHandle FTM_GI_GATHER("Gather");
@@ -7013,8 +7110,11 @@ void LLPipeline::renderDeferredLighting()
 		LLViewerCamera* camera = LLViewerCamera::getInstance();
 		{
 			LLGLDepthTest depth(GL_TRUE);
-			mDeferredDepth.copyContents(mDeferredScreen, 0, 0, mDeferredScreen.getWidth(), mDeferredScreen.getHeight(),
+			if (!mCaptureGBuffer)
+			{
+				mDeferredDepth.copyContents(mDeferredScreen, 0, 0, mDeferredScreen.getWidth(), mDeferredScreen.getHeight(),
 							0, 0, mDeferredDepth.getWidth(), mDeferredDepth.getHeight(), GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+			}
 		}
 		LLGLEnable<GL_MULTISAMPLE_ARB> multisample(RenderFSAASamples > 0);
 		if (gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_HUD))
@@ -7042,7 +7142,7 @@ void LLPipeline::renderDeferredLighting()
 		gGL.matrixMode(LLRender::MM_PROJECTION);
 		gGL.pushMatrix();
 		gGL.loadIdentity();
-		if (RenderDeferredSSAO)
+		if (RenderDeferredSSAO && !mCaptureGBuffer)
 		{
 			F32 ssao_scale = llclamp(RenderSSAOResolutionScale.get(),.01f,1.f);
 			LLGLDisable<GL_BLEND> blend;
@@ -7076,7 +7176,7 @@ void LLPipeline::renderDeferredLighting()
 				unbindDeferredShader(gDeferredSSAOProgram);
 			}
 		}
-		if (RenderDeferredSSAO || RenderShadowDetail > 0)
+		if (!mCaptureGBuffer && (RenderDeferredSSAO || RenderShadowDetail > 0))
 		{
 			mDeferredLight.bindTarget();
 			{
@@ -7149,11 +7249,13 @@ void LLPipeline::renderDeferredLighting()
 		mScreen.bindTarget();
 		glClearColor(0,0,0,0);
 		mScreen.clear(GL_COLOR_BUFFER_BIT);
-		if (RenderDeferredAtmospheric)
 		{
 			LL_RECORD_BLOCK_TIME(FTM_ATMOSPHERICS);
-			bindDeferredShader(LLPipeline::sUnderWaterRender ? gDeferredSoftenWaterProgram : gDeferredSoftenProgram);
-			LLPBRGraphics::bindGlobals(LLPipeline::sUnderWaterRender ? &gDeferredSoftenWaterProgram : &gDeferredSoftenProgram);
+			LLGLSLShader& soften = (RenderDeferredAtmospheric && LLPipeline::sUnderWaterRender) ? gDeferredSoftenWaterProgram : gDeferredSoftenProgram;
+			bindDeferredShader(soften);
+			LLPBRGraphics::bindGlobals(&soften);
+			static const LLStaticHashedString atmos_name("pbr_deferred_atmospheric");
+			soften.uniform1f(atmos_name, RenderDeferredAtmospheric ? 1.f : 0.f);
 			{
 				LLGLDepthTest depth(GL_FALSE);
 				LLGLDisable<GL_BLEND> blend;
@@ -7168,7 +7270,7 @@ void LLPipeline::renderDeferredLighting()
 				gGL.matrixMode(LLRender::MM_MODELVIEW);
 				gGL.popMatrix();
 			}
-			unbindDeferredShader(LLPipeline::sUnderWaterRender ? gDeferredSoftenWaterProgram : gDeferredSoftenProgram);
+			unbindDeferredShader(soften);
 		}
 		{
 			LLGLDisable<GL_BLEND> blend;
@@ -7392,7 +7494,7 @@ void LLPipeline::renderDeferredLighting()
 		LLGLDepthTest depth(GL_FALSE, GL_FALSE);
 		mFinalScreen.bindTarget();
 		gDeferredPostGammaCorrectProgram.bind();
-		LLPBRGraphics::bindGrade(gDeferredPostGammaCorrectProgram, false, 1.f, 1.f);
+		LLPBRGraphics::bindGrade(gDeferredPostGammaCorrectProgram, LLPBRGraphics::gradeActive(), 1.f, 1.f);
 		S32 channel = gDeferredPostGammaCorrectProgram.enableTexture(LLShaderMgr::DEFERRED_DIFFUSE, mScreen.getUsage());
 		if (channel > -1)
 		{
@@ -7414,6 +7516,7 @@ void LLPipeline::renderDeferredLighting()
 		LLGLDisable<GL_STENCIL_TEST> stencil;
 		pushRenderTypeMask();
 		andRenderTypeMask(LLPipeline::RENDER_TYPE_ALPHA,
+						 LLPipeline::RENDER_TYPE_GLTF_PBR,
 						 LLPipeline::RENDER_TYPE_FULLBRIGHT,
 						 LLPipeline::RENDER_TYPE_VOLUME,
 						 LLPipeline::RENDER_TYPE_GLOW,
@@ -7469,8 +7572,11 @@ void LLPipeline::renderDeferredLightingToRT(LLRenderTarget* target)
 		LLViewerCamera* camera = LLViewerCamera::getInstance();
 		{
 			LLGLDepthTest depth(GL_TRUE);
-			mDeferredDepth.copyContents(mDeferredScreen, 0, 0, mDeferredScreen.getWidth(), mDeferredScreen.getHeight(),
+			if (!mCaptureGBuffer)
+			{
+				mDeferredDepth.copyContents(mDeferredScreen, 0, 0, mDeferredScreen.getWidth(), mDeferredScreen.getHeight(),
 							0, 0, mDeferredDepth.getWidth(), mDeferredDepth.getHeight(), GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+			}
 		}
 		LLGLEnable<GL_MULTISAMPLE_ARB> multisample(RenderFSAASamples > 0);
 		if (gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_HUD))
@@ -7491,7 +7597,7 @@ void LLPipeline::renderDeferredLightingToRT(LLRenderTarget* target)
 		gGL.matrixMode(LLRender::MM_PROJECTION);
 		gGL.pushMatrix();
 		gGL.loadIdentity();
-		if (RenderDeferredSSAO)
+		if (RenderDeferredSSAO && !mCaptureGBuffer)
 		{
 			F32 ssao_scale = llclamp(RenderSSAOResolutionScale.get(),.01f,1.f);
 			LLGLDisable<GL_BLEND> blend;
@@ -7525,7 +7631,7 @@ void LLPipeline::renderDeferredLightingToRT(LLRenderTarget* target)
 				unbindDeferredShader(gDeferredSSAOProgram);
 			}
 		}
-		if (RenderDeferredSSAO || RenderShadowDetail > 0)
+		if (!mCaptureGBuffer && (RenderDeferredSSAO || RenderShadowDetail > 0))
 		{
 			mDeferredLight.bindTarget();
 			{
@@ -7565,11 +7671,12 @@ void LLPipeline::renderDeferredLightingToRT(LLRenderTarget* target)
 		target->bindTarget();
 		glClearColor(0,0,0,0);
 		target->clear(GL_COLOR_BUFFER_BIT);
-		if (RenderDeferredAtmospheric)
 		{
 			LL_RECORD_BLOCK_TIME(FTM_ATMOSPHERICS);
 			bindDeferredShader(gDeferredSoftenProgram);
 			LLPBRGraphics::bindGlobals(&gDeferredSoftenProgram);
+			static const LLStaticHashedString atmos_name("pbr_deferred_atmospheric");
+			gDeferredSoftenProgram.uniform1f(atmos_name, RenderDeferredAtmospheric ? 1.f : 0.f);
 			{
 				LLGLDepthTest depth(GL_FALSE);
 				LLGLDisable<GL_BLEND> blend;
@@ -7801,7 +7908,7 @@ void LLPipeline::renderDeferredLightingToRT(LLRenderTarget* target)
 		LLGLDepthTest depth(GL_FALSE, GL_FALSE);
 		mFinalScreen.bindTarget();
 		gDeferredPostGammaCorrectProgram.bind();
-		LLPBRGraphics::bindGrade(gDeferredPostGammaCorrectProgram, false, 1.f, 1.f);
+		LLPBRGraphics::bindGrade(gDeferredPostGammaCorrectProgram, LLPBRGraphics::gradeActive(), 1.f, 1.f);
 		S32 channel = 0;
 		channel = gDeferredPostGammaCorrectProgram.enableTexture(LLShaderMgr::DEFERRED_DIFFUSE, mScreen.getUsage());
 		if (channel > -1)
@@ -7824,6 +7931,7 @@ void LLPipeline::renderDeferredLightingToRT(LLRenderTarget* target)
 		LLGLDisable<GL_STENCIL_TEST> stencil;
 		pushRenderTypeMask();
 		andRenderTypeMask(LLPipeline::RENDER_TYPE_ALPHA,
+						 LLPipeline::RENDER_TYPE_GLTF_PBR,
 						 LLPipeline::RENDER_TYPE_FULLBRIGHT,
 						 LLPipeline::RENDER_TYPE_VOLUME,
 						 LLPipeline::RENDER_TYPE_GLOW,
@@ -7849,6 +7957,7 @@ void LLPipeline::renderDeferredLightingToRT(LLRenderTarget* target)
 }
 void LLPipeline::applyPBRDisplay()
 {
+	return;
 	if (!LLPBRGraphics::gradeActive())
 	{
 		return;
@@ -9131,6 +9240,7 @@ void LLPipeline::generateImpostor(LLVOAvatar* avatar, bool preview_avatar)
 	else
 	{
 		andRenderTypeMask(LLPipeline::RENDER_TYPE_ALPHA,
+			LLPipeline::RENDER_TYPE_GLTF_PBR,
 			LLPipeline::RENDER_TYPE_FULLBRIGHT,
 			LLPipeline::RENDER_TYPE_VOLUME,
 			LLPipeline::RENDER_TYPE_GLOW,

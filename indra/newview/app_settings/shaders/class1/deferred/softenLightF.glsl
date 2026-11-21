@@ -44,6 +44,31 @@ uniform float blur_fidelity;
 uniform float pbr_refl_detail;
 uniform float pbr_ssr;
 uniform float pbr_mirrors;
+uniform sampler2D emissiveRect;
+uniform float pbr_hdr;
+uniform float pbr_is_hud;
+uniform float pbr_probe_lod_max;
+uniform float pbr_probe_count;
+uniform float pbr_deferred_atmospheric;
+uniform vec3 pbr_cam_pos;
+uniform sampler2D pbrMirrorMap;
+uniform float pbr_mirror_present;
+uniform vec3 pbr_mirror_point;
+uniform vec3 pbr_mirror_normal;
+uniform mat4 pbr_mirror_vp;
+uniform mat4 pbr_mirror_box;
+#if __VERSION__ >= 400
+uniform samplerCubeArray pbrProbeArray;
+uniform samplerCubeArray pbrIrradianceArray;
+uniform samplerCube pbrProbeCube;
+uniform samplerCube pbrIrradianceCube;
+uniform float pbr_use_array;
+uniform vec4 pbr_probe_origin[8];
+uniform vec4 pbr_probe_param[8];
+#else
+uniform samplerCube pbrProbeCube;
+uniform samplerCube pbrIrradianceCube;
+#endif
 
 // Inputs
 uniform vec4 morphFactor;
@@ -327,6 +352,111 @@ float luminance(vec3 color)
 	return dot(color, vec3(0.299, 0.587, 0.114));
 }
 
+vec3 allyn_pbr_light(vec3 albedo, vec3 orm, vec3 N, vec3 emissive, vec3 view_pos, bool unlit)
+{
+	float ao = orm.r;
+	float rough = clamp(orm.g, 0.045, 1.0);
+	float metal = clamp(orm.b, 0.0, 1.0);
+	if (unlit)
+	{
+		return albedo + emissive;
+	}
+	vec3 V = normalize(-view_pos);
+	vec3 F0 = mix(vec3(0.04), albedo, metal);
+	vec3 L = normalize(sun_dir);
+	float NdotL = max(dot(N, L), 0.0);
+	float NdotV = max(dot(N, V), 0.0);
+	vec3 H = normalize(V + L);
+	float NdotH = max(dot(N, H), 0.0);
+	float VdotH = max(dot(V, H), 0.0);
+	float a = rough * rough;
+	float a2 = a * a;
+	float denom = NdotH * NdotH * (a2 - 1.0) + 1.0;
+	float D = a2 / (3.14159265 * denom * denom);
+	float k = (rough + 1.0) * (rough + 1.0) / 8.0;
+	float G = (NdotV / (NdotV * (1.0 - k) + k)) * (NdotL / (NdotL * (1.0 - k) + k));
+	vec3 F = F0 + (1.0 - F0) * pow(1.0 - VdotH, 5.0);
+	vec3 specbrdf = D * G * F / max(4.0 * NdotV * NdotL, 0.001);
+	vec3 kd = (1.0 - F) * (1.0 - metal);
+	vec3 direct = (kd * albedo / 3.14159265 + specbrdf) * atmosAffectDirectionalLight(1.0) * NdotL;
+	vec3 R = env_mat * reflect(-V, N);
+	vec3 Nworld = env_mat * N;
+	vec3 Fenv = F0 + (1.0 - F0) * pow(1.0 - NdotV, 5.0);
+	vec3 world = pbr_cam_pos + (env_mat * view_pos);
+	vec3 irradiance = vec3(0.0);
+	vec3 radiance = vec3(0.0);
+	float lod = rough * pbr_probe_lod_max;
+#if __VERSION__ >= 400
+	if (pbr_use_array < 0.5)
+	{
+		if (pbr_probe_count > 0.5)
+		{
+#if __VERSION__ >= 130
+			irradiance = textureLod(pbrIrradianceCube, Nworld, 0.0).rgb;
+			radiance = textureLod(pbrProbeCube, R, lod).rgb;
+#else
+			irradiance = textureCube(pbrIrradianceCube, Nworld).rgb;
+			radiance = textureCube(pbrProbeCube, R).rgb;
+#endif
+		}
+	}
+	else
+	{
+		float wsum = 0.0;
+		vec3 isum = vec3(0.0);
+		vec3 rsum = vec3(0.0);
+		for (int i = 0; i < 8; i++)
+		{
+			if (float(i) >= pbr_probe_count)
+			{
+				break;
+			}
+			vec4 org = pbr_probe_origin[i];
+			float dist = length(world - org.xyz);
+			float band = max(org.w * 0.3, 8.0);
+			float start = max(org.w - band, 0.0);
+			float w = 1.0 - smoothstep(start, org.w, dist);
+			if (w > 0.0)
+			{
+				isum += textureLod(pbrIrradianceArray, vec4(Nworld, pbr_probe_param[i].x), 0.0).rgb * w;
+				rsum += textureLod(pbrProbeArray, vec4(R, pbr_probe_param[i].x), lod).rgb * w;
+				wsum += w;
+			}
+		}
+		if (wsum > 0.0)
+		{
+			irradiance = isum / wsum;
+			radiance = rsum / wsum;
+		}
+	}
+#else
+	if (pbr_probe_count > 0.5)
+	{
+#if __VERSION__ >= 130
+		irradiance = textureLod(pbrIrradianceCube, Nworld, 0.0).rgb;
+		radiance = textureLod(pbrProbeCube, R, lod).rgb;
+#else
+		irradiance = textureCube(pbrIrradianceCube, Nworld).rgb;
+		radiance = textureCube(pbrProbeCube, R).rgb;
+#endif
+	}
+#endif
+	vec3 indirect = irradiance * albedo * (1.0 - metal) * ao + radiance * Fenv * ao;
+	vec3 mirror = vec3(0.0);
+	if (pbr_mirror_present > 0.5)
+	{
+		vec4 clip = pbr_mirror_vp * vec4(world, 1.0);
+		vec2 uv = clip.xy / clip.w * 0.5 + 0.5;
+		vec4 boxp = pbr_mirror_box * vec4(world, 1.0);
+		float side = dot(pbr_mirror_normal, world - pbr_mirror_point) * dot(pbr_mirror_normal, pbr_cam_pos - pbr_mirror_point);
+		if (clip.w > 0.0 && side > 0.0 && uv.x > 0.0 && uv.x < 1.0 && uv.y > 0.0 && uv.y < 1.0 && abs(boxp.x) <= 1.0 && abs(boxp.y) <= 1.0 && abs(boxp.z) <= 1.0)
+		{
+			mirror = texture2D(pbrMirrorMap, uv).rgb * Fenv;
+		}
+	}
+	return direct + indirect + mirror + emissive;
+}
+
 void main() 
 {
 	vec2 tc = vary_fragcoord.xy;
@@ -337,14 +467,30 @@ void main()
 	norm.xyz = decode_normal(norm.xy); // unpack norm
 		
 	vec4 diffuse = texture2D(diffuseRect, tc);
+	vec4 spec = texture2D(specularRect, vary_fragcoord.xy);
+	if (norm.w > 0.2 && norm.w < 0.85)
+	{
+		calcAtmospherics(pos.xyz);
+		vec3 lit = allyn_pbr_light(diffuse.rgb, spec.rgb, normalize(norm.xyz), texture2D(emissiveRect, vary_fragcoord.xy).rgb, pos.xyz, norm.w > 0.5);
+		if (pbr_hdr < 0.5 && norm.w <= 0.5)
+		{
+			lit = srgb_to_linear(scaleSoftClip(lit));
+		}
+		frag_color = vec4(lit, 0.0);
+		return;
+	}
+	if (pbr_deferred_atmospheric < 0.5)
+	{
+		frag_color = vec4(0.0);
+		return;
+	}
 
-	//convert to gamma space
 	diffuse.rgb = linear_to_srgb(diffuse.rgb);
+	spec.rgb = srgb_to_linear(spec.rgb);
 
 	vec3 col;
 	float bloom = 0.0;
 	{
-		vec4 spec = texture2D(specularRect, vary_fragcoord.xy);
 		bloom = spec.r*norm.w;
 		if (norm.w < 0.5)
 		{
@@ -386,23 +532,12 @@ void main()
 		
 		col = mix(col.rgb, diffuse.rgb, diffuse.a);
 				
-		float pbr_lod = (2.0 - clamp(pbr_refl_detail, 0.0, 2.0)) * 3.0;
-		if (pbr_mirrors > 0.5 && spec.a > 0.7)
-		{
-			pbr_lod = 0.0;
-		}
 		if (envIntensity > 0.0)
 		{
 			vec3 env_vec = env_mat * refnormpersp;
-			vec3 refcol = textureCube(environmentMap, env_vec, pbr_lod).rgb;
+			vec3 refcol = textureCube(environmentMap, env_vec).rgb;
 			bloom = (luminance(refcol) - .45)*.25;
 			col = mix(col.rgb, refcol, envIntensity);
-		}
-		if (pbr_ssr > 0.5 && spec.a > 0.15 && envIntensity > 0.0)
-		{
-			vec2 ssr_uv = clamp(vary_fragcoord.xy + refnormpersp.xy * (0.03 + spec.a * 0.07), 0.001, 0.999);
-			vec3 ssr_col = texture2D(diffuseRect, ssr_uv).rgb;
-			col = mix(col, ssr_col, spec.a * envIntensity);
 		}
 				
 		//if (norm.w < 0.5)

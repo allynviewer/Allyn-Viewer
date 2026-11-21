@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2001&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -54,6 +55,7 @@ public:
 	S32 getMaxBytes() const { return mMaxBytes; }
 	static S32 calcHeaderSizeJ2C();
 	static S32 calcDataSizeJ2C(S32 w, S32 h, S32 comp, S32 discard_level, F32 rate = 0.f);
+	static S32 discardLevelForExtent(S32 full_extent, F32 screen_px);
 	static void openDSO();
 	static void closeDSO();
 	static std::string getEngineInfo();

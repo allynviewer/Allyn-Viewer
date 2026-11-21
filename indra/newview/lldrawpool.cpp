@@ -47,6 +47,7 @@
 #include "llspatialpartition.h"
 #include "llviewercamera.h"
 #include "lldrawpoolwlsky.h"
+#include "lldrawpoolgltfpbr.h"
 #include "llglslshader.h"
 S32 LLDrawPool::sNumDrawPools = 0;
 LLDrawPool *LLDrawPool::createPool(const U32 type, LLViewerTexture *tex0)
@@ -102,6 +103,10 @@ LLDrawPool *LLDrawPool::createPool(const U32 type, LLViewerTexture *tex0)
 		break;
 	case POOL_WL_SKY:
 		poolp = new LLDrawPoolWLSky();
+		break;
+	case POOL_GLTF_PBR:
+	case POOL_GLTF_PBR_ALPHA_MASK:
+		poolp = new LLDrawPoolGLTFPBR(type);
 		break;
 	default:
 		LL_ERRS() << "Unknown draw pool type!" << LL_ENDL;

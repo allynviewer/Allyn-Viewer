@@ -35,6 +35,7 @@
 #include "llconvexdecomposition.h"
 #include "lluploadfloaterobservers.h"
 #include "aistatemachinethread.h"
+#include "llassetfetchrank.h"
 #include <absl/container/node_hash_map.h>
 #ifndef BOOST_FUNCTION_HPP_INCLUDED
 #include <boost/function.hpp>
@@ -147,7 +148,8 @@ public:
 	{
 		LLTimer mTimer;
 		LLVolumeParams mMeshParams;
-		MeshRequest(const LLVolumeParams&  mesh_params) : mMeshParams(mesh_params)
+		U32 mRank;
+		MeshRequest(const LLVolumeParams&  mesh_params) : mMeshParams(mesh_params), mRank(0)
 		{
 			mTimer.start();
 		}
@@ -231,28 +233,58 @@ public:
 	std::queue<PendingLODDecode> mPendingLODDecodeQ;
 	typedef std::map<LLVolumeParams, std::vector<S32> > pending_lod_map;
 	pending_lod_map mPendingLOD;
+	std::map<LLUUID, U32> mFetchRank;
 	static std::string constructUrl(LLUUID mesh_id);
 	LLMeshRepoThread();
 	~LLMeshRepoThread();
 	void runQueue(std::deque<std::pair<std::shared_ptr<MeshRequest>, F32> >& queue, U32& count, S32& active_requests);
 	void runSet(uuid_set_t& set, std::function<bool (const LLUUID& mesh_id)> fn);
-	void pushHeaderRequest(const LLVolumeParams& mesh_params, F32 delay = 0)
+	void pushHeaderRequest(const LLVolumeParams& mesh_params, F32 delay = 0, U32 rank = 0)
 	{
 		std::shared_ptr<LLMeshRepoThread::MeshRequest> req;
 		req.reset(new LLMeshRepoThread::HeaderRequest(mesh_params));
+		if (rank == 0)
+		{
+			rank = AllynAssetRank::meshRank(1.f);
+		}
+		req->mRank = rank;
 		mHeaderReqQ.push_back(std::make_pair(req, delay));
 	}
-	void pushLODRequest(const LLVolumeParams& mesh_params, S32 lod, F32 delay = 0)
+	void pushLODRequest(const LLVolumeParams& mesh_params, S32 lod, F32 delay = 0, U32 rank = 0)
 	{
 		std::shared_ptr<LLMeshRepoThread::MeshRequest> req;
 		req.reset(new LLMeshRepoThread::LODRequest(mesh_params, lod));
+		if (rank == 0)
+		{
+			rank = AllynAssetRank::meshRank(1.f);
+		}
+		req->mRank = rank;
 		mLODReqQ.push_back(std::make_pair(req, delay));
+	}
+	void publishWaitRank()
+	{
+		U32 best = 0;
+		for (auto& item : mHeaderReqQ)
+		{
+			if (item.first->mRank > best)
+			{
+				best = item.first->mRank;
+			}
+		}
+		for (auto& item : mLODReqQ)
+		{
+			if (item.first->mRank > best)
+			{
+				best = item.first->mRank;
+			}
+		}
+		AllynAssetRank::meshWaitRank() = best;
 	}
 	virtual void run();
 	void lockAndLoadMeshLOD(const LLVolumeParams& mesh_params, S32 lod);
-	void loadMeshLOD(const LLVolumeParams& mesh_params, S32 lod);
-	bool fetchMeshHeader(const LLVolumeParams& mesh_params, U32& count);
-	bool fetchMeshLOD(const LLVolumeParams& mesh_params, S32 lod, U32& count);
+	void loadMeshLOD(const LLVolumeParams& mesh_params, S32 lod, U32 rank = 0);
+	bool fetchMeshHeader(const LLVolumeParams& mesh_params, U32& count, U32 rank);
+	bool fetchMeshLOD(const LLVolumeParams& mesh_params, S32 lod, U32& count, U32 rank);
 	bool headerReceived(const LLVolumeParams& mesh_params, U8* data, S32 data_size);
 	bool lodReceived(const LLVolumeParams& mesh_params, S32 lod, U8* data, S32 data_size);
 	void queueLODDecode(const LLVolumeParams& mesh_params, S32 lod, U8* data, S32 data_size, S32 offset, S32 requested_bytes);

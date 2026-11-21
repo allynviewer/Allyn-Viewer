@@ -169,6 +169,7 @@ set(viewer_SOURCE_FILES
     lldrawpoolalpha.cpp
     lldrawpoolavatar.cpp
     lldrawpoolbump.cpp
+    lldrawpoolgltfpbr.cpp
     lldrawpoolground.cpp
     lldrawpoolmaterials.cpp
     lldrawpoolsimple.cpp
@@ -398,6 +399,8 @@ set(viewer_SOURCE_FILES
     llpaneldirplaces.cpp
     llpaneldirpopular.cpp
     llpaneldisplay.cpp
+    llplanarreflection.cpp
+    llreflectionprobe.cpp
     llpaneleditwearable.cpp
     llpanelevent.cpp
     llpanelexperiencelisteditor.cpp
@@ -734,6 +737,7 @@ set(viewer_HEADER_FILES
     lldelayedgestureerror.h
     lldrawable.h
     lldrawpool.h
+    lldrawpoolgltfpbr.h
     lldrawpoolalpha.h
     lldrawpoolavatar.h
     lldrawpoolbump.h
@@ -966,6 +970,8 @@ set(viewer_HEADER_FILES
     llpaneldirplaces.h
     llpaneldirpopular.h
     llpaneldisplay.h
+    llplanarreflection.h
+    llreflectionprobe.h
     llpaneleditwearable.h
     llpanelevent.h
     llpanelexperiencelisteditor.h

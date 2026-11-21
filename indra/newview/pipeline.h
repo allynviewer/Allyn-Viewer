@@ -241,6 +241,7 @@ public:
 	void unbindDeferredShader(LLGLSLShader& shader, LLRenderTarget* diffuse_source = NULL, LLRenderTarget* light_source = NULL);
 	void renderDeferredLighting();
 	void renderDeferredLightingToRT(LLRenderTarget* target);
+	void setCaptureGBuffer(LLRenderTarget* target) { mCaptureGBuffer = target; }
 	void applyPBRDisplay();
 	void generateWaterReflection(LLCamera& camera);
 	void generateSunShadow(LLCamera& camera);
@@ -342,6 +343,7 @@ public:
 	void addDebugBlip(const LLVector3& position, const LLColor4& color);
 	void hideObject( const LLUUID& id );
 	void restoreHiddenObject( const LLUUID& id );
+	void drawFullScreenRect();
 private:
 	void unloadShaders();
 	void addToQuickLookup( LLDrawPool* new_poolp );
@@ -351,7 +353,6 @@ private:
 	bool assertInitialized() { const bool is_init = isInit(); if (!is_init) assertInitializedDoError(); return is_init; };
 	void hideDrawable( LLDrawable *pDrawable );
 	void unhideDrawable( LLDrawable *pDrawable );
-	void drawFullScreenRect();
 	void clearRenderPassStates() {
 		while (!mRenderPassStates.empty()) {
 			mRenderPassStates.pop_back();
@@ -379,6 +380,8 @@ public:
 		RENDER_TYPE_WATER						= LLDrawPool::POOL_WATER,
  		RENDER_TYPE_ALPHA						= LLDrawPool::POOL_ALPHA,
 		RENDER_TYPE_GLOW						= LLDrawPool::POOL_GLOW,
+		RENDER_TYPE_GLTF_PBR					= LLDrawPool::POOL_GLTF_PBR,
+		RENDER_TYPE_GLTF_PBR_ALPHA_MASK			= LLDrawPool::POOL_GLTF_PBR_ALPHA_MASK,
 		RENDER_TYPE_PASS_SIMPLE 				= LLRenderPass::PASS_SIMPLE,
 		RENDER_TYPE_PASS_GRASS					= LLRenderPass::PASS_GRASS,
 		RENDER_TYPE_PASS_FULLBRIGHT				= LLRenderPass::PASS_FULLBRIGHT,
@@ -639,6 +642,9 @@ private:
 	LLDrawPool*					mBumpPool;
 	LLDrawPool*					mMaterialsPool;
 	LLDrawPool*					mWLSkyPool;
+	LLDrawPool*					mPBRPool;
+	LLDrawPool*					mPBRMaskPool;
+	LLRenderTarget*				mCaptureGBuffer;
 public:
 	std::vector<LLFace*>		mHighlightFaces;
 protected:

@@ -72,6 +72,15 @@ LLImageDecodeThread::LLImageDecodeThread(bool threaded, S32 extra_workers)
 				   << " extra workers" << LL_ENDL;
 	}
 }
+S32 LLImageDecodeThread::getDecodeSlots() const
+{
+	S32 slots = 1 + (S32)mWorkers.size();
+	if (slots < 1)
+	{
+		slots = 1;
+	}
+	return slots;
+}
 void LLImageDecodeThread::shutdown()
 {
 	for (DecodeWorker* worker : mWorkers)
@@ -256,16 +265,17 @@ bool LLImageDecodeThread::ImageRequest::processRequest()
 			{
 				mFormattedImage->setDiscardLevel(mDiscardLevel);
 			}
-			if (!readBC7())
+			if (readBC7())
 			{
-				mDecodedImageRaw = new LLImageRaw(mFormattedImage->getWidth(),
-												  mFormattedImage->getHeight(),
-												  mFormattedImage->getComponents());
-				if (mDecodedImageRaw.isNull() || !mDecodedImageRaw->getData())
-				{
-					mDecodedImageRaw = NULL;
-					return true;
-				}
+				return true;
+			}
+			mDecodedImageRaw = new LLImageRaw(mFormattedImage->getWidth(),
+											  mFormattedImage->getHeight(),
+											  mFormattedImage->getComponents());
+			if (mDecodedImageRaw.isNull() || !mDecodedImageRaw->getData())
+			{
+				mDecodedImageRaw = NULL;
+				return true;
 			}
 		}
 		if (!mDecodedRaw)

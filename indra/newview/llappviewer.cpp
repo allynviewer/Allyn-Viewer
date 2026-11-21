@@ -3305,6 +3305,7 @@ void LLAppViewer::idle()
 					<< " tex_http_kb=" << (fetchp->getHttpTextureBytes() / 1024)
 					<< " tex_total_kb=" << F64Kilobytes(gTotalTextureData).value()
 					<< LL_ENDL;
+				fetchp->logQueue();
 			}
 			LL_INFOS("SceneLoad")
 				<< "mesh recv_kb=" << (LLMeshRepository::sBytesReceived / 1024)

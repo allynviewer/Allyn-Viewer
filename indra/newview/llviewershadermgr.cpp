@@ -37,6 +37,8 @@
 #include "llviewerwindow.h"
 #include "llviewercontrol.h"
 #include "pipeline.h"
+#include "lldrawpoolgltfpbr.h"
+#include "llreflectionprobe.h"
 #include "llworld.h"
 #include "llwlparammanager.h"
 #include "llwaterparammanager.h"
@@ -754,6 +756,36 @@ BOOL LLViewerShaderMgr::loadShadersDeferred()
 		gDeferredDiffuseProgram.mFeatures.mIndexedTextureChannels = LLGLSLShader::sIndexedTextureChannels;
 		gDeferredDiffuseProgram.mShaderLevel = mVertexShaderLevel[SHADER_DEFERRED];
 		success = gDeferredDiffuseProgram.createShader(NULL, NULL);
+	}
+	if (success)
+	{
+		gDeferredPBRProgram.mName = "Deferred PBR Shader";
+		gDeferredPBRProgram.mShaderFiles.clear();
+		gDeferredPBRProgram.mShaderFiles.push_back(make_pair("deferred/pbropaqueV.glsl", GL_VERTEX_SHADER_ARB));
+		gDeferredPBRProgram.mShaderFiles.push_back(make_pair("deferred/pbropaqueF.glsl", GL_FRAGMENT_SHADER_ARB));
+		gDeferredPBRProgram.mShaderLevel = mVertexShaderLevel[SHADER_DEFERRED];
+		success = gDeferredPBRProgram.createShader(NULL, NULL);
+	}
+	if (success)
+	{
+		gRadianceGenProgram.mName = "PBR Radiance Filter";
+		gRadianceGenProgram.mShaderFiles.clear();
+		gRadianceGenProgram.mShaderFiles.push_back(make_pair("deferred/postDeferredNoTCV.glsl", GL_VERTEX_SHADER_ARB));
+		gRadianceGenProgram.mShaderFiles.push_back(make_pair("deferred/radianceGenF.glsl", GL_FRAGMENT_SHADER_ARB));
+		gRadianceGenProgram.mShaderLevel = mVertexShaderLevel[SHADER_DEFERRED];
+		gRadianceGenProgram.createShader(NULL, NULL);
+		gReflectionMipProgram.mName = "PBR Reflection Mip";
+		gReflectionMipProgram.mShaderFiles.clear();
+		gReflectionMipProgram.mShaderFiles.push_back(make_pair("deferred/postDeferredNoTCV.glsl", GL_VERTEX_SHADER_ARB));
+		gReflectionMipProgram.mShaderFiles.push_back(make_pair("deferred/reflectionmipF.glsl", GL_FRAGMENT_SHADER_ARB));
+		gReflectionMipProgram.mShaderLevel = mVertexShaderLevel[SHADER_DEFERRED];
+		gReflectionMipProgram.createShader(NULL, NULL);
+		gIrradianceGenProgram.mName = "PBR Irradiance Filter";
+		gIrradianceGenProgram.mShaderFiles.clear();
+		gIrradianceGenProgram.mShaderFiles.push_back(make_pair("deferred/postDeferredNoTCV.glsl", GL_VERTEX_SHADER_ARB));
+		gIrradianceGenProgram.mShaderFiles.push_back(make_pair("deferred/irradianceGenF.glsl", GL_FRAGMENT_SHADER_ARB));
+		gIrradianceGenProgram.mShaderLevel = mVertexShaderLevel[SHADER_DEFERRED];
+		gIrradianceGenProgram.createShader(NULL, NULL);
 	}
 	if (success)
 	{

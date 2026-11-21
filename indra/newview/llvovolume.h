@@ -204,7 +204,6 @@ public:
 	BOOL	updateLOD();
 				void	updateRadius();
 	void	updateTextures();
-	static void refreshPBRFaces();
 				void	updateTextureVirtualSize(bool forced = false);
 				void	updateFaceFlags();
 				void	regenFaces();

@@ -481,7 +481,8 @@ F32 LLSpatialPartition::calcDistance(LLSpatialGroup* group, LLCamera& camera)
 	origin.load3(camera.getOrigin().mV);
 	eye.setSub(group->mObjectBounds[0], origin);
 	F32 dist = 0.f;
-	if (group->mDrawMap.find(LLRenderPass::PASS_ALPHA) != group->mDrawMap.end())
+	if (group->mDrawMap.find(LLRenderPass::PASS_ALPHA) != group->mDrawMap.end() ||
+		group->mDrawMap.find(LLRenderPass::PASS_GLTF_PBR_BLEND) != group->mDrawMap.end())
 	{
 		LLVector4a v = eye;
 		dist = eye.getLength3().getF32();

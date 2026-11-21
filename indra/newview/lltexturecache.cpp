@@ -85,6 +85,7 @@ public:
 		  mID(id),
 		  mCache(cache),
 		  mPriority(priority),
+		  mBand(0),
 		  mReadData(NULL),
 		  mWriteData(data),
 		  mDataSize(datasize),
@@ -99,7 +100,12 @@ public:
 		  mRawImage(rawimage),
 		  mRawDiscardLevel(discardlevel)
 	{
+		mBand = priority & LLWorkerThread::PRIORITY_HIGHBITS;
 		mPriority &= LLWorkerThread::PRIORITY_LOWBITS;
+		if (mBand < LLWorkerThread::PRIORITY_HIGH)
+		{
+			mBand = LLWorkerThread::PRIORITY_HIGH;
+		}
 	}
 	~LLTextureCacheWorker()
 	{
@@ -109,13 +115,14 @@ public:
 	virtual bool doRead() = 0;
 	virtual bool doWrite() = 0;
 	virtual bool doWork(S32 param);
-	handle_t read() { addWork(0, LLWorkerThread::PRIORITY_HIGH | mPriority); return mRequestHandle; }
-	handle_t write() { addWork(1, LLWorkerThread::PRIORITY_HIGH | mPriority); return mRequestHandle; }
+	handle_t read() { addWork(0, mBand | mPriority); return mRequestHandle; }
+	handle_t write() { addWork(1, mBand | mPriority); return mRequestHandle; }
 	bool complete() { return checkWork(); }
+	U32 queuedPriority() const { return mBand | mPriority; }
 	void ioComplete(S32 bytes)
 	{
 		mBytesRead = bytes;
-		setPriority(LLWorkerThread::PRIORITY_HIGH | mPriority);
+		setPriority(mBand | mPriority);
 	}
 private:
 	virtual void startWork(S32 param);
@@ -124,6 +131,7 @@ private:
 protected:
 	LLTextureCache* mCache;
 	U32 mPriority;
+	U32 mBand;
 	LLUUID	mID;
 	U8* mReadData;
 	U8* mWriteData;
@@ -191,7 +199,7 @@ bool LLTextureCacheLocalFileWorker::doRead()
 		mReadData = (U8*)ALLOCATE_MEM(LLImageBase::getPrivatePool(), mDataSize);
 		mBytesRead = -1;
 		mBytesToRead = mDataSize;
-		setPriority(LLWorkerThread::PRIORITY_LOW | mPriority);
+		setPriority(mBand > LLWorkerThread::PRIORITY_HIGH ? (mBand | mPriority) : (LLWorkerThread::PRIORITY_LOW | mPriority));
 		mFileHandle = LLLFSThread::sLocal->read(local_filename, mReadData, mOffset, mDataSize,
 												new ReadResponder(mCache, mRequestHandle));
 		return false;
@@ -636,7 +644,7 @@ S32 LLTextureCache::update(F32 max_time_ms)
 		if(iter2 != mWriters.end())
 		{
 			LLTextureCacheWorker* worker = iter2->second;
-			worker->setPriority(LLWorkerThread::PRIORITY_HIGH | worker->mPriority);
+			worker->setPriority(worker->queuedPriority());
 		}
 	}
 	unlockWorkers();

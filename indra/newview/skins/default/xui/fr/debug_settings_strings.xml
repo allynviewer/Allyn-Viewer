@@ -1465,7 +1465,6 @@ Cela doit être aussi bas que possible, mais un niveau trop bas peut interrompre
 	<string name="RenderUseFarClip">Si faux, l'élimination du tronc ignorera le plan de découpage éloigné.</string>
 	<string name="RenderUseFBO">Si nous voulons utiliser GL_EXT_framebuffer_objects.</string>
 	<string name="RenderUseImpostors">Si nous voulons utiliser des imposteurs pour des avatars lointains.</string>
-	<string name="RenderUsePBR">Lorsque vrai (PBR ON), un matériau PBR valide est dessiné à la place d'une texture classique. Lorsque faux (PBR OFF), une texture classique valide est préférée. Une face sans texture classique valide conserve son matériau PBR. Les identifiants d’actifs PBR sont conservés dans les deux cas.</string>
 	<string name="RenderUseTransformFeedback">[EXPERIMENTAL] Utiliser les shaders de retour de transformation pour les mises à jour LoD</string>
 	<string name="RenderUseVAO">[EXPERIMENTAL] Utiliser des objets GL Vertex Array</string>
 	<string name="RenderVBOEnable">Utiliser des objets tampon de sommet GL</string>

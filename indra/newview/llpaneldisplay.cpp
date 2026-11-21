@@ -395,7 +395,8 @@ void LLPanelDisplay::refresh()
 	mHDREmissive = persistedBOOL("RenderDisableVintageMode");
 	mExposure = persistedF32("RenderExposure");
 	mScreenSpaceReflections = persistedBOOL("RenderScreenSpaceReflections");
-	mMirrors = persistedBOOL("RenderMirrors");
+	mMirrorDetail = persistedS32("RenderMirrorDetail");
+	mMirrors = mMirrorDetail > 0;
 	mTonemapType = persistedS32("RenderTonemapType");
 	mTonemapMix = persistedF32("RenderTonemapMix");
 	showComboInt(this, "AvatarDisplayCombo", mAvatarMode);
@@ -596,6 +597,7 @@ void LLPanelDisplay::cancel()
 	gSavedSettings.setF32("RenderExposure", mExposure);
 	gSavedSettings.setBOOL("RenderScreenSpaceReflections", mScreenSpaceReflections);
 	gSavedSettings.setBOOL("RenderMirrors", mMirrors);
+	gSavedSettings.setS32("RenderMirrorDetail", mMirrors ? 1 : 0);
 	gSavedSettings.setS32("RenderTonemapType", mTonemapType);
 	gSavedSettings.setF32("RenderTonemapMix", mTonemapMix);
 }
@@ -618,7 +620,9 @@ void LLPanelDisplay::apply()
 	mScreenSpaceReflections = childGetValue("PBRScreenSpaceReflections").asBoolean();
 	gSavedSettings.setBOOL("RenderScreenSpaceReflections", mScreenSpaceReflections);
 	mMirrors = childGetValue("PBRMirrors").asBoolean();
+	mMirrorDetail = mMirrors ? 1 : 0;
 	gSavedSettings.setBOOL("RenderMirrors", mMirrors);
+	gSavedSettings.setS32("RenderMirrorDetail", mMirrorDetail);
 	mTonemapType = childGetValue("PBRTonemapType").asInteger();
 	gSavedSettings.setS32("RenderTonemapType", mTonemapType);
 	mTonemapMix = (F32)childGetValue("PBRTonemapMix").asReal();

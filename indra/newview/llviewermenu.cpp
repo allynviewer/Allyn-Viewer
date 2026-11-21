@@ -205,8 +205,6 @@ LLContextMenu* gDetachScreenPieMenu = nullptr;
 LLMenuItemCallGL* gAFKMenu = nullptr;
 LLMenuItemCallGL* gBusyMenu = nullptr;
 typedef LLMemberListener<LLView> view_listener_t;
-static void handle_toggle_render_pbr(void*);
-static void label_render_pbr(std::string& label, void*);
 void handle_compress_image(void*);
 BOOL enable_save_as(void *);
 void handle_dump_group_info(void *);
@@ -524,7 +522,6 @@ void init_menus()
 	menu->setCanTearOff(TRUE);
 	init_server_menu(menu);
 	gMenuBarView->addChild( menu );
-	gMenuBarView->addChild(new LLMenuItemCallGL("PBR Mode", gSavedSettings.getBOOL("RenderUsePBR") ? "PBR ON" : "PBR OFF", handle_toggle_render_pbr, NULL, label_render_pbr, NULL));
 	gMenuBarView->createJumpKeys();
 	gMenuParcelObserver = new LLMenuParcelObserver();
 	show_debug_menus();
@@ -4565,25 +4562,6 @@ void print_agent_nvpairs(void*)
 		LL_INFOS() << "Can't find agent object" << LL_ENDL;
 	}
 	LL_INFOS() << "Camera at " << gAgentCamera.getCameraPositionGlobal() << LL_ENDL;
-}
-static void handle_toggle_render_pbr(void*)
-{
-	const BOOL use_pbr = !gSavedSettings.getBOOL("RenderUsePBR");
-	gSavedSettings.setBOOL("RenderUsePBR", use_pbr);
-	LLVOVolume::refreshPBRFaces();
-	if (gMenuBarView)
-	{
-		LLMenuItemCallGL* item = gMenuBarView->findChild<LLMenuItemCallGL>("PBR Mode");
-		if (item)
-		{
-			item->setLabel(LLStringExplicit(use_pbr ? "PBR ON" : "PBR OFF"));
-		}
-		gMenuBarView->needsArrange();
-	}
-}
-static void label_render_pbr(std::string& label, void*)
-{
-	label = gSavedSettings.getBOOL("RenderUsePBR") ? "PBR ON" : "PBR OFF";
 }
 void show_debug_menus()
 {

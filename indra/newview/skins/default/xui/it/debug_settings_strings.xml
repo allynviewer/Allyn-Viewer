@@ -1465,7 +1465,6 @@ Dovrebbe essere il più basso possibile, ma troppo basso potrebbe compromettere 
 	<string name="RenderUseFarClip">Se false, l'eliminazione del tronco ignorerà il piano di ritaglio lontano.</string>
 	<string name="RenderUseFBO">Se vogliamo utilizzare GL_EXT_framebuffer_objects.</string>
 	<string name="RenderUseImpostors">Sia che vogliamo utilizzare impostori per avatar lontani.</string>
-	<string name="RenderUsePBR">Quando è vero (PBR ON), viene disegnato un materiale PBR valido invece di una texture classica. Quando è falso (PBR OFF), è preferita una texture classica valida. Una faccia senza texture classica valida mantiene il suo materiale PBR. Gli ID delle risorse PBR vengono mantenuti in entrambi i casi.</string>
 	<string name="RenderUseTransformFeedback">[SPERIMENTALE] Utilizza gli shader di feedback della trasformazione per gli aggiornamenti LoD</string>
 	<string name="RenderUseVAO">[SPERIMENTALE] Utilizza oggetti GL Vertex Array</string>
 	<string name="RenderVBOEnable">Utilizza oggetti buffer vertice GL</string>

@@ -30,11 +30,6 @@
 #define DIFFUSE_ALPHA_MODE_EMISSIVE 3
 
 uniform float emissive_brightness;
-uniform float pbr_emissive;
-uniform vec3 pbr_emit_color;
-uniform float pbr_refl_detail;
-uniform float pbr_ssr;
-uniform float pbr_mirrors;
 
 vec2 encode_normal(vec3 n);
 vec3 decode_normal(vec2 enc);
@@ -523,9 +518,6 @@ void main()
 #else
 	final_color.a = max(final_color.a, emissive_brightness);
 #endif
-	final_color.rgb = mix(final_color.rgb, pbr_emit_color, pbr_emissive);
-	final_color.a = max(final_color.a, pbr_emissive);
-
 	vec4 final_specular = spec;
 #if HAS_SPECULAR_MAP
 	vec4 final_normal = vec4(encode_normal(normalize(tnorm)), env_intensity * spec.a, 0.0);

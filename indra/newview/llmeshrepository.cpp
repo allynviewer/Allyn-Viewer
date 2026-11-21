@@ -25,6 +25,7 @@
  * $/LicenseInfo$
  */
 #include "llviewerprecompiledheaders.h"
+#include <algorithm>
 #include "apr_pools.h"
 #include "apr_dso.h"
 #include "llhttpstatuscodes.h"
@@ -53,6 +54,8 @@
 #include "llvolume.h"
 #include "llvolumemgr.h"
 #include "llvovolume.h"
+#include "lldrawable.h"
+#include "llassetfetchrank.h"
 #include "llworld.h"
 #include "material_codes.h"
 #include "pipeline.h"
@@ -177,10 +180,11 @@ class LLMeshHeaderResponder : public LLHTTPClient::ResponderWithCompleted
 {
 public:
 	LLVolumeParams mMeshParams;
+	U32 mRank;
 	bool mProcessed;
 	void retry();
-	LLMeshHeaderResponder(const LLVolumeParams& mesh_params)
-		: mMeshParams(mesh_params)
+	LLMeshHeaderResponder(const LLVolumeParams& mesh_params, U32 rank)
+		: mMeshParams(mesh_params), mRank(rank)
 	{
 		LLMeshRepoThread::incActiveHeaderRequests();
 		mProcessed = false;
@@ -194,7 +198,7 @@ public:
 				LL_WARNS() << "Timeout or service unavailable, retrying." << LL_ENDL;
 				LLMeshRepository::sHTTPRetryCount++;
 				LLMutexLock lock(gMeshRepo.mThread->mMutex);
-				gMeshRepo.mThread->pushHeaderRequest(mMeshParams, 10.f);
+				gMeshRepo.mThread->pushHeaderRequest(mMeshParams, 10.f, mRank);
 			}
 			LLMeshRepoThread::decActiveHeaderRequests();
 		}
@@ -210,12 +214,13 @@ class LLMeshLODResponder : public LLHTTPClient::ResponderWithCompleted
 public:
 	LLVolumeParams mMeshParams;
 	S32 mLOD;
+	U32 mRank;
 	U32 mRequestedBytes;
 	U32 mOffset;
 	bool mProcessed;
 	void retry();
-	LLMeshLODResponder(const LLVolumeParams& mesh_params, S32 lod, U32 offset, U32 requested_bytes)
-		: mMeshParams(mesh_params), mLOD(lod), mOffset(offset), mRequestedBytes(requested_bytes)
+	LLMeshLODResponder(const LLVolumeParams& mesh_params, S32 lod, U32 offset, U32 requested_bytes, U32 rank)
+		: mMeshParams(mesh_params), mLOD(lod), mOffset(offset), mRequestedBytes(requested_bytes), mRank(rank)
 	{
 		LLMeshRepoThread::incActiveLODRequests();
 		mProcessed = false;
@@ -228,7 +233,7 @@ public:
 			{
 				LL_WARNS() << "Killed without being processed, retrying." << LL_ENDL;
 				LLMeshRepository::sHTTPRetryCount++;
-				gMeshRepo.mThread->lockAndLoadMeshLOD(mMeshParams, mLOD);
+				gMeshRepo.mThread->loadMeshLOD(mMeshParams, mLOD, mRank);
 			}
 			LLMeshRepoThread::decActiveLODRequests();
 		}
@@ -497,7 +502,7 @@ LLMeshRepoThread::~LLMeshRepoThread()
 }
 bool LLMeshRepoThread::HeaderRequest::fetch(U32& count)
 {
-	return gMeshRepo.mThread->fetchMeshHeader(this->mMeshParams,  count);
+	return gMeshRepo.mThread->fetchMeshHeader(this->mMeshParams, count, this->mRank);
 }
 void LLMeshRepoThread::LODRequest::preFetch()
 {
@@ -505,7 +510,7 @@ void LLMeshRepoThread::LODRequest::preFetch()
 }
 bool LLMeshRepoThread::LODRequest::fetch(U32& count)
 {
-	if (!gMeshRepo.mThread->fetchMeshLOD(this->mMeshParams, this->mLOD, count))
+	if (!gMeshRepo.mThread->fetchMeshLOD(this->mMeshParams, this->mLOD, count, this->mRank))
 	{
 		gMeshRepo.mThread->mMutex->lock();
 		++LLMeshRepository::sLODProcessing;
@@ -517,6 +522,10 @@ bool LLMeshRepoThread::LODRequest::fetch(U32& count)
 void LLMeshRepoThread::runQueue(std::deque<std::pair<std::shared_ptr<MeshRequest>, F32> >& query, U32& count, S32& active_requests)
 {
 	std::queue<std::pair<std::shared_ptr<MeshRequest>, F32> > incomplete;
+	std::sort(query.begin(), query.end(), [](const std::pair<std::shared_ptr<MeshRequest>, F32>& a, const std::pair<std::shared_ptr<MeshRequest>, F32>& b)
+	{
+		return a.first->mRank > b.first->mRank;
+	});
 	while (!query.empty() && count < MAX_MESH_REQUESTS_PER_SECOND && active_requests < (S32)sMaxConcurrentRequests)
 	{
 		if (mMutex)
@@ -524,6 +533,17 @@ void LLMeshRepoThread::runQueue(std::deque<std::pair<std::shared_ptr<MeshRequest
 			mMutex->lock();
 			auto req = query.front().first;
 			F32 delay = query.front().second;
+			U32 tex_rank = (U32)AllynAssetRank::textureWaitRank();
+			if (tex_rank > req->mRank)
+			{
+				while (!query.empty())
+				{
+					incomplete.push(query.front());
+					query.pop_front();
+				}
+				mMutex->unlock();
+				break;
+			}
 			query.pop_front();
 			req->preFetch();
 			mMutex->unlock();
@@ -581,8 +601,20 @@ void LLMeshRepoThread::run()
 				last_hundred = gFrameTimeSeconds;
 				count = 0;
 			}
+			if (mMutex)
+			{
+				mMutex->lock();
+				publishWaitRank();
+				mMutex->unlock();
+			}
 			runQueue(mLODReqQ, count, sActiveLODRequests);
 			runQueue(mHeaderReqQ, count, sActiveHeaderRequests);
+			if (mMutex)
+			{
+				mMutex->lock();
+				publishWaitRank();
+				mMutex->unlock();
+			}
 			runSet(mSkinRequests, std::bind(&LLMeshRepoThread::fetchMeshSkinInfo, this, std::placeholders::_1));
 			runSet(mDecompositionRequests, std::bind(&LLMeshRepoThread::fetchMeshDecomposition, this, std::placeholders::_1));
 			runSet(mPhysicsShapeRequests, std::bind(&LLMeshRepoThread::fetchMeshPhysicsShape, this, std::placeholders::_1));
@@ -621,15 +653,29 @@ void LLMeshRepoThread::lockAndLoadMeshLOD(const LLVolumeParams& mesh_params, S32
 		loadMeshLOD(mesh_params, lod);
 	}
 }
-void LLMeshRepoThread::loadMeshLOD(const LLVolumeParams& mesh_params, S32 lod)
+void LLMeshRepoThread::loadMeshLOD(const LLVolumeParams& mesh_params, S32 lod, U32 rank)
 {
+	if (rank == 0)
+	{
+		rank = AllynAssetRank::meshRank(1.f);
+	}
 	std::unique_lock<LLMutex> header_lock(*mHeaderMutex);
 	bool exists = mMeshHeader.find(mesh_params.getSculptID()) != mMeshHeader.end();
 	header_lock.unlock();
 	LLMutexLock lock(mMutex);
+	LLUUID mesh_id = mesh_params.getSculptID();
+	std::map<LLUUID, U32>::iterator known = mFetchRank.find(mesh_id);
+	if (known == mFetchRank.end() || known->second < rank)
+	{
+		mFetchRank[mesh_id] = rank;
+	}
+	else
+	{
+		rank = known->second;
+	}
 	if (exists)
 	{
-		gMeshRepo.mThread->pushLODRequest(mesh_params, lod, 0.f);
+		gMeshRepo.mThread->pushLODRequest(mesh_params, lod, 0.f, rank);
 		LLMeshRepository::sLODProcessing++;
 	}
 	else
@@ -642,10 +688,11 @@ void LLMeshRepoThread::loadMeshLOD(const LLVolumeParams& mesh_params, S32 lod)
 		}
 		else
 		{
-			gMeshRepo.mThread->pushHeaderRequest(mesh_params, 0.f);
+			gMeshRepo.mThread->pushHeaderRequest(mesh_params, 0.f, rank);
 			mPendingLOD[mesh_params].push_back(lod);
 		}
 	}
+	publishWaitRank();
 }
 std::string LLMeshRepoThread::constructUrl(LLUUID mesh_id)
 {
@@ -808,7 +855,7 @@ void LLMeshRepoThread::decActiveHeaderRequests()
 	LLMutexLock lock(gMeshRepo.mThread->mMutex);
 	--LLMeshRepoThread::sActiveHeaderRequests;
 }
-bool LLMeshRepoThread::fetchMeshHeader(const LLVolumeParams& mesh_params, U32& count)
+bool LLMeshRepoThread::fetchMeshHeader(const LLVolumeParams& mesh_params, U32& count, U32 rank)
 {
 	{
 		LLVFile file(gVFS, mesh_params.getSculptID(), LLAssetType::AT_MESH);
@@ -830,7 +877,7 @@ bool LLMeshRepoThread::fetchMeshHeader(const LLVolumeParams& mesh_params, U32& c
 	std::string http_url = constructUrl(mesh_params.getSculptID());
 	if (!http_url.empty())
 	{
-		retval = LLHTTPClient::getByteRange(http_url, headers, 0, 4096, new LLMeshHeaderResponder(mesh_params));
+		retval = LLHTTPClient::getByteRange(http_url, headers, 0, 4096, new LLMeshHeaderResponder(mesh_params, rank));
 		if (retval)
 		{
 			LLMeshRepository::sHTTPRequestCount++;
@@ -839,7 +886,7 @@ bool LLMeshRepoThread::fetchMeshHeader(const LLVolumeParams& mesh_params, U32& c
 	}
 	return retval;
 }
-bool LLMeshRepoThread::fetchMeshLOD(const LLVolumeParams& mesh_params, S32 lod, U32& count)
+bool LLMeshRepoThread::fetchMeshLOD(const LLVolumeParams& mesh_params, S32 lod, U32& count, U32 rank)
 {
 	LLUUID mesh_id = mesh_params.getSculptID();
 	MeshHeaderInfo info;
@@ -859,7 +906,7 @@ bool LLMeshRepoThread::fetchMeshLOD(const LLVolumeParams& mesh_params, S32 lod, 
 			{
 				count++;
 				if (!LLHTTPClient::getByteRange(constructUrl(mesh_id), headers, info.mOffset, info.mSize,
-						new LLMeshLODResponder(mesh_params, lod, info.mOffset, info.mSize)))
+						new LLMeshLODResponder(mesh_params, lod, info.mOffset, info.mSize, rank)))
 					return false;
 				LLMeshRepository::sHTTPRequestCount++;
 			}
@@ -914,12 +961,19 @@ bool LLMeshRepoThread::headerReceived(const LLVolumeParams& mesh_params, U8* dat
 		pending_lod_map::iterator iter = mPendingLOD.find(mesh_params);
 		if (iter != mPendingLOD.end())
 		{
+			U32 rank = AllynAssetRank::meshRank(1.f);
+			std::map<LLUUID, U32>::iterator known = mFetchRank.find(mesh_params.getSculptID());
+			if (known != mFetchRank.end())
+			{
+				rank = known->second;
+			}
 			for (U32 i = 0; i < iter->second.size(); ++i)
 			{
 				LLMeshRepository::sLODProcessing++;
-				gMeshRepo.mThread->pushLODRequest(mesh_params, iter->second[i], 0.f);
+				gMeshRepo.mThread->pushLODRequest(mesh_params, iter->second[i], 0.f, rank);
 			}
 			mPendingLOD.erase(iter);
+			publishWaitRank();
 		}
 	}
 	return true;
@@ -1651,7 +1705,7 @@ void LLMeshLODResponder::retry()
 {
 	AIStateMachine::StateTimer timer("loadMeshLOD");
 	LLMeshRepository::sHTTPRetryCount++;
-	gMeshRepo.mThread->loadMeshLOD(mMeshParams, mLOD);
+	gMeshRepo.mThread->loadMeshLOD(mMeshParams, mLOD, mRank);
 }
 void LLMeshLODResponder::completedRaw(LLChannelDescriptors const& channels,
 							          LLIOPipe::buffer_ptr_t const& buffer)
@@ -1854,7 +1908,7 @@ void LLMeshHeaderResponder::retry()
 	AIStateMachine::StateTimer timer("Retry");
 	LLMeshRepository::sHTTPRetryCount++;
 	LLMutexLock lock(gMeshRepo.mThread->mMutex);
-	gMeshRepo.mThread->pushHeaderRequest(mMeshParams, 10.f);
+	gMeshRepo.mThread->pushHeaderRequest(mMeshParams, 10.f, mRank);
 }
 void LLMeshHeaderResponder::completedRaw(LLChannelDescriptors const& channels,
 										 LLIOPipe::buffer_ptr_t const& buffer)
@@ -2221,10 +2275,17 @@ void LLMeshRepository::notifyLoadedMeshes()
 			}
 			std::partial_sort(mPendingRequests.begin(), mPendingRequests.begin() + push_count,
 							  mPendingRequests.end(), LLMeshRepoThread::CompareScoreGreater());
+			U32 tex_rank = (U32)AllynAssetRank::textureWaitRank();
 			while (!mPendingRequests.empty() && push_count > 0)
 			{
 				LLMeshRepoThread::LODRequest& request = mPendingRequests.front();
-				mThread->loadMeshLOD(request.mMeshParams, request.mLOD);
+				F32 px = request.mScore * LLDrawable::sCurPixelAngle;
+				U32 rank = AllynAssetRank::meshRank(px);
+				if (tex_rank > rank)
+				{
+					break;
+				}
+				mThread->loadMeshLOD(request.mMeshParams, request.mLOD, rank);
 				mPendingRequests.erase(mPendingRequests.begin());
 				LLMeshRepository::sLODPending--;
 				push_count--;

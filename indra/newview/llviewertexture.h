@@ -353,6 +353,7 @@ protected:
 	F32 mRequestDeltaTime;
 	F32 mDecodePriority;
 	S32	mMinDiscardLevel;
+	bool mNoFinerLevel;
 	S8  mDesiredDiscardLevel;
 	S8  mMinDesiredDiscardLevel;
 	S8  mNeedsAux;

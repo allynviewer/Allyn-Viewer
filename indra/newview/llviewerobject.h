@@ -122,12 +122,14 @@ private:
 	bool mLightImageParamsInUse = false;
 	bool mExtendedMeshParamsInUse = false;
 	bool mRenderMaterialParamsInUse = false;
+	bool mReflectionProbeParamsInUse = false;
 	LLFlexibleObjectData mFlexibleObjectData;
 	LLLightParams mLightParams;
 	LLSculptParams mSculptParams;
 	LLLightImageParams mLightImageParams;
 	LLExtendedMeshParams mExtendedMeshParams;
 	LLRenderMaterialParams mRenderMaterialParams;
+	LLReflectionProbeParams mReflectionProbeParams;
 public:
 	typedef std::list<LLPointer<LLViewerObject> > child_list_t;
 	typedef std::list<LLPointer<LLViewerObject> > vobj_list_t;
@@ -440,6 +442,7 @@ public:
 	virtual void dirtyMesh();
 	const LLFlexibleObjectData* getFlexibleObjectData() const { return mFlexibleObjectDataInUse ? &mFlexibleObjectData : nullptr; }
 	const LLLightParams* getLightParams() const { return mLightParamsInUse ? &mLightParams : nullptr; }
+	const LLReflectionProbeParams* getReflectionProbeParams() const { return mReflectionProbeParamsInUse ? &mReflectionProbeParams : nullptr; }
 	const LLSculptParams* getSculptParams() const { return mSculptParamsInUse ? &mSculptParams : nullptr; }
 	const LLLightImageParams* getLightImageParams() const { return mLightImageParamsInUse ? &mLightImageParams : nullptr; }
 	const LLExtendedMeshParams* getExtendedMeshParams() const { return mExtendedMeshParamsInUse ? &mExtendedMeshParams : nullptr; }

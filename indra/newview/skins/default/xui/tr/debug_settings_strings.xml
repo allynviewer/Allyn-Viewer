@@ -1465,7 +1465,6 @@ Bu mümkün olduğu kadar düşük olmalıdır, ancak çok düşük olması işl
 	<string name="RenderUseFarClip">Yanlışsa kesik kesik ayırma uzak klip düzlemini yok sayar.</string>
 	<string name="RenderUseFBO">GL_EXT_framebuffer_objects'i kullanmak isteyip istemediğimiz.</string>
 	<string name="RenderUseImpostors">Uzaktaki avatarlar için sahtekarları kullanmak isteyip istemediğimiz.</string>
-	<string name="RenderUsePBR">Doğru olduğunda (PBR AÇIK), klasik doku yerine geçerli bir PBR malzemesi çizilir. Yanlış olduğunda (PBR KAPALI), geçerli bir klasik doku tercih edilir. Geçerli klasik dokusu olmayan bir yüz, PBR malzemesini korur. PBR varlık kimlikleri her iki şekilde de tutulur.</string>
 	<string name="RenderUseTransformFeedback">[DENEYSEL] LoD güncellemeleri için dönüşüm geri bildirim gölgelendiricilerini kullanın</string>
 	<string name="RenderUseVAO">[DENEYSEL] GL Vertex Dizisi Nesnelerini Kullan</string>
 	<string name="RenderVBOEnable">GL Vertex Arabellek Nesnelerini Kullan</string>

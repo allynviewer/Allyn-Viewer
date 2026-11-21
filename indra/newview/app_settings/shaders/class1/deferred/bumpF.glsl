@@ -42,13 +42,6 @@ VARYING vec2 vary_texcoord0;
 
 vec2 encode_normal(vec3 n);
 
-uniform float pbr_active;
-uniform vec3 pbr_spec;
-uniform float pbr_gloss;
-uniform float pbr_env;
-uniform float pbr_emissive;
-uniform vec3 pbr_emit_color;
-
 void main() 
 {
 	vec3 col = vertex_color.rgb * texture2D(diffuseMap, vary_texcoord0.xy).rgb;
@@ -60,16 +53,8 @@ void main()
 
 	vec4 spec = vertex_color.aaaa;
 	float env = vertex_color.a;
-	float emissive = 0.0;
-	if (pbr_active > 0.5)
-	{
-		spec = vec4(pbr_spec, pbr_gloss);
-		env = pbr_env;
-		emissive = pbr_emissive;
-		col = mix(col, pbr_emit_color, emissive);
-	}
 						
-	frag_data[0] = vec4(col, emissive);
+	frag_data[0] = vec4(col, 0.0);
 	frag_data[1] = spec;
 	vec3 nvn = normalize(tnorm);
 	frag_data[2] = vec4(encode_normal(nvn.xyz), env, 0.0);

@@ -4763,6 +4763,12 @@ LLViewerObject::ExtraParameter* LLViewerObject::createNewParameterEntry(U16 para
 			in_use = &mRenderMaterialParamsInUse;
 			break;
 		}
+		case LLNetworkData::PARAMS_REFLECTION_PROBE:
+		{
+			new_block = &mReflectionProbeParams;
+			in_use = &mReflectionProbeParamsInUse;
+			break;
+		}
 		default:
 		{
 			LL_INFOS() << "Unknown param type. (" << llformat("0x%2x", param_type) << ")" << LL_ENDL;

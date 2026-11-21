@@ -1465,7 +1465,6 @@ Dieser sollte so niedrig wie möglich sein, aber ein zu niedriger Wert kann die 
 	<string name="RenderUseFarClip">Bei „false“ ignoriert die Frustum-Culling die entfernte Clipebene.</string>
 	<string name="RenderUseFBO">Ob wir GL_EXT_framebuffer_objects verwenden möchten.</string>
 	<string name="RenderUseImpostors">Ob wir Betrüger für weit entfernte Avatare einsetzen wollen.</string>
-	<string name="RenderUsePBR">Bei „true“ (PBR ON) wird anstelle einer klassischen Textur ein gültiges PBR-Material gezeichnet. Bei „false“ (PBR OFF) wird eine gültige klassische Textur bevorzugt. Eine Fläche ohne gültige klassische Textur behält ihr PBR-Material. PBR-Asset-IDs werden in beiden Fällen beibehalten.</string>
 	<string name="RenderUseTransformFeedback">[EXPERIMENTELL] Verwenden Sie Transformations-Feedback-Shader für LoD-Updates</string>
 	<string name="RenderUseVAO">[EXPERIMENTELL] Verwenden Sie GL-Vertex-Array-Objekte</string>
 	<string name="RenderVBOEnable">Verwenden Sie GL-Vertex-Pufferobjekte</string>

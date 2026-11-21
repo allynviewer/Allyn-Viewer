@@ -4,6 +4,7 @@
  * $LicenseInfo:firstyear=2001&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,6 +24,7 @@
  * $/LicenseInfo$
  */
 #include "linden_common.h"
+#include <cmath>
 #include "apr_pools.h"
 #include "apr_dso.h"
 #include "lldir.h"
@@ -242,20 +244,99 @@ S32 LLImageJ2C::calcHeaderSizeJ2C()
 {
 	return FIRST_PACKET_SIZE;
 }
+S32 LLImageJ2C::discardLevelForExtent(S32 full_extent, F32 screen_px)
+{
+	F32 px = screen_px;
+	if (px < 8.f)
+	{
+		px = 8.f;
+	}
+	F32 full = (F32)full_extent;
+	if (full < 1.f)
+	{
+		full = 1024.f;
+	}
+	F32 d = floorf(logf(full / px) / logf(2.f));
+	if (d < 0.f)
+	{
+		d = 0.f;
+	}
+	if (d > (F32)MAX_DISCARD_LEVEL)
+	{
+		d = (F32)MAX_DISCARD_LEVEL;
+	}
+	return (S32)d;
+}
 S32 LLImageJ2C::calcDataSizeJ2C(S32 w, S32 h, S32 comp, S32 discard_level, F32 rate)
 {
+	(void)comp;
 	if (rate <= 0.f) rate = .125f;
-	while (discard_level > 0)
+	if (discard_level < 0) discard_level = 0;
+	if (discard_level > MAX_DISCARD_LEVEL) discard_level = MAX_DISCARD_LEVEL;
+	const S32 precision = 8;
+	const S32 max_components = 4;
+	const S32 hard_cap = 12;
+	const S64 base_layer_area = (S64)MAX_BLOCK_SIZE * (S64)MAX_BLOCK_SIZE;
+	const S64 bits_per_tile = (S64)max_components * (S64)precision;
+	const S32 discard_layers = llmax(5 - discard_level, 0);
+	const double rate64 = (double)rate;
+	const S64 header_bytes = (S64)calcHeaderSizeJ2C();
+	S64 total_bits = 0;
+	if (w <= 0 || h <= 0)
 	{
-		if (w < 1 || h < 1)
-			break;
-		w >>= 1;
-		h >>= 1;
-		discard_level--;
+		total_bits = (S64)std::llround((double)(base_layer_area * bits_per_tile) * rate64);
 	}
-	S32 bytes = (S32)((F32)(w*h*comp)*rate);
-	bytes = llmax(bytes, calcHeaderSizeJ2C());
-	return bytes;
+	else
+	{
+		const S64 surface = (S64)w * (S64)h;
+		S64 layer_area = base_layer_area;
+		S32 nb_layers = 1;
+		total_bits = (S64)std::llround((double)(layer_area * bits_per_tile) * rate64);
+		while (surface > layer_area && nb_layers < hard_cap)
+		{
+			if (nb_layers <= discard_layers)
+			{
+				total_bits += (S64)std::llround((double)(layer_area * bits_per_tile) * rate64);
+			}
+			++nb_layers;
+			layer_area *= 4;
+		}
+		const S32 max_dimension = llmax(w, h);
+		const double ratio = (max_dimension > 0) ? (double)max_dimension / (double)MAX_BLOCK_SIZE : 0.0;
+		S32 dimension_layers = 1;
+		if (ratio > 0.0)
+		{
+			dimension_layers = (S32)std::floor(std::log2(ratio)) + 1;
+			if (dimension_layers < 1)
+			{
+				dimension_layers = 1;
+			}
+		}
+		if (dimension_layers > nb_layers)
+		{
+			S32 extra = llmin(dimension_layers, hard_cap) - nb_layers;
+			while (extra > 0)
+			{
+				--extra;
+				if (nb_layers <= discard_layers)
+				{
+					total_bits += (S64)std::llround((double)(layer_area * bits_per_tile) * rate64);
+				}
+				++nb_layers;
+				layer_area *= 4;
+			}
+		}
+	}
+	S64 est = total_bits / 8 + header_bytes;
+	if (est < 0)
+	{
+		est = 0;
+	}
+	if (est > 2147483647LL)
+	{
+		est = 2147483647LL;
+	}
+	return (S32)est;
 }
 S32 LLImageJ2C::calcHeaderSize()
 {

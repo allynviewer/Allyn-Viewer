@@ -52,6 +52,12 @@
 #include "llviewerregion.h"
 #include "lldrawpoolwater.h"
 #include "llspatialpartition.h"
+#include "lldrawpoolgltfpbr.h"
+#include "llreflectionprobe.h"
+#include "llgltfmaterial.h"
+#include <algorithm>
+#include <vector>
+extern LLVector3 getSunDir();
 BOOL LLDrawPoolAlpha::sShowDebugAlpha = FALSE;
 static BOOL deferred_render = FALSE;
 LLDrawPoolAlpha::LLDrawPoolAlpha(U32 type) :
@@ -280,6 +286,18 @@ void LLDrawPoolAlpha::renderAlphaHighlight(U32 mask)
 		}
 	}
 }
+static F32 allynAlphaDistance(const LLDrawInfo& params)
+{
+	const LLVector3 origin = LLViewerCamera::getInstance()->getOrigin();
+	if (params.mFace && params.mFace->getViewerObject())
+	{
+		return (params.mFace->getViewerObject()->getPositionAgent() - origin).magVecSquared();
+	}
+	const LLVector4a& min_extent = params.mExtents[0];
+	const LLVector4a& max_extent = params.mExtents[1];
+	LLVector3 center((min_extent[0] + max_extent[0]) * 0.5f, (min_extent[1] + max_extent[1]) * 0.5f, (min_extent[2] + max_extent[2]) * 0.5f);
+	return (center - origin).magVecSquared();
+}
 void LLDrawPoolAlpha::renderAlpha(U32 mask, S32 pass)
 {
 	LLGLState<GL_LIGHTING> light_state;
@@ -302,10 +320,86 @@ void LLDrawPoolAlpha::renderAlpha(U32 mask, S32 pass)
 			LL_RECORD_BLOCK_TIME(FTM_RENDER_ALPHA_GROUP_LOOP);
 			bool disable_cull = is_particle_or_hud_particle;
 			LLGLDisable<GL_CULL_FACE> cull(disable_cull);
-			LLSpatialGroup::drawmap_elem_t& draw_info = group->mDrawMap[LLRenderPass::PASS_ALPHA];
+			static std::vector<LLDrawInfo*> pbr_sorted;
+			pbr_sorted.clear();
+			size_t pbr_cursor = 0;
+			U32 pbr_mask = LLVertexBuffer::MAP_VERTEX | LLVertexBuffer::MAP_NORMAL | LLVertexBuffer::MAP_TEXCOORD0 | LLVertexBuffer::MAP_COLOR | LLVertexBuffer::MAP_TANGENT;
+			auto draw_pbr = [&](LLDrawInfo& info)
+			{
+				if (!gDeferredPBRProgram.mProgramObject)
+				{
+					return;
+				}
+				if (current_shader)
+				{
+					gPipeline.unbindDeferredShader(*current_shader);
+					current_shader = NULL;
+					target_shader = NULL;
+				}
+				gDeferredPBRProgram.bind();
+				gDeferredPBRProgram.uniform1f(LLStaticHashedString("pbr_output_mode"), 1.f);
+				allynBindReflectionState(&gDeferredPBRProgram, 4);
+				LLVector3 sun = getSunDir();
+				LLVector4a sun_v;
+				sun_v.load3(sun.mV);
+				LLVector4a sun_view;
+				glh_get_current_modelview().rotate(sun_v, sun_view);
+				gDeferredPBRProgram.uniform3fv(LLStaticHashedString("pbr_sun_dir"), 1, sun_view.getF32ptr());
+				F32 elev = llclamp(sun.mV[2], 0.f, 1.f);
+				gDeferredPBRProgram.uniform3f(LLStaticHashedString("pbr_sun_color"), elev, elev * 0.96f, elev * 0.9f);
+				gDeferredPBRProgram.uniform1f(LLStaticHashedString("pbr_is_hud"), LLPipeline::sRenderingHUDs ? 1.f : 0.f);
+				gGL.blendFunc(LLRender::BF_SOURCE_ALPHA, LLRender::BF_ONE_MINUS_SOURCE_ALPHA, mAlphaSFactor, mAlphaDFactor);
+				bool two_sided = false;
+				if (info.mFace && info.mFace->getTextureEntry())
+				{
+					LLGLTFMaterial* material = info.mFace->getTextureEntry()->getGLTFMaterial();
+					two_sided = material && material->mReady && material->mDoubleSided;
+				}
+				if (two_sided)
+				{
+					LLGLDisable<GL_CULL_FACE> nocull;
+					pushBatch(info, pbr_mask, TRUE, FALSE);
+				}
+				else
+				{
+					pushBatch(info, pbr_mask, TRUE, FALSE);
+				}
+				gDeferredPBRProgram.unbind();
+			};
+			if (deferred_render && !depth_only && gDeferredPBRProgram.mProgramObject)
+			{
+				LLSpatialGroup::draw_map_t::iterator pbr_it = group->mDrawMap.find(LLRenderPass::PASS_GLTF_PBR_BLEND);
+				if (pbr_it != group->mDrawMap.end())
+				{
+					for (LLSpatialGroup::drawmap_elem_t::iterator pbr_k = pbr_it->second.begin(); pbr_k != pbr_it->second.end(); ++pbr_k)
+					{
+						if (pbr_k->notNull())
+						{
+							pbr_sorted.push_back(pbr_k->get());
+						}
+					}
+					std::sort(pbr_sorted.begin(), pbr_sorted.end(), [](const LLDrawInfo* lhs, const LLDrawInfo* rhs)
+					{
+						return allynAlphaDistance(*lhs) > allynAlphaDistance(*rhs);
+					});
+				}
+			}
+			LLSpatialGroup::draw_map_t::iterator alpha_it = group->mDrawMap.find(LLRenderPass::PASS_ALPHA);
+			if (gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_PASS_ALPHA) && alpha_it != group->mDrawMap.end())
+			{
+			LLSpatialGroup::drawmap_elem_t& draw_info = alpha_it->second;
 			for (LLSpatialGroup::drawmap_elem_t::iterator k = draw_info.begin(); k != draw_info.end(); ++k)
 			{
 				LLDrawInfo& params = **k;
+				if (!pbr_sorted.empty())
+				{
+					F32 classic_dist = allynAlphaDistance(params);
+					while (pbr_cursor < pbr_sorted.size() && allynAlphaDistance(*pbr_sorted[pbr_cursor]) >= classic_dist)
+					{
+						draw_pbr(*pbr_sorted[pbr_cursor]);
+						++pbr_cursor;
+					}
+				}
 				if(depth_only)
 				{
 					LLFace*	face = params.mFace;
@@ -464,6 +558,12 @@ void LLDrawPoolAlpha::renderAlpha(U32 mask, S32 pass)
 					gGL.loadIdentity();
 					gGL.matrixMode(LLRender::MM_MODELVIEW);
 				}
+			}
+			}
+			while (pbr_cursor < pbr_sorted.size())
+			{
+				draw_pbr(*pbr_sorted[pbr_cursor]);
+				++pbr_cursor;
 			}
 		}
 	}

@@ -1465,7 +1465,6 @@
 	<string name="RenderUseFarClip">false の場合、錐台カリングはファー クリップ プレーンを無視します。</string>
 	<string name="RenderUseFBO">GL_EXT_framebuffer_objects を使用するかどうか。</string>
 	<string name="RenderUseImpostors">遠く離れたアバターに偽者を使用するかどうか。</string>
-	<string name="RenderUsePBR">true (PBR ON) の場合、クラシック テクスチャの代わりに有効な PBR マテリアルが描画されます。 false (PBR OFF) の場合、有効なクラシック テクスチャが優先されます。有効なクラシック テクスチャのない面は、PBR マテリアルを維持します。 PBR アセット ID はどちらの方法でも保持されます。</string>
 	<string name="RenderUseTransformFeedback">[実験的] LoD アップデートにトランスフォーム フィードバック シェーダーを使用する</string>
 	<string name="RenderUseVAO">[実験的] GL 頂点配列オブジェクトの使用</string>
 	<string name="RenderVBOEnable">GL頂点バッファオブジェクトを使用する</string>

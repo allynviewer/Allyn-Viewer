@@ -1465,7 +1465,6 @@ This should be as low as possible, but too low may break functionality</string>
 	<string name="RenderUseFarClip">If false, frustum culling will ignore far clip plane.</string>
 	<string name="RenderUseFBO">Whether we want to use GL_EXT_framebuffer_objects.</string>
 	<string name="RenderUseImpostors">Whether we want to use impostors for far away avatars.</string>
-	<string name="RenderUsePBR">When true (PBR ON), a valid PBR material is drawn instead of a classic texture. When false (PBR OFF), a valid classic texture is preferred. A face with no valid classic texture keeps its PBR material. PBR asset ids are kept either way.</string>
 	<string name="RenderUseTransformFeedback">[EXPERIMENTAL] Use transform feedback shaders for LoD updates</string>
 	<string name="RenderUseVAO">[EXPERIMENTAL] Use GL Vertex Array Objects</string>
 	<string name="RenderVBOEnable">Use GL Vertex Buffer Objects</string>

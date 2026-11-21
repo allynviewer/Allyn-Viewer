@@ -1425,6 +1425,13 @@ LLUIImagePtr LLUIImageList::loadUIImage(LLViewerFetchedTexture* imagep, const st
 		mUIImages.insert(std::make_pair(name, new_imagep));
 		mUITextureList.push_back(imagep);
 	}
+	if (imagep->getDiscardLevel() < 0
+		&& (imagep->getBoostLevel() == LLGLTexture::BOOST_UI
+			|| imagep->getBoostLevel() == LLGLTexture::BOOST_ICON
+			|| imagep->getBoostLevel() == LLGLTexture::BOOST_PREVIEW))
+	{
+		gTextureList.forceImmediateUpdate(imagep);
+	}
 	if(imagep->getBoostLevel() == LLGLTexture::BOOST_UI)
 	{
 		LLUIImageLoadData* datap = new LLUIImageLoadData;

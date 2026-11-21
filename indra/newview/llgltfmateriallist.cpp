@@ -1,3 +1,25 @@
+/** 
+ * @file llgltfmateriallist.cpp
+ *
+ * $LicenseInfo:firstyear=2026&license=viewerlgpl$
+ * Copyright (C) 2026 - Allyn Viewer
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation;
+ * version 2.1 of the License only.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * $/LicenseInfo$
+ */
+
 #include "llviewerprecompiledheaders.h"
 #include "llgltfmateriallist.h"
 #include "llassetstorage.h"
@@ -7,7 +29,124 @@
 #include "llglslshader.h"
 #include "lltextureentry.h"
 #include "llface.h"
+#include "llreflectionprobe.h"
+#include "llviewertexture.h"
+#include "llrender.h"
+#include <nlohmann/json.hpp>
+#include <map>
 #include <vector>
+
+namespace
+{
+	struct MapUV
+	{
+		F32 scale_x;
+		F32 scale_y;
+		F32 off_x;
+		F32 off_y;
+		F32 rot;
+		MapUV()
+		:	scale_x(1.f),
+			scale_y(1.f),
+			off_x(0.f),
+			off_y(0.f),
+			rot(0.f)
+		{
+		}
+	};
+
+	struct MaterialUV
+	{
+		MapUV slot[4];
+	};
+
+	std::map<LLUUID, MaterialUV> gMaterialUV;
+
+	F32 jsonReal(const nlohmann::json& value, F32 fallback)
+	{
+		if (value.is_number_float())
+		{
+			return (F32)value.get<double>();
+		}
+		if (value.is_number_integer())
+		{
+			return (F32)value.get<std::int64_t>();
+		}
+		if (value.is_number_unsigned())
+		{
+			return (F32)value.get<std::uint64_t>();
+		}
+		return fallback;
+	}
+
+	void readUV(const nlohmann::json& info, MapUV& uv)
+	{
+		if (!info.is_object() || !info.contains("extensions") || !info["extensions"].is_object())
+		{
+			return;
+		}
+		const nlohmann::json& ext = info["extensions"];
+		if (!ext.contains("KHR_texture_transform") || !ext["KHR_texture_transform"].is_object())
+		{
+			return;
+		}
+		const nlohmann::json& transform = ext["KHR_texture_transform"];
+		if (transform.contains("scale") && transform["scale"].is_array() && transform["scale"].size() >= 2)
+		{
+			uv.scale_x = jsonReal(transform["scale"][0], 1.f);
+			uv.scale_y = jsonReal(transform["scale"][1], 1.f);
+		}
+		if (transform.contains("offset") && transform["offset"].is_array() && transform["offset"].size() >= 2)
+		{
+			uv.off_x = jsonReal(transform["offset"][0], 0.f);
+			uv.off_y = jsonReal(transform["offset"][1], 0.f);
+		}
+		if (transform.contains("rotation"))
+		{
+			uv.rot = jsonReal(transform["rotation"], 0.f);
+		}
+	}
+
+	void storeMaterialUV(const LLUUID& id, const U8* data, S32 size)
+	{
+		MaterialUV uv;
+		if (data && size > 0)
+		{
+			try
+			{
+				const nlohmann::json model = nlohmann::json::parse(data, data + size);
+				if (model.is_object() && model.contains("materials") && model["materials"].is_array() && !model["materials"].empty() && model["materials"][0].is_object())
+				{
+					const nlohmann::json& mat = model["materials"][0];
+					if (mat.contains("pbrMetallicRoughness") && mat["pbrMetallicRoughness"].is_object())
+					{
+						const nlohmann::json& pbr = mat["pbrMetallicRoughness"];
+						if (pbr.contains("baseColorTexture"))
+						{
+							readUV(pbr["baseColorTexture"], uv.slot[LLGLTFMaterial::BASE_COLOR]);
+						}
+						if (pbr.contains("metallicRoughnessTexture"))
+						{
+							readUV(pbr["metallicRoughnessTexture"], uv.slot[LLGLTFMaterial::METALLIC_ROUGHNESS]);
+						}
+					}
+					if (mat.contains("normalTexture"))
+					{
+						readUV(mat["normalTexture"], uv.slot[LLGLTFMaterial::NORMAL]);
+					}
+					if (mat.contains("emissiveTexture"))
+					{
+						readUV(mat["emissiveTexture"], uv.slot[LLGLTFMaterial::EMISSIVE]);
+					}
+				}
+			}
+			catch (const std::exception&)
+			{
+			}
+		}
+		gMaterialUV[id] = uv;
+	}
+}
 
 void LLGLTFMaterialList::onAsset(LLVFS* vfs, const LLUUID& asset_id, LLAssetType::EType, void*, S32 status, LLExtStat)
 {
@@ -58,6 +197,7 @@ void LLGLTFMaterialList::onAssetArrived(LLVFS* vfs, const LLUUID& asset_id, S32 
 		return;
 	}
 	entry.tries = 0;
+	storeMaterialUV(asset_id, &buffer[0], size);
 	++mReadyGeneration;
 	LL_INFOS("GLTF") << "material ready " << asset_id
 		<< " base=" << entry.mat->getTextureId(LLGLTFMaterial::BASE_COLOR) << LL_ENDL;
@@ -76,6 +216,7 @@ LLGLTFMaterial* LLGLTFMaterialList::findMaterial(const LLUUID& id) const
 	}
 	return it->second.mat;
 }
+static const LLUUID kBlankPBRMaterial("968cbad0-4dad-d64e-71b5-72bf13ad051a");
 LLGLTFMaterial* LLGLTFMaterialList::getMaterial(const LLUUID& id)
 {
 	if (id.isNull())
@@ -83,6 +224,17 @@ LLGLTFMaterial* LLGLTFMaterialList::getMaterial(const LLUUID& id)
 		return NULL;
 	}
 	Entry& entry = mEntries[id];
+	if (id == kBlankPBRMaterial)
+	{
+		if (!entry.mat)
+		{
+			entry.mat = new LLGLTFMaterial();
+			entry.mat->mAssetId = id;
+		}
+		entry.mat->mReady = true;
+		entry.pending = false;
+		return entry.mat;
+	}
 	if (!entry.mat)
 	{
 		entry.mat = new LLGLTFMaterial();
@@ -134,57 +286,6 @@ namespace
 		return llclamp((F32)gPBR.probes / 256.f, 0.f, 1.f);
 	}
 
-	F32 reflectionAmount(F32 gloss, F32 metal)
-	{
-		F32 probes = probeScale();
-		if (gPBR.coverage <= 0)
-		{
-			return 0.f;
-		}
-		if (gPBR.coverage == 1)
-		{
-			return (gloss > 0.65f || metal > 0.75f) ? probes : 0.f;
-		}
-		if (gPBR.coverage == 2)
-		{
-			return probes * ((gloss > 0.3f || metal > 0.2f) ? 1.f : 0.35f);
-		}
-		return probes;
-	}
-
-	bool evalMaterial(const LLTextureEntry* te, LLColor4& spec, F32& env, F32& gloss, F32& emissive, LLColor3& emitColor)
-	{
-		if (!te)
-		{
-			return false;
-		}
-		LLGLTFMaterial* mat = te->getGLTFMaterial();
-		if (!mat || !mat->mReady)
-		{
-			return false;
-		}
-		F32 metal = llclamp(mat->mMetallic, 0.f, 1.f);
-		F32 rough = llclamp(mat->mRoughness, 0.f, 1.f);
-		gloss = 1.f - rough;
-		F32 dielectric = 0.04f;
-		spec.mV[0] = dielectric * (1.f - metal) + mat->mBaseColor.mV[0] * metal;
-		spec.mV[1] = dielectric * (1.f - metal) + mat->mBaseColor.mV[1] * metal;
-		spec.mV[2] = dielectric * (1.f - metal) + mat->mBaseColor.mV[2] * metal;
-		spec.mV[3] = gloss;
-		F32 amount = reflectionAmount(gloss, metal);
-		env = llmax(metal, gloss * metal) * amount;
-		if (gPBR.mirrors && gloss > 0.7f)
-		{
-			env = llmax(env, amount);
-		}
-		emitColor = mat->mEmissive;
-		emissive = 0.f;
-		if (gPBR.hdr)
-		{
-			emissive = llclamp(llmax(emitColor.mV[0], llmax(emitColor.mV[1], emitColor.mV[2])), 0.f, 1.f);
-		}
-		return true;
-	}
 }
 
 void LLPBRGraphics::update()
@@ -227,7 +328,7 @@ void LLPBRGraphics::bindGlobals(LLGLSLShader* shader)
 	shader->uniform1f(probe_name, probeScale());
 	shader->uniform1f(ssr_name, gPBR.ssr ? 1.f : 0.f);
 	shader->uniform1f(mirror_name, gPBR.mirrors ? 1.f : 0.f);
-	shader->uniform1f(hdr_name, gPBR.hdr ? 1.f : 0.f);
+	shader->uniform1f(hdr_name, allynHDRColorTarget() ? 1.f : 0.f);
 }
 
 void LLPBRGraphics::bindFace(LLGLSLShader* shader, const LLTextureEntry* te)
@@ -237,25 +338,57 @@ void LLPBRGraphics::bindFace(LLGLSLShader* shader, const LLTextureEntry* te)
 		return;
 	}
 	update();
-	LLColor4 spec(0.f, 0.f, 0.f, 0.f);
-	LLColor3 emit(0.f, 0.f, 0.f);
-	F32 env = 0.f;
-	F32 gloss = 0.f;
-	F32 emissive = 0.f;
-	bool active = evalMaterial(te, spec, env, gloss, emissive, emit);
-	static const LLStaticHashedString active_name("pbr_active");
-	static const LLStaticHashedString spec_name("pbr_spec");
-	static const LLStaticHashedString gloss_name("pbr_gloss");
-	static const LLStaticHashedString env_name("pbr_env");
-	static const LLStaticHashedString emissive_name("pbr_emissive");
-	static const LLStaticHashedString emit_name("pbr_emit_color");
-	shader->uniform1f(active_name, active ? 1.f : 0.f);
-	shader->uniform3f(spec_name, spec.mV[0], spec.mV[1], spec.mV[2]);
-	shader->uniform1f(gloss_name, active ? gloss : 0.f);
-	shader->uniform1f(env_name, active ? env : 0.f);
-	shader->uniform1f(emissive_name, active ? emissive : 0.f);
-	shader->uniform3f(emit_name, emit.mV[0], emit.mV[1], emit.mV[2]);
 	bindGlobals(shader);
+	MapUV uv[4];
+	F32 rough = 1.f;
+	F32 metal = 0.f;
+	LLColor3 emit(0.f, 0.f, 0.f);
+	F32 alpha_mode = 0.f;
+	F32 unlit = 0.f;
+	LLGLTFMaterial* mat = te ? te->getGLTFMaterial() : NULL;
+	if (mat && mat->mReady)
+	{
+		rough = mat->mRoughness;
+		metal = mat->mMetallic;
+		emit = mat->mEmissive;
+		if (mat->mAlphaMode == LLGLTFMaterial::ALPHA_MODE_MASK)
+		{
+			alpha_mode = 2.f;
+		}
+		else if (mat->mAlphaMode == LLGLTFMaterial::ALPHA_MODE_BLEND)
+		{
+			alpha_mode = 1.f;
+		}
+		unlit = mat->mUnlit ? 1.f : 0.f;
+		if (te)
+		{
+			std::map<LLUUID, MaterialUV>::const_iterator found = gMaterialUV.find(te->getGLTFMaterialId());
+			if (found != gMaterialUV.end())
+			{
+				for (S32 i = 0; i < 4; ++i)
+				{
+					uv[i] = found->second.slot[i];
+				}
+			}
+		}
+	}
+	shader->uniform2f(LLStaticHashedString("pbr_uv_scale_b"), uv[LLGLTFMaterial::BASE_COLOR].scale_x, uv[LLGLTFMaterial::BASE_COLOR].scale_y);
+	shader->uniform2f(LLStaticHashedString("pbr_uv_off_b"), uv[LLGLTFMaterial::BASE_COLOR].off_x, uv[LLGLTFMaterial::BASE_COLOR].off_y);
+	shader->uniform1f(LLStaticHashedString("pbr_uv_rot_b"), uv[LLGLTFMaterial::BASE_COLOR].rot);
+	shader->uniform2f(LLStaticHashedString("pbr_uv_scale_n"), uv[LLGLTFMaterial::NORMAL].scale_x, uv[LLGLTFMaterial::NORMAL].scale_y);
+	shader->uniform2f(LLStaticHashedString("pbr_uv_off_n"), uv[LLGLTFMaterial::NORMAL].off_x, uv[LLGLTFMaterial::NORMAL].off_y);
+	shader->uniform1f(LLStaticHashedString("pbr_uv_rot_n"), uv[LLGLTFMaterial::NORMAL].rot);
+	shader->uniform2f(LLStaticHashedString("pbr_uv_scale_m"), uv[LLGLTFMaterial::METALLIC_ROUGHNESS].scale_x, uv[LLGLTFMaterial::METALLIC_ROUGHNESS].scale_y);
+	shader->uniform2f(LLStaticHashedString("pbr_uv_off_m"), uv[LLGLTFMaterial::METALLIC_ROUGHNESS].off_x, uv[LLGLTFMaterial::METALLIC_ROUGHNESS].off_y);
+	shader->uniform1f(LLStaticHashedString("pbr_uv_rot_m"), uv[LLGLTFMaterial::METALLIC_ROUGHNESS].rot);
+	shader->uniform2f(LLStaticHashedString("pbr_uv_scale_e"), uv[LLGLTFMaterial::EMISSIVE].scale_x, uv[LLGLTFMaterial::EMISSIVE].scale_y);
+	shader->uniform2f(LLStaticHashedString("pbr_uv_off_e"), uv[LLGLTFMaterial::EMISSIVE].off_x, uv[LLGLTFMaterial::EMISSIVE].off_y);
+	shader->uniform1f(LLStaticHashedString("pbr_uv_rot_e"), uv[LLGLTFMaterial::EMISSIVE].rot);
+	shader->uniform1f(LLStaticHashedString("pbr_rough_factor"), rough);
+	shader->uniform1f(LLStaticHashedString("pbr_metal_factor"), metal);
+	shader->uniform3f(LLStaticHashedString("pbr_emit_factor"), emit.mV[0], emit.mV[1], emit.mV[2]);
+	shader->uniform1f(LLStaticHashedString("pbr_alpha_mode"), alpha_mode);
+	shader->uniform1f(LLStaticHashedString("pbr_unlit"), unlit);
 }
 
 void LLPBRGraphics::bindDraw(LLGLSLShader* shader, LLFace* face)
@@ -266,52 +399,84 @@ void LLPBRGraphics::bindDraw(LLGLSLShader* shader, LLFace* face)
 		te = face->getTextureEntry();
 	}
 	bindFace(shader, te);
+	if (!shader || !te || te->getGLTFMaterialId().isNull() || !face)
+	{
+		return;
+	}
+	LLViewerTexture* white = LLViewerFetchedTexture::sWhiteImagep.get();
+	LLViewerTexture* base = face->getTexture(LLRender::DIFFUSE_MAP);
+	LLViewerTexture* normal = face->getTexture(LLRender::NORMAL_MAP);
+	LLViewerTexture* orm = face->getTexture(LLRender::SPECULAR_MAP);
+	LLViewerTexture* emissive = face->getTexture(LLRender::EMISSIVE_MAP);
+	if (!base)
+	{
+		base = white;
+	}
+	if (!orm)
+	{
+		orm = white;
+	}
+	if (!emissive)
+	{
+		emissive = white;
+	}
+	shader->uniform1i(LLStaticHashedString("diffuseMap"), 0);
+	shader->uniform1i(LLStaticHashedString("specularMap"), 1);
+	shader->uniform1i(LLStaticHashedString("bumpMap"), 2);
+	shader->uniform1i(LLStaticHashedString("emissiveMap"), 3);
+	shader->uniform1f(LLStaticHashedString("pbr_has_normal"), normal ? 1.f : 0.f);
+	if (base)
+	{
+		gGL.getTexUnit(0)->bind(base);
+	}
+	if (orm)
+	{
+		gGL.getTexUnit(1)->bind(orm);
+	}
+	if (normal)
+	{
+		gGL.getTexUnit(2)->bind(normal);
+	}
+	if (emissive)
+	{
+		gGL.getTexUnit(3)->bind(emissive);
+	}
+	gGL.getTexUnit(0)->activate();
 }
 
-bool LLPBRGraphics::apply(const LLTextureEntry* te, LLColor4& spec, F32& env, F32& emissive)
+bool LLPBRGraphics::apply(const LLTextureEntry*, LLColor4&, F32&, F32&)
 {
-	update();
-	LLColor4 pbr_spec = spec;
-	LLColor3 emit(0.f, 0.f, 0.f);
-	F32 pbr_env = env;
-	F32 gloss = spec.mV[3];
-	F32 pbr_emissive = 0.f;
-	if (!evalMaterial(te, pbr_spec, pbr_env, gloss, pbr_emissive, emit))
-	{
-		return false;
-	}
-	spec = pbr_spec;
-	env = pbr_env;
-	if (gPBR.hdr)
-	{
-		emissive = llmax(emissive, pbr_emissive);
-	}
-	return true;
+	return false;
 }
 
 bool LLPBRGraphics::gradeActive()
 {
 	update();
+	if (!allynHDRColorTarget())
+	{
+		return false;
+	}
 	if (gPBR.mix > 0.01f)
 	{
 		return true;
 	}
-	return gPBR.hdr && fabsf(gPBR.exposure - 1.f) > 0.01f;
+	return fabsf(gPBR.exposure - 1.f) > 0.01f;
 }
 
 void LLPBRGraphics::bindGrade(LLGLSLShader& shader, bool grade, F32 scale_x, F32 scale_y)
 {
 	update();
+	bool tone = grade && gPBR.hdr && allynHDRColorTarget();
 	static const LLStaticHashedString srgb_name("pbr_input_srgb");
 	static const LLStaticHashedString hdr_name("pbr_hdr");
 	static const LLStaticHashedString exposure_name("pbr_exposure");
 	static const LLStaticHashedString type_name("pbr_tonemap_type");
 	static const LLStaticHashedString mix_name("pbr_tonemap_mix");
 	static const LLStaticHashedString scale_name("pbr_tex_scale");
-	shader.uniform1f(srgb_name, grade ? 1.f : 0.f);
-	shader.uniform1f(hdr_name, (grade && gPBR.hdr) ? 1.f : 0.f);
-	shader.uniform1f(exposure_name, (grade && gPBR.hdr) ? gPBR.exposure : 1.f);
-	shader.uniform1f(type_name, grade ? (F32)gPBR.tonemap : 0.f);
-	shader.uniform1f(mix_name, grade ? llclamp(gPBR.mix, 0.f, 1.f) : 0.f);
+	shader.uniform1f(srgb_name, 0.f);
+	shader.uniform1f(hdr_name, tone ? 1.f : 0.f);
+	shader.uniform1f(exposure_name, tone ? gPBR.exposure : 1.f);
+	shader.uniform1f(type_name, tone ? (F32)gPBR.tonemap : 0.f);
+	shader.uniform1f(mix_name, tone ? llclamp(gPBR.mix, 0.f, 1.f) : 0.f);
 	shader.uniform2f(scale_name, scale_x, scale_y);
 }

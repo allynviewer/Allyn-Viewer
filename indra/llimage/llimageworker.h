@@ -82,6 +82,7 @@ public:
 	S32 update(F32 max_time_ms);
 	S32 tut_size();
 	S32 decodeOne() { return processNextRequest(); }
+	S32 getDecodeSlots() const;
 private:
 	class DecodeWorker : public LLThread
 	{

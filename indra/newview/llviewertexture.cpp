@@ -528,9 +528,11 @@ void LLViewerTexture::init(bool firstinit)
 	mFaceList[LLRender::DIFFUSE_MAP].clear();
 	mFaceList[LLRender::NORMAL_MAP].clear();
 	mFaceList[LLRender::SPECULAR_MAP].clear();
+	mFaceList[LLRender::EMISSIVE_MAP].clear();
 	mNumFaces[LLRender::DIFFUSE_MAP] =
 	mNumFaces[LLRender::NORMAL_MAP] =
-	mNumFaces[LLRender::SPECULAR_MAP] = 0;
+	mNumFaces[LLRender::SPECULAR_MAP] =
+	mNumFaces[LLRender::EMISSIVE_MAP] = 0;
 	mVolumeList[LLRender::LIGHT_TEX].clear();
 	mVolumeList[LLRender::SCULPT_TEX].clear();
 }
@@ -544,6 +546,7 @@ void LLViewerTexture::cleanup()
 	mFaceList[LLRender::DIFFUSE_MAP].clear();
 	mFaceList[LLRender::NORMAL_MAP].clear();
 	mFaceList[LLRender::SPECULAR_MAP].clear();
+	mFaceList[LLRender::EMISSIVE_MAP].clear();
 	mVolumeList[LLRender::LIGHT_TEX].clear();
 	mVolumeList[LLRender::SCULPT_TEX].clear();
 }
@@ -877,6 +880,7 @@ void LLViewerFetchedTexture::init(bool firstinit)
 	mIsRawImageValid = FALSE;
 	mRawDiscardLevel = INVALID_DISCARD_LEVEL;
 	mMinDiscardLevel = 0;
+	mNoFinerLevel = false;
 	mHasFetcher = FALSE;
 	mIsFetching = FALSE;
 	mFetchState = 0;
@@ -1331,7 +1335,28 @@ void LLViewerFetchedTexture::processTextureStats()
 			{
 				desired_size = (U32)MAX_IMAGE_SIZE;
 			}
-			if(!mKnownDrawWidth || !mKnownDrawHeight || mFullWidth <= mKnownDrawWidth || mFullHeight <= mKnownDrawHeight)
+			if (mMaxVirtualSize > 1.f
+				&& mBoostLevel != LLGLTexture::BOOST_UI
+				&& mBoostLevel != LLGLTexture::BOOST_ICON
+				&& mBoostLevel != LLGLTexture::BOOST_PREVIEW)
+			{
+				S32 discard = LLImageJ2C::discardLevelForExtent(llmax(mFullWidth, mFullHeight), sqrtf(mMaxVirtualSize));
+				if ((U32)mFullWidth > desired_size || (U32)mFullHeight > desired_size)
+				{
+					if (discard < 1)
+					{
+						discard = 1;
+					}
+				}
+				discard = llmin(discard, (S32)mMinDesiredDiscardLevel);
+				if (mLoadedCallbackDesiredDiscardLevel <= getMaxDiscardLevel()
+					&& mLoadedCallbackDesiredDiscardLevel < discard)
+				{
+					discard = mLoadedCallbackDesiredDiscardLevel;
+				}
+				mDesiredDiscardLevel = (S8)llclamp(discard, 0, (S32)getMaxDiscardLevel());
+			}
+			else if(!mKnownDrawWidth || !mKnownDrawHeight || mFullWidth <= mKnownDrawWidth || mFullHeight <= mKnownDrawHeight)
 			{
 				if ((U32)mFullWidth > desired_size || (U32)mFullHeight > desired_size)
 				{
@@ -1408,9 +1433,9 @@ F32 LLViewerFetchedTexture::calcDecodePriority()
 	{
 		priority = -4.0f;
 	}
-	else if ((mBoostLevel == LLGLTexture::BOOST_UI || mBoostLevel == LLGLTexture::BOOST_ICON) && !have_all_data)
+	else if ((mBoostLevel == LLGLTexture::BOOST_UI || mBoostLevel == LLGLTexture::BOOST_ICON || mBoostLevel == LLGLTexture::BOOST_PREVIEW) && !have_all_data)
 	{
-		priority = 1.f;
+		priority = maxDecodePriority();
 	}
 	else if (pixel_priority < 0.001f && !have_all_data)
 	{
@@ -1596,8 +1621,6 @@ bool LLViewerFetchedTexture::isActiveFetching()
 bool LLViewerFetchedTexture::updateFetch()
 {
 	static LLCachedControl<bool> textures_decode_disabled(gSavedSettings,"TextureDecodeDisabled");
-	static LLCachedControl<F32>  sCameraMotionThreshold(gSavedSettings,"TextureCameraMotionThreshold");
-	static LLCachedControl<S32>  sCameraMotionBoost(gSavedSettings,"TextureCameraMotionBoost");
 	if(textures_decode_disabled ||
 	   (gUseWireframe && mBoostLevel < LLGLTexture::BOOST_AVATAR_BAKED_SELF))
 	{
@@ -1662,6 +1685,15 @@ bool LLViewerFetchedTexture::updateFetch()
 		{
 			mIsFetching = FALSE;
 			mLastPacketTimer.reset();
+			if (LLAppViewer::getTextureFetch()->getRequestCannotRefine(getID()))
+			{
+				S32 best = fetch_discard >= 0 ? fetch_discard : current_discard;
+				if (best >= 0)
+				{
+					mMinDiscardLevel = best;
+					mNoFinerLevel = true;
+				}
+			}
 		}
 		else
 		{
@@ -1777,6 +1809,10 @@ bool LLViewerFetchedTexture::updateFetch()
 	{
 		make_request = false;
 	}
+	else if (mNoFinerLevel)
+	{
+		make_request = false;
+	}
 	else if (current_discard >= 0 && current_discard <= mMinDiscardLevel)
 	{
 		make_request = false;
@@ -1790,19 +1826,6 @@ bool LLViewerFetchedTexture::updateFetch()
 	}
 	if (make_request)
 	{
-		S32 delta_level = (mBoostLevel > LLGLTexture::BOOST_ALM) ? 2 : 1;
-		if (current_discard < 0)
-		{
-			desired_discard = llmax(desired_discard, getMaxDiscardLevel() - delta_level);
-		}
-		else if (LLViewerTexture::sCameraMovingBias < sCameraMotionThreshold)
-		{
-			desired_discard = llmax(desired_discard, current_discard - sCameraMotionBoost);
-		}
-        else
-        {
-			desired_discard = llmax(desired_discard, current_discard - delta_level);
-        }
 		if (mIsFetching)
 		{
 			if (mRequestedDiscardLevel <= desired_discard)
@@ -1821,11 +1844,26 @@ bool LLViewerFetchedTexture::updateFetch()
 	if (make_request)
 	{
 		S32 w=0, h=0, c=0;
-		if (getDiscardLevel() >= 0)
+		if (mFullWidth > 0 && mFullHeight > 0)
+		{
+			w = mFullWidth;
+			h = mFullHeight;
+			c = mComponents;
+		}
+		else if (getDiscardLevel() >= 0)
 		{
 			w = mGLTexturep->getWidth(0);
 			h = mGLTexturep->getHeight(0);
 			c = mComponents;
+		}
+		F32 screen_px = (F32)llmax(mKnownDrawWidth, mKnownDrawHeight);
+		if (mMaxVirtualSize > 1.f)
+		{
+			F32 from_area = sqrtf(mMaxVirtualSize);
+			if (from_area > screen_px)
+			{
+				screen_px = from_area;
+			}
 		}
 		static LLCachedControl<U32> override_tex_discard_level(gSavedSettings, "TextureDiscardLevel");
 		if (override_tex_discard_level != 0)
@@ -1833,8 +1871,16 @@ bool LLViewerFetchedTexture::updateFetch()
 			desired_discard = override_tex_discard_level;
 		}
 		bool fetch_request_created = false;
+		bool first_show = current_discard < 0;
+		bool urgent = mBoostLevel >= LLGLTexture::BOOST_AVATAR_BAKED_SELF;
+		bool interface_image = mBoostLevel == LLGLTexture::BOOST_UI
+			|| mBoostLevel == LLGLTexture::BOOST_ICON
+			|| mBoostLevel == LLGLTexture::BOOST_PREVIEW
+			|| mBoostLevel == LLGLTexture::BOOST_AVATAR_BAKED_SELF
+			|| mBoostLevel == LLGLTexture::BOOST_AVATAR_SELF;
 		fetch_request_created = LLAppViewer::getTextureFetch()->createRequest(mFTType, mUrl, getID(), getTargetHost(), decode_priority,
-																			  w, h, c, desired_discard, needsAux(), mCanUseHTTP, !needsExactPixels());
+																			  w, h, c, desired_discard, needsAux(), mCanUseHTTP, !needsExactPixels(), screen_px,
+																			  first_show, urgent, interface_image);
 		if (fetch_request_created)
 		{
 			mHasFetcher = TRUE;
@@ -2670,37 +2716,32 @@ void LLViewerLODTexture::processTextureStats()
 	}
 	else
 	{
-		static const F64 log_4 = log(4.0);
-		F32 discard_level = 0.f;
+		if(isLargeImage() && !isJustBound() && mAdditionalDecodePriority < 0.3f && mBoostLevel < LLGLTexture::BOOST_HIGH)
+		{
+			mMaxVirtualSize = llmin(mMaxVirtualSize, (F32)LLViewerTexture::sMinLargeImageSize);
+		}
+		F32 screen_px = 0.f;
 		if (mKnownDrawWidth && mKnownDrawHeight)
 		{
-			S32 draw_texels = mKnownDrawWidth * mKnownDrawHeight;
-			draw_texels = llclamp(draw_texels, MIN_IMAGE_AREA, MAX_IMAGE_AREA);
-			discard_level = (F32)(log(mTexelsPerImage/draw_texels) / log_4);
+			screen_px = (F32)llmax(mKnownDrawWidth, mKnownDrawHeight);
 		}
-		else
+		if (mMaxVirtualSize > 1.f)
 		{
-			if(isLargeImage() && !isJustBound() && mAdditionalDecodePriority < 0.3f && mBoostLevel < LLGLTexture::BOOST_HIGH)
+			F32 from_area = sqrtf(mMaxVirtualSize);
+			if (from_area > screen_px)
 			{
-				mMaxVirtualSize = llmin(mMaxVirtualSize, (F32)LLViewerTexture::sMinLargeImageSize);
-			}
-			if ((mCalculatedDiscardLevel >= 0.f) &&
-				(llabs(mMaxVirtualSize - mDiscardVirtualSize) < mMaxVirtualSize*.20f))
-			{
-				discard_level = mCalculatedDiscardLevel;
-			}
-			else
-			{
-				discard_level = (F32)(log(mTexelsPerImage/mMaxVirtualSize) / log_4);
-				mDiscardVirtualSize = mMaxVirtualSize;
-				mCalculatedDiscardLevel = discard_level;
+				screen_px = from_area;
 			}
 		}
-		if (mBoostLevel < LLGLTexture::BOOST_SCULPTED)
+		F32 discard_level = (F32)LLImageJ2C::discardLevelForExtent(llmax(mFullWidth, mFullHeight), screen_px);
+		F32 bias = sDesiredDiscardBias;
+		if (bias > 2.f)
 		{
-			discard_level += sDesiredDiscardBias;
-			discard_level *= sDesiredDiscardScale;
-			discard_level += sCameraMovingDiscardBias;
+			bias = 2.f;
+		}
+		if (mBoostLevel < LLGLTexture::BOOST_SCULPTED && bias > 0.f)
+		{
+			discard_level += bias;
 		}
 		discard_level = floorf(discard_level);
 		F32 min_discard = 0.f;
@@ -2747,7 +2788,8 @@ void LLViewerLODTexture::processTextureStats()
 }
 bool LLViewerLODTexture::scaleDown()
 {
-	if(hasGLTexture() && mCachedRawDiscardLevel > getDiscardLevel())
+	S32 shown = getDiscardLevel();
+	if(hasGLTexture() && mCachedRawDiscardLevel > shown && mCachedRawDiscardLevel <= mDesiredDiscardLevel && shown < mDesiredDiscardLevel && mCachedRawDiscardLevel <= shown + 2)
 	{
 		switchToCachedImage();
 #if 0
