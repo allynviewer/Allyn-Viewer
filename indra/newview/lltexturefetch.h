@@ -90,6 +90,8 @@ public:
 	U32 getHttpOtherFailCount() const { return mHttpOtherFailCount; }
 	U32 getHttpMapFailCount() const { return mHttpMapFailCount; }
 	U32 getHttpTextureBytes() const { return mHttpTextureBytes; }
+	void noteViewerAccept() { mViewerAccept += 1; }
+	void noteGpuReplace() { mGpuReplace += 1; }
     S32 getPending();
 	void lockQueue() { mQueueMutex.lock(); }
 	void unlockQueue() { mQueueMutex.unlock(); }
@@ -171,6 +173,15 @@ private:
 	LLAtomicU32 mBakeMeshYield;
 	LLAtomicU32 mWakeHttp;
 	LLAtomicU32 mWakeDecode;
+	LLAtomicU32 mRefineStarted;
+	LLAtomicU32 mRefineDecoded;
+	LLAtomicU32 mRefineFull;
+	LLAtomicU32 mRefineWhileFirst;
+	LLAtomicU32 mRefineYield;
+	LLAtomicU32 mSameLevelSkip;
+	LLAtomicU32 mSameLevelDecode;
+	LLAtomicU32 mViewerAccept;
+	LLAtomicU32 mGpuReplace;
 public:
 	static volatile bool svMetricsDataBreak;
 };
