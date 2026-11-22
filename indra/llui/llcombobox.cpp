@@ -550,13 +550,20 @@ void LLComboBox::updateLayout()
 	{
 		mButton->setRect(rect);
 		mButton->setTabStop(TRUE);
-		mButton->setLabelUnselected(mLabel);
-		mButton->setLabelSelected(mLabel);
 		if (mTextEntry)
 		{
 			mTextEntry->setVisible(FALSE);
 		}
 		mButton->setFollows(FOLLOWS_ALL);
+		if (mList && mList->getFirstSelected())
+		{
+			mButton->setLabel(getSelectedItemLabel());
+		}
+		else
+		{
+			mButton->setLabelUnselected(mLabel);
+			mButton->setLabelSelected(mLabel);
+		}
 	}
 }
 void* LLComboBox::getCurrentUserdata()
