@@ -84,6 +84,7 @@
 #include "llvocache.h"
 #include "llmaterialmgr.h"
 #include "llgltfmateriallist.h"
+#include "lldrawpoolgltfpbr.h"
 #include "imageids.h"
 #include "llsculptidsize.h"
 #include "rlvhandler.h"
@@ -553,7 +554,7 @@ void LLVOVolume::updateTextures()
 {
 	const F32 TEXTURE_AREA_REFRESH_TIME = 5.f;
 	S32 generation = 0;
-	if (LLGLTFMaterialList::instanceExists())
+	if (!LLGLTFMaterialList::destroyed())
 	{
 		generation = LLGLTFMaterialList::instance().getReadyGeneration();
 	}
@@ -646,6 +647,29 @@ static void streamPBRMap(LLVOVolume* vol, LLViewerTexture* image, F32 vsize)
 	if (vsize > 0.f)
 	{
 		image->addTextureStats(vsize);
+	}
+}
+
+static void streamClassicFace(LLVOVolume* vol, LLFace* face, LLTextureEntry* te, LLViewerTexture* classic, F32 fetch_size)
+{
+	streamPBRMap(vol, classic, fetch_size);
+	if (!vol || !face || !te || te->getMaterialParams().isNull())
+	{
+		return;
+	}
+	S32 te_index = face->getTEOffset();
+	if (te_index < 0 || te_index >= vol->getNumTEs())
+	{
+		return;
+	}
+	LLMaterial* legacy = te->getMaterialParams().get();
+	if (legacy->getNormalID().notNull())
+	{
+		streamPBRMap(vol, vol->getTENormalMap((U8)te_index), fetch_size);
+	}
+	if (legacy->getSpecularID().notNull())
+	{
+		streamPBRMap(vol, vol->getTESpecularMap((U8)te_index), fetch_size);
 	}
 }
 
@@ -811,11 +835,6 @@ static void applyPBRMaterial(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize
 	{
 		return;
 	}
-	if (te->getGLTFMaterialId().isNull())
-	{
-		rebuildWornFace(vol, restoreClassicFace(vol, face, te, classic));
-		return;
-	}
 	F32 fetch_size = vsize;
 	if (fetch_size <= 0.f && vol->isVisible())
 	{
@@ -826,12 +845,44 @@ static void applyPBRMaterial(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize
 	{
 		fetch_size = pixels;
 	}
+	if (fetch_size > 0.f && face->getVirtualSize() < fetch_size)
+	{
+		face->setVirtualSize(fetch_size);
+	}
+	if (te->getGLTFMaterialId().isNull())
+	{
+		bool changed = restoreClassicFace(vol, face, te, classic);
+		streamClassicFace(vol, face, te, classic, fetch_size);
+		rebuildWornFace(vol, changed);
+		return;
+	}
 	LLGLTFMaterial* mat = NULL;
-	if (LLGLTFMaterialList::instanceExists())
+	if (!LLGLTFMaterialList::destroyed())
 	{
 		mat = LLGLTFMaterialList::instance().getMaterial(te->getGLTFMaterialId());
 	}
 	te->setGLTFMaterial(mat);
+	if (!mat || !mat->mReady)
+	{
+		bool changed = false;
+		U32 pool = face->getPoolType();
+		if (pool == LLDrawPool::POOL_GLTF_PBR || pool == LLDrawPool::POOL_GLTF_PBR_ALPHA_MASK)
+		{
+			changed = true;
+		}
+		if (sharedPlaceholder(face->getTexture()) && classic && !sharedPlaceholder(classic))
+		{
+			face->setTexture(classic);
+			changed = true;
+			if (vol->mDrawable.notNull())
+			{
+				gPipeline.markTextured(vol->mDrawable);
+			}
+		}
+		streamClassicFace(vol, face, te, classic, fetch_size);
+		rebuildWornFace(vol, changed);
+		return;
+	}
 	LLViewerTexture* base = NULL;
 	LLViewerTexture* normal = NULL;
 	LLViewerTexture* orm = NULL;
@@ -848,13 +899,15 @@ static void applyPBRMaterial(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize
 		streamPBRMap(vol, orm, fetch_size);
 		streamPBRMap(vol, emissive, fetch_size);
 	}
-	if (!base)
+	if (!gDeferredPBRProgram.mProgramObject && base && !base->hasGLTexture())
 	{
-		base = LLViewerFetchedTexture::sWhiteImagep.get();
+		streamPBRMap(vol, base, fetch_size);
+		base = NULL;
 	}
 	if (!base)
 	{
 		base = classic;
+		streamClassicFace(vol, face, te, classic, fetch_size);
 	}
 	bool face_changed = false;
 	if (face->getTexture() != base)
@@ -879,6 +932,12 @@ static void applyPBRMaterial(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize
 	if (face->getTexture(LLRender::EMISSIVE_MAP) != emissive)
 	{
 		face->setTexture(LLRender::EMISSIVE_MAP, emissive);
+		face_changed = true;
+	}
+	LLViewerTexture* shown = face->getTexture();
+	U32 want_pool = shown ? LLPipeline::getPoolTypeFromTE(te, shown) : 0;
+	if (want_pool != 0 && face->getPoolType() != want_pool)
+	{
 		face_changed = true;
 	}
 	if (!sharedPlaceholder(classic) && classic != base && classic != normal && classic != orm && classic != emissive && classic->getTotalNumFaces() == 0)

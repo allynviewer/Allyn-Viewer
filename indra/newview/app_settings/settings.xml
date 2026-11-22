@@ -14877,28 +14877,6 @@ This should be as low as possible, but too low may break functionality</string>
       <key>Value</key>
       <real>12.0</real>
     </map>
-    <key>RenderTextureBC7</key>
-    <map>
-      <key>Comment</key>
-      <string>Store world textures on the video card as BC7 blocks when the video card supports it and the texture comes out unharmed (requires restart)</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>1</integer>
-    </map>
-    <key>RenderTextureBC7Cache</key>
-    <map>
-      <key>Comment</key>
-      <string>Keep the BC7 blocks of world textures next to the texture cache so a texture seen before is not decoded from JPEG2000 again; uses up to a quarter of the texture cache size on disk (requires restart)</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>1</integer>
-    </map>
     <key>RenderTextureMemoryMultiple</key>
     <map>
       <key>Comment</key>
@@ -17092,7 +17070,7 @@ This should be as low as possible, but too low may break functionality</string>
     <key>ImageDecodeThreads</key>
     <map>
       <key>Comment</key>
-      <string>Number of JPEG2000 decode threads. 0 = auto (cores-4, clamped 2-8). Restart required.</string>
+      <string>Number of JPEG2000 decode threads. 0 = auto (one per logical core, clamped 2-8). Restart required.</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>

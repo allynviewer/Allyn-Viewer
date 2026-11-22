@@ -194,8 +194,6 @@ private:
 	S8       mCurrentDiscardLevel;
 	bool mAllowCompression;
 	bool mIsCompressed = false;
-	bool mIsBC7 = false;
-	std::shared_ptr<const LLImageBC7Chain> mBC7Chain;
 	S32 formatBytes(S32 width, S32 height) const;
 protected:
 	LLGLenum mTarget;
@@ -224,7 +222,6 @@ public:
 	static BOOL sGlobalUseAnisotropic;
 	static LLImageGL* sDefaultGLTexture ;
  	static bool sCompressTextures;
-	static bool sUseBC7;
 #if DEBUG_MISS
 	BOOL mMissed;
 	BOOL getMissed() const { return mMissed; };

@@ -834,7 +834,7 @@
  textures and the inventory faster, although in some cases a too high value might
  actually slow that down due to serverside throttling. If unsure, choose 15000.</string>
 	<string name="IgnorePixelDepth">Ignore pixel depth settings.</string>
-	<string name="ImageDecodeThreads">Number of JPEG2000 decode threads. 0 = auto (cores-4, clamped 2-8). Restart required.</string>
+	<string name="ImageDecodeThreads">Number of JPEG2000 decode threads. 0 = auto (one per logical core, clamped 2-8). Restart required.</string>
 	<string name="ImagePipelineUseHTTP">If TRUE use HTTP GET to fetch textures from the server</string>
 	<string name="IMChatColor">Color of instant messages from other residents</string>
 	<string name="IMInChatConsole">Copy IM into chat console</string>

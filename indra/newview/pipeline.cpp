@@ -34,6 +34,7 @@
 #include "pipeline.h"
 #include "llreflectionprobe.h"
 #include "llgltfmaterial.h"
+#include "lldrawpoolgltfpbr.h"
 #include "lltimer.h"
 #include <atomic>
 #include <cstdlib>
@@ -2111,12 +2112,16 @@ U32 LLPipeline::getPoolTypeFromTE(const LLTextureEntry* te, LLViewerTexture* ima
 	{
 		return 0;
 	}
-	if (!te->getGLTFMaterialId().isNull())
+	LLGLTFMaterial* gltf = te->getGLTFMaterial();
+	if (gltf && gltf->mReady && gDeferredPBRProgram.mProgramObject)
 	{
-		LLGLTFMaterial* gltf = te->getGLTFMaterial();
-		if (gltf && gltf->mReady && gltf->mAlphaMode == LLGLTFMaterial::ALPHA_MODE_MASK)
+		if (gltf->mAlphaMode == LLGLTFMaterial::ALPHA_MODE_MASK)
 		{
 			return LLDrawPool::POOL_GLTF_PBR_ALPHA_MASK;
+		}
+		if (gltf->mAlphaMode == LLGLTFMaterial::ALPHA_MODE_BLEND)
+		{
+			return LLDrawPool::POOL_ALPHA;
 		}
 		return LLDrawPool::POOL_GLTF_PBR;
 	}

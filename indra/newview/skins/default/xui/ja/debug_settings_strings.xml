@@ -834,7 +834,7 @@
  テクスチャとインベントリの作成が高速化されますが、場合によっては値が高すぎると、
  実際にはサーバー側のスロットリングにより速度が低下します。よくわからない場合は、15000 を選択してください。</string>
 	<string name="IgnorePixelDepth">ピクセル深度の設定を無視します。</string>
-	<string name="ImageDecodeThreads">JPEG2000 デコード スレッドの数。 0 = 自動 (コア 4、クランプ 2 ～ 8)。再起動が必要です。</string>
+	<string name="ImageDecodeThreads">JPEG2000 デコード スレッドの数。 0 = 自動（論理コアごとに 1、2～8 に制限）。再起動が必要です。</string>
 	<string name="ImagePipelineUseHTTP">TRUE の場合、HTTP GET を使用してサーバーからテクスチャを取得します</string>
 	<string name="IMChatColor">他の住人からのインスタントメッセージの色</string>
 	<string name="IMInChatConsole">IM をチャット コンソールにコピーする</string>

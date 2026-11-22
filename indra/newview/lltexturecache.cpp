@@ -29,7 +29,6 @@
 #include "llapr.h"
 #include "lldir.h"
 #include "llimage.h"
-#include "llimagebc7.h"
 #include "lllfsthread.h"
 #include "llviewercontrol.h"
 #include "llappviewer.h"
@@ -610,6 +609,7 @@ LLTextureCache::LLTextureCache(bool threaded)
 	  mReadOnly(TRUE),
 	  mTexturesSizeTotal(0),
 	  mDoPurge(FALSE),
+	  mFastCachep(NULL),
 	  mFastCachePadBuffer(NULL)
 {
 }
@@ -617,6 +617,8 @@ LLTextureCache::~LLTextureCache()
 {
 	clearDeleteList();
 	writeUpdatedEntries();
+	delete mFastCachep;
+	mFastCachep = NULL;
 	if (mFastCachePadBuffer)
 	{
 		ll_aligned_free_16(mFastCachePadBuffer);
@@ -772,10 +774,6 @@ U64 LLTextureCache::initCache(ELLPath location, U64 max_size, BOOL texture_cache
 	LL_INFOS("TextureCache") << "Headers: " << sCacheMaxEntries
 			<< " Textures size: " << sCacheMaxTexturesSize / (1024 * 1024) << " MB" << LL_ENDL;
 	setDirNames(location);
-	if (gSavedSettings.getBOOL("RenderTextureBC7Cache"))
-	{
-		LLImageBC7Cache::init(mTexturesDirName, sCacheMaxTexturesSize / 4, mReadOnly);
-	}
 	if(texture_cache_mismatch)
 	{
 		purgeAllTextures(true);
@@ -797,6 +795,7 @@ U64 LLTextureCache::initCache(ELLPath location, U64 max_size, BOOL texture_cache
 	readHeaderCache();
 	purgeTextures(true);
 	llassert_always(getPending() == 0);
+	openFastCache(true);
 	return max_size;
 }
 LLAPRFile* LLTextureCache::openHeaderEntriesFile(bool readonly, S32 offset)
@@ -1250,7 +1249,6 @@ void LLTextureCache::purgeAllTextures(bool purge_directories)
 			gDirUtilp->deleteFilesInDir(mTexturesDirName, mask);
 			LLFile::rmdir(mTexturesDirName);
 		}
-		LLImageBC7Cache::clear();
 	}
 	mHeaderIDMap.clear();
 	mTexturesSizeMap.clear();
@@ -1540,7 +1538,6 @@ void LLTextureCache::removeCachedTexture(const LLUUID& id)
 	}
 	mHeaderIDMap.erase(id);
 	LLAPRFile::remove(getTextureFileName(id));
-	LLImageBC7Cache::remove(id);
 }
 void LLTextureCache::removeEntry(S32 idx, Entry& entry, std::string& filename)
 {
@@ -1561,7 +1558,6 @@ void LLTextureCache::removeEntry(S32 idx, Entry& entry, std::string& filename)
 		mTexturesSizeTotal -= entry.mBodySize;
 		entry.mImageSize = -1;
 		entry.mBodySize = 0;
-		LLImageBC7Cache::remove(entry.mID);
 		mHeaderIDMap.erase(entry.mID);
 		mTexturesSizeMap.erase(entry.mID);
 		mFreeList.insert(idx);
@@ -1581,7 +1577,6 @@ bool LLTextureCache::removeFromCache(const LLUUID& id)
 		S32 idx = openAndReadEntry(id, entry, false);
 		std::string tex_filename = getTextureFileName(id);
 		removeEntry(idx, entry, tex_filename);
-		LLImageBC7Cache::remove(id);
 		if (idx >= 0)
 		{
 			writeEntryToHeaderImmediately(idx, entry);
@@ -1629,40 +1624,91 @@ LLPointer<LLImageRaw> LLTextureCache::readFromFastCache(const LLUUID& id, S32& d
 	}
 	S32 offset = idx * TEXTURE_FAST_CACHE_ENTRY_SIZE;
 	S32 head[4] = { 0, 0, 0, 0 };
+	U8* data = NULL;
 	{
 		LLMutexLock lock(&mFastCacheMutex);
-		S32 bytes = LLAPRFile::readEx(mFastCacheFileName, head, offset, TEXTURE_FAST_CACHE_ENTRY_OVERHEAD);
-		if (bytes != TEXTURE_FAST_CACHE_ENTRY_OVERHEAD)
+		openFastCache();
+		if (!mFastCachep)
 		{
+			return NULL;
+		}
+		mFastCachep->seek(APR_SET, offset);
+		if (mFastCachep->read(head, TEXTURE_FAST_CACHE_ENTRY_OVERHEAD) != TEXTURE_FAST_CACHE_ENTRY_OVERHEAD)
+		{
+			closeFastCache();
 			return NULL;
 		}
 		S32 image_size = head[0] * head[1] * head[2];
 		if (image_size <= 0 || image_size > TEXTURE_FAST_CACHE_DATA_SIZE || head[3] < 0)
 		{
+			closeFastCache();
 			return NULL;
 		}
 		discardlevel = head[3];
-		U8* data = (U8*)ll_aligned_malloc_16(image_size);
-		if (!data)
-		{
-			return NULL;
-		}
-		bytes = LLAPRFile::readEx(mFastCacheFileName, data, offset + TEXTURE_FAST_CACHE_ENTRY_OVERHEAD, image_size);
-		if (bytes != image_size)
+		data = (U8*)ll_aligned_malloc_16(image_size);
+		if (!data || mFastCachep->read(data, image_size) != image_size)
 		{
 			ll_aligned_free_16(data);
+			closeFastCache();
 			return NULL;
 		}
-		LLPointer<LLImageRaw> raw = new LLImageRaw(data, (U16)head[0], (U16)head[1], (S8)head[2], true);
-		if (discardlevel > MAX_DISCARD_LEVEL)
-		{
-			S32 w = head[0] << (discardlevel - MAX_DISCARD_LEVEL);
-			S32 h = head[1] << (discardlevel - MAX_DISCARD_LEVEL);
-			discardlevel = MAX_DISCARD_LEVEL;
-			raw->scale(w, h, TRUE);
-		}
-		return raw;
+		closeFastCache();
 	}
+	LLPointer<LLImageRaw> raw = new LLImageRaw(data, (U16)head[0], (U16)head[1], (S8)head[2], true);
+	if (discardlevel > MAX_DISCARD_LEVEL)
+	{
+		S32 w = head[0] << (discardlevel - MAX_DISCARD_LEVEL);
+		S32 h = head[1] << (discardlevel - MAX_DISCARD_LEVEL);
+		discardlevel = MAX_DISCARD_LEVEL;
+		raw->scale(w, h, TRUE);
+	}
+	return raw;
+}
+void LLTextureCache::openFastCache(bool first_time)
+{
+	if (mFastCachep)
+	{
+		return;
+	}
+	if (!mFastCachePadBuffer)
+	{
+		mFastCachePadBuffer = (U8*)ll_aligned_malloc_16(TEXTURE_FAST_CACHE_ENTRY_SIZE);
+	}
+	apr_int32_t flags = APR_READ|APR_BINARY;
+	if (!mReadOnly)
+	{
+		flags = APR_READ|APR_WRITE|APR_BINARY;
+		if (first_time && !LLAPRFile::isExist(mFastCacheFileName))
+		{
+			flags = APR_CREATE|APR_READ|APR_WRITE|APR_BINARY;
+		}
+	}
+	else if (!LLAPRFile::isExist(mFastCacheFileName))
+	{
+		return;
+	}
+	mFastCachep = new LLAPRFile(mFastCacheFileName, flags, NULL, LLAPRFile::long_lived);
+	if (!mFastCachep->getFileHandle())
+	{
+		delete mFastCachep;
+		mFastCachep = NULL;
+		return;
+	}
+	mFastCacheTimer.reset();
+}
+void LLTextureCache::closeFastCache(bool forced)
+{
+	static const F32 timeout = 10.f;
+	if (!mFastCachep)
+	{
+		return;
+	}
+	if (!forced && mFastCacheTimer.getElapsedTimeF32() < timeout)
+	{
+		return;
+	}
+	delete mFastCachep;
+	mFastCachep = NULL;
 }
 bool LLTextureCache::writeToFastCache(LLUUID image_id, S32 id, LLPointer<LLImageRaw> raw, S32 discardlevel)
 {
@@ -1714,6 +1760,13 @@ bool LLTextureCache::writeToFastCache(LLUUID image_id, S32 id, LLPointer<LLImage
 	}
 	S32 offset = id * TEXTURE_FAST_CACHE_ENTRY_SIZE;
 	LLMutexLock lock(&mFastCacheMutex);
-	S32 written = LLAPRFile::writeEx(mFastCacheFileName, mFastCachePadBuffer, offset, TEXTURE_FAST_CACHE_ENTRY_SIZE);
+	openFastCache();
+	if (!mFastCachep)
+	{
+		return false;
+	}
+	mFastCachep->seek(APR_SET, offset);
+	S32 written = mFastCachep->write(mFastCachePadBuffer, TEXTURE_FAST_CACHE_ENTRY_SIZE);
+	closeFastCache(true);
 	return written == TEXTURE_FAST_CACHE_ENTRY_SIZE;
 }

@@ -64,7 +64,6 @@ public:
 	S32	 mNumTextureUnits;
 	BOOL mHasMipMapGeneration;
 	BOOL mHasCompressedTextures;
-	BOOL mHasTextureCompressionBPTC;
 	BOOL mHasFramebufferObject;
 	S32 mMaxSamples;
 	BOOL mHasFramebufferMultisample;

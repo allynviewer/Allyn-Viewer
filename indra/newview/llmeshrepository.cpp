@@ -54,6 +54,7 @@
 #include "llvolume.h"
 #include "llvolumemgr.h"
 #include "llvovolume.h"
+#include "llvoavatar.h"
 #include "lldrawable.h"
 #include "llassetfetchrank.h"
 #include "llworld.h"
@@ -90,6 +91,9 @@ U32 LLMeshRepository::sCacheBytesRead = 0;
 U32 LLMeshRepository::sCacheBytesWritten = 0;
 U32 LLMeshRepository::sPeakKbps = 0;
 U32 LLMeshRepository::sSkinParseErrors = 0;
+U32 LLMeshRepository::sSkinSent = 0;
+U32 LLMeshRepository::sSkinNoHeader = 0;
+U32 LLMeshRepository::sYieldToTexture = 0;
 const U32 MAX_TEXTURE_UPLOAD_RETRIES = 5;
 static S32 dump_num = 0;
 std::string make_dump_name(std::string prefix, S32 num)
@@ -198,7 +202,8 @@ public:
 				LL_WARNS() << "Timeout or service unavailable, retrying." << LL_ENDL;
 				LLMeshRepository::sHTTPRetryCount++;
 				LLMutexLock lock(gMeshRepo.mThread->mMutex);
-				gMeshRepo.mThread->pushHeaderRequest(mMeshParams, 10.f, mRank);
+				U32 rank = gMeshRepo.mThread->raiseRank(mMeshParams.getSculptID(), mRank);
+				gMeshRepo.mThread->pushHeaderRequest(mMeshParams, 10.f, rank);
 			}
 			LLMeshRepoThread::decActiveHeaderRequests();
 		}
@@ -474,7 +479,7 @@ public:
 	char const* getName(void) const { return "LLWholeModelUploadResponder"; }
 };
 LLMeshRepoThread::LLMeshRepoThread()
-: LLThread("mesh repo")
+: LLThread("mesh repo"), mSkinSkip(0)
 {
 	mMutex = new LLMutex();
 	mHeaderMutex = new LLMutex();
@@ -510,6 +515,15 @@ void LLMeshRepoThread::LODRequest::preFetch()
 }
 bool LLMeshRepoThread::LODRequest::fetch(U32& count)
 {
+	LLUUID mesh_id = mMeshParams.getSculptID();
+	uuid_set_t::iterator skin = gMeshRepo.mThread->mSkinRequests.find(mesh_id);
+	if (skin != gMeshRepo.mThread->mSkinRequests.end())
+	{
+		if (gMeshRepo.mThread->fetchMeshSkinInfo(mesh_id))
+		{
+			gMeshRepo.mThread->mSkinRequests.erase(skin);
+		}
+	}
 	if (!gMeshRepo.mThread->fetchMeshLOD(this->mMeshParams, this->mLOD, count, this->mRank))
 	{
 		gMeshRepo.mThread->mMutex->lock();
@@ -522,10 +536,45 @@ bool LLMeshRepoThread::LODRequest::fetch(U32& count)
 void LLMeshRepoThread::runQueue(std::deque<std::pair<std::shared_ptr<MeshRequest>, F32> >& query, U32& count, S32& active_requests)
 {
 	std::queue<std::pair<std::shared_ptr<MeshRequest>, F32> > incomplete;
+	if (mMutex)
+	{
+		mMutex->lock();
+	}
 	std::sort(query.begin(), query.end(), [](const std::pair<std::shared_ptr<MeshRequest>, F32>& a, const std::pair<std::shared_ptr<MeshRequest>, F32>& b)
 	{
-		return a.first->mRank > b.first->mRank;
+		auto effective = [](const std::shared_ptr<MeshRequest>& req) -> U32
+		{
+			if (!req)
+			{
+				return 0;
+			}
+			U32 rank = req->mRank;
+			if (rank >= AllynAssetRank::URGENT)
+			{
+				return rank;
+			}
+			LODRequest* lod_req = dynamic_cast<LODRequest*>(req.get());
+			if (!lod_req)
+			{
+				return rank;
+			}
+			S32 bias = lod_req->mLOD;
+			if (bias < 0)
+			{
+				bias = 0;
+			}
+			if (bias > 3)
+			{
+				bias = 3;
+			}
+			return rank + (U32)bias;
+		};
+		return effective(a.first) > effective(b.first);
 	});
+	if (mMutex)
+	{
+		mMutex->unlock();
+	}
 	while (!query.empty() && count < MAX_MESH_REQUESTS_PER_SECOND && active_requests < (S32)sMaxConcurrentRequests)
 	{
 		if (mMutex)
@@ -536,6 +585,7 @@ void LLMeshRepoThread::runQueue(std::deque<std::pair<std::shared_ptr<MeshRequest
 			U32 tex_rank = (U32)AllynAssetRank::textureWaitRank();
 			if (tex_rank > req->mRank)
 			{
+				LLMeshRepository::sYieldToTexture += 1;
 				while (!query.empty())
 				{
 					incomplete.push(query.front());
@@ -582,6 +632,82 @@ void LLMeshRepoThread::runSet(uuid_set_t& set, std::function<bool(const LLUUID& 
 		else ++iter;
 	}
 }
+void LLMeshRepoThread::issueSkins(U32& count, S32 limit)
+{
+	S32 issued = 0;
+	if (mMutex)
+	{
+		mMutex->lock();
+		while (!mSkinReady.empty() && issued < limit && count < MAX_MESH_REQUESTS_PER_SECOND)
+		{
+			LLUUID id = mSkinReady.front();
+			mSkinReady.pop_front();
+			mMutex->unlock();
+			uuid_set_t::iterator ready = mSkinRequests.find(id);
+			if (ready != mSkinRequests.end())
+			{
+				if (!fetchMeshSkinInfo(id))
+				{
+					mMutex->lock();
+					mSkinReady.push_front(id);
+					mMutex->unlock();
+					return;
+				}
+				mSkinRequests.erase(ready);
+				++issued;
+				++count;
+			}
+			mMutex->lock();
+		}
+		mMutex->unlock();
+	}
+	if (mSkinRequests.empty() || issued >= limit || count >= MAX_MESH_REQUESTS_PER_SECOND)
+	{
+		return;
+	}
+	uuid_set_t::iterator iter = mSkinRequests.begin();
+	S32 skip = mSkinSkip;
+	while (skip > 0 && iter != mSkinRequests.end())
+	{
+		++iter;
+		--skip;
+	}
+	if (iter == mSkinRequests.end())
+	{
+		iter = mSkinRequests.begin();
+		mSkinSkip = 0;
+	}
+	S32 looked = 0;
+	while (looked < 48 && issued < limit && count < MAX_MESH_REQUESTS_PER_SECOND && iter != mSkinRequests.end())
+	{
+		++mSkinSkip;
+		++looked;
+		MeshHeaderInfo info;
+		if (!getMeshHeaderInfo(*iter, "skin", info))
+		{
+			LLMeshRepository::sSkinNoHeader++;
+			++iter;
+			if (iter == mSkinRequests.end())
+			{
+				iter = mSkinRequests.begin();
+				mSkinSkip = 0;
+			}
+			continue;
+		}
+		if (!fetchMeshSkinInfo(*iter))
+		{
+			return;
+		}
+		iter = mSkinRequests.erase(iter);
+		++issued;
+		++count;
+		if (iter == mSkinRequests.end())
+		{
+			iter = mSkinRequests.begin();
+			mSkinSkip = 0;
+		}
+	}
+}
 void LLMeshRepoThread::run()
 {
 	LLCDResult res = LLConvexDecomposition::initThread();
@@ -607,15 +733,15 @@ void LLMeshRepoThread::run()
 				publishWaitRank();
 				mMutex->unlock();
 			}
-			runQueue(mLODReqQ, count, sActiveLODRequests);
 			runQueue(mHeaderReqQ, count, sActiveHeaderRequests);
+			issueSkins(count, mLODReqQ.empty() ? 4 : 1);
 			if (mMutex)
 			{
 				mMutex->lock();
 				publishWaitRank();
 				mMutex->unlock();
 			}
-			runSet(mSkinRequests, std::bind(&LLMeshRepoThread::fetchMeshSkinInfo, this, std::placeholders::_1));
+			runQueue(mLODReqQ, count, sActiveLODRequests);
 			runSet(mDecompositionRequests, std::bind(&LLMeshRepoThread::fetchMeshDecomposition, this, std::placeholders::_1));
 			runSet(mPhysicsShapeRequests, std::bind(&LLMeshRepoThread::fetchMeshPhysicsShape, this, std::placeholders::_1));
 		}
@@ -653,6 +779,41 @@ void LLMeshRepoThread::lockAndLoadMeshLOD(const LLVolumeParams& mesh_params, S32
 		loadMeshLOD(mesh_params, lod);
 	}
 }
+U32 LLMeshRepoThread::raiseRank(const LLUUID& mesh_id, U32 rank)
+{
+	if (mesh_id.isNull())
+	{
+		return rank;
+	}
+	std::map<LLUUID, U32>::iterator known = mFetchRank.find(mesh_id);
+	if (known != mFetchRank.end() && known->second > rank)
+	{
+		rank = known->second;
+	}
+	if (rank == 0)
+	{
+		return 0;
+	}
+	if (known == mFetchRank.end() || known->second < rank)
+	{
+		mFetchRank[mesh_id] = rank;
+	}
+	for (auto& item : mHeaderReqQ)
+	{
+		if (item.first && item.first->mMeshParams.getSculptID() == mesh_id && item.first->mRank < rank)
+		{
+			item.first->mRank = rank;
+		}
+	}
+	for (auto& item : mLODReqQ)
+	{
+		if (item.first && item.first->mMeshParams.getSculptID() == mesh_id && item.first->mRank < rank)
+		{
+			item.first->mRank = rank;
+		}
+	}
+	return rank;
+}
 void LLMeshRepoThread::loadMeshLOD(const LLVolumeParams& mesh_params, S32 lod, U32 rank)
 {
 	if (rank == 0)
@@ -664,15 +825,7 @@ void LLMeshRepoThread::loadMeshLOD(const LLVolumeParams& mesh_params, S32 lod, U
 	header_lock.unlock();
 	LLMutexLock lock(mMutex);
 	LLUUID mesh_id = mesh_params.getSculptID();
-	std::map<LLUUID, U32>::iterator known = mFetchRank.find(mesh_id);
-	if (known == mFetchRank.end() || known->second < rank)
-	{
-		mFetchRank[mesh_id] = rank;
-	}
-	else
-	{
-		rank = known->second;
-	}
+	rank = raiseRank(mesh_id, rank);
 	if (exists)
 	{
 		gMeshRepo.mThread->pushLODRequest(mesh_params, lod, 0.f, rank);
@@ -764,12 +917,16 @@ bool LLMeshRepoThread::fetchMeshSkinInfo(const LLUUID& mesh_id)
 	MeshHeaderInfo info;
 	if (!getMeshHeaderInfo(mesh_id, "skin", info))
 	{
+		LLMeshRepository::sSkinNoHeader++;
 		return false;
 	}
 	if (info.mHeaderSize > 0 && info.mVersion <= MAX_MESH_VERSION && info.mOffset >= 0 && info.mSize > 0)
 	{
 		if (loadInfoFromVFS(mesh_id, info, boost::bind(&LLMeshRepoThread::skinInfoReceived, this, _1, _2, _3 )))
+		{
+			LLMeshRepository::sSkinSent++;
 			return true;
+		}
 		AIHTTPHeaders headers("Accept", "application/octet-stream");
 		std::string http_url = constructUrl(mesh_id);
 		if (!http_url.empty())
@@ -778,6 +935,7 @@ bool LLMeshRepoThread::fetchMeshSkinInfo(const LLUUID& mesh_id)
 				new LLMeshSkinInfoResponder(mesh_id, info.mOffset, info.mSize)))
 				return false;
 			LLMeshRepository::sHTTPRequestCount++;
+			LLMeshRepository::sSkinSent++;
 		}
 	}
 	return true;
@@ -958,6 +1116,10 @@ bool LLMeshRepoThread::headerReceived(const LLVolumeParams& mesh_params, U8* dat
 			mMeshHeader[mesh_id] = header;
 		}
 		LLMutexLock lock(mMutex);
+		if (mSkinRequests.find(mesh_id) != mSkinRequests.end())
+		{
+			mSkinReady.push_back(mesh_id);
+		}
 		pending_lod_map::iterator iter = mPendingLOD.find(mesh_params);
 		if (iter != mPendingLOD.end())
 		{
@@ -1795,6 +1957,19 @@ void LLMeshSkinInfoResponder::completedRaw(LLChannelDescriptors const& channels,
 			file.write(data, size);
 		}
 	}
+	else if (data && data_size > 0)
+	{
+		U32 sig = (U32)data[0] << 24;
+		if (data_size > 1) sig |= (U32)data[1] << 16;
+		if (data_size > 2) sig |= (U32)data[2] << 8;
+		if (data_size > 3) sig |= (U32)data[3];
+		LL_WARNS() << "skin bytes id=" << mMeshID
+			<< " off=" << mOffset
+			<< " ask=" << mRequestedBytes
+			<< " got=" << data_size
+			<< " sig=" << llformat("%08X", sig)
+			<< LL_ENDL;
+	}
 	delete [] data;
 }
 void LLMeshDecompositionResponder::retry()
@@ -2152,6 +2327,333 @@ S32 LLMeshRepository::loadMesh(LLVOVolume* vobj, const LLVolumeParams& mesh_para
 	}
 	return detail;
 }
+void LLMeshRepository::logMeshWatch()
+{
+	static const char* kWatch[] = {
+		"8240f362-0d25-3da1-75d4-3b84c5657e49",
+		"bebda738-eaed-0d98-9197-3bc64fb42efa",
+		"b7e4705c-439f-7e9d-06f5-735b8f816532",
+		"d79d084a-092f-7f63-2781-26c472769ba3",
+		"f645ddf5-7ed3-a464-bf57-ec6185b7da23"
+	};
+	for (S32 index = 0; index < (S32)(sizeof(kWatch) / sizeof(kWatch[0])); ++index)
+	{
+		LLUUID watch_id(kWatch[index]);
+		LLViewerObject* objectp = gObjectList.findObject(watch_id);
+		if (!objectp)
+		{
+			LL_INFOS("ObjWatch") << "root=" << watch_id.asString() << " present=0" << LL_ENDL;
+			continue;
+		}
+		LLUUID link_root = objectp->getRootEdit() ? objectp->getRootEdit()->getID() : watch_id;
+		S32 kids = objectp->numChildren();
+		S32 kid_mesh = 0;
+		S32 kid_sculpt = 0;
+		for (LLViewerObject::child_list_t::const_iterator it = objectp->getChildren().begin(); it != objectp->getChildren().end(); ++it)
+		{
+			LLVOVolume* cv = dynamic_cast<LLVOVolume*>(it->get());
+			if (!cv)
+			{
+				continue;
+			}
+			if (cv->isMesh())
+			{
+				++kid_mesh;
+			}
+			else if (cv->isSculpted())
+			{
+				++kid_sculpt;
+			}
+		}
+		F32 dist = objectp->mDrawable.notNull() ? objectp->mDrawable->mDistanceWRTCamera : -1.f;
+		LL_INFOS("ObjWatch") << "root=" << watch_id.asString()
+			<< " present=1"
+			<< " dead=" << (objectp->isDead() ? 1 : 0)
+			<< " pcode=" << (S32)objectp->getPCode()
+			<< " scale=" << objectp->getScale().mV[0] << "," << objectp->getScale().mV[1] << "," << objectp->getScale().mV[2]
+			<< " z=" << objectp->getPositionAgent().mV[2]
+			<< " dist=" << dist
+			<< " kids=" << kids
+			<< " kid_mesh=" << kid_mesh
+			<< " kid_sculpt=" << kid_sculpt
+			<< " link=" << link_root.asString()
+			<< " draw=" << (objectp->mDrawable.notNull() ? 1 : 0)
+			<< " attach=" << (objectp->isAttachment() ? 1 : 0)
+			<< LL_ENDL;
+		std::vector<LLVOVolume*> parts;
+		LLVOVolume* self_vol = dynamic_cast<LLVOVolume*>(objectp);
+		if (self_vol)
+		{
+			parts.push_back(self_vol);
+		}
+		S32 added = 0;
+		for (LLViewerObject::child_list_t::const_iterator it = objectp->getChildren().begin(); it != objectp->getChildren().end() && added < 8; ++it)
+		{
+			LLViewerObject* child = it->get();
+			if (!child)
+			{
+				continue;
+			}
+			LLVOVolume* cv = dynamic_cast<LLVOVolume*>(child);
+			if (!cv)
+			{
+				LL_INFOS("ObjWatch") << "root=" << watch_id.asString()
+					<< " part=child"
+					<< " id=" << child->getID().asString()
+					<< " vol=0"
+					<< " pcode=" << (S32)child->getPCode()
+					<< LL_ENDL;
+				++added;
+				continue;
+			}
+			parts.push_back(cv);
+			++added;
+		}
+		for (S32 p = 0; p < (S32)parts.size(); ++p)
+		{
+			LLVOVolume* vol = parts[p];
+			const char* role = (vol == self_vol) ? "self" : "child";
+			S32 mesh = vol->isMesh() ? 1 : 0;
+			S32 lod = mesh ? vol->getLOD() : -1;
+			S32 loaded = 0;
+			S32 vfaces = 0;
+			S32 got[4] = {0, 0, 0, 0};
+			LLUUID sculpt;
+			if (vol->getVolume())
+			{
+				vfaces = vol->getVolume()->getNumVolumeFaces();
+				sculpt = vol->getVolume()->getParams().getSculptID();
+				loaded = (mesh && vol->getVolume()->isMeshAssetLoaded() && vfaces > 0) ? 1 : 0;
+				if (mesh)
+				{
+					LLVolumeLODGroup* group = LLPrimitive::getVolumeManager()->getGroup(vol->getVolume()->getParams());
+					if (group)
+					{
+						for (S32 g = 0; g < 4; ++g)
+						{
+							LLVolume* lod_vol = group->refLOD(g);
+							if (lod_vol && lod_vol->isMeshAssetLoaded() && lod_vol->getNumVolumeFaces() > 0)
+							{
+								got[g] = 1;
+							}
+							if (lod_vol)
+							{
+								group->derefLOD(lod_vol);
+							}
+						}
+					}
+				}
+			}
+			S32 hdr = 0;
+			S32 gone = 0;
+			S32 qh = -1;
+			S32 ql = -1;
+			S32 sz[4] = {0, 0, 0, 0};
+			if (mesh && sculpt.notNull() && mThread)
+			{
+				if (mThread->mMutex)
+				{
+					LLMutexLock lock(mThread->mMutex);
+					for (auto& item : mThread->mHeaderReqQ)
+					{
+						if (item.first && item.first->mMeshParams.getSculptID() == sculpt && (S32)item.first->mRank > qh)
+						{
+							qh = (S32)item.first->mRank;
+						}
+					}
+					for (auto& item : mThread->mLODReqQ)
+					{
+						if (!item.first || item.first->mMeshParams.getSculptID() != sculpt)
+						{
+							continue;
+						}
+						LLMeshRepoThread::LODRequest* lod_req = dynamic_cast<LLMeshRepoThread::LODRequest*>(item.first.get());
+						S32 lod_i = lod_req ? lod_req->mLOD : -1;
+						if (lod_i > ql)
+						{
+							ql = lod_i;
+						}
+					}
+				}
+				if (mThread->mHeaderMutex)
+				{
+					LLMutexLock lock(mThread->mHeaderMutex);
+					LLMeshRepoThread::mesh_header_map::iterator iter = mThread->mMeshHeader.find(sculpt);
+					if (iter != mThread->mMeshHeader.end())
+					{
+						hdr = 1;
+						if (iter->second.has("404"))
+						{
+							gone = 1;
+						}
+						for (S32 g = 0; g < 4; ++g)
+						{
+							sz[g] = iter->second[header_lod[g]]["size"].asInteger();
+						}
+					}
+				}
+			}
+			S32 sculpted = vol->isSculpted() ? 1 : 0;
+			S32 stype = -1;
+			LLUUID stex;
+			S32 slevel = vol->getVolume() ? vol->getVolume()->getSculptLevel() : -99;
+			S32 sraw = -2;
+			S32 sready = 0;
+			S32 sdisc = -2;
+			S32 sgl = 0;
+			S32 smiss = 0;
+			const LLSculptParams* sculpt_params = vol->getSculptParams();
+			if (sculpt_params)
+			{
+				stype = (S32)(sculpt_params->getSculptType() & LL_SCULPT_TYPE_MASK);
+				stex = sculpt_params->getSculptTexture();
+			}
+			if (stex.notNull())
+			{
+				LLViewerFetchedTexture* sculpt_tex = LLViewerTextureManager::findFetchedTexture(stex, TEX_LIST_STANDARD);
+				if (!sculpt_tex)
+				{
+					sculpt_tex = LLViewerTextureManager::findFetchedTexture(stex, TEX_LIST_SCALE);
+				}
+				if (sculpt_tex)
+				{
+					sraw = sculpt_tex->getCachedRawImageLevel();
+					sready = sculpt_tex->isCachedRawImageReady() ? 1 : 0;
+					sdisc = sculpt_tex->getDiscardLevel();
+					sgl = sculpt_tex->hasGLTexture() ? 1 : 0;
+					smiss = sculpt_tex->isMissingAsset() ? 1 : 0;
+				}
+			}
+			F32 part_dist = vol->mDrawable.notNull() ? vol->mDrawable->mDistanceWRTCamera : -1.f;
+			LL_INFOS("ObjWatch") << "root=" << watch_id.asString()
+				<< " part=" << role
+				<< " id=" << vol->getID().asString()
+				<< " mesh=" << mesh
+				<< " sculpted=" << sculpted
+				<< " stype=" << stype
+				<< " stex=" << stex.asString()
+				<< " slevel=" << slevel
+				<< " sraw=" << sraw
+				<< " sready=" << sready
+				<< " sdisc=" << sdisc
+				<< " sgl=" << sgl
+				<< " smiss=" << smiss
+				<< " sculpt=" << sculpt.asString()
+				<< " lod=" << lod
+				<< " loaded=" << loaded
+				<< " got=" << got[0] << "," << got[1] << "," << got[2] << "," << got[3]
+				<< " vfaces=" << vfaces
+				<< " ofaces=" << vol->getNumFaces()
+				<< " tes=" << (S32)vol->getNumTEs()
+				<< " dist=" << part_dist
+				<< " draw=" << (vol->mDrawable.notNull() ? 1 : 0)
+				<< " hdr=" << hdr
+				<< " gone=" << gone
+				<< " qH=" << qh
+				<< " qL=" << ql
+				<< " sz=" << sz[0] << "," << sz[1] << "," << sz[2] << "," << sz[3]
+				<< LL_ENDL;
+			S32 face_limit = (S32)vol->getNumTEs();
+			if (face_limit > 4)
+			{
+				face_limit = 4;
+			}
+			for (S32 f = 0; f < face_limit; ++f)
+			{
+				LLTextureEntry* te = vol->getTE((U8)f);
+				LLViewerTexture* img = vol->getTEImage((U8)f);
+				LLUUID tex_id;
+				S32 disc = -1;
+				S32 gl = 0;
+				S32 miss = 0;
+				S32 white = 0;
+				S32 full_w = 0;
+				S32 want = -1;
+				S32 boost = -1;
+				S32 raw = -2;
+				S32 fetcher = 0;
+				S32 listed = 0;
+				F32 decpri = 0.f;
+				U32 fpri = 0;
+				if (img)
+				{
+					tex_id = img->getID();
+					disc = img->getDiscardLevel();
+					gl = img->hasGLTexture() ? 1 : 0;
+					miss = img->isMissingAsset() ? 1 : 0;
+					white = (img == LLViewerFetchedTexture::sWhiteImagep.get()) ? 1 : 0;
+					full_w = img->getFullWidth();
+					LLViewerFetchedTexture* fetched = LLViewerTextureManager::staticCastToFetchedTexture(img, FALSE);
+					if (fetched)
+					{
+						want = fetched->getDesiredDiscardLevel();
+						boost = fetched->getBoostLevel();
+						raw = fetched->getRawImageLevel();
+						fetcher = fetched->hasFetcher() ? 1 : 0;
+						listed = fetched->isInImageList() ? 1 : 0;
+						decpri = fetched->getDecodePriority();
+						fpri = fetched->getFetchPriority();
+					}
+				}
+				LLUUID bound_id;
+				S32 bound_disc = -1;
+				if (vol->mDrawable.notNull())
+				{
+					LLFace* face = vol->mDrawable->getFace(f);
+					LLViewerTexture* bound = face ? face->getTexture() : NULL;
+					if (bound)
+					{
+						bound_id = bound->getID();
+						bound_disc = bound->getDiscardLevel();
+					}
+				}
+				LLUUID mat_id;
+				S32 mat_ptr = 0;
+				S32 mat_ready = 0;
+				LLUUID base_id;
+				F32 alpha = 1.f;
+				if (te)
+				{
+					alpha = te->getColor().mV[3];
+					mat_id = te->getGLTFMaterialId();
+					LLGLTFMaterial* mat = te->getGLTFMaterial();
+					if (mat)
+					{
+						mat_ptr = 1;
+						mat_ready = mat->mReady ? 1 : 0;
+						base_id = mat->mTextureId[LLGLTFMaterial::BASE_COLOR];
+					}
+				}
+				LL_INFOS("ObjWatch") << "root=" << watch_id.asString()
+					<< " part=" << role
+					<< " id=" << vol->getID().asString()
+					<< " face=" << f
+					<< " tex=" << tex_id.asString()
+					<< " disc=" << disc
+					<< " vs=" << (img ? img->getMaxVirtualSize() : 0.f)
+					<< " want=" << want
+					<< " boost=" << boost
+					<< " raw=" << raw
+					<< " fetcher=" << fetcher
+					<< " listed=" << listed
+					<< " decpri=" << decpri
+					<< " fpri=" << fpri
+					<< " bound=" << bound_id.asString()
+					<< " bound_disc=" << bound_disc
+					<< " gl=" << gl
+					<< " miss=" << miss
+					<< " white=" << white
+					<< " full=" << full_w
+					<< " alpha=" << alpha
+					<< " mat=" << mat_id.asString()
+					<< " mat_ptr=" << mat_ptr
+					<< " ready=" << mat_ready
+					<< " base=" << base_id.asString()
+					<< LL_ENDL;
+			}
+		}
+	}
+}
 void LLMeshRepository::notifyLoadedMeshes()
 {
 	static const LLCachedControl<U32> max_concurrent_requests("MeshMaxConcurrentRequests");
@@ -2163,6 +2665,58 @@ void LLMeshRepository::notifyLoadedMeshes()
 			s_mesh_stats_timer.reset();
 			S32 active = LLMeshRepoThread::sActiveHeaderRequests + LLMeshRepoThread::sActiveLODRequests;
 			S32 push_room = (S32)LLMeshRepoThread::sMaxConcurrentRequests - active;
+			S32 header_q = 0;
+			S32 lod_q = 0;
+			S32 skin_q = 0;
+			S32 decode_q = 0;
+			S32 skin_wait = 0;
+			S32 skin_ready = 0;
+			S32 skin_hdr = 0;
+			if (mMeshMutex)
+			{
+				LLMutexLock skin_lock(mMeshMutex);
+				skin_wait = (S32)mPendingSkinRequests.size();
+			}
+			if (mThread && mThread->mMutex)
+			{
+				std::vector<LLUUID> skin_ids;
+				{
+					LLMutexLock mesh_lock(mThread->mMutex);
+					header_q = (S32)mThread->mHeaderReqQ.size();
+					lod_q = (S32)mThread->mLODReqQ.size();
+					skin_q = (S32)mThread->mSkinRequests.size();
+					decode_q = (S32)mThread->mPendingLODDecodeQ.size();
+					skin_ready = (S32)mThread->mSkinReady.size();
+					skin_ids.reserve(mThread->mSkinRequests.size());
+					for (uuid_set_t::const_iterator it = mThread->mSkinRequests.begin(); it != mThread->mSkinRequests.end(); ++it)
+					{
+						skin_ids.push_back(*it);
+					}
+				}
+				if (mThread->mHeaderMutex)
+				{
+					LLMutexLock header_lock(mThread->mHeaderMutex);
+					for (std::vector<LLUUID>::const_iterator it = skin_ids.begin(); it != skin_ids.end(); ++it)
+					{
+						if (mThread->mMeshHeader.find(*it) != mThread->mMeshHeader.end())
+						{
+							++skin_hdr;
+						}
+					}
+				}
+			}
+			static U32 last_yield_tex = 0;
+			static U32 last_skin_sent = 0;
+			static U32 last_skin_miss = 0;
+			U32 yield_tex = sYieldToTexture;
+			U32 d_yield_tex = yield_tex - last_yield_tex;
+			last_yield_tex = yield_tex;
+			U32 skin_sent = sSkinSent;
+			U32 skin_miss = sSkinNoHeader;
+			U32 d_skin_sent = skin_sent - last_skin_sent;
+			U32 d_skin_miss = skin_miss - last_skin_miss;
+			last_skin_sent = skin_sent;
+			last_skin_miss = skin_miss;
 			LL_INFOS("MESHSTATS") << "HTTP " << sHTTPRequestCount << "/" << sHTTPRetryCount
 				<< " Pending/Processing " << sLODPending << "/" << sLODProcessing
 				<< " ActiveH/L " << LLMeshRepoThread::sActiveHeaderRequests
@@ -2173,7 +2727,19 @@ void LLMeshRepository::notifyLoadedMeshes()
 				<< " SkinParseErr " << sSkinParseErrors
 				<< " CacheRW " << (sCacheBytesRead / (1024.f * 1024.f))
 				<< "/" << (sCacheBytesWritten / (1024.f * 1024.f)) << " MB"
+				<< " qH=" << header_q
+				<< " qL=" << lod_q
+				<< " qSkin=" << skin_q
+				<< " qDec=" << decode_q
+				<< " skinWait=" << skin_wait
+				<< " skinHdr=" << skin_hdr
+				<< " skinReady=" << skin_ready
+				<< " d_skinSent=" << d_skin_sent
+				<< " d_skinMiss=" << d_skin_miss
+				<< " yieldTex=" << yield_tex
+				<< " d_yieldTex=" << d_yield_tex
 				<< LL_ENDL;
+			logMeshWatch();
 		}
 	}
 	if (!mInventoryQ.empty())
@@ -2250,28 +2816,91 @@ void LLMeshRepository::notifyLoadedMeshes()
 		}
 		S32 push_count = LLMeshRepoThread::sMaxConcurrentRequests-(LLMeshRepoThread::sActiveHeaderRequests+LLMeshRepoThread::sActiveLODRequests);
 		push_count = llmin(push_count, (S32)mPendingRequests.size());
-		if (push_count > 0)
+		boost::unordered_map<LLUUID, F32> score_map;
+		const F32 AVATAR_LOD_RADIUS = 2.2f;
+		const F32 OWN_MESH_SCORE = 1000000.f;
+		for (auto& lod : mLoadingMeshes)
 		{
-			boost::unordered_map<LLUUID, F32> score_map;
-			for (auto& lod : mLoadingMeshes)
+			for (auto& param : lod)
 			{
-				for (auto& param : lod)
+				F32 max_score = 0.f;
+				for (auto& vobj : param.second)
 				{
-					F32 max_score = 0.f;
-					for (auto& vobj : param.second)
+					if (LLDrawable* drawable = vobj->mDrawable)
 					{
-						if (LLDrawable* drawable = vobj->mDrawable)
+						F32 dist = llmax(drawable->mDistanceWRTCamera, 0.1f);
+						F32 radius = drawable->getRadius();
+						bool own = false;
+						if (vobj->isHUDAttachment())
 						{
-							F32 cur_score = drawable->getRadius() / llmax(drawable->mDistanceWRTCamera, 1.f);
-							max_score = llmax(max_score, cur_score);
+							own = true;
 						}
+						else if (vobj->isAttachment())
+						{
+							radius = llmax(radius, AVATAR_LOD_RADIUS);
+							LLVOAvatar* avatar = vobj->getAvatarAncestor();
+							if (avatar && avatar->isSelf())
+							{
+								own = true;
+							}
+						}
+						F32 cur_score = radius / dist;
+						if (own)
+						{
+							cur_score += OWN_MESH_SCORE;
+						}
+						max_score = llmax(max_score, cur_score);
 					}
+				}
+				if (max_score > 0.f)
+				{
 					score_map[param.first.getSculptID()] = max_score;
 				}
 			}
+		}
+		for (boost::unordered_map<LLUUID, F32>::iterator it = score_map.begin(); it != score_map.end(); ++it)
+		{
+			bool own = it->second >= OWN_MESH_SCORE;
+			F32 score = own ? it->second - OWN_MESH_SCORE : it->second;
+			F32 px = score * LLDrawable::sCurPixelAngle;
+			U32 live_rank = own ? (U32)AllynAssetRank::URGENT : AllynAssetRank::meshRank(px);
+			std::map<LLUUID, U32>::iterator known = mThread->mFetchRank.find(it->first);
+			if (known == mThread->mFetchRank.end() || known->second < live_rank)
+			{
+				mThread->mFetchRank[it->first] = live_rank;
+			}
+		}
+		for (auto& item : mThread->mHeaderReqQ)
+		{
+			if (!item.first)
+			{
+				continue;
+			}
+			std::map<LLUUID, U32>::iterator known = mThread->mFetchRank.find(item.first->mMeshParams.getSculptID());
+			if (known != mThread->mFetchRank.end() && score_map.find(item.first->mMeshParams.getSculptID()) != score_map.end() && item.first->mRank < known->second)
+			{
+				item.first->mRank = known->second;
+			}
+		}
+		for (auto& item : mThread->mLODReqQ)
+		{
+			if (!item.first)
+			{
+				continue;
+			}
+			std::map<LLUUID, U32>::iterator known = mThread->mFetchRank.find(item.first->mMeshParams.getSculptID());
+			if (known != mThread->mFetchRank.end() && score_map.find(item.first->mMeshParams.getSculptID()) != score_map.end() && item.first->mRank < known->second)
+			{
+				item.first->mRank = known->second;
+			}
+		}
+		mThread->publishWaitRank();
+		if (push_count > 0)
+		{
 			for (std::vector<LLMeshRepoThread::LODRequest>::iterator iter = mPendingRequests.begin(); iter != mPendingRequests.end(); ++iter)
 			{
-				iter->mScore = score_map[iter->mMeshParams.getSculptID()];
+				boost::unordered_map<LLUUID, F32>::iterator scored = score_map.find(iter->mMeshParams.getSculptID());
+				iter->mScore = scored == score_map.end() ? 0.f : scored->second;
 			}
 			std::partial_sort(mPendingRequests.begin(), mPendingRequests.begin() + push_count,
 							  mPendingRequests.end(), LLMeshRepoThread::CompareScoreGreater());
@@ -2279,10 +2908,13 @@ void LLMeshRepository::notifyLoadedMeshes()
 			while (!mPendingRequests.empty() && push_count > 0)
 			{
 				LLMeshRepoThread::LODRequest& request = mPendingRequests.front();
-				F32 px = request.mScore * LLDrawable::sCurPixelAngle;
-				U32 rank = AllynAssetRank::meshRank(px);
-				if (tex_rank > rank)
+				bool own = request.mScore >= OWN_MESH_SCORE;
+				F32 score = own ? request.mScore - OWN_MESH_SCORE : request.mScore;
+				F32 px = score * LLDrawable::sCurPixelAngle;
+				U32 rank = own ? (U32)AllynAssetRank::URGENT : AllynAssetRank::meshRank(px);
+				if (!own && tex_rank > rank)
 				{
+					LLMeshRepository::sYieldToTexture += 1;
 					break;
 				}
 				mThread->loadMeshLOD(request.mMeshParams, request.mLOD, rank);

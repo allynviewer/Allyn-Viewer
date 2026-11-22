@@ -57,5 +57,15 @@ namespace AllynAssetRank
 		static LLAtomicU32 rank(0);
 		return rank;
 	}
+	inline LLAtomicU32& meshGateRank()
+	{
+		static LLAtomicU32 rank(0);
+		return rank;
+	}
+	inline LLAtomicS32& meshHttpRoom()
+	{
+		static LLAtomicS32 room(0);
+		return room;
+	}
 }
 #endif

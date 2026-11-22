@@ -834,7 +834,7 @@
  dokular ve envanter daha hızlıdır, ancak bazı durumlarda çok yüksek bir değer
  aslında sunucu tarafı kısıtlaması nedeniyle bunu yavaşlatır. Emin değilseniz 15000'i seçin.</string>
 	<string name="IgnorePixelDepth">Piksel derinliği ayarlarını dikkate almayın.</string>
-	<string name="ImageDecodeThreads">JPEG2000 kod çözme iş parçacıklarının sayısı. 0 = otomatik (çekirdek-4, 2-8'e sabitlenmiş). Yeniden başlatma gerekli.</string>
+	<string name="ImageDecodeThreads">JPEG2000 kod çözme iş parçacıklarının sayısı. 0 = otomatik (mantıksal çekirdek başına bir, 2-8 ile sınırlı). Yeniden başlatma gerekli.</string>
 	<string name="ImagePipelineUseHTTP">DOĞRU ise sunucudan dokuları almak için HTTP GET'i kullanır</string>
 	<string name="IMChatColor">Diğer sakinlerden gelen anlık mesajların rengi</string>
 	<string name="IMInChatConsole">IM'yi sohbet konsoluna kopyalayın</string>

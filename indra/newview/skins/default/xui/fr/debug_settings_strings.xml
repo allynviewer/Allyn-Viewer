@@ -834,7 +834,7 @@
  textures et l'inventaire plus rapidement, même si dans certains cas une valeur trop élevée pourrait
  cela ralentit en fait en raison de la limitation côté serveur. En cas de doute, choisissez 15 000.</string>
 	<string name="IgnorePixelDepth">Ignorez les paramètres de profondeur de pixels.</string>
-	<string name="ImageDecodeThreads">Nombre de threads de décodage JPEG2000. 0 = auto (cœurs-4, serrés 2-8). Redémarrage requis.</string>
+	<string name="ImageDecodeThreads">Nombre de threads de décodage JPEG2000. 0 = auto (un par cœur logique, borné de 2 à 8). Redémarrage requis.</string>
 	<string name="ImagePipelineUseHTTP">Si VRAI, utilisez HTTP GET pour récupérer les textures du serveur</string>
 	<string name="IMChatColor">Couleur des messages instantanés des autres résidents</string>
 	<string name="IMInChatConsole">Copier la messagerie instantanée dans la console de discussion</string>

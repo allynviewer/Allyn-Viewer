@@ -283,14 +283,12 @@ LLImageRaw::~LLImageRaw()
 }
 U8* LLImageRaw::allocateData(S32 size)
 {
-	mBC7Chain.reset();
 	U8* res = LLImageBase::allocateData(size);
 	*AIAccess<S64>(sGlobalRawMemory) += getDataSize();
 	return res;
 }
 U8* LLImageRaw::reallocateData(S32 size)
 {
-	mBC7Chain.reset();
 	S32 old_data_size = getDataSize();
 	U8* res = LLImageBase::reallocateData(size);
 	*AIAccess<S64>(sGlobalRawMemory) += getDataSize() - old_data_size;
@@ -298,7 +296,6 @@ U8* LLImageRaw::reallocateData(S32 size)
 }
 void LLImageRaw::deleteData()
 {
-	mBC7Chain.reset();
 	{
 		*AIAccess<S64>(sGlobalRawMemory) -= getDataSize();
 	}

@@ -208,6 +208,8 @@ public:
 		S32 mSize;
 	};
 	uuid_set_t mSkinRequests;
+	std::deque<LLUUID> mSkinReady;
+	S32 mSkinSkip;
 	std::queue<LLMeshSkinInfo> mSkinInfoQ;
 	LLMutex* mSkinInfoQMutex;
 	uuid_set_t mDecompositionRequests;
@@ -239,6 +241,7 @@ public:
 	~LLMeshRepoThread();
 	void runQueue(std::deque<std::pair<std::shared_ptr<MeshRequest>, F32> >& queue, U32& count, S32& active_requests);
 	void runSet(uuid_set_t& set, std::function<bool (const LLUUID& mesh_id)> fn);
+	void issueSkins(U32& count, S32 limit);
 	void pushHeaderRequest(const LLVolumeParams& mesh_params, F32 delay = 0, U32 rank = 0)
 	{
 		std::shared_ptr<LLMeshRepoThread::MeshRequest> req;
@@ -263,26 +266,62 @@ public:
 	}
 	void publishWaitRank()
 	{
-		U32 best = 0;
+		const S32 kCap = 32;
+		U32 top[32];
+		S32 ntop = 0;
+		S32 room = (S32)sMaxConcurrentRequests - (sActiveHeaderRequests + sActiveLODRequests);
+		AllynAssetRank::meshHttpRoom() = room;
+		if (room < 1)
+		{
+			room = 1;
+		}
+		if (room > kCap)
+		{
+			room = kCap;
+		}
+		auto consider = [&](U32 rank)
+		{
+			if (rank == 0 || rank >= AllynAssetRank::URGENT)
+			{
+				return;
+			}
+			if (ntop < room)
+			{
+				S32 slot = ntop;
+				while (slot > 0 && top[slot - 1] < rank)
+				{
+					top[slot] = top[slot - 1];
+					--slot;
+				}
+				top[slot] = rank;
+				++ntop;
+			}
+			else if (rank > top[room - 1])
+			{
+				S32 slot = room - 1;
+				while (slot > 0 && top[slot - 1] < rank)
+				{
+					top[slot] = top[slot - 1];
+					--slot;
+				}
+				top[slot] = rank;
+			}
+		};
 		for (auto& item : mHeaderReqQ)
 		{
-			if (item.first->mRank > best)
-			{
-				best = item.first->mRank;
-			}
+			consider(item.first->mRank);
 		}
 		for (auto& item : mLODReqQ)
 		{
-			if (item.first->mRank > best)
-			{
-				best = item.first->mRank;
-			}
+			consider(item.first->mRank);
 		}
-		AllynAssetRank::meshWaitRank() = best;
+		AllynAssetRank::meshWaitRank() = ntop > 0 ? top[0] : 0;
+		AllynAssetRank::meshGateRank() = ntop > 0 ? top[ntop - 1] : 0;
 	}
 	virtual void run();
 	void lockAndLoadMeshLOD(const LLVolumeParams& mesh_params, S32 lod);
 	void loadMeshLOD(const LLVolumeParams& mesh_params, S32 lod, U32 rank = 0);
+	U32 raiseRank(const LLUUID& mesh_id, U32 rank);
 	bool fetchMeshHeader(const LLVolumeParams& mesh_params, U32& count, U32 rank);
 	bool fetchMeshLOD(const LLVolumeParams& mesh_params, S32 lod, U32& count, U32 rank);
 	bool headerReceived(const LLVolumeParams& mesh_params, U8* data, S32 data_size);
@@ -412,6 +451,9 @@ public:
 	static U32 sCacheBytesWritten;
 	static U32 sPeakKbps;
 	static U32 sSkinParseErrors;
+	static U32 sSkinSent;
+	static U32 sSkinNoHeader;
+	static U32 sYieldToTexture;
 	F32 getEstTrianglesMax(LLUUID mesh_id);
 	F32 getEstTrianglesStreamingCost(LLUUID mesh_id);
 	F32 getStreamingCostLegacy(LLUUID mesh_id, F32 radius, S32* bytes = NULL, S32* visible_bytes = NULL, S32 detail = -1, F32 *unscaled_value = NULL);
@@ -425,6 +467,7 @@ public:
 	void dropUnreferencedCache(const LLUUID& mesh_id);
 	S32 loadMesh(LLVOVolume* volume, const LLVolumeParams& mesh_params, S32 detail = 0, S32 last_lod = -1);
 	void notifyLoadedMeshes();
+	void logMeshWatch();
 	void notifyMeshLoaded(const LLVolumeParams& mesh_params, LLVolume* volume);
 	void notifyMeshUnavailable(const LLVolumeParams& mesh_params, S32 lod);
 	void notifySkinInfoReceived(LLMeshSkinInfo& info);

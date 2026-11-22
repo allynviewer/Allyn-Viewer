@@ -387,7 +387,6 @@ static void settings_to_globals()
 	LLRender::sGLCoreProfile = LLGLSLShader::sNoFixedFunction = gSavedSettings.getBOOL("RenderGLCoreProfile");
 	LLImageGL::sGlobalUseAnisotropic	= gSavedSettings.getBOOL("RenderAnisotropic");
 	LLImageGL::sCompressTextures		= gSavedSettings.getBOOL("RenderCompressTextures");
-	LLImageGL::sUseBC7					= gSavedSettings.getBOOL("RenderTextureBC7");
 	LLVOVolume::sLODFactor				= gSavedSettings.getF32("RenderVolumeLODFactor");
 	LLVOVolume::sDistanceFactor			= 1.f-LLVOVolume::sLODFactor * 0.1f;
 	LLVolumeImplFlexible::sUpdateFactor = gSavedSettings.getF32("RenderFlexTimeFactor");
@@ -1465,7 +1464,7 @@ bool LLAppViewer::initThreads()
 		{
 			cores = 4;
 		}
-		decode_threads = llclamp(cores - 4, 2, 8);
+		decode_threads = llclamp(cores, 2, 8);
 		U32 override_threads = gSavedSettings.getU32("ImageDecodeThreads");
 		if (override_threads > 0)
 		{

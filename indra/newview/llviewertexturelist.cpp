@@ -752,6 +752,46 @@ void LLViewerTextureList::updateImages(F32 max_time)
 		LL_RECORD_BLOCK_TIME(FTM_IMAGE_STATS);
 		updateImagesUpdateStats();
 	}
+	static LLTimer tex_watch_timer;
+	if (tex_watch_timer.getElapsedTimeF32() >= 5.f)
+	{
+		tex_watch_timer.reset();
+		static const LLUUID watch_ids[3] = {
+			LLUUID("6aca8495-98ef-87fe-c5f4-402dbd469ec3"),
+			LLUUID("ded8c5bb-7af8-bd88-1d71-99b4b78d37be"),
+			LLUUID("4524fd1d-5b83-7475-19fd-d4457b71b847")
+		};
+		for (S32 watch_i = 0; watch_i < 3; ++watch_i)
+		{
+			const LLUUID& watch_id = watch_ids[watch_i];
+			LLViewerFetchedTexture* watched = findImage(watch_id, TEX_LIST_STANDARD);
+			if (!watched)
+			{
+				watched = findImage(watch_id, TEX_LIST_SCALE);
+			}
+			if (!watched)
+			{
+				LL_INFOS("TexWatch") << watch_id << " image absent" << LL_ENDL;
+			}
+			else
+			{
+				LL_INFOS("TexWatch") << watch_id << " image discard=" << watched->getDiscardLevel()
+					<< " want=" << watched->getDesiredDiscardLevel()
+					<< " raw=" << watched->getRawImageLevel()
+					<< " boost=" << watched->getBoostLevel()
+					<< " pri=" << watched->getDecodePriority()
+					<< " virt=" << watched->getMaxVirtualSize()
+					<< " full=" << watched->getFullWidth() << "x" << watched->getFullHeight()
+					<< " missing=" << (watched->isMissingAsset() ? 1 : 0)
+					<< " fetcher=" << (watched->hasFetcher() ? 1 : 0)
+					<< " gl=" << (watched->hasGLTexture() ? 1 : 0)
+					<< " rawok=" << (watched->isRawImageValid() ? 1 : 0)
+					<< " type=" << (S32)watched->getFTType()
+					<< " faces=" << watched->getTotalNumFaces()
+					<< LL_ENDL;
+			}
+		}
+	}
 }
 void LLViewerTextureList::clearFetchingRequests()
 {
@@ -884,6 +924,11 @@ F32 LLViewerTextureList::updateImagesLoadingFastCache(F32 max_time)
 	{
 		return 0.f;
 	}
+	LLTextureCache* cache = LLAppViewer::getTextureCache();
+	if (!cache || !cache->getFastCacheMutex()->try_lock())
+	{
+		return 0.f;
+	}
 	LLTimer timer;
 	image_list_t::iterator enditer = mFastCacheList.begin();
 	for (image_list_t::iterator iter = mFastCacheList.begin();
@@ -899,6 +944,7 @@ F32 LLViewerTextureList::updateImagesLoadingFastCache(F32 max_time)
 			break;
 		}
 	}
+	cache->getFastCacheMutex()->unlock();
 	mFastCacheList.erase(mFastCacheList.begin(), enditer);
 	return timer.getElapsedTimeF32();
 }

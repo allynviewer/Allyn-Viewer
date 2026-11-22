@@ -26,10 +26,8 @@
  */
 #include "linden_common.h"
 #include "llimageworker.h"
-#include "llimagebc7.h"
 #include "llimagedxt.h"
 #include "lltimer.h"
-#include <chrono>
 #include <string>
 LLImageDecodeThread::DecodeWorker::DecodeWorker(LLImageDecodeThread* owner, const std::string& name)
 	: LLThread(name),
@@ -88,7 +86,6 @@ void LLImageDecodeThread::shutdown()
 		worker->setQuitting();
 	}
 	LLQueuedThread::shutdown();
-	LLImageBC7::report();
 	for (DecodeWorker* worker : mWorkers)
 	{
 		S32 timeout = 50;
@@ -117,7 +114,7 @@ S32 LLImageDecodeThread::update(F32 max_time_ms)
 		creation_info& info = *iter;
 		ImageRequest* req = new ImageRequest(info.handle, info.image,
 						     info.priority, info.discard, info.needs_aux,
-						     info.responder, info.id, info.transcoded_ok);
+						     info.responder);
 		bool res = addRequest(req);
 		if (!res)
 		{
@@ -129,12 +126,11 @@ S32 LLImageDecodeThread::update(F32 max_time_ms)
 	return res;
 }
 LLImageDecodeThread::handle_t LLImageDecodeThread::decodeImage(LLImageFormatted* image,
-	U32 priority, S32 discard, BOOL needs_aux, Responder* responder,
-	const LLUUID& id, bool transcoded_ok)
+	U32 priority, S32 discard, BOOL needs_aux, Responder* responder)
 {
 	LLMutexLock lock(mCreationMutex);
 	handle_t handle = generateHandle();
-	mCreationList.push_back(creation_info(handle, image, priority, discard, needs_aux, responder, id, transcoded_ok));
+	mCreationList.push_back(creation_info(handle, image, priority, discard, needs_aux, responder));
 	return handle;
 }
 S32 LLImageDecodeThread::tut_size()
@@ -148,96 +144,15 @@ LLImageDecodeThread::Responder::~Responder()
 }
 LLImageDecodeThread::ImageRequest::ImageRequest(handle_t handle, LLImageFormatted* image,
 												U32 priority, S32 discard, BOOL needs_aux,
-												LLImageDecodeThread::Responder* responder,
-												const LLUUID& id, bool transcoded_ok)
+												LLImageDecodeThread::Responder* responder)
 	: LLQueuedThread::QueuedRequest(handle, priority, FLAG_AUTO_COMPLETE),
 	  mFormattedImage(image),
 	  mDiscardLevel(discard),
 	  mNeedsAux(needs_aux),
 	  mDecodedRaw(FALSE),
 	  mDecodedAux(FALSE),
-	  mResponder(responder),
-	  mID(id),
-	  mTranscodedOK(transcoded_ok),
-	  mBC7State(LLImageBC7Cache::STATE_OFF)
+	  mResponder(responder)
 {
-}
-bool LLImageDecodeThread::ImageRequest::readBC7()
-{
-	if (mID.isNull() || mNeedsAux || mFormattedImage->getCodec() != IMG_CODEC_J2C || !LLImageBC7::isEnabled())
-	{
-		return false;
-	}
-	const std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
-	const S32 components = mFormattedImage->getComponents();
-	mBC7State = LLImageBC7Cache::read(mID, mFormattedImage->getWidth(), mFormattedImage->getHeight(), components,
-									  mFormattedImage->getDiscardLevel(), mBC7Chain);
-	if (mBC7State != LLImageBC7Cache::STATE_HIT || !mTranscodedOK)
-	{
-		return false;
-	}
-	const S32 width = mBC7Chain->getWidth(0);
-	const S32 height = mBC7Chain->getHeight(0);
-	LLPointer<LLImageRaw> raw = new LLImageRaw(width, height, components);
-	if (raw.isNull() || !raw->getData())
-	{
-		return false;
-	}
-	LLImageBC7::decodeLevel(mBC7Chain->getData(0), width, height, components, raw->getData());
-	raw->setBC7Chain(mBC7Chain);
-	raw->setTranscoded(true);
-	mBC7Chain.reset();
-	mDecodedImageRaw = raw;
-	mDecodedRaw = TRUE;
-	LLImageBC7::countCacheHit(width * height,
-		(U64)std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - start).count());
-	return true;
-}
-void LLImageDecodeThread::ImageRequest::attachBC7()
-{
-	LLImageRaw* raw = mDecodedImageRaw;
-	if (!raw || !raw->getData())
-	{
-		mBC7Chain.reset();
-		return;
-	}
-	const S32 width = raw->getWidth();
-	const S32 height = raw->getHeight();
-	const S32 components = raw->getComponents();
-	if (mBC7Chain && mBC7Chain->getWidth(0) == width && mBC7Chain->getHeight(0) == height
-		&& components == mFormattedImage->getComponents())
-	{
-		raw->setBC7Chain(mBC7Chain);
-		mBC7Chain.reset();
-		LLImageBC7::countCacheChain();
-		return;
-	}
-	mBC7Chain.reset();
-	if (mBC7State == LLImageBC7Cache::STATE_KEEP_RGBA)
-	{
-		LLImageBC7::countCacheSkip();
-		return;
-	}
-	const bool attached = LLImageBC7::attach(raw);
-	if (mBC7State != LLImageBC7Cache::STATE_MISSING && mBC7State != LLImageBC7Cache::STATE_COARSER)
-	{
-		return;
-	}
-	if (!LLImageBC7::fits(width, height, components) || components != mFormattedImage->getComponents())
-	{
-		return;
-	}
-	if (attached)
-	{
-		if (llmax(width, height) >= 256)
-		{
-			LLImageBC7Cache::write(mID, mFormattedImage->getWidth(), mFormattedImage->getHeight(), components, raw->getBC7Chain());
-		}
-	}
-	else if (llmax(width, height) >= 128)
-	{
-		LLImageBC7Cache::writeKeepRGBA(mID, mFormattedImage->getWidth(), mFormattedImage->getHeight(), components, width, height);
-	}
 }
 LLImageDecodeThread::ImageRequest::~ImageRequest()
 {
@@ -265,10 +180,6 @@ bool LLImageDecodeThread::ImageRequest::processRequest()
 			{
 				mFormattedImage->setDiscardLevel(mDiscardLevel);
 			}
-			if (readBC7())
-			{
-				return true;
-			}
 			mDecodedImageRaw = new LLImageRaw(mFormattedImage->getWidth(),
 											  mFormattedImage->getHeight(),
 											  mFormattedImage->getComponents());
@@ -280,18 +191,8 @@ bool LLImageDecodeThread::ImageRequest::processRequest()
 		}
 		if (!mDecodedRaw)
 		{
-			const std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 			done = mFormattedImage->decode(mDecodedImageRaw, decode_time_slice);
 			mDecodedRaw = done;
-			if (done && mFormattedImage->getCodec() == IMG_CODEC_J2C && mDecodedImageRaw->getData())
-			{
-				LLImageBC7::countDecode(mDecodedImageRaw->getWidth() * mDecodedImageRaw->getHeight(),
-					(U64)std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - start).count());
-			}
-			if (done && !mNeedsAux && mFormattedImage->getCodec() == IMG_CODEC_J2C)
-			{
-				attachBC7();
-			}
 		}
 	}
 	if (done && mNeedsAux && !mDecodedAux && mFormattedImage.notNull())

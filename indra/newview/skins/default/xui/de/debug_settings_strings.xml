@@ -834,7 +834,7 @@
  Texturen und das Inventar schneller, obwohl in manchen Fällen ein zu hoher Wert vorliegen könnte
  verlangsamt dies tatsächlich aufgrund der serverseitigen Drosselung. Wenn Sie unsicher sind, wählen Sie 15000.</string>
 	<string name="IgnorePixelDepth">Ignorieren Sie die Pixeltiefeneinstellungen.</string>
-	<string name="ImageDecodeThreads">Anzahl der JPEG2000-Dekodierungsthreads. 0 = automatisch (Kerne-4, geklemmt 2-8). Neustart erforderlich.</string>
+	<string name="ImageDecodeThreads">Anzahl der JPEG2000-Dekodierungsthreads. 0 = automatisch (einer je logischem Kern, begrenzt auf 2-8). Neustart erforderlich.</string>
 	<string name="ImagePipelineUseHTTP">Wenn TRUE, verwenden Sie HTTP GET, um Texturen vom Server abzurufen</string>
 	<string name="IMChatColor">Farbe der Sofortnachrichten anderer Bewohner</string>
 	<string name="IMInChatConsole">Kopieren Sie IM in die Chat-Konsole</string>

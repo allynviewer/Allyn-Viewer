@@ -834,7 +834,7 @@
  texturas e o inventário mais rapidamente, embora em alguns casos um valor muito alto possa
  na verdade, isso diminui devido à limitação do servidor. Se não tiver certeza, escolha 15.000.</string>
 	<string name="IgnorePixelDepth">Ignore as configurações de profundidade de pixel.</string>
-	<string name="ImageDecodeThreads">Número de threads de decodificação JPEG2000. 0 = automático (núcleos-4, fixados 2-8). É necessário reiniciar.</string>
+	<string name="ImageDecodeThreads">Número de threads de decodificação JPEG2000. 0 = automático (um por núcleo lógico, fixados entre 2 e 8). É necessário reiniciar.</string>
 	<string name="ImagePipelineUseHTTP">Se TRUE use HTTP GET para buscar texturas do servidor</string>
 	<string name="IMChatColor">Cor das mensagens instantâneas de outros residentes</string>
 	<string name="IMInChatConsole">Copiar IM para o console de bate-papo</string>

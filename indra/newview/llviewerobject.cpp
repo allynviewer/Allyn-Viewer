@@ -4849,7 +4849,7 @@ void LLViewerObject::applyRenderMaterials()
 			id = mRenderMaterialParams.getMaterial((U8)te);
 		}
 		LLGLTFMaterial* mat = NULL;
-		if (id.notNull() && LLGLTFMaterialList::instanceExists())
+		if (id.notNull() && !LLGLTFMaterialList::destroyed())
 		{
 			mat = LLGLTFMaterialList::instance().getMaterial(id);
 		}

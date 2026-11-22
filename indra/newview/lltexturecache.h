@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2000&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,6 +32,7 @@
 #include "lluuid.h"
 #include "llworkerthread.h"
 #include "llimage.h"
+#include "lltimer.h"
 class LLImageFormatted;
 class LLTextureCacheWorker;
 class LLTextureCache : public LLWorkerThread
@@ -145,6 +147,8 @@ private:
 	void updatedHeaderEntriesFile() ;
 	void lockHeaders() { mHeaderMutex.lock(); }
 	void unlockHeaders() { mHeaderMutex.unlock(); }
+	void openFastCache(bool first_time = false);
+	void closeFastCache(bool forced = false);
 	bool writeToFastCache(LLUUID image_id, S32 cache_id, LLPointer<LLImageRaw> raw, S32 discardlevel);
 private:
 	LLMutex mWorkersMutex;
@@ -163,6 +167,8 @@ private:
 	std::string mHeaderEntriesFileName;
 	std::string mHeaderDataFileName;
 	std::string mFastCacheFileName;
+	LLAPRFile* mFastCachep;
+	LLFrameTimer mFastCacheTimer;
 	U8* mFastCachePadBuffer;
 	EntriesInfo mHeaderEntriesInfo;
 	std::set<S32> mFreeList;

@@ -63,14 +63,15 @@ public:
 	void shutDownTextureCacheThread() ;
 	void shutDownImageDecodeThread() ;
 	bool createRequest(FTType f_type, const std::string& url, const LLUUID& id, const LLHost& host, F32 priority,
-					   S32 w, S32 h, S32 c, S32 discard, bool needs_aux, bool can_use_http, bool transcoded_ok = false, F32 screen_px = 0.f,
+					   S32 w, S32 h, S32 c, S32 discard, bool needs_aux, bool can_use_http, F32 screen_px = 0.f,
 					   bool first_show = false, bool urgent = false, bool interface_image = false);
 	void deleteRequest(const LLUUID& id, bool cancel);
 	void deleteAllRequests();
 	bool getRequestFinished(const LLUUID& id, S32& discard_level,
-							LLPointer<LLImageRaw>& raw, LLPointer<LLImageRaw>& aux);
+							LLPointer<LLImageRaw>& raw, LLPointer<LLImageRaw>& aux, S32& worker_state);
 	bool getRequestCannotRefine(const LLUUID& id);
 	bool updateRequestPriority(const LLUUID& id, F32 priority);
+	void markRequestUrgent(const LLUUID& id);
 	bool receiveImageHeader(const LLHost& host, const LLUUID& id, U8 codec, U16 packets, U32 totalbytes, U16 data_size, U8* data);
 	bool receiveImagePacket(const LLHost& host, const LLUUID& id, U16 packet_num, U16 data_size, U8* data);
 	BOOL isFromLocalCache(const LLUUID& id);
@@ -166,6 +167,8 @@ private:
 	LLAtomicU32 mYieldApprove;
 	LLAtomicU32 mYieldDecode;
 	LLAtomicU32 mDecodeStarted;
+	LLAtomicU32 mBakeDecodeStarted;
+	LLAtomicU32 mBakeMeshYield;
 	LLAtomicU32 mWakeHttp;
 	LLAtomicU32 mWakeDecode;
 public:

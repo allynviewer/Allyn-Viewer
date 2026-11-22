@@ -51,7 +51,6 @@ const S32 MAX_IMG_PACKET_SIZE = 1000;
 const S32 MAX_BLOCK_SIZE = 64;
 class LLImageFormatted;
 class LLImageRaw;
-class LLImageBC7Chain;
 class LLColor4U;
 class LLPrivateMemoryPool;
 typedef enum e_image_codec
@@ -162,13 +161,6 @@ public:
 	void compositeUnscaled4onto3( LLImageRaw* src );
 	std::string getComment() const { return mComment; }
 	std::string mComment;
-	void setBC7Chain(const std::shared_ptr<const LLImageBC7Chain>& chain) { mBC7Chain = chain; }
-	const std::shared_ptr<const LLImageBC7Chain>& getBC7Chain() const { return mBC7Chain; }
-	void setTranscoded(bool transcoded) { mTranscoded = transcoded; }
-	bool isTranscoded() const { return mTranscoded; }
-private:
-	std::shared_ptr<const LLImageBC7Chain> mBC7Chain;
-	bool mTranscoded = false;
 protected:
 	void copyLineScaled( U8* in, U8* out, S32 in_pixel_len, S32 out_pixel_len, S32 in_pixel_step, S32 out_pixel_step );
 	void compositeRowScaled4onto3( U8* in, U8* out, S32 in_pixel_len, S32 out_pixel_len );

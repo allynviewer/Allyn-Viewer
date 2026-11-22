@@ -288,8 +288,6 @@ public:
 	LLImageRaw* reloadRawImage(S8 discard_level) ;
 	void destroyRawImage();
 	bool needsToSaveRawImage();
-	bool needsExactPixels() const;
-	void requireExactPixels();
 	const std::string& getUrl() const {return mUrl;}
 	BOOL isDeleted() ;
 	BOOL isInactive() ;
@@ -390,7 +388,6 @@ protected:
 	BOOL  mNeedsCreateTexture;
 	BOOL  mInFastCacheList;
 	BOOL   mForSculpt ;
-	BOOL   mTranscodedPixels;
 	BOOL   mIsFetched ;
 	std::map<S8, std::string> mComment;
 public:

@@ -28,7 +28,6 @@
 #include "llimagegl.h"
 #include "llerror.h"
 #include "llimage.h"
-#include "llimagebc7.h"
 #include "llmath.h"
 #include "llgl.h"
 #include "llglslshader.h"
@@ -46,7 +45,6 @@ F32 LLImageGL::sLastFrameTime			= 0.f;
 BOOL LLImageGL::sAllowReadBackRaw       = FALSE ;
 LLImageGL* LLImageGL::sDefaultGLTexture = NULL ;
 bool LLImageGL::sCompressTextures = false;
-bool LLImageGL::sUseBC7 = false;
 std::set<LLImageGL*> LLImageGL::sImageList;
 BOOL gAuditTexture = FALSE ;
 #define MAX_TEXTURE_LOG_SIZE 22
@@ -582,34 +580,6 @@ void LLImageGL::setImage(const U8* data_in, BOOL data_hasmips)
 	}
 	llverify(gGL.getTexUnit(0)->bind(this));
 	mIsCompressed = false;
-	mIsBC7 = false;
-	if (mBC7Chain && mUseMipMaps && !data_hasmips)
-	{
-		const S32 levels = llmin(mBC7Chain->getLevels(), (S32)mMaxDiscardLevel - (S32)mCurrentDiscardLevel + 1);
-		if (!LLRender::sGLCoreProfile)
-		{
-			glTexParameteri(mTarget, GL_GENERATE_MIPMAP, GL_FALSE);
-		}
-		S32 bytes = 0;
-		for (S32 level = 0; level < levels; ++level)
-		{
-			glCompressedTexImage2DARB(mTarget, level, GL_COMPRESSED_RGBA_BPTC_UNORM,
-				mBC7Chain->getWidth(level), mBC7Chain->getHeight(level), 0,
-				mBC7Chain->getSize(level), (GLvoid*)mBC7Chain->getData(level));
-			stop_glerror();
-			bytes += mBC7Chain->getSize(level);
-		}
-		mMipLevels = levels - 1;
-		const S32 w = getWidth(mCurrentDiscardLevel);
-		const S32 h = getHeight(mCurrentDiscardLevel);
-		analyzeAlpha(data_in, w, h);
-		updatePickMask(w, h, data_in);
-		mIsBC7 = true;
-		LLImageBC7::countUpload(bytes);
-		stop_glerror();
-		mGLTextureCreated = true;
-		return;
-	}
 	if (mUseMipMaps)
 	{
 		if (data_hasmips)
@@ -1144,16 +1114,7 @@ BOOL LLImageGL::createGLTexture(S32 discard_level, const LLImageRaw* imageraw, G
 	}
 	setCategory(category);
  	const U8* rawdata = imageraw->getData();
-	if (sUseBC7 && !mHasExplicitFormat && mUseMipMaps && mTarget == GL_TEXTURE_2D && (mComponents == 3 || mComponents == 4))
-	{
-		const std::shared_ptr<const LLImageBC7Chain>& chain = imageraw->getBC7Chain();
-		if (chain && chain->getLevels() > 0 && chain->getWidth(0) == raw_w && chain->getHeight(0) == raw_h)
-		{
-			mBC7Chain = chain;
-		}
-	}
 	BOOL res = createGLTexture(discard_level, rawdata, FALSE, usename);
-	mBC7Chain.reset();
 	return res;
 }
 static LLTrace::BlockTimerStatHandle FTM_CREATE_GL_TEXTURE3("createGLTexture3(data)");
@@ -1206,10 +1167,7 @@ BOOL LLImageGL::createGLTexture(S32 discard_level, const U8* data_in, BOOL data_
 	}
 	mCurrentDiscardLevel = discard_level;
 	setImage(data_in, data_hasmips);
-	{
-		const S32 max_level = mIsBC7 ? llmax((S32)0, (S32)mMipLevels) : (mMaxDiscardLevel - discard_level);
-		glTexParameteri(LLTexUnit::getInternalType(mBindTarget), GL_TEXTURE_MAX_LEVEL, max_level);
-	}
+	glTexParameteri(LLTexUnit::getInternalType(mBindTarget), GL_TEXTURE_MAX_LEVEL, mMaxDiscardLevel - discard_level);
 	gGL.getTexUnit(0)->setHasMipMaps(mHasMipMaps);
 	gGL.getTexUnit(0)->setTextureAddressMode(mAddressMode);
 	gGL.getTexUnit(0)->setTextureFilteringOption(mFilterOption);
@@ -1410,7 +1368,7 @@ S32 LLImageGL::getBytes(S32 discard_level) const
 }
 S32 LLImageGL::formatBytes(S32 width, S32 height) const
 {
-	return mIsBC7 ? LLImageBC7::levelBytes(width, height) : dataFormatBytes(mFormatPrimary, width, height);
+	return dataFormatBytes(mFormatPrimary, width, height);
 }
 S32 LLImageGL::getMipBytes(S32 discard_level) const
 {
