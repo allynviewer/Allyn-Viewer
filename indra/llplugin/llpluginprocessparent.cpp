@@ -278,7 +278,7 @@ void LLPluginProcessParent::idle(void)
 				if (mPluginFile.find("cef") != std::string::npos)
 				{
 					mProcess.addArgument("--disable-quic");
-					mProcess.addArgument("--disable-features=UseDnsHttpsSvcb");
+					mProcess.addArgument("--disable-features=UseDnsHttpsSvcb,UseDnsHttpsSvcbAlpn");
 				}
 				if(mProcess.launch() != 0)
 				{

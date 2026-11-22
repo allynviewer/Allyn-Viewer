@@ -67,8 +67,21 @@ static const S32 OVERLAY_ICON_PANEL_WIDTH = 34;
 static const S32 OVERLAY_PILL_PAD = 3;
 static const S32 OVERLAY_PILL_CAP = 8;
 static const S32 OVERLAY_MOUSELOOK_SIZE = 30;
-static const S32 OVERLAY_SECONDARY_RESERVE = 160;
 static const F32 OVERLAY_SLIDE_SECONDS = 0.18f;
+static S32 overlayRowStride()
+{
+	return OVERLAY_BUTTON_HEIGHT + 2 * OVERLAY_PILL_PAD + LLFloatingBarStyle::BAR_GAP;
+}
+static S32 overlayOuterWidth(S32 content)
+{
+	if (content <= 0)
+		return 0;
+	return content + OVERLAY_PILL_CAP + OVERLAY_PILL_CAP - 2;
+}
+static bool overlayPanelShown(const LLView* panel)
+{
+	return panel && panel->getVisible() && panel->getRect().getWidth() > 0;
+}
 void* LLOverlayBar::createVoiceRemote(void* userdata)
 {
 	LLOverlayBar *self = (LLOverlayBar*)userdata;
@@ -92,7 +105,12 @@ LLOverlayBar::LLOverlayBar()
 		mStackNaturalHeight(0),
 		mOverlayLayoutDirty(true),
 		mSecondaryPillValid(false),
+		mVoicePillValid(false),
 		mWasBeside(false),
+		mVoiceRaised(false),
+		mSecondaryRaised(false),
+		mToolbarRowOk(false),
+		mToolbarRow(0),
 		mSlidePrimed(false),
 		mStackSliding(false),
 		mFromBottom(0),
@@ -292,6 +310,7 @@ BOOL LLOverlayBar::postBuild()
 	LLFloatingBarStyle::styleIconButton(mNewIM);
 	mNewIM->setFollows(FOLLOWS_LEFT | FOLLOWS_BOTTOM);
 	mOverlayStack = findChild<LLLayoutStack>("overlay_layout_panel");
+	detachVoiceBar();
 	styleOverlayButton(mAOButton, mAORemoteContainer, "floating_ui/ao.png", true);
 	styleOverlayButton(mVolumeButton, mMediaRemoteContainer, "floating_ui/volume.png", true);
 	styleOverlayButton(mEnvButton, mAdvSettingsContainer, "floating_ui/environment.png", true);
@@ -395,6 +414,8 @@ void LLOverlayBar::applyStackMotion(const LLRect& rect, bool reflow)
 		lift = 0;
 	}
 	liftMainPanel(lift);
+	layoutVoiceBar(rect.mBottom);
+	clipChatToVoice();
 	layoutMouselookButton();
 	cacheSecondaryPill();
 	mVisualBottom = rect.mBottom;
@@ -498,6 +519,119 @@ void LLOverlayBar::tickStackSlide()
 	}
 	applyStackMotion(rect, false);
 }
+void LLOverlayBar::detachVoiceBar()
+{
+	if (mVoiceRemote && mVoiceRemote->getParent() && mVoiceRemote->getParent() != this)
+	{
+		mVoiceRemote->getParent()->removeChild(mVoiceRemote);
+		addChild(mVoiceRemote);
+		sendChildToFront(mVoiceRemote);
+	}
+	if (mVoiceRemote)
+		mVoiceRemote->setFollows(FOLLOWS_LEFT | FOLLOWS_BOTTOM);
+	if (mVoiceRemoteContainer)
+	{
+		LLPanel* raw = mVoiceRemoteContainer;
+		if (LLLayoutPanel* panel = dynamic_cast<LLLayoutPanel*>(raw))
+		{
+			panel->setMinDim(0);
+			panel->setExpandedMinDim(0);
+		}
+		mVoiceRemoteContainer->setVisible(FALSE);
+	}
+}
+void LLOverlayBar::applyToolbarReserve(S32 reserve)
+{
+	if (!gToolBar)
+		return;
+	gToolBar->setDockLeft(true);
+	gToolBar->setCenterOverride(false);
+	gToolBar->setCompanionReserve(reserve);
+	if (gToolBar->isLayoutDirty())
+		gToolBar->layoutNow();
+}
+bool LLOverlayBar::measureSecondary(S32& left, S32& right) const
+{
+	LLView* panels[4] = { mAOLightContainer, mAORemoteContainer, mMediaRemoteContainer, mAdvSettingsContainer };
+	bool any = false;
+	left = S32_MAX;
+	right = 0;
+	if (!mOverlayStack)
+		return false;
+	const S32 origin = mOverlayStack->getRect().mLeft;
+	for (LLView* panel : panels)
+	{
+		if (!overlayPanelShown(panel))
+			continue;
+		left = llmin(left, origin + panel->getRect().mLeft);
+		right = llmax(right, origin + panel->getRect().mRight);
+		any = true;
+	}
+	return any && right > left;
+}
+void LLOverlayBar::layoutVoiceBar(S32 secondary_bottom)
+{
+	mVoicePillValid = false;
+	if (!mVoiceRemote || !mVoiceRemote->getVisible() || mVoiceRemote->getRect().getWidth() <= 0)
+		return;
+	const S32 gap = LLFloatingBarStyle::BAR_GAP;
+	const S32 margin = LLFloatingBarStyle::margin();
+	const S32 width = mVoiceRemote->getRect().getWidth();
+	const S32 height = llmax(mVoiceRemote->getRect().getHeight(), OVERLAY_BUTTON_HEIGHT);
+	S32 secondary_left = 0;
+	S32 secondary_right = 0;
+	const bool have_secondary = measureSecondary(secondary_left, secondary_right);
+	S32 left = 0;
+	S32 bottom = secondary_bottom;
+	if (have_secondary && !mVoiceRaised)
+	{
+		const S32 voice_right = secondary_left - gap - (OVERLAY_PILL_CAP * 2 - 2);
+		left = voice_right - width;
+		bottom = secondary_bottom;
+	}
+	else if (have_secondary)
+	{
+		left = secondary_right - width;
+		bottom = secondary_bottom + overlayRowStride();
+	}
+	else
+	{
+		const S32 right_edge = getRect().getWidth() - margin - OVERLAY_PILL_CAP;
+		left = right_edge - width;
+		bottom = mVoiceRaised ? mStackLift + overlayRowStride() : (mToolbarRowOk ? mToolbarRow : mStackLift);
+	}
+	if (left < 0)
+		left = 0;
+	LLRect placed = mVoiceRemote->getRect();
+	placed.setOriginAndSize(left, bottom, width, height);
+	if (mVoiceRemote->getRect() != placed)
+		mVoiceRemote->setRect(placed);
+	sendChildToFront(mVoiceRemote);
+	mVoicePill.set(left - OVERLAY_PILL_CAP, bottom + height + OVERLAY_PILL_PAD, left + width + OVERLAY_PILL_CAP - 2, bottom - OVERLAY_PILL_PAD);
+	mVoicePillValid = true;
+}
+void LLOverlayBar::clipChatToVoice()
+{
+	if (!mVoiceRaised || !mVoiceRemote || !mVoiceRemote->getVisible() || !mOverlayStack)
+		return;
+	LLLayoutPanel* main = NULL;
+	for (S32 i = 0; i < mOverlayStack->getNumPanels(); ++i)
+	{
+		LLLayoutPanel* panel = mOverlayStack->getPanelByIndex(i);
+		if (panel && panel->getName() == "main_panel")
+		{
+			main = panel;
+			break;
+		}
+	}
+	if (!main)
+		return;
+	const S32 limit = mVoiceRemote->getRect().mLeft - LLFloatingBarStyle::BAR_GAP - mOverlayStack->getRect().mLeft;
+	const S32 width = limit - main->getRect().mLeft;
+	if (width < 80 || width >= main->getRect().getWidth())
+		return;
+	main->reshape(width, main->getRect().getHeight());
+}
 void LLOverlayBar::layoutOverlayStack()
 {
 	if (!mOverlayStack)
@@ -528,54 +662,70 @@ void LLOverlayBar::layoutOverlayStack()
 	{
 		mOverlayStack->updateLayout();
 	}
-	LLView* remote_panels[5] = {
-		mAOLightContainer, mAORemoteContainer, mVoiceRemoteContainer, mMediaRemoteContainer, mAdvSettingsContainer
-	};
-	S32 cluster_left = S32_MAX;
-	S32 cluster_right = 0;
-	const S32 placed_left = mOverlayStack->getRect().mLeft;
-	for (LLView* panel : remote_panels)
-	{
-		if (!panel || !panel->getVisible() || panel->getRect().getWidth() <= 1)
-		{
-			continue;
-		}
-		const S32 left = placed_left + panel->getRect().mLeft;
-		const S32 right = placed_left + panel->getRect().mRight;
-		cluster_left = llmin(cluster_left, left);
-		cluster_right = llmax(cluster_right, right);
-	}
-	const S32 cluster = cluster_right > cluster_left ? cluster_right - cluster_left : 0;
 	const S32 gap = LLFloatingBarStyle::BAR_GAP;
-	bool beside = false;
-	if (toolbar_visible && cluster > 0)
+	const S32 span = llmax(0, width - 2 * margin);
+	S32 secondary_left = 0;
+	S32 secondary_right = 0;
+	const bool have_secondary = measureSecondary(secondary_left, secondary_right);
+	const S32 secondary_outer = have_secondary ? overlayOuterWidth(secondary_right - secondary_left) : 0;
+	const bool voice_on = mVoiceRemote && !gAgentCamera.cameraMouselook() && LLVoiceClient::getInstance()->voiceEnabled();
+	if (mVoiceRemote && (bool)mVoiceRemote->getVisible() != voice_on)
+		mVoiceRemote->setVisible(voice_on);
+	if (voice_on)
+		mVoiceRemote->layoutControls();
+	const S32 voice_content = voice_on ? mVoiceRemote->getRect().getWidth() : 0;
+	const S32 voice_outer = overlayOuterWidth(voice_content);
+	const S32 main_outer = toolbar_visible ? gToolBar->getPreferredWidth() : 0;
+	S32 inline_right = 0;
+	if (voice_outer > 0)
+		inline_right += voice_outer;
+	if (secondary_outer > 0)
 	{
-		const S32 main_width = gToolBar->getPreferredWidth();
-		beside = main_width + OVERLAY_SECONDARY_RESERVE + gap + 2 * margin <= width;
+		if (inline_right > 0)
+			inline_right += gap;
+		inline_right += secondary_outer;
 	}
-	if (beside)
+	auto fitsBeside = [&](S32 left_width, S32 right_width) -> bool
 	{
-		const S32 reserve = OVERLAY_SECONDARY_RESERVE + gap;
-		if (gToolBar->getCompanionReserve() != reserve || gToolBar->isLayoutDirty())
+		if (right_width <= 0)
+			return true;
+		if (left_width <= 0)
+			return right_width <= span;
+		return left_width + gap + right_width <= span;
+	};
+	mVoiceRaised = false;
+	mSecondaryRaised = false;
+	if (secondary_outer > 0 && voice_outer > 0)
+	{
+		if (!fitsBeside(main_outer, inline_right))
 		{
-			gToolBar->setCompanionReserve(reserve);
-			gToolBar->layoutNow();
+			mVoiceRaised = true;
+			if (!fitsBeside(main_outer, secondary_outer))
+				mSecondaryRaised = true;
 		}
 	}
-	if (gToolBar && !beside && gToolBar->getCompanionReserve() != 0)
+	else if (secondary_outer > 0)
 	{
-		gToolBar->setCompanionReserve(0);
+		if (!fitsBeside(main_outer, secondary_outer))
+			mSecondaryRaised = true;
 	}
-	if (gToolBar)
+	else if (voice_outer > 0)
 	{
-		gToolBar->setCenterOverride(!beside && cluster > 0 && toolbar_visible);
+		if (!fitsBeside(main_outer, voice_outer))
+			mVoiceRaised = true;
 	}
-	if (gToolBar && gToolBar->isLayoutDirty())
+	S32 reserve = 0;
+	if (toolbar_visible)
 	{
-		gToolBar->layoutNow();
+		if (have_secondary && !mSecondaryRaised)
+			reserve = ((!mVoiceRaised && voice_outer > 0) ? inline_right : secondary_outer) + gap;
+		else if (!mVoiceRaised && voice_outer > 0)
+			reserve = voice_outer + gap;
 	}
-	S32 target_bottom = mStackLift;
-	if (beside)
+	applyToolbarReserve(reserve);
+	mToolbarRow = mStackLift;
+	mToolbarRowOk = false;
+	if (toolbar_visible && gToolBar->getPillRect().getWidth() > 0)
 	{
 		const LLRect& pill = gToolBar->getPillRect();
 		S32 unused = 0;
@@ -583,26 +733,30 @@ void LLOverlayBar::layoutOverlayStack()
 		S32 pill_top = 0;
 		gToolBar->localPointToOtherView(0, pill.mBottom, &unused, &pill_bottom, this);
 		gToolBar->localPointToOtherView(0, pill.mTop, &unused, &pill_top, this);
-		target_bottom = (pill_bottom + pill_top) / 2 - OVERLAY_BUTTON_HEIGHT / 2;
-		if (target_bottom >= mStackLift)
+		const S32 aligned = (pill_bottom + pill_top) / 2 - OVERLAY_BUTTON_HEIGHT / 2;
+		if (aligned < mStackLift)
 		{
-			beside = false;
-			target_bottom = mStackLift;
-			if (gToolBar->getCompanionReserve() != 0)
-			{
-				gToolBar->setCompanionReserve(0);
-			}
-			gToolBar->setCenterOverride(cluster > 0 && toolbar_visible);
-			if (gToolBar->isLayoutDirty())
-			{
-				gToolBar->layoutNow();
-			}
+			mToolbarRow = aligned;
+			mToolbarRowOk = true;
 		}
 	}
+	if (!mToolbarRowOk)
+	{
+		if (have_secondary && !mSecondaryRaised)
+			mSecondaryRaised = true;
+		if (voice_outer > 0 && !mVoiceRaised)
+			mVoiceRaised = true;
+		if (reserve != 0)
+		{
+			reserve = 0;
+			applyToolbarReserve(reserve);
+		}
+	}
+	const bool beside = have_secondary && !mSecondaryRaised && mToolbarRowOk;
 	LLRect desired;
 	desired.mLeft = stack_left;
 	desired.mRight = stack_right;
-	desired.mBottom = beside ? target_bottom : mStackLift;
+	desired.mBottom = beside ? mToolbarRow : mStackLift;
 	desired.mTop = mStackLift + stack_h;
 	const bool animate_bottom = mSlidePrimed && beside != mWasBeside;
 	mWasBeside = beside;
@@ -620,7 +774,7 @@ void LLOverlayBar::cacheSecondaryPill()
 	S32 right = 0;
 	S32 panel_bottom = 0;
 	bool have_panel = false;
-	const LLView* panels[5] = { mAOLightContainer, mAORemoteContainer, mVoiceRemoteContainer, mMediaRemoteContainer, mAdvSettingsContainer };
+	const LLView* panels[4] = { mAOLightContainer, mAORemoteContainer, mMediaRemoteContainer, mAdvSettingsContainer };
 	for (const LLView* panel : panels)
 	{
 		if (!panel || !panel->getVisible() || panel->getRect().getWidth() <= 0)
@@ -710,35 +864,24 @@ void LLOverlayBar::layoutMouselookButton()
 	if (!mMouseLook)
 		return;
 	const S32 width = OVERLAY_MOUSELOOK_SIZE;
-	S32 right = getRect().getWidth() - LLFloatingBarStyle::margin();
-	S32 bottom = mStackLift;
-	bool found = false;
-	const LLView* panels[5] = { mAOLightContainer, mAORemoteContainer, mVoiceRemoteContainer, mMediaRemoteContainer, mAdvSettingsContainer };
-	for (const LLView* panel : panels)
+	S32 right = getRect().getWidth() - LLFloatingBarStyle::margin() - OVERLAY_PILL_CAP;
+	S32 top = mStackLift + OVERLAY_BUTTON_HEIGHT;
+	S32 secondary_left = 0;
+	S32 secondary_right = 0;
+	const bool have_secondary = measureSecondary(secondary_left, secondary_right);
+	const bool voice_top = mVoicePillValid && (mVoiceRaised || !have_secondary);
+	if (voice_top)
 	{
-		if (!panel || !panel->getVisible() || panel->getRect().getWidth() <= 0)
-		{
-			continue;
-		}
-		LLRect anchor = panel->getRect();
-		if (const LLView* parent = panel->getParent())
-		{
-			if (parent != this)
-			{
-				anchor.mLeft += parent->getRect().mLeft;
-				anchor.mRight += parent->getRect().mLeft;
-				anchor.mBottom += parent->getRect().mBottom;
-			}
-		}
-		if (!found || anchor.mRight >= right)
-		{
-			found = true;
-			right = anchor.mRight;
-			bottom = anchor.mBottom;
-		}
+		right = mVoiceRemote->getRect().mRight;
+		top = mVoiceRemote->getRect().mTop;
+	}
+	else if (have_secondary)
+	{
+		right = secondary_right;
+		top = mOverlayStack ? mOverlayStack->getRect().mBottom + OVERLAY_BUTTON_HEIGHT : mStackLift + OVERLAY_BUTTON_HEIGHT;
 	}
 	const S32 height = OVERLAY_MOUSELOOK_SIZE;
-	const S32 y = bottom + OVERLAY_BUTTON_HEIGHT + OVERLAY_PILL_PAD + LLFloatingBarStyle::BAR_GAP;
+	const S32 y = top + OVERLAY_PILL_PAD + LLFloatingBarStyle::BAR_GAP;
 	S32 left = right - width;
 	if (left < 0)
 		left = 0;
@@ -749,6 +892,7 @@ void LLOverlayBar::layoutMouselookButton()
 		r.setOriginAndSize(left, y, width, height);
 		mMouseLook->setShape(r);
 	}
+	sendChildToFront(mMouseLook);
 }
 void LLOverlayBar::layoutButtons()
 {
@@ -893,7 +1037,6 @@ void LLOverlayBar::refresh()
 		last_mouselook = in_mouselook;
 		static const LLCachedControl<bool> enable_ao_remote("EnableAORemote", true);
 		mMediaRemoteContainer->setVisible(!in_mouselook);
-		mVoiceRemoteContainer->setVisible(!in_mouselook && LLVoiceClient::getInstance()->voiceEnabled());
 		mAdvSettingsContainer->setVisible(!in_mouselook);
 		mAORemoteContainer->setVisible(!in_mouselook && enable_ao_remote);
 		mAOLightContainer->setVisible(!in_mouselook && enable_ao_remote);
@@ -905,8 +1048,15 @@ void LLOverlayBar::refresh()
 	}
 	if (mMouseLook && (bool)mMouseLook->getToggleState() != (bool)in_mouselook)
 		mMouseLook->setToggleState(in_mouselook);
-	if(!in_mouselook)
-		mVoiceRemoteContainer->setVisible(LLVoiceClient::getInstance()->voiceEnabled());
+	if (mVoiceRemote)
+	{
+		const bool voice_on = !in_mouselook && LLVoiceClient::getInstance()->voiceEnabled();
+		if ((bool)mVoiceRemote->getVisible() != voice_on)
+		{
+			mVoiceRemote->setVisible(voice_on);
+			requestLayout();
+		}
+	}
 	if (buttons_changed)
 	{
 		layoutButtons();

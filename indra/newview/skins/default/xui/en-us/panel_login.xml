@@ -6,6 +6,13 @@
 	     tab_stop="false" trusted_content="true" focus_on_click="false"
 	     name="login_html" right="-1"
 	     top="-1" />
+	<panel background_opaque="true" background_visible="true" bg_opaque_color="0, 0, 0, 1"
+	     bottom="0" follows="top|right|bottom" left="300" mouse_opaque="true"
+	     name="login_splash_fallback" right="-1" top="-1" visible="false">
+		<icon bottom="0" follows="left|bottom" height="400" image_name="allyn_login_logo.png"
+		     left="0" mouse_opaque="false" name="login_splash_logo" scale_image="true"
+		     width="400" />
+	</panel>
 	<string name="real_url">
 		http://secondlife.com/app/login/
 	</string>

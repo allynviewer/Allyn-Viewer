@@ -40,6 +40,7 @@
 #include "media_plugin_base.h"
 #include <functional>
 #include <chrono>
+#include <cstring>
 #include <string>
 #if !LL_WINDOWS
 #include <unistd.h>
@@ -132,9 +133,9 @@ private:
 	void checkEditState();
     void setVolume();
 	bool cefErrorIsTransient(int status) const;
-	void scheduleLoadRetry();
+	void scheduleLoadRetry(int delay_ms);
 	void showLoadErrorPage(int status, const std::string& error_text, const std::string& error_url);
-	void showQuietPlaceholder();
+	void holdTransientFailure();
 	void pumpLoadRetry();
 	bool mEnableMediaPluginDebugging;
 	std::string mHostLanguage;
@@ -174,6 +175,11 @@ private:
 	std::string mLastNavigateUrl;
 	int mLoadRetries;
 	bool mPendingRetry;
+	bool mSuppressFrames;
+	int mNavSerial;
+	int mCallbackSerial;
+	int mSucceededSerial;
+	int mRetryArm;
 	std::chrono::steady_clock::time_point mRetryAt;
 };
 MediaPluginCEF::MediaPluginCEF(LLPluginInstance::sendMessageFunction send_message_function, LLPluginInstance* plugin_instance) :
@@ -216,6 +222,11 @@ MediaPluginCEF::MediaPluginCEF(LLPluginInstance::sendMessageFunction send_messag
 	mLastNavigateUrl.clear();
 	mLoadRetries = 0;
 	mPendingRetry = false;
+	mSuppressFrames = false;
+	mNavSerial = 0;
+	mCallbackSerial = 0;
+	mSucceededSerial = 0;
+	mRetryArm = 0;
 	mRetryAt = std::chrono::steady_clock::time_point();
 	mCEFLib = new dullahan();
 	setVolume();
@@ -238,6 +249,10 @@ void MediaPluginCEF::postDebugMessage(const std::string& msg)
 }
 void MediaPluginCEF::onPageChangedCallback(const unsigned char* pixels, int x, int y, const int width, const int height)
 {
+	if (mSuppressFrames)
+	{
+		return;
+	}
 	if (mPixels && pixels)
 	{
 		if (mWidth == width && mHeight == height)
@@ -273,6 +288,7 @@ void MediaPluginCEF::onTitleChangeCallback(std::string title)
 }
 void MediaPluginCEF::onLoadStartCallback()
 {
+	mCallbackSerial = mNavSerial;
 	LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA_BROWSER, "navigate_begin");
 	message.setValueBoolean("history_back_available", mCEFLib->canGoBack());
 	message.setValueBoolean("history_forward_available", mCEFLib->canGoForward());
@@ -303,33 +319,69 @@ bool MediaPluginCEF::cefErrorIsTransient(int status) const
 	}
 }
 
-void MediaPluginCEF::scheduleLoadRetry()
+void MediaPluginCEF::scheduleLoadRetry(int delay_ms)
 {
 	mPendingRetry = true;
-	mRetryAt = std::chrono::steady_clock::now() + std::chrono::milliseconds(400);
+	mRetryArm = 1;
+	mRetryAt = std::chrono::steady_clock::now() + std::chrono::milliseconds(delay_ms);
 }
 
 void MediaPluginCEF::pumpLoadRetry()
 {
-	if (!mPendingRetry || std::chrono::steady_clock::now() < mRetryAt)
+	if (!mPendingRetry)
+	{
+		return;
+	}
+	if (mRetryArm > 0)
+	{
+		--mRetryArm;
+		return;
+	}
+	if (std::chrono::steady_clock::now() < mRetryAt)
 	{
 		return;
 	}
 	mPendingRetry = false;
 	if (!mLastNavigateUrl.empty() && mCEFLib)
 	{
+		++mNavSerial;
 		mCEFLib->navigate(mLastNavigateUrl);
 	}
 }
 
-void MediaPluginCEF::showQuietPlaceholder()
+static bool urlIsHttp(const std::string& url)
 {
-	if (!mCEFLib)
+	const char* prefixes[] = { "https://", "http://" };
+	for (const char* prefix : prefixes)
 	{
-		return;
+		const size_t length = strlen(prefix);
+		if (url.size() < length)
+			continue;
+		bool match = true;
+		for (size_t i = 0; i < length; ++i)
+		{
+			char c = url[i];
+			if (c >= 'A' && c <= 'Z')
+				c = (char)(c - 'A' + 'a');
+			if (c != prefix[i])
+			{
+				match = false;
+				break;
+			}
+		}
+		if (match)
+			return true;
 	}
-	mCEFLib->showBrowserMessage(
-		"<div style='margin:0;background:#050812;height:100vh'></div>");
+	return false;
+}
+void MediaPluginCEF::holdTransientFailure()
+{
+	mSuppressFrames = true;
+	if (mPixels && mWidth > 0 && mHeight > 0 && mDepth > 0)
+	{
+		memset(mPixels, 0, (size_t)mWidth * (size_t)mHeight * (size_t)mDepth);
+		setDirty(0, 0, mWidth, mHeight);
+	}
 }
 
 void MediaPluginCEF::showLoadErrorPage(int status, const std::string& error_text, const std::string& error_url)
@@ -357,16 +409,21 @@ void MediaPluginCEF::onLoadError(int status, const std::string error_text, const
 		return;
 	}
 	const int kMaxLoadRetries = 2;
-	if (cefErrorIsTransient(status) && mLoadRetries < kMaxLoadRetries && !mLastNavigateUrl.empty())
+	if (cefErrorIsTransient(status) && mLoadRetries < kMaxLoadRetries && !mLastNavigateUrl.empty() && !mPendingRetry)
 	{
 		++mLoadRetries;
 		std::stringstream debug;
 		debug << "Retrying CEF navigation after " << error_text << " (" << status << ") try " << mLoadRetries;
 		postDebugMessage(debug.str());
-		showQuietPlaceholder();
-		scheduleLoadRetry();
+		holdTransientFailure();
+		if (mCEFLib)
+			mCEFLib->navigate("about:blank");
+		scheduleLoadRetry(mLoadRetries == 1 ? 0 : 400);
 		return;
 	}
+	if (mPendingRetry)
+		return;
+	mSuppressFrames = false;
 	showLoadErrorPage(status, error_text, error_url);
 }
 void MediaPluginCEF::onRequestExitCallback()
@@ -375,17 +432,42 @@ void MediaPluginCEF::onRequestExitCallback()
 	LLPluginMessage message("base", "goodbye");
 	sendMessage(message);
 }
-void MediaPluginCEF::onLoadEndCallback(int httpStatusCode, const std::string )
+void MediaPluginCEF::onLoadEndCallback(int httpStatusCode, const std::string url)
 {
 	if (mPendingRetry)
 	{
 		return;
 	}
-	if (httpStatusCode >= 200 && httpStatusCode < 400)
+	if (url.compare(0, 6, "about:") == 0 && urlIsHttp(mLastNavigateUrl))
+	{
+		return;
+	}
+	const bool page_ok = httpStatusCode >= 200 && httpStatusCode < 400 && urlIsHttp(url);
+	if (!page_ok && mSucceededSerial == mNavSerial && mNavSerial != 0)
+	{
+		return;
+	}
+	if (!page_ok && (mCallbackSerial != mNavSerial || mSuppressFrames))
+	{
+		return;
+	}
+	if (page_ok)
 	{
 		mLoadRetries = 0;
+		mSucceededSerial = mNavSerial;
+		const bool held = mSuppressFrames;
+		mSuppressFrames = false;
+		if (held && mCEFLib)
+		{
+			int width = 0;
+			int height = 0;
+			mCEFLib->getSize(width, height);
+			if (width > 0 && height > 0)
+				mCEFLib->setSize(width, height);
+		}
 	}
 	LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA_BROWSER, "navigate_complete");
+	message.setValue("uri", url);
 	message.setValueS32("result_code", httpStatusCode);
 	message.setValueBoolean("history_back_available", mCEFLib->canGoBack());
 	message.setValueBoolean("history_forward_available", mCEFLib->canGoForward());
@@ -720,6 +802,12 @@ void MediaPluginCEF::receiveMessage(const char* message_string)
 				mLastNavigateUrl = uri;
 				mLoadRetries = 0;
 				mPendingRetry = false;
+				mSuppressFrames = false;
+				mRetryArm = 0;
+				mSucceededSerial = 0;
+				for (int i = 0; i < 8; ++i)
+					mCEFLib->update();
+				++mNavSerial;
 				mCEFLib->navigate(uri);
 			}
 			else if (message_name == "set_cookie")

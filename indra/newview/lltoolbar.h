@@ -68,9 +68,11 @@ public:
 	S32 getRowCount() const { return mRowCount; }
 	S32 getCompanionReserve() const { return mCompanionReserve; }
 	bool getCenterOverride() const { return mCenterOverride; }
+	bool getDockLeft() const { return mDockLeft; }
 	bool isLayoutDirty() const { return mLayoutDirty; }
 	void setCompanionReserve(S32 width);
 	void setCenterOverride(bool center);
+	void setDockLeft(bool dock);
 	void layoutNow();
 	S32 getLayoutPillRight() const { return mLayoutPillRight; }
 	const LLRect& getPillRect() const { return mPillRect; }
@@ -141,6 +143,7 @@ private:
 	S32 mRowCount;
 	S32 mCompanionReserve;
 	bool mCenterOverride;
+	bool mDockLeft;
 	S32 mVisualLeft;
 	S32 mFromLeft;
 	S32 mTargetLeft;

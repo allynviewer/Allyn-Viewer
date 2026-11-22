@@ -3,23 +3,23 @@
      enabled="true" follows="left|bottom" height="29" left="0"
      mouse_opaque="true" name="voice_controls" width="220">
 	<button bottom="0" follows="left|bottom" font="SansSerif" font-style="BOLD" sound_flags="0"
-	     height="29" image_overlay="active_speakers.tga" image_overlay_alignment="center" label="" left="0"
+	     height="29" image_overlay="floating_ui/active_speakers.png" image_overlay_alignment="center" label="" left="0"
 	     name="speakers_btn" scale_image="true"
 	     image_selected="toolbar_btn_selected.tga"
 	     image_unselected="toolbar_btn_enabled.tga"
 	     image_disabled="toolbar_btn_disabled.tga"
 	     tool_tip="Show list of residents using voice chat around you" width="52" />
 	<button bottom="0" follows="left|bottom" font="SansSerif" font-style="BOLD" halign="left" sound_flags="0"
-	     height="29" label="Talk" left="54" name="push_to_talk"
+	     height="29" label="" left="54" name="push_to_talk"
 	     scale_image="true"
 	     image_selected="toolbar_btn_selected.tga"
 	     image_unselected="toolbar_btn_enabled.tga"
 	     image_disabled="toolbar_btn_disabled.tga"
-	     image_overlay="icn_voice_ptt-off.tga"
-	     image_overlay_alignment="left"
+	     image_overlay="floating_ui/voice_mic.png"
+	     image_overlay_alignment="center"
 	     tab_stop="false" tool_tip="Hold the button to talk" width="90" />
 	<button bottom="0" follows="left|bottom" font="SansSerif" font-style="BOLD" sound_flags="0"
-	     height="29" image_overlay="ptt_lock_on.tga" image_overlay_selected="ptt_lock_off.tga"
+	     height="29" image_overlay="floating_ui/voice_lock.png" image_overlay_selected="floating_ui/voice_unlock.png"
 	     image_overlay_alignment="center" label="" left="146" name="ptt_lock"
 	     scale_image="true" toggle="true" control_name="PTTCurrentlyEnabled"
 	     image_selected="toolbar_btn_selected.tga"
@@ -34,7 +34,7 @@
 	     image_selected="toolbar_btn_selected.tga"
 	     image_unselected="toolbar_btn_enabled.tga"
 	     image_disabled="toolbar_btn_disabled.tga"
-	     image_overlay_selected="arrow_down.tga" image_overlay="arrow_up.tga"
+	     image_overlay_selected="floating_ui/chevron_down.png" image_overlay="floating_ui/chevron_up.png"
 	     image_overlay_alignment="center"
 	     tool_tip="Click to show current voice channel" width="36" />
 </panel>

@@ -97,6 +97,7 @@ LLToolBar::LLToolBar()
 ,	mRowCount(1)
 ,	mCompanionReserve(0)
 ,	mCenterOverride(false)
+,	mDockLeft(false)
 ,	mVisualLeft(0)
 ,	mFromLeft(0)
 ,	mTargetLeft(0)
@@ -511,6 +512,15 @@ void LLToolBar::setCenterOverride(bool center)
 	mCenterOverride = center;
 	mLayoutDirty = true;
 }
+void LLToolBar::setDockLeft(bool dock)
+{
+	if (mDockLeft == dock)
+	{
+		return;
+	}
+	mDockLeft = dock;
+	mLayoutDirty = true;
+}
 void LLToolBar::layoutNow()
 {
 	layoutToolbar();
@@ -683,7 +693,7 @@ void LLToolBar::layoutToolbar()
 	}
 	const S32 group = TOOLBAR_CHROME_WIDTH + content;
 	S32 target_left = (width - group) / 2;
-	if (mCompanionReserve > 0)
+	if (mCompanionReserve > 0 || mDockLeft)
 	{
 		target_left = margin;
 	}
@@ -703,7 +713,7 @@ void LLToolBar::layoutToolbar()
 	}
 	target_left = llmax(margin, target_left);
 	mLayoutPillRight = target_left + TOOLBAR_PILL_LEFT_PAD + content + TOOLBAR_ADD_GAP + TOOLBAR_ADD_SIZE - TOOLBAR_ADD_OVERHANG;
-	const bool dock_left = mCompanionReserve > 0;
+	const bool dock_left = mCompanionReserve > 0 || mDockLeft;
 	const bool animate = mPlacementReady && (dock_left != mWasDockLeft || mCenterOverride != mWasCenter);
 	mWasDockLeft = dock_left;
 	mWasCenter = mCenterOverride;

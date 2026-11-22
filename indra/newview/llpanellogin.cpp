@@ -111,6 +111,30 @@ static S32 loginMenuBarHeight()
 		return llmax(MENU_BAR_HEIGHT, gLoginMenuBarView->getRect().getHeight());
 	return MENU_BAR_HEIGHT;
 }
+static bool splashUrlHttp(const std::string& url)
+{
+	if (url.size() >= 8 && LLStringUtil::compareInsensitive(url.substr(0, 8), "https://") == 0)
+		return true;
+	if (url.size() >= 7 && LLStringUtil::compareInsensitive(url.substr(0, 7), "http://") == 0)
+		return true;
+	return false;
+}
+static bool splashUnavailable(LLPluginClassMedia* self, LLMediaCtrl* web)
+{
+	if (!self)
+		return false;
+	std::string url = self->getNavigateURI();
+	if (url.empty())
+		url = self->getLocation();
+	if (url.empty() && web)
+		url = web->getCurrentNavUrl();
+	if (url.compare(0, 5, "data:") == 0 || url.compare(0, 13, "chrome-error:") == 0)
+		return true;
+	if (!splashUrlHttp(url))
+		return false;
+	const S32 code = self->getNavigateResultCode();
+	return code < 200 || code >= 400;
+}
 static std::string formatarContagemLogin(S32 valor)
 {
 	if (valor < 0)
@@ -365,7 +389,8 @@ LLPanelLogin::LLPanelLogin(const LLRect& rect)
 	mBrowserLayoutH(0),
 	mFormColumnWidth(300),
 	mSplashColumnWidth(460),
-	mLoginLayoutReady(false)
+	mLoginLayoutReady(false),
+	mSplashFallback(false)
 {
 	setFocusRoot(TRUE);
 	setBackgroundVisible(FALSE);
@@ -467,6 +492,14 @@ LLPanelLogin::LLPanelLogin(const LLRect& rect)
 		web_browser->addObserver(this);
 		web_browser->setBackgroundColor(LLColor4::black);
 	}
+	if (LLPanel* cover = findChild<LLPanel>("login_splash_fallback"))
+	{
+		cover->setBackgroundColor(LLColor4::black);
+		cover->setBackgroundOpaque(TRUE);
+		cover->setBackgroundVisible(TRUE);
+		cover->setMouseOpaque(TRUE);
+	}
+	setSplashFallback(false);
 	mLoginLayoutReady = true;
 	reshapeBrowser();
 	refreshLoginPage();
@@ -558,16 +591,74 @@ void LLPanelLogin::addFavoritesToStartLocation()
 		break;
 	}
 }
+void LLPanelLogin::setSplashFallback(bool fallback)
+{
+	mSplashFallback = fallback;
+	if (LLView* cover = getChildView("login_splash_fallback", TRUE, FALSE))
+		cover->setVisible(fallback);
+}
+void LLPanelLogin::layoutSplashColumn(S32 content_top, S32 content_h)
+{
+	if (content_h < 1)
+		content_h = 1;
+	LLRect splash;
+	splash.setLeftTopAndSize(mFormColumnWidth, content_top, mSplashColumnWidth, content_h);
+	LLMediaCtrl* web_browser = findChild<LLMediaCtrl>("login_html");
+	LLView* cover = getChildView("login_splash_fallback", TRUE, FALSE);
+	bool moved = false;
+	if (web_browser && web_browser->getRect() != splash)
+	{
+		web_browser->setFollowsNone();
+		web_browser->setDecoupleTextureSize(false);
+		web_browser->setTakeFocusOnClick(false);
+		setChildRect(web_browser, mFormColumnWidth, content_top, mSplashColumnWidth, content_h);
+		web_browser->setStretchToFill(true);
+		web_browser->setMaintainAspectRatio(false);
+		web_browser->setBorderVisible(false);
+		moved = true;
+	}
+	if (cover)
+	{
+		if (cover->getRect() != splash)
+		{
+			cover->setFollowsNone();
+			cover->setMouseOpaque(TRUE);
+			setChildRect(cover, mFormColumnWidth, content_top, mSplashColumnWidth, content_h);
+			moved = true;
+		}
+		const BOOL show_cover = mSplashFallback ? TRUE : FALSE;
+		if (cover->getVisible() != show_cover)
+			cover->setVisible(show_cover);
+		if (LLView* logo = cover->getChildView("login_splash_logo", FALSE, FALSE))
+		{
+			const S32 side = llmax(1, llmin(mSplashColumnWidth, content_h));
+			const S32 left = (mSplashColumnWidth - side) / 2;
+			const S32 top = (content_h + side) / 2;
+			LLRect logo_rect;
+			logo_rect.setLeftTopAndSize(left, top, side, side);
+			if (logo->getRect() != logo_rect)
+			{
+				logo->setFollowsNone();
+				logo->setMouseOpaque(FALSE);
+				setChildRect(logo, left, top, side, side);
+			}
+		}
+	}
+	if (!moved)
+		return;
+	if (cover)
+		sendChildToBack(cover);
+	if (web_browser)
+		sendChildToBack(web_browser);
+	if (LLView* form_bg = getChildView("login_form_bg", TRUE, FALSE))
+		sendChildToFront(form_bg);
+}
 void LLPanelLogin::setSiteIsAlive(bool alive)
 {
-	if (LLMediaCtrl* web_browser = findChild<LLMediaCtrl>("login_html"))
-	{
-		if (alive)
-			loadLoginPage();
-		else
-			web_browser->navigateTo( "data:text/html,%3Chtml%3E%3Cbody%20bgcolor=%22%23050812%22%3E%3C/body%3E%3C/html%3E", "text/html" );
-		web_browser->setVisible(TRUE);
-	}
+	if (alive)
+		loadLoginPage();
+	else
+		setSplashFallback(true);
 }
 void LLPanelLogin::clearPassword()
 {
@@ -710,16 +801,9 @@ void LLPanelLogin::reshapeBrowser()
 			scroll->goToTop();
 		}
 	}
+	layoutSplashColumn(content_top, content_h);
 	if (LLMediaCtrl* web_browser = findChild<LLMediaCtrl>("login_html"))
 	{
-		web_browser->setFollowsNone();
-		web_browser->setDecoupleTextureSize(false);
-		web_browser->setTakeFocusOnClick(false);
-		setChildRect(web_browser, mFormColumnWidth, content_top, mSplashColumnWidth, content_h);
-		web_browser->setStretchToFill(true);
-		web_browser->setMaintainAspectRatio(false);
-		web_browser->setBorderVisible(false);
-		sendChildToBack(web_browser);
 		const LLVector2 ui_scale = LLUI::getScaleFactor();
 		const F32 plugin_w = llmax(1.f, (F32)mSplashColumnWidth * ui_scale.mV[VX]);
 		const F32 plugin_h = llmax(1.f, (F32)content_h * ui_scale.mV[VY]);
@@ -791,18 +875,7 @@ void LLPanelLogin::draw()
 	const S32 menu_h = loginMenuBarHeight();
 	gl_rect_2d(0, height - menu_h, mFormColumnWidth, 0, form_bg);
 	gl_rect_2d(mFormColumnWidth, height - menu_h, width, 0, LLColor4::black);
-	if (LLMediaCtrl* web_browser = findChild<LLMediaCtrl>("login_html"))
-	{
-		LLRect html_expected;
-		html_expected.setLeftTopAndSize(mFormColumnWidth, height - menu_h, mSplashColumnWidth, height - menu_h);
-		if (web_browser->getRect() != html_expected)
-		{
-			web_browser->setFollowsNone();
-			setChildRect(web_browser, mFormColumnWidth, height - menu_h, mSplashColumnWidth, height - menu_h);
-			web_browser->setStretchToFill(true);
-			web_browser->setMaintainAspectRatio(false);
-		}
-	}
+	layoutSplashColumn(height - menu_h, height - menu_h);
 	LLPanel::draw();
 	if (LLUI::sColorsGroup)
 	{
@@ -1081,7 +1154,7 @@ void LLPanelLogin::loadLoginPage()
 	std::string login_page_str = gHippoGridManager->getCurrentGrid()->getLoginPage();
 	if (login_page_str.empty())
 	{
-		sInstance->setSiteIsAlive(false);
+		sInstance->setSplashFallback(true);
 		return;
 	}
 	LLURI login_page = LLURI(login_page_str);
@@ -1164,9 +1237,21 @@ void LLPanelLogin::loadLoginPage()
 		web_browser->navigateTo( login_uri.asString(), "text/html" );
 	}
 }
-void LLPanelLogin::handleMediaEvent(LLPluginClassMedia* , EMediaEvent event)
+void LLPanelLogin::handleMediaEvent(LLPluginClassMedia* self, EMediaEvent event)
 {
-	if (event == MEDIA_EVENT_NAVIGATE_COMPLETE || event == MEDIA_EVENT_SIZE_CHANGED)
+	if (event == MEDIA_EVENT_NAVIGATE_COMPLETE)
+	{
+		LLMediaCtrl* web_browser = findChild<LLMediaCtrl>("login_html");
+		setSplashFallback(splashUnavailable(self, web_browser));
+		reshapeBrowser();
+	}
+	else if (event == MEDIA_EVENT_NAVIGATE_ERROR_PAGE
+		|| event == MEDIA_EVENT_PLUGIN_FAILED
+		|| event == MEDIA_EVENT_PLUGIN_FAILED_LAUNCH)
+	{
+		setSplashFallback(true);
+	}
+	else if (event == MEDIA_EVENT_SIZE_CHANGED)
 	{
 		reshapeBrowser();
 	}

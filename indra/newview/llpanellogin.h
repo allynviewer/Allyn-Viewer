@@ -76,6 +76,8 @@ public:
 	static void onUpdateStartSLURL(const LLSLURL& new_start_slurl);
 private:
 	void reshapeBrowser();
+	void layoutSplashColumn(S32 content_top, S32 content_h);
+	void setSplashFallback(bool fallback);
 	void updateLoginVersionLabel();
 	void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE) override;
 	void addFavoritesToStartLocation();
@@ -106,6 +108,7 @@ private:
 	S32 mFormColumnWidth;
 	S32 mSplashColumnWidth;
 	bool mLoginLayoutReady;
+	bool mSplashFallback;
 	static LLPanelLogin* sInstance;
 	LLSavedLogins	mLoginHistoryData;
 };
