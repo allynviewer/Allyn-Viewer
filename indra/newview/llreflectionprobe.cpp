@@ -622,7 +622,7 @@ namespace
 		void gatherNetwork(bool place_probes)
 		{
 			S32 level = gSavedSettings.getS32("RenderReflectionProbeLevel");
-			S32 mirror_detail = gSavedSettings.getS32("RenderMirrorDetail");
+			bool mirrors_on = gSavedSettings.getBOOL("RenderMirrors") || gSavedSettings.getS32("RenderMirrorDetail") > 0;
 			LLVector3 cam = LLViewerCamera::getInstance()->getOrigin();
 			bool have_mirror = false;
 			F32 mirror_dist = 0.f;
@@ -639,7 +639,7 @@ namespace
 				bool placed;
 			};
 			std::vector<ManualItem> manuals;
-			if (mirror_detail > 0 || place_probes)
+			if (mirrors_on || place_probes)
 			{
 				for (LLViewerObjectList::vobj_list_t::const_iterator it = gObjectList.mObjects.begin(); it != gObjectList.mObjects.end(); ++it)
 				{
@@ -657,7 +657,7 @@ namespace
 					LLVector3 scale = object->getScale();
 					if (params->getIsMirror())
 					{
-						if (mirror_detail <= 0)
+						if (!mirrors_on)
 						{
 							continue;
 						}

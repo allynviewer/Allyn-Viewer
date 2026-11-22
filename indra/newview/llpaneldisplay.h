@@ -147,6 +147,8 @@ protected:
 	BOOL mScreenSpaceReflections;
 	BOOL mMirrors;
 	S32 mMirrorDetail;
+	S32 mMirrorResolution;
+	S32 mMirrorUpdateRate;
 	S32 mTonemapType;
 	F32 mTonemapMix;
 	void onChangeQuality(LLUICtrl* caller);

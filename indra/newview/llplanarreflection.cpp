@@ -58,7 +58,8 @@ LLPlanarReflection::LLPlanarReflection()
 	mSuppressSample(false),
 	mAllocated(false),
 	mWidth(0),
-	mHeight(0)
+	mHeight(0),
+	mUpdateFrame(0)
 {
 	mPoint.setVec(0.f, 0.f, 0.f);
 	mNormal.setVec(0.f, 0.f, 1.f);
@@ -120,28 +121,48 @@ void LLPlanarReflection::allocate(S32 width, S32 height)
 
 void LLPlanarReflection::capture()
 {
-	S32 detail = gSavedSettings.getS32("RenderMirrorDetail");
-	if (!mSubmitted || detail <= 0 || !LLPipeline::sRenderDeferred || gPipeline.mDeferredScreen.getWidth() < 1)
+	bool mirrors_on = gSavedSettings.getBOOL("RenderMirrors") || gSavedSettings.getS32("RenderMirrorDetail") > 0;
+	if (!mSubmitted || !mirrors_on || !LLPipeline::sRenderDeferred || gPipeline.mDeferredScreen.getWidth() < 1)
 	{
 		mReady = false;
 		mSubmitted = false;
 		return;
 	}
-	F32 scale = 0.25f;
-	if (detail == 2)
+	S32 rate = gSavedSettings.getS32("RenderHeroProbeUpdateRate");
+	if (rate < 1)
 	{
-		scale = 0.5f;
+		rate = 1;
 	}
-	else if (detail == 3)
+	else if (rate > 3)
 	{
-		scale = 0.75f;
+		rate = 6;
 	}
-	else if (detail >= 4)
+	++mUpdateFrame;
+	if (mReady && mAllocated && (mUpdateFrame % (U32)rate) != 0)
 	{
-		scale = 1.f;
+		mSubmitted = false;
+		return;
 	}
-	S32 width = llmax((S32)((F32)gViewerWindow->getWindowWidthRaw() * scale), 1);
-	S32 height = llmax((S32)((F32)gViewerWindow->getWindowHeightRaw() * scale), 1);
+	S32 res = gSavedSettings.getS32("RenderHeroProbeResolution");
+	if (res != 256 && res != 512 && res != 1024 && res != 2048)
+	{
+		res = 1024;
+	}
+	S32 window_w = gViewerWindow->getWindowWidthRaw();
+	S32 window_h = gViewerWindow->getWindowHeightRaw();
+	S32 width = res;
+	S32 height = res;
+	if (window_w > 0 && window_h > 0)
+	{
+		if (window_w >= window_h)
+		{
+			height = llmax((S32)((F32)res * (F32)window_h / (F32)window_w), 1);
+		}
+		else
+		{
+			width = llmax((S32)((F32)res * (F32)window_w / (F32)window_h), 1);
+		}
+	}
 	allocate(width, height);
 	if (!mAllocated)
 	{

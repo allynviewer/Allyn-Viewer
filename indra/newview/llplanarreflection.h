@@ -53,6 +53,7 @@ private:
 	bool mAllocated;
 	S32 mWidth;
 	S32 mHeight;
+	U32 mUpdateFrame;
 };
 
 extern LLPlanarReflection gPlanarReflection;

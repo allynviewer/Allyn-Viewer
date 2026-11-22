@@ -15179,6 +15179,28 @@ This should be as low as possible, but too low may break functionality</string>
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>RenderHeroProbeResolution</key>
+    <map>
+      <key>Comment</key>
+      <string>Resolution to render hero probes used for mirrors, water, etc.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>1024</integer>
+    </map>
+    <key>RenderHeroProbeUpdateRate</key>
+    <map>
+      <key>Comment</key>
+      <string>How many frames to wait for until it's time to render the probe. E.g., every other frame (1), every two frames (2), every three frames (3) etc.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>2</integer>
+    </map>
     <key>RenderMirrorDetail</key>
     <map>
       <key>Comment</key>

@@ -191,7 +191,7 @@ when the Atmospheric Shaders are enabled.
   </panel>
   <panel border="false" height="470" left="0" name="PBR" label="PBR" width="640">
     <scroll_container bottom="-470" follows="all" height="470" left="0" name="pbr_gfx_scroll" opaque="false" width="640">
-    <panel border="false" bottom="-236" follows="top|left" height="236" left="0" name="pbr_gfx_inner" width="420">
+    <panel border="false" bottom="-286" follows="top|left" height="286" left="0" name="pbr_gfx_inner" width="420">
     <text bottom="-23" follows="top|left" height="12" left="20" name="PBRReflectionDetailText" width="185">Reflection Detail:</text>
     <combo_box bottom="-27" follows="top|left" control_name="RenderReflectionProbeDetail" height="23" left="209" name="PBRReflectionDetail" width="185">
       <combo_item name="0" value="0">Static Only</combo_item>
@@ -214,15 +214,29 @@ when the Atmospheric Shaders are enabled.
       <combo_item name="256" value="256">Ultra</combo_item>
     </combo_box>
     <check_box bottom="-98" follows="top|left" control_name="RenderDisableVintageMode" height="16" label="HDR and Emissive" left="20" name="PBRHDR" tool_tip="Enables additional rendering pipeline features on newer machines such as HDR and emissive textures on PBR content." width="256"/>
-    <slider bottom="-118" follows="top|left" control_name="RenderExposure" enabled_control="RenderDisableVintageMode" decimal_digits="1" height="16" increment="0.1" initial_val="1" label="Exposure" label_width="185" left="20" max_val="4.0" min_val="0.5" name="PBRExposure" show_text="true" width="317"/>
+    <slider bottom="-118" follows="top|left" control_name="RenderExposure" disabled_control="RenderDisableVintageMode" decimal_digits="1" height="16" increment="0.1" initial_val="1" label="Exposure" label_width="185" left="20" max_val="4.0" min_val="0.5" name="PBRExposure" show_text="true" width="317"/>
     <check_box bottom="-138" follows="top|left" control_name="RenderScreenSpaceReflections" height="16" label="Screen Space Reflections" left="20" name="PBRScreenSpaceReflections" width="256"/>
     <check_box bottom="-158" follows="top|left" control_name="RenderMirrors" height="16" label="Mirrors" left="20" name="PBRMirrors" width="280"/>
-    <text bottom="-178" follows="top|left" height="12" left="20" name="PBRTonemapTypeText" width="185">Tone Mapper:</text>
-    <combo_box bottom="-182" follows="top|left" control_name="RenderTonemapType" height="20" left="209" name="PBRTonemapType" width="150">
+    <text bottom="-178" follows="top|left" height="12" left="20" name="PBRMirrorResolutionText" width="185">Mirror Resolution:</text>
+    <combo_box bottom="-182" follows="top|left" control_name="RenderHeroProbeResolution" enabled_control="RenderMirrors" height="23" left="209" name="PBRMirrorResolution" width="185">
+      <combo_item name="0" value="256">256</combo_item>
+      <combo_item name="1" value="512">512</combo_item>
+      <combo_item name="2" value="1024">1024</combo_item>
+      <combo_item name="3" value="2048">2048</combo_item>
+    </combo_box>
+    <text bottom="-206" follows="top|left" height="12" left="20" name="PBRHeroProbeUpdateText" width="185">Mirror Update Rate:</text>
+    <combo_box bottom="-210" follows="top|left" control_name="RenderHeroProbeUpdateRate" enabled_control="RenderMirrors" height="23" left="209" name="PBRHeroProbeUpdateRate" width="185">
+      <combo_item name="6" value="6">Low</combo_item>
+      <combo_item name="3" value="3">Medium</combo_item>
+      <combo_item name="1" value="2">High</combo_item>
+      <combo_item name="0" value="1">Ultra</combo_item>
+    </combo_box>
+    <text bottom="-234" follows="top|left" height="12" left="20" name="PBRTonemapTypeText" width="185">Tone Mapper:</text>
+    <combo_box bottom="-238" follows="top|left" control_name="RenderTonemapType" height="20" left="209" name="PBRTonemapType" width="150">
       <combo_item name="0" value="0">Khronos Neutral</combo_item>
       <combo_item name="1" value="1">ACES</combo_item>
     </combo_box>
-    <slider bottom="-202" follows="top|left" control_name="RenderTonemapMix" decimal_digits="1" height="16" increment="0.1" initial_val="0.7" label="Tone Mapping Mix:" label_width="185" left="20" max_val="1.0" min_val="0.0" name="PBRTonemapMix" show_text="true" tool_tip="Mix between linear and tone mapped colors" width="345"/>
+    <slider bottom="-258" follows="top|left" control_name="RenderTonemapMix" decimal_digits="1" height="16" increment="0.1" initial_val="0.7" label="Tone Mapping Mix:" label_width="185" left="20" max_val="1.0" min_val="0.0" name="PBRTonemapMix" show_text="true" tool_tip="Mix between linear and tone mapped colors" width="345"/>
     </panel>
     </scroll_container>
   </panel>

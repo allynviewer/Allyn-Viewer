@@ -396,7 +396,9 @@ void LLPanelDisplay::refresh()
 	mExposure = persistedF32("RenderExposure");
 	mScreenSpaceReflections = persistedBOOL("RenderScreenSpaceReflections");
 	mMirrorDetail = persistedS32("RenderMirrorDetail");
-	mMirrors = mMirrorDetail > 0;
+	mMirrors = gSavedSettings.getBOOL("RenderMirrors") || mMirrorDetail > 0;
+	mMirrorResolution = persistedS32("RenderHeroProbeResolution");
+	mMirrorUpdateRate = persistedS32("RenderHeroProbeUpdateRate");
 	mTonemapType = persistedS32("RenderTonemapType");
 	mTonemapMix = persistedF32("RenderTonemapMix");
 	showComboInt(this, "AvatarDisplayCombo", mAvatarMode);
@@ -408,6 +410,8 @@ void LLPanelDisplay::refresh()
 	childSetValue("PBRExposure", (F64)mExposure);
 	childSetValue("PBRScreenSpaceReflections", (bool)mScreenSpaceReflections);
 	childSetValue("PBRMirrors", (bool)mMirrors);
+	showComboInt(this, "PBRMirrorResolution", mMirrorResolution);
+	showComboInt(this, "PBRHeroProbeUpdateRate", mMirrorUpdateRate);
 	showComboInt(this, "PBRTonemapType", mTonemapType);
 	childSetValue("PBRTonemapMix", (F64)mTonemapMix);
 	refreshEnabledState();
@@ -598,6 +602,8 @@ void LLPanelDisplay::cancel()
 	gSavedSettings.setBOOL("RenderScreenSpaceReflections", mScreenSpaceReflections);
 	gSavedSettings.setBOOL("RenderMirrors", mMirrors);
 	gSavedSettings.setS32("RenderMirrorDetail", mMirrors ? 1 : 0);
+	gSavedSettings.setS32("RenderHeroProbeResolution", mMirrorResolution);
+	gSavedSettings.setS32("RenderHeroProbeUpdateRate", mMirrorUpdateRate);
 	gSavedSettings.setS32("RenderTonemapType", mTonemapType);
 	gSavedSettings.setF32("RenderTonemapMix", mTonemapMix);
 }
@@ -621,8 +627,12 @@ void LLPanelDisplay::apply()
 	gSavedSettings.setBOOL("RenderScreenSpaceReflections", mScreenSpaceReflections);
 	mMirrors = childGetValue("PBRMirrors").asBoolean();
 	mMirrorDetail = mMirrors ? 1 : 0;
+	mMirrorResolution = childGetValue("PBRMirrorResolution").asInteger();
+	mMirrorUpdateRate = childGetValue("PBRHeroProbeUpdateRate").asInteger();
 	gSavedSettings.setBOOL("RenderMirrors", mMirrors);
 	gSavedSettings.setS32("RenderMirrorDetail", mMirrorDetail);
+	gSavedSettings.setS32("RenderHeroProbeResolution", mMirrorResolution);
+	gSavedSettings.setS32("RenderHeroProbeUpdateRate", mMirrorUpdateRate);
 	mTonemapType = childGetValue("PBRTonemapType").asInteger();
 	gSavedSettings.setS32("RenderTonemapType", mTonemapType);
 	mTonemapMix = (F32)childGetValue("PBRTonemapMix").asReal();
