@@ -99,6 +99,7 @@ LLChatBar::LLChatBar()
 	mLastSpecialChatChannel(0),
 	mIsBuilt(FALSE),
 	mAdjusting(FALSE),
+	mFloating(FALSE),
 	mGestureCombo(nullptr),
 	mObserver(nullptr)
 {
@@ -115,6 +116,7 @@ LLChatBar::~LLChatBar()
 }
 BOOL LLChatBar::postBuild()
 {
+	mFloating = (this == gChatBar);
 	if (LLUICtrl* history_ctrl = findChild<LLUICtrl>("History"))
 		history_ctrl->setCommitCallback(boost::bind(&toggleChatHistory));
 	if (LLUICtrl* say_ctrl = getChild<LLUICtrl>("Say"))
@@ -134,15 +136,18 @@ BOOL LLChatBar::postBuild()
 		mInputEditor->setPassDelete(TRUE);
 		mInputEditor->setReplaceNewlinesWithSpaces(FALSE);
 		mInputEditor->setEnableLineHistory(TRUE);
-		mInputEditor->setUIImage(NULL);
-		mInputEditor->setWriteableBgColor(LLColor4(0.f, 0.f, 0.f, 0.f));
-		mInputEditor->setReadOnlyBgColor(LLColor4(0.f, 0.f, 0.f, 0.f));
-		mInputEditor->setFocusBgColor(LLColor4(1.f, 1.f, 1.f, 0.08f));
-		mInputEditor->setVAlign(LLFontGL::BOTTOM);
-		mInputEditor->setMultiline(TRUE);
+		if (mFloating)
+		{
+			mInputEditor->setUIImage(NULL);
+			mInputEditor->setWriteableBgColor(LLColor4(0.f, 0.f, 0.f, 0.f));
+			mInputEditor->setReadOnlyBgColor(LLColor4(0.f, 0.f, 0.f, 0.f));
+			mInputEditor->setFocusBgColor(LLColor4(1.f, 1.f, 1.f, 0.08f));
+			mInputEditor->setVAlign(LLFontGL::BOTTOM);
+			mInputEditor->setMultiline(TRUE);
+		}
 	}
 	mHistoryBtn = findChild<LLButton>("History");
-	if (mHistoryBtn)
+	if (mFloating && mHistoryBtn)
 	{
 		LLFloatingBarStyle::labelToToolTip(mHistoryBtn);
 		LLFloatingBarStyle::styleIconButton(mHistoryBtn);
@@ -150,7 +155,7 @@ BOOL LLChatBar::postBuild()
 		mHistoryBtn->setImageOverlaySelectedColor(LLFloatingBarStyle::accentColor());
 	}
 	mSayBtn = findChild<LLFlyoutButton>("Say");
-	if (mSayBtn)
+	if (mFloating && mSayBtn)
 	{
 		for (LLView* child : *mSayBtn->getChildList())
 		{
@@ -166,7 +171,7 @@ BOOL LLChatBar::postBuild()
 			LLFloatingBarStyle::styleIconButton(button);
 		}
 	}
-	if (mGestureCombo)
+	if (mFloating && mGestureCombo)
 	{
 		for (LLView* child : *mGestureCombo->getChildList())
 		{
@@ -179,22 +184,31 @@ BOOL LLChatBar::postBuild()
 		}
 		mGestureCombo->setButtonOverlay("floating_ui/chevron_up.png", LLFontGL::RIGHT, LLColor4::white);
 	}
-	for (LLView* child : *getChildList())
+	if (mFloating)
 	{
-		if (!dynamic_cast<LLButton*>(child) && !dynamic_cast<LLLineEditor*>(child) && !dynamic_cast<LLComboBox*>(child))
+		for (LLView* child : *getChildList())
 		{
-			child->setVisible(FALSE);
+			if (!dynamic_cast<LLButton*>(child) && !dynamic_cast<LLLineEditor*>(child) && !dynamic_cast<LLComboBox*>(child))
+			{
+				child->setVisible(FALSE);
+			}
 		}
 	}
 	setBackgroundVisible(FALSE);
 	setMouseOpaque(FALSE);
 	mIsBuilt = TRUE;
-	layoutChatBar();
+	if (mFloating)
+	{
+		layoutChatBar();
+	}
 	return TRUE;
 }
 void LLChatBar::draw()
 {
-	mStyle.drawPill(mPillRect, LLFloatingBarStyle::barColor());
+	if (mFloating)
+	{
+		mStyle.drawPill(mPillRect, LLFloatingBarStyle::barColor());
+	}
 	LLPanel::draw();
 }
 S32 LLChatBar::desiredHeight() const
@@ -206,6 +220,11 @@ S32 LLChatBar::desiredHeight() const
 }
 void LLChatBar::reshape(S32 width, S32 height, BOOL called_from_parent)
 {
+	if (!mFloating)
+	{
+		LLPanel::reshape(width, height, called_from_parent);
+		return;
+	}
 	const S32 pill = desiredHeight();
 	if (getRect().getWidth() != width || getRect().getHeight() != pill)
 	{

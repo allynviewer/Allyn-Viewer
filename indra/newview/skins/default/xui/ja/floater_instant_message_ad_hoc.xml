@@ -13,11 +13,11 @@
 			<flyout_button name="instant_message_flyout" label="履歴">
 				<flyout_button_item name="conference" label="会議に追加" />
 			</flyout_button>
-			<button name="ding_btn" label="チーン" />
-			<check_box name="im_translate_check" tool_tip="チェックして翻訳を有効にする" />
-			<button name="im_translate_btn" label="翻訳" tool_tip="この会議の言語を設定" />
-			<button name="start_call_btn" label="通話" />
-			<button name="end_call_btn" label="通話終了" />
+			<button name="ding_btn" label="チーン"/>
+			<check_box name="im_translate_check" bottom_delta="2" follows="left|top" height="16" left_delta="80" width="18" tool_tip="チェックして翻訳を有効にする"/>
+			<button name="im_translate_btn" bottom_delta="0" follows="left|top" height="20" left_delta="85" width="75" label="翻訳" tool_tip="この会議の言語を設定"/>
+			<button name="start_call_btn" label="通話"/>
+			<button name="end_call_btn" label="通話終了"/>
 			<button name="toggle_active_speakers_btn" label="&lt; &lt;" tool_tip="このIMの参加者リストを表示または非表示にします。" />
 			<text_editor name="im_history" />
 			<line_editor name="chat_editor" label="クリックしてインスタントメッセージ" />

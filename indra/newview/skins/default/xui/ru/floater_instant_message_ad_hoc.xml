@@ -13,11 +13,11 @@
 			<flyout_button name="instant_message_flyout" label="История">
 				<flyout_button_item name="conference" label="Добавить в конференцию" />
 			</flyout_button>
-			<button name="ding_btn" label="Звук" />
-			<check_box name="im_translate_check" tool_tip="Отметьте, чтобы включить перевод" />
-			<button name="im_translate_btn" label="Перевод" tool_tip="Языки этой конференции" />
-			<button name="start_call_btn" label="Звонок" />
-			<button name="end_call_btn" label="Завершить" />
+			<button name="ding_btn" label="Звук"/>
+			<check_box name="im_translate_check" bottom_delta="2" follows="left|top" height="16" left_delta="80" width="18" tool_tip="Отметьте, чтобы включить перевод"/>
+			<button name="im_translate_btn" bottom_delta="0" follows="left|top" height="20" left_delta="85" width="75" label="Перевод" tool_tip="Языки этой конференции"/>
+			<button name="start_call_btn" label="Звонок"/>
+			<button name="end_call_btn" label="Завершить"/>
 			<button name="toggle_active_speakers_btn" label="&lt; &lt;" tool_tip="Показать или скрыть список участников этого IM" />
 			<text_editor name="im_history" />
 			<line_editor name="chat_editor" label="Нажмите, чтобы написать IM" />

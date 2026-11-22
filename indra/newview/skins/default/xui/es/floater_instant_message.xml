@@ -55,8 +55,8 @@
 	<button name="history_btn" label="Historial"/>
 	<button label="Llamar" name="start_call_btn"/>
 	<button label="Colgar" name="end_call_btn"/>
-	<check_box name="im_translate_check" tool_tip="Marque para activar la traducción"/>
-	<button name="im_translate_btn" label="Traducción" tool_tip="Configurar idiomas de esta conversación"/>
+	<check_box name="im_translate_check" bottom_delta="2" follows="left|top" height="16" left_delta="80" width="18" tool_tip="Marque para activar la traducción"/>
+	<button name="im_translate_btn" bottom="-38" follows="left|top" height="20" left_delta="85" width="75" label="Traducción" tool_tip="Configurar idiomas de esta conversación"/>
 	<panel name="speaker_controls">
 		<volume_slider name="speaker_volume"/>
 		<button label="" name="mute_btn" tool_tip="Silenciar voz"/>

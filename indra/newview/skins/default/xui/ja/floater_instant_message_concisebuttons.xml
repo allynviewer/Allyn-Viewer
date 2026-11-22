@@ -13,7 +13,7 @@
 	<string name="inventory_item_offered">インベントリ項目の申し出</string>
 	<flyout_button name="instant_message_flyout" label="プロフィール">
 		<flyout_button_item name="profile_item" label="プロフィール" />
-		<flyout_button_item name="history_btn" label="履歴" />
+		<flyout_button_item name="history_btn" label="履歴"/>
 		<flyout_button_item name="profile_tele_btn" label="テレポートを申し出る" />
 		<flyout_button_item name="request_teleport_item" label="テレポートをリクエスト" />
 		<flyout_button_item name="pay_item" label="支払い" />
@@ -32,10 +32,10 @@
 	<string name="mute" value="ミュート"/>
 	<string name="unmute" value="ミュート解除"/>
 	<string name="focus" value="フォーカス"/>
-	<button name="start_call_btn" label="通話" />
-	<button name="end_call_btn" label="終了" />
-	<check_box name="im_translate_check" tool_tip="チェックして翻訳を有効にする" />
-	<button name="im_translate_btn" label="翻訳" tool_tip="この会話の言語を設定" />
+	<button name="start_call_btn" label="通話"/>
+	<button name="end_call_btn" label="終了"/>
+	<check_box name="im_translate_check" bottom_delta="2" follows="left|top" height="16" left_delta="80" width="18" tool_tip="チェックして翻訳を有効にする"/>
+	<button name="im_translate_btn" bottom="-38" follows="left|top" height="20" left_delta="65" width="75" label="翻訳" tool_tip="この会話の言語を設定"/>
 	<panel name="speaker_controls">
 		<volume_slider name="speaker_volume" />
 		<button name="mute_btn" tool_tip="ボイスをミュート" />

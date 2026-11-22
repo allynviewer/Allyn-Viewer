@@ -30,11 +30,11 @@
 	<string name="focus" value="Фокус" />
 	<button name="tp_btn" label="TP" />
 	<button name="pay_btn" label="Оплатить" />
-	<button name="history_btn" label="История" />
-	<button name="start_call_btn" label="Звонок" />
-	<button name="end_call_btn" label="Завершить" />
-	<check_box name="im_translate_check" tool_tip="Отметьте, чтобы включить перевод" />
-	<button name="im_translate_btn" label="Перевод" tool_tip="Языки этой беседы" />
+	<button name="history_btn" label="История"/>
+	<button name="start_call_btn" label="Звонок"/>
+	<button name="end_call_btn" label="Завершить"/>
+	<check_box name="im_translate_check" bottom_delta="2" follows="left|top" height="16" left_delta="80" width="18" tool_tip="Отметьте, чтобы включить перевод"/>
+	<button name="im_translate_btn" bottom="-38" follows="left|top" height="20" left_delta="85" width="75" label="Перевод" tool_tip="Языки этой беседы"/>
 	<panel name="speaker_controls">
 		<volume_slider name="speaker_volume" />
 		<button name="mute_btn" tool_tip="Заглушить голос" />

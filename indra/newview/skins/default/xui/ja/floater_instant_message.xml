@@ -30,11 +30,11 @@
 	<string name="focus" value="フォーカス" />
 	<button name="tp_btn" label="TP" />
 	<button name="pay_btn" label="支払い" />
-	<button name="history_btn" label="履歴" />
-	<button name="start_call_btn" label="通話" />
-	<button name="end_call_btn" label="終了" />
-	<check_box name="im_translate_check" tool_tip="チェックして翻訳を有効にする" />
-	<button name="im_translate_btn" label="翻訳" tool_tip="この会話の言語を設定" />
+	<button name="history_btn" label="履歴"/>
+	<button name="start_call_btn" label="通話"/>
+	<button name="end_call_btn" label="終了"/>
+	<check_box name="im_translate_check" bottom_delta="2" follows="left|top" height="16" left_delta="80" width="18" tool_tip="チェックして翻訳を有効にする"/>
+	<button name="im_translate_btn" bottom="-38" follows="left|top" height="20" left_delta="85" width="75" label="翻訳" tool_tip="この会話の言語を設定"/>
 	<panel name="speaker_controls">
 		<volume_slider name="speaker_volume" />
 		<button name="mute_btn" tool_tip="ボイスをミュート" />

@@ -26,8 +26,8 @@
 	</string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button label="Chiama" name="start_call_btn" width="145"/>
-			<button label="Termina la chiamata" name="end_call_btn" width="145" halign="right"/>
+			<button label="Chiama" name="start_call_btn"/>
+			<button label="Termina la chiamata" name="end_call_btn" halign="right"/>
 			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Mostra o nascondi l'elenco dei partecipanti attivi di questa sessione IM."/>
 			<line_editor label="Clicca qui per scrivere un messaggio" name="chat_editor"/>
 			<button label="Invia" name="send_btn"/>

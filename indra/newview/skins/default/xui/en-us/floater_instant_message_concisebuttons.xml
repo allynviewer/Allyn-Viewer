@@ -11,7 +11,7 @@
 	<string name="default_text_label">Click here to instant message.</string>
 	<string name="unavailable_text_label">Text chat is not available for this call.</string>
 	<string name="inventory_item_offered">Inventory item offered</string>
-    <flyout_button bottom="-38" follows="right|top" halign="center" height="20" label="Profile" left="280" name="instant_message_flyout" width="80" list_position="below">
+    <flyout_button bottom="-38" follows="left|top" halign="center" height="20" label="Profile" left="5" name="instant_message_flyout" width="80" list_position="below">
       <flyout_button_item label="Profile" name="profile_item" value="0"/>
       <flyout_button_item label="History" name="history_btn" value="1"/>
       <flyout_button_item label="Offer Teleport" name="profile_tele_btn" value="2"/>
@@ -32,14 +32,14 @@
     <string name="mute" value="Mute"/>
     <string name="unmute" value="Unmute"/>
     <string name="focus" value="Focus"/>
-	<button bottom="-38" follows="right|top" height="20" image_overlay="icn_voice-call-start.tga" image_overlay_alignment="left" label="Call" left_delta="81" name="start_call_btn" width="60"/>
-	<button bottom="-38" follows="right|top" height="20" image_overlay="icn_voice-call-end.tga" image_overlay_alignment="left" scale_image="true" label="End" name="end_call_btn" width="24"/>
-	<panel mouse_opaque="false" border="false" bottom="-38" follows="right|top" height="20" left_delta="65" name="speaker_controls" width="60">
-		<volume_slider bottom="0" follows="bottom" height="20" increment="0.05" initial_val="0.5" max_val="1.0" min_val="0.0" name="speaker_volume" width="48"/>
-		<button bottom="0" height="16" image_selected="icn_speaker-muted_dark.tga" image_unselected="icn_speaker_dark.tga" scale_image="true" label="" left_delta="42" name="mute_btn" tool_tip="Mute voice" width="25"/>
+	<button bottom="-38" follows="left|top" height="20" image_overlay="icn_voice-call-start.tga" image_overlay_alignment="left" label="Call" left_delta="85" name="start_call_btn" width="60"/>
+	<button bottom="-38" follows="left|top" height="20" image_overlay="icn_voice-call-end.tga" image_overlay_alignment="left" scale_image="true" label="End" left_delta="0" name="end_call_btn" width="24"/>
+	<button bottom="-38" follows="left|top" height="20" label="Translate" left_delta="65" name="im_translate_btn" tool_tip="Set languages for this conversation" width="75"/>
+	<check_box bottom_delta="2" follows="left|top" height="16" label="" left_delta="80" name="im_translate_check" tool_tip="Check to enable translation" width="18"/>
+	<panel mouse_opaque="false" border="false" bottom="-38" follows="left|top" height="20" left_delta="23" name="speaker_controls" width="60">
+		<volume_slider bottom="0" follows="bottom" height="20" increment="0.05" initial_val="0.5" max_val="1.0" min_val="0.0" name="speaker_volume" width="40"/>
+		<button bottom="0" height="16" image_selected="icn_speaker-muted_dark.tga" image_unselected="icn_speaker_dark.tga" scale_image="true" label="" left_delta="42" name="mute_btn" tool_tip="Mute voice" width="18"/>
 	</panel>
-	<button bottom="-38" follows="right|top" height="20" label="Translate" left_delta="65" name="im_translate_btn" tool_tip="Set languages for this conversation" width="70"/>
-	<check_box bottom="-36" follows="right|top" height="16" label="" left_delta="75" name="im_translate_check" tool_tip="Check to enable translation" width="18"/>
 	<text_editor bottom="28" bg_readonly_color="ChatHistoryBgColor" bg_writeable_color="ChatHistoryBgColor" enabled="false" follows="left|top|right|bottom" height="125" left="5" max_length="2147483647" name="im_history" text_color="ChatHistoryTextColor" track_bottom="true" text_readonly_color="ChatHistoryTextColor" width="488" word_wrap="true"/>
 	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="5" follows="left|right|bottom" font="SansSerif" height="20" label="Click here to instant message" left="5" max_length="2147483647" name="chat_editor" select_all_on_focus_received="false" select_on_focus="false" tab_group="1" width="425" spell_check="true"/>
 	<button bottom="5" follows="right|bottom" height="20" label="Send" left="435" name="send_btn" scale_image="true" width="60"/>

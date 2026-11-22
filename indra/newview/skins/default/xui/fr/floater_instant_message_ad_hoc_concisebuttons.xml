@@ -11,8 +11,8 @@
 		<flyout_button_item name="conference" label="Ajouter à la conférence"/>
 	</flyout_button>
 	<button name="ding_btn" label="Sonnerie"/>
-	<check_box name="im_translate_check" tool_tip="Cochez pour activer la traduction"/>
-	<button name="im_translate_btn" label="Traduction" tool_tip="Configurer les langues de cette conférence"/>
+	<check_box name="im_translate_check" bottom_delta="2" follows="right|top" height="16" left_delta="75" width="18" tool_tip="Cochez pour activer la traduction"/>
+	<button name="im_translate_btn" bottom_delta="0" follows="right|top" height="20" left_delta="85" width="70" label="Traduction" tool_tip="Configurer les langues de cette conférence"/>
 	<button name="start_call_btn" label="Appeler"/>
 	<button name="end_call_btn" label="Raccrocher"/>
 	<button name="toggle_active_speakers_btn" tool_tip="Cliquez ici pour afficher ou masquer la liste des participants actifs de cette session IM."/>

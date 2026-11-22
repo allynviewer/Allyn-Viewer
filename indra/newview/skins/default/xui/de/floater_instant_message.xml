@@ -33,8 +33,8 @@
 	<button name="history_btn" label="Verlauf"/>
 	<button label="Anrufen" name="start_call_btn"/>
 	<button label="Auflegen" name="end_call_btn"/>
-	<check_box name="im_translate_check" tool_tip="Aktivieren Sie die Übersetzung"/>
-	<button name="im_translate_btn" label="Übersetzung" tool_tip="Sprachen für dieses Gespräch festlegen"/>
+	<check_box name="im_translate_check" bottom_delta="2" follows="left|top" height="16" left_delta="80" width="18" tool_tip="Aktivieren Sie die Übersetzung"/>
+	<button name="im_translate_btn" bottom="-38" follows="left|top" height="20" left_delta="85" width="75" label="Übersetzung" tool_tip="Sprachen für dieses Gespräch festlegen"/>
 	<panel name="speaker_controls">
 		<volume_slider name="speaker_volume"/>
 		<button name="mute_btn" tool_tip="Voice stummschalten"/>

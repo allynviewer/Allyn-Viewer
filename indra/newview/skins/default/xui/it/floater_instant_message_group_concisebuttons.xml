@@ -14,8 +14,8 @@
 	</flyout_button>
 	<button name="ding_btn" label="Ding"/>
 	<check_box name="Support Check" tool_tip="Deseleziona per smettere di inviare il numero di build"/>
-	<check_box name="im_translate_check" tool_tip="Spunta per attivare la traduzione"/>
-	<button name="im_translate_btn" label="Traduzione" tool_tip="Configura le lingue di questo gruppo"/>
+	<check_box name="im_translate_check" bottom_delta="2" follows="right|top" height="16" left_delta="75" width="18" tool_tip="Spunta per attivare la traduzione"/>
+	<button name="im_translate_btn" bottom_delta="0" follows="right|top" height="20" left_delta="145" width="70" label="Traduzione" tool_tip="Configura le lingue di questo gruppo"/>
 	<button name="start_call_btn" label="Unisciti alla chiamata"/>
 	<button name="end_call_btn" label="Fine Chiamata"/>
 	<button name="toggle_active_speakers_btn" tool_tip="Clicca qui per mostrare/nascondere l'elenco dei partecipanti attivi in questa sessione IM."/>

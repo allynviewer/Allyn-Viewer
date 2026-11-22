@@ -32,10 +32,10 @@
 	</string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button label="Infos sur le groupe" name="group_info_btn" width="130"/>
-			<button label="Participer à l'appel" left_delta="90" name="start_call_btn" width="145"/>
-			<button halign="center" label="Raccrocher" name="end_call_btn" width="145"/>
-			<button label="Historique" left_delta="135" name="history_btn"/>
+			<button label="Infos sur le groupe" name="group_info_btn"/>
+			<button label="Participer à l'appel" name="start_call_btn"/>
+			<button halign="center" label="Raccrocher" name="end_call_btn"/>
+			<button label="Historique" name="history_btn"/>
 			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Afficher ou masquer la liste des intervenants actifs de cette session IM."/>
 			<button label="Envoyer" name="send_btn"/>
 		</layout_panel>

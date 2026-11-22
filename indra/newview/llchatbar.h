@@ -87,6 +87,7 @@ protected:
 	S32				mLastSpecialChatChannel;
 	BOOL			mIsBuilt;
 	BOOL			mAdjusting;
+	BOOL			mFloating;
 	LLComboBox*		mGestureCombo;
 	LLChatBarGestureObserver* mObserver;
 };

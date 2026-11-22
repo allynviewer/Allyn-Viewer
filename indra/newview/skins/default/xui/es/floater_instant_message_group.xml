@@ -29,12 +29,12 @@
 	</string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button label="Info Grupo" name="group_info_btn" width="80"/>
-			<button label="Historial" name="history_btn" left_delta="85" width="70"/>
-			<button name="ding_btn" label="Timbre" left_delta="75" width="55"/>
+			<button label="Info Grupo" name="group_info_btn"/>
+			<button label="Historial" name="history_btn"/>
+			<button name="ding_btn" label="Timbre"/>
 			<check_box name="Support Check" label="Enviar Versión" tool_tip="Desmárcarlo para no enviar el número de versión (Build)"/>
-			<button label="Unirse" name="start_call_btn" left_delta="60" width="105"/>
-			<button label="Colgar" name="end_call_btn" width="85"/>
+			<button label="Unirse" name="start_call_btn"/>
+			<button label="Colgar" name="end_call_btn"/>
 			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Mostrar u ocultar la lista de participantes activos de esta sesión de IM."/>
 			<button label="Enviar" name="send_btn"/>
 		</layout_panel>

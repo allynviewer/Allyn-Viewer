@@ -13,7 +13,7 @@
 	<string name="inventory_item_offered">Envanter öğesi teklif edildi</string>
 	<flyout_button name="instant_message_flyout" label="Profil">
 		<flyout_button_item name="profile_item" label="Profil" />
-		<flyout_button_item name="history_btn" label="Geçmiş" />
+		<flyout_button_item name="history_btn" label="Geçmiş"/>
 		<flyout_button_item name="profile_tele_btn" label="Teleport teklif et" />
 		<flyout_button_item name="request_teleport_item" label="Teleport iste" />
 		<flyout_button_item name="pay_item" label="Öde" />
@@ -32,10 +32,10 @@
 	<string name="mute" value="Sustur" />
 	<string name="unmute" value="Susturmayı kaldır" />
 	<string name="focus" value="Odakla" />
-	<button name="start_call_btn" label="Ara" />
-	<button name="end_call_btn" label="Bitir" />
-	<check_box name="im_translate_check" tool_tip="Çeviriyi etkinleştirmek için işaretleyin" />
-	<button name="im_translate_btn" label="Çeviri" tool_tip="Bu sohbetin dillerini ayarla" />
+	<button name="start_call_btn" label="Ara"/>
+	<button name="end_call_btn" label="Bitir"/>
+	<check_box name="im_translate_check" bottom_delta="2" follows="left|top" height="16" left_delta="80" width="18" tool_tip="Çeviriyi etkinleştirmek için işaretleyin"/>
+	<button name="im_translate_btn" bottom="-38" follows="left|top" height="20" left_delta="65" width="75" label="Çeviri" tool_tip="Bu sohbetin dillerini ayarla"/>
 	<panel name="speaker_controls">
 		<volume_slider name="speaker_volume" />
 		<button name="mute_btn" tool_tip="Sesi kapat" />

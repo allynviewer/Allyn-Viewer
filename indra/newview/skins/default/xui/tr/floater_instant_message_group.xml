@@ -12,14 +12,14 @@
 	<string name="muted_text_label">Yazılı sohbetin bir grup moderatörü tarafından kapatıldı.</string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button name="group_info_btn" label="Grup bilgisi" />
-			<button name="history_btn" label="Geçmiş" />
-			<button name="ding_btn" label="Ding" />
-			<check_box name="Support Check" label="Derlemeyi gönder" tool_tip="Derleme numarası göndermeyi durdurmak için işareti kaldır" />
-			<check_box name="im_translate_check" tool_tip="Çeviriyi etkinleştirmek için işaretleyin" />
-			<button name="im_translate_btn" label="Çeviri" tool_tip="Bu grubun dillerini ayarla" />
-			<button name="start_call_btn" label="Aramaya katıl" />
-			<button name="end_call_btn" label="Bitir" />
+			<button name="group_info_btn" label="Grup bilgisi"/>
+			<button name="history_btn" label="Geçmiş"/>
+			<button name="ding_btn" label="Ding"/>
+			<check_box name="Support Check" label="Derlemeyi gönder" tool_tip="Derleme numarası göndermeyi durdurmak için işareti kaldır"/>
+			<check_box name="im_translate_check" bottom_delta="2" follows="left|top" height="16" left_delta="80" width="18" tool_tip="Çeviriyi etkinleştirmek için işaretleyin"/>
+			<button name="im_translate_btn" bottom_delta="0" follows="left|top" height="20" left_delta="145" width="75" label="Çeviri" tool_tip="Bu grubun dillerini ayarla"/>
+			<button name="start_call_btn" label="Aramaya katıl"/>
+			<button name="end_call_btn" label="Bitir"/>
 			<button name="toggle_active_speakers_btn" label="&lt; &lt;" tool_tip="Listeyi göster veya gizle" />
 			<text_editor name="im_history" />
 			<line_editor name="chat_editor" />

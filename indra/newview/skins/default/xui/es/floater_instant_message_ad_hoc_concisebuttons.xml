@@ -21,11 +21,11 @@
 	<string name="default_text_label">
 		Pulsa aquí para un Mensaje Instantáneo.
 	</string>
-	<flyout_button label="Historial" name="instant_message_flyout" width="180" />
+	<flyout_button label="Historial" name="instant_message_flyout"/>
 	<flyout_button_item label="Añadir a la Conferencia" name="conference"/>
 	<button name="ding_btn" label="Timbre"/>
 	<button label="Llamar" name="start_call_btn"/>
-	<button label="Colgar" name="end_call_btn" width="90"/>
+	<button label="Colgar" name="end_call_btn"/>
 	<button label="&lt; &lt;" label_selected="&gt; &gt;" left="420" right="450" tool_tip="Mostrar u ocultar la lista de participantes activos de esta sesión de IM."/>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">

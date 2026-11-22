@@ -23,8 +23,8 @@
 	</flyout_button>
 	<button name="start_call_btn" label="Appeler"/>
 	<button name="end_call_btn" label="Terminer"/>
-	<check_box name="im_translate_check" tool_tip="Cochez pour activer la traduction"/>
-	<button name="im_translate_btn" label="Traduction" tool_tip="Configurer les langues de cette conversation"/>
+	<check_box name="im_translate_check" bottom_delta="2" follows="left|top" height="16" left_delta="80" width="18" tool_tip="Cochez pour activer la traduction"/>
+	<button name="im_translate_btn" bottom="-38" follows="left|top" height="20" left_delta="65" width="75" label="Traduction" tool_tip="Configurer les langues de cette conversation"/>
 	<panel name="speaker_controls">
 		<button name="mute_btn" tool_tip="Couper le son"/>
 	</panel>

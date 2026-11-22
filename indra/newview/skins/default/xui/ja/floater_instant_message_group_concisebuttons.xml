@@ -11,14 +11,14 @@
 	<string name="moderated_chat_label">（モデレート: ボイスはデフォルトでオフ）</string>
 	<string name="muted_text_label">グループモデレーターによりテキストチャットが無効になっています。</string>
 	<flyout_button name="instant_message_flyout" label="グループ情報">
-		<flyout_button_item name="history_btn" label="履歴" />
+		<flyout_button_item name="history_btn" label="履歴"/>
 	</flyout_button>
-	<button name="ding_btn" label="チーン" />
-	<check_box name="Support Check" label="#" tool_tip="チェックを外すとビルド番号の送信を停止" />
-	<check_box name="im_translate_check" tool_tip="チェックして翻訳を有効にする" />
-	<button name="im_translate_btn" label="翻訳" tool_tip="このグループの言語を設定" />
-	<button name="start_call_btn" label="通話に参加" />
-	<button name="end_call_btn" label="通話終了" />
+	<button name="ding_btn" label="チーン"/>
+	<check_box name="Support Check" label="#" tool_tip="チェックを外すとビルド番号の送信を停止"/>
+	<check_box name="im_translate_check" bottom_delta="2" follows="right|top" height="16" left_delta="75" width="18" tool_tip="チェックして翻訳を有効にする"/>
+	<button name="im_translate_btn" bottom_delta="0" follows="right|top" height="20" left_delta="145" width="70" label="翻訳" tool_tip="このグループの言語を設定"/>
+	<button name="start_call_btn" label="通話に参加"/>
+	<button name="end_call_btn" label="通話終了"/>
 	<button name="toggle_active_speakers_btn" label="&lt; &lt;" tool_tip="このIMセッションの参加者リストを切り替えます。" />
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">

@@ -30,11 +30,11 @@
 	<string name="focus" value="Odakla" />
 	<button name="tp_btn" label="TP" />
 	<button name="pay_btn" label="Öde" />
-	<button name="history_btn" label="Geçmiş" />
-	<button name="start_call_btn" label="Ara" />
-	<button name="end_call_btn" label="Bitir" />
-	<check_box name="im_translate_check" tool_tip="Çeviriyi etkinleştirmek için işaretleyin" />
-	<button name="im_translate_btn" label="Çeviri" tool_tip="Bu sohbetin dillerini ayarla" />
+	<button name="history_btn" label="Geçmiş"/>
+	<button name="start_call_btn" label="Ara"/>
+	<button name="end_call_btn" label="Bitir"/>
+	<check_box name="im_translate_check" bottom_delta="2" follows="left|top" height="16" left_delta="80" width="18" tool_tip="Çeviriyi etkinleştirmek için işaretleyin"/>
+	<button name="im_translate_btn" bottom="-38" follows="left|top" height="20" left_delta="85" width="75" label="Çeviri" tool_tip="Bu sohbetin dillerini ayarla"/>
 	<panel name="speaker_controls">
 		<volume_slider name="speaker_volume" />
 		<button name="mute_btn" tool_tip="Sesi kapat" />

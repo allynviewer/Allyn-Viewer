@@ -32,13 +32,13 @@
     <button bottom_delta="0" follows="left|top" height="20" left_delta="50" width="50" name="pay_btn" label="Pay"/>
     <button bottom_delta="0" follows="left|top" height="20" left_delta="50" width="80" name="history_btn" label="History"/>
     <button bottom="-38" follows="left|top" height="20" image_overlay="icn_voice-call-start.tga" image_overlay_alignment="left" label="Call" left_delta="80" name="start_call_btn" width="80"/>
-	<button bottom="-38" follows="top" height="20" image_overlay="icn_voice-call-end.tga" image_overlay_alignment="left" label="End" name="end_call_btn" visible="false" width="80"/>
-	<panel border="false" bottom="-36" follows="left|top" height="20" left_delta="85" name="speaker_controls" width="100">
-		<volume_slider bottom="0" follows="bottom" height="15" increment="0.05" initial_val="0.5" max_val="1.0" min_val="0.0" name="speaker_volume" width="56"/>
-		<button bottom="0" height="20" image_selected="icn_speaker-muted_dark.tga" image_unselected="icn_speaker_dark.tga" scale_image="false" label="" left_delta="56" name="mute_btn" tool_tip="Mute voice" width="25"/>
+	<button bottom="-38" follows="left|top" height="20" image_overlay="icn_voice-call-end.tga" image_overlay_alignment="left" label="End" left_delta="0" name="end_call_btn" visible="false" width="80"/>
+	<button bottom="-38" follows="left|top" height="20" label="Translate" left_delta="85" name="im_translate_btn" tool_tip="Set languages for this conversation" width="75"/>
+	<check_box bottom_delta="2" follows="left|top" height="16" label="" left_delta="80" name="im_translate_check" tool_tip="Check to enable translation" width="18"/>
+	<panel border="false" bottom="-38" follows="left|top" height="20" left_delta="23" name="speaker_controls" width="64">
+		<volume_slider bottom="0" follows="bottom" height="15" increment="0.05" initial_val="0.5" max_val="1.0" min_val="0.0" name="speaker_volume" width="40"/>
+		<button bottom="0" height="20" image_selected="icn_speaker-muted_dark.tga" image_unselected="icn_speaker_dark.tga" scale_image="false" label="" left_delta="42" name="mute_btn" tool_tip="Mute voice" width="22"/>
 	</panel>
-	<button bottom="-38" follows="left|top" height="20" label="Translate" left_delta="105" name="im_translate_btn" tool_tip="Set languages for this conversation" width="75"/>
-	<check_box bottom="-36" follows="left|top" height="16" label="" left_delta="80" name="im_translate_check" tool_tip="Check to enable translation" width="18"/>
 	<text_editor bottom="28" bg_readonly_color="ChatHistoryBgColor" bg_writeable_color="ChatHistoryBgColor"	enabled="false" follows="left|top|right|bottom" height="125" left="5" max_length="2147483647" name="im_history" text_color="ChatHistoryTextColor" track_bottom="true" text_readonly_color="ChatHistoryTextColor" width="488" word_wrap="true"/>
 	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="5" follows="left|right|bottom" font="SansSerif" height="20" label="Click here to instant message" left="5" max_length="2147483647" name="chat_editor" select_all_on_focus_received="false" select_on_focus="false" tab_group="1" width="425" spell_check="true"/>
 	<button bottom="5" follows="right|bottom" height="20" label="Send" left="435" name="send_btn" scale_image="true" width="60"/>

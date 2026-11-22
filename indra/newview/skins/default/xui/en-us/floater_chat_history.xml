@@ -24,8 +24,8 @@
           <layout_panel user_resize="false" auto_resize="false" bottom_delta="-25" follows="left|right|bottom" left="5" name="chat_layout_panel" right="-5" tab_group="1" height="25">
 			<panel bottom="5" follows="left|right|bottom" left="5" name="chat_panel" right="-5" top="25">
 				<string name="gesture_label">Gestures</string>
-				<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="0" follows="left|right|bottom" font="SansSerif" handle_edit_keys_directly="false" height="22" label="Click here to chat." left="0" max_length="2147483647" name="Chat Editor" right="-60" select_all_on_focus_received="false" select_on_focus="false" tab_group="1" spell_check="true"/>
-				<flyout_button bottom_delta="0" follows="right|bottom" height="22" label="Say" left="-57" list_position="above" name="Say" tool_tip="(Enter)" width="60">
+				<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="0" follows="left|right|bottom" font="SansSerif" handle_edit_keys_directly="false" height="20" label="Click here to chat." left="0" max_length="2147483647" name="Chat Editor" right="-65" select_all_on_focus_received="false" select_on_focus="false" tab_group="1" spell_check="true"/>
+				<flyout_button bottom_delta="0" follows="right|bottom" height="20" label="Say" left="-60" list_position="above" name="Say" tool_tip="(Enter)" width="60">
 					<flyout_button_item value="shout" name="shout_item">Shout</flyout_button_item>
 					<flyout_button_item value="say" name="say_item">Say</flyout_button_item>
 					<flyout_button_item value="whisper" name="whisper_item">Whisper</flyout_button_item>

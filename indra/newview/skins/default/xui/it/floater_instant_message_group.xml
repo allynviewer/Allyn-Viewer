@@ -38,10 +38,10 @@
 	</string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button label="Informazioni sul gruppo" name="group_info_btn" width="150"/>
-			<button label="Cronologia" name="history_btn" left_delta="150"/>
-			<button label="Unisciti alla chiamata" name="start_call_btn" width="160"/>
-			<button label="Termina la chiamata" name="end_call_btn" width="160"/>
+			<button label="Informazioni sul gruppo" name="group_info_btn"/>
+			<button label="Cronologia" name="history_btn"/>
+			<button label="Unisciti alla chiamata" name="start_call_btn"/>
+			<button label="Termina la chiamata" name="end_call_btn"/>
 			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Mostra o nascondi l'elenco dei partecipanti attivi di questa sessione IM."/>
 			<button label="Invia" name="send_btn"/>
 		</layout_panel>

@@ -12,14 +12,14 @@
 	<string name="muted_text_label">Seu chat de texto foi desativado por um moderador do grupo.</string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button name="group_info_btn" label="Info. do grupo" width="110"/>
+			<button name="group_info_btn" label="Info. do grupo"/>
 			<button name="history_btn" label="Histórico"/>
 			<button name="ding_btn" label="Som"/>
 			<check_box name="Support Check" label="Enviar build" tool_tip="Desmarque para não enviar o número da build"/>
-			<check_box name="im_translate_check" tool_tip="Marque para ativar a tradução"/>
-			<button name="im_translate_btn" label="Tradução" tool_tip="Configurar idiomas deste grupo"/>
-			<button name="start_call_btn" label="Entrar na chamada" width="140"/>
-			<button name="end_call_btn" label="Encerrar chamada" width="140"/>
+			<check_box name="im_translate_check" bottom_delta="2" follows="left|top" height="16" left_delta="80" width="18" tool_tip="Marque para ativar a tradução"/>
+			<button name="im_translate_btn" bottom_delta="0" follows="left|top" height="20" left_delta="145" width="75" label="Tradução" tool_tip="Configurar idiomas deste grupo"/>
+			<button name="start_call_btn" label="Entrar na chamada"/>
+			<button name="end_call_btn" label="Encerrar chamada"/>
 			<button name="toggle_active_speakers_btn" label="&lt; &lt;" label_selected="&gt; &gt;" tool_tip="Mostrar ou ocultar a lista de participantes desta conversa."/>
 			<button name="send_btn" label="Enviar"/>
 		</layout_panel>

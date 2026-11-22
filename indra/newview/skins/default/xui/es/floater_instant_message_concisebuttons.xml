@@ -30,7 +30,7 @@
 	<string name="inventory_item_offered">
 		Ofrecido un Ítem de Inventario
 	</string>
-	<flyout_button label="Perfil" name="instant_message_flyout" left="200" width="190">
+	<flyout_button label="Perfil" name="instant_message_flyout">
 		<flyout_button_item label="Perfil" name="profile_item"/>
 		<flyout_button_item label="Historial" name="history_btn"/>
 		<flyout_button_item label="Ofrecer Teleporte" name="profile_tele_btn"/>
@@ -53,11 +53,11 @@
 	<string name="focus" value="Enfocar"/>
 	<button label="Llamar" name="start_call_btn"/>
 	<button label="Colgar" name="end_call_btn"/>
-	<check_box name="im_translate_check" tool_tip="Marque para activar la traducción"/>
-	<button name="im_translate_btn" label="Traducción" tool_tip="Configurar idiomas de esta conversación"/>
-	<panel left_delta="16" name="speaker_controls" width="60">
-		<volume_slider name="speaker_volume" width="48"/>
-		<button label="" left_delta="42" name="mute_btn" tool_tip="Ignorar Voz" width="25"/>
+	<check_box name="im_translate_check" bottom_delta="2" follows="left|top" height="16" left_delta="80" width="18" tool_tip="Marque para activar la traducción"/>
+	<button name="im_translate_btn" bottom="-38" follows="left|top" height="20" left_delta="65" width="75" label="Traducción" tool_tip="Configurar idiomas de esta conversación"/>
+	<panel name="speaker_controls">
+		<volume_slider name="speaker_volume"/>
+		<button label="" name="mute_btn" tool_tip="Ignorar Voz"/>
 	</panel>
 	<text_editor left="5" name="im_history" width="488"/>
 	<line_editor label="Pulsa aquí para enviar un Mensaje Instantáneo" name="chat_editor" width="423"/>

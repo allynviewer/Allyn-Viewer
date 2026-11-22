@@ -11,11 +11,11 @@
 	<flyout_button name="instant_message_flyout" label="Geçmiş">
 		<flyout_button_item name="conference" label="Konferansa ekle" />
 	</flyout_button>
-	<button name="ding_btn" label="Ding" />
-	<check_box name="im_translate_check" tool_tip="Çeviriyi etkinleştirmek için işaretleyin" />
-	<button name="im_translate_btn" label="Çeviri" tool_tip="Bu konferansın dillerini ayarla" />
-	<button name="start_call_btn" label="Ara" />
-	<button name="end_call_btn" label="Bitir" />
+	<button name="ding_btn" label="Ding"/>
+	<check_box name="im_translate_check" bottom_delta="2" follows="right|top" height="16" left_delta="75" width="18" tool_tip="Çeviriyi etkinleştirmek için işaretleyin"/>
+	<button name="im_translate_btn" bottom_delta="0" follows="right|top" height="20" left_delta="85" width="70" label="Çeviri" tool_tip="Bu konferansın dillerini ayarla"/>
+	<button name="start_call_btn" label="Ara"/>
+	<button name="end_call_btn" label="Bitir"/>
 	<button name="toggle_active_speakers_btn" label="&lt; &lt;" tool_tip="Listeyi göster veya gizle" />
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
