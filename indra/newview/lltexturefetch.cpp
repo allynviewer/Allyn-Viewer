@@ -2541,10 +2541,12 @@ void LLTextureFetch::logQueue()
 	S32 bake_upd = 0;
 	S32 show_img = 0;
 	S32 world_first = 0;
-	static const LLUUID kWatchIds[3] = {
-		LLUUID("6aca8495-98ef-87fe-c5f4-402dbd469ec3"),
-		LLUUID("ded8c5bb-7af8-bd88-1d71-99b4b78d37be"),
-		LLUUID("4524fd1d-5b83-7475-19fd-d4457b71b847")
+	static const LLUUID kWatchIds[5] = {
+		LLUUID("83acabe5-60b2-b6c5-7ef9-f757cf72991e"),
+		LLUUID("17a472e3-7cd6-e499-25e0-fbe617bf0997"),
+		LLUUID("7aed0260-c794-2061-9ff4-117b84012391"),
+		LLUUID("225b9480-8c2a-e388-82b0-929d0c3ac6e4"),
+		LLUUID("fc6fea2c-baa3-eddd-dcf8-2c7c389887ee")
 	};
 	struct WatchHit
 	{
@@ -2565,8 +2567,8 @@ void LLTextureFetch::logQueue()
 		F32 age;
 		S32 all;
 	};
-	WatchHit hits[3];
-	for (S32 watch_i = 0; watch_i < 3; ++watch_i)
+	WatchHit hits[5];
+	for (S32 watch_i = 0; watch_i < 5; ++watch_i)
 	{
 		hits[watch_i].on = false;
 	}
@@ -2662,7 +2664,7 @@ void LLTextureFetch::logQueue()
 		{
 			++show_img;
 		}
-		for (S32 watch_i = 0; watch_i < 3; ++watch_i)
+		for (S32 watch_i = 0; watch_i < 5; ++watch_i)
 		{
 			if (worker->mID != kWatchIds[watch_i])
 			{
@@ -2688,7 +2690,7 @@ void LLTextureFetch::logQueue()
 		}
 	}
 	unlockQueue();
-	for (S32 watch_i = 0; watch_i < 3; ++watch_i)
+	for (S32 watch_i = 0; watch_i < 5; ++watch_i)
 	{
 		const WatchHit& hit = hits[watch_i];
 		if (!hit.on)
@@ -3118,6 +3120,8 @@ void LLTextureFetch::serviceWaits()
 	U32 decode_scores[8];
 	S32 decode_count = 0;
 	S32 decode_room = mDecodeSlots - (S32)mDecodesInFlight;
+	LLTextureFetchWorker* best_refine = NULL;
+	U32 best_refine_score = 0;
 	if (decode_room > kCap)
 	{
 		decode_room = kCap;
@@ -3195,6 +3199,15 @@ void LLTextureFetch::serviceWaits()
 			{
 				score += 0x20000000u;
 			}
+			else if (unseen)
+			{
+				score += 0x10000000u;
+			}
+			else if (!best_refine || worker->mWorkPriority > best_refine_score)
+			{
+				best_refine = worker;
+				best_refine_score = worker->mWorkPriority;
+			}
 			S32 slot = decode_count;
 			if (slot > decode_room)
 			{
@@ -3218,6 +3231,26 @@ void LLTextureFetch::serviceWaits()
 					++decode_count;
 				}
 			}
+		}
+	}
+	if (best_refine && decode_room > 1 && decode_count == decode_room)
+	{
+		bool listed = false;
+		for (S32 i = 0; i < decode_count; ++i)
+		{
+			if (decode_workers[i] == best_refine)
+			{
+				listed = true;
+				break;
+			}
+		}
+		S32 low = decode_count - 1;
+		if (!listed && decode_workers[low]->mFinestDecoded < 0
+			&& decode_workers[low]->mFTType != FTT_SERVER_BAKE
+			&& decode_workers[low]->mFTType != FTT_HOST_BAKE)
+		{
+			decode_workers[low] = best_refine;
+			decode_scores[low] = best_refine_score;
 		}
 	}
 	unlockQueue();

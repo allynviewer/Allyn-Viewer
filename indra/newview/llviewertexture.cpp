@@ -1302,6 +1302,10 @@ void LLViewerFetchedTexture::setKnownDrawSize(S32 width, S32 height)
 }
 void LLViewerFetchedTexture::processTextureStats()
 {
+	if (mFullyLoaded && getDiscardLevel() < 0)
+	{
+		mFullyLoaded = FALSE;
+	}
 	if(mFullyLoaded)
 	{
 		if(mDesiredDiscardLevel > mMinDesiredDiscardLevel)
@@ -1425,7 +1429,11 @@ F32 LLViewerFetchedTexture::calcDecodePriority()
 	}
 	if(mFullyLoaded && !mForceToSaveRawImage)
 	{
-		return -1.0f;
+		if (getDiscardLevel() >= 0)
+		{
+			return -1.0f;
+		}
+		mFullyLoaded = FALSE;
 	}
 	S32 cur_discard = getCurrentDiscardLevelForFetching();
 	bool have_all_data = (cur_discard >= 0 && (cur_discard <= mDesiredDiscardLevel));
@@ -2715,10 +2723,6 @@ void LLViewerLODTexture::processTextureStats()
 	}
 	else
 	{
-		if(isLargeImage() && !isJustBound() && mAdditionalDecodePriority < 0.3f && mBoostLevel < LLGLTexture::BOOST_HIGH)
-		{
-			mMaxVirtualSize = llmin(mMaxVirtualSize, (F32)LLViewerTexture::sMinLargeImageSize);
-		}
 		F32 screen_px = 0.f;
 		if (mKnownDrawWidth && mKnownDrawHeight)
 		{
@@ -2745,7 +2749,7 @@ void LLViewerLODTexture::processTextureStats()
 		}
 		else if (mBoostLevel <= LLGLTexture::BOOST_SCULPTED)
 		{
-			desired_size = DESIRED_NORMAL_TEXTURE_SIZE;
+			desired_size = (U32)MAX_IMAGE_SIZE;
 		}
 		if ((U32)mFullWidth > desired_size || (U32)mFullHeight > desired_size)
 			min_discard = 1.f;

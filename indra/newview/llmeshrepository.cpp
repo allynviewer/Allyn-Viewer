@@ -2334,7 +2334,12 @@ void LLMeshRepository::logMeshWatch()
 		"bebda738-eaed-0d98-9197-3bc64fb42efa",
 		"b7e4705c-439f-7e9d-06f5-735b8f816532",
 		"d79d084a-092f-7f63-2781-26c472769ba3",
-		"f645ddf5-7ed3-a464-bf57-ec6185b7da23"
+		"f645ddf5-7ed3-a464-bf57-ec6185b7da23",
+		"83acabe5-60b2-b6c5-7ef9-f757cf72991e",
+		"17a472e3-7cd6-e499-25e0-fbe617bf0997",
+		"7aed0260-c794-2061-9ff4-117b84012391",
+		"225b9480-8c2a-e388-82b0-929d0c3ac6e4",
+		"fc6fea2c-baa3-eddd-dcf8-2c7c389887ee"
 	};
 	for (S32 index = 0; index < (S32)(sizeof(kWatch) / sizeof(kWatch[0])); ++index)
 	{

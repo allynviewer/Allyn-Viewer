@@ -756,12 +756,14 @@ void LLViewerTextureList::updateImages(F32 max_time)
 	if (tex_watch_timer.getElapsedTimeF32() >= 5.f)
 	{
 		tex_watch_timer.reset();
-		static const LLUUID watch_ids[3] = {
-			LLUUID("6aca8495-98ef-87fe-c5f4-402dbd469ec3"),
-			LLUUID("ded8c5bb-7af8-bd88-1d71-99b4b78d37be"),
-			LLUUID("4524fd1d-5b83-7475-19fd-d4457b71b847")
+		static const LLUUID watch_ids[5] = {
+			LLUUID("83acabe5-60b2-b6c5-7ef9-f757cf72991e"),
+			LLUUID("17a472e3-7cd6-e499-25e0-fbe617bf0997"),
+			LLUUID("7aed0260-c794-2061-9ff4-117b84012391"),
+			LLUUID("225b9480-8c2a-e388-82b0-929d0c3ac6e4"),
+			LLUUID("fc6fea2c-baa3-eddd-dcf8-2c7c389887ee")
 		};
-		for (S32 watch_i = 0; watch_i < 3; ++watch_i)
+		for (S32 watch_i = 0; watch_i < 5; ++watch_i)
 		{
 			const LLUUID& watch_id = watch_ids[watch_i];
 			LLViewerFetchedTexture* watched = findImage(watch_id, TEX_LIST_STANDARD);

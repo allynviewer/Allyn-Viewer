@@ -441,6 +441,14 @@ vec3 allyn_pbr_light(vec3 albedo, vec3 orm, vec3 N, vec3 emissive, vec3 view_pos
 #endif
 	}
 #endif
+	if (dot(irradiance, vec3(1.0)) <= 0.0)
+	{
+		irradiance = atmosAmbient(vec3(0.0));
+	}
+	if (dot(radiance, vec3(1.0)) <= 0.0)
+	{
+		radiance = textureCube(environmentMap, R).rgb;
+	}
 	vec3 indirect = irradiance * albedo * (1.0 - metal) * ao + radiance * Fenv * ao;
 	vec3 mirror = vec3(0.0);
 	if (pbr_mirror_present > 0.5)

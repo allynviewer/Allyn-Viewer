@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
  * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -1006,10 +1007,16 @@ BOOL LLFace::getGeometryVolume(const LLVolume& volume,
 	{
 		clearState(GLOBAL);
 	}
+	LLGLTFMaterial* gltf_mat = (tep ? tep->getGLTFMaterial() : NULL);
+	bool gltf_ready = gltf_mat && gltf_mat->mReady;
 	LLColor4U color = (tep ? LLColor4U(tep->getColor()) : LLColor4U::white);
+	if (gltf_ready)
+	{
+		color = LLColor4U(gltf_mat->mBaseColor);
+	}
 	if (rebuild_color)
 	{
-		if(mShinyInAlpha)
+		if(mShinyInAlpha && !gltf_ready)
 		{
 			static const LLColor4U shine_steps(LLColor4(0.f, .25f, .5f, 7.5f));
 			llassert(tep->getShiny() <= 3);

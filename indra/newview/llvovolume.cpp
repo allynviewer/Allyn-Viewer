@@ -836,9 +836,13 @@ static void applyPBRMaterial(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize
 		return;
 	}
 	F32 fetch_size = vsize;
-	if (fetch_size <= 0.f && vol->isVisible())
+	if (fetch_size <= 0.f && (vol->isVisible() || vol->mDrawable.notNull()))
 	{
-		fetch_size = 4096.f;
+		F32 dist = vol->mDrawable.notNull() ? vol->mDrawable->mDistanceWRTCamera : 0.f;
+		if (vol->isVisible() || (dist >= 0.f && dist < 96.f))
+		{
+			fetch_size = 4096.f;
+		}
 	}
 	F32 pixels = face->getPixelArea();
 	if (pixels > fetch_size)
@@ -899,11 +903,6 @@ static void applyPBRMaterial(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize
 		streamPBRMap(vol, orm, fetch_size);
 		streamPBRMap(vol, emissive, fetch_size);
 	}
-	if (!gDeferredPBRProgram.mProgramObject && base && !base->hasGLTexture())
-	{
-		streamPBRMap(vol, base, fetch_size);
-		base = NULL;
-	}
 	if (!base)
 	{
 		base = classic;
@@ -947,17 +946,12 @@ static void applyPBRMaterial(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize
 			releaseFetchIfUnused(classic);
 		}
 	}
-	rebuildWornFace(vol, face_changed);
 	if (mat && mat->mReady)
 	{
-		const LLColor4 tint = te->getColor() * mat->mBaseColor;
-		if (tint != te->getColor())
+		if (!face->isState(LLFace::USE_FACE_COLOR) || face->getFaceColor() != mat->mBaseColor)
 		{
-			face->setFaceColor(tint);
-		}
-		else if (face->isState(LLFace::USE_FACE_COLOR))
-		{
-			face->unsetFaceColor();
+			face->setFaceColor(mat->mBaseColor);
+			face_changed = true;
 		}
 	}
 	else
@@ -966,8 +960,10 @@ static void applyPBRMaterial(LLVOVolume* vol, LLFace* face, S32 index, F32 vsize
 		if (!face->isState(LLFace::USE_FACE_COLOR) || face->getFaceColor() != unloaded)
 		{
 			face->setFaceColor(unloaded);
+			face_changed = true;
 		}
 	}
+	rebuildWornFace(vol, face_changed);
 }
 void LLVOVolume::updateTextureVirtualSize(bool forced)
 {
@@ -979,6 +975,8 @@ void LLVOVolume::updateTextureVirtualSize(bool forced)
 		if(!isVisible())
 		{
 			const S32 num_faces = mDrawable->getNumFaces();
+			F32 dist = mDrawable->mDistanceWRTCamera;
+			F32 fallback = (dist >= 0.f && dist < 96.f) ? 4096.f : 0.f;
 			for (S32 i = 0; i < num_faces; i++)
 			{
 				LLFace* face = mDrawable->getFace(i);
@@ -986,6 +984,11 @@ void LLVOVolume::updateTextureVirtualSize(bool forced)
 				{
 					face->setPixelArea(0.f);
 					face->setVirtualSize(0.f);
+					const LLTextureEntry* te = face->getTextureEntry();
+					if (te && te->getGLTFMaterialId().notNull())
+					{
+						applyPBRMaterial(this, face, i, fallback);
+					}
 				}
 			}
 			return ;
