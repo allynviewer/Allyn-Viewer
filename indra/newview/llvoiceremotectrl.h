@@ -43,7 +43,8 @@ public:
 	virtual ~LLVoiceRemoteCtrl();
 	BOOL postBuild();
 	void draw();
-	void layoutControls();
+	void layoutControls(S32 size);
+	S32 contentWidthForSize(S32 size) const;
 	static void onBtnTalkHeld();
 	static void onBtnTalkReleased();
 	static void onBtnTalkClicked();
@@ -57,5 +58,6 @@ protected:
 	LLButton* mSpeakersBtn;
 	CachedUICtrl<LLIconCtrl> mVoiceVolIcon;
 	std::string mTalkBlip;
+	S32 mIconSize;
 };
 #endif

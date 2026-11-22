@@ -136,6 +136,12 @@ private:
 	void	layoutVoiceBar(S32 secondary_bottom);
 	void	clipChatToVoice();
 	bool	measureSecondary(S32& left, S32& right) const;
+	S32		iconSizeForLayout() const;
+	void	applyIconSize(S32 size);
+	S32		secondaryContentWidth(S32 size) const;
+	S32		buttonHeight() const;
+	S32		pillPad() const;
+	S32		pillCap() const;
 	LLLayoutStack*	mOverlayStack;
 	LLRect	mNewIMPill;
 	S32		mStackLift;
@@ -150,6 +156,7 @@ private:
 	bool	mSecondaryRaised;
 	bool	mToolbarRowOk;
 	S32		mToolbarRow;
+	S32		mIconSize;
 	bool	mSlidePrimed;
 	bool	mStackSliding;
 	S32		mFromBottom;

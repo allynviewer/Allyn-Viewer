@@ -44,6 +44,11 @@ public:
 	static const S32 CAP_PAD = 12;
 	static const S32 ROUND_BUTTON_SIZE = 28;
 	static const S32 ICON_BUTTON_SIZE = 32;
+	static const S32 ICON_BUTTON_MIN = 20;
+	static S32 scaleIcon(S32 value, S32 size)
+	{
+		return (value * size + ICON_BUTTON_SIZE / 2) / ICON_BUTTON_SIZE;
+	}
 	LLFloatingBarStyle();
 	void drawPill(const LLRect& rect, const LLColor4& color) const;
 	void drawDisc(const LLRect& rect, const LLColor4& color) const;

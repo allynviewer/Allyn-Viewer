@@ -65,6 +65,11 @@ public:
 	void onClickCommunicate(const LLSD& selected);
 	S32 getBarHeight() const;
 	S32 getPreferredWidth() const;
+	S32 contentWidthForButtonSize(S32 size) const;
+	S32 chromeWidth() const;
+	S32 buttonSizeForWidth(S32 available) const;
+	S32 getButtonSize() const { return mButtonSize; }
+	void setMaxButtonSize(S32 size);
 	S32 getRowCount() const { return mRowCount; }
 	S32 getCompanionReserve() const { return mCompanionReserve; }
 	bool getCenterOverride() const { return mCenterOverride; }
@@ -141,6 +146,8 @@ private:
 	LLRect mAddRect;
 	S32 mBarHeight;
 	S32 mRowCount;
+	S32 mButtonSize;
+	S32 mMaxButtonSize;
 	S32 mCompanionReserve;
 	bool mCenterOverride;
 	bool mDockLeft;

@@ -62,7 +62,7 @@ LLToolBar *gToolBar = NULL;
 S32 TOOL_BAR_HEIGHT = 25;
 F32	LLToolBar::sInventoryAutoOpenTime = 1.f;
 static const S32 TOOLBAR_BUTTON_SIZE = LLFloatingBarStyle::ICON_BUTTON_SIZE;
-static const S32 TOOLBAR_MIN_BUTTON_SIZE = 20;
+static const S32 TOOLBAR_MIN_BUTTON_SIZE = LLFloatingBarStyle::ICON_BUTTON_MIN;
 static const S32 TOOLBAR_ROW_GAP = 4;
 static const S32 TOOLBAR_ARROW_WIDTH = 20;
 static const S32 TOOLBAR_BADGE_SIZE = 14;
@@ -95,6 +95,8 @@ LLToolBar::LLToolBar()
 ,	mPillBlocker(NULL)
 ,	mBarHeight(0)
 ,	mRowCount(1)
+,	mButtonSize(LLFloatingBarStyle::ICON_BUTTON_SIZE)
+,	mMaxButtonSize(LLFloatingBarStyle::ICON_BUTTON_SIZE)
 ,	mCompanionReserve(0)
 ,	mCenterOverride(false)
 ,	mDockLeft(false)
@@ -330,7 +332,7 @@ void LLToolBar::onClickCommunicate(const LLSD& selected_option)
 }
 static S32 scale_toolbar_dim(S32 value, S32 size)
 {
-	return (value * size + TOOLBAR_BUTTON_SIZE / 2) / TOOLBAR_BUTTON_SIZE;
+	return LLFloatingBarStyle::scaleIcon(value, size);
 }
 void LLToolBar::buildSlots()
 {
@@ -490,6 +492,40 @@ S32 LLToolBar::getPreferredWidth() const
 {
 	return getContentWidth(TOOLBAR_BUTTON_SIZE) + TOOLBAR_CHROME_WIDTH;
 }
+S32 LLToolBar::contentWidthForButtonSize(S32 size) const
+{
+	return getContentWidth(size);
+}
+S32 LLToolBar::chromeWidth() const
+{
+	return TOOLBAR_CHROME_WIDTH;
+}
+S32 LLToolBar::buttonSizeForWidth(S32 available) const
+{
+	if (available < TOOLBAR_MIN_BUTTON_SIZE)
+	{
+		available = TOOLBAR_MIN_BUTTON_SIZE;
+	}
+	S32 size = TOOLBAR_BUTTON_SIZE;
+	while (size > TOOLBAR_MIN_BUTTON_SIZE && getContentWidth(size) > available)
+	{
+		--size;
+	}
+	return size;
+}
+void LLToolBar::setMaxButtonSize(S32 size)
+{
+	if (size < TOOLBAR_MIN_BUTTON_SIZE)
+	{
+		size = TOOLBAR_BUTTON_SIZE;
+	}
+	if (mMaxButtonSize == size)
+	{
+		return;
+	}
+	mMaxButtonSize = size;
+	mLayoutDirty = true;
+}
 void LLToolBar::setCompanionReserve(S32 width)
 {
 	if (width < 0)
@@ -633,15 +669,12 @@ void LLToolBar::layoutToolbar()
 	const S32 margin = LLFloatingBarStyle::margin();
 	const S32 width = getRect().getWidth();
 	S32 available = width - 2 * margin - TOOLBAR_CHROME_WIDTH - mCompanionReserve;
-	if (available < TOOLBAR_MIN_BUTTON_SIZE)
+	S32 size = buttonSizeForWidth(available);
+	if (mMaxButtonSize > 0 && size > mMaxButtonSize)
 	{
-		available = TOOLBAR_MIN_BUTTON_SIZE;
+		size = mMaxButtonSize;
 	}
-	S32 size = TOOLBAR_BUTTON_SIZE;
-	while (size > TOOLBAR_MIN_BUTTON_SIZE && getContentWidth(size) > available)
-	{
-		--size;
-	}
+	mButtonSize = size;
 	const S32 spacing = scale_toolbar_dim(LLFloatingBarStyle::iconSpacing(), size);
 	const S32 arrow_width = scale_toolbar_dim(TOOLBAR_ARROW_WIDTH, size);
 	const S32 pad = spacing / 2;
@@ -668,12 +701,17 @@ void LLToolBar::layoutToolbar()
 	content = llmax(content, row_width);
 	const S32 row_count = rows.back().empty() ? 1 : (S32)rows.size();
 	mRowCount = row_count;
-	const S32 rows_h = row_count * size + (row_count - 1) * TOOLBAR_ROW_GAP;
-	const S32 pad_y = (LLFloatingBarStyle::BOTTOM_BAR_HEIGHT - TOOLBAR_BUTTON_SIZE) / 2;
-	const S32 pill_h = llmax(LLFloatingBarStyle::BOTTOM_BAR_HEIGHT, rows_h + pad_y * 2);
-	const S32 bottom = llmax(margin, (TOOLBAR_ADD_SIZE - pill_h) / 2);
-	const S32 add_y = bottom + (pill_h - TOOLBAR_ADD_SIZE) / 2;
-	mBarHeight = llmax(bottom + pill_h, add_y + TOOLBAR_ADD_SIZE) + TOOLBAR_TOP_GAP;
+	const S32 row_gap = scale_toolbar_dim(TOOLBAR_ROW_GAP, size);
+	const S32 rows_h = row_count * size + (row_count - 1) * row_gap;
+	const S32 pad_y = scale_toolbar_dim((LLFloatingBarStyle::BOTTOM_BAR_HEIGHT - TOOLBAR_BUTTON_SIZE) / 2, size);
+	const S32 pill_h = rows_h + pad_y * 2;
+	const S32 left_pad = scale_toolbar_dim(TOOLBAR_PILL_LEFT_PAD, size);
+	const S32 add_size = scale_toolbar_dim(TOOLBAR_ADD_SIZE, size);
+	const S32 add_gap = scale_toolbar_dim(TOOLBAR_ADD_GAP, size);
+	const S32 add_overhang = scale_toolbar_dim(TOOLBAR_ADD_OVERHANG, size);
+	const S32 bottom = llmax(margin, (add_size - pill_h) / 2);
+	const S32 add_y = bottom + (pill_h - add_size) / 2;
+	mBarHeight = llmax(bottom + pill_h, add_y + add_size) + TOOLBAR_TOP_GAP;
 	if (getRect().getHeight() != mBarHeight)
 	{
 		reshape(width, mBarHeight);
@@ -691,7 +729,7 @@ void LLToolBar::layoutToolbar()
 			slot.panel->reshape(panel_width, size);
 		}
 	}
-	const S32 group = TOOLBAR_CHROME_WIDTH + content;
+	const S32 group = left_pad + content + add_gap + add_size;
 	S32 target_left = (width - group) / 2;
 	if (mCompanionReserve > 0 || mDockLeft)
 	{
@@ -712,14 +750,14 @@ void LLToolBar::layoutToolbar()
 		}
 	}
 	target_left = llmax(margin, target_left);
-	mLayoutPillRight = target_left + TOOLBAR_PILL_LEFT_PAD + content + TOOLBAR_ADD_GAP + TOOLBAR_ADD_SIZE - TOOLBAR_ADD_OVERHANG;
+	mLayoutPillRight = target_left + left_pad + content + add_gap + add_size - add_overhang;
 	const bool dock_left = mCompanionReserve > 0 || mDockLeft;
 	const bool animate = mPlacementReady && (dock_left != mWasDockLeft || mCenterOverride != mWasCenter);
 	mWasDockLeft = dock_left;
 	mWasCenter = mCenterOverride;
 	retargetLeft(target_left, animate);
 	const S32 left = sampleLeft();
-	const S32 stack_left = left + TOOLBAR_PILL_LEFT_PAD;
+	const S32 stack_left = left + left_pad;
 	const S32 stack_bottom = bottom + (pill_h - rows_h) / 2;
 	mToolbarStack->setOrigin(stack_left, stack_bottom);
 	mToolbarStack->reshape(llmax(content, 1), rows_h);
@@ -752,10 +790,10 @@ void LLToolBar::layoutToolbar()
 			}
 			x += slot_width;
 		}
-		y += size + TOOLBAR_ROW_GAP;
+		y += size + row_gap;
 	}
-	mAddRect.setOriginAndSize(stack_left + content + TOOLBAR_ADD_GAP, add_y, TOOLBAR_ADD_SIZE, TOOLBAR_ADD_SIZE);
-	mPillRect.set(left, bottom + pill_h, mAddRect.mRight - TOOLBAR_ADD_OVERHANG, bottom);
+	mAddRect.setOriginAndSize(stack_left + content + add_gap, add_y, add_size, add_size);
+	mPillRect.set(left, bottom + pill_h, mAddRect.mRight - add_overhang, bottom);
 	mAddBtn->setShape(mAddRect);
 	mPillBlocker->setShape(mPillRect);
 	mAppliedLeft = left;
