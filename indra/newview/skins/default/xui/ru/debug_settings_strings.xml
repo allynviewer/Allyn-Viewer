@@ -62,6 +62,7 @@
 	<string name="AllynMacroAimAcquisition">Чувствительность обнаружения макроприцеливания (0–100 процентов половины вертикального поля зрения)</string>
 	<string name="AllynMacroAimAssistEnabled">Включает помощь при прицеливании макроса (ALT + O в режиме мыши, требуется DebugRenderHitboxes)</string>
 	<string name="AllynMacroAimStrength">Сила помощи при макроприцеливании (0–99 процентов)</string>
+	<string name="AllynOnlyShowSelfWhitelist">UUID аватаров, которые остаются видимыми, когда показ аватаров — «Только себя».</string>
 	<string name="AllynRenderFriendsOnly">Если этот параметр включен, будут отображаться только аватары из вашего списка друзей.</string>
 	<string name="AllynRenderFriendsOnlyPersistsTP">Если этот параметр включен, параметр «Показывать только друзей» остается включенным после телепортации. По умолчанию (ложь)</string>
 	<string name="AllynShowAvatarNameTag">1 показано имя и тег группы над аватарами. 0 скрывает этот тег. Не меняет отображение аватара.</string>
@@ -722,6 +723,7 @@
 	<string name="FloaterNoTranslateRect">Прямоугольник для окна жителей без перевода</string>
 	<string name="FloaterObjectBackuptRect">Прямоугольник для плавающего всплывающего окна резервного копирования объекта</string>
 	<string name="FloaterObjectIMInfo">Прямоугольник для плавающего объекта в информационных окнах</string>
+	<string name="FloaterOnlyShowSelfRect">Прямоугольник списка исключений «Только себя»</string>
 	<string name="FloaterOpenObjectRect">Прямоугольник для окна «Открытый объект»</string>
 	<string name="FloaterOverlayEnvRect">Прямоугольник для плавающего элемента среды наложения.</string>
 	<string name="FloaterOverlayVolumeRect">Прямоугольник для наложения плавающего элемента объема.</string>

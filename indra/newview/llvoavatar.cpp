@@ -26,6 +26,7 @@
  */
 #include "llviewerprecompiledheaders.h"
 #include "llvoavatar.h"
+#include <set>
 #include <stdio.h>
 #include <ctype.h>
 #include "llaudioengine.h"
@@ -6597,7 +6598,7 @@ bool LLVOAvatar::isTooComplex() const
 {
 	static const LLCachedControl<S32> always_render_friends("AlwaysRenderFriends", 0);
 	bool too_complex;
-	if (isSelf() || (always_render_friends && always_render_friends != 3 && !isControlAvatar() && LLAvatarTracker::instance().isBuddy(getID())))
+	if (isSelf() || (always_render_friends == 3 && !isControlAvatar() && isOnlyShowSelfWhitelisted(getID())) || (always_render_friends && always_render_friends != 3 && !isControlAvatar() && LLAvatarTracker::instance().isBuddy(getID())))
 	{
 		too_complex = false;
 	}
@@ -7598,6 +7599,87 @@ void LLVOAvatar::requestInitialAppearance()
 	if (wantAvatarDisplayTrace()) traceAvatarDisplay(llformat("WHY AVATAR LOADING WAS STARTED id=%s mode=%d reason=appearance_absent_request_normal_pipeline", getID().asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
 	LLAvatarPropertiesProcessor::getInstance()->sendAvatarTexturesRequest(getID());
 }
+static std::set<LLUUID> sOnlyShowSelfWhitelist;
+static bool sOnlyShowSelfWhitelistDirty = true;
+static void rebuildOnlyShowSelfWhitelist()
+{
+	sOnlyShowSelfWhitelist.clear();
+	const LLSD list = gSavedPerAccountSettings.getLLSD("AllynOnlyShowSelfWhitelist");
+	const S32 count = list.isArray() ? list.size() : 0;
+	for (S32 i = 0; i < count; ++i)
+	{
+		LLUUID id(list[i].asString());
+		if (id.notNull() && id != gAgentID)
+		{
+			sOnlyShowSelfWhitelist.insert(id);
+		}
+	}
+	sOnlyShowSelfWhitelistDirty = false;
+}
+void LLVOAvatar::markOnlyShowSelfWhitelistDirty()
+{
+	sOnlyShowSelfWhitelistDirty = true;
+}
+bool LLVOAvatar::isOnlyShowSelfWhitelisted(const LLUUID& id)
+{
+	if (id.isNull() || id == gAgentID)
+	{
+		return false;
+	}
+	if (sOnlyShowSelfWhitelistDirty)
+	{
+		rebuildOnlyShowSelfWhitelist();
+	}
+	return sOnlyShowSelfWhitelist.count(id) != 0;
+}
+void LLVOAvatar::setOnlyShowSelfWhitelisted(const std::vector<LLUUID>& ids, bool allowed)
+{
+	if (ids.empty())
+	{
+		return;
+	}
+	std::set<LLUUID> current;
+	const LLSD list = gSavedPerAccountSettings.getLLSD("AllynOnlyShowSelfWhitelist");
+	const S32 count = list.isArray() ? list.size() : 0;
+	for (S32 i = 0; i < count; ++i)
+	{
+		LLUUID id(list[i].asString());
+		if (id.notNull() && id != gAgentID)
+		{
+			current.insert(id);
+		}
+	}
+	bool changed = false;
+	for (size_t i = 0; i < ids.size(); ++i)
+	{
+		const LLUUID& id = ids[i];
+		if (id.isNull() || id == gAgentID)
+		{
+			continue;
+		}
+		if (allowed)
+		{
+			if (current.insert(id).second)
+			{
+				changed = true;
+			}
+		}
+		else if (current.erase(id) != 0)
+		{
+			changed = true;
+		}
+	}
+	if (!changed)
+	{
+		return;
+	}
+	LLSD out = LLSD::emptyArray();
+	for (std::set<LLUUID>::const_iterator it = current.begin(); it != current.end(); ++it)
+	{
+		out.append(it->asString());
+	}
+	gSavedPerAccountSettings.setLLSD("AllynOnlyShowSelfWhitelist", out);
+}
 bool LLVOAvatar::shouldSuppressForAvatarDisplay(const LLUUID& id)
 {
 	if (id.isNull() || id == gAgentID)
@@ -7607,7 +7689,7 @@ bool LLVOAvatar::shouldSuppressForAvatarDisplay(const LLUUID& id)
 	S32 mode = gSavedSettings.getS32("AlwaysRenderFriends");
 	if (mode == 3)
 	{
-		return true;
+		return !isOnlyShowSelfWhitelisted(id);
 	}
 	if (mode == 2)
 	{

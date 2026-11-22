@@ -62,6 +62,7 @@
 	<string name="AllynMacroAimAcquisition">Sensibilidade de aquisição assistida por mira macro (0-100 por cento da metade do campo de visão vertical)</string>
 	<string name="AllynMacroAimAssistEnabled">Ativa o assistente de mira Macro (ALT + O no mouselook, requer DebugRenderHitboxes)</string>
 	<string name="AllynMacroAimStrength">Força de assistência de mira macro (0-99 por cento)</string>
+	<string name="AllynOnlyShowSelfWhitelist">UUIDs de avatares que continuam visíveis quando Exibir avatares está em Mostrar só a si.</string>
 	<string name="AllynRenderFriendsOnly">Se ativado, apenas os avatares da sua lista de amigos serão renderizados.</string>
 	<string name="AllynRenderFriendsOnlyPersistsTP">Se ativado, Mostrar apenas amigos permanece ativado após o teletransporte. Padrão (falso)</string>
 	<string name="AllynShowAvatarNameTag">1 mostra o nome e a tag do grupo acima dos avatares. 0 esconde essa tag. Não altera a exibição do avatar.</string>
@@ -722,6 +723,7 @@
 	<string name="FloaterNoTranslateRect">Retângulo para janela de residentes sem tradução</string>
 	<string name="FloaterObjectBackuptRect">Retângulo para o flutuador de backup do objeto</string>
 	<string name="FloaterObjectIMInfo">Retângulo para objeto flutuante em janelas de informações</string>
+	<string name="FloaterOnlyShowSelfRect">Retângulo da lista de exceções de Mostrar só a si</string>
 	<string name="FloaterOpenObjectRect">Retângulo para janela Objeto Aberto</string>
 	<string name="FloaterOverlayEnvRect">Retângulo para o flutuador do ambiente de sobreposição.</string>
 	<string name="FloaterOverlayVolumeRect">Retângulo para o flutuador de volume de sobreposição.</string>

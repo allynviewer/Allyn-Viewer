@@ -99,6 +99,7 @@
 						<combo_item name="2" value="2">Mostrar só amigos</combo_item>
 						<combo_item name="3" value="3">Mostrar só a si</combo_item>
 					</combo_box>
+					<button name="OnlyShowSelfWhitelist" label="Exceções" tool_tip="Avatares que continuam visíveis quando Exibir avatares está em Mostrar só a si."/>
 					<text name="AvatarNameTagLabel">Mostrar etiqueta de nome:</text>
 					<combo_box name="AvatarNameTagCombo" tool_tip="Mostra ou oculta o balão com o nome e o grupo acima dos avatares. Não altera quais avatares são exibidos.">
 						<combo_item name="1" value="1">Ligado</combo_item>

@@ -14,6 +14,7 @@
 			<button name="web_profile" label="Web-Profil"/>
 			<text name="Photo:">Foto:</text>
 			<texture_picker name="img" tool_tip="Klicken, um ein Bild auszuwählen"/>
+			<button name="only_show_self" label="Mit anzeigen" label_selected="Sichtbar" tool_tip="Diesen Avatar sichtbar lassen, während die Avatar-Anzeige „Nur sich selbst“ ist."/>
 			<text name="label">Geboren am:</text>
 			<text name="label2">Konto:</text>
 			<text name="partner_label" tool_tip="Second Life Partner. Weitere Informationen finden Sie auf www.secondlife.com/partner">Partner:</text>

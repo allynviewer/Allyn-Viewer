@@ -72,4 +72,5 @@
 		<menu_item_check name="Client" label="クライアント" />
 	</menu>
 	<menu_item_check name="Update List" label="リストを更新" />
+	<menu_item_check name="Only Show Self" label="「自分のみ表示」でも表示" />
 </menu>

@@ -62,6 +62,7 @@
 	<string name="AllynMacroAimAcquisition">Erfassungsempfindlichkeit der Makro-Zielhilfe (0–100 Prozent des halben vertikalen Sichtfelds)</string>
 	<string name="AllynMacroAimAssistEnabled">Aktiviert die Makro-Zielhilfe (ALT + O im Mouselook, erfordert DebugRenderHitboxes)</string>
 	<string name="AllynMacroAimStrength">Stärke der Makrozielunterstützung (0–99 Prozent)</string>
+	<string name="AllynOnlyShowSelfWhitelist">Avatar-UUIDs, die sichtbar bleiben, während die Avatar-Anzeige „Nur sich selbst anzeigen“ ist.</string>
 	<string name="AllynRenderFriendsOnly">Wenn diese Option aktiviert ist, werden nur Avatare auf Ihrer Freundesliste gerendert.</string>
 	<string name="AllynRenderFriendsOnlyPersistsTP">Wenn aktiviert, bleibt „Nur Freunde anzeigen“ nach dem Teleportieren aktiviert. Standard (falsch)</string>
 	<string name="AllynShowAvatarNameTag">1 zeigt den Namen und das Gruppen-Tag über den Avataren. 0 verbirgt dieses Tag. Ändert die Avatar-Anzeige nicht.</string>
@@ -722,6 +723,7 @@
 	<string name="FloaterNoTranslateRect">Rechteck für das Fenster für nicht übersetzte Bewohner</string>
 	<string name="FloaterObjectBackuptRect">Rechteck für den Objektsicherungs-Floater</string>
 	<string name="FloaterObjectIMInfo">Rechteck für Floater-Objekt im Infofenster</string>
+	<string name="FloaterOnlyShowSelfRect">Rechteck für die Ausnahmen von Nur sich selbst anzeigen</string>
 	<string name="FloaterOpenObjectRect">Rechteck für das Fenster „Objekt öffnen“.</string>
 	<string name="FloaterOverlayEnvRect">Rechteck für den Floater der Overlay-Umgebung.</string>
 	<string name="FloaterOverlayVolumeRect">Rechteck für den Overlay-Volume-Floater.</string>

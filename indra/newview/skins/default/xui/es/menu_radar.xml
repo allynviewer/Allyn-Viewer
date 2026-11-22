@@ -74,4 +74,5 @@
 		<menu_item_check label="Visor" name="Client"/>
 	</menu>
 	<menu_item_check label="Actualizar Lista" name="Update List"/>
+	<menu_item_check name="Only Show Self" label="Mostrar con Mostrar solo a uno mismo"/>
 </menu>

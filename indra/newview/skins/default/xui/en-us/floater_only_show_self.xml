@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true"
+	 can_resize="true" height="440" left="80" min_height="440" min_width="420"
+	 name="only show self floater" rect_control="FloaterOnlyShowSelfRect"
+	 short_title="Only Show Self" title="Only Show Self" width="420">
+	<text follows="left|top|right" font="SansSerifSmall" height="36"
+	     left="10" name="help_text" right="-10" top="-8" word_wrap="true">
+		These avatars stay visible while Avatar display is Only show self. Everyone else stays hidden the same way as before.
+	</text>
+	<name_list name="whitelist_list"
+		   left="10" right="-10" top="-48" bottom="52"
+		   follows="left|top|bottom|right"
+		   draw_heading="true" multi_select="true" name_column_index="0"
+		   tool_tip="Avatars authorized to stay visible while Only show self is on">
+		<column dynamicwidth="true" label="Name" name="name" />
+	</name_list>
+	<button bottom="12" follows="left|bottom" height="28" label="Add..." left="10"
+		 name="add_btn" tool_tip="Add avatars that stay visible while Only show self is on" width="120" />
+	<button bottom="12" enabled="false" follows="left|bottom" height="28" label="Remove" left="140"
+		 name="remove_btn" tool_tip="Remove the selected avatars from the list" width="120" />
+</floater>

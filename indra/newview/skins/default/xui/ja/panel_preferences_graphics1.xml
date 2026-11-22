@@ -103,6 +103,7 @@
 						<combo_item name="2" value="2">フレンドのみ表示</combo_item>
 						<combo_item name="3" value="3">自分のみ表示</combo_item>
 					</combo_box>
+					<button name="OnlyShowSelfWhitelist" label="例外" tool_tip="アバター表示が「自分のみ表示」のときに表示したままにするアバター。"/>
 					<text name="AvatarNameTagLabel">アバター名タグを表示:</text>
 					<combo_box name="AvatarNameTagCombo" tool_tip="アバター上の名前とグループのタグを表示または非表示にします。表示するアバターは変わりません。">
 						<combo_item name="1" value="1">オン</combo_item>

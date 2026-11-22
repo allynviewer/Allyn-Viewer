@@ -49,6 +49,7 @@
       <combo_item name="2" value="2">Only show friends</combo_item>
       <combo_item name="3" value="3">Only show self</combo_item>
     </combo_box>
+    <button bottom="-140" follows="top|left" height="22" label="Exceptions" left="488" name="OnlyShowSelfWhitelist" tool_tip="Avatars that stay visible while Avatar display is Only show self." width="140"/>
     <text bottom="-172" height="12" left="20" follows="top|left" name="AvatarNameTagLabel">Show Avatar Name Tag:</text>
     <combo_box bottom="-176" left="200" follows="top|left" control_name="AllynShowAvatarNameTag" height="22" name="AvatarNameTagCombo" width="280" tool_tip="Shows or hides the name and group tag above avatars. Does not change which avatars are displayed.">
       <combo_item name="1" value="1">On</combo_item>

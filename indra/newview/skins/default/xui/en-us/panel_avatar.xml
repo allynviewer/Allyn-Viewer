@@ -10,79 +10,84 @@
 [AGEVERIFICATION]
 			</string>
 
-			<text bg_visible="false" border_visible="false" bottom="-24" drop_shadow_visible="true"
+			<text bg_visible="false" border_visible="false" bottom="-18" drop_shadow_visible="true"
 			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="right" height="16"
 			     left="4" mouse_opaque="true" name="Name:" v_pad="0" width="56">
 				Name:
 			</text>
-			<name_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-24"
+			<name_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-18"
 			     enabled="false" follows="left|top|right" font="SansSerifSmall" height="18"
 			     is_unicode="false" left="64" max_length="254" mouse_opaque="false" name="dnname"
 			     right="-178" name_system="ProfileNameSystem" click_for_profile="false"/>
-			<flyout_button bottom="-24" follows="right|top" height="18" label="Copy:" right="-104"
+			<flyout_button bottom="-18" follows="right|top" height="18" label="Copy:" right="-104"
 			     font="SansSerifSmall" tool_tip="Copy key to clipboard, press the arrow for other copy options"
 			     name="copy_flyout" width="70">
 				<flyout_button_item label="Copy SLURL" name="copy_slurl_item" value="1"/>
 			</flyout_button>
-			<text bg_visible="false" border_visible="false" bottom="-24" drop_shadow_visible="true"
+			<text bg_visible="false" border_visible="false" bottom="-18" drop_shadow_visible="true"
 			     follows="right|top" font="SansSerifSmall" h_pad="0" halign="left" height="18"
 			     right="-4" mouse_opaque="true" name="online_yes" v_pad="0" width="96">
 				Currently Online
 			</text>
 
-			<text bg_visible="false" border_visible="false" bottom="-46" drop_shadow_visible="true"
+			<text bg_visible="false" border_visible="false" bottom="-38" drop_shadow_visible="true"
 			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="right" height="16"
 			     left="4" mouse_opaque="true" name="Key:" v_pad="0" width="56">
 				Key:
 			</text>
-			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-46"
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-38"
 			     enabled="false" follows="left|top|right" font="SansSerifSmall" height="18"
 			     is_unicode="false" left="64" max_length="36" mouse_opaque="false" name="avatar_key"
 			     right="-110"/>
-			<button bottom="-46" follows="right|top" height="18" width="100" right="-4" name="web_profile" label="Web Profile">
+			<button bottom="-38" follows="right|top" height="18" width="100" right="-4" name="web_profile" label="Web Profile">
 				<button.commit_callback function="Profile.Web"/>
 			</button>
 
-			<text bg_visible="false" border_visible="false" bottom="-68" drop_shadow_visible="true"
+			<text bg_visible="false" border_visible="false" bottom="-56" drop_shadow_visible="true"
 			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="right" height="16"
 			     left="4" mouse_opaque="true" name="Photo:" v_pad="0" width="56">
 				Photo:
 			</text>
-			<texture_picker allow_no_texture="true" bottom="-212" can_apply_immediately="false"
+			<texture_picker allow_no_texture="true" bottom="-184" can_apply_immediately="false"
 			     default_image_name="None" follows="left|top" height="144" label=""
 			     left="64" mouse_opaque="true" name="img"
 			     tool_tip="Click to choose a picture" width="144"/>
+			<button bottom="-204" follows="left|top" font="SansSerifSmall" height="18"
+			     label="Show with self" label_selected="Shown with self" left="64"
+			     mouse_opaque="true" name="only_show_self" toggle="true"
+			     tool_tip="Keep this avatar visible while Avatar display is Only show self."
+			     width="144"/>
 
-			<text bg_visible="false" border_visible="false" bottom="-68" drop_shadow_visible="true"
+			<text bg_visible="false" border_visible="false" bottom="-56" drop_shadow_visible="true"
 			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="16"
 			     left="234" mouse_opaque="true" name="label" v_pad="0" width="136">
 				Born:
 			</text>
-			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-86"
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-76"
 			     enabled="true" follows="left|top|right" font="SansSerifSmall" height="18"
 			     is_unicode="false" left="234" max_length="254" mouse_opaque="false" name="born"
 			     right="-8"/>
-			<text bg_visible="false" border_visible="false" bottom="-106" drop_shadow_visible="true"
+			<text bg_visible="false" border_visible="false" bottom="-96" drop_shadow_visible="true"
 			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="16"
 			     left="234" mouse_opaque="true" name="label2" v_pad="0" width="136">
 				Account:
 			</text>
-			<view_border bevel_style="in" bottom="-156" follows="left|top|right" height="48" left="234"
+			<view_border bevel_style="in" bottom="-146" follows="left|top|right" height="48" left="234"
 			     mouse_opaque="false" name="acct_border" right="-8"/>
-			<text bg_visible="false" border_visible="true" bottom="-156" drop_shadow_visible="true"
+			<text bg_visible="false" border_visible="true" bottom="-146" drop_shadow_visible="true"
 			     follows="left|top|right" font="SansSerifSmall" height="48" left="234"
 			     mouse_opaque="true" name="acct" right="-8"/>
-			<text bg_visible="false" border_visible="false" bottom="-176" drop_shadow_visible="true"
+			<text bg_visible="false" border_visible="false" bottom="-166" drop_shadow_visible="true"
 			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="16"
 			     left="234" mouse_opaque="true" name="partner_label"
 			     tool_tip="Second Life partner. For more info on how to set, see www.secondlife.com/partner"
 			     v_pad="0" width="135">
 				Partner:
 			</text>
-			<button bottom="-176" follows="right|top" font="SansSerif" halign="center"
+			<button bottom="-166" follows="right|top" font="SansSerif" halign="center"
 			     height="18" label="?" label_selected="?" right="-8"
 			     mouse_opaque="true" name="partner_help" width="18"/>
-			<name_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-196"
+			<name_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-186"
 			     enabled="true" follows="left|top|right" font="SansSerifSmall" height="18"
 			     left="234" max_length="1024" mouse_opaque="true" name="partner_edit"
 			     right="-8"/>

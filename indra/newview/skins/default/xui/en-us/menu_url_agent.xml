@@ -30,6 +30,11 @@
       <on_click function="List.RemoveFriend"/>
       <on_visible function="List.EnableIsFriend"/>
     </menu_item_call>
+    <menu_item_check label="Show with Only Show Self" name="Only Show Self">
+      <on_click function="List.ToggleOnlyShowSelf"/>
+      <on_check function="List.CheckOnlyShowSelf"/>
+      <on_enable function="List.EnableOnlyShowSelf"/>
+    </menu_item_check>
     <menu_item_call label="Invite To Group" name="Invite To Group">
       <on_click function="List.InviteToGroup"/>
     </menu_item_call>

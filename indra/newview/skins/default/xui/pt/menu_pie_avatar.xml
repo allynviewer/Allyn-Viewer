@@ -14,6 +14,9 @@
 		<menu_item_call label="Sem Tradução" name="No Translation"/>
 		<menu_item_call label="Debug..." name="Debug..."/>
 		<menu_item_call label="Inspecionar" name="Object Inspect"/>
+		<pie_menu name="Tools">
+			<menu_item_check name="Only Show Self" label="Mostrar com Mostrar só a si"/>
+		</pie_menu>
 	</pie_menu>
 	<menu_item_call label="Enviar IM..." name="Send IM..."/>
 </pie_menu>

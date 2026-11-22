@@ -51,4 +51,5 @@
 		<menu_item_check label="Client" name="Client"/>
 	</menu>
 	<menu_item_check label="Liste aktualisieren" name="Update List"/>
+	<menu_item_check name="Only Show Self" label="Mit „Nur sich selbst“ anzeigen"/>
 </menu>

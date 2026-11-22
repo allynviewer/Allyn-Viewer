@@ -2078,6 +2078,38 @@ class LLAvatarVisibleNoTranslate final : public view_listener_t
 		return true;
 	}
 };
+class LLAvatarToggleOnlyShowSelf final : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata) override
+	{
+		LLVOAvatar* avatar = get_pie_no_translate_avatar();
+		if (!avatar)
+		{
+			return true;
+		}
+		uuid_vec_t ids;
+		ids.push_back(avatar->getID());
+		LLVOAvatar::setOnlyShowSelfWhitelisted(ids, !LLVOAvatar::isOnlyShowSelfWhitelisted(avatar->getID()));
+		return true;
+	}
+};
+class LLAvatarCheckOnlyShowSelf final : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata) override
+	{
+		LLVOAvatar* avatar = get_pie_no_translate_avatar();
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(avatar && LLVOAvatar::isOnlyShowSelfWhitelisted(avatar->getID()));
+		return true;
+	}
+};
+class LLAvatarEnableOnlyShowSelf final : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata) override
+	{
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(get_pie_no_translate_avatar() != nullptr);
+		return true;
+	}
+};
 class LLObjectEnableCopyUUID final : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata) override
@@ -7802,6 +7834,58 @@ class ListToggleMute final : public view_listener_t
 		return true;
 	}
 };
+static uuid_vec_t only_show_self_targets()
+{
+	uuid_vec_t ids;
+	for (const LLUUID& id : LFIDBearer::getActiveSelectedIDs())
+	{
+		if (id.notNull() && id != gAgentID)
+		{
+			ids.push_back(id);
+		}
+	}
+	return ids;
+}
+class ListToggleOnlyShowSelf final : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata) override
+	{
+		uuid_vec_t ids = only_show_self_targets();
+		bool allow = false;
+		for (size_t i = 0; i < ids.size(); ++i)
+		{
+			if (!LLVOAvatar::isOnlyShowSelfWhitelisted(ids[i]))
+			{
+				allow = true;
+				break;
+			}
+		}
+		LLVOAvatar::setOnlyShowSelfWhitelisted(ids, allow);
+		return true;
+	}
+};
+class ListCheckOnlyShowSelf final : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata) override
+	{
+		uuid_vec_t ids = only_show_self_targets();
+		bool check = !ids.empty();
+		for (size_t i = 0; check && i < ids.size(); ++i)
+		{
+			check = LLVOAvatar::isOnlyShowSelfWhitelisted(ids[i]);
+		}
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(check);
+		return true;
+	}
+};
+class ListEnableOnlyShowSelf final : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata) override
+	{
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(!only_show_self_targets().empty());
+		return true;
+	}
+};
 class ListNoTranslate final : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata) override
@@ -8202,6 +8286,9 @@ void initialize_menus()
 	addMenu(new LLAvatarNoTranslate(), "Avatar.NoTranslate");
 	addMenu(new LLAvatarEnableNoTranslate(), "Avatar.EnableNoTranslate");
 	addMenu(new LLAvatarVisibleNoTranslate(), "Avatar.VisibleNoTranslate");
+	addMenu(new LLAvatarToggleOnlyShowSelf(), "Avatar.ToggleOnlyShowSelf");
+	addMenu(new LLAvatarCheckOnlyShowSelf(), "Avatar.CheckOnlyShowSelf");
+	addMenu(new LLAvatarEnableOnlyShowSelf(), "Avatar.EnableOnlyShowSelf");
 	addMenu(new LLAvatarAddFriend(), "Avatar.AddFriend");
 	addMenu(new LLAvatarFreeze(), "Avatar.Freeze");
 	addMenu(new LLAvatarDebug(), "Avatar.Debug");
@@ -8347,6 +8434,9 @@ void initialize_menus()
 	addMenu(new ListEstateBan(), "List.EstateBan");
 	addMenu(new ListEstateEject(), "List.EstateEject");
 	addMenu(new ListToggleMute(), "List.ToggleMute");
+	addMenu(new ListToggleOnlyShowSelf(), "List.ToggleOnlyShowSelf");
+	addMenu(new ListCheckOnlyShowSelf(), "List.CheckOnlyShowSelf");
+	addMenu(new ListEnableOnlyShowSelf(), "List.EnableOnlyShowSelf");
 	addMenu(new ListNoTranslate(), "List.NoTranslate");
 	addMenu(new ListReactivateTranslate(), "List.ReactivateTranslate");
 	addMenu(new ListVisibleNoTranslate(), "List.VisibleNoTranslate");

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="only show self floater" short_title="Только себя" title="Только себя">
+	<text name="help_text">Эти аватары остаются видимыми, когда показ аватаров — «Только себя». Остальные по-прежнему скрыты.</text>
+	<name_list name="whitelist_list" tool_tip="Аватары, которым разрешено оставаться видимыми при «Только себя»">
+		<column label="Имя" name="name" />
+	</name_list>
+	<button name="add_btn" label="Добавить..." tool_tip="Добавить аватары, которые остаются видимыми при «Только себя»" />
+	<button name="remove_btn" label="Удалить" tool_tip="Удалить выбранных аватаров из списка" />
+</floater>

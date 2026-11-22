@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="only show self floater" short_title="Yalnızca kendini" title="Yalnızca kendini göster">
+	<text name="help_text">Bu avatarlar, avatar görünümü Yalnızca kendini göster iken görünür kalır. Diğerleri eskisi gibi gizli kalır.</text>
+	<name_list name="whitelist_list" tool_tip="Yalnızca kendini göster açıkken görünür kalmasına izin verilen avatarlar">
+		<column label="Ad" name="name" />
+	</name_list>
+	<button name="add_btn" label="Ekle..." tool_tip="Yalnızca kendini göster açıkken görünür kalan avatar ekler" />
+	<button name="remove_btn" label="Kaldır" tool_tip="Seçilen avatarları listeden kaldırır" />
+</floater>

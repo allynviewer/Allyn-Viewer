@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="only show self floater" short_title="Mostrar só a si" title="Mostrar só a si">
+	<text name="help_text">Estes avatares continuam visíveis quando Exibir avatares está em Mostrar só a si. Os demais continuam ocultos como antes.</text>
+	<name_list name="whitelist_list" tool_tip="Avatares autorizados a continuar visíveis com Mostrar só a si">
+		<column label="Nome" name="name" />
+	</name_list>
+	<button name="add_btn" label="Adicionar..." tool_tip="Adiciona avatares que continuam visíveis com Mostrar só a si" />
+	<button name="remove_btn" label="Remover" tool_tip="Remove os avatares selecionados da lista" />
+</floater>

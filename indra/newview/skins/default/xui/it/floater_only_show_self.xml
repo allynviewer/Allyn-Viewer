@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="only show self floater" short_title="Solo se stessi" title="Mostra solo se stessi">
+	<text name="help_text">Questi avatar restano visibili quando la visualizzazione è Mostra solo se stessi. Gli altri restano nascosti come prima.</text>
+	<name_list name="whitelist_list" tool_tip="Avatar autorizzati a restare visibili con Mostra solo se stessi">
+		<column label="Nome" name="name" />
+	</name_list>
+	<button name="add_btn" label="Aggiungi..." tool_tip="Aggiunge avatar che restano visibili con Mostra solo se stessi" />
+	<button name="remove_btn" label="Rimuovi" tool_tip="Rimuove gli avatar selezionati dall'elenco" />
+</floater>

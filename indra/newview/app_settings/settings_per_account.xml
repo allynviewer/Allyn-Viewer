@@ -920,5 +920,16 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>AllynOnlyShowSelfWhitelist</key>
+    <map>
+      <key>Comment</key>
+      <string>Avatar UUIDs that stay visible while Avatar display is Only show self.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>LLSD</string>
+      <key>Value</key>
+      <array />
+    </map>
   </map>
 </llsd>

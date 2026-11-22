@@ -62,6 +62,7 @@
 	<string name="AllynMacroAimAcquisition">Makro amaç desteği edinme hassasiyeti (dikey görüş alanının yarısının yüzde 0-100'ü)</string>
 	<string name="AllynMacroAimAssistEnabled">Makro hedefleme yardımını etkinleştirir (fare görünümünde ALT + O, DebugRenderHitbox'ları gerektirir)</string>
 	<string name="AllynMacroAimStrength">Makro nişan alma desteği gücü (yüzde 0-99)</string>
+	<string name="AllynOnlyShowSelfWhitelist">Avatar görünümü Yalnızca kendini göster iken görünür kalan avatar UUID'leri.</string>
 	<string name="AllynRenderFriendsOnly">Etkinleştirilirse yalnızca arkadaş listenizdeki avatarlar oluşturulur.</string>
 	<string name="AllynRenderFriendsOnlyPersistsTP">Etkinleştirilirse, Işınlanmadan sonra Yalnızca Arkadaşları Göster etkin kalır. Varsayılan (yanlış)</string>
 	<string name="AllynShowAvatarNameTag">1, avatarların üzerinde adı ve grup etiketini gösterir. 0 bu etiketi gizler. Avatar Görüntüsünü değiştirmez.</string>
@@ -722,6 +723,7 @@
 	<string name="FloaterNoTranslateRect">Çeviri gerektirmeyen sakinler penceresi için dikdörtgen</string>
 	<string name="FloaterObjectBackuptRect">Nesne yedekleme şamandırası için dikdörtgen</string>
 	<string name="FloaterObjectIMInfo">Kayan nokta nesnesi im bilgi pencereleri için dikdörtgen</string>
+	<string name="FloaterOnlyShowSelfRect">Yalnızca kendini göster istisna listesi için dikdörtgen</string>
 	<string name="FloaterOpenObjectRect">Açık Nesne penceresi için Dikdörtgen</string>
 	<string name="FloaterOverlayEnvRect">Kaplama ortamı şamandırası için dikdörtgen.</string>
 	<string name="FloaterOverlayVolumeRect">Yer paylaşımlı hacim şamandırası için dikdörtgen.</string>

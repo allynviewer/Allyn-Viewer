@@ -63,6 +63,8 @@
 #include "pipeline.h"
 #include "llviewerjoystick.h"
 #include "llviewerparcelmedia.h"
+#include "llfloateronlyshowself.h"
+#include "llpanelavatar.h"
 #include "llviewerobjectlist.h"
 #include "llviewerparcelmgr.h"
 #include "llparcel.h"
@@ -590,6 +592,14 @@ void handleRenderAutoMuteByteLimitChanged(const LLSD& new_value);
 static void handleAvatarDisplayChanged(const LLSD&)
 {
 	gObjectList.syncAvatarDisplaySuppression();
+	LLPanelAvatar::refreshOnlyShowSelfButtons();
+}
+static void handleOnlyShowSelfWhitelistChanged(const LLSD&)
+{
+	LLVOAvatar::markOnlyShowSelfWhitelistDirty();
+	gObjectList.syncAvatarDisplaySuppression();
+	LLFloaterOnlyShowSelf::refreshIfOpen();
+	LLPanelAvatar::refreshOnlyShowSelfButtons();
 }
 class LLAvatarDisplayFriendObserver : public LLFriendObserver
 {
@@ -796,6 +806,10 @@ void settings_setup_listeners()
 	if (LLControlVariable* avatar_display = gSavedSettings.getControl("AlwaysRenderFriends"))
 	{
 		avatar_display->getSignal()->connect(boost::bind(&handleAvatarDisplayChanged, _2));
+	}
+	if (LLControlVariable* only_show_self = gSavedPerAccountSettings.getControl("AllynOnlyShowSelfWhitelist"))
+	{
+		only_show_self->getSignal()->connect(boost::bind(&handleOnlyShowSelfWhitelistChanged, _2));
 	}
 	if (!sAvatarDisplayFriendObserver)
 	{

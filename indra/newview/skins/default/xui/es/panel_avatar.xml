@@ -16,6 +16,7 @@
 			<button name="web_profile" label="Perfil Web"/>
 			<text name="Photo:">Foto:</text>
 			<texture_picker label="" name="img" tool_tip="Pulsa aquí para seleccionar una foto"/>
+			<button name="only_show_self" label="Mostrar conmigo" label_selected="Visible" tool_tip="Mantener visible este avatar cuando la visualización es Mostrar solo a uno mismo."/>
 			<text name="label">Nacido:</text>
 			<text name="label2">Cuenta:</text>
 			<text name="partner_label" tool_tip="Compañera/o en Second Life. Para más información ver www.secondlife.com/partner">Compañera/o:</text>

@@ -62,6 +62,7 @@
 #include "lltabcontainer.h"
 #include "lluictrlfactory.h"
 #include "llviewerwindow.h"
+#include "llvoavatar.h"
 #include "llweb.h"
 #include <iosfwd>
 #include <boost/date_time.hpp>
@@ -223,6 +224,24 @@ void LLPanelAvatarSecondLife::enableControls(BOOL self)
 	childSetEnabled("allow_publish", self);
 	childSetVisible("?", self);
 	childSetEnabled("?", self);
+	refreshOnlyShowSelf();
+}
+void LLPanelAvatarSecondLife::refreshOnlyShowSelf()
+{
+	LLButton* btn = findChild<LLButton>("only_show_self");
+	if (!btn) return;
+	const bool other = mAvatarID.notNull() && mAvatarID != gAgentID;
+	const bool limit_by_complexity = gSavedSettings.getS32("AlwaysRenderFriends") == 0;
+	btn->setVisible(other);
+	btn->setEnabled(other && !limit_by_complexity);
+	if (other)
+		btn->setValue(LLVOAvatar::isOnlyShowSelfWhitelisted(mAvatarID));
+}
+void LLPanelAvatarSecondLife::onToggleOnlyShowSelf()
+{
+	if (mAvatarID.isNull() || mAvatarID == gAgentID) return;
+	std::vector<LLUUID> ids(1, mAvatarID);
+	LLVOAvatar::setOnlyShowSelfWhitelisted(ids, getChild<LLButton>("only_show_self")->getValue().asBoolean());
 }
 void LLPanelAvatarFirstLife::processProperties(void* data, EAvatarProcessorType type)
 {
@@ -308,6 +327,8 @@ BOOL LLPanelAvatarSecondLife::postBuild()
 		ctrl->setValue(LLMuteList::instance().isMuted(mAvatarID));
 	}
 	getChild<LLUICtrl>("Offer Teleport...")->setCommitCallback(boost::bind(static_cast<void(*)(const LLUUID&)>(LLAvatarActions::offerTeleport), boost::bind(&LLPanelAvatar::getAvatarID, pa)));
+	if (LLButton* btn = findChild<LLButton>("only_show_self"))
+		btn->setCommitCallback(boost::bind(&LLPanelAvatarSecondLife::onToggleOnlyShowSelf, this));
 	getChild<LLScrollListCtrl>("groups")->setDoubleClickCallback(boost::bind(&LLPanelAvatarSecondLife::onDoubleClickGroup,this));
 	LLTextureCtrl* ctrl = getChild<LLTextureCtrl>("img");
 	ctrl->setFallbackImageName("default_profile_picture.j2c");
@@ -927,6 +948,12 @@ BOOL LLPanelAvatar::postBuild()
 	ctrl->setVisible(false);
 	ctrl->setColor(LLColor4::green);
 	return TRUE;
+}
+void LLPanelAvatar::refreshOnlyShowSelfButtons()
+{
+	for (panel_list_t::iterator it = sAllPanels.begin(); it != sAllPanels.end(); ++it)
+		if ((*it)->mPanelSecondLife)
+			(*it)->mPanelSecondLife->refreshOnlyShowSelf();
 }
 LLPanelAvatar::~LLPanelAvatar()
 {

@@ -62,6 +62,7 @@
 	<string name="AllynMacroAimAcquisition">Sensibilité d'acquisition d'assistance à la visée macro (0 à 100 % de la moitié du champ de vision vertical)</string>
 	<string name="AllynMacroAimAssistEnabled">Active l'assistance à la visée macro (ALT + O dans mouselook, nécessite DebugRenderHitboxes)</string>
 	<string name="AllynMacroAimStrength">Force d'assistance à la visée macro (0-99 %)</string>
+	<string name="AllynOnlyShowSelfWhitelist">UUID d'avatars qui restent visibles quand l'affichage est Afficher seulement soi.</string>
 	<string name="AllynRenderFriendsOnly">Si cette option est activée, seuls les avatars de votre liste d'amis seront affichés.</string>
 	<string name="AllynRenderFriendsOnlyPersistsTP">S'il est activé, Afficher uniquement les amis reste activé après la téléportation. Par défaut (faux)</string>
 	<string name="AllynShowAvatarNameTag">1 montre le nom et la balise de groupe au-dessus des avatars. 0 cache cette balise. Ne modifie pas l'affichage de l'avatar.</string>
@@ -722,6 +723,7 @@
 	<string name="FloaterNoTranslateRect">Fenêtre rectangulaire pour les résidents sans traduction</string>
 	<string name="FloaterObjectBackuptRect">Rectangle pour le flotteur de sauvegarde d'objet</string>
 	<string name="FloaterObjectIMInfo">Rectangle pour objet flottant dans les fenêtres d'information</string>
+	<string name="FloaterOnlyShowSelfRect">Rectangle de la liste d'exceptions d'Afficher seulement soi</string>
 	<string name="FloaterOpenObjectRect">Rectangle pour la fenêtre Ouvrir un objet</string>
 	<string name="FloaterOverlayEnvRect">Rectangle pour le flotteur de l'environnement de superposition.</string>
 	<string name="FloaterOverlayVolumeRect">Rectangle pour le flotteur de volume de superposition.</string>

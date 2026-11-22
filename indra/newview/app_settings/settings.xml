@@ -8256,6 +8256,22 @@ This should be as low as possible, but too low may break functionality</string>
         <integer>0</integer>
       </array>
     </map>
+    <key>FloaterOnlyShowSelfRect</key>
+    <map>
+      <key>Comment</key>
+      <string>Rectangle for the Only Show Self exception list</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Rect</string>
+      <key>Value</key>
+      <array>
+        <integer>0</integer>
+        <integer>440</integer>
+        <integer>420</integer>
+        <integer>0</integer>
+      </array>
+    </map>
     <key>FloaterNoTranslateRect</key>
     <map>
       <key>Comment</key>

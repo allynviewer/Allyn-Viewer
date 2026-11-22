@@ -57,6 +57,11 @@
 			<menu_item_call enabled="true" label="Derender" mouse_opaque="true" name="Derender">
 				<on_click function="Object.DERENDER" />
 			</menu_item_call>
+			<menu_item_check enabled="true" label="Show with Only Show Self" mouse_opaque="true" name="Only Show Self">
+				<on_click function="Avatar.ToggleOnlyShowSelf" />
+				<on_check function="Avatar.CheckOnlyShowSelf" />
+				<on_enable function="Avatar.EnableOnlyShowSelf" />
+			</menu_item_check>
 		</pie_menu>
 		<menu_item_call enabled="false" label="Eject..." mouse_opaque="true" name="Eject...">
 			<on_click function="Avatar.Eject" />

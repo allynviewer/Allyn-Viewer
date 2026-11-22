@@ -16,6 +16,7 @@
 			<button name="web_profile" label="Web Profili"/>
 			<text name="Photo:">Fotoğraf:</text>
 			<texture_picker name="img" tool_tip="Bir resim seçmek için tıklayın"/>
+			<button name="only_show_self" label="Benimle göster" label_selected="Görünür" tool_tip="Avatar görünümü Yalnızca kendini göster iken bu avatarı görünür bırak."/>
 			<text name="label">Doğum:</text>
 			<text name="label2">Hesap:</text>
 			<text name="partner_label" tool_tip="Second Life iş ortağı. Nasıl ayarlanacağı hakkında daha fazla bilgi için bkz. www.secondlife.com/partner">Ortak:</text>

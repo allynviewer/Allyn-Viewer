@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="only show self floater" short_title="自分のみ" title="自分のみ表示">
+	<text name="help_text">これらのアバターは、アバター表示が「自分のみ表示」のときも表示されたままです。それ以外は今までどおり表示されません。</text>
+	<name_list name="whitelist_list" tool_tip="自分のみ表示のときに表示したままにするアバター">
+		<column label="名前" name="name" />
+	</name_list>
+	<button name="add_btn" label="追加..." tool_tip="自分のみ表示のときも表示するアバターを追加します" />
+	<button name="remove_btn" label="削除" tool_tip="選択したアバターをリストから外します" />
+</floater>

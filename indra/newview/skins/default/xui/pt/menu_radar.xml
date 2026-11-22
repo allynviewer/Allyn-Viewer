@@ -72,4 +72,5 @@
 		<menu_item_check name="Client" label="Cliente"/>
 	</menu>
 	<menu_item_check name="Update List" label="Atualizar lista"/>
+	<menu_item_check name="Only Show Self" label="Mostrar com Mostrar só a si"/>
 </menu>

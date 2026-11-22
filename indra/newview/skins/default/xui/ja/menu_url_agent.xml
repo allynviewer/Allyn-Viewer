@@ -2,6 +2,7 @@
 <context_menu name="Url Popup" label="ユーザー">
 	<menu_item_call name="send_im" label="送信 IM..." />
 	<menu name="Actions" label="アクション">
+		<menu_item_check name="Only Show Self" label="「自分のみ表示」でも表示" />
 		<menu_item_call name="Profile" label="プロフィール" />
 		<menu_item_call name="Web Profile" label="Webプロフィール" />
 		<menu_item_call name="Pay" label="支払い" />

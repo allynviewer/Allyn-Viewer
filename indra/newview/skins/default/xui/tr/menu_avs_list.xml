@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <menu name="Avatar Menu">
 	<menu_item_call name="Profile" label="Profil" />
+	<menu_item_check name="Only Show Self" label="«Yalnızca kendini göster» ile göster" />
 	<menu name="Avatar" label="Avatar">
 		<menu_item_call name="Web Profile" label="Web Profili" />
 		<menu_item_call name="Pay" label="Ödeme" />

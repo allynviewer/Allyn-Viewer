@@ -72,4 +72,5 @@
 		<menu_item_check name="Client" label="Müşteri" />
 	</menu>
 	<menu_item_check name="Update List" label="Listeyi Güncelle" />
+	<menu_item_check name="Only Show Self" label="«Yalnızca kendini göster» ile göster" />
 </menu>

@@ -16,6 +16,7 @@
 			<button name="web_profile" label="Веб-профиль"/>
 			<text name="Photo:">Фото:</text>
 			<texture_picker name="img" tool_tip="Нажмите, чтобы выбрать картинку"/>
+			<button name="only_show_self" label="Показывать" label_selected="Показан" tool_tip="Оставлять этого аватара видимым, когда показ аватаров — «Только себя»."/>
 			<text name="label">Создан:</text>
 			<text name="label2">Аккаунт:</text>
 			<text name="partner_label" tool_tip="Партнёр Second Life. Как настроить: www.secondlife.com/partner">Партнёр:</text>

@@ -92,8 +92,10 @@ public:
 	static bool onClickPartnerHelpLoadURL(const LLSD& notification, const LLSD& response);
 	void clearControls();
 	void enableControls(BOOL own_avatar);
+	void refreshOnlyShowSelf();
 	void updateOnlineText(BOOL online, BOOL have_calling_card);
 private:
+	void onToggleOnlyShowSelf();
 	LLUUID				mPartnerID;
 };
 class LLPanelAvatarWeb :
@@ -193,6 +195,7 @@ public:
 	void setAvatarID(const LLUUID &avatar_id);
 	void setOnlineStatus(EOnlineStatus online_status);
 	const LLUUID& getAvatarID() const { return mAvatarID; }
+	static void refreshOnlyShowSelfButtons();
 	void resetGroupList();
 	void sendAvatarStatisticsRequest();
 	void sendAvatarPropertiesRequest();

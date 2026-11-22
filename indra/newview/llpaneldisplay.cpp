@@ -71,6 +71,7 @@
 #include "llglheaders.h"
 #include "llviewercontrol.h"
 #include "llsky.h"
+#include "llfloateronlyshowself.h"
 #include "llfloaterpreference.h"
 #include "rlvhandler.h"
 #if LL_MSVC
@@ -105,9 +106,14 @@ LLPanelDisplay::LLPanelDisplay()
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_graphics1.xml");
 }
 void updateSliderText(LLSliderCtrl* slider, LLTextBox* text_box);
+static void openOnlyShowSelfWhitelist()
+{
+	LLFloaterOnlyShowSelf::showInstance();
+}
 BOOL LLPanelDisplay::postBuild()
 {
 	getChild<LLButton>("Defaults")->setClickedCallback(boost::bind(&LLPanelDisplay::setHardwareDefaults, this));
+	getChild<LLButton>("OnlyShowSelfWhitelist")->setClickedCallback(boost::bind(&openOnlyShowSelfWhitelist));
 	mCtrlWindowed = getChild<LLCheckBoxCtrl>( "windowed mode");
 	mCtrlWindowed->setCommitCallback(boost::bind(&LLPanelDisplay::onCommitWindowedMode,this));
 	mAspectRatioLabel1 = getChild<LLTextBox>("AspectRatioLabel1");

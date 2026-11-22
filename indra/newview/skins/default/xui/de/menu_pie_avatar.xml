@@ -18,6 +18,7 @@
 			<menu_item_call label="UUID kopieren" name="CopyUUID"/>
 			<menu_item_call label="Client ID" name="ClientID"/>
 			<menu_item_call label="Nicht anzeigen" name="Derender"/>
+			<menu_item_check name="Only Show Self" label="Mit „Nur sich selbst“ anzeigen"/>
 		</pie_menu>
 		<menu_item_call label="Hinauswerfen" name="Eject..."/>
 		<menu_item_call label="Keine Übersetzung" name="No Translation"/>

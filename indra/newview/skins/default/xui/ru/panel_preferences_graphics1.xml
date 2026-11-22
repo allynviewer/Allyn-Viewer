@@ -103,6 +103,7 @@
 						<combo_item name="2" value="2">Только друзья</combo_item>
 						<combo_item name="3" value="3">Только себя</combo_item>
 					</combo_box>
+					<button name="OnlyShowSelfWhitelist" label="Исключения" tool_tip="Аватары, которые остаются видимыми, когда показ аватаров — «Только себя»."/>
 					<text name="AvatarNameTagLabel">Показывать тег имени:</text>
 					<combo_box name="AvatarNameTagCombo" tool_tip="Показывает или скрывает тег с именем и группой над аватарами. Не меняет, какие аватары отображаются.">
 						<combo_item name="1" value="1">Вкл</combo_item>

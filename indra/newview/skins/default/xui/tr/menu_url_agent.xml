@@ -2,6 +2,7 @@
 <context_menu name="Url Popup" label="Kullanıcı">
 	<menu_item_call name="send_im" label="Anlık ileti gönder..." />
 	<menu name="Actions" label="Eylemler">
+		<menu_item_check name="Only Show Self" label="«Yalnızca kendini göster» ile göster" />
 		<menu_item_call name="Profile" label="Profil" />
 		<menu_item_call name="Web Profile" label="Web Profili" />
 		<menu_item_call name="Pay" label="Ödeme" />

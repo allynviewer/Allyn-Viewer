@@ -252,4 +252,9 @@
     <on_click function="ToggleControl" userdata="RadarUpdateEnabled"/>
     <on_check control="RadarUpdateEnabled"/>
   </menu_item_check>
+  <menu_item_check label="Show with Only Show Self" name="Only Show Self">
+    <on_click function="List.ToggleOnlyShowSelf"/>
+    <on_check function="List.CheckOnlyShowSelf"/>
+    <on_enable function="List.EnableOnlyShowSelf"/>
+  </menu_item_check>
 </menu>

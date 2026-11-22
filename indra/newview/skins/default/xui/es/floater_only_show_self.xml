@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="only show self floater" short_title="Solo a uno mismo" title="Mostrar solo a uno mismo">
+	<text name="help_text">Estos avatares siguen visibles cuando la visualización es Mostrar solo a uno mismo. Los demás siguen ocultos como antes.</text>
+	<name_list name="whitelist_list" tool_tip="Avatares autorizados a seguir visibles con Mostrar solo a uno mismo">
+		<column label="Nombre" name="name" />
+	</name_list>
+	<button name="add_btn" label="Añadir..." tool_tip="Añade avatares que siguen visibles con Mostrar solo a uno mismo" />
+	<button name="remove_btn" label="Quitar" tool_tip="Quita los avatares seleccionados de la lista" />
+</floater>

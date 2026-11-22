@@ -62,6 +62,7 @@
 	<string name="AllynMacroAimAcquisition">Macro aim assist acquisition sensitivity (0-100 percent of half the vertical field of view)</string>
 	<string name="AllynMacroAimAssistEnabled">Enables the Macro aim assist (ALT + O in mouselook, requires DebugRenderHitboxes)</string>
 	<string name="AllynMacroAimStrength">Macro aim assist strength (0-99 percent)</string>
+	<string name="AllynOnlyShowSelfWhitelist">Avatar UUIDs that stay visible while Avatar display is Only show self.</string>
 	<string name="AllynRenderFriendsOnly">If enabled, only avatars on your friend list will be rendered.</string>
 	<string name="AllynRenderFriendsOnlyPersistsTP">If enabled, Show Friends Only remains enabled after teleport. Default (false)</string>
 	<string name="AllynShowAvatarNameTag">1 shows the name and group tag above avatars. 0 hides that tag. Does not change Avatar Display.</string>
@@ -722,6 +723,7 @@
 	<string name="FloaterNoTranslateRect">Rectangle for no-translation residents window</string>
 	<string name="FloaterObjectBackuptRect">Rectangle for the object backup floater</string>
 	<string name="FloaterObjectIMInfo">Rectangle for floater object im info windows</string>
+	<string name="FloaterOnlyShowSelfRect">Rectangle for the Only Show Self exception list</string>
 	<string name="FloaterOpenObjectRect">Rectangle for Open Object window</string>
 	<string name="FloaterOverlayEnvRect">Rectangle for the overlay environment floater.</string>
 	<string name="FloaterOverlayVolumeRect">Rectangle for the overlay volume floater.</string>

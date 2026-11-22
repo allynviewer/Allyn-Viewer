@@ -99,6 +99,7 @@ set(viewer_SOURCE_FILES
     llchataitranslate.cpp
     llfloaterimtranslationconfig.cpp
     llfloaternotranslate.cpp
+    llfloateronlyshowself.cpp
     llfloaterallynupdate.cpp
     awavefront.cpp
     chatbar_as_cmdline.cpp

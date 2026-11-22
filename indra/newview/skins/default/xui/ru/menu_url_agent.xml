@@ -2,6 +2,7 @@
 <context_menu name="Url Popup" label="Пользователь">
 	<menu_item_call name="send_im" label="Отправить IM..." />
 	<menu name="Actions" label="Действия">
+		<menu_item_check name="Only Show Self" label="Показывать при «Только себя»" />
 		<menu_item_call name="Profile" label="Профиль" />
 		<menu_item_call name="Web Profile" label="Веб-профиль" />
 		<menu_item_call name="Pay" label="Оплатить" />

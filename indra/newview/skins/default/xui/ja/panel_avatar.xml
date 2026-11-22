@@ -16,6 +16,7 @@
 			<button name="web_profile" label="Webプロフィール"/>
 			<text name="Photo:">写真:</text>
 			<texture_picker name="img" tool_tip="クリックして画像を選択"/>
+			<button name="only_show_self" label="自分と表示" label_selected="表示中" tool_tip="アバター表示が「自分のみ表示」のときも、このアバターを表示したままにします。"/>
 			<text name="label">誕生日:</text>
 			<text name="label2">アカウント:</text>
 			<text name="partner_label" tool_tip="Second Lifeのパートナーです。設定方法は www.secondlife.com/partner を参照してください">パートナー:</text>

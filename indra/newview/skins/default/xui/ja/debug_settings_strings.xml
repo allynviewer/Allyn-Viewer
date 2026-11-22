@@ -62,6 +62,7 @@
 	<string name="AllynMacroAimAcquisition">マクロ照準アシスト取得感度 (垂直視野の半分の 0 ～ 100 パーセント)</string>
 	<string name="AllynMacroAimAssistEnabled">マクロ エイム アシストを有効にします (マウスルックで ALT + O、DebugRenderHitboxes が必要)</string>
 	<string name="AllynMacroAimStrength">マクロエイムアシスト強度 (0-99%)</string>
+	<string name="AllynOnlyShowSelfWhitelist">アバター表示が「自分のみ表示」のときに表示したままにするアバターのUUID。</string>
 	<string name="AllynRenderFriendsOnly">有効にすると、友達リストにあるアバターのみが表示されます。</string>
 	<string name="AllynRenderFriendsOnlyPersistsTP">有効にすると、[友達のみを表示] はテレポート後も有効のままになります。デフォルト (偽)</string>
 	<string name="AllynShowAvatarNameTag">1 は、アバターの上に名前とグループ タグを示しています。 0 はそのタグを非表示にします。アバターの表示は変更されません。</string>
@@ -722,6 +723,7 @@
 	<string name="FloaterNoTranslateRect">非翻訳居住者ウィンドウ用の長方形</string>
 	<string name="FloaterObjectBackuptRect">オブジェクトバックアップフローターの長方形</string>
 	<string name="FloaterObjectIMInfo">フローター オブジェクト IM 情報ウィンドウの四角形</string>
+	<string name="FloaterOnlyShowSelfRect">自分のみ表示の例外リスト用の四角形</string>
 	<string name="FloaterOpenObjectRect">「オブジェクトを開く」ウィンドウの四角形</string>
 	<string name="FloaterOverlayEnvRect">オーバーレイ環境フローターの四角形。</string>
 	<string name="FloaterOverlayVolumeRect">オーバーレイ ボリューム フローターの長方形。</string>
