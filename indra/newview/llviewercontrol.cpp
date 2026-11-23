@@ -244,6 +244,11 @@ static bool handleAvatarMaxVisibleChanged(const LLSD& newvalue)
 	LLVOAvatar::sMaxVisible = (U32) newvalue.asInteger();
 	return true;
 }
+static bool handleNearCharactersChanged(const LLSD&)
+{
+	LLVOAvatar::sAvatarCullNeedsUpdate = true;
+	return true;
+}
 static bool handleTerrainLODChanged(const LLSD& newvalue)
 {
 		LLVOSurfacePatch::sLODFactor = (F32)newvalue.asReal();
@@ -669,6 +674,11 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("WindLightUseAtmosShaders")->getSignal()->connect(boost::bind(&handleSetShaderChanged, _2));
 	gSavedSettings.getControl("RenderGammaFull")->getSignal()->connect(boost::bind(&handleSetShaderChanged, _2));
 	gSavedSettings.getControl("RenderAvatarMaxVisible")->getSignal()->connect(boost::bind(&handleAvatarMaxVisibleChanged, _2));
+	gSavedSettings.getControl("RenderNearCharacters")->getSignal()->connect(boost::bind(&handleNearCharactersChanged, _2));
+	gSavedSettings.getControl("RenderNearZoomCount")->getSignal()->connect(boost::bind(&handleNearCharactersChanged, _2));
+	gSavedSettings.getControl("RenderNearZoomDistance")->getSignal()->connect(boost::bind(&handleNearCharactersChanged, _2));
+	gSavedSettings.getControl("RenderNearAvatarCount")->getSignal()->connect(boost::bind(&handleNearCharactersChanged, _2));
+	gSavedSettings.getControl("RenderNearAvatarDistance")->getSignal()->connect(boost::bind(&handleNearCharactersChanged, _2));
 	gSavedSettings.getControl("RenderAvatarInvisible")->getSignal()->connect(boost::bind(&handleSetSelfInvisible, _2));
 	gSavedSettings.getControl("RenderAvatarComplexityLimit")->getSignal()->connect(boost::bind(&handleRenderAvatarComplexityLimitChanged, _2));
 	gSavedSettings.getControl("RenderVolumeLODFactor")->getSignal()->connect(boost::bind(&handleVolumeLODChanged, _2));

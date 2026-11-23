@@ -108,6 +108,12 @@
 					<slider label="Complejidad máx. del avatar:" label_width="200" name="IndirectMaxComplexity" tool_tip="Avatares más complejos se vuelven muñecos de gelatina. Extremo derecho = sin límite." />
 					<text name="IndirectMaxComplexityText">Sin límite</text>
 					<check_box label="Mostrar valores de complejidad" name="ShowAvatarComplexity" tool_tip="Muestra la complejidad visual sobre el nombre (Ctrl+Alt+Mayús+C)." />
+					<text name="NearCharactersText">Personajes cerca</text>
+					<check_box label="Limitar personajes cerca" name="NearCharactersEnable" tool_tip="Apagado, los avatares se dibujan como siempre. Encendido, solo se dibujan los que entran en los cuatro límites."/>
+					<slider label="Cerca del zoom" name="NearZoomCount" tool_tip="Cuántos avatares dentro de la distancia del zoom siguen completos. Primero los más cercanos al punto de la cámara."/>
+					<slider label="Distancia del zoom" name="NearZoomDistance" tool_tip="Los avatares más lejos que esto del punto de la cámara no entran en esta cuenta."/>
+					<slider label="Cerca del avatar" name="NearAvatarCount" tool_tip="Cuántos avatares dentro de la distancia de tu avatar siguen completos. Primero los más cercanos a ti."/>
+					<slider label="Distancia del avatar" name="NearAvatarDistance" tool_tip="Los avatares más lejos que esto de ti no entran en esta cuenta."/>
 					<check_box label="Avatares Simulados" name="AvatarImpostors" />
 					<check_box label="Renderizado por Hardware" name="AvatarVertexProgram" />
 					<check_box label="Ropas de Avatar" name="AvatarCloth" />

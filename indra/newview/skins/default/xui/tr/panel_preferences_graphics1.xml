@@ -112,6 +112,12 @@
 					<slider label="Maks. avatar karmaşıklığı:" label_width="200" name="IndirectMaxComplexity" tool_tip="Bundan daha karmaşık avatarlar jöle bebek olur. En sağ sınırsızdır." />
 					<text name="IndirectMaxComplexityText">Sınırsız</text>
 					<check_box label="Karmaşıklık değerlerini göster" name="ShowAvatarComplexity" tool_tip="Her avatarın görsel karmaşıklığını adının üstünde gösterir (Ctrl+Alt+Shift+C)." />
+					<text name="NearCharactersText">Yakındaki karakterler</text>
+					<check_box label="Yakındaki karakterleri sınırla" name="NearCharactersEnable" tool_tip="Kapalıyken avatarlar her zamanki gibi çizilir. Açıkken yalnızca dört sınırın içindeki avatarlar çizilir."/>
+					<slider label="Yakınlaştırma yakını" name="NearZoomCount" tool_tip="Yakınlaştırma mesafesindeki kaç avatar tam çizilir. Kameranın baktığı noktaya en yakınlar önce."/>
+					<slider label="Yakınlaştırma mesafesi" name="NearZoomDistance" tool_tip="Kameranın baktığı noktadan daha uzak avatarlar bu sayıya girmez."/>
+					<slider label="Avatar yakını" name="NearAvatarCount" tool_tip="Avatar mesafenizdeki kaç avatar tam çizilir. Size en yakınlar önce."/>
+					<slider label="Avatar mesafesi" name="NearAvatarDistance" tool_tip="Sizden daha uzak avatarlar bu sayıya girmez."/>
 					<check_box name="AvatarImpostors" label="Avatar impostor'ları" />
 					<check_box name="AvatarVertexProgram" label="Donanım kaplaması" />
 					<check_box name="AvatarCloth" label="Avatar bezi" />

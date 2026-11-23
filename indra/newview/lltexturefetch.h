@@ -71,6 +71,7 @@ public:
 							LLPointer<LLImageRaw>& raw, LLPointer<LLImageRaw>& aux, S32& worker_state);
 	bool getRequestCannotRefine(const LLUUID& id);
 	bool updateRequestPriority(const LLUUID& id, F32 priority);
+	void updateRequestScreen(const LLUUID& id, F32 screen_px);
 	void markRequestUrgent(const LLUUID& id);
 	bool receiveImageHeader(const LLHost& host, const LLUUID& id, U8 codec, U16 packets, U32 totalbytes, U16 data_size, U8* data);
 	bool receiveImagePacket(const LLHost& host, const LLUUID& id, U16 packet_num, U16 data_size, U8* data);

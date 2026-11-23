@@ -1322,6 +1322,11 @@ Deve ser o mais baixo possível, mas muito baixo pode prejudicar a funcionalidad
 	<string name="RenderAvatarMaxComplexity">Complexidade Máxima do Avatar; acima deste valor, o avatar é
     renderizado como um contorno de cor sólida (0 para desativar esse limite).</string>
 	<string name="RenderAvatarMaxVisible">Número máximo de avatares a serem exibidos ao mesmo tempo</string>
+	<string name="RenderNearCharacters">Liga ou desliga os quatro limites de personagens perto. Desligado, os personagens aparecem como sempre.</string>
+	<string name="RenderNearAvatarCount">Quantos personagens dentro da distância do avatar ficam carregados por completo, os mais próximos de você primeiro</string>
+	<string name="RenderNearAvatarDistance">Metros a partir do seu avatar usados em personagens perto</string>
+	<string name="RenderNearZoomCount">Quantos personagens dentro da distância do zoom ficam carregados por completo, os mais próximos do ponto da câmera primeiro</string>
+	<string name="RenderNearZoomDistance">Metros a partir do ponto da câmera usados em personagens perto</string>
 	<string name="RenderAvatarPhysicsLODFactor">Controla o nível de detalhe da física do avatar (como a física dos seios).</string>
 	<string name="RenderAvatarVP">Use programas de vértice para executar a skin de hardware do avatar</string>
 	<string name="RenderBakeSunlight">Transforme a luz solar em buffers de vértice para objetos estáticos.</string>

@@ -108,6 +108,12 @@
 					<slider label="Max. Avatar-Komplexität:" label_width="200" name="IndirectMaxComplexity" tool_tip="Komplexere Avatare werden zu Jelly Dolls. Ganz rechts = kein Limit." />
 					<text name="IndirectMaxComplexityText">Kein Limit</text>
 					<check_box label="Komplexitätswerte anzeigen" name="ShowAvatarComplexity" tool_tip="Visuelle Komplexität über dem Namen anzeigen (Strg+Alt+Umschalt+C)." />
+					<text name="NearCharactersText">Charaktere in der Nähe</text>
+					<check_box label="Charaktere in der Nähe begrenzen" name="NearCharactersEnable" tool_tip="Aus: Avatare werden wie gewohnt gezeichnet. An: Nur Avatare innerhalb der vier Grenzen werden gezeichnet."/>
+					<slider label="Nahe am Zoom" name="NearZoomCount" tool_tip="Wie viele Avatare innerhalb der Zoom-Entfernung vollständig bleiben. Die nächsten am Kamerapunkt zuerst."/>
+					<slider label="Entfernung zum Zoom" name="NearZoomDistance" tool_tip="Avatare weiter weg vom Kamerapunkt zählen hier nicht."/>
+					<slider label="Nahe am Avatar" name="NearAvatarCount" tool_tip="Wie viele Avatare innerhalb der Avatar-Entfernung vollständig bleiben. Die nächsten an dir zuerst."/>
+					<slider label="Entfernung zum Avatar" name="NearAvatarDistance" tool_tip="Avatare weiter weg von dir zählen hier nicht."/>
 					<check_box label="Avatar-Impostoren" name="AvatarImpostors" />
 					<check_box label="Hardware-Skinning" name="AvatarVertexProgram" />
 					<check_box label="Avatar-Kleidung" name="AvatarCloth" />

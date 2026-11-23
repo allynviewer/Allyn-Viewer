@@ -404,7 +404,7 @@ void LLDrawPoolAvatar::renderShadow(S32 pass)
 	{
 		return;
 	}
-	if (avatarp->shouldHideForFriendsOnly())
+	if (avatarp->shouldHideForFriendsOnly() || avatarp->shouldHideForNearLimit())
 	{
 		return;
 	}
@@ -963,7 +963,7 @@ void LLDrawPoolAvatar::renderAvatars(LLVOAvatar* single_avatar, S32 pass)
 	{
 		return;
 	}
-	if (!single_avatar && avatarp->shouldHideForFriendsOnly())
+	if (!single_avatar && (avatarp->shouldHideForFriendsOnly() || avatarp->shouldHideForNearLimit()))
 	{
 		return;
 	}

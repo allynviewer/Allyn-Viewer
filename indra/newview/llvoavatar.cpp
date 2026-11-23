@@ -763,7 +763,7 @@ void SHClientTagMgr::clearAvatarTag(const LLVOAvatar* pAvatar)
 }
 LLAvatarAppearanceDictionary *LLVOAvatar::sAvatarDictionary = NULL;
 S32 LLVOAvatar::sFreezeCounter = 0;
-U32 LLVOAvatar::sMaxVisible = 50;
+U32 LLVOAvatar::sMaxVisible = 12;
 F32 LLVOAvatar::sRenderDistance = 256.f;
 S32	LLVOAvatar::sNumVisibleAvatars = 0;
 S32	LLVOAvatar::sNumLODChangesThisFrame = 0;
@@ -789,6 +789,8 @@ bool LLVOAvatar::sVisibleInFirstPerson = false;
 F32 LLVOAvatar::sLODFactor = 1.f;
 F32 LLVOAvatar::sPhysicsLODFactor = 1.f;
 bool LLVOAvatar::sUseImpostors = false;
+bool LLVOAvatar::sAvatarCullNeedsUpdate = true;
+F64 LLVOAvatar::sLastCullUpdateTime = 0.0;
 BOOL LLVOAvatar::sJointDebug = false;
 F32 LLVOAvatar::sUnbakedTime = 0.f;
 F32 LLVOAvatar::sUnbakedUpdateTime = 0.f;
@@ -835,6 +837,8 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	mFirstAppearanceMessageReceived( FALSE ),
 	mCulled( FALSE ),
 	mVisibilityRank(0),
+	mNearCharacter(FALSE),
+	mLastCulledPixelArea(-1.f),
 	mNeedsSkin(FALSE),
 	mLastSkinTime(0.f),
 	mUpdatePeriod(1),
@@ -2242,7 +2246,21 @@ void LLVOAvatar::idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time)
 	{
 		return;
 	}
-	const S32 upd_freq = 4;
+	static S32 upd_freq = 4;
+	static S32 last_extent_frame = 0;
+	const S32 this_frame = LLDrawable::getCurrentFrame();
+	if (this_frame - last_extent_frame >= upd_freq)
+	{
+		S32 avatar_count = (S32)LLCharacter::sInstances.size();
+		if (avatar_count < 1)
+		{
+			avatar_count = 1;
+		}
+		const S32 refresh_period = 4;
+		const S32 refresh_max = 5;
+		upd_freq = (((avatar_count - 1) / refresh_max) + 1) * refresh_period;
+		last_extent_frame = this_frame;
+	}
 	if ((mLastAnimExtents[0]==LLVector3())||
 		(mLastAnimExtents[1])==LLVector3())
 	{
@@ -2250,10 +2268,29 @@ void LLVOAvatar::idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time)
 	}
 	else
 	{
-		mNeedsExtentUpdate = ((LLDrawable::getCurrentFrame()+mID.mData[0])%upd_freq==0);
+		mNeedsExtentUpdate = ((this_frame+mID.mData[0])%upd_freq==0);
 	}
 	checkTextureLoading() ;
 	setPixelAreaAndAngle(gAgent);
+	if (!isSelf())
+	{
+		F32 current_pixel_area = getPixelArea();
+		if (mLastCulledPixelArea >= 0.f)
+		{
+			F32 base = mLastCulledPixelArea > 0.f ? mLastCulledPixelArea : 1.f;
+			F32 pixel_area_change = fabsf(current_pixel_area - mLastCulledPixelArea) / base;
+			if (pixel_area_change > 0.1f)
+			{
+				sAvatarCullNeedsUpdate = true;
+				mLastCulledPixelArea = current_pixel_area;
+			}
+		}
+		else
+		{
+			sAvatarCullNeedsUpdate = true;
+			mLastCulledPixelArea = current_pixel_area;
+		}
+	}
 	if(mDrawable.notNull() && !gNoRender)
 	{
 		LL_RECORD_BLOCK_TIME(FTM_JOINT_UPDATE);
@@ -2726,7 +2763,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 		clearNameTag();
 		return;
 	}
-	if (shouldHideForFriendsOnly())
+	if (shouldHideForFriendsOnly() || shouldHideForNearLimit())
 	{
 		clearNameTag();
 		return;
@@ -3574,6 +3611,20 @@ void LLVOAvatar::updateFootstepSounds()
 void LLVOAvatar::computeUpdatePeriod()
 {
 	bool visually_muted = isVisuallyMuted();
+	const S32 UPDATE_RATE_SLOW = 64;
+	const S32 UPDATE_RATE_MED = 48;
+	const S32 UPDATE_RATE_FAST = 32;
+	if (shouldHideForNearLimit() && !mNeedsAnimUpdate && !sFreezeCounter)
+	{
+		mUpdatePeriod = UPDATE_RATE_SLOW;
+		return;
+	}
+	if (!isSelf() && !isUIAvatar() && !mNearCharacter && !mNeedsAnimUpdate && !sFreezeCounter
+		&& (mDrawable.isNull() || !isVisible()))
+	{
+		mUpdatePeriod = UPDATE_RATE_SLOW;
+		return;
+	}
 	if (mDrawable.notNull()
 		&& isVisible()
 		&& (!isSelf() || visually_muted)
@@ -3586,10 +3637,9 @@ void LLVOAvatar::computeUpdatePeriod()
 		LLVector4a size;
 		size.setSub(ext[1],ext[0]);
 		F32 mag = size.getLength3().getF32()*0.5f;
-		F32 impostor_area = 256.f*512.f*(8.125f - LLVOAvatar::sLODFactor*8.f);
 		if (visually_muted)
 		{
-			mUpdatePeriod = 16;
+			mUpdatePeriod = UPDATE_RATE_SLOW;
 		}
 		else if (! shouldImpostor()
 				 || mDrawable->mDistanceWRTCamera < 1.f + mag)
@@ -3598,19 +3648,19 @@ void LLVOAvatar::computeUpdatePeriod()
 		}
 		else if ( shouldImpostor(4) )
 		{
-			mUpdatePeriod = 16;
+			mUpdatePeriod = UPDATE_RATE_SLOW;
+		}
+		else if (mLastRezzedStatus <= 0)
+		{
+			mUpdatePeriod = UPDATE_RATE_SLOW;
 		}
 		else if ( shouldImpostor(3) )
 		{
-			mUpdatePeriod = 8;
-		}
-		else if (mImpostorPixelArea <= impostor_area)
-		{
-			mUpdatePeriod = llclamp((S32) sqrtf(impostor_area*4.f/mImpostorPixelArea), 2, 8);
+			mUpdatePeriod = UPDATE_RATE_MED;
 		}
 		else
 		{
-			mUpdatePeriod = 4;
+			mUpdatePeriod = UPDATE_RATE_FAST;
 		}
 	}
 	else
@@ -6626,6 +6676,31 @@ bool LLVOAvatar::shouldHideForFriendsOnly() const
 	static LLCachedControl<bool> friends_only(gSavedPerAccountSettings, "AllynRenderFriendsOnly", false);
 	return friends_only && !LLAvatarTracker::instance().isBuddy(getID());
 }
+bool LLVOAvatar::shouldHideForNearLimit() const
+{
+	static LLCachedControl<bool> near_enabled(gSavedSettings, "RenderNearCharacters", false);
+	if (!near_enabled)
+	{
+		return false;
+	}
+	if (isSelf() || isUIAvatar() || mNearCharacter)
+	{
+		return false;
+	}
+	if (isControlAvatar())
+	{
+		const LLControlAvatar* control = const_cast<LLVOAvatar*>(this)->asControlAvatar();
+		if (control && control->mRootVolp)
+		{
+			const LLVOAvatar* owner = control->mRootVolp->getAvatarAncestor();
+			if (owner && (owner->isSelf() || owner->mNearCharacter))
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
 void LLVOAvatar::cacheAppearanceForFriendsOnly()
 {
 	if (isSelf() || isControlAvatar() || isUIAvatar() || getID().isNull())
@@ -7680,11 +7755,36 @@ void LLVOAvatar::setOnlyShowSelfWhitelisted(const std::vector<LLUUID>& ids, bool
 	}
 	gSavedPerAccountSettings.setLLSD("AllynOnlyShowSelfWhitelist", out);
 }
+static std::set<LLUUID> sNearLimitHidden;
+void LLVOAvatar::addNearLimitHidden(const LLUUID& id)
+{
+	if (!id.isNull() && id != gAgentID)
+	{
+		sNearLimitHidden.insert(id);
+	}
+}
+bool LLVOAvatar::replaceNearLimitHidden(const std::set<LLUUID>& ids)
+{
+	if (sNearLimitHidden == ids)
+	{
+		return false;
+	}
+	sNearLimitHidden = ids;
+	return true;
+}
+bool LLVOAvatar::isNearLimitHidden(const LLUUID& id)
+{
+	return sNearLimitHidden.count(id) != 0;
+}
 bool LLVOAvatar::shouldSuppressForAvatarDisplay(const LLUUID& id)
 {
 	if (id.isNull() || id == gAgentID)
 	{
 		return false;
+	}
+	if (isNearLimitHidden(id))
+	{
+		return true;
 	}
 	S32 mode = gSavedSettings.getS32("AlwaysRenderFriends");
 	if (mode == 3)
@@ -7699,6 +7799,10 @@ bool LLVOAvatar::shouldSuppressForAvatarDisplay(const LLUUID& id)
 }
 void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 {
+	if (!isSelf() && isNearLimitHidden(getID()))
+	{
+		return;
+	}
 	if (!isSelf())
 	{
 		if (wantAvatarDisplayTrace()) traceAvatarDisplay(llformat("avatar_appearance_received id=%s mode=%d reason=normal_pipeline", getID().asString().c_str(), gSavedSettings.getS32("AlwaysRenderFriends")));
@@ -8293,43 +8397,284 @@ S32 LLVOAvatar::getUnbakedPixelAreaRank()
 	llassert(0);
 	return 0;
 }
-struct CompareScreenAreaGreater
-{
-	BOOL operator()(const LLCharacter* const& lhs, const LLCharacter* const& rhs)
-	{
-		return lhs->getPixelArea() > rhs->getPixelArea();
-	}
-};
 void LLVOAvatar::cullAvatarsByPixelArea()
 {
-	std::sort(LLCharacter::sInstances.begin(), LLCharacter::sInstances.end(), CompareScreenAreaGreater());
-	U32 rank = 2;
-	for (std::vector<LLCharacter*>::iterator iter = LLCharacter::sInstances.begin();
-		iter != LLCharacter::sInstances.end(); ++iter)
+	F64 current_time = LLFrameTimer::getElapsedSeconds();
+	bool needs_resort = sAvatarCullNeedsUpdate || ((current_time - sLastCullUpdateTime) >= 1.0);
 	{
-		LLVOAvatar* inst = (LLVOAvatar*) *iter;
-		BOOL culled;
-		if (inst->isSelf() || inst->isFullyBaked())
+		struct NearCand
 		{
-			culled = FALSE;
+			F32 mDist;
+			LLVOAvatar* mAvatar;
+			LLUUID mId;
+		};
+		std::vector<NearCand> zoom_cands;
+		std::vector<NearCand> avatar_cands;
+		S32 zoom_count = gSavedSettings.getS32("RenderNearZoomCount");
+		S32 avatar_count = gSavedSettings.getS32("RenderNearAvatarCount");
+		F32 zoom_dist = gSavedSettings.getF32("RenderNearZoomDistance");
+		F32 avatar_dist = gSavedSettings.getF32("RenderNearAvatarDistance");
+		if (zoom_count < 0)
+		{
+			zoom_count = 0;
 		}
-		else
+		else if (zoom_count > 100)
 		{
-			culled = TRUE;
+			zoom_count = 100;
 		}
-		if (inst->mCulled != culled)
+		if (avatar_count < 0)
 		{
-			inst->mCulled = culled;
-			LL_DEBUGS() << "avatar " << inst->getID() << (culled ? " start culled" : " start not culled" ) << LL_ENDL;
-			inst->updateMeshTextures();
+			avatar_count = 0;
 		}
-		if (inst->isSelf())
+		else if (avatar_count > 100)
 		{
-			inst->setVisibilityRank(1);
+			avatar_count = 100;
 		}
-		else if (inst->mDrawable.notNull() && inst->mDrawable->isVisible())
+		if (zoom_dist < 0.f)
 		{
-			inst->setVisibilityRank(rank++);
+			zoom_dist = 0.f;
+		}
+		if (avatar_dist < 0.f)
+		{
+			avatar_dist = 0.f;
+		}
+		static LLCachedControl<bool> near_enabled(gSavedSettings, "RenderNearCharacters", false);
+		if (!near_enabled)
+		{
+			for (std::vector<LLCharacter*>::iterator iter = LLCharacter::sInstances.begin();
+				iter != LLCharacter::sInstances.end(); ++iter)
+			{
+				((LLVOAvatar*) *iter)->mNearCharacter = FALSE;
+			}
+			if (replaceNearLimitHidden(std::set<LLUUID>()))
+			{
+				gObjectList.syncAvatarDisplaySuppression();
+			}
+		}
+		if (near_enabled)
+		{
+		std::set<LLUUID> shown_ids;
+		LLVector3d focus_pos = gAgentCamera.getFocusGlobal();
+		LLVector3d avatar_pos = gAgent.getPositionGlobal();
+		for (std::vector<LLCharacter*>::iterator iter = LLCharacter::sInstances.begin();
+			iter != LLCharacter::sInstances.end(); ++iter)
+		{
+			LLVOAvatar* inst = (LLVOAvatar*) *iter;
+			inst->mNearCharacter = FALSE;
+			if (inst->isDead() || inst->isSelf() || inst->isUIAvatar())
+			{
+				continue;
+			}
+			LLVector3d pos = inst->getPositionGlobal();
+			F32 dist_zoom = (F32)(pos - focus_pos).length();
+			F32 dist_avatar = (F32)(pos - avatar_pos).length();
+			if (inst->isControlAvatar())
+			{
+				if ((zoom_count > 0 && dist_zoom <= zoom_dist) || (avatar_count > 0 && dist_avatar <= avatar_dist))
+				{
+					inst->mNearCharacter = TRUE;
+					shown_ids.insert(inst->getID());
+				}
+				continue;
+			}
+			if (zoom_count > 0 && dist_zoom <= zoom_dist)
+			{
+				NearCand cand;
+				cand.mDist = dist_zoom;
+				cand.mAvatar = inst;
+				cand.mId = inst->getID();
+				zoom_cands.push_back(cand);
+			}
+			if (avatar_count > 0 && dist_avatar <= avatar_dist)
+			{
+				NearCand cand;
+				cand.mDist = dist_avatar;
+				cand.mAvatar = inst;
+				cand.mId = inst->getID();
+				avatar_cands.push_back(cand);
+			}
+		}
+		std::vector<LLViewerObjectList::SuppressedAvatarSpot> spots;
+		gObjectList.getSuppressedAvatarSpots(spots);
+		for (size_t spot_index = 0; spot_index < spots.size(); ++spot_index)
+		{
+			const LLViewerObjectList::SuppressedAvatarSpot& spot = spots[spot_index];
+			if (gObjectList.findAvatar(spot.mID))
+			{
+				continue;
+			}
+			S32 mode = gSavedSettings.getS32("AlwaysRenderFriends");
+			if (mode == 3 && !isOnlyShowSelfWhitelisted(spot.mID))
+			{
+				continue;
+			}
+			if (mode == 2 && !LLAvatarTracker::instance().isBuddy(spot.mID))
+			{
+				continue;
+			}
+			F32 dist_zoom = (F32)(spot.mPosition - focus_pos).length();
+			F32 dist_avatar = (F32)(spot.mPosition - avatar_pos).length();
+			if (zoom_count > 0 && dist_zoom <= zoom_dist)
+			{
+				NearCand cand;
+				cand.mDist = dist_zoom;
+				cand.mAvatar = NULL;
+				cand.mId = spot.mID;
+				zoom_cands.push_back(cand);
+			}
+			if (avatar_count > 0 && dist_avatar <= avatar_dist)
+			{
+				NearCand cand;
+				cand.mDist = dist_avatar;
+				cand.mAvatar = NULL;
+				cand.mId = spot.mID;
+				avatar_cands.push_back(cand);
+			}
+		}
+		if (!zoom_cands.empty())
+		{
+			std::sort(zoom_cands.begin(), zoom_cands.end(),
+				[](const NearCand& lhs, const NearCand& rhs)
+				{
+					return lhs.mDist < rhs.mDist;
+				});
+			S32 count = (S32)zoom_cands.size();
+			if (count > zoom_count)
+			{
+				count = zoom_count;
+			}
+			for (S32 i = 0; i < count; ++i)
+			{
+				if (zoom_cands[i].mAvatar)
+				{
+					zoom_cands[i].mAvatar->mNearCharacter = TRUE;
+				}
+				shown_ids.insert(zoom_cands[i].mId);
+			}
+		}
+		if (!avatar_cands.empty())
+		{
+			std::sort(avatar_cands.begin(), avatar_cands.end(),
+				[](const NearCand& lhs, const NearCand& rhs)
+				{
+					return lhs.mDist < rhs.mDist;
+				});
+			S32 count = (S32)avatar_cands.size();
+			if (count > avatar_count)
+			{
+				count = avatar_count;
+			}
+			for (S32 i = 0; i < count; ++i)
+			{
+				if (avatar_cands[i].mAvatar)
+				{
+					avatar_cands[i].mAvatar->mNearCharacter = TRUE;
+				}
+				shown_ids.insert(avatar_cands[i].mId);
+			}
+		}
+		std::set<LLUUID> hidden_ids;
+		for (std::vector<LLCharacter*>::iterator iter = LLCharacter::sInstances.begin();
+			iter != LLCharacter::sInstances.end(); ++iter)
+		{
+			LLVOAvatar* inst = (LLVOAvatar*) *iter;
+			if (inst->isDead() || inst->isSelf() || inst->isUIAvatar() || inst->mNearCharacter)
+			{
+				continue;
+			}
+			hidden_ids.insert(inst->getID());
+		}
+		for (size_t spot_index = 0; spot_index < spots.size(); ++spot_index)
+		{
+			const LLUUID& spot_id = spots[spot_index].mID;
+			if (shown_ids.count(spot_id) != 0 || gObjectList.findAvatar(spot_id))
+			{
+				continue;
+			}
+			hidden_ids.insert(spot_id);
+		}
+		if (replaceNearLimitHidden(hidden_ids))
+		{
+			gObjectList.syncAvatarDisplaySuppression();
+		}
+		}
+	}
+	if (needs_resort)
+	{
+		std::sort(LLCharacter::sInstances.begin(), LLCharacter::sInstances.end(),
+			[](const LLCharacter* lhs, const LLCharacter* rhs)
+			{
+				const LLVOAvatar* lhs_av = (const LLVOAvatar*)lhs;
+				const LLVOAvatar* rhs_av = (const LLVOAvatar*)rhs;
+				if (lhs_av->mVisible != rhs_av->mVisible)
+				{
+					return lhs_av->mVisible ? true : false;
+				}
+				return lhs_av->getPixelArea() > rhs_av->getPixelArea();
+			});
+		U32 rank = 2;
+		for (std::vector<LLCharacter*>::iterator iter = LLCharacter::sInstances.begin();
+			iter != LLCharacter::sInstances.end(); ++iter)
+		{
+			LLVOAvatar* inst = (LLVOAvatar*) *iter;
+			BOOL culled;
+			if (inst->isSelf() || inst->isFullyBaked())
+			{
+				culled = FALSE;
+			}
+			else
+			{
+				culled = TRUE;
+			}
+			if (inst->mCulled != culled)
+			{
+				inst->mCulled = culled;
+				LL_DEBUGS() << "avatar " << inst->getID() << (culled ? " start culled" : " start not culled" ) << LL_ENDL;
+				inst->updateMeshTextures();
+			}
+			if (inst->isSelf())
+			{
+				inst->setVisibilityRank(1);
+			}
+			else if (inst->mNearCharacter)
+			{
+				inst->setVisibilityRank(2);
+			}
+			else if (inst->mDrawable.notNull() && inst->mDrawable->isVisible())
+			{
+				inst->setVisibilityRank(rank++);
+			}
+			else
+			{
+				U32 far_rank = sMaxVisible > 0 ? sMaxVisible * 5 : 1;
+				inst->setVisibilityRank(far_rank);
+			}
+			inst->mLastCulledPixelArea = inst->getPixelArea();
+		}
+		sAvatarCullNeedsUpdate = false;
+		sLastCullUpdateTime = current_time;
+	}
+	else
+	{
+		for (std::vector<LLCharacter*>::iterator iter = LLCharacter::sInstances.begin();
+			iter != LLCharacter::sInstances.end(); ++iter)
+		{
+			LLVOAvatar* inst = (LLVOAvatar*) *iter;
+			BOOL culled;
+			if (inst->isSelf() || inst->isFullyBaked())
+			{
+				culled = FALSE;
+			}
+			else
+			{
+				culled = TRUE;
+			}
+			if (inst->mCulled != culled)
+			{
+				inst->mCulled = culled;
+				LL_DEBUGS() << "avatar " << inst->getID() << (culled ? " start culled" : " start not culled" ) << LL_ENDL;
+				inst->updateMeshTextures();
+			}
 		}
 	}
 	S32 grey_avatars = 0;
@@ -8643,6 +8988,11 @@ BOOL LLVOAvatar::isImpostor() const
 }
 BOOL LLVOAvatar::shouldImpostor(const U32 rank_factor) const
 {
+	static LLCachedControl<bool> near_enabled(gSavedSettings, "RenderNearCharacters", false);
+	if (near_enabled && mNearCharacter)
+	{
+		return FALSE;
+	}
 	return (!isSelf() && sUseImpostors && mVisibilityRank > (sMaxVisible * rank_factor));
 }
 BOOL LLVOAvatar::needsImpostorUpdate() const

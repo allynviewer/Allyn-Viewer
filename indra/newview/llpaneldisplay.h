@@ -110,6 +110,11 @@ protected:
 	F32 mTerrainScale;
 	BOOL mAvatarImpostors;
 	S32 mNonImpostors;
+	BOOL mNearCharacters;
+	S32 mNearZoomCount;
+	F32 mNearZoomDistance;
+	S32 mNearAvatarCount;
+	F32 mNearAvatarDistance;
 	BOOL mAvatarCloth;
 	S32 mAvatarMode;
 	S32 mShowAvatarNameTag;

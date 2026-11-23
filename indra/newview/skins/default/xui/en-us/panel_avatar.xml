@@ -52,7 +52,7 @@
 			     default_image_name="None" follows="left|top" height="144" label=""
 			     left="64" mouse_opaque="true" name="img"
 			     tool_tip="Click to choose a picture" width="144"/>
-			<button bottom="-204" follows="left|top" font="SansSerifSmall" height="18"
+			<button bottom="-199" follows="left|top" font="SansSerifSmall" height="18"
 			     label="Show with self" label_selected="Shown with self" left="64"
 			     mouse_opaque="true" name="only_show_self" toggle="true"
 			     tool_tip="Keep this avatar visible while Avatar display is Only show self."
@@ -103,7 +103,7 @@
 				(500 chars)
 			</text>
 			<text_editor bottom="178" embedded_items="false" enabled="true"
-			     follows="left|top|right|bottom" font="SansSerifSmall" height="125"
+			     follows="left|top|right|bottom" font="SansSerifSmall" height="145"
 			     left="64" max_length="511" mouse_opaque="true" hide_scrollbar="false"
 			     name="about" right="-8" word_wrap="true" spell_check="true"/>
 

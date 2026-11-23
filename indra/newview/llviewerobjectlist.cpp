@@ -261,6 +261,48 @@ void LLViewerObjectList::processUpdateCore(LLViewerObject* objectp,
 	}
 }
 static LLTrace::BlockTimerStatHandle FTM_PROCESS_OBJECTS("Process Objects");
+static bool avatarDisplayGateActive()
+{
+	return gSavedSettings.getS32("AlwaysRenderFriends") >= 2 || gSavedSettings.getBOOL("RenderNearCharacters");
+}
+static bool outsideNearDistances(const LLVOAvatar* avatar)
+{
+	static LLCachedControl<bool> near_enabled(gSavedSettings, "RenderNearCharacters", false);
+	if (!near_enabled || !avatar || avatar->isDead() || avatar->isSelf() || avatar->isUIAvatar())
+	{
+		return false;
+	}
+	static LLCachedControl<S32> zoom_count(gSavedSettings, "RenderNearZoomCount", 50);
+	static LLCachedControl<S32> avatar_count(gSavedSettings, "RenderNearAvatarCount", 50);
+	static LLCachedControl<F32> zoom_dist(gSavedSettings, "RenderNearZoomDistance", 20.f);
+	static LLCachedControl<F32> avatar_dist(gSavedSettings, "RenderNearAvatarDistance", 20.f);
+	S32 zoom_n = zoom_count;
+	S32 avatar_n = avatar_count;
+	if (zoom_n < 0)
+	{
+		zoom_n = 0;
+	}
+	else if (zoom_n > 100)
+	{
+		zoom_n = 100;
+	}
+	if (avatar_n < 0)
+	{
+		avatar_n = 0;
+	}
+	else if (avatar_n > 100)
+	{
+		avatar_n = 100;
+	}
+	F32 zoom_m = zoom_dist < 0.f ? 0.f : (F32)zoom_dist;
+	F32 avatar_m = avatar_dist < 0.f ? 0.f : (F32)avatar_dist;
+	LLVector3d pos = avatar->getPositionGlobal();
+	F32 dist_zoom = (F32)(pos - gAgentCamera.getFocusGlobal()).length();
+	F32 dist_avatar = (F32)(pos - gAgent.getPositionGlobal()).length();
+	bool in_zoom = zoom_n > 0 && dist_zoom <= zoom_m;
+	bool in_avatar = avatar_n > 0 && dist_avatar <= avatar_m;
+	return !in_zoom && !in_avatar;
+}
 void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 											 void **user_data,
 											 const EObjectUpdateType update_type,
@@ -382,6 +424,10 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 			&& (mAvatarDisplaySuppressedLocals.count(std::make_pair(regionp->getHandle(), local_id)) != 0
 				|| mAvatarDisplayPendingParent.count(std::make_pair(regionp->getHandle(), local_id)) != 0))
 		{
+			if (compressed && update_type == OUT_TERSE_IMPROVED)
+			{
+				noteSuppressedAvatarTerse(regionp, local_id, compressed_dp);
+			}
 			continue;
 		}
 		objectp = findObject(fullid);
@@ -448,7 +494,7 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 			U8 state = 0;
 			LLDataPackerBinaryBuffer* sequential_dp = NULL;
 			S32 sequential_cursor = -1;
-			if (gSavedSettings.getS32("AlwaysRenderFriends") >= 2)
+			if (avatarDisplayGateActive())
 			{
 				if (compressed && update_type != OUT_TERSE_IMPROVED)
 				{
@@ -521,7 +567,8 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 			}
 			processUpdateCore(objectp, user_data, i, update_type, NULL, justCreated);
 		}
-		if (justCreated && !objectp->isDead() && objectp->isAvatar())
+		bool drop_near = objectp->isAvatar() && !objectp->isDead() && outsideNearDistances((LLVOAvatar*)objectp);
+		if (justCreated && !objectp->isDead() && objectp->isAvatar() && !drop_near)
 		{
 			LLVOAvatar* avatar = (LLVOAvatar*)objectp;
 			LLVOAvatar::applyCachedFriendsOnlyAppearance(avatar);
@@ -536,6 +583,11 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 		recorder.objectUpdateEvent(local_id, update_type, objectp, msg_size);
 		objectp->setLastUpdateType(update_type);
 		objectp->setLastUpdateCached(bCached);
+		if (drop_near)
+		{
+			LLVOAvatar::addNearLimitHidden(objectp->getID());
+			destroySuppressedAvatar((LLVOAvatar*)objectp);
+		}
 	}
 	killPendingNonFriendOrphans();
 	killPendingAvatarDisplayOrphans();
@@ -1667,7 +1719,11 @@ void LLViewerObjectList::restoreSuppressedNonFriends()
 }
 static bool avatarDisplayKeepsLoaded(LLVOAvatar* avatar)
 {
-	if (!avatar || avatar->isDead() || avatar->isSelf() || avatar->isControlAvatar() || avatar->isUIAvatar() || !avatar->getRegion())
+	if (!avatar || avatar->isDead() || avatar->isSelf() || avatar->isUIAvatar() || !avatar->getRegion())
+	{
+		return true;
+	}
+	if (avatar->isControlAvatar() && !LLVOAvatar::isNearLimitHidden(avatar->getID()))
 	{
 		return true;
 	}
@@ -1935,7 +1991,7 @@ bool LLViewerObjectList::requestAllPendingAvatarDisplayLocals()
 }
 bool LLViewerObjectList::releaseLiveAvatarDisplayPending(LLViewerRegion* regionp)
 {
-	if (!regionp || mAvatarDisplayPendingParent.empty() || gSavedSettings.getS32("AlwaysRenderFriends") < 2)
+	if (!regionp || mAvatarDisplayPendingParent.empty() || !avatarDisplayGateActive())
 	{
 		return false;
 	}
@@ -1979,7 +2035,7 @@ bool LLViewerObjectList::avatarDisplayParentIsLive(LLViewerRegion* regionp, U32 
 }
 S32 LLViewerObjectList::blockClosedAvatarDisplayCreate(LLViewerRegion* regionp, U32 local_id, const LLUUID& full_id, LLPCode pcode, U32 parent_id, U8 state)
 {
-	if (!regionp || local_id == 0 || gSavedSettings.getS32("AlwaysRenderFriends") < 2)
+	if (!regionp || local_id == 0 || !avatarDisplayGateActive())
 	{
 		return 0;
 	}
@@ -2221,7 +2277,7 @@ void LLViewerObjectList::noteClosedAvatarDisplayGate(LLMessageSystem* mesgsys, L
 	{
 		return;
 	}
-	if (gSavedSettings.getS32("AlwaysRenderFriends") < 2)
+	if (!avatarDisplayGateActive())
 	{
 		return;
 	}
@@ -2436,6 +2492,78 @@ bool LLViewerObjectList::forgetSuppressedAvatarDisplayLocal(U32 ip, U32 port, U3
 	}
 	return true;
 }
+void LLViewerObjectList::getSuppressedAvatarSpots(std::vector<SuppressedAvatarSpot>& out) const
+{
+	out.clear();
+	for (std::map<LLUUID, AvatarDisplaySuppressed>::const_iterator it = mAvatarDisplaySuppressed.begin(); it != mAvatarDisplaySuppressed.end(); ++it)
+	{
+		if (!it->second.mHasPosition)
+		{
+			continue;
+		}
+		SuppressedAvatarSpot spot;
+		spot.mID = it->first;
+		spot.mPosition = it->second.mPositionGlobal;
+		out.push_back(spot);
+	}
+}
+void LLViewerObjectList::noteSuppressedAvatarTerse(LLViewerRegion* regionp, U32 local_id, LLDataPacker& dp)
+{
+	if (!regionp || local_id == 0)
+	{
+		return;
+	}
+	std::map<std::pair<U64, U32>, LLUUID>::const_iterator found = mAvatarDisplaySuppressedLocals.find(std::make_pair(regionp->getHandle(), local_id));
+	if (found == mAvatarDisplaySuppressedLocals.end())
+	{
+		return;
+	}
+	std::map<LLUUID, AvatarDisplaySuppressed>::iterator avatar = mAvatarDisplaySuppressed.find(found->second);
+	if (avatar == mAvatarDisplaySuppressed.end() || avatar->second.mRootLocalId != local_id)
+	{
+		return;
+	}
+	U8 agent = 0;
+	dp.unpackU8(agent, "agent");
+	if (agent)
+	{
+		LLVector4 plane;
+		dp.unpackVector4(plane, "Plane");
+	}
+	LLVector3 pos;
+	dp.unpackVector3(pos, "Pos");
+	avatar->second.mPositionGlobal = regionp->getPosGlobalFromRegion(pos);
+	avatar->second.mHasPosition = true;
+}
+void LLViewerObjectList::destroySuppressedAvatar(LLVOAvatar* avatar)
+{
+	if (!avatar || avatarDisplayKeepsLoaded(avatar))
+	{
+		return;
+	}
+	uuid_set_t meshes;
+	uuid_set_t textures;
+	bool already = mAvatarDisplaySuppressed.find(avatar->getID()) != mAvatarDisplaySuppressed.end();
+	if (!already)
+	{
+		collectAvatarDisplayResource(avatar, meshes, textures);
+		if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("AVATAR DESTROYED id=%s local=%u mode=%d reason=near_limit", avatar->getID().asString().c_str(), avatar->getLocalID(), gSavedSettings.getS32("AlwaysRenderFriends")));
+		rememberAvatarDisplayObject(avatar->getRegion(), avatar, avatar->getID(), true);
+	}
+	std::map<LLUUID, AvatarDisplaySuppressed>::iterator entry = mAvatarDisplaySuppressed.find(avatar->getID());
+	if (entry != mAvatarDisplaySuppressed.end())
+	{
+		entry->second.mPositionGlobal = avatar->getPositionGlobal();
+		entry->second.mHasPosition = true;
+	}
+	if (!avatar->isDead())
+	{
+		killObject(avatar);
+	}
+	cleanDeadObjects(FALSE);
+	killPendingAvatarDisplayOrphans();
+	releaseUnreferencedAvatarDisplayResources(*this, meshes, textures);
+}
 void LLViewerObjectList::syncAvatarDisplaySuppression()
 {
 	static bool syncing = false;
@@ -2457,11 +2585,23 @@ void LLViewerObjectList::syncAvatarDisplaySuppression()
 		}
 		if (mAvatarDisplaySuppressed.find(avatar->getID()) != mAvatarDisplaySuppressed.end())
 		{
+			AvatarDisplaySuppressed& entry = mAvatarDisplaySuppressed[avatar->getID()];
+			entry.mPositionGlobal = avatar->getPositionGlobal();
+			entry.mHasPosition = true;
+			if (!avatar->isDead())
+			{
+				killObject(avatar);
+			}
 			continue;
 		}
 		collectAvatarDisplayResource(avatar, meshes, textures);
 		if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("AVATAR DESTROYED id=%s local=%u mode=%d reason=display_gate_closed", avatar->getID().asString().c_str(), avatar->getLocalID(), gSavedSettings.getS32("AlwaysRenderFriends")));
 		rememberAvatarDisplayObject(avatar->getRegion(), avatar, avatar->getID(), true);
+		{
+			AvatarDisplaySuppressed& entry = mAvatarDisplaySuppressed[avatar->getID()];
+			entry.mPositionGlobal = avatar->getPositionGlobal();
+			entry.mHasPosition = true;
+		}
 		killObject(avatar);
 	}
 	cleanDeadObjects(FALSE);
@@ -2509,7 +2649,7 @@ void LLViewerObjectList::syncAvatarDisplaySuppression()
 		}
 		mAvatarDisplaySuppressed.erase(found);
 	}
-	if (gSavedSettings.getS32("AlwaysRenderFriends") < 2 && requestAllPendingAvatarDisplayLocals())
+	if (!avatarDisplayGateActive() && requestAllPendingAvatarDisplayLocals())
 	{
 		requested = true;
 	}

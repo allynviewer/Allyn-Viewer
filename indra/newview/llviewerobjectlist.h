@@ -174,6 +174,12 @@ public:
 	bool isSuppressedNonFriendParent(U32 parent_id, U32 ip, U32 port) const;
 	void restoreSuppressedNonFriends();
 	void syncAvatarDisplaySuppression();
+	struct SuppressedAvatarSpot
+	{
+		LLUUID mID;
+		LLVector3d mPosition;
+	};
+	void getSuppressedAvatarSpots(std::vector<SuppressedAvatarSpot>& out) const;
 	S32 notifyVolumesUsingMesh(const LLUUID& mesh_id);
 	void forgetSuppressedAvatarDisplayRegion(LLViewerRegion* regionp);
 	bool forgetSuppressedAvatarDisplayLocal(U32 ip, U32 port, U32 local_id);
@@ -183,10 +189,18 @@ private:
 	std::vector<LLPointer<LLViewerObject> > mPendingNonFriendOrphanKills;
 	struct AvatarDisplaySuppressed
 	{
+		AvatarDisplaySuppressed()
+			: mRegionHandle(0), mRootLocalId(0), mHasPosition(false)
+		{
+		}
 		U64 mRegionHandle;
 		U32 mRootLocalId;
 		std::vector<U32> mLocalIds;
+		LLVector3d mPositionGlobal;
+		bool mHasPosition;
 	};
+	void destroySuppressedAvatar(LLVOAvatar* avatar);
+	void noteSuppressedAvatarTerse(LLViewerRegion* regionp, U32 local_id, LLDataPacker& dp);
 	void rememberAvatarDisplayObject(LLViewerRegion* regionp, LLViewerObject* objectp, const LLUUID& avatar_id, bool is_root);
 	bool rememberAvatarDisplayLocalId(LLViewerRegion* regionp, U32 local_id, const LLUUID& avatar_id, bool is_root);
 	void holdAvatarDisplayLocalId(LLViewerRegion* regionp, U32 local_id, U32 parent_id);

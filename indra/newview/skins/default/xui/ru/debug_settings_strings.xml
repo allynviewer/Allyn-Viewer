@@ -1322,6 +1322,11 @@
 	<string name="RenderAvatarMaxComplexity">Максимальная сложность аватара; выше этого значения аватар
     отображается как сплошной цветной контур (0, чтобы отключить это ограничение).</string>
 	<string name="RenderAvatarMaxVisible">Максимальное количество аватаров, отображаемых одновременно</string>
+	<string name="RenderNearCharacters">Включает или выключает четыре предела персонажей рядом. Выключено: аватары рисуются как обычно.</string>
+	<string name="RenderNearAvatarCount">Сколько аватаров в дистанции от вас остаются полностью отрисованными, сначала ближайшие к вам</string>
+	<string name="RenderNearAvatarDistance">Метры от вашего аватара для персонажей рядом</string>
+	<string name="RenderNearZoomCount">Сколько аватаров в дистанции зума остаются полностью отрисованными, сначала ближайшие к точке камеры</string>
+	<string name="RenderNearZoomDistance">Метры от точки камеры для персонажей рядом</string>
 	<string name="RenderAvatarPhysicsLODFactor">Управляет уровнем детализации физики аватара (например, физики груди).</string>
 	<string name="RenderAvatarVP">Используйте вершинные программы для выполнения аппаратного скининга аватара.</string>
 	<string name="RenderBakeSunlight">Запекайте солнечный свет в буферах вершин для статических объектов.</string>

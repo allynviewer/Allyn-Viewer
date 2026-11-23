@@ -43,9 +43,23 @@ namespace AllynAssetRank
 	{
 		return clampPx(px * 2.f) + NOTHING_SHOWN;
 	}
-	inline U32 textureRank(F32 px, bool shown)
+	inline U32 textureRank(F32 px, bool)
 	{
-		return clampPx(px) + (shown ? 0 : NOTHING_SHOWN);
+		return clampPx(px);
+	}
+	inline U32 fetchRank(F32 px, bool shown, bool ahead)
+	{
+		U32 rank = textureRank(px, shown);
+		if (!ahead)
+		{
+			return rank;
+		}
+		const U32 bonus = 1;
+		if (rank >= URGENT || URGENT - rank <= bonus)
+		{
+			return URGENT - 1;
+		}
+		return rank + bonus;
 	}
 	inline LLAtomicU32& textureWaitRank()
 	{

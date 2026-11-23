@@ -740,7 +740,7 @@ bool LLMacroAim::isCandidate(const LLVOAvatar* avatarp)
 	{
 		return false;
 	}
-	if (avatarp->shouldHideForFriendsOnly())
+	if (avatarp->shouldHideForFriendsOnly() || avatarp->shouldHideForNearLimit())
 	{
 		return false;
 	}

@@ -30,6 +30,7 @@
 #include <map>
 #include <deque>
 #include <string>
+#include <set>
 #include <vector>
 #include <boost/signals2.hpp>
 #include "imageids.h"
@@ -275,6 +276,8 @@ public:
 	static F32		sRenderDistance;
 	static BOOL		sShowAnimationDebug;
 	static bool		sUseImpostors;
+	static bool		sAvatarCullNeedsUpdate;
+	static F64		sLastCullUpdateTime;
 	static bool		sShowFootPlane;
 	static bool		sVisibleInFirstPerson;
 	static S32		sNumLODChangesThisFrame;
@@ -291,11 +294,15 @@ public:
 	BOOL			isFullyLoaded() const;
 	bool			isTooComplex() const;
 	bool			shouldHideForFriendsOnly() const;
+	bool			shouldHideForNearLimit() const;
 	void			cacheAppearanceForFriendsOnly();
 	static void		cacheAppearanceMessageForFriendsOnly(const LLUUID& id, LLMessageSystem* mesgsys);
 	static void		cacheAnimationsForFriendsOnly(const LLUUID& id, const std::map<LLUUID, S32>& anims);
 	static bool		applyCachedFriendsOnlyAppearance(LLVOAvatar* avatar);
 	static bool		shouldSuppressForAvatarDisplay(const LLUUID& id);
+	static void		addNearLimitHidden(const LLUUID& id);
+	static bool		replaceNearLimitHidden(const std::set<LLUUID>& ids);
+	static bool		isNearLimitHidden(const LLUUID& id);
 	static bool		isOnlyShowSelfWhitelisted(const LLUUID& id);
 	static void		setOnlyShowSelfWhitelisted(const std::vector<LLUUID>& ids, bool allowed);
 	static void		markOnlyShowSelfWhitelistDirty();
@@ -393,6 +400,8 @@ protected:
 	void 		updateVisibility();
 private:
 	U32	 		mVisibilityRank;
+	BOOL		mNearCharacter;
+	F32			mLastCulledPixelArea;
 	BOOL 		mVisible;
 public:
 	void 		updateShadowFaces();

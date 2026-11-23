@@ -58,6 +58,7 @@
 #include "llhttpretrypolicy.h"
 #include "hippogridmanager.h"
 const U32 FETCH_WAIT_PRIORITY = 1;
+const S32 TEXTURE_HTTP_HIGH_WATER = 8;
 static U32 parkedFetchPriority(U32 rank)
 {
 	if (rank < FETCH_WAIT_PRIORITY)
@@ -1274,19 +1275,14 @@ bool LLTextureFetchWorker::doWork(S32 param)
 			}
 		}
 		bool avatar_bake = mFTType == FTT_SERVER_BAKE || mFTType == FTT_HOST_BAKE;
-		U32 rank = (mUrgent || avatar_bake) ? AllynAssetRank::URGENT : AllynAssetRank::textureRank(mScreenPixels, mFinestDecoded >= 0);
-		mFetcher->noteHttpWait(mHttpWaitRank, mHttpWaiting, rank);
-		U32 mesh_rank = (U32)AllynAssetRank::meshGateRank();
-		if (!mUrgent && !avatar_bake && mesh_rank > rank)
+		U32 rank = mUrgent ? (U32)AllynAssetRank::URGENT : AllynAssetRank::fetchRank(mScreenPixels, mFinestDecoded >= 0, avatar_bake);
+		if (!mUrgent && mFetcher->getNumHTTPRequests() >= TEXTURE_HTTP_HIGH_WATER)
 		{
-			mFetcher->mYieldMesh += 1;
-			if (mFTType == FTT_SERVER_BAKE || mFTType == FTT_HOST_BAKE)
-			{
-				mFetcher->mBakeMeshYield += 1;
-			}
+			mFetcher->clearHttpWait(mHttpWaitRank, mHttpWaiting);
 			setPriority(parkedFetchPriority(rank));
 			return false;
 		}
+		mFetcher->noteHttpWait(mHttpWaitRank, mHttpWaiting, rank);
 		LLPointer<AIPerService::Approvement> approved = AIPerService::approveHTTPRequestFor(mPerServicePtr, cap_texture);
 		if (!approved)
 		{
@@ -2358,10 +2354,7 @@ bool LLTextureFetch::createRequest(FTType f_type, const std::string& url, const 
 		worker->mActiveCount++;
 		worker->mNeedsAux = needs_aux;
 		worker->setImagePriority(priority);
-		if (screen_px > worker->mScreenPixels)
-		{
-			worker->mScreenPixels = screen_px;
-		}
+		worker->mScreenPixels = screen_px;
 		worker->mNeedsFirstShow = first_show;
 		if (urgent)
 		{
@@ -2989,6 +2982,17 @@ bool LLTextureFetch::updateRequestPriority(const LLUUID& id, F32 priority)
 	}
 	return res;
 }
+void LLTextureFetch::updateRequestScreen(const LLUUID& id, F32 screen_px)
+{
+	LLTextureFetchWorker* worker = getWorker(id);
+	if (!worker)
+	{
+		return;
+	}
+	worker->lockWorkMutex();
+	worker->mScreenPixels = screen_px;
+	worker->unlockWorkMutex();
+}
 void LLTextureFetch::markRequestUrgent(const LLUUID& id)
 {
 	LLTextureFetchWorker* worker = getWorker(id);
@@ -3120,6 +3124,7 @@ void LLTextureFetch::serviceWaits()
 	U32 decode_scores[8];
 	S32 decode_count = 0;
 	S32 decode_room = mDecodeSlots - (S32)mDecodesInFlight;
+	S32 http_cap = TEXTURE_HTTP_HIGH_WATER - getNumHTTPRequests();
 	LLTextureFetchWorker* best_refine = NULL;
 	U32 best_refine_score = 0;
 	if (decode_room > kCap)
@@ -3130,7 +3135,6 @@ void LLTextureFetch::serviceWaits()
 	{
 		decode_room = 0;
 	}
-	U32 mesh_rank = (U32)AllynAssetRank::meshGateRank();
 	lockQueue();
 	for (map_t::iterator it = mRequestMap.begin(); it != mRequestMap.end(); ++it)
 	{
@@ -3154,32 +3158,39 @@ void LLTextureFetch::serviceWaits()
 			}
 			continue;
 		}
-		if (worker->mState == LLTextureFetchWorker::SEND_HTTP_REQ)
+		if (worker->mState == LLTextureFetchWorker::SEND_HTTP_REQ
+			&& (worker->mUrgent || http_cap > 0))
 		{
-			U32 rank = worker->mUrgent ? AllynAssetRank::URGENT : AllynAssetRank::textureRank(worker->mScreenPixels, worker->mFinestDecoded >= 0);
-			if (!worker->mUrgent && mesh_rank > rank)
+			bool avatar_bake = worker->mFTType == FTT_SERVER_BAKE || worker->mFTType == FTT_HOST_BAKE;
+			U32 rank = worker->mUrgent ? (U32)AllynAssetRank::URGENT : AllynAssetRank::fetchRank(worker->mScreenPixels, worker->mFinestDecoded >= 0, avatar_bake);
+			S32 room = http_cap;
+			if (room < 1)
 			{
-				continue;
+				room = 1;
+			}
+			if (room > kCap)
+			{
+				room = kCap;
 			}
 			S32 slot = http_count;
-			if (slot > kCap)
+			if (slot > room)
 			{
-				slot = kCap;
+				slot = room;
 			}
 			while (slot > 0 && http_ranks[slot - 1] < rank)
 			{
-				if (slot < kCap)
+				if (slot < room)
 				{
 					http_ranks[slot] = http_ranks[slot - 1];
 					http_workers[slot] = http_workers[slot - 1];
 				}
 				--slot;
 			}
-			if (slot < kCap)
+			if (slot < room)
 			{
 				http_ranks[slot] = rank;
 				http_workers[slot] = worker;
-				if (http_count < kCap)
+				if (http_count < room)
 				{
 					++http_count;
 				}
@@ -3189,19 +3200,9 @@ void LLTextureFetch::serviceWaits()
 		if (decode_room > 0 && worker->mState == LLTextureFetchWorker::DECODE_IMAGE)
 		{
 			U32 score = worker->mWorkPriority;
-			bool avatar_bake = worker->mFTType == FTT_SERVER_BAKE || worker->mFTType == FTT_HOST_BAKE;
-			bool unseen = worker->mFinestDecoded < 0;
-			if (worker->mUrgent || (avatar_bake && unseen))
+			if (worker->mUrgent)
 			{
 				score += 0x80000000u;
-			}
-			else if (avatar_bake)
-			{
-				score += 0x20000000u;
-			}
-			else if (unseen)
-			{
-				score += 0x10000000u;
 			}
 			else if (!best_refine || worker->mWorkPriority > best_refine_score)
 			{

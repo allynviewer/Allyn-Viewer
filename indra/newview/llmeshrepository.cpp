@@ -582,18 +582,6 @@ void LLMeshRepoThread::runQueue(std::deque<std::pair<std::shared_ptr<MeshRequest
 			mMutex->lock();
 			auto req = query.front().first;
 			F32 delay = query.front().second;
-			U32 tex_rank = (U32)AllynAssetRank::textureWaitRank();
-			if (tex_rank > req->mRank)
-			{
-				LLMeshRepository::sYieldToTexture += 1;
-				while (!query.empty())
-				{
-					incomplete.push(query.front());
-					query.pop_front();
-				}
-				mMutex->unlock();
-				break;
-			}
 			query.pop_front();
 			req->preFetch();
 			mMutex->unlock();
@@ -2240,6 +2228,25 @@ void LLMeshRepository::dropUnreferencedCache(const LLUUID& mesh_id)
 		return;
 	}
 	mUnreferencedMeshes.insert(mesh_id);
+	for (std::vector<LLMeshRepoThread::LODRequest>::iterator pending = mPendingRequests.begin(); pending != mPendingRequests.end(); )
+	{
+		if (pending->mMeshParams.getSculptID() == mesh_id)
+		{
+			pending = mPendingRequests.erase(pending);
+			if (sLODPending > 0)
+			{
+				--sLODPending;
+			}
+		}
+		else
+		{
+			++pending;
+		}
+	}
+	if (mThread)
+	{
+		mThread->mSkinRequests.erase(mesh_id);
+	}
 	bool skin_busy = false;
 	bool decomp_busy = false;
 	{
@@ -2267,6 +2274,14 @@ S32 LLMeshRepository::loadMesh(LLVOVolume* vobj, const LLVolumeParams& mesh_para
 	if (detail < 0 || detail > 4)
 	{
 		return detail;
+	}
+	if (vobj)
+	{
+		LLVOAvatar* avatar = vobj->getAvatarAncestor();
+		if (avatar && LLVOAvatar::isNearLimitHidden(avatar->getID()))
+		{
+			return detail;
+		}
 	}
 	mUnreferencedMeshes.erase(mesh_params.getSculptID());
 	{
@@ -2840,13 +2855,43 @@ void LLMeshRepository::notifyLoadedMeshes()
 						{
 							own = true;
 						}
-						else if (vobj->isAttachment())
+						else if (vobj->isAttachment() || drawable->isState(LLDrawable::RIGGED))
 						{
-							radius = llmax(radius, AVATAR_LOD_RADIUS);
-							LLVOAvatar* avatar = vobj->getAvatarAncestor();
-							if (avatar && avatar->isSelf())
+							LLVOAvatar* avatar = vobj->getAvatar();
+							if (!avatar)
 							{
-								own = true;
+								avatar = vobj->getAvatarAncestor();
+							}
+							LLDrawable* av_drawable = (avatar && avatar->mDrawable.notNull()) ? avatar->mDrawable.get() : NULL;
+							if (avatar && av_drawable)
+							{
+								const LLVector3* box = avatar->getLastAnimExtents();
+								LLVector3 diag = box[1] - box[0];
+								if (avatar->isControlAvatar())
+								{
+									radius = diag.magVec() * 0.5f;
+								}
+								else
+								{
+									radius = diag.magVec();
+									if (!avatar->isSelf() && !avatar->isFullyLoaded())
+									{
+										radius *= 0.9f;
+									}
+								}
+								if (radius < AVATAR_LOD_RADIUS)
+								{
+									radius = AVATAR_LOD_RADIUS;
+								}
+								dist = llmax(av_drawable->mDistanceWRTCamera, 1.f);
+								if (avatar->isSelf())
+								{
+									own = true;
+								}
+							}
+							else
+							{
+								radius = llmax(radius, AVATAR_LOD_RADIUS);
 							}
 						}
 						F32 cur_score = radius / dist;
@@ -2909,7 +2954,6 @@ void LLMeshRepository::notifyLoadedMeshes()
 			}
 			std::partial_sort(mPendingRequests.begin(), mPendingRequests.begin() + push_count,
 							  mPendingRequests.end(), LLMeshRepoThread::CompareScoreGreater());
-			U32 tex_rank = (U32)AllynAssetRank::textureWaitRank();
 			while (!mPendingRequests.empty() && push_count > 0)
 			{
 				LLMeshRepoThread::LODRequest& request = mPendingRequests.front();
@@ -2917,11 +2961,6 @@ void LLMeshRepository::notifyLoadedMeshes()
 				F32 score = own ? request.mScore - OWN_MESH_SCORE : request.mScore;
 				F32 px = score * LLDrawable::sCurPixelAngle;
 				U32 rank = own ? (U32)AllynAssetRank::URGENT : AllynAssetRank::meshRank(px);
-				if (!own && tex_rank > rank)
-				{
-					LLMeshRepository::sYieldToTexture += 1;
-					break;
-				}
 				mThread->loadMeshLOD(request.mMeshParams, request.mLOD, rank);
 				mPendingRequests.erase(mPendingRequests.begin());
 				LLMeshRepository::sLODPending--;
@@ -3065,6 +3104,14 @@ const LLMeshSkinInfo* LLMeshRepository::getSkinInfo(const LLUUID& mesh_id, const
 {
 	if (mesh_id.notNull())
 	{
+		if (requesting_obj)
+		{
+			LLVOAvatar* avatar = const_cast<LLVOVolume*>(requesting_obj)->getAvatarAncestor();
+			if (avatar && LLVOAvatar::isNearLimitHidden(avatar->getID()))
+			{
+				return NULL;
+			}
+		}
 		mUnreferencedMeshes.erase(mesh_id);
 		const auto iter = mSkinMap.find(mesh_id);
 		if (iter != mSkinMap.cend())

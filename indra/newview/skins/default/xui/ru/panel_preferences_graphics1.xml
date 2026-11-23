@@ -112,6 +112,12 @@
 					<slider label="Макс. сложность аватара:" label_width="200" name="IndirectMaxComplexity" tool_tip="Более сложные аватары становятся желе. Крайнее правое положение — без лимита." />
 					<text name="IndirectMaxComplexityText">Без лимита</text>
 					<check_box label="Показывать значения сложности" name="ShowAvatarComplexity" tool_tip="Показывать визуальную сложность над именем аватара (Ctrl+Alt+Shift+C)." />
+					<text name="NearCharactersText">Персонажи рядом</text>
+					<check_box label="Ограничить персонажей рядом" name="NearCharactersEnable" tool_tip="Выключено: аватары рисуются как обычно. Включено: рисуются только аватары внутри четырёх пределов."/>
+					<slider label="Рядом с зумом" name="NearZoomCount" tool_tip="Сколько аватаров в дистанции зума остаются полными. Сначала ближайшие к точке камеры."/>
+					<slider label="Дистанция зума" name="NearZoomDistance" tool_tip="Аватары дальше этого от точки камеры в счет не входят."/>
+					<slider label="Рядом с аватаром" name="NearAvatarCount" tool_tip="Сколько аватаров в дистанции от вас остаются полными. Сначала ближайшие к вам."/>
+					<slider label="Дистанция аватара" name="NearAvatarDistance" tool_tip="Аватары дальше этого от вас в счет не входят."/>
 					<check_box name="AvatarImpostors" label="Импосторы аватаров" />
 					<check_box name="AvatarVertexProgram" label="Аппаратный скиннинг" />
 					<check_box name="AvatarCloth" label="Ткань аватара" />

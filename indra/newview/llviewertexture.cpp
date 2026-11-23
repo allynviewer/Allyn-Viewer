@@ -1683,6 +1683,11 @@ bool LLViewerFetchedTexture::updateFetch()
 	S32 desired_discard = getDesiredDiscardLevel();
 	F32 decode_priority = getDecodePriority();
 	decode_priority = llclamp(decode_priority, 0.0f, maxDecodePriority());
+	F32 live_screen_px = 0.f;
+	if (mMaxVirtualSize > 1.f)
+	{
+		live_screen_px = sqrtf(mMaxVirtualSize);
+	}
 	if (mIsFetching)
 	{
 		S32 fetch_discard = current_discard;
@@ -1817,9 +1822,8 @@ bool LLViewerFetchedTexture::updateFetch()
 				mStopFetchingTimer.reset();
 				LLAppViewer::getTextureFetch()->updateRequestPriority(mID, decode_priority);
 			}
-			if (mBoostLevel == LLGLTexture::BOOST_AVATAR_BAKED
-				|| mBoostLevel == LLGLTexture::BOOST_AVATAR
-				|| mBoostLevel >= LLGLTexture::BOOST_AVATAR_BAKED_SELF)
+			LLAppViewer::getTextureFetch()->updateRequestScreen(mID, live_screen_px);
+			if (mBoostLevel >= LLGLTexture::BOOST_AVATAR_BAKED_SELF)
 			{
 				LLAppViewer::getTextureFetch()->markRequestUrgent(mID);
 			}
@@ -1885,15 +1889,6 @@ bool LLViewerFetchedTexture::updateFetch()
 			h = mGLTexturep->getHeight(0);
 			c = mComponents;
 		}
-		F32 screen_px = (F32)llmax(mKnownDrawWidth, mKnownDrawHeight);
-		if (mMaxVirtualSize > 1.f)
-		{
-			F32 from_area = sqrtf(mMaxVirtualSize);
-			if (from_area > screen_px)
-			{
-				screen_px = from_area;
-			}
-		}
 		static LLCachedControl<U32> override_tex_discard_level(gSavedSettings, "TextureDiscardLevel");
 		if (override_tex_discard_level != 0)
 		{
@@ -1901,16 +1896,14 @@ bool LLViewerFetchedTexture::updateFetch()
 		}
 		bool fetch_request_created = false;
 		bool first_show = current_discard < 0;
-		bool urgent = mBoostLevel == LLGLTexture::BOOST_AVATAR_BAKED
-			|| mBoostLevel == LLGLTexture::BOOST_AVATAR
-			|| mBoostLevel >= LLGLTexture::BOOST_AVATAR_BAKED_SELF;
+		bool urgent = mBoostLevel >= LLGLTexture::BOOST_AVATAR_BAKED_SELF;
 		bool interface_image = mBoostLevel == LLGLTexture::BOOST_UI
 			|| mBoostLevel == LLGLTexture::BOOST_ICON
 			|| mBoostLevel == LLGLTexture::BOOST_PREVIEW
 			|| mBoostLevel == LLGLTexture::BOOST_AVATAR_BAKED_SELF
 			|| mBoostLevel == LLGLTexture::BOOST_AVATAR_SELF;
 		fetch_request_created = LLAppViewer::getTextureFetch()->createRequest(mFTType, mUrl, getID(), getTargetHost(), decode_priority,
-																			  w, h, c, desired_discard, needsAux(), mCanUseHTTP, screen_px,
+																			  w, h, c, desired_discard, needsAux(), mCanUseHTTP, live_screen_px,
 																			  first_show, urgent, interface_image);
 		if (fetch_request_created)
 		{

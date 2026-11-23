@@ -108,6 +108,12 @@
 					<slider label="Complexidade máx. do avatar:" label_width="200" name="IndirectMaxComplexity" tool_tip="Avatares mais complexos que isto viram bonecos de gelatina. Tudo à direita = sem limite." />
 					<text name="IndirectMaxComplexityText">Sem limite</text>
 					<check_box label="Mostrar valores de complexidade" name="ShowAvatarComplexity" tool_tip="Mostra a complexidade visual de cada avatar sobre o nome (Ctrl+Alt+Shift+C)." />
+					<text name="NearCharactersText">Número de personagens perto</text>
+					<check_box label="Limitar personagens perto" name="NearCharactersEnable" tool_tip="Desligado, os personagens aparecem como sempre. Ligado, só aparecem os que entram nos quatro limites abaixo."/>
+					<slider label="Perto do zoom" name="NearZoomCount" tool_tip="Quantos personagens, dentro da distância do zoom, ficam carregados por completo. Os mais próximos do ponto da câmera entram primeiro."/>
+					<slider label="Distância perto do zoom" name="NearZoomDistance" tool_tip="Personagens mais longe que isso do ponto da câmera não entram nessa conta."/>
+					<slider label="Perto do avatar" name="NearAvatarCount" tool_tip="Quantos personagens, dentro da distância do seu avatar, ficam carregados por completo. Os mais próximos de você entram primeiro."/>
+					<slider label="Distância perto do avatar" name="NearAvatarDistance" tool_tip="Personagens mais longe que isso de você não entram nessa conta."/>
 					<check_box control_name="RenderUseImpostors" visibility_control="RenderCustomSettings" label="Impostores de avatar" name="AvatarImpostors" />
 					<check_box control_name="RenderAvatarVP" visibility_control="RenderCustomSettings" label="Skinning por hardware" name="AvatarVertexProgram" />
 					<check_box control_name="RenderAvatarCloth" visibility_control="RenderCustomSettings" label="Vestimenta do avatar" name="AvatarCloth" />

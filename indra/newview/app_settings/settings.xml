@@ -13351,6 +13351,61 @@ This should be as low as possible, but too low may break functionality</string>
       <key>Value</key>
       <real>0.5</real>
     </map>
+    <key>RenderNearCharacters</key>
+    <map>
+      <key>Comment</key>
+      <string>When off, the nearby character limits are ignored and avatars are drawn as usual.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>RenderNearZoomCount</key>
+    <map>
+      <key>Comment</key>
+      <string>How many avatars within RenderNearZoomDistance of the camera focus stay fully drawn, nearest first.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>50</integer>
+    </map>
+    <key>RenderNearZoomDistance</key>
+    <map>
+      <key>Comment</key>
+      <string>Meters from the camera focus used by RenderNearZoomCount.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>20</real>
+    </map>
+    <key>RenderNearAvatarCount</key>
+    <map>
+      <key>Comment</key>
+      <string>How many avatars within RenderNearAvatarDistance of you stay fully drawn, nearest first.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>50</integer>
+    </map>
+    <key>RenderNearAvatarDistance</key>
+    <map>
+      <key>Comment</key>
+      <string>Meters from your avatar used by RenderNearAvatarCount.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>20</real>
+    </map>
     <key>RenderAvatarMaxVisible</key>
     <map>
       <key>Comment</key>

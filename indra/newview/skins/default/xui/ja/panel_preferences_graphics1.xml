@@ -112,6 +112,12 @@
 					<slider label="アバター最大複雑度:" label_width="200" name="IndirectMaxComplexity" tool_tip="これより複雑なアバターはゼリー人形になります。右端で無制限。" />
 					<text name="IndirectMaxComplexityText">無制限</text>
 					<check_box label="複雑度の値を表示" name="ShowAvatarComplexity" tool_tip="各アバターの視覚的複雑度を名前の上に表示します（Ctrl+Alt+Shift+C）。" />
+					<text name="NearCharactersText">近くのキャラクター</text>
+					<check_box label="近くのキャラクターを制限" name="NearCharactersEnable" tool_tip="オフではいつも通り描きます。オンでは四つの制限に入るアバターだけを描きます。"/>
+					<slider label="ズームの近く" name="NearZoomCount" tool_tip="ズーム距離の中で完全に描くアバターの数です。カメラの注視点に近い順です。"/>
+					<slider label="ズームの距離" name="NearZoomDistance" tool_tip="カメラの注視点からこれより遠いアバターは数に入りません。"/>
+					<slider label="アバターの近く" name="NearAvatarCount" tool_tip="自分からの距離の中で完全に描くアバターの数です。自分に近い順です。"/>
+					<slider label="アバターの距離" name="NearAvatarDistance" tool_tip="自分からこれより遠いアバターは数に入りません。"/>
 					<check_box name="AvatarImpostors" label="アバターインポスター" />
 					<check_box name="AvatarVertexProgram" label="ハードウェアスキニング" />
 					<check_box name="AvatarCloth" label="アバタークロス" />

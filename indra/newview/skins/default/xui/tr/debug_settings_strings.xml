@@ -1322,6 +1322,11 @@ Bu mümkün olduğu kadar düşük olmalıdır, ancak çok düşük olması işl
 	<string name="RenderAvatarMaxComplexity">Maksimum Avatar Karmaşıklığı; bu değerin üzerinde avatar
     düz renkli bir anahat olarak işlenir (bu sınırı devre dışı bırakmak için 0).</string>
 	<string name="RenderAvatarMaxVisible">Herhangi bir zamanda görüntülenecek maksimum avatar sayısı</string>
+	<string name="RenderNearCharacters">Yakındaki karakterlerin dört sınırını birlikte açar veya kapatır. Kapalıyken avatarlar her zamanki gibi çizilir.</string>
+	<string name="RenderNearAvatarCount">Avatar mesafesindeki kaç avatar tam çizilir, size en yakınlar önce</string>
+	<string name="RenderNearAvatarDistance">Yakındaki karakterler için avatarınızdan itibaren metre</string>
+	<string name="RenderNearZoomCount">Yakınlaştırma mesafesindeki kaç avatar tam çizilir, kameranın baktığı noktaya en yakınlar önce</string>
+	<string name="RenderNearZoomDistance">Yakındaki karakterler için kameranın baktığı noktadan itibaren metre</string>
 	<string name="RenderAvatarPhysicsLODFactor">Avatar fiziğinin (göğüs fiziği gibi) ayrıntı düzeyini kontrol eder.</string>
 	<string name="RenderAvatarVP">Avatarın donanım kaplamasını gerçekleştirmek için vertex programlarını kullanın</string>
 	<string name="RenderBakeSunlight">Statik nesneler için güneş ışığını köşe tamponlarına yerleştirin.</string>

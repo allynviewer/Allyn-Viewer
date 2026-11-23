@@ -1322,6 +1322,11 @@
 	<string name="RenderAvatarMaxComplexity">アバターの最大の複雑さ。この値を超えると、アバターは
     単色のアウトラインとしてレンダリングされます (この制限を無効にする場合は 0)。</string>
 	<string name="RenderAvatarMaxVisible">一度に表示できるアバターの最大数</string>
+	<string name="RenderNearCharacters">近くのキャラクターの四つの制限をまとめてオンまたはオフにします。オフではいつも通り描きます。</string>
+	<string name="RenderNearAvatarCount">アバター距離の中で完全に描くアバターの数。自分に近い順</string>
+	<string name="RenderNearAvatarDistance">近くのキャラクターに使う、自分のアバターからのメートル</string>
+	<string name="RenderNearZoomCount">ズーム距離の中で完全に描くアバターの数。カメラの注視点に近い順</string>
+	<string name="RenderNearZoomDistance">近くのキャラクターに使う、カメラの注視点からのメートル</string>
 	<string name="RenderAvatarPhysicsLODFactor">アバターの物理現象 (胸の物理現象など) の詳細レベルを制御します。</string>
 	<string name="RenderAvatarVP">頂点プログラムを使用してアバターのハードウェア スキニングを実行する</string>
 	<string name="RenderBakeSunlight">静的オブジェクトの頂点バッファーに太陽光をベイクします。</string>

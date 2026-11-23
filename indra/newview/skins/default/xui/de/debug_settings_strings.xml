@@ -1322,6 +1322,11 @@ Dieser sollte so niedrig wie möglich sein, aber ein zu niedriger Wert kann die 
 	<string name="RenderAvatarMaxComplexity">Maximale Avatar-Komplexität; über diesem Wert liegt der Avatar
     wird als einfarbiger Umriss gerendert (0, um diese Beschränkung zu deaktivieren).</string>
 	<string name="RenderAvatarMaxVisible">Maximale Anzahl der gleichzeitig anzuzeigenden Avatare</string>
+	<string name="RenderNearCharacters">Schaltet die vier Grenzen für Charaktere in der Nähe ein oder aus. Aus zeichnet Avatare wie gewohnt.</string>
+	<string name="RenderNearAvatarCount">Wie viele Avatare innerhalb der Avatar-Entfernung vollständig gezeichnet bleiben, die nächsten an dir zuerst</string>
+	<string name="RenderNearAvatarDistance">Meter von deinem Avatar für Charaktere in der Nähe</string>
+	<string name="RenderNearZoomCount">Wie viele Avatare innerhalb der Zoom-Entfernung vollständig gezeichnet bleiben, die nächsten am Kamerapunkt zuerst</string>
+	<string name="RenderNearZoomDistance">Meter vom Kamerapunkt für Charaktere in der Nähe</string>
 	<string name="RenderAvatarPhysicsLODFactor">Steuert den Detaillierungsgrad der Avatar-Physik (z. B. Brustphysik).</string>
 	<string name="RenderAvatarVP">Verwenden Sie Vertex-Programme, um das Hardware-Skinning von Avataren durchzuführen</string>
 	<string name="RenderBakeSunlight">Backen Sie Sonnenlicht in Scheitelpunktpuffer für statische Objekte ein.</string>

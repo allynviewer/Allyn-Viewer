@@ -102,6 +102,11 @@ void reset_all_to_default(const LLView* panel)
 }
 LLPanelDisplay::LLPanelDisplay()
 {
+	mNearCharacters = FALSE;
+	mNearZoomCount = 50;
+	mNearZoomDistance = 20.f;
+	mNearAvatarCount = 50;
+	mNearAvatarDistance = 20.f;
 	mCommitCallbackRegistrar.add("Graphics.ResetTab", boost::bind(reset_all_to_default, boost::bind(&LLView::getChildView, this, _2, true, false)));
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_graphics1.xml");
 }
@@ -362,6 +367,11 @@ void LLPanelDisplay::refresh()
 	mTerrainScale = gSavedSettings.getF32("RenderTerrainScale");
 	mAvatarImpostors = gSavedSettings.getBOOL("RenderUseImpostors");
 	mNonImpostors = gSavedSettings.getS32("RenderAvatarMaxVisible");
+	mNearCharacters = gSavedSettings.getBOOL("RenderNearCharacters");
+	mNearZoomCount = gSavedSettings.getS32("RenderNearZoomCount");
+	mNearZoomDistance = gSavedSettings.getF32("RenderNearZoomDistance");
+	mNearAvatarCount = gSavedSettings.getS32("RenderNearAvatarCount");
+	mNearAvatarDistance = gSavedSettings.getF32("RenderNearAvatarDistance");
 	mAvatarCloth = gSavedSettings.getBOOL("RenderAvatarCloth");
 	mAvatarMode = persistedS32("AlwaysRenderFriends");
 	mShowAvatarNameTag = persistedS32("AllynShowAvatarNameTag");
@@ -568,6 +578,11 @@ void LLPanelDisplay::cancel()
 	gSavedSettings.setF32("RenderTerrainScale", mTerrainScale);
 	gSavedSettings.setBOOL("RenderUseImpostors", mAvatarImpostors);
 	gSavedSettings.setS32("RenderAvatarMaxVisible", mNonImpostors);
+	gSavedSettings.setBOOL("RenderNearCharacters", mNearCharacters);
+	gSavedSettings.setS32("RenderNearZoomCount", mNearZoomCount);
+	gSavedSettings.setF32("RenderNearZoomDistance", mNearZoomDistance);
+	gSavedSettings.setS32("RenderNearAvatarCount", mNearAvatarCount);
+	gSavedSettings.setF32("RenderNearAvatarDistance", mNearAvatarDistance);
 	gSavedSettings.setBOOL("RenderAvatarCloth", mAvatarCloth);
 	gSavedSettings.setS32("AlwaysRenderFriends", mAvatarMode);
 	gSavedSettings.setS32("AllynShowAvatarNameTag", mShowAvatarNameTag);
@@ -804,6 +819,26 @@ void LLPanelDisplay::setHardwareDefaults()
 	if (LLControlVariable* controlp = gSavedSettings.getControl("RenderAvatarMaxVisible"))
 	{
 		controlp->resetToDefault(true);
+	}
+	if (LLControlVariable* near_characters = gSavedSettings.getControl("RenderNearCharacters"))
+	{
+		near_characters->resetToDefault(true);
+	}
+	if (LLControlVariable* zoom_count = gSavedSettings.getControl("RenderNearZoomCount"))
+	{
+		zoom_count->resetToDefault(true);
+	}
+	if (LLControlVariable* zoom_dist = gSavedSettings.getControl("RenderNearZoomDistance"))
+	{
+		zoom_dist->resetToDefault(true);
+	}
+	if (LLControlVariable* avatar_count = gSavedSettings.getControl("RenderNearAvatarCount"))
+	{
+		avatar_count->resetToDefault(true);
+	}
+	if (LLControlVariable* avatar_dist = gSavedSettings.getControl("RenderNearAvatarDistance"))
+	{
+		avatar_dist->resetToDefault(true);
 	}
 	if (LLControlVariable* complexity = gSavedSettings.getControl("RenderAvatarMaxComplexity"))
 	{
