@@ -620,9 +620,66 @@ void LLMeshRepoThread::runSet(uuid_set_t& set, std::function<bool(const LLUUID& 
 		else ++iter;
 	}
 }
+static LLMutex* ownSkinMutex()
+{
+	static LLMutex* mutex = new LLMutex();
+	return mutex;
+}
+static std::deque<LLUUID>& ownSkinIds()
+{
+	static std::deque<LLUUID> ids;
+	return ids;
+}
+static void queueOwnSkin(const LLUUID& mesh_id)
+{
+	if (mesh_id.isNull())
+	{
+		return;
+	}
+	LLMutexLock lock(ownSkinMutex());
+	std::deque<LLUUID>& ids = ownSkinIds();
+	if (std::find(ids.begin(), ids.end(), mesh_id) == ids.end())
+	{
+		ids.push_back(mesh_id);
+	}
+}
 void LLMeshRepoThread::issueSkins(U32& count, S32 limit)
 {
 	S32 issued = 0;
+	while (issued < limit && count < MAX_MESH_REQUESTS_PER_SECOND)
+	{
+		LLUUID own_id;
+		{
+			LLMutexLock lock(ownSkinMutex());
+			if (ownSkinIds().empty())
+			{
+				break;
+			}
+			own_id = ownSkinIds().front();
+			ownSkinIds().pop_front();
+		}
+		uuid_set_t::iterator own_req = mSkinRequests.find(own_id);
+		if (own_req == mSkinRequests.end())
+		{
+			continue;
+		}
+		MeshHeaderInfo own_info;
+		if (!getMeshHeaderInfo(own_id, "skin", own_info))
+		{
+			LLMutexLock lock(ownSkinMutex());
+			ownSkinIds().push_front(own_id);
+			break;
+		}
+		if (!fetchMeshSkinInfo(own_id))
+		{
+			LLMutexLock lock(ownSkinMutex());
+			ownSkinIds().push_front(own_id);
+			return;
+		}
+		mSkinRequests.erase(own_req);
+		++issued;
+		++count;
+	}
 	if (mMutex)
 	{
 		mMutex->lock();
@@ -1106,7 +1163,15 @@ bool LLMeshRepoThread::headerReceived(const LLVolumeParams& mesh_params, U8* dat
 		LLMutexLock lock(mMutex);
 		if (mSkinRequests.find(mesh_id) != mSkinRequests.end())
 		{
-			mSkinReady.push_back(mesh_id);
+			std::map<LLUUID, U32>::iterator known_skin = mFetchRank.find(mesh_id);
+			if (known_skin != mFetchRank.end() && known_skin->second >= AllynAssetRank::URGENT)
+			{
+				mSkinReady.push_front(mesh_id);
+			}
+			else
+			{
+				mSkinReady.push_back(mesh_id);
+			}
 		}
 		pending_lod_map::iterator iter = mPendingLOD.find(mesh_params);
 		if (iter != mPendingLOD.end())
@@ -3119,13 +3184,26 @@ const LLMeshSkinInfo* LLMeshRepository::getSkinInfo(const LLUUID& mesh_id, const
 			return &(iter->second);
 		}
 		{
+			bool own_skin = false;
+			if (requesting_obj)
+			{
+				LLVOAvatar* avatar = const_cast<LLVOVolume*>(requesting_obj)->getAvatarAncestor();
+				own_skin = requesting_obj->isHUDAttachment() || (avatar && avatar->isSelf());
+			}
 			LLMutexLock lock(mMeshMutex);
 			skin_load_map::iterator iter = mLoadingSkins.find(mesh_id);
 			if (iter == mLoadingSkins.end())
 			{
 				mPendingSkinRequests.push(mesh_id);
+				if (own_skin)
+				{
+					queueOwnSkin(mesh_id);
+				}
 			}
-			mLoadingSkins[mesh_id].insert(requesting_obj->getID());
+			if (requesting_obj)
+			{
+				mLoadingSkins[mesh_id].insert(requesting_obj->getID());
+			}
 		}
 	}
 	return NULL;

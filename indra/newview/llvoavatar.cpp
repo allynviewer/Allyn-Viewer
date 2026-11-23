@@ -3633,16 +3633,11 @@ void LLVOAvatar::computeUpdatePeriod()
 		&& !mNeedsAnimUpdate
 		&& !sFreezeCounter)
 	{
-		const LLVector4a* ext = mDrawable->getSpatialExtents();
-		LLVector4a size;
-		size.setSub(ext[1],ext[0]);
-		F32 mag = size.getLength3().getF32()*0.5f;
 		if (visually_muted)
 		{
 			mUpdatePeriod = UPDATE_RATE_SLOW;
 		}
-		else if (! shouldImpostor()
-				 || mDrawable->mDistanceWRTCamera < 1.f + mag)
+		else if (!shouldImpostor())
 		{
 			mUpdatePeriod = 1;
 		}
@@ -6667,6 +6662,14 @@ bool LLVOAvatar::isTooComplex() const
 	}
 	return too_complex;
 }
+static std::set<LLUUID> sNearLimitHidden;
+static std::set<LLUUID> sNearLimitShown;
+static std::set<LLUUID> sNearZoomSticky;
+static std::set<LLUUID> sNearBodySticky;
+static std::set<LLUUID> sNearLimitKept;
+static S32 sNearLimitPermits = 4;
+static S32 sNearLimitLastNewcomers = 0;
+static F64 sNearLimitNextStep = 0.0;
 bool LLVOAvatar::shouldHideForFriendsOnly() const
 {
 	if (isSelf() || isControlAvatar() || isUIAvatar())
@@ -6683,7 +6686,7 @@ bool LLVOAvatar::shouldHideForNearLimit() const
 	{
 		return false;
 	}
-	if (isSelf() || isUIAvatar() || mNearCharacter)
+	if (isSelf() || isUIAvatar() || mNearCharacter || sNearLimitShown.count(getID()) != 0)
 	{
 		return false;
 	}
@@ -6693,7 +6696,7 @@ bool LLVOAvatar::shouldHideForNearLimit() const
 		if (control && control->mRootVolp)
 		{
 			const LLVOAvatar* owner = control->mRootVolp->getAvatarAncestor();
-			if (owner && (owner->isSelf() || owner->mNearCharacter))
+			if (owner && (owner->isSelf() || owner->mNearCharacter || sNearLimitShown.count(owner->getID()) != 0))
 			{
 				return false;
 			}
@@ -7755,7 +7758,6 @@ void LLVOAvatar::setOnlyShowSelfWhitelisted(const std::vector<LLUUID>& ids, bool
 	}
 	gSavedPerAccountSettings.setLLSD("AllynOnlyShowSelfWhitelist", out);
 }
-static std::set<LLUUID> sNearLimitHidden;
 void LLVOAvatar::addNearLimitHidden(const LLUUID& id)
 {
 	if (!id.isNull() && id != gAgentID)
@@ -7799,7 +7801,7 @@ bool LLVOAvatar::shouldSuppressForAvatarDisplay(const LLUUID& id)
 }
 void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 {
-	if (!isSelf() && isNearLimitHidden(getID()))
+	if (!isSelf() && shouldSuppressForAvatarDisplay(getID()))
 	{
 		return;
 	}
@@ -8446,6 +8448,13 @@ void LLVOAvatar::cullAvatarsByPixelArea()
 			{
 				((LLVOAvatar*) *iter)->mNearCharacter = FALSE;
 			}
+			sNearLimitShown.clear();
+			sNearZoomSticky.clear();
+			sNearBodySticky.clear();
+			sNearLimitKept.clear();
+			sNearLimitPermits = 4;
+			sNearLimitLastNewcomers = 0;
+			sNearLimitNextStep = 0.0;
 			if (replaceNearLimitHidden(std::set<LLUUID>()))
 			{
 				gObjectList.syncAvatarDisplaySuppression();
@@ -8454,8 +8463,10 @@ void LLVOAvatar::cullAvatarsByPixelArea()
 		if (near_enabled)
 		{
 		std::set<LLUUID> shown_ids;
+		const F32 stay_pad = 1.5f;
 		LLVector3d focus_pos = gAgentCamera.getFocusGlobal();
 		LLVector3d avatar_pos = gAgent.getPositionGlobal();
+		std::set<LLUUID> control_ids;
 		for (std::vector<LLCharacter*>::iterator iter = LLCharacter::sInstances.begin();
 			iter != LLCharacter::sInstances.end(); ++iter)
 		{
@@ -8472,12 +8483,11 @@ void LLVOAvatar::cullAvatarsByPixelArea()
 			{
 				if ((zoom_count > 0 && dist_zoom <= zoom_dist) || (avatar_count > 0 && dist_avatar <= avatar_dist))
 				{
-					inst->mNearCharacter = TRUE;
-					shown_ids.insert(inst->getID());
+					control_ids.insert(inst->getID());
 				}
 				continue;
 			}
-			if (zoom_count > 0 && dist_zoom <= zoom_dist)
+			if (zoom_count > 0 && dist_zoom <= zoom_dist + stay_pad)
 			{
 				NearCand cand;
 				cand.mDist = dist_zoom;
@@ -8485,7 +8495,7 @@ void LLVOAvatar::cullAvatarsByPixelArea()
 				cand.mId = inst->getID();
 				zoom_cands.push_back(cand);
 			}
-			if (avatar_count > 0 && dist_avatar <= avatar_dist)
+			if (avatar_count > 0 && dist_avatar <= avatar_dist + stay_pad)
 			{
 				NearCand cand;
 				cand.mDist = dist_avatar;
@@ -8514,7 +8524,7 @@ void LLVOAvatar::cullAvatarsByPixelArea()
 			}
 			F32 dist_zoom = (F32)(spot.mPosition - focus_pos).length();
 			F32 dist_avatar = (F32)(spot.mPosition - avatar_pos).length();
-			if (zoom_count > 0 && dist_zoom <= zoom_dist)
+			if (zoom_count > 0 && dist_zoom <= zoom_dist + stay_pad)
 			{
 				NearCand cand;
 				cand.mDist = dist_zoom;
@@ -8522,7 +8532,7 @@ void LLVOAvatar::cullAvatarsByPixelArea()
 				cand.mId = spot.mID;
 				zoom_cands.push_back(cand);
 			}
-			if (avatar_count > 0 && dist_avatar <= avatar_dist)
+			if (avatar_count > 0 && dist_avatar <= avatar_dist + stay_pad)
 			{
 				NearCand cand;
 				cand.mDist = dist_avatar;
@@ -8531,69 +8541,178 @@ void LLVOAvatar::cullAvatarsByPixelArea()
 				avatar_cands.push_back(cand);
 			}
 		}
-		if (!zoom_cands.empty())
+		auto select_sticky = [](std::vector<NearCand>& pool, F32 enter, F32 stay, S32 limit, std::set<LLUUID>& sticky)
 		{
-			std::sort(zoom_cands.begin(), zoom_cands.end(),
+			std::set<LLUUID> next;
+			if (limit <= 0)
+			{
+				sticky.clear();
+				return;
+			}
+			std::sort(pool.begin(), pool.end(),
 				[](const NearCand& lhs, const NearCand& rhs)
 				{
 					return lhs.mDist < rhs.mDist;
 				});
-			S32 count = (S32)zoom_cands.size();
-			if (count > zoom_count)
+			S32 used = 0;
+			for (size_t i = 0; i < pool.size(); ++i)
 			{
-				count = zoom_count;
-			}
-			for (S32 i = 0; i < count; ++i)
-			{
-				if (zoom_cands[i].mAvatar)
+				if (used >= limit)
 				{
-					zoom_cands[i].mAvatar->mNearCharacter = TRUE;
+					break;
 				}
-				shown_ids.insert(zoom_cands[i].mId);
-			}
-		}
-		if (!avatar_cands.empty())
-		{
-			std::sort(avatar_cands.begin(), avatar_cands.end(),
-				[](const NearCand& lhs, const NearCand& rhs)
+				if (sticky.count(pool[i].mId) != 0 && pool[i].mDist <= enter + stay)
 				{
-					return lhs.mDist < rhs.mDist;
-				});
-			S32 count = (S32)avatar_cands.size();
-			if (count > avatar_count)
-			{
-				count = avatar_count;
-			}
-			for (S32 i = 0; i < count; ++i)
-			{
-				if (avatar_cands[i].mAvatar)
-				{
-					avatar_cands[i].mAvatar->mNearCharacter = TRUE;
+					next.insert(pool[i].mId);
+					++used;
 				}
-				shown_ids.insert(avatar_cands[i].mId);
 			}
-		}
-		std::set<LLUUID> hidden_ids;
+			for (size_t i = 0; i < pool.size(); ++i)
+			{
+				if (used >= limit)
+				{
+					break;
+				}
+				if (next.count(pool[i].mId) != 0 || pool[i].mDist > enter)
+				{
+					continue;
+				}
+				next.insert(pool[i].mId);
+				++used;
+			}
+			sticky.swap(next);
+		};
+		select_sticky(zoom_cands, zoom_dist, stay_pad, zoom_count, sNearZoomSticky);
+		select_sticky(avatar_cands, avatar_dist, stay_pad, avatar_count, sNearBodySticky);
+		shown_ids.insert(sNearZoomSticky.begin(), sNearZoomSticky.end());
+		shown_ids.insert(sNearBodySticky.begin(), sNearBodySticky.end());
+		shown_ids.insert(control_ids.begin(), control_ids.end());
 		for (std::vector<LLCharacter*>::iterator iter = LLCharacter::sInstances.begin();
 			iter != LLCharacter::sInstances.end(); ++iter)
 		{
 			LLVOAvatar* inst = (LLVOAvatar*) *iter;
-			if (inst->isDead() || inst->isSelf() || inst->isUIAvatar() || inst->mNearCharacter)
+			if (inst->isDead() || inst->isSelf() || inst->isUIAvatar())
 			{
 				continue;
 			}
-			hidden_ids.insert(inst->getID());
+			if (shown_ids.count(inst->getID()) != 0)
+			{
+				inst->mNearCharacter = TRUE;
+			}
+		}
+		sNearLimitShown = shown_ids;
+		struct RevealItem
+		{
+			F32 mDist;
+			LLVOAvatar* mAvatar;
+			LLUUID mId;
+		};
+		std::vector<RevealItem> reveal_items;
+		for (std::vector<LLCharacter*>::iterator iter = LLCharacter::sInstances.begin();
+			iter != LLCharacter::sInstances.end(); ++iter)
+		{
+			LLVOAvatar* inst = (LLVOAvatar*) *iter;
+			if (!inst->mNearCharacter || inst->isDead() || inst->isSelf())
+			{
+				continue;
+			}
+			RevealItem item;
+			item.mDist = (F32)(inst->getPositionGlobal() - focus_pos).length();
+			item.mAvatar = inst;
+			item.mId = inst->getID();
+			reveal_items.push_back(item);
 		}
 		for (size_t spot_index = 0; spot_index < spots.size(); ++spot_index)
 		{
 			const LLUUID& spot_id = spots[spot_index].mID;
-			if (shown_ids.count(spot_id) != 0 || gObjectList.findAvatar(spot_id))
+			if (shown_ids.count(spot_id) == 0 || gObjectList.findAvatar(spot_id))
 			{
 				continue;
 			}
-			hidden_ids.insert(spot_id);
+			RevealItem item;
+			item.mDist = (F32)(spots[spot_index].mPosition - focus_pos).length();
+			item.mAvatar = NULL;
+			item.mId = spot_id;
+			reveal_items.push_back(item);
 		}
-		if (replaceNearLimitHidden(hidden_ids))
+		if (!reveal_items.empty())
+		{
+			std::sort(reveal_items.begin(), reveal_items.end(),
+				[](const RevealItem& lhs, const RevealItem& rhs)
+				{
+					return lhs.mDist < rhs.mDist;
+				});
+			S32 newcomers = 0;
+			for (size_t reveal_index = 0; reveal_index < reveal_items.size(); ++reveal_index)
+			{
+				LLVOAvatar* reveal_avatar = reveal_items[reveal_index].mAvatar;
+				if (reveal_avatar && reveal_avatar->isControlAvatar())
+				{
+					continue;
+				}
+				if (sNearLimitKept.count(reveal_items[reveal_index].mId) == 0)
+				{
+					++newcomers;
+				}
+			}
+			F64 now = LLFrameTimer::getElapsedSeconds();
+			if (newcomers > sNearLimitLastNewcomers + 8)
+			{
+				sNearLimitPermits = 4;
+				sNearLimitNextStep = now + 0.45;
+			}
+			else if (now >= sNearLimitNextStep)
+			{
+				sNearLimitPermits += 2;
+				if (sNearLimitPermits > 100)
+				{
+					sNearLimitPermits = 100;
+				}
+				sNearLimitNextStep = now + 0.45;
+			}
+			sNearLimitLastNewcomers = newcomers;
+			std::set<LLUUID> next_kept;
+			S32 added = 0;
+			for (size_t reveal_index = 0; reveal_index < reveal_items.size(); ++reveal_index)
+			{
+				const LLUUID& reveal_id = reveal_items[reveal_index].mId;
+				bool was_kept = sNearLimitKept.count(reveal_id) != 0;
+				LLVOAvatar* reveal_avatar = reveal_items[reveal_index].mAvatar;
+				if (reveal_avatar && reveal_avatar->isControlAvatar())
+				{
+					next_kept.insert(reveal_id);
+					continue;
+				}
+				if (!was_kept && added >= sNearLimitPermits)
+				{
+					if (reveal_avatar)
+					{
+						reveal_avatar->mNearCharacter = FALSE;
+					}
+					shown_ids.erase(reveal_id);
+					continue;
+				}
+				if (!was_kept)
+				{
+					++added;
+				}
+				next_kept.insert(reveal_id);
+			}
+			if (added > 0)
+			{
+				sNearLimitPermits -= added;
+				if (sNearLimitPermits < 0)
+				{
+					sNearLimitPermits = 0;
+				}
+			}
+			sNearLimitKept.swap(next_kept);
+		}
+		else
+		{
+			sNearLimitKept.clear();
+		}
+		if (replaceNearLimitHidden(std::set<LLUUID>()))
 		{
 			gObjectList.syncAvatarDisplaySuppression();
 		}

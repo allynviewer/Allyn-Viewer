@@ -1275,7 +1275,7 @@ bool LLTextureFetchWorker::doWork(S32 param)
 			}
 		}
 		bool avatar_bake = mFTType == FTT_SERVER_BAKE || mFTType == FTT_HOST_BAKE;
-		U32 rank = mUrgent ? (U32)AllynAssetRank::URGENT : AllynAssetRank::fetchRank(mScreenPixels, mFinestDecoded >= 0, avatar_bake);
+		U32 rank = mInterface ? (U32)AllynAssetRank::URGENT + 1u : (mUrgent ? (U32)AllynAssetRank::URGENT : AllynAssetRank::fetchRank(mScreenPixels, mFinestDecoded >= 0, avatar_bake));
 		if (!mUrgent && mFetcher->getNumHTTPRequests() >= TEXTURE_HTTP_HIGH_WATER)
 		{
 			mFetcher->clearHttpWait(mHttpWaitRank, mHttpWaiting);
@@ -3162,7 +3162,7 @@ void LLTextureFetch::serviceWaits()
 			&& (worker->mUrgent || http_cap > 0))
 		{
 			bool avatar_bake = worker->mFTType == FTT_SERVER_BAKE || worker->mFTType == FTT_HOST_BAKE;
-			U32 rank = worker->mUrgent ? (U32)AllynAssetRank::URGENT : AllynAssetRank::fetchRank(worker->mScreenPixels, worker->mFinestDecoded >= 0, avatar_bake);
+			U32 rank = worker->mInterface ? (U32)AllynAssetRank::URGENT + 1u : (worker->mUrgent ? (U32)AllynAssetRank::URGENT : AllynAssetRank::fetchRank(worker->mScreenPixels, worker->mFinestDecoded >= 0, avatar_bake));
 			S32 room = http_cap;
 			if (room < 1)
 			{
@@ -3200,7 +3200,11 @@ void LLTextureFetch::serviceWaits()
 		if (decode_room > 0 && worker->mState == LLTextureFetchWorker::DECODE_IMAGE)
 		{
 			U32 score = worker->mWorkPriority;
-			if (worker->mUrgent)
+			if (worker->mInterface)
+			{
+				score += 0xC0000000u;
+			}
+			else if (worker->mUrgent)
 			{
 				score += 0x80000000u;
 			}

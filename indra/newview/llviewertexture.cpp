@@ -1899,9 +1899,8 @@ bool LLViewerFetchedTexture::updateFetch()
 		bool urgent = mBoostLevel >= LLGLTexture::BOOST_AVATAR_BAKED_SELF;
 		bool interface_image = mBoostLevel == LLGLTexture::BOOST_UI
 			|| mBoostLevel == LLGLTexture::BOOST_ICON
-			|| mBoostLevel == LLGLTexture::BOOST_PREVIEW
-			|| mBoostLevel == LLGLTexture::BOOST_AVATAR_BAKED_SELF
-			|| mBoostLevel == LLGLTexture::BOOST_AVATAR_SELF;
+			|| mBoostLevel == LLGLTexture::BOOST_HUD
+			|| mBoostLevel == LLGLTexture::BOOST_PREVIEW;
 		fetch_request_created = LLAppViewer::getTextureFetch()->createRequest(mFTType, mUrl, getID(), getTargetHost(), decode_priority,
 																			  w, h, c, desired_discard, needsAux(), mCanUseHTTP, live_screen_px,
 																			  first_show, urgent, interface_image);

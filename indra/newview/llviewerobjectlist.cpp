@@ -263,45 +263,7 @@ void LLViewerObjectList::processUpdateCore(LLViewerObject* objectp,
 static LLTrace::BlockTimerStatHandle FTM_PROCESS_OBJECTS("Process Objects");
 static bool avatarDisplayGateActive()
 {
-	return gSavedSettings.getS32("AlwaysRenderFriends") >= 2 || gSavedSettings.getBOOL("RenderNearCharacters");
-}
-static bool outsideNearDistances(const LLVOAvatar* avatar)
-{
-	static LLCachedControl<bool> near_enabled(gSavedSettings, "RenderNearCharacters", false);
-	if (!near_enabled || !avatar || avatar->isDead() || avatar->isSelf() || avatar->isUIAvatar())
-	{
-		return false;
-	}
-	static LLCachedControl<S32> zoom_count(gSavedSettings, "RenderNearZoomCount", 50);
-	static LLCachedControl<S32> avatar_count(gSavedSettings, "RenderNearAvatarCount", 50);
-	static LLCachedControl<F32> zoom_dist(gSavedSettings, "RenderNearZoomDistance", 20.f);
-	static LLCachedControl<F32> avatar_dist(gSavedSettings, "RenderNearAvatarDistance", 20.f);
-	S32 zoom_n = zoom_count;
-	S32 avatar_n = avatar_count;
-	if (zoom_n < 0)
-	{
-		zoom_n = 0;
-	}
-	else if (zoom_n > 100)
-	{
-		zoom_n = 100;
-	}
-	if (avatar_n < 0)
-	{
-		avatar_n = 0;
-	}
-	else if (avatar_n > 100)
-	{
-		avatar_n = 100;
-	}
-	F32 zoom_m = zoom_dist < 0.f ? 0.f : (F32)zoom_dist;
-	F32 avatar_m = avatar_dist < 0.f ? 0.f : (F32)avatar_dist;
-	LLVector3d pos = avatar->getPositionGlobal();
-	F32 dist_zoom = (F32)(pos - gAgentCamera.getFocusGlobal()).length();
-	F32 dist_avatar = (F32)(pos - gAgent.getPositionGlobal()).length();
-	bool in_zoom = zoom_n > 0 && dist_zoom <= zoom_m;
-	bool in_avatar = avatar_n > 0 && dist_avatar <= avatar_m;
-	return !in_zoom && !in_avatar;
+	return gSavedSettings.getS32("AlwaysRenderFriends") >= 2;
 }
 void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 											 void **user_data,
@@ -567,15 +529,13 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 			}
 			processUpdateCore(objectp, user_data, i, update_type, NULL, justCreated);
 		}
-		bool drop_near = objectp->isAvatar() && !objectp->isDead() && outsideNearDistances((LLVOAvatar*)objectp);
-		if (justCreated && !objectp->isDead() && objectp->isAvatar() && !drop_near)
+		if (justCreated && !objectp->isDead() && objectp->isAvatar() && !LLVOAvatar::shouldSuppressForAvatarDisplay(objectp->getID()))
 		{
 			LLVOAvatar* avatar = (LLVOAvatar*)objectp;
 			LLVOAvatar::applyCachedFriendsOnlyAppearance(avatar);
 			if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("WHY AVATAR WAS CREATED id=%s local=%u mode=%d reason=object_update_allowed", avatar->getID().asString().c_str(), avatar->getLocalID(), gSavedSettings.getS32("AlwaysRenderFriends")));
 			avatar->requestInitialAppearance();
-			if (!LLVOAvatar::shouldSuppressForAvatarDisplay(avatar->getID())
-				&& requestPendingAvatarDisplayLocals(avatar->getRegion(), avatar->getLocalID()))
+			if (requestPendingAvatarDisplayLocals(avatar->getRegion(), avatar->getLocalID()))
 			{
 				request_pending_objects = true;
 			}
@@ -583,11 +543,6 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 		recorder.objectUpdateEvent(local_id, update_type, objectp, msg_size);
 		objectp->setLastUpdateType(update_type);
 		objectp->setLastUpdateCached(bCached);
-		if (drop_near)
-		{
-			LLVOAvatar::addNearLimitHidden(objectp->getID());
-			destroySuppressedAvatar((LLVOAvatar*)objectp);
-		}
 	}
 	killPendingNonFriendOrphans();
 	killPendingAvatarDisplayOrphans();
@@ -2572,6 +2527,15 @@ void LLViewerObjectList::syncAvatarDisplaySuppression()
 		return;
 	}
 	syncing = true;
+	static U32 sKillFrame = 0xFFFFFFFF;
+	static S32 sKillsThisFrame = 0;
+	U32 frame = (U32)LLFrameTimer::getFrameCount();
+	if (frame != sKillFrame)
+	{
+		sKillFrame = frame;
+		sKillsThisFrame = 0;
+	}
+	const S32 kill_budget = 2;
 	if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("display_gate_sync mode=%d tracked=%u", gSavedSettings.getS32("AlwaysRenderFriends"), (U32)mAvatarDisplaySuppressed.size()));
 	uuid_set_t meshes;
 	uuid_set_t textures;
@@ -2590,10 +2554,20 @@ void LLViewerObjectList::syncAvatarDisplaySuppression()
 			entry.mHasPosition = true;
 			if (!avatar->isDead())
 			{
+				if (sKillsThisFrame >= kill_budget)
+				{
+					continue;
+				}
+				++sKillsThisFrame;
 				killObject(avatar);
 			}
 			continue;
 		}
+		if (sKillsThisFrame >= kill_budget)
+		{
+			continue;
+		}
+		++sKillsThisFrame;
 		collectAvatarDisplayResource(avatar, meshes, textures);
 		if (LLVOAvatar::wantAvatarDisplayTrace()) LLVOAvatar::traceAvatarDisplay(llformat("AVATAR DESTROYED id=%s local=%u mode=%d reason=display_gate_closed", avatar->getID().asString().c_str(), avatar->getLocalID(), gSavedSettings.getS32("AlwaysRenderFriends")));
 		rememberAvatarDisplayObject(avatar->getRegion(), avatar, avatar->getID(), true);
