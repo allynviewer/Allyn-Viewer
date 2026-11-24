@@ -475,11 +475,8 @@ void LLWebRTCVoiceClient::voiceConnectionCoro()
                     {
                         if (!parcel->getParcelFlagAllowVoice())
                         {
-                            if ((loop_count % 50) == 1)
-                            {
-                                LL_INFOS("Voice") << "parcel disallows voice; local_id="
+                            LL_INFOS_ONCE("Voice") << "parcel disallows voice; local_id="
                                                   << parcel->getLocalID() << LL_ENDL;
-                            }
                             voiceEnabled = false;
                         }
                         else if (!parcel->getParcelFlagUseEstateVoiceChannel())

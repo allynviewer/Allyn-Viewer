@@ -1737,12 +1737,9 @@ bool LLViewerFetchedTexture::updateFetch()
 				else
 				{
 					mIsRawImageValid = TRUE;
+					if (LLAppViewer::getTextureFetch())
 					{
-						LL_INFOS("AllynRefine") << mID << " viewer accept " << current_discard << " -> " << mRawDiscardLevel << LL_ENDL;
-						if (LLAppViewer::getTextureFetch())
-						{
-							LLAppViewer::getTextureFetch()->noteViewerAccept();
-						}
+						LLAppViewer::getTextureFetch()->noteViewerAccept();
 					}
 					addToCreateTexture();
 				}

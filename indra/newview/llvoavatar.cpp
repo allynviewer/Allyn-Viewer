@@ -7984,7 +7984,7 @@ void LLVOAvatar::applyParsedAppearanceMessage(LLAppearanceMessageContents& conte
 	if (contents.mHoverOffsetWasSet && !isSelf())
 	{
 		setHoverOffset(contents.mHoverOffset);
-		LL_INFOS("Avatar") << avString() << "setting hover from message" << contents.mHoverOffset[2] << LL_ENDL;
+		LL_DEBUGS("Avatar") << avString() << "setting hover from message" << contents.mHoverOffset[2] << LL_ENDL;
 	}
 	if (!contents.mHoverOffsetWasSet && !isSelf())
 	{
