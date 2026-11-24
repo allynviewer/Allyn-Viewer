@@ -28,6 +28,7 @@
 #include "llvieweroctree.h"
 #include "llviewerregion.h"
 #include "pipeline.h"
+#include "llagentcamera.h"
 #include "llviewercontrol.h"
 #include "llappviewer.h"
 #include "llglslshader.h"
@@ -1084,9 +1085,19 @@ S32 LLViewerOctreeCull::AABBInFrustumNoFarClipGroupBounds(const LLViewerOctreeGr
 {
 	return mCamera->AABBInFrustumNoFarClip(group->mBounds[0], group->mBounds[1]);
 }
+static F32 cullSphereRadius(const LLCamera* camera)
+{
+	F32 rad = camera->mFrustumCornerDist;
+	const F32 draw = gAgentCamera.mDrawDistance;
+	if (draw > 0.f && rad > draw)
+	{
+		rad = draw;
+	}
+	return rad;
+}
 S32 LLViewerOctreeCull::AABBSphereIntersectGroupExtents(const LLViewerOctreeGroup* group)
 {
-	return AABBSphereIntersect(group->mExtents[0], group->mExtents[1], mCamera->getOrigin(), mCamera->mFrustumCornerDist);
+	return AABBSphereIntersect(group->mExtents[0], group->mExtents[1], mCamera->getOrigin(), cullSphereRadius(mCamera));
 }
 S32 LLViewerOctreeCull::AABBInFrustumGroupBounds(const LLViewerOctreeGroup* group)
 {
@@ -1098,7 +1109,7 @@ S32 LLViewerOctreeCull::AABBInFrustumNoFarClipObjectBounds(const LLViewerOctreeG
 }
 S32 LLViewerOctreeCull::AABBSphereIntersectObjectExtents(const LLViewerOctreeGroup* group)
 {
-	return AABBSphereIntersect(group->mObjectExtents[0], group->mObjectExtents[1], mCamera->getOrigin(), mCamera->mFrustumCornerDist);
+	return AABBSphereIntersect(group->mObjectExtents[0], group->mObjectExtents[1], mCamera->getOrigin(), cullSphereRadius(mCamera));
 }
 S32 LLViewerOctreeCull::AABBInFrustumObjectBounds(const LLViewerOctreeGroup* group)
 {
@@ -1114,7 +1125,7 @@ S32 LLViewerOctreeCull::AABBInRegionFrustumGroupBounds(const LLViewerOctreeGroup
 }
 S32 LLViewerOctreeCull::AABBRegionSphereIntersectGroupExtents(const LLViewerOctreeGroup* group, const LLVector3& shift)
 {
-	return AABBSphereIntersect(group->mExtents[0], group->mExtents[1], mCamera->getOrigin() - shift, mCamera->mFrustumCornerDist);
+	return AABBSphereIntersect(group->mExtents[0], group->mExtents[1], mCamera->getOrigin() - shift, cullSphereRadius(mCamera));
 }
 S32 LLViewerOctreeCull::AABBInRegionFrustumObjectBounds(const LLViewerOctreeGroup* group)
 {
@@ -1126,7 +1137,7 @@ S32 LLViewerOctreeCull::AABBInRegionFrustumNoFarClipObjectBounds(const LLViewerO
 }
 S32 LLViewerOctreeCull::AABBRegionSphereIntersectObjectExtents(const LLViewerOctreeGroup* group, const LLVector3& shift)
 {
-	return AABBSphereIntersect(group->mObjectExtents[0], group->mObjectExtents[1], mCamera->getOrigin() - shift, mCamera->mFrustumCornerDist);
+	return AABBSphereIntersect(group->mObjectExtents[0], group->mObjectExtents[1], mCamera->getOrigin() - shift, cullSphereRadius(mCamera));
 }
 bool LLViewerOctreeCull::checkProjectionArea(const LLVector4a& center, const LLVector4a& size, const LLVector3& shift, F32 pixel_threshold, F32 near_radius)
 {

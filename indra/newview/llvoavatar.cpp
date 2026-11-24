@@ -2246,6 +2246,10 @@ void LLVOAvatar::idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time)
 	{
 		return;
 	}
+	if (!isSelf() && !isUIAvatar() && isBeyondDrawDistance())
+	{
+		return;
+	}
 	static S32 upd_freq = 4;
 	static S32 last_extent_frame = 0;
 	const S32 this_frame = LLDrawable::getCurrentFrame();
@@ -7778,6 +7782,96 @@ bool LLVOAvatar::isNearLimitHidden(const LLUUID& id)
 {
 	return sNearLimitHidden.count(id) != 0;
 }
+static std::set<LLUUID> sDrawDistanceHidden;
+static bool sDrawDistanceSyncPending = false;
+bool LLVOAvatar::isDrawDistanceHidden(const LLUUID& id)
+{
+	return sDrawDistanceHidden.count(id) != 0;
+}
+bool LLVOAvatar::drawDistanceSuppressionActive()
+{
+	return !sDrawDistanceHidden.empty();
+}
+static bool avatarPastDrawDistance(const LLVector3d& pos_global, bool already_hidden)
+{
+	if (!LLPipeline::sUseFarClip)
+	{
+		return false;
+	}
+	F32 limit = gAgentCamera.mDrawDistance;
+	if (!(limit > 0.f))
+	{
+		return false;
+	}
+	if (already_hidden)
+	{
+		limit = llmax(limit - 2.f, 0.f);
+	}
+	const LLVector3d camera = gAgent.getPosGlobalFromAgent(gAgentCamera.getCameraPositionAgent());
+	return (F32)(pos_global - camera).length() > limit;
+}
+void LLVOAvatar::updateDrawDistanceSuppression()
+{
+	std::set<LLUUID> next;
+	for (std::vector<LLCharacter*>::iterator iter = LLCharacter::sInstances.begin();
+		iter != LLCharacter::sInstances.end(); ++iter)
+	{
+		LLVOAvatar* avatar = (LLVOAvatar*)*iter;
+		if (!avatar || avatar->isDead() || avatar->isSelf() || avatar->isUIAvatar() || !avatar->getRegion())
+		{
+			continue;
+		}
+		if (avatarPastDrawDistance(avatar->getPositionGlobal(), sDrawDistanceHidden.count(avatar->getID()) != 0))
+		{
+			next.insert(avatar->getID());
+		}
+	}
+	std::vector<LLViewerObjectList::SuppressedAvatarSpot> spots;
+	gObjectList.getSuppressedAvatarSpots(spots);
+	for (size_t i = 0; i < spots.size(); ++i)
+	{
+		if (spots[i].mID.isNull() || spots[i].mID == gAgentID || gObjectList.findAvatar(spots[i].mID))
+		{
+			continue;
+		}
+		if (avatarPastDrawDistance(spots[i].mPosition, sDrawDistanceHidden.count(spots[i].mID) != 0))
+		{
+			next.insert(spots[i].mID);
+		}
+	}
+	bool needs_kill = false;
+	if (!next.empty())
+	{
+		for (std::vector<LLCharacter*>::iterator live = LLCharacter::sInstances.begin();
+			live != LLCharacter::sInstances.end(); ++live)
+		{
+			LLVOAvatar* avatar = (LLVOAvatar*)*live;
+			if (avatar && !avatar->isDead() && next.count(avatar->getID()) != 0)
+			{
+				needs_kill = true;
+				break;
+			}
+		}
+	}
+	if (next != sDrawDistanceHidden)
+	{
+		sDrawDistanceHidden.swap(next);
+		sDrawDistanceSyncPending = true;
+	}
+	else if (needs_kill)
+	{
+		sDrawDistanceSyncPending = true;
+	}
+}
+void LLVOAvatar::flushDrawDistanceSuppression()
+{
+	if (!sDrawDistanceSyncPending || LLApp::isQuitting())
+	{
+		return;
+	}
+	sDrawDistanceSyncPending = false;
+	gObjectList.syncAvatarDisplaySuppression();
+}
 bool LLVOAvatar::shouldSuppressForAvatarDisplay(const LLUUID& id)
 {
 	if (id.isNull() || id == gAgentID)
@@ -7785,6 +7879,10 @@ bool LLVOAvatar::shouldSuppressForAvatarDisplay(const LLUUID& id)
 		return false;
 	}
 	if (isNearLimitHidden(id))
+	{
+		return true;
+	}
+	if (isDrawDistanceHidden(id))
 	{
 		return true;
 	}
@@ -8401,6 +8499,7 @@ S32 LLVOAvatar::getUnbakedPixelAreaRank()
 }
 void LLVOAvatar::cullAvatarsByPixelArea()
 {
+	updateDrawDistanceSuppression();
 	F64 current_time = LLFrameTimer::getElapsedSeconds();
 	bool needs_resort = sAvatarCullNeedsUpdate || ((current_time - sLastCullUpdateTime) >= 1.0);
 	{

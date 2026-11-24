@@ -246,6 +246,7 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	mOnActiveList(FALSE),
 	mOnMap(FALSE),
 	mStatic(FALSE),
+	mDrawDistanceHidden(FALSE),
 	mNumFaces(0),
 	mRotTime(0.f),
 	mAngularVelocityRot(),
@@ -3073,6 +3074,87 @@ F32 LLViewerObject::getBinRadius()
 		return diff.getLength3().getF32();
 	}
 	return getScale().magVec();
+}
+bool LLViewerObject::isBeyondDrawDistance()
+{
+	if (!LLPipeline::sUseFarClip || isHUDAttachment())
+	{
+		return false;
+	}
+	LLVOAvatar* avatar = NULL;
+	if (isAvatar())
+	{
+		avatar = (LLVOAvatar*)this;
+	}
+	else
+	{
+		avatar = getAvatar();
+		if (!avatar)
+		{
+			avatar = getAvatarAncestor();
+		}
+	}
+	if (avatar)
+	{
+		if (avatar->isSelf() || avatar->isUIAvatar())
+		{
+			return false;
+		}
+		const LLVector3 delta = avatar->getPositionAgent() - gAgentCamera.getCameraPositionAgent();
+		const F32 limit = gAgentCamera.mDrawDistance;
+		return limit > 0.f && delta.magVecSquared() > limit * limit;
+	}
+	LLViewerObject* root = this;
+	if (getParent())
+	{
+		LLXform* root_xform = getRoot();
+		if (root_xform)
+		{
+			root = (LLViewerObject*)root_xform;
+		}
+	}
+	const LLPCode pcode = root->getPCode();
+	if (pcode == LL_VO_CLOUDS
+		|| pcode == LL_VO_SURFACE_PATCH
+		|| pcode == LL_VO_WL_SKY
+		|| pcode == LL_VO_SKY
+		|| pcode == LL_VO_VOID_WATER
+		|| pcode == LL_VO_WATER
+		|| pcode == LL_VO_GROUND
+		|| pcode == LL_VO_HUD_PART_GROUP)
+	{
+		return false;
+	}
+	F32 limit = gAgentCamera.mDrawDistance;
+	if (!(limit > 0.f))
+	{
+		return false;
+	}
+	F32 radius = root->getScale().magVec();
+	if (root->mDrawable.notNull())
+	{
+		const LLVector4a* ext = root->mDrawable->getSpatialExtents();
+		LLVector4a diff;
+		diff.setSub(ext[1], ext[0]);
+		const F32 box = diff.getLength3().getF32();
+		if (box > radius)
+		{
+			radius = box;
+		}
+	}
+	limit += radius;
+	const LLVector3 delta = root->getPositionAgent() - gAgentCamera.getCameraPositionAgent();
+	return delta.magVecSquared() > limit * limit;
+}
+bool LLViewerObject::syncDrawDistanceVisibility()
+{
+	const bool beyond = isBeyondDrawDistance();
+	if (beyond == (mDrawDistanceHidden != FALSE))
+	{
+		return false;
+	}
+	mDrawDistanceHidden = beyond;
+	return true;
 }
 F32 LLViewerObject::getMaxScale() const
 {

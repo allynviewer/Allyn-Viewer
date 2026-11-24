@@ -308,6 +308,7 @@ private:
 	S32			mPBRMaterialGeneration;
 	S32			mLOD;
 	BOOL		mLODChanged;
+	BOOL		mOutsideDrawDistance;
 	BOOL		mSculptChanged;
 	F32			mSpotLightPriority;
 	LL_ALIGN_16(LLMatrix4a	mRelativeXform);

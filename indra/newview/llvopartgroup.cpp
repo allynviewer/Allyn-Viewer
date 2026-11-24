@@ -634,6 +634,10 @@ void LLParticlePartition::addGeometryCount(LLSpatialGroup* group, U32& vertex_co
 			continue;
 		}
 		LLAlphaObject* obj = (LLAlphaObject*) drawablep->getVObj().get();
+		if (obj->isBeyondDrawDistance())
+		{
+			continue;
+		}
 		obj->mDepth = 0.f;
 		U32 count = 0;
 		for (S32 j = 0; j < drawablep->getNumFaces(); ++j)

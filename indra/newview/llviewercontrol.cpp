@@ -71,6 +71,8 @@
 #include "llnotify.h"
 #include "llkeyboard.h"
 #include "llappviewer.h"
+#include "llstartup.h"
+#include "llviewermessage.h"
 #include "llvosurfacepatch.h"
 #include "llvowlsky.h"
 #include "llworldmapview.h"
@@ -105,6 +107,10 @@ static bool handleRenderFarClipChanged(const LLSD& newvalue)
 	F32 draw_distance = (F32) newvalue.asReal();
 	gAgentCamera.mDrawDistance = draw_distance;
 	LLWorld::getInstance()->setLandFarClip(draw_distance);
+	if (LLStartUp::getStartupState() >= STATE_STARTED)
+	{
+		send_agent_update(TRUE);
+	}
 	return true;
 }
 static bool handleTerrainDetailChanged(const LLSD& newvalue)

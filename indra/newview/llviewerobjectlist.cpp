@@ -263,7 +263,7 @@ void LLViewerObjectList::processUpdateCore(LLViewerObject* objectp,
 static LLTrace::BlockTimerStatHandle FTM_PROCESS_OBJECTS("Process Objects");
 static bool avatarDisplayGateActive()
 {
-	return gSavedSettings.getS32("AlwaysRenderFriends") >= 2;
+	return gSavedSettings.getS32("AlwaysRenderFriends") >= 2 || LLVOAvatar::drawDistanceSuppressionActive();
 }
 void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 											 void **user_data,
@@ -529,7 +529,7 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 			}
 			processUpdateCore(objectp, user_data, i, update_type, NULL, justCreated);
 		}
-		if (justCreated && !objectp->isDead() && objectp->isAvatar() && !LLVOAvatar::shouldSuppressForAvatarDisplay(objectp->getID()))
+		if (justCreated && !objectp->isDead() && objectp->isAvatar() && !objectp->isBeyondDrawDistance() && !LLVOAvatar::shouldSuppressForAvatarDisplay(objectp->getID()))
 		{
 			LLVOAvatar* avatar = (LLVOAvatar*)objectp;
 			LLVOAvatar::applyCachedFriendsOnlyAppearance(avatar);
@@ -1678,7 +1678,7 @@ static bool avatarDisplayKeepsLoaded(LLVOAvatar* avatar)
 	{
 		return true;
 	}
-	if (avatar->isControlAvatar() && !LLVOAvatar::isNearLimitHidden(avatar->getID()))
+	if (avatar->isControlAvatar() && !LLVOAvatar::isNearLimitHidden(avatar->getID()) && !LLVOAvatar::isDrawDistanceHidden(avatar->getID()))
 	{
 		return true;
 	}
@@ -2413,6 +2413,10 @@ bool LLViewerObjectList::forgetSuppressedAvatarDisplayLocal(U32 ip, U32 port, U3
 		return was_pending;
 	}
 	LLUUID avatar_id = found->second;
+	if (LLVOAvatar::isDrawDistanceHidden(avatar_id))
+	{
+		return true;
+	}
 	mAvatarDisplaySuppressedLocals.erase(found);
 	std::map<LLUUID, AvatarDisplaySuppressed>::iterator avatar = mAvatarDisplaySuppressed.find(avatar_id);
 	if (avatar == mAvatarDisplaySuppressed.end())

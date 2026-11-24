@@ -300,6 +300,10 @@ public:
 	static void		cacheAnimationsForFriendsOnly(const LLUUID& id, const std::map<LLUUID, S32>& anims);
 	static bool		applyCachedFriendsOnlyAppearance(LLVOAvatar* avatar);
 	static bool		shouldSuppressForAvatarDisplay(const LLUUID& id);
+	static bool		isDrawDistanceHidden(const LLUUID& id);
+	static bool		drawDistanceSuppressionActive();
+	static void		updateDrawDistanceSuppression();
+	static void		flushDrawDistanceSuppression();
 	static void		addNearLimitHidden(const LLUUID& id);
 	static bool		replaceNearLimitHidden(const std::set<LLUUID>& ids);
 	static bool		isNearLimitHidden(const LLUUID& id);

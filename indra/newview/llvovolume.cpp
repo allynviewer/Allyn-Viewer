@@ -195,6 +195,7 @@ LLVOVolume::LLVOVolume(const LLUUID &id, const LLPCode pcode, LLViewerRegion *re
 	mRelativeXformInvTrans.setIdentity();
 	mFaceMappingChanged = FALSE;
 	mLOD = MIN_LOD;
+	mOutsideDrawDistance = FALSE;
 	mLODDistance = 0.0f;
 	mLODAdjustedDistance = 0.0f;
 	mLODRadius = 0.0f;
@@ -552,6 +553,10 @@ void LLVOVolume::animateTextures()
 }
 void LLVOVolume::updateTextures()
 {
+	if (isBeyondDrawDistance())
+	{
+		return;
+	}
 	const F32 TEXTURE_AREA_REFRESH_TIME = 5.f;
 	S32 generation = 0;
 	if (!LLGLTFMaterialList::destroyed())
@@ -1268,27 +1273,34 @@ BOOL LLVOVolume::setVolume(const LLVolumeParams &params_in, const S32 detail, bo
 		{
 			mVolumeImpl->onSetVolume(volume_params, mLOD);
 		}
-		updateSculptTexture();
-		if (isSculpted())
+		if (isSculpted() && isBeyondDrawDistance())
+		{
+			mOutsideDrawDistance = TRUE;
+		}
+		else
 		{
 			updateSculptTexture();
-			if ((volume_params.getSculptType() & LL_SCULPT_TYPE_MASK) == LL_SCULPT_TYPE_MESH)
+			if (isSculpted())
 			{
-				if (!getVolume()->isMeshAssetLoaded())
+				updateSculptTexture();
+				if ((volume_params.getSculptType() & LL_SCULPT_TYPE_MASK) == LL_SCULPT_TYPE_MESH)
 				{
-					LLUUID asset_id = volume_params.getSculptID();
-					S32 available_lod = gMeshRepo.loadMesh(this, volume_params, lod, last_lod);
-					if (available_lod != lod)
+					if (!getVolume()->isMeshAssetLoaded())
 					{
-						LLPrimitive::setVolume(volume_params, available_lod);
+						LLUUID asset_id = volume_params.getSculptID();
+						S32 available_lod = gMeshRepo.loadMesh(this, volume_params, lod, last_lod);
+						if (available_lod != lod)
+						{
+							LLPrimitive::setVolume(volume_params, available_lod);
+						}
 					}
 				}
-			}
-			else
-			{
-				if (mSculptTexture.notNull())
+				else
 				{
-					sculpt();
+					if (mSculptTexture.notNull())
+					{
+						sculpt();
+					}
 				}
 			}
 		}
@@ -1462,6 +1474,18 @@ BOOL LLVOVolume::calcLOD()
 	if (mDrawable.isNull())
 	{
 		return FALSE;
+	}
+	if (isBeyondDrawDistance())
+	{
+		return FALSE;
+	}
+	if (mOutsideDrawDistance)
+	{
+		mOutsideDrawDistance = FALSE;
+		if (isSculpted())
+		{
+			mLOD = NO_LOD;
+		}
 	}
 	S32 cur_detail = 0;
 	F32 radius;
@@ -3748,7 +3772,7 @@ U32 LLVOVolume::getHighLODTriangleCount()
 	else if (isMesh())
 	{
 		LLVolume* ref = LLPrimitive::getVolumeManager()->refVolume(volume->getParams(), 3);
-		if (!ref->isMeshAssetLoaded() || ref->getNumVolumeFaces() == 0)
+		if (!isBeyondDrawDistance() && (!ref->isMeshAssetLoaded() || ref->getNumVolumeFaces() == 0))
 		{
 			gMeshRepo.loadMesh(this, volume->getParams(), LLModel::LOD_HIGH);
 		}
@@ -4766,6 +4790,10 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 			}
 			LLVOVolume* vobj = drawablep->getVOVolume();
 			if (!vobj)
+			{
+				continue;
+			}
+			if (vobj->isBeyondDrawDistance())
 			{
 				continue;
 			}
@@ -6373,6 +6401,11 @@ void LLGeometryManager::addGeometryCount(LLSpatialGroup* group, U32 &vertex_coun
 	{
 		LLDrawable* drawablep = (LLDrawable*)(*drawable_iter)->getDrawable();
 		if (drawablep->isDead())
+		{
+			continue;
+		}
+		LLViewerObject* objectp = drawablep->getVObj();
+		if (objectp && objectp->isBeyondDrawDistance())
 		{
 			continue;
 		}

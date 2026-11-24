@@ -260,6 +260,7 @@ public:
 	BOOL changeLOD();
 	void rebuildGeom();
 	void rebuildMesh();
+	void applyDrawDistance();
 	void setState(eSpatialState state)       {mState |= state;}
 	void dirtyGeom() { setState(GEOM_DIRTY); }
 	void dirtyMesh() { setState(MESH_DIRTY); }

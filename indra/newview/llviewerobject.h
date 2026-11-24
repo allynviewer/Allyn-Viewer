@@ -170,6 +170,8 @@ public:
 	virtual BOOL	isAttachment() const { return FALSE; }
 	virtual LLVOAvatar* getAvatar() const;
 	virtual BOOL	isHUDAttachment() const { return FALSE; }
+	bool		isBeyondDrawDistance();
+	bool		syncDrawDistanceVisibility();
 	virtual BOOL	isTempAttachment() const;
 	virtual void 	updateRadius() {};
 	virtual F32 	getVObjRadius() const;
@@ -624,6 +626,7 @@ protected:
 	BOOL			mOnActiveList;
 	BOOL			mOnMap;
 	BOOL			mStatic;
+	BOOL			mDrawDistanceHidden;
 	S32				mNumFaces;
 	F32				mRotTime;
 	LLQuaternion	mAngularVelocityRot;

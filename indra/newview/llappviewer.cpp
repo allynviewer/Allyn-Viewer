@@ -3153,6 +3153,11 @@ void LLAppViewer::idle()
 		stop_glerror();
 		idleNetwork();
 		stop_glerror();
+		if (LLStartUp::getStartupState() >= STATE_STARTED)
+		{
+			LLVOAvatar::updateDrawDistanceSuppression();
+			LLVOAvatar::flushDrawDistanceSuppression();
+		}
 		gFrameStats.start(LLFrameStats::AGENT_MISC);
 		idle_afk_check();
 		update_statistics();

@@ -3705,6 +3705,13 @@ void LLPipeline::stateSort(LLDrawable* drawablep, LLCamera& camera)
 			return;
 		}
 	}
+	if (LLViewerObject* objectp = drawablep->getVObj())
+	{
+		if (objectp->isBeyondDrawDistance())
+		{
+			return;
+		}
+	}
 	if (drawablep->isAvatar())
 	{
 		if ((drawablep->getSpatialGroup() == NULL) ||
@@ -3961,6 +3968,7 @@ void LLPipeline::postSort(LLCamera& camera)
 		if (!sUseOcclusion ||
 			!group->isOcclusionState(LLSpatialGroup::OCCLUDED))
 		{
+			group->applyDrawDistance();
 			group->rebuildGeom();
 		}
 	}
@@ -3979,6 +3987,7 @@ void LLPipeline::postSort(LLCamera& camera)
 		{
 			continue;
 		}
+		group->applyDrawDistance();
 		if (group->hasState(LLSpatialGroup::NEW_DRAWINFO) && group->hasState(LLSpatialGroup::GEOM_DIRTY))
 		{
 			group->rebuildGeom();

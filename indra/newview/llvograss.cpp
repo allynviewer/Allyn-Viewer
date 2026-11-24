@@ -532,6 +532,10 @@ void LLGrassPartition::addGeometryCount(LLSpatialGroup* group, U32& vertex_count
 			continue;
 		}
 		LLAlphaObject* obj = (LLAlphaObject*) drawablep->getVObj().get();
+		if (obj->isBeyondDrawDistance())
+		{
+			continue;
+		}
 		obj->mDepth = 0.f;
 		if (drawablep->isAnimating())
 		{

@@ -220,6 +220,51 @@ void LLSpatialGroup::rebuildGeom()
 		}
 	}
 }
+void LLSpatialGroup::applyDrawDistance()
+{
+	if (isDead() || !mOctreeNode || !getSpatialPartition() || !getSpatialPartition()->mRenderByGroup)
+	{
+		return;
+	}
+	bool changed = false;
+	std::vector<LLViewerObject*> revive;
+	{
+		OctreeGuard guard(mOctreeNode);
+		for (element_iter i = getDataBegin(); i != getDataEnd(); ++i)
+		{
+			LLDrawable* drawable = (LLDrawable*)(*i)->getDrawable();
+			if (!drawable || drawable->isDead())
+			{
+				continue;
+			}
+			LLViewerObject* objectp = drawable->getVObj();
+			if (!objectp || objectp->isDead())
+			{
+				continue;
+			}
+			if (objectp->syncDrawDistanceVisibility())
+			{
+				changed = true;
+				if (!objectp->isBeyondDrawDistance())
+				{
+					revive.push_back(objectp);
+				}
+			}
+		}
+	}
+	for (size_t n = 0; n < revive.size(); ++n)
+	{
+		if (revive[n] && !revive[n]->isDead())
+		{
+			revive[n]->updateLOD();
+		}
+	}
+	if (changed)
+	{
+		destroyGL(true);
+		setState(LLSpatialGroup::GEOM_DIRTY | LLSpatialGroup::MESH_DIRTY | LLSpatialGroup::NEW_DRAWINFO);
+	}
+}
 void LLSpatialGroup::rebuildMesh()
 {
 	if (!isDead())
