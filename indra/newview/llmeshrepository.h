@@ -467,7 +467,6 @@ public:
 	void dropUnreferencedCache(const LLUUID& mesh_id);
 	S32 loadMesh(LLVOVolume* volume, const LLVolumeParams& mesh_params, S32 detail = 0, S32 last_lod = -1);
 	void notifyLoadedMeshes();
-	void logMeshWatch();
 	void notifyMeshLoaded(const LLVolumeParams& mesh_params, LLVolume* volume);
 	void notifyMeshUnavailable(const LLVolumeParams& mesh_params, S32 lod);
 	void notifySkinInfoReceived(LLMeshSkinInfo& info);

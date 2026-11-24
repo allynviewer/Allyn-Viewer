@@ -4090,7 +4090,7 @@ This should be as low as possible, but too low may break functionality</string>
     <key>CacheSize</key>
     <map>
       <key>Comment</key>
-      <string>Disk cache size in MB for textures/VFS (prefs Disk Cache Size). New installs use 10240 (10 GB). Values above 20480 are clamped to 20 GB. CEF browser cache is separate.</string>
+      <string>Disk cache size in MB for textures and assets. New installs use 10240 (10 GB). Values above 20480 are clamped to 20 GB. Assets use up to 2047 MB of that; the rest is textures. The browser cache is separate.</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>

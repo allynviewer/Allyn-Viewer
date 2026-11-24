@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
  * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -244,8 +245,19 @@ LLMotion* LLMotionController::createMotion( const LLUUID &id )
 		switch(stat)
 		{
 		case LLMotion::STATUS_FAILURE:
-			LL_INFOS() << "Motion " << id << " init failed." << LL_ENDL;
-			sRegistry.markBad(id);
+			if (id.isNull())
+			{
+				static bool logged = false;
+				if (!logged)
+				{
+					logged = true;
+					LL_INFOS() << "Motion " << id << " init failed." << LL_ENDL;
+				}
+			}
+			else
+			{
+				sRegistry.markBad(id);
+			}
 			delete motion;
 			return NULL;
 		case LLMotion::STATUS_HOLD:
@@ -556,10 +568,21 @@ void LLMotionController::updateLoadingMotions()
 		}
 		else if (status == LLMotion::STATUS_FAILURE)
 		{
-			LL_INFOS() << "Motion " << motionp->getID() << " init failed." << LL_ENDL;
-			sRegistry.markBad(motionp->getID());
+			if (motionp->getID().isNull())
+			{
+				static bool logged = false;
+				if (!logged)
+				{
+					logged = true;
+					LL_INFOS() << "Motion " << motionp->getID() << " init failed." << LL_ENDL;
+				}
+			}
+			else
+			{
+				LL_INFOS() << "Motion " << motionp->getID() << " init failed." << LL_ENDL;
+				sRegistry.markBad(motionp->getID());
+			}
 			mLoadingMotions.erase(curiter);
-			llassert(mDeprecatedMotions.find(motionp) == mDeprecatedMotions.end());
 			mAllMotions.erase(motionp->getID());
 			motionp->unregister_client();
 			delete motionp;

@@ -1,10 +1,11 @@
-﻿/**
+/**
  * @file llvoicewebrtc.cpp
  * @brief Implementation of LLWebRTCVoiceClient class which is the interface to the voice client process.
  *
  * $LicenseInfo:firstyear=2001&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2023, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -435,8 +436,10 @@ void LLWebRTCVoiceClient::voiceConnectionCoro()
             ++loop_count;
             if (!isAgentAvatarValid())
             {
-                if ((loop_count % 50) == 1)
+                static bool logged = false;
+                if (!logged)
                 {
+                    logged = true;
                     LL_INFOS("Voice") << "coro waiting: agent avatar not valid yet" << LL_ENDL;
                 }
                 continue;
@@ -444,8 +447,10 @@ void LLWebRTCVoiceClient::voiceConnectionCoro()
             LLViewerRegion *regionp = gAgent.getRegion();
             if (!regionp)
             {
-                if ((loop_count % 50) == 1)
+                static bool logged = false;
+                if (!logged)
                 {
+                    logged = true;
                     LL_INFOS("Voice") << "coro waiting: no agent region" << LL_ENDL;
                 }
                 continue;

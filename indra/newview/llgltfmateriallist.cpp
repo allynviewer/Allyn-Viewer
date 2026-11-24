@@ -199,8 +199,6 @@ void LLGLTFMaterialList::onAssetArrived(LLVFS* vfs, const LLUUID& asset_id, S32 
 	entry.tries = 0;
 	storeMaterialUV(asset_id, &buffer[0], size);
 	++mReadyGeneration;
-	LL_INFOS("GLTF") << "material ready " << asset_id
-		<< " base=" << entry.mat->getTextureId(LLGLTFMaterial::BASE_COLOR) << LL_ENDL;
 }
 
 LLGLTFMaterial* LLGLTFMaterialList::findMaterial(const LLUUID& id) const

@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2012, Aleric Inglewood.
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,6 +38,7 @@
  *   and hence I cannot change the license of it.
  */
 #include "linden_common.h"
+#include <set>
 #if LL_WINDOWS
 #include <winsock2.h>
 #endif
@@ -1096,7 +1098,22 @@ void BufferedCurlEasyRequest::print_diagnostics(CURLcode code)
   }
   else
   {
-	LL_WARNS() << "Curl returned error code " << code << " (" << curl_easy_strerror(code) << ") for HTTP request to \"" << eff_url << "\"." << LL_ENDL;
+	std::string host;
+	if (eff_url)
+	{
+	  host = eff_url;
+	  size_t scheme = host.find("://");
+	  if (scheme != std::string::npos)
+		host.erase(0, scheme + 3);
+	  size_t slash = host.find('/');
+	  if (slash != std::string::npos)
+		host.erase(slash);
+	}
+	static std::set<std::string> seen;
+	std::string key = llformat("%d|", (int)code) + host;
+	if (!seen.insert(key).second)
+	  return;
+	LL_WARNS() << "Curl returned error code " << code << " (" << curl_easy_strerror(code) << ") for HTTP request to \"" << (eff_url ? eff_url : "") << "\"." << LL_ENDL;
   }
 }
 ThreadSafeBufferedCurlEasyRequest* BufferedCurlEasyRequest::get_lockobj(void)

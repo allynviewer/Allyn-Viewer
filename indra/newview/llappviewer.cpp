@@ -31,6 +31,7 @@
  */
 #include "llviewerprecompiledheaders.h"
 #include <thread>
+#include <vector>
 #include "llappviewer.h"
 #include "allynpresence.h"
 #include "allyncrashreport.h"
@@ -2451,54 +2452,109 @@ void LLAppViewer::abortQuit()
 	LL_INFOS() << "abortQuit()" << LL_ENDL;
 	mQuitRequested = false;
 }
+static bool endsWithOld(const std::string& name)
+{
+	return name.size() >= 4 && name.compare(name.size() - 4, 4, "_old") == 0;
+}
+
+static void queueStaleCacheDir(std::vector<std::string>& stale, const std::string& path)
+{
+	if (!LLFile::isdir(path))
+	{
+		return;
+	}
+	if (endsWithOld(path))
+	{
+		stale.push_back(path);
+		return;
+	}
+	const std::string held = path + "_old";
+	if (!LLFile::isdir(held) && LLFile::rename(path, held) == 0)
+	{
+		stale.push_back(held);
+	}
+}
+
 static void purgeCefCachesOnStartup()
 {
 	const std::string cache_root = gDirUtilp->getCacheDir(false);
 	const std::string cef_cache = gDirUtilp->add(cache_root, "cef_cache");
-	const std::string cef_cache_old = cef_cache + "_old";
 	const std::string cef_data = gDirUtilp->add(cache_root, "cef_data");
+	std::vector<std::string> stale;
 
-	if (LLFile::isdir(cef_cache_old))
-	{
-		gDirUtilp->deleteDirAndContents(cef_cache_old);
-	}
-
+	queueStaleCacheDir(stale, cef_cache + "_old");
 	if (LLFile::isdir(cef_cache))
 	{
-		if (LLFile::rename(cef_cache, cef_cache_old) == 0)
+		const std::string held = cef_cache + "_old";
+		if (!LLFile::isdir(held) && LLFile::rename(cef_cache, held) == 0)
 		{
-			std::thread([cef_cache_old]() {
-				gDirUtilp->deleteDirAndContents(cef_cache_old);
-			}).detach();
+			stale.push_back(held);
 		}
 		else
 		{
-			LLDirIterator iter(cef_cache, "*");
+			std::vector<std::string> names;
 			std::string name;
+			LLDirIterator iter(cef_cache, "*");
 			while (iter.next(name))
 			{
-				if (name == "." || name == "..")
-				{
-					continue;
-				}
-				const std::string src = gDirUtilp->add(cef_cache, name);
-				if (!LLFile::isdir(src))
-				{
-					continue;
-				}
-				const std::string dst = src + "_old";
-				if (LLFile::rename(src, dst) == 0)
-				{
-					std::thread([dst]() { gDirUtilp->deleteDirAndContents(dst); }).detach();
-				}
+				names.push_back(name);
+			}
+			for (const std::string& entry : names)
+			{
+				queueStaleCacheDir(stale, gDirUtilp->add(cef_cache, entry));
 			}
 		}
 	}
+	queueStaleCacheDir(stale, cef_data);
 
-	if (LLFile::isdir(cef_data))
+	if (stale.empty())
 	{
-		gDirUtilp->deleteDirAndContents(cef_data);
+		return;
 	}
+	std::thread([stale]() {
+		for (const std::string& dir : stale)
+		{
+			gDirUtilp->deleteDirAndContents(dir);
+		}
+	}).detach();
+}
+
+static bool extendVfsDataFile(const std::string& path, U32 new_size)
+{
+	if (new_size < 2)
+	{
+		return false;
+	}
+	llstat st;
+	if (LLFile::stat(path, &st) != 0)
+	{
+		return true;
+	}
+	if (st.st_size >= (long)new_size)
+	{
+		return true;
+	}
+	LLFILE* fp = LLFile::fopen(path, "r+b");
+	if (!fp)
+	{
+		return false;
+	}
+	bool grew = false;
+	if (fseek(fp, (long)(new_size - 1), SEEK_SET) == 0)
+	{
+		U8 zero = 0;
+		grew = fwrite(&zero, 1, 1, fp) == 1;
+	}
+	LLFile::close(fp);
+	if (grew)
+	{
+		LL_INFOS("AppCache") << "Grew VFS data file to " << new_size << " bytes" << LL_ENDL;
+	}
+	else
+	{
+		LL_WARNS("AppCache") << "Failed to grow VFS data file " << path << LL_ENDL;
+	}
+	return grew;
 }
 void LLAppViewer::migrateCacheDirectory()
 {
@@ -2651,7 +2707,7 @@ bool LLAppViewer::initCache()
 	}
 	const U64Bytes MIN_CACHE_SIZE = U32Megabytes(DISK_CACHE_MIN_MB);
 	const U64Bytes MAX_CACHE_SIZE = U32Megabytes(DISK_CACHE_MAX_MB);
-	const U64Bytes MAX_VFS_SIZE = U32Gigabytes(1);
+	const U64Bytes MAX_VFS_SIZE = U32Megabytes(2047);
 	U64Bytes cache_size = U32Megabytes(cache_mb);
 	cache_size = llclamp(cache_size, MIN_CACHE_SIZE, MAX_CACHE_SIZE);
 	U64Bytes texture_cache_size = ((cache_size * 8) / 10);
@@ -2669,7 +2725,8 @@ bool LLAppViewer::initCache()
 	vfs_size = U32Megabytes(vfs_size + U32Bytes(1048575));
 	U32Megabytes old_vfs_size(gSavedSettings.getU32("VFSOldSize"));
 	bool resize_vfs = !mSecondInstance && (vfs_size != old_vfs_size);
-	if (resize_vfs)
+	const bool grow_vfs = resize_vfs && old_vfs_size > U32Megabytes(0) && vfs_size > old_vfs_size;
+	if (resize_vfs && !grow_vfs)
 	{
 		gSavedSettings.setU32("VFSOldSize", U32Megabytes(vfs_size));
 	}
@@ -2751,7 +2808,7 @@ bool LLAppViewer::initCache()
 		}
 		new_vfs_data_file = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, VFS_DATA_FILE_BASE) + llformat("%u", new_salt);
 		new_vfs_index_file = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, VFS_INDEX_FILE_BASE) + llformat("%u", new_salt);
-		if (resize_vfs)
+		if (resize_vfs && !grow_vfs)
 		{
 			LL_DEBUGS("AppCache") << "Removing old vfs and re-sizing" << LL_ENDL;
 			LLFile::remove(old_vfs_data_file);
@@ -2763,6 +2820,10 @@ bool LLAppViewer::initCache()
 			LL_DEBUGS("AppCache") << "Renaming " << old_vfs_index_file << " to " << new_vfs_index_file << LL_ENDL;
 			LLFile::rename(old_vfs_data_file, new_vfs_data_file);
 			LLFile::rename(old_vfs_index_file, new_vfs_index_file);
+		}
+		if (grow_vfs && extendVfsDataFile(new_vfs_data_file, U32Bytes(open_vfs_size).value()))
+		{
+			gSavedSettings.setU32("VFSOldSize", U32Megabytes(vfs_size));
 		}
 		gSavedSettings.setU32("VFSSalt", new_salt);
 	}
@@ -3260,60 +3321,6 @@ void LLAppViewer::idle()
 	{
 		gGLActive = TRUE;
 		idleShutdown();
-	}
-	if (LLStartUp::getStartupState() == STATE_STARTED)
-	{
-		static LLFrameTimer scene_load_timer;
-		if (scene_load_timer.getElapsedTimeF32() >= 5.f)
-		{
-			scene_load_timer.reset();
-			LLViewerRegion* regionp = gAgent.getRegion();
-			LLTextureFetch* fetchp = getTextureFetch();
-			LL_INFOS("SceneLoad")
-				<< "region=" << (regionp ? regionp->getName() : std::string("<none>"))
-				<< " caps=" << (regionp && regionp->capabilitiesReceived() ? "yes" : "no")
-				<< " GetTexture=" << (regionp ? regionp->getCapability("GetTexture") : std::string())
-				<< " ViewerAsset=" << (regionp ? regionp->getViewerAssetUrl() : std::string())
-				<< " GetMesh2=" << (regionp ? regionp->getCapability("GetMesh2") : std::string())
-				<< LL_ENDL;
-			LL_INFOS("SceneLoad")
-				<< "objects total=" << gObjectList.getNumObjects()
-				<< " active=" << gObjectList.getNumActiveObjects()
-				<< " new=" << gObjectList.mNumNewObjects
-				<< " orphans=" << gObjectList.getOrphanCount()
-				<< " obj_kb=" << F64Kilobytes(gTotalObjectData).value()
-				<< LL_ENDL;
-			LL_INFOS("SceneLoad")
-				<< "terrain land_pkts=" << gVLManager.getLandPackets()
-				<< " water_pkts=" << gVLManager.getWaterPackets()
-				<< " land_kb=" << (gVLManager.getLandBits() / 8192)
-				<< " world_bytes=" << gVLManager.getTotalBytes()
-				<< LL_ENDL;
-			if (fetchp)
-			{
-				LL_INFOS("SceneLoad")
-					<< "tex images=" << gTextureList.getNumImages()
-					<< " http_ok=" << fetchp->getHttpOkCount()
-					<< " http_206=" << fetchp->getHttpPartialCount()
-					<< " http_403=" << fetchp->getHttpForbiddenCount()
-					<< " http_404=" << fetchp->getHttpNotFoundCount()
-					<< " http_other=" << fetchp->getHttpOtherFailCount()
-					<< " map_fail=" << fetchp->getHttpMapFailCount()
-					<< " pending=" << fetchp->getNumRequests()
-					<< " http_pending=" << fetchp->getNumHTTPRequests()
-					<< " tex_http_kb=" << (fetchp->getHttpTextureBytes() / 1024)
-					<< " tex_total_kb=" << F64Kilobytes(gTotalTextureData).value()
-					<< LL_ENDL;
-				fetchp->logQueue();
-			}
-			LL_INFOS("SceneLoad")
-				<< "mesh recv_kb=" << (LLMeshRepository::sBytesReceived / 1024)
-				<< " http=" << LLMeshRepository::sHTTPRequestCount
-				<< " retry=" << LLMeshRepository::sHTTPRetryCount
-				<< " lod_pend=" << LLMeshRepository::sLODPending
-				<< " lod_proc=" << LLMeshRepository::sLODProcessing
-				<< LL_ENDL;
-		}
 	}
 	stop_glerror();
 }

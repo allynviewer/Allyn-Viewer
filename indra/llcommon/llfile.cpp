@@ -8,6 +8,7 @@
  * $LicenseInfo:firstyear=2006&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -221,7 +222,37 @@ int	LLFile::rename_nowarn(const std::string& filename, const std::string& newnam
 	std::string utf8newname = newname;
 	llutf16string utf16filename = utf8str_to_utf16str(utf8filename);
 	llutf16string utf16newname = utf8str_to_utf16str(utf8newname);
-	int rc = _wrename(utf16filename.c_str(),utf16newname.c_str());
+	int rc = 0;
+	if (!MoveFileW(utf16filename.c_str(), utf16newname.c_str()))
+	{
+		const DWORD err = GetLastError();
+		switch (err)
+		{
+		case ERROR_FILE_NOT_FOUND:
+		case ERROR_PATH_NOT_FOUND:
+			errno = ENOENT;
+			break;
+		case ERROR_ACCESS_DENIED:
+		case ERROR_SHARING_VIOLATION:
+		case ERROR_LOCK_VIOLATION:
+			errno = EACCES;
+			break;
+		case ERROR_ALREADY_EXISTS:
+		case ERROR_FILE_EXISTS:
+			errno = EEXIST;
+			break;
+		case ERROR_DISK_FULL:
+			errno = ENOSPC;
+			break;
+		case ERROR_NOT_SAME_DEVICE:
+			errno = EXDEV;
+			break;
+		default:
+			errno = EIO;
+			break;
+		}
+		rc = -1;
+	}
 #else
 	int rc = ::rename(filename.c_str(),newname.c_str());
 	if (rc == -1 && errno == EXDEV)

@@ -5,6 +5,7 @@
  * $LicenseInfo:firstyear=2001&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
+ * Modifications Copyright (C) 2026 - Allyn Viewer
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -188,7 +189,19 @@ LLMotion::LLMotionInitStatus LLKeyframeMotion::onInitialize(LLCharacter *charact
 	case ASSET_FETCHED:
 		return STATUS_HOLD;
 	case ASSET_FETCH_FAILED:
-		LL_WARNS() << "Trying to initialize a motion that failed to be fetched." << LL_ENDL;
+		if (getID().isNull())
+		{
+			static bool logged = false;
+			if (!logged)
+			{
+				logged = true;
+				LL_WARNS() << "Trying to initialize a motion that failed to be fetched." << LL_ENDL;
+			}
+		}
+		else
+		{
+			LL_WARNS() << "Trying to initialize a motion that failed to be fetched." << LL_ENDL;
+		}
 		return STATUS_FAILURE;
 	case ASSET_LOADED:
 		return STATUS_SUCCESS;
@@ -1570,7 +1583,19 @@ void LLKeyframeMotion::onLoadComplete(LLVFS *vfs,
 		}
 		else
 		{
-			LL_WARNS() << "Failed to load asset for animation " << motionp->getName() << ":" << motionp->getID() << LL_ENDL;
+			if (asset_uuid.isNull())
+			{
+				static bool logged = false;
+				if (!logged)
+				{
+					logged = true;
+					LL_WARNS() << "Failed to load asset for animation " << motionp->getName() << ":" << motionp->getID() << LL_ENDL;
+				}
+			}
+			else
+			{
+				LL_WARNS() << "Failed to load asset for animation " << motionp->getName() << ":" << motionp->getID() << LL_ENDL;
+			}
 			motionp->mAssetStatus = ASSET_FETCH_FAILED;
 		}
 	}

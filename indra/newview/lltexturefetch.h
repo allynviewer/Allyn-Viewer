@@ -80,7 +80,6 @@ public:
 					  U32& fetch_priority_p, F32& fetch_dtime_p, F32& request_dtime_p, bool& can_use_http);
 	void dump();
 	S32 getNumRequests();
-	void logQueue();
 	S32 getNumHTTPRequests();
 	U32 getTotalNumHTTPRequests();
 	void recordHttpResult(S32 status, bool is_map_tile, S32 received_bytes);

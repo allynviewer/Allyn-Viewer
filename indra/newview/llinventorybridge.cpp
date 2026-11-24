@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @file llinventorybridge.cpp
  * @brief Implementation of the Inventory-Folder-View-Bridge classes.
  *
@@ -1183,7 +1183,7 @@ LLInvFVBridge* LLInvFVBridge::createBridge(LLAssetType::EType asset_type,
 		case LLAssetType::AT_SETTINGS:
 			break;
 		default:
-			LL_INFOS() << "Unhandled asset type (llassetstorage.h): "
+			LL_INFOS_ONCE() << "Unhandled asset type (llassetstorage.h): "
 					<< (S32)asset_type << " (" << LLAssetType::lookup(asset_type) << ")" << LL_ENDL;
 			break;
 	}

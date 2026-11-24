@@ -1156,8 +1156,6 @@ void LLViewerFetchedTexture::addToCreateTexture()
 						mRawDiscardLevel += i;
 						if(mRawDiscardLevel >= getDiscardLevel() && getDiscardLevel() >= 0)
 						{
-							LL_INFOS("AllynRefine") << mID << " viewer drop gl=" << getDiscardLevel()
-								<< " raw=" << (mRawDiscardLevel - i) << LL_ENDL;
 							mRawDiscardLevel -= i;
 							mNeedsCreateTexture = FALSE;
 							destroyRawImage();
@@ -1241,10 +1239,6 @@ BOOL LLViewerFetchedTexture::createTexture(LLImageGL::GLTextureName* usename)
 	}
 	bool size_okay = true;
 	S32 discard_level = mRawDiscardLevel;
-	S32 gl_before = getDiscardLevel();
-	S32 raw_discard = mRawDiscardLevel;
-	S32 raw_w = mRawImage->getWidth();
-	S32 raw_h = mRawImage->getHeight();
 	if (mRawDiscardLevel < 0)
 	{
 		LL_DEBUGS() << "Negative raw discard level when creating image: " << mRawDiscardLevel << LL_ENDL;
@@ -1270,15 +1264,9 @@ BOOL LLViewerFetchedTexture::createTexture(LLImageGL::GLTextureName* usename)
 		return FALSE;
 	}
 	res = mGLTexturep->createGLTexture(mRawDiscardLevel, mRawImage, usename, TRUE, mBoostLevel);
-	if (gl_before >= 0 && raw_discard >= 0 && raw_discard < gl_before)
+	if (LLAppViewer::getTextureFetch())
 	{
-		LL_INFOS("AllynRefine") << mID << " gpu replace " << gl_before << " -> " << raw_discard
-			<< " ok=" << (res ? 1 : 0)
-			<< " " << raw_w << "x" << raw_h << LL_ENDL;
-		if (LLAppViewer::getTextureFetch())
-		{
-			LLAppViewer::getTextureFetch()->noteGpuReplace();
-		}
+		LLAppViewer::getTextureFetch()->noteGpuReplace();
 	}
 	notifyAboutCreatingTexture();
 	setActive();
@@ -1749,7 +1737,6 @@ bool LLViewerFetchedTexture::updateFetch()
 				else
 				{
 					mIsRawImageValid = TRUE;
-					if (current_discard >= 0)
 					{
 						LL_INFOS("AllynRefine") << mID << " viewer accept " << current_discard << " -> " << mRawDiscardLevel << LL_ENDL;
 						if (LLAppViewer::getTextureFetch())

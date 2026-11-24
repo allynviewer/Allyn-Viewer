@@ -752,48 +752,6 @@ void LLViewerTextureList::updateImages(F32 max_time)
 		LL_RECORD_BLOCK_TIME(FTM_IMAGE_STATS);
 		updateImagesUpdateStats();
 	}
-	static LLTimer tex_watch_timer;
-	if (tex_watch_timer.getElapsedTimeF32() >= 5.f)
-	{
-		tex_watch_timer.reset();
-		static const LLUUID watch_ids[5] = {
-			LLUUID("83acabe5-60b2-b6c5-7ef9-f757cf72991e"),
-			LLUUID("17a472e3-7cd6-e499-25e0-fbe617bf0997"),
-			LLUUID("7aed0260-c794-2061-9ff4-117b84012391"),
-			LLUUID("225b9480-8c2a-e388-82b0-929d0c3ac6e4"),
-			LLUUID("fc6fea2c-baa3-eddd-dcf8-2c7c389887ee")
-		};
-		for (S32 watch_i = 0; watch_i < 5; ++watch_i)
-		{
-			const LLUUID& watch_id = watch_ids[watch_i];
-			LLViewerFetchedTexture* watched = findImage(watch_id, TEX_LIST_STANDARD);
-			if (!watched)
-			{
-				watched = findImage(watch_id, TEX_LIST_SCALE);
-			}
-			if (!watched)
-			{
-				LL_INFOS("TexWatch") << watch_id << " image absent" << LL_ENDL;
-			}
-			else
-			{
-				LL_INFOS("TexWatch") << watch_id << " image discard=" << watched->getDiscardLevel()
-					<< " want=" << watched->getDesiredDiscardLevel()
-					<< " raw=" << watched->getRawImageLevel()
-					<< " boost=" << watched->getBoostLevel()
-					<< " pri=" << watched->getDecodePriority()
-					<< " virt=" << watched->getMaxVirtualSize()
-					<< " full=" << watched->getFullWidth() << "x" << watched->getFullHeight()
-					<< " missing=" << (watched->isMissingAsset() ? 1 : 0)
-					<< " fetcher=" << (watched->hasFetcher() ? 1 : 0)
-					<< " gl=" << (watched->hasGLTexture() ? 1 : 0)
-					<< " rawok=" << (watched->isRawImageValid() ? 1 : 0)
-					<< " type=" << (S32)watched->getFTType()
-					<< " faces=" << watched->getTotalNumFaces()
-					<< LL_ENDL;
-			}
-		}
-	}
 }
 void LLViewerTextureList::clearFetchingRequests()
 {
